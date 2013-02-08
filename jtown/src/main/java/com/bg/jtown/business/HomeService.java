@@ -1,5 +1,6 @@
 package com.bg.jtown.business;
 
-public class HomeService {
+public interface HomeService {
 
+	Home selectHomeTest();
 }
