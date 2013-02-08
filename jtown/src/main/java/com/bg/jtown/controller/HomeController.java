@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.bg.jtown.business.Home;
 import com.bg.jtown.business.HomeService;
-import com.bg.jtown.business.HomeServiceImpl;
 
 /**
  * Handles requests for the application home page.

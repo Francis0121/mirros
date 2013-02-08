@@ -1,6 +1,5 @@
 package com.bg.jtown.business;
 
-import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.springframework.stereotype.Service;
 
