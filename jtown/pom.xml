@@ -34,13 +34,6 @@
 			<artifactId>spring-webmvc</artifactId>
 			<version>${org.springframework-version}</version>
 		</dependency>
-		
-		<!-- MyBatis -->
-		<dependency>
-		  	<groupId>org.mybatis</groupId>
-		  	<artifactId>mybatis-spring</artifactId>
-		  	<version>1.0.1</version>
-		</dependency>
 				
 		<!-- mybatis -->
 		<dependency>
