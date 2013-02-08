@@ -68,11 +68,6 @@
         <property name="mapperLocations" value="classpath:/com/bg/jtown/orm/sql/*.xml" /> 	
         <property name="configLocation" value="classpath:/com/bg/jtown/orm/mybatis-config.xml" /> 
     </bean>
- 
-    <!-- scan for mappers and let them be autowired -->
-<!--     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer"> -->
-<!--         <property name="basePackage" value="com.bg.jtown.orm" /> -->
-<!--     </bean> -->
     
     <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
     	<constructor-arg ref="sqlSessionFactory"/>

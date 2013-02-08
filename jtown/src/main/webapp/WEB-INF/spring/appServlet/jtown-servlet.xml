@@ -33,4 +33,13 @@
 		<property name="suffix" value=".jsp" />
 	</bean>
 	
+	<!-- 메시지 컨버터 -->
+	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" >
+		<property name="messageConverters">
+			<list>
+				<bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter" />
+			</list>
+		</property>
+	</bean>
+	
 </beans>
