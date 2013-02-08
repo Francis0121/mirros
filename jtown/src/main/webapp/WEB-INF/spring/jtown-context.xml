@@ -15,11 +15,12 @@
   		http://www.springframework.org/schema/aop/spring-aop-3.1.xsd">
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
+	
 	<!-- Component Bean Scanning Controller Exclude -->
 	<context:component-scan base-package="com.bg.jtown">
 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
 	</context:component-scan>	
-	
+
 	<!-- DBSetting -->
 	<bean id="propertyConfigurer"
         class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
@@ -31,35 +32,43 @@
     </bean>
 
 	<!-- dataSource Setting -->
-	 <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
-        destroy-method="close">
-		<property name="driverClassName" 		value="${driverClassName}"/>
-		<property name="url" 					value="${url}" />
-		<property name="username" 				value="${username}"/>
-		<property name="password" 				value="${password}"/>
-		<property name="testOnBorrow" 			value="true" />
-        <property name="validationQuery" 		value="select 1" />
-        <property name="maxActive" 				value="10" />
-        <property name="maxWait" 				value="50000" />
-        <property name="initialSize" 			value="0" />        
-        <property name="poolPreparedStatements" value="true" />
-	</bean>	
-	
-	<tx:annotation-driven transaction-manager="transactionManager" />
-	
-	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-		<property name="dataSource" ref="dataSource" />
-	</bean>		
-	
-    <!-- for mybatis -->
-	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="configLocation" value="classpath:com/bg/jtown/orm/mapperConfig.xml"/> 	
-		<property name="dataSource" ref="dataSource" />
-		<property name="typeAliasesPackage"  value="com.bg.jtown.business" />
+	<bean id="dataSource"  class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" 	value="${driverClassName}"/>
+		<property name="url" 				value="${url}" />
+		<property name="username" 			value="${username}"/>
+		<property name="password" 			value="${password}"/>
 	</bean>
-	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">  
-		<property name="basePackage"  value="com.bg.jtown.orm" />
-		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
-	</bean>	
+
+	<!-- TransactionManager -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
 	
+	<aop:config>
+		<aop:advisor advice-ref="txAdvice" pointcut="bean(*ServiceImpl)"/>
+	</aop:config>
+	
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="*"/>
+		</tx:attributes>
+	</tx:advice>
+
+	
+ 	<!-- define the SqlSessionFactory -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="mapperLocations" value="classpath:/com/bg/jtown/orm/sql/*.xml" /> 	
+        <property name="configLocation" value="classpath:/com/bg/jtown/orm/mybatis-config.xml" /> 
+    </bean>
+ 
+    <!-- scan for mappers and let them be autowired -->
+<!--     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer"> -->
+<!--         <property name="basePackage" value="com.bg.jtown.orm" /> -->
+<!--     </bean> -->
+    
+    <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+    	<constructor-arg ref="sqlSessionFactory"/>
+    </bean>
+    
 </beans>
