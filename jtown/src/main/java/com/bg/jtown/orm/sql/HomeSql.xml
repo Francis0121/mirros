@@ -8,11 +8,11 @@
 
 	<select id="getHomeTest" resultMap="homeMap">
 		SELECT
-			username
+			id
 		FROM
 			users
 		WHERE
-			id = 12
+			pn = 1
 	</select>
 	
 	<insert id="insertHomeTest" parameterType="com.bg.jtown.business.Home">

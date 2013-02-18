@@ -7,13 +7,6 @@ import org.springframework.stereotype.Service;
 public class HomeServiceImpl extends SqlSessionDaoSupport implements HomeService{
 
 	public Home selectHomeTest() {
-	
-		getSqlSession().insert("HomeMapper.insertHomeTest", new Home("가나다2"));
-
-		getSqlSession()
-				.insert("HomeMapper.insertHomeTest",
-						new Home(
-								"ABACACACACABACACACACABACACACACABACACACACABACACACACABACACACACABACACACACABACACACACABACACACACABACACACACABACACACACABACACACACABACACACACABACACACAC"));
 		return getSqlSession().selectOne("HomeMapper.getHomeTest");
 	}
 	

@@ -8,27 +8,27 @@ package com.bg.jtown.business;
  */
 public class Home {
 
-	private String username;
+	private String id;
 
 	public Home() {
 		super();
 	}
 
-	public Home(String username) {
+	public Home(String id) {
 		super();
-		this.username = username;
+		this.id = id;
 	}
 
-	public String getUsername() {
-		return username;
+	public String getId() {
+		return id;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	@Override
 	public String toString() {
-		return "Home [username=" + username + "]";
+		return "Home [id=" + id + "]";
 	}
 }

@@ -50,4 +50,8 @@ public class HomeController {
 		return "home";
 	}
 
+	@RequestMapping(value = "/noPermission", method = RequestMethod.GET)
+	public String noPermission( Model model) {
+		return "noPermission";
+	}
 }
