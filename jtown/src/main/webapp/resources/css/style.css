@@ -1,0 +1,30 @@
+@CHARSET "UTF-8";
+/*************************
+*	왼쪽 가장 큰 단
+**************************/
+.jt-body{ width: 100%; }
+/*************************
+*	머리말
+**************************/
+.jt-header{ width: 100%; }
+.jt-header-title{ width: 100%; height: 30px; }
+.jt-header-banner{ position: absolute; top: 0; left: 50%; width: 150px; font-size: 16px; margin-left: -75px;}
+.jt-header-banner>h1{ text-indent: -9999px; background: url("../images/jt-main-banner.png"); width: 60px; height: 29px; }
+.jt-header-login-menu{ font-size: 12px; }
+.jt-header-login-menu>li{ float: right; padding: 9px 10px; }
+.jt-header-nav{ width: 100%; }
+/*************************
+*	내용
+**************************/
+.jt-content{ width: 100%; }
+/*************************
+*	꼬리말
+**************************/
+.jt-footer{ width: 100%; }
+.jt-footer-title{}
+.jt-footer-nav{}
+/*************************
+*	공통적용
+**************************/
+.jt-common-a-base, .jt-common-a-base:VISITED{ color: #000000; }
+.jt-common-a-base:HOVER, .jt-common-a-base:ACTIVE{ color: #f98d00; }
