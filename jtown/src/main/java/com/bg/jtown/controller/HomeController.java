@@ -1,9 +1,5 @@
 package com.bg.jtown.controller;
 
-import java.text.DateFormat;
-import java.util.Date;
-import java.util.Locale;
-
 import javax.annotation.Resource;
 
 import org.slf4j.Logger;
@@ -17,7 +13,8 @@ import com.bg.jtown.business.Home;
 import com.bg.jtown.business.HomeService;
 
 /**
- * Handles requests for the application home page.
+ * @author Francis, 박광열
+ * 
  */
 @Controller
 public class HomeController {
@@ -28,30 +25,17 @@ public class HomeController {
 	@Resource
 	private HomeService homeService;
 
-	/**
-	 * Simply selects the home view to render by returning its name.
-	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
-		logger.info("Welcome home! The client locale is {}.", locale);
-
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG,
-				DateFormat.LONG, locale);
-
-		String formattedDate = dateFormat.format(date);
-
-		model.addAttribute("serverTime", formattedDate);
-
+	public String showMainPage(Model model) {
+		logger.debug("Show Main page");
 		Home home = homeService.selectHomeTest();
-
 		logger.info(home.toString());
-
 		return "home";
 	}
 
 	@RequestMapping(value = "/noPermission", method = RequestMethod.GET)
-	public String noPermission( Model model) {
+	public String showNoPermissionPage() {
+		logger.debug("Show noPermission page");
 		return "noPermission";
 	}
 }
