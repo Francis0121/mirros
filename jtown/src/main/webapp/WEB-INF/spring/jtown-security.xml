@@ -7,6 +7,11 @@
 		http://www.springframework.org/schema/security 
 		http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 
+	<!-- 	입력된 Password를 encode하는 빈 -->
+<!-- 	<beans:bean class="com.bg.jtown.security.TempDatabasePasswordSecurerBean" init-method="secureDatabase" depends-on="dataSource"> -->
+<!-- 		<beans:property name="dataSource" ref="dataSource"/> -->
+<!-- 	</beans:bean> -->
+
 	<global-method-security pre-post-annotations="enabled" />
 	
 	<!-- PasswordEncoder -->	
@@ -15,36 +20,23 @@
 	<!-- PasswordEncoder에 Salt (비밀번호 보안을 위해 추가적인 작업)을 추가 -->
 	<beans:bean class="org.springframework.security.authentication.dao.ReflectionSaltSource" id="saltSource">
 		<beans:property name="userPropertyToUse" value="salt"/>
-	</beans:bean>	
+	</beans:bean>
 
 	<http auto-config="true" use-expressions="true">
 		<intercept-url pattern="/**" access="hasRole('ROLE_ADMIN')" />
 		<access-denied-handler error-page="/noPermission" />
 	</http>
 	
-	<beans:bean id="jdbcUserDetailsManager" class="org.springframework.security.provisioning.JdbcUserDetailsManager">
+	<beans:bean id="jdbcUserDetailsManager" class="com.bg.jtown.security.CustomJdbcUserDetailManager">
 		<beans:property name="dataSource" ref="dataSource" />		
 		<beans:property name="enableGroups" value="true"/>
-		<beans:property name="enableAuthorities" value="false"/>
-		<beans:property name="usersByUsernameQuery">
-			<beans:value>
-				 SELECT id, password, enable FROM users WHERE id = ?
-			</beans:value>
-		</beans:property>
-		<beans:property name="groupAuthoritiesByUsernameQuery">
-			<beans:value>
-				SELECT g.id, g.group_name, ga.authority 
-				FROM groups g, group_members gm, group_authorities ga 
-				WHERE gm.user_pn = (select pn from users where id = ?) AND g.id = ga.group_id AND g.id = gm.group_id
-			</beans:value>
-		</beans:property>
-		
+		<beans:property name="enableAuthorities" value="false"/>		
 	</beans:bean>
 
 	<authentication-manager alias="authenticationManager">
 		<authentication-provider user-service-ref="jdbcUserDetailsManager">
 			<password-encoder ref="passwordEncoder">
-				<salt-source ref="saltSource"/>
+				<salt-source ref="saltSource" />
 			</password-encoder>
 		</authentication-provider>
 	</authentication-manager>
