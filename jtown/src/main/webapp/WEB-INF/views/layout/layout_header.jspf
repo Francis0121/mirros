@@ -54,10 +54,11 @@
 						<a href="#none">OFFICE</a>
 					</li>
 					<li>
-						<a>BABY</a>
+						<a href="#none">BABY</a>
 					</li>
 				</menu>
-				<div>
+				<div class="jt-header-search">
+					<input type="text"/>
 				</div>
 			</nav>
 		</header>
