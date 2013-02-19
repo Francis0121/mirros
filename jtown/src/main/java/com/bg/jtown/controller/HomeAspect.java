@@ -7,13 +7,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+/**
+ * @author Francis, 박광열
+ * 
+ */
 @Aspect
 @Component
 public class HomeAspect {
 
-	private final Logger logger = LoggerFactory
-			.getLogger(HomeAspect.class);
-	
+	private final Logger logger = LoggerFactory.getLogger(HomeAspect.class);
+
 	@Around("bean(*Controller)")
 	public Object trace(ProceedingJoinPoint joinPoint) throws Throwable {
 		String signatureString = joinPoint.getSignature().toShortString();
@@ -22,13 +25,12 @@ public class HomeAspect {
 
 		try {
 			Object result = joinPoint.proceed();
-			
+
 			return result;
 		} finally {
 			long finish = System.currentTimeMillis();
 			logger.info(signatureString + " 종료");
-			logger.info(signatureString + " 실행 시간 : " + (finish - start)
-					+ "ms");
+			logger.info(signatureString + " 실행 시간 : " + (finish - start) + "ms");
 		}
 
 	}
