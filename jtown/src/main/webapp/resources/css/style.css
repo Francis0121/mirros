@@ -6,22 +6,48 @@
 /*************************
 *	머리말
 **************************/
-.jt-header{ width: 100%; float: left; min-width: 1024px;}
+.jt-header{ width: 100%; float: left; min-width: 990px;}
 .jt-header-title{ width: 100%; min-height: 30px; float: left;}
 .jt-header-banner{ position: absolute; top: 0; left: 50%; width: 150px; font-size: 16px; margin-left: -75px;}
 .jt-header-banner>a>h1{ text-indent: -9999px; background: url("../images/jt-main-banner.png"); width: 60px; height: 29px; }
 .jt-header-login-menu{ font-size: 12px; }
 .jt-header-login-menu>li{ float: right; padding: 9px 10px; }
-.jt-header-nav{ width: 100%; min-height: 40px; float: left; background: #f98d00;}
-.jt-header-nav-top{ width: 85%; float: left; font-size: 12px; }
-.jt-header-nav-top>li{float: left; }
-.jt-header-nav-top>li>a{ z-index: 10; font-family: arial, helvetica, sans-serif; width: 100%; height: 25px; font-size: 18px; float: left; padding: 15px 5px 5px 5px; color: #fff; position: relative;}
-.jt-header-nav-top>li>a:HOVER, .jt-header-nav-top>li>a:VISITED{ color: #fff; }
+.jt-header-nav{ width: 100%; min-height: 40px; float: left; background: #ff9921; padding: 5px 0;}
+.jt-header-nav-wrap{ width: 84%; float: left;}
+.jt-header-nav-left{ float: left; width: 5%; height: 45px; text-align: center; cursor: pointer;}
+.jt-header-nav-left>a{}
+.jt-header-nav-right{ float: left; width: 5%; height: 45px; text-align: center; cursor: pointer;}
+..jt-header-nav-right>a{}
+.jt-header-nav-scroll{ width: 90%; float: left;  overflow: hidden; background: #ffd39e; padding: 1px 0;}
+.jt-header-nav-all{ float:left; height: 45px; position: relative; left : 0px;}
+.jt-header-nav-all>li{
+	float: left; 
+	width: 118px; 
+	text-align: center; 
+	margin-right: 1px; 
+	-webkit-border-radius: 3px; 
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+}
+.jt-header-nav-all>li>a{ 
+	z-index: 2; 
+	font-family: arial, helvetica, sans-serif;
+	width: 108px; 
+	height: 25px; 
+	font-size: 18px; 
+	float: left; 
+	padding: 15px 5px 5px 5px; 
+	color: #fff; 
+	position: relative; 
+	text-align: center;
+}
+.jt-header-nav-all>li>a:HOVER, .jt-header-nav-all>li>a:VISITED{ color: #fff; }
+.jt-header-nav-top{background: #ff6f21;}
+.jt-header-nav-down{background: #ff9a64;}
 .jt-header-hover{ 
     position: absolute;
     z-index: 1;
     top: 0;
-    border:1px solid #ffad41; 
     -webkit-border-radius: 3px; 
     -moz-border-radius: 3px;
     border-radius: 3px;
@@ -35,14 +61,14 @@
  	background-image: -o-linear-gradient(top, #ffc579, #fb9d23);
  	background-image: linear-gradient(top, #ffc579, #fb9d23);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#ffc579, endColorstr=#fb9d23);
 }
-.jt-header-search{float: left; width: 15%;}
-.jt-header-search>input[type="text"]{
+.jt-header-search{float: left; width: 16%;}
+.jt-header-search input[type="text"]{
 	margin: 10px 0 0 0;
     background: url(../images/jt-search-white.png) no-repeat 8px 4px #fcfcfc;
     border: 1px solid #d1d1d1;
     font: bold 12px Arial,Helvetica,Sans-serif;
     color: #bebebe;
-    width: 80px;
+    width: 100px;
     padding: 4px 15px 4px 35px;
     -webkit-border-radius: 20px;
     -moz-border-radius: 20px;
@@ -56,8 +82,7 @@
     -o-transition: all 0.7s ease 0s;
     transition: all 0.7s ease 0s;
 }
-.jt-header-search>input[type="text"]:focus {
-    width: 100px;
+.jt-header-search input[type="text"]:focus {
     outline: 0;
 }
 /*************************
@@ -68,9 +93,9 @@
 *	꼬리말
 **************************/
 .jt-footer{ width: 100%; float: left; background: #e5e5e5;}
-.jt-footer-nav{ width: 1024px; margin:auto; font-size: 12px; min-height: 20px; padding: 10px 0 0 0;}
+.jt-footer-nav{ width: 990px; margin:auto; font-size: 12px; min-height: 20px; padding: 10px 0 0 0;}
 .jt-footer-nav>li{float: left; margin-right: 10px;}
-.jt-footer-company-info{ width: 1024px; margin: auto; font-size: 12px; min-height: 50px; line-height: 1.4; color: #808080;}
+.jt-footer-company-info{ width: 990px; margin: auto; font-size: 12px; min-height: 50px; line-height: 1.4; color: #808080;}
 /*************************
 *	공통적용
 **************************/
