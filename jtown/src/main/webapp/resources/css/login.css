@@ -1,0 +1,63 @@
+@CHARSET "UTF-8";
+
+.passwordInfo { display: none; width: 200px; padding: 10px; border: 2px solid #e5e5e5; margin: 5px 0;}
+#passwordLength { display: none; width: 200px; padding: 5px; border: 2px solid #e5e5e5; margin: 5px 0;}
+#confirmPW { display: none; width: 200px; padding: 5px; border: 2px solid #e5e5e5; margin: 5px 0;}
+#confirmEmail{ display: none; width: 200px; padding: 5px; border: 2px solid #e5e5e5; margin: 5px 0; }
+#nameLength { display: none; width: 200px; padding: 5px; border: 2px solid #e5e5e5; margin: 5px 0;}
+.invalid { line-height: 24px; color: red; }
+.valid { line-height: 24px; color: green; }
+
+.createUserWrap{/**강제로 줌**/width : 962px; min-height: 500px;}
+.createUserInformation{ width:650px; margin:auto auto;}
+.createUserInformation>h2{ font-size: 14px; border-bottom: 2px solid  #808080; float: left; width: 100%; height: 20px; margin: 20px 0 0 0;}
+.createUserInformation>span{ font-size: 11px; float: left; padding: 20px 0; height: 20px;}
+
+.createUserTable {
+	border-bottom: 1px solid #e5e5e5;
+	border-right: 1px solid #e5e5e5;
+	border-collapse: collapse;
+	width: 620px;
+	margin: auto auto;
+}
+
+.createUserTable th{
+	width: 115px;
+	vertical-align: middle;
+	background: #f4f4f2;
+}
+
+.createUserTable td{
+	width: 494px;
+}
+
+.createUserTable tbody th,.createUserTable tbody td {
+	padding: 3px 2px 3px 2px;
+	border-top: 1px solid #e5e5e5;
+	border-left: 1px solid #e5e5e5;
+	min-height: 20px;
+}
+
+.createUserTable thead th,.createUserTable thead td {
+	padding: 3px 2px 3px 2px;
+	border-top: 1px solid #e5e5e5;
+	border-left: 1px solid #e5e5e5;
+	min-height: 20px;
+}
+
+.createUserTable tfoot th,.createUserTable tfoot td {
+	padding: 3px 2px 3px 2px;
+	border-top: 1px solid #e5e5e5;
+	border-left: 1px solid #e5e5e5;
+	min-height: 20px;
+	text-align: center;
+}
+
+.createUserInputBox{width: 200px; height: 20px; padding: 2px 3px; border: 2px solid #cccccc;}
+.createUserInputBox:FOCUS { outline: 0;}
+
+.createUserSmallInputBox{width: 50px; height: 20px; padding: 2px 3px; border: 2px solid #cccccc;}
+.createUserSmallInputBox:FOCUS { outline: 0;}
+
+.createUserSelectBox{ width: 80px; height: 30px; padding: 2px 3px; border: 2px solid #cccccc;}
+.createUserSelectBox:FOCUS { outline: 0; }

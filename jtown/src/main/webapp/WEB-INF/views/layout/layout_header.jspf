@@ -14,12 +14,16 @@
 	var contextPath = <c:out value="${cp}"/>;
 /* ]]> */
 </script>
-<script src="${cp}resources/js/jtown.js"></script>
 <link rel="stylesheet" type="text/css" href="${cp}resources/css/default.css" />
 <link rel="stylesheet" type="text/css" href="${cp}resources/css/style.css" />
+<link rel="stylesheet" type="text/css" href="${cp}resources/css/login.css" />
 <%-- Jquery --%>
 <script src="${cp}resources/jquery/jquery-1.9.1.min.js"></script>
 <link rel="stylesheet" type="text/css" href="${cp}resources/jquery/jquery-ui-1.10.0.custom.min.css" />
+
+<script src="${cp}resources/js/jtown.js"></script>
+<script src="${cp}resources/js/login.js"></script>
+
 </head>
 <body>
 	<section class="jt-body">

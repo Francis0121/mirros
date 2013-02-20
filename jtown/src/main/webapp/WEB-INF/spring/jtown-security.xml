@@ -23,7 +23,15 @@
 	</beans:bean>
 
 	<http auto-config="true" use-expressions="true">
-		<intercept-url pattern="/**" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/login/*" access="permitAll" requires-channel="any"/>
+		<intercept-url pattern="/*" access="permitAll" requires-channel="any"/>
+		
+		<form-login 
+			login-page=""
+			always-use-default-target="true"
+			authentication-failure-url=""
+			default-target-url=""/>
+			
 		<access-denied-handler error-page="/noPermission" />
 	</http>
 	

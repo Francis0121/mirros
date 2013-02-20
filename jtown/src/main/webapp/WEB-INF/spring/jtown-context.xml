@@ -73,4 +73,14 @@
     	<constructor-arg ref="sqlSessionFactory"/>
     </bean>
     
+    <!-- Spring security error message config -->
+    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basenames">
+             <list>
+                  <value>/com/bg/jtown/message/messages</value>
+                  <value>/com/bg/jtown/message/messages_login</value>
+             </list>
+        </property>
+    </bean>
+    
 </beans>
