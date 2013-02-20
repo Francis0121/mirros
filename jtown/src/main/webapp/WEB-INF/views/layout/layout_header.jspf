@@ -9,28 +9,30 @@
 <html>
 <head>
 <title>J TOWN</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <script type="text/javascript">
 /* <![CDATA[ */
 	var contextPath = <c:out value="${cp}"/>;
 /* ]]> */
 </script>
-<link rel="stylesheet" type="text/css" href="${cp}resources/css/default.css" />
-<link rel="stylesheet" type="text/css" href="${cp}resources/css/style.css" />
-<link rel="stylesheet" type="text/css" href="${cp}resources/css/login.css" />
 <%-- Jquery --%>
 <script src="${cp}resources/jquery/jquery-1.9.1.min.js"></script>
 <link rel="stylesheet" type="text/css" href="${cp}resources/jquery/jquery-ui-1.10.0.custom.min.css" />
 
+<%-- Custom --%>
 <script src="${cp}resources/js/jtown.js"></script>
 <script src="${cp}resources/js/login.js"></script>
 
+<link rel="stylesheet" type="text/css" href="${cp}resources/css/default.css" />
+<link rel="stylesheet" type="text/css" href="${cp}resources/css/style.css" />
+<link rel="stylesheet" type="text/css" href="${cp}resources/css/login.css" />
 </head>
 <body>
 	<section class="jt-body">
 		<header class="jt-header">
 			<div class="jt-header-title">
 				<div class="jt-header-banner">
-					<h1>J Town</h1>
+					<a href="${cp }"><h1>J Town</h1></a>
 				</div>
 				<menu class="jt-header-login-menu">
 					<li>
@@ -47,20 +49,48 @@
 				</menu>
 			</div>
 			<nav class="jt-header-nav">
-				<menu class="jt-header-nav-top">
-					<li>
-						<a href="#none">FASHION</a>
-					</li>
-					<li>
-						<a href="#none">FOOD</a>
-					</li>
-					<li>
-						<a href="#none">OFFICE</a>
-					</li>
-					<li>
-						<a href="#none">BABY</a>
-					</li>
-				</menu>
+				<div class="jt-header-nav-wrap">
+					<div href="#none" class="jt-header-nav-left">
+						<a>&lt;</a>
+					</div>
+					<div class="jt-header-nav-scroll">
+						<menu class="jt-header-nav-all" style="width: <c:out value="${119*10+2}"/>px;">
+							<li class="jt-header-nav-top" >
+								<a href="#none">FASHION</a>
+							</li>
+							<li class="jt-header-nav-down">
+								<a href="#none">힙합</a>
+							</li>
+							<li class="jt-header-nav-down" id="selected">
+								<a href="#none">남성</a>
+							</li>
+							<li class="jt-header-nav-top">
+								<a href="#none">FOOD</a>
+							</li>
+							<li class="jt-header-nav-down">
+								<a href="#none">과일</a>
+							</li>
+							<li class="jt-header-nav-down">
+								<a href="#none">생선</a>
+							</li>
+							<li class="jt-header-nav-top">
+								<a href="#none">BABY</a>
+							</li>
+							<li class="jt-header-nav-down">
+								<a href="#none">유모차</a>
+							</li>
+							<li class="jt-header-nav-top">
+								<a href="#none">OFFICE</a>
+							</li>
+							<li class="jt-header-nav-down">
+								<a href="#none">펜</a>
+							</li>
+						</menu>
+					</div>
+					<div href="#none" class="jt-header-nav-right">
+						<a>&gt;</a>
+					</div>
+				</div>
 				<div class="jt-header-search">
 					<input type="text"/>
 				</div>
