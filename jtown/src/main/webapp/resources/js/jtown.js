@@ -7,10 +7,6 @@ if (typeof jtown.header == 'undefined') {
 }
 
 $(document).ready(function(){
-	jtown.header.syncNavMove();
-	
-	jtown.header.syncNavInterest();
-	
 	$('#jt-login-smartPopup').unbind('click');
 	$('#jt-login-smartPopup').bind('click', function() {
 		var inner = $('#jt-login-form-wrap');
@@ -20,6 +16,10 @@ $(document).ready(function(){
 			html : inner.html()
 		});
 	});
+	
+	jtown.header.syncNavMove();
+	
+	jtown.header.syncNavInterest();
 });
 
 jtown.header.syncNavMove = function(){

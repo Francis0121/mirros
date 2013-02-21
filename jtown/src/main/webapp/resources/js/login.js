@@ -16,23 +16,20 @@ if (typeof jtown.login == 'undefined') {
 }
 
 jtown.login.confirmEmail = function() {
-	$('input[data-type=create]')
-			.keyup(
-					function() {
-						var regExp = /^[-A-Za-z0-9_]+[-A-Za-z0-9_.]*[@]{1}[-A-Za-z0-9_]+[-A-Za-z0-9_.]*[.]{1}[A-Za-z]{2,5}$/;
-						var username = $(this).val();
-						if (regExp.test(username)) {
-							$('#confirmEmail').removeClass('invalid').addClass(
-									'valid');
-						} else {
-							$('#confirmEmail').removeClass('valid').addClass(
-									'invalid');
-						}
-					}).focus(function() {
-				$('#confirmEmail').show();
-			}).blur(function() {
-				$('#confirmEmail').hide();
-			});
+	$('input[data-type=create]').keyup(
+			function() {
+				var regExp = /^[-A-Za-z0-9_]+[-A-Za-z0-9_.]*[@]{1}[-A-Za-z0-9_]+[-A-Za-z0-9_.]*[.]{1}[A-Za-z]{2,5}$/;
+				var username = $(this).val();
+				if (regExp.test(username)) {
+					$('#confirmEmail').removeClass('jt-form-invalid').addClass('jt-form-valid');
+				} else {
+					$('#confirmEmail').removeClass('jt-form-valid').addClass('jt-form-invalid');
+				}
+			}).focus(function() {
+		$('#confirmEmail').show();
+	}).blur(function() {
+		$('#confirmEmail').hide();
+	});
 };
 
 jtown.login.passwordLength = function() {
@@ -40,9 +37,9 @@ jtown.login.passwordLength = function() {
 		var length = $(this).val().length;
 
 		if (length >= 8 && length <= 16) {
-			$('#passwordLength').removeClass('invalid').addClass('valid');
+			$('#passwordLength').removeClass('jt-form-invalid').addClass('jt-form-valid');
 		} else {
-			$('#passwordLength').removeClass('valid').addClass('invalid');
+			$('#passwordLength').removeClass('jt-form-valid').addClass('jt-form-invalid');
 		}
 	}).focus(function() {
 		$('#passwordLength').show();
@@ -57,11 +54,19 @@ jtown.login.confirmPassword = function() {
 		var pw = $('input[name=password]').val();
 		// match cpw and pw
 		if (cpw == pw) {
-			$('#confirmPW').removeClass('invalid').addClass('valid');
+			$('#confirmPW').removeClass('jt-form-invalid').addClass('jt-form-valid');
 		} else {
-			$('#confirmPW').removeClass('valid').addClass('invalid');
+			$('#confirmPW').removeClass('jt-form-valid').addClass('jt-form-invalid');
 		}
 	}).focus(function() {
+		var cpw = $(this).val();
+		var pw = $('input[name=password]').val();
+		// match cpw and pw
+		if (cpw == pw) {
+			$('#confirmPW').removeClass('jt-form-invalid').addClass('jt-form-valid');
+		} else {
+			$('#confirmPW').removeClass('jt-form-valid').addClass('jt-form-invalid');
+		}
 		$('#confirmPW').show();
 	}).blur(function() {
 		$('#confirmPW').hide();
@@ -73,9 +78,9 @@ jtown.login.nickNameLength = function(){
 		var length = $(this).val().length;
 		
 		if(length <= 10 && length > 0){
-			$('#nameLength').removeClass('invalid').addClass('valid');
+			$('#nameLength').removeClass('jt-form-invalid').addClass('jt-form-valid');
 		} else {
-			$('#nameLength').removeClass('valid').addClass('invalid');
+			$('#nameLength').removeClass('jt-form-valid').addClass('jt-form-invalid');
 		}
 	}).focus(function(){
 		$('#nameLength').show();
@@ -85,8 +90,8 @@ jtown.login.nickNameLength = function(){
 };
 
 jtown.login.joinFormSubmit = function() {
-	$('.joinBtn').unbind('click');
-	$('.joinBtn').bind('click', function() {
+	$('.jt-join-submit').unbind('click');
+	$('.jt-join-submit').bind('click', function() {
 		var form = document.forms['jtownUser'];
 		form.submit();
 	});

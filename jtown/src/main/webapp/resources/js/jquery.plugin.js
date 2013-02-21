@@ -112,7 +112,7 @@
             $('html').css({ marginRight: 0, display: '', overflowY: 'scroll'});
             
             $('#smartPop').effect( this.opts.effect, {}, 500);
-            $('#smartPop_overlay').hide();
+            setTimeout($('#smartPop_overlay').fadeOut(), 1000);
             this.opts.categoryFn();
         },
         log : function(msg) {
@@ -134,7 +134,7 @@
         html        : '',
         log         : false,
         categoryFn	: function(){},
-        effect		: 'fade'
+        effect		: 'puff'
     };
 })(jQuery);
 /**
