@@ -1,4 +1,9 @@
 @CHARSET "UTF-8";
+
+@IMPORT url("plugin.css");
+
+@IMPORT url("login.css");
+
 /*************************
 *	왼쪽 가장 큰 단
 **************************/
@@ -13,11 +18,11 @@
 .jt-header-login-menu{ font-size: 12px; }
 .jt-header-login-menu>li{ float: right; padding: 9px 10px; }
 .jt-header-nav{ width: 100%; min-height: 40px; float: left; background: #ff9921; padding: 5px 0;}
-.jt-header-nav-wrap{ width: 84%; float: left;}
+.jt-header-nav-wrap{ width: 100%; float: left;}
 .jt-header-nav-left{ float: left; width: 5%; height: 45px; text-align: center; cursor: pointer;}
 .jt-header-nav-left>a{}
 .jt-header-nav-right{ float: left; width: 5%; height: 45px; text-align: center; cursor: pointer;}
-..jt-header-nav-right>a{}
+.jt-header-nav-right>a{}
 .jt-header-nav-scroll{ width: 90%; float: left;  overflow: hidden; background: #ffd39e; padding: 1px 0;}
 .jt-header-nav-all{ float:left; height: 45px; position: relative; left : 0px;}
 .jt-header-nav-all>li{
@@ -29,6 +34,7 @@
 	-moz-border-radius: 3px;
 	border-radius: 3px;
 }
+.jt-header-nav-all>li:nth-child(1){margin-left: 1px;}
 .jt-header-nav-all>li>a{ 
 	z-index: 2; 
 	font-family: arial, helvetica, sans-serif;
@@ -44,6 +50,8 @@
 .jt-header-nav-all>li>a:HOVER, .jt-header-nav-all>li>a:VISITED{ color: #fff; }
 .jt-header-nav-top{background: #ff6f21;}
 .jt-header-nav-down{background: #ff9a64;}
+.jt-header-nav-down-delete{ position: absolute; width: 118px; text-align: right; display: none; z-index: 3;}
+.jt-header-nav-down-delete>a{ font-size: 11px; font-weight: bold; font-family: Gulim; margin-right: 4px;}
 .jt-header-hover{ 
     position: absolute;
     z-index: 1;
@@ -61,7 +69,7 @@
  	background-image: -o-linear-gradient(top, #ffc579, #fb9d23);
  	background-image: linear-gradient(top, #ffc579, #fb9d23);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#ffc579, endColorstr=#fb9d23);
 }
-.jt-header-search{float: left; width: 16%;}
+.jt-header-search{float: left; width: 16%; display: none;}
 .jt-header-search input[type="text"]{
 	margin: 10px 0 0 0;
     background: url(../images/jt-search-white.png) no-repeat 8px 4px #fcfcfc;
@@ -104,3 +112,35 @@
 
 .jt-common-a-gray, .jt-common-a-gray:VISITED{ color: #808080; }
 .jt-common-a-gray:HOVER, .jt-common-a-gray:ACTIVE{ color: #000; }
+
+.jt-btn-orange{
+	cursor:pointer;
+	border:1px solid #ffad41; 
+	-webkit-border-radius: 3px; 
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	font-family:arial, helvetica, sans-serif; 
+	padding: 10px 10px 10px 10px; 
+	text-shadow: -1px -1px 0 rgba(0,0,0,0.3);
+	font-weight:bold; 
+	text-align: center; 
+	color: #FFFFFF; 
+	background-color: #ffc579;
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffc579), color-stop(100%, #fb9d23));
+	background-image: -webkit-linear-gradient(top, #ffc579, #fb9d23);
+ 	background-image: -moz-linear-gradient(top, #ffc579, #fb9d23);
+ 	background-image: -ms-linear-gradient(top, #ffc579, #fb9d23);
+ 	background-image: -o-linear-gradient(top, #ffc579, #fb9d23);
+ 	background-image: linear-gradient(top, #ffc579, #fb9d23);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#ffc579, endColorstr=#fb9d23);
+}
+
+.jt-btn-orange:HOVER{
+	border:1px solid #ff9913; 
+	background-color: #ffaf46;
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffaf46), color-stop(100%, #e78404));
+ 	background-image: -webkit-linear-gradient(top, #ffaf46, #e78404);
+ 	background-image: -moz-linear-gradient(top, #ffaf46, #e78404);
+ 	background-image: -ms-linear-gradient(top, #ffaf46, #e78404);
+ 	background-image: -o-linear-gradient(top, #ffaf46, #e78404);
+ 	background-image: linear-gradient(top, #ffaf46, #e78404);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#ffaf46, endColorstr=#e78404);
+}

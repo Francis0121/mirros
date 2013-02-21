@@ -61,3 +61,18 @@
 
 .createUserSelectBox{ width: 80px; height: 30px; padding: 2px 3px; border: 2px solid #cccccc;}
 .createUserSelectBox:FOCUS { outline: 0; }
+/*
+*	@author Francis
+*	login.jspf → smartPopup loginForm
+*/
+#jt-login-form-wrap { display: none; }
+#jt-login-form { padding: 10px 0; height: 240px; border: 2px solid #808080; background: #fff; border-radius: 5px;}
+.jt-login-form-table {	border-bottom: 1px solid #e5e5e5; border-right: 1px solid #e5e5e5; border-collapse: collapse; width: 370px; margin: auto auto; }
+.jt-login-form-table td, .jt-login-form-table th{font-size: 12px; vertical-align: middle; padding: 3px 2px 3px 2px; border-top: 1px solid #e5e5e5;border-left: 1px solid #e5e5e5; height: 40px; text-align: center;}
+.jt-login-form-table thead th{ font-size: 18px; font-family : Arial; width: 344px; }
+.jt-login-form-table tfoot th{ width: 344px; }
+.jt-login-form-table tbody th{ width: 105px; }
+.jt-login-form-table tbody td{ width: 254px; }
+.jt-login-form-table tbody th, .jt-login-form-table tbody td { }
+.jt-login-form-table thead th, .jt-login-form-table thead td { }
+.jt-login-form-table tfoot th, .jt-login-form-table tfoot td { }

@@ -8,6 +8,18 @@ if (typeof jtown.header == 'undefined') {
 
 $(document).ready(function(){
 	jtown.header.syncNavMove();
+	
+	jtown.header.syncNavInterest();
+	
+	$('#jt-login-smartPopup').unbind('click');
+	$('#jt-login-smartPopup').bind('click', function() {
+		var inner = $('#jt-login-form-wrap');
+		$.smartPop.open({
+			width : 400,
+			height : 270,
+			html : inner.html()
+		});
+	});
 });
 
 jtown.header.syncNavMove = function(){
@@ -48,51 +60,33 @@ jtown.header.syncNavMove = function(){
 			}, 500);	
 		}
 	});
+	
+	$('.jt-header-nav-all').children('li').unbind('click');
+	$('.jt-header-nav-all').children('li').bind('click', function(){
+		var left = Number($(this).position().left) - 1;
+		$('.jt-header-nav-all').animate({
+			left : '-'+left+'px'
+		}, 500);	
+	});
 };
 
-(function($) {
-	$.fn.navHover = function(options) {
-		
-		options = $.extend({
-			overlap : -10,
-			speed : 500,
-			reset : 1500,
-			css : 'jt-header-hover'
-		}, options);
+jtown.header.syncNavInterest = function(){
+	$('.jt-header-nav-down').unbind('mouseover mouseout');
+	$('.jt-header-nav-down').bind('mouseover mouseout', function(event){
+		if(event.type == 'mouseover'){
+			$(this).find('.jt-header-nav-down-delete').show();
+		}else if(event.type == 'mouseout'){
+			$(this).find('.jt-header-nav-down-delete').hide();
+		}
+	});
+	
+	$('.jt-header-nav-down-delete').unbind('click');
+	$('.jt-header-nav-down-delete').bind('click', function(){
+		jtown.header.navInterestDelete($(this));
+	});
+};
 
-		return this.each(function() {
-			var nav = $(this), currentPageItem = $('#selected', nav), blob, reset=0;
-			
-			$('<li class="'+options.css+'"></li>').css({
-				width 			: currentPageItem.outerWidth(),
-				height 			: currentPageItem.outerHeight()+ options.overlap,
-				left 			: currentPageItem.position().left,
-				top 			: currentPageItem.position().top- options.overlap / 2,
-				backgroundColor : options.color	
-			}).appendTo(this);
-
-			blob = $('.'+options.css, nav);
-
-			$('li:not(.'+options.css+')', nav).hover(
-				function() {
-					// mouse over
-					clearTimeout(reset);
-					blob.animate({
-						left 		: $(this).position().left,
-						width 		: $(this).width()
-					}, {
-						duration 	: options.speed,
-						queue 		: false
-					});
-				}, function() {
-					// mouse out
-					reset = setTimeout(function() {
-						blob.animate({
-							width : currentPageItem.outerWidth(),
-							left : currentPageItem.position().left
-						}, options.speed);
-					}, options.reset);
-				});
-			});
-	};
-})(jQuery);
+jtown.header.navInterestDelete = function(me){
+	var $parent = me.parents('.jt-header-nav-down');
+	$parent.remove();
+};

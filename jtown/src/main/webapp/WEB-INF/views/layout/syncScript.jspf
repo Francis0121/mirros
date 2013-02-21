@@ -6,6 +6,6 @@
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <script type="text/javascript">
 /* <![CDATA[ */   	
-	$('.jt-header-nav-all').navHover();
+// 	$('.jt-header-nav-all').navHover();
 /* ]]> */	
 </script>

@@ -33,6 +33,7 @@
 			</div>
 		</footer>
 	</section>
+	<%@ include file="login.jspf" %>
 	<%@ include file="syncScript.jspf" %>
 </body>
 </html>
