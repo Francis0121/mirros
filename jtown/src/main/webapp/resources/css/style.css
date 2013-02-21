@@ -4,6 +4,8 @@
 
 @IMPORT url("login.css");
 
+@IMPORT url("home.css");
+
 /*************************
 *	왼쪽 가장 큰 단
 **************************/
@@ -96,7 +98,7 @@
 /*************************
 *	내용
 **************************/
-.jt-content{ width: 100%; min-height: 700px; float: left; }
+.jt-content{ width: 100%; min-height: 700px; float: left; min-width: 990px; }
 /*************************
 *	꼬리말
 **************************/
@@ -133,7 +135,6 @@
  	background-image: -o-linear-gradient(top, #ffc579, #fb9d23);
  	background-image: linear-gradient(top, #ffc579, #fb9d23);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#ffc579, endColorstr=#fb9d23);
 }
-
 .jt-btn-orange:HOVER{
 	border:1px solid #ff9913; 
 	background-color: #ffaf46;

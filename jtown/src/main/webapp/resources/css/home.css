@@ -1,0 +1,24 @@
+@CHARSET "UTF-8";
+/**
+*
+*	@author Francis
+*	/ - home
+*
+*/
+.jt-home-shop{ float: left; width:350px; margin: .5%; border: 2px solid #808080; }
+.jt-home-shop>header{ float: left; width: 100%; font-size: 12px; }
+.jt-home-shop>header>a{ float: left; width: 100%; text-align: center; margin-top: 10px;  height: 20px;}
+.jt-home-shop>footer{ font-size: 12px; font-family: Gulim;}
+.jt-home-shop>footer>span:nth-child(1){ float: left; width: 100%; text-align: center; font-weight: bold; padding: 5px 0; height: 15px; }
+.jt-home-shop>footer>span:nth-child(2){ float: left; width: 94%; padding: 2px 3%; text-align: left; font-size: 12px; height: 30px; line-height: 1.5;}
+.jt-home-shop>footer>span:nth-child(3){ float: left; width: 100%; text-align: center; font-weight: bold; padding: 5px 0; height: 15px; }
+.jt-home-shop-footer-firstTalk{}
+.jt-home-shop-footer-lastTalk{}
+.jt-home-shop-content{ float: left; width: 100%; }
+.jt-home-shop-content-image{ float: left; width: 100%;}
+.jt-home-shop-content-image>li{ float: left; width: 46%; padding: 2% 0 0 2%; }
+.jt-home-shop-content-image>li:nth-child(1){ margin-left: 1%}
+.jt-home-shop-content-image>li:nth-child(2){ margin-right: 3%}
+.jt-home-shop-content-image>li>img{ float: left; width: 100%; height: 150px; }
+.jt-home-shop-content-fn{ width: 100%; float:left; font-size: 12px; font-family: Arial;}
+.jt-home-shop-content-fn>li{ float: left; width: 33.3%; text-align: center; height: 15px; padding: 15px 0 0 0;}
