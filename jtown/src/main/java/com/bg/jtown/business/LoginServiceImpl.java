@@ -1,7 +1,11 @@
 package com.bg.jtown.business;
 
+import java.util.Map;
+
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.springframework.stereotype.Service;
+
+import com.bg.jtown.security.JtownUser;
 
 @Service
 public class LoginServiceImpl extends SqlSessionDaoSupport implements LoginService {
@@ -18,5 +22,22 @@ public class LoginServiceImpl extends SqlSessionDaoSupport implements LoginServi
 		
 		return false;
 	}
-
+	
+	@Override
+	public void creatUserCustomer(JtownUser jtownUser) {
+		getSqlSession().insert("LoginMapper.insertUsers", jtownUser);
+		
+		getSqlSession().insert("LoginMapper.insertUserCustomer", jtownUser);
+		
+	}
+	
+	@Override
+	public int findGroupdId(String group) {
+		return getSqlSession().selectOne("LoginMapper.findGroupId", group);
+	}
+	
+	@Override
+	public void addUserToGroup(Map<String, Integer> groupMap) {
+		getSqlSession().insert("LoginMapper.addUserToGroup", groupMap);		
+	}
 }

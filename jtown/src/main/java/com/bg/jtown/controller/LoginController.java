@@ -1,5 +1,8 @@
 package com.bg.jtown.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,11 +16,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.bg.jtown.business.LoginService;
 import com.bg.jtown.controller.validator.LoginValidator;
 import com.bg.jtown.controller.validator.VaildationUtil;
+import com.bg.jtown.security.CustomJdbcUserDetailManager;
 import com.bg.jtown.security.JtownUser;
+import com.bg.jtown.security.UserAuthenticator;
 
 /**
  * @author Francis, 박광열
@@ -31,11 +37,15 @@ public class LoginController {
 	
 	private LoginValidator loginValidator;
 	private LoginService loginService;
+	private UserAuthenticator userAuthenticator;
+	private CustomJdbcUserDetailManager customJdbcUserDetailManager;
 	
 	@Autowired
-	private void config(LoginValidator loginValidator, LoginService loginService){
+	private void config(LoginValidator loginValidator, LoginService loginService, UserAuthenticator userAuthenticator, CustomJdbcUserDetailManager customJdbcUserDetailManager){
 		this.loginValidator = loginValidator;
 		this.loginService = loginService;
+		this.userAuthenticator = userAuthenticator;
+		this.customJdbcUserDetailManager = customJdbcUserDetailManager;
 	}
 	
 
@@ -55,7 +65,8 @@ public class LoginController {
 	@RequestMapping(value = "/login/joinSubmit", method = RequestMethod.POST)
 	public ModelAndView joinSubmit(@ModelAttribute JtownUser jtownUser,
 			@RequestParam("confirmPassword") final String confirmPassword,
-			BindingResult result){
+			BindingResult result,
+			HttpServletRequest request, HttpServletResponse response){
 		ModelAndView mav = new ModelAndView();
 		
 		loginValidator.validate(jtownUser, result);
@@ -80,6 +91,16 @@ public class LoginController {
 		}.validate(jtownUser, result);
 		
 		if(!result.hasErrors()){
+			customJdbcUserDetailManager.createUserCustomAndAuthority(jtownUser);
+			
+			request.setAttribute("username", jtownUser.getUsername());
+			request.setAttribute("password", jtownUser.getPassword());
+			
+			userAuthenticator.login(request, response);
+			
+			String beforeAddress = request.getHeader("referer");
+			
+			mav.setView(new RedirectView(beforeAddress));
 		} else {
 			mav.setViewName("login/join");
 		}

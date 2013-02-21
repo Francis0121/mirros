@@ -10,6 +10,7 @@
 	<!-- 	입력된 Password를 encode하는 빈 -->
 <!-- 	<beans:bean class="com.bg.jtown.security.TempDatabasePasswordSecurerBean" init-method="secureDatabase" depends-on="dataSource"> -->
 <!-- 		<beans:property name="dataSource" ref="dataSource"/> -->
+
 <!-- 	</beans:bean> -->
 
 	<global-method-security pre-post-annotations="enabled" />

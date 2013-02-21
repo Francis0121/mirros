@@ -1,15 +1,23 @@
 package com.bg.jtown.security;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.SaltSource;
@@ -22,6 +30,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.core.userdetails.cache.NullUserCache;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
+import org.springframework.util.Assert;
+
+import com.bg.jtown.business.LoginService;
 
 public class CustomJdbcUserDetailManager extends JdbcUserDetailsManager {
 
@@ -30,14 +41,16 @@ public class CustomJdbcUserDetailManager extends JdbcUserDetailsManager {
 	private AuthenticationManager authenticationManager;
 	private PasswordEncoder passwordEncoder;
 	private SaltSource saltSource;
+	private LoginService loginService;
 
 	private boolean enableAuthorities;
 	private boolean enableGroups;
 
 	@Autowired
-	private void config(PasswordEncoder passwordEncoder, SaltSource saltSource) {
+	private void config(PasswordEncoder passwordEncoder, SaltSource saltSource, LoginService loginService) {
 		this.passwordEncoder = passwordEncoder;
 		this.saltSource = saltSource;
+		this.loginService = loginService;
 	}
 
 	public void setAuthenticationManager(
@@ -106,7 +119,7 @@ public class CustomJdbcUserDetailManager extends JdbcUserDetailsManager {
 	@Override
 	protected List<UserDetails> loadUsersByUsername(String id) {
 		return getJdbcTemplate().query(
-				"SELECT id, password, enable FROM users WHERE id = ?",
+				"SELECT id, password, enable, DATE_FORMAT(salt, '%Y-%m-%d %H:%i:%s') AS salt FROM users WHERE id = ?",
 				new String[] { id }, new RowMapper<UserDetails>() {
 					@Override
 					public UserDetails mapRow(ResultSet rs, int rowNum)
@@ -114,9 +127,10 @@ public class CustomJdbcUserDetailManager extends JdbcUserDetailsManager {
 						String id = rs.getString(1);
 						String password = rs.getString(2);
 						boolean enable = rs.getBoolean(3);
+						String salt = rs.getString(4);
 
 						return new JtownUser(id, password, enable, true, true,
-								true, AuthorityUtils.NO_AUTHORITIES);
+								true, AuthorityUtils.NO_AUTHORITIES, salt);
 					}
 				});
 	}
@@ -160,4 +174,74 @@ public class CustomJdbcUserDetailManager extends JdbcUserDetailsManager {
 		this.enableGroups = enableGroups;
 	}
 
+	public void createUserCustomAndAuthority(JtownUser jtownUser) {
+		creatUserCustomer(jtownUser);
+		
+		addUserToGroup(jtownUser.getPn(), "Customer");
+	}
+
+	private void creatUserCustomer(JtownUser jtownUser) {
+		validateUserDetails(jtownUser);
+
+		// PasswordEncoder SaltSource
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",
+				Locale.KOREA);
+		Date date = new Date();
+		String salt = sdf.format(date);
+		jtownUser.setSalt(salt);
+		
+		logger.debug(jtownUser.toString());
+		
+		String encodedPassword = passwordEncoder.encodePassword(jtownUser.getPassword(), saltSource.getSalt(jtownUser));
+		jtownUser.setPassword(encodedPassword);
+		
+		loginService.creatUserCustomer(jtownUser);
+	}
+	
+	private void addUserToGroup(Integer userPn, String groupName) {
+        logger.debug("Adding user '" + userPn + "' to group '" + groupName + "'");
+        Assert.hasText(userPn.toString());
+        Assert.hasText(groupName);
+
+        final int id = findGroupId(groupName);
+        
+        Map<String, Integer> groupMap = new HashMap<String, Integer>();
+        groupMap.put("groupId", id);
+        groupMap.put("userPn", userPn);
+        
+        loginService.addUserToGroup(groupMap);
+	}
+	
+	private int findGroupId(String group) {
+		return loginService.findGroupdId(group);
+	}
+
+
+	// /**
+	// * Optionally sets the UserCache if one is in use in the application.
+	// * This allows the user to be removed from the cache after updates have
+	// taken place to avoid stale data.
+	// *
+	// * @param userCache the cache used by the AuthenticationManager.
+	// */
+	// public void setUserCache(UserCache userCache) {
+	// Assert.notNull(userCache, "userCache cannot be null");
+	// this.userCache = userCache;
+	// }
+
+	private void validateUserDetails(UserDetails user) {
+		Assert.hasText(user.getUsername(), "Username may not be empty or null");
+		validateAuthorities(user.getAuthorities());
+	}
+
+	private void validateAuthorities(
+			Collection<? extends GrantedAuthority> authorities) {
+		Assert.notNull(authorities, "Authorities list must not be null");
+
+		for (GrantedAuthority authority : authorities) {
+			Assert.notNull(authority, "Authorities list contains a null entry");
+			Assert.hasText(authority.getAuthority(),
+					"getAuthority() method must return a non-empty string");
+		}
+	}
 }

@@ -23,13 +23,20 @@
 						<c:url var="help" value="/help/question"/>
 						<a href="${help }" class="jt-common-a-base">고객센터</a>
 					</li>
-					<li>
-						<a href="#none" class="jt-common-a-base" id="jt-login-smartPopup">로그인</a>
-					</li>
-					<li>
-						<c:url var="join" value="/login/join"/>
-						<a href="${join }" class="jt-common-a-base">회원가입</a>
-					</li>
+					<sec:authorize access="anonymous">
+						<li>
+							<a href="#none" class="jt-common-a-base" id="jt-login-smartPopup">로그인</a>
+						</li>
+						<li>
+							<c:url var="join" value="/login/join"/>
+							<a href="${join }" class="jt-common-a-base">회원가입</a>
+						</li>
+					</sec:authorize>
+					<sec:authorize access="hasRole('ROLE_USER')">
+						<li>
+							<a href="#none" class="jt-common-a-base" id="jt-logout">로그아웃</a>
+						</li>
+					</sec:authorize>
 				</menu>
 			</div>
 			<nav class="jt-header-nav">

@@ -9,4 +9,53 @@
 		WHERE
 			id = #{id}
 	</select>
+	
+	<insert id="insertUsers" parameterType="com.bg.jtown.security.JtownUser">
+		INSERT INTO
+			users
+			(
+				id, password, enable, salt
+			)
+		VALUES
+			(
+				#{username}, #{password}, #{enabled}, #{salt}
+			)
+		<selectKey keyProperty="pn" resultType="Integer">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+	
+	<insert id="insertUserCustomer" parameterType="com.bg.jtown.security.JtownUser">
+		INSERT INTO
+			user_customer
+			(
+				pn, name, join_date
+			)
+		VALUES
+			(
+				#{pn}, #{name}, SYSDATE()
+			)			
+	</insert>
+	
+	<select id="findGroupId" parameterType="String" resultType="Integer">
+		SELECT
+			id
+		FROM
+			groups
+		WHERE
+			group_name = #{group}
+	</select>
+	
+	<insert id="addUserToGroup" parameterType="Map">
+		INSERT INTO
+			group_members
+			(
+				group_id, user_pn
+			)
+		VALUES
+			(
+				#{groupId}, #{userPn}
+			)
+
+	</insert>
 </mapper>

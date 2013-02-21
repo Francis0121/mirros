@@ -34,12 +34,15 @@ public class TempDatabasePasswordSecurerBean extends JdbcDaoSupport {
 	}
 
 	public void secureDatabase() {
-		getJdbcTemplate().query("select id, password from users",
+		getJdbcTemplate().query("select id, password, DATE_FORMAT(salt, '%Y-%m-%d %H:%i:%s') AS salt from users",
 				new RowCallbackHandler() {
 					public void processRow(ResultSet rs) throws SQLException {
 						String username = rs.getString(1);
 						String password = rs.getString(2);
-						UserDetails user = userDetailsService.loadUsersByUsername(username).get(0);
+						JtownUser user = (JtownUser) userDetailsService.loadUsersByUsername(username).get(0);
+						
+						user.setSalt(rs.getString(3));
+						
 						String encodedPassword = passwordEncoder.encodePassword(password, saltSource.getSalt(user));
 						getJdbcTemplate()
 								.update("update users set password = ? where id = ?",
