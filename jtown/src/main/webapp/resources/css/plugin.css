@@ -18,3 +18,22 @@
 #smartPop_close_wrap { position: absolute; }
 #smartPop_close { position: absolute; cursor: pointer; }
 #smartPop_loading { position: relative; margin: 10px auto 0 auto; width: 16px; height: 16px; background: url(../images/jt-loading.gif); cursor: wait; }
+
+/*
+*	Infinite Scroll
+
+*	https://github.com/paulirish/infinitescroll
+*	version 2.0b2.110713
+*	Copyright 2011 Paul Irish & Luke Shumard
+*	Licensed under the MIT license
+*	
+*	Documentation: http://infinite-scroll.com/
+*	
+ */
+#infscr-loading { text-align: center; z-index: 100; position: fixed; left: 45%; bottom: 40px; width: 200px; padding: 10px; background: #000;  opacity: 0.8;color: #FFF;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  font-size: 12px;
+  font-family: Arial;
+}

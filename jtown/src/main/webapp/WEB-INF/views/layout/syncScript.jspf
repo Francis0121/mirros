@@ -4,8 +4,62 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
+<%-- Jquery --%>
+<script src="${cp}resources/jquery/jquery-1.8.2.min.js"></script>
+<script src="${cp}resources/jquery/jquery-ui-1.10.0.custom.js"></script>
+<%-- Custom --%>
+<script src="${cp}resources/js/jquery.masonry.js"></script>
+<script src="${cp}resources/js/jquery.infinitescroll.js"></script>
+<script src="${cp}resources/js/jquery.plugin.js"></script>
+<script src="${cp}resources/js/jtown.js"></script>
+<script src="${cp}resources/js/login.js"></script>
+
 <script type="text/javascript">
 /* <![CDATA[ */   	
 // 	$('.jt-header-nav-all').navHover();
+	
+	var $container = $('#jt-home-container');
+	
+	$container.imagesLoaded(function(){
+		$container.masonry({
+			itemSelector : '.jt-home-shop',
+			columnWidth : 330
+		});
+	});
+	
+	 $container.infinitescroll({
+		navSelector  : '#page-nav',    // selector for the paged navigation 
+		nextSelector : '#page-nav a',  // selector for the NEXT link (to page 2)
+		itemSelector : '.jt-home-shop',     // selector for all items you'll retrieve
+		loading: {
+		    finishedMsg: 'No more pages to load.',
+		    img: contextPath + 'resources/images/jt-loading-big.gif'
+		  }
+		},
+		// trigger Masonry as a callback
+		function( newElements ) {
+			// hide new items while they are loading
+			var $newElems = $( newElements ).css({ opacity: 0 });
+			// ensure that images load before adding to masonry layout
+			$newElems.imagesLoaded(function(){
+				// show elems now they're ready
+				$newElems.animate({ opacity: 1 });
+				$container.masonry( 'appended', $newElems, true ); 
+			});
+		}
+	);
+	
+	onResize = function(){
+		var clientWidth = Number(window.document.body.clientWidth),
+			widthItem = Math.floor(clientWidth/330);
+		
+		if(widthItem < 3 ) widthItem = 3;
+		
+		$('#jt-home-container').css({width : (widthItem*330)});	
+	};
+	
+	onResize();
+	
+	$(window).resize(onResize);
 /* ]]> */	
 </script>
