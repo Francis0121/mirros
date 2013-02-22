@@ -34,6 +34,6 @@
 		</footer>
 	</section>
 	<%@ include file="login.jspf" %>
-	<%@ include file="syncScript.jspf" %>
+	<%@ include file="script.jspf" %>
 </body>
 </html>
