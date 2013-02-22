@@ -22,3 +22,45 @@
 			</menu>
 		</header>
 	</section>
+	
+	<section>
+		<menu>
+			<li>
+				<a href="#" >공지사항</a>
+			</li>
+			<li>
+				Q&A
+			</li>
+			<li>
+				<a href="#" >- 판매자</a>
+			</li>
+			<li>
+				<a href="#" >- 소비자</a>
+			</li>	
+			<li>
+				사용자관리
+			</li>
+			<li>
+				- 사용자
+			</li>			
+			<li>
+				<a href="#" > - - 불량 사용자 관리</a>
+			</li>			
+			<li>
+				 - 판매자
+			</li>
+			<li>
+				<c:url value="/admin/sc" var="creatSellerUrl" />
+				<a href="${creatSellerUrl }" > - - 판매자 생성</a>
+			</li>	
+			<li>
+				<a href="#" > - - 불량 판매자 관리</a>
+			</li>						
+			<li>
+				- 관리자
+			</li>
+			<li>
+				<a href="#" > - - 관리자 아이디 생성</a>
+			</li>						
+		</menu>
+	</section>

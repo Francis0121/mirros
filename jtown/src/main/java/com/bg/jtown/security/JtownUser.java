@@ -46,6 +46,9 @@ public class JtownUser implements JtownDetails, CredentialsContainer {
 	private Integer loveCount;
 	private Integer viewCount;
 	
+	private String interestCategory;
+	private String interestSectionList;
+	
 	//~ Constructors ===================================================================================================
 
 	public JtownUser() {
@@ -266,6 +269,21 @@ public class JtownUser implements JtownDetails, CredentialsContainer {
 
 	public void setAuthorities(Set<GrantedAuthority> authorities) {
 		this.authorities = authorities;
+	}	
+	
+	public String getInterestCategory() {
+		return interestCategory;
+	}
+
+	public void setInterestCategory(String interestCategory) {
+		this.interestCategory = interestCategory;
+	}
+	public String getInterestSectionList() {
+		return interestSectionList;
+	}
+
+	public void setInterestSectionList(String interestSectionList) {
+		this.interestSectionList = interestSectionList;
 	}
 	
     public void eraseCredentials() {
@@ -364,4 +382,5 @@ public class JtownUser implements JtownDetails, CredentialsContainer {
 
         return sb.toString();
     }
+
 }
