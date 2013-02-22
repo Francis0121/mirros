@@ -4,4 +4,21 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
-<%@ include file="../../layout/layout_admin_header.jspf" %>
+<c:url var="cp" value="/"/>
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>J TOWN</title>
+<%@ include file="script.jspf" %>
+</head>
+<body>
+	<section class="jt-body">
+		<header class="jt-header">
+			<menu class="jt-header-login-menu">
+				<li>
+					<c:url value="/login/logout" var="logoutUrl"/>
+					<a href="${logoutUrl }" class="jt-common-a-base" id="jt-logout">로그아웃</a>
+				</li>			
+			</menu>
+		</header>
+	</section>

@@ -33,6 +33,8 @@
 			authentication-failure-url=""
 			default-target-url=""/>
 			
+		<logout logout-url="/login/logout"  />
+			
 		<access-denied-handler error-page="/noPermission" />
 	</http>
 	

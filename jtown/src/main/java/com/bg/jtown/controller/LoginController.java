@@ -56,8 +56,10 @@ public class LoginController {
 	}
 
 	@RequestMapping(value = "/login/join", method = RequestMethod.GET)
-	public String showJoinPage(Model model, @ModelAttribute JtownUser jtownUser) {
+	public String showJoinPage(Model model, @ModelAttribute JtownUser jtownUser, HttpServletRequest request) {
 		logger.debug("Show Join page");
+		
+		request.getSession().setAttribute("beforJoinUrl", request.getHeader("referer"));
 		
 		return "login/join";
 	}
@@ -90,15 +92,17 @@ public class LoginController {
 			}
 		}.validate(jtownUser, result);
 		
-		if(!result.hasErrors()){
-			customJdbcUserDetailManager.createUserCustomAndAuthority(jtownUser);
-			
+		if(!result.hasErrors()){			
 			request.setAttribute("username", jtownUser.getUsername());
-			request.setAttribute("password", jtownUser.getPassword());
+			request.setAttribute("password", jtownUser.getPassword());			
+
+			customJdbcUserDetailManager.createUserCustomAndAuthority(jtownUser);
 			
 			userAuthenticator.login(request, response);
 			
-			String beforeAddress = request.getHeader("referer");
+			String beforeAddress = (String) request.getSession().getAttribute("beforJoinUrl");
+			
+			logger.debug(beforeAddress);
 			
 			mav.setView(new RedirectView(beforeAddress));
 		} else {
