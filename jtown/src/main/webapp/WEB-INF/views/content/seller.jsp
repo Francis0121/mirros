@@ -132,10 +132,12 @@
 						</ul>
 					</div>
 					<div class="jt-home-expand-shop-event-first">
-						
+						<c:url value="/resources/uploadImage/event-1.png" var="image"/>
+						<img alt="event1" src="${image }"/>
 					</div>
 					<div class="jt-home-expand-shop-event-second">
-					
+						<c:url value="/resources/uploadImage/event-2.png" var="image"/>
+						<img alt="event2" src="${image }"/>
 					</div>
 				</div>
 			</section>
