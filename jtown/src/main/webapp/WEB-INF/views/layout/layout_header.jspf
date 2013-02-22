@@ -9,7 +9,18 @@
 <html>
 <head>
 <title>J TOWN</title>
-<%@ include file="script.jspf" %>
+<c:url var="cp" value="/"/>
+<script type="text/javascript">
+/* <![CDATA[ */
+	var contextPath = <c:out value="${cp}"/>;
+/* ]]> */
+</script>
+<%-- Jquery --%>
+<link rel="stylesheet" type="text/css" href="${cp}resources/jquery/jquery-ui-1.10.0.custom.min.css" />
+
+<%-- Custom --%>
+<link rel="stylesheet" type="text/css" href="${cp}resources/css/default.css" />
+<link rel="stylesheet" type="text/css" href="${cp}resources/css/style.css" />
 </head>
 <body>
 	<section class="jt-body">

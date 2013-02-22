@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -31,6 +32,15 @@ public class HomeController {
 		Home home = homeService.selectHomeTest();
 		logger.info(home.toString());
 		return "home";
+	}
+
+	@RequestMapping(value = "/page/{page}", method = RequestMethod.GET)
+	public String showPagination(@PathVariable Integer page, Model model) {
+		logger.debug("Show Pagination page");
+		if(page > 5){
+			return "pageFinish";
+		}
+		return "pagination";
 	}
 
 	@RequestMapping(value = "/noPermission", method = RequestMethod.GET)

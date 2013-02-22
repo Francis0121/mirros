@@ -4,7 +4,6 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
-<%@ include file="../layout/layout_header.jspf" %>
 <div id="jt-home-container">
 	<c:forEach begin="0" end="19" varStatus="loop">
 		<div class="jt-home-shop">
@@ -40,7 +39,3 @@
 		</div>	
 	</c:forEach>
 </div>
-<nav id="page-nav" style="display: none;">
-  <a href="<c:url value="/page/2"/>"></a>
-</nav>
-<%@ include file="../layout/layout_footer.jspf" %>
