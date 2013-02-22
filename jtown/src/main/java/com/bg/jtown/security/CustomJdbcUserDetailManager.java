@@ -34,7 +34,7 @@ import org.springframework.util.Assert;
 
 import com.bg.jtown.business.LoginService;
 
-public class CustomJdbcUserDetailManager extends JdbcUserDetailsManager {
+public class CustomJdbcUserDetailManager extends JdbcUserDetailsManager  {
 
 	protected final Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -58,9 +58,8 @@ public class CustomJdbcUserDetailManager extends JdbcUserDetailsManager {
 		this.authenticationManager = authenticationManager;
 	}
 
-	@Override
 	protected UserDetails createUserDetails(String id,
-			UserDetails userFromUserQuery,
+			JtownDetails userFromUserQuery,
 			List<GrantedAuthority> combinedAuthorities) {
 
 		String returnUserid = userFromUserQuery.getUsername();
@@ -68,7 +67,7 @@ public class CustomJdbcUserDetailManager extends JdbcUserDetailsManager {
 			returnUserid = id;
 		}
 
-		return new JtownUser(returnUserid, userFromUserQuery.getPassword(),
+		return new JtownUser(userFromUserQuery.getPn() ,returnUserid, userFromUserQuery.getPassword(),
 				userFromUserQuery.isEnabled(), true, true, true,
 				combinedAuthorities, ((JtownUser) userFromUserQuery).getSalt());
 	}
@@ -88,7 +87,7 @@ public class CustomJdbcUserDetailManager extends JdbcUserDetailsManager {
 					"Username {0} not found"), username);
 		}
 
-		UserDetails user = users.get(0); // contains no GrantedAuthority[]
+		JtownDetails user = (JtownDetails) users.get(0); // contains no GrantedAuthority[]
 
 		Set<GrantedAuthority> dbAuthsSet = new HashSet<GrantedAuthority>();
 
@@ -119,7 +118,7 @@ public class CustomJdbcUserDetailManager extends JdbcUserDetailsManager {
 	@Override
 	protected List<UserDetails> loadUsersByUsername(String id) {
 		return getJdbcTemplate().query(
-				"SELECT id, password, enable, DATE_FORMAT(salt, '%Y-%m-%d %H:%i:%s') AS salt FROM users WHERE id = ?",
+				"SELECT id, password, enable, DATE_FORMAT(salt, '%Y-%m-%d %H:%i:%s') AS salt, pn FROM users WHERE id = ?",
 				new String[] { id }, new RowMapper<UserDetails>() {
 					@Override
 					public UserDetails mapRow(ResultSet rs, int rowNum)
@@ -128,8 +127,9 @@ public class CustomJdbcUserDetailManager extends JdbcUserDetailsManager {
 						String password = rs.getString(2);
 						boolean enable = rs.getBoolean(3);
 						String salt = rs.getString(4);
+						Integer pn = rs.getInt(5);
 
-						return new JtownUser(id, password, enable, true, true,
+						return new JtownUser(pn, id, password, enable, true, true,
 								true, AuthorityUtils.NO_AUTHORITIES, salt);
 					}
 				});
@@ -215,7 +215,6 @@ public class CustomJdbcUserDetailManager extends JdbcUserDetailsManager {
 	private int findGroupId(String group) {
 		return loginService.findGroupdId(group);
 	}
-
 
 	// /**
 	// * Optionally sets the UserCache if one is in use in the application.

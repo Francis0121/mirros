@@ -9,7 +9,7 @@
 <html>
 <head>
 <title>J TOWN</title>
-<%@ include file="script.jspf" %>
+<%@ include file="style.jspf" %>
 </head>
 <body>
 	<section class="jt-body">

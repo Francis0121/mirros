@@ -1,1 +1,4 @@
+	<%@ include file="login.jspf" %>
+	<%@ include file="script.jspf" %>
 </body>
+</html>
