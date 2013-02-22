@@ -31,7 +31,9 @@
 			login-page=""
 			always-use-default-target="true"
 			authentication-failure-url=""
-			default-target-url=""/>
+			default-target-url="/process"/>
+			
+		<logout logout-url="/login/logout"  />
 			
 		<access-denied-handler error-page="/noPermission" />
 	</http>

@@ -20,7 +20,7 @@ import org.springframework.util.Assert;
  *
  */
 @SuppressWarnings("serial")
-public class JtownUser implements UserDetails, CredentialsContainer {
+public class JtownUser implements JtownDetails, CredentialsContainer {
 	
 	//base Variable
     private String password;
@@ -115,6 +115,24 @@ public class JtownUser implements UserDetails, CredentialsContainer {
             throw new IllegalArgumentException("Cannot pass null or empty values to constructor");
         }
 
+        this.username = username;
+        this.password = password;
+        this.enabled = enabled;
+        this.accountNonExpired = accountNonExpired;
+        this.credentialsNonExpired = credentialsNonExpired;
+        this.accountNonLocked = accountNonLocked;
+        this.authorities = Collections.unmodifiableSet(sortAuthorities(authorities));
+        this.salt = salt;
+    }
+    
+    public JtownUser(Integer pn, String username, String password, boolean enabled, boolean accountNonExpired,
+            boolean credentialsNonExpired, boolean accountNonLocked, Collection<? extends GrantedAuthority> authorities, String salt) {
+
+        if (((username == null) || "".equals(username)) || (password == null)) {
+            throw new IllegalArgumentException("Cannot pass null or empty values to constructor");
+        }
+
+        this.pn = pn;
         this.username = username;
         this.password = password;
         this.enabled = enabled;
