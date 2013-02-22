@@ -106,14 +106,15 @@
 						<li class="jt-home-expand-shop-leftArrow jt-home-expand-shop-arrow">
 							<a href="#none">&lt;</a>
 						</li>
-						<li class="jt-home-expand-shop-expandProduct">
-							<img alt="" src=""/>
-						</li>
-						<li class="jt-home-expand-shop-expandProduct">
-							<img alt="" src=""/>
-						</li>
-						<li class="jt-home-expand-shop-expandProduct">
-							<img alt="" src=""/>
+						<li class="jt-home-expand-shop-expandProduct-slide">
+							<div style="width: <c:out value="${170*10 }"/>px; float: left;">
+							<c:forEach begin="0" end="9" varStatus="loop">
+								<div class="jt-home-expand-shop-expandProduct	">
+									<c:url value="/resources/uploadImage/Product-${loop.count }.png" var="image"/>
+									<img alt="상품" src="${image }"/>
+								</div>
+							</c:forEach>
+							</div>
 						</li>
 						<li class="jt-home-expand-shop-rigthArrow jt-home-expand-shop-arrow">
 							<a href="#none">&gt;</a>
@@ -124,7 +125,8 @@
 						<ul>
 							<c:forEach begin="0" end="9" varStatus="loop">
 								<li>
-									<a href="#none"><img alt="" src=""/></a>
+									<c:url value="/resources/uploadImage/Product-${loop.count }.png" var="image"/>
+									<a href="#none"><img alt="상품" src="${image }"/></a>
 								</li>
 							</c:forEach>
 						</ul>
