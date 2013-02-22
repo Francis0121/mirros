@@ -97,9 +97,44 @@
 					</footer>
 				</div>
 			</section>
-			<section class="jt-seller-popup">
-				<div>
-			
+			<section class="jt-seller-expand">
+				<div class="jt-home-expand-shop">
+					<header>
+						<a href="#none">Teacher's Fitting Shop</a>
+					</header>
+					<ul class="jt-home-expand-shop-expandProducts">
+						<li class="jt-home-expand-shop-leftArrow jt-home-expand-shop-arrow">
+							<a href="#none">&lt;</a>
+						</li>
+						<li class="jt-home-expand-shop-expandProduct">
+							<img alt="" src=""/>
+						</li>
+						<li class="jt-home-expand-shop-expandProduct">
+							<img alt="" src=""/>
+						</li>
+						<li class="jt-home-expand-shop-expandProduct">
+							<img alt="" src=""/>
+						</li>
+						<li class="jt-home-expand-shop-rigthArrow jt-home-expand-shop-arrow">
+							<a href="#none">&gt;</a>
+						</li>
+					</ul>
+					<div class="jt-home-expand-shop-products">
+						<h2>Products</h2>
+						<ul>
+							<c:forEach begin="0" end="9" varStatus="loop">
+								<li>
+									<a href="#none"><img alt="" src=""/></a>
+								</li>
+							</c:forEach>
+						</ul>
+					</div>
+					<div class="jt-home-expand-shop-event-first">
+						
+					</div>
+					<div class="jt-home-expand-shop-event-second">
+					
+					</div>
 				</div>
 			</section>
 			<footer>

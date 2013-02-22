@@ -12,7 +12,7 @@
 .jt-seller-content>header>ul>li:nth-child(1){}
 .jt-seller-content>header>ul>li:nth-child(2){}
 .jt-seller-content>header>ul>li:nth-child(3){}
-.jt-seller-content>footer{ width: 100%; float: left; }
+.jt-seller-content>footer{ width: 100%; float: left; text-align: right;  font-size: 12px;}
 /**
 *
 *	@author Francis
@@ -26,7 +26,13 @@
 .jt-seller-main-notice-update{}
 .jt-seller-main-notice-cancle{}
 .jt-seller-main-textarea{ display:none; float: left; width: 298px; padding: 2px 3px; border: 1px solid #8080;overflow: hidden; min-height: 50px; margin: 0 5px; resize : none;}
-.jt-seller-popup{ width: 640px; float: left; margin-left: 10px; height: 300px;}
 .jt-seller-main-image-hover-tool{ padding: 0 !important; display: none;}
 .jt-seller-main-image-updateShow{ position: absolute; float: left;}
 .jt-seller-main-image-update-tool{ display: none;}
+/**
+*
+*	@author Francis
+*	seller - expand update
+*
+*/
+.jt-seller-expand{ width: 640px; float: left; margin-left: 10px; height: 300px;}

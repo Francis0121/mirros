@@ -22,3 +22,27 @@
 .jt-home-shop-content-image>li>img{ float: left; width: 100%;}
 .jt-home-shop-content-fn{ width: 100%; float:left; font-size: 12px; font-family: Arial;}
 .jt-home-shop-content-fn>li{ float: left; width: 33.3%; text-align: center; height: 15px; padding: 15px 0 0 0;}
+
+/**
+*
+*	@author Francis
+*	/ - home smartPopup SellerPage
+*
+*/
+.jt-home-expand-shop{ margin: 5px 3px; width: 630px; border: 2px solid #e5e5e5; float: left;}
+.jt-home-expand-shop>header{ width: 100%; height: 50px; float: left; border-bottom: 2px solid #e5e5e5;}
+.jt-home-expand-shop>header>a{ font-size: 18px; font-family: Arial; font-weight: bold; color: #000; float: left; margin: 15px;}
+.jt-home-expand-shop>header>a:HOVER, .jt-home-expand-shop>header>a:ACTIVE, .jt-home-expand-shop>header>a:VISITED{ color: #000;}
+.jt-home-expand-shop-expandProducts{ float: left; height: 170px; padding: 20px 0; border-bottom: 2px solid #e5e5e5;}
+.jt-home-expand-shop-expandProducts>li{ float: left; }
+.jt-home-expand-shop-arrow{ width: 60px; }
+.jt-home-expand-shop-expandProduct{ width: 170px; }
+.jt-home-expand-shop-expandProduct>img{ width: 160px; height: 160px; padding: 5px;}
+.jt-home-expand-shop-products{ width : 100%; height: 130px; float: left; border-bottom: 2px solid #e5e5e5;}
+.jt-home-expand-shop-products>ul{ float: left; margin: 15px;}
+.jt-home-expand-shop-products>ul>li{ float: left; margin-right: 5px;}
+.jt-home-expand-shop-products>ul>li>a{ float: left; display: block; width: 50px; height: 50px;}
+.jt-home-expand-shop-products>ul>li>a>img{ float: left; width: 50px; height: 50px;}
+.jt-home-expand-shop-products>h2{ width: 600px; font-size: 16px; font-family: Arial; font-weight: bold; color: #000; float: left; margin: 25px 15px 5px 15px;}
+.jt-home-expand-shop-event-first{ width : 314px; height: 150px; float: left; border-right: 1px solid #e5e5e5;}
+.jt-home-expand-shop-event-second{ width: 314px; height: 150px; float: left; border-left: 1px solid #e5e5e5;}
