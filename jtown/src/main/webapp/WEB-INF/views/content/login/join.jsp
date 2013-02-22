@@ -9,7 +9,7 @@
 <html>
 <head>
 <title>J TOWN</title>
-<%@ include file="../../layout/script.jspf" %>
+<%@ include file="../../layout/style.jspf" %>
 </head>
 <body>
 	<section class="jt-body">
@@ -93,6 +93,6 @@
 		</div>
 	</section>
 	<%@ include file="../../layout/login.jspf" %>
-	<%@ include file="../../layout/syncScript.jspf" %>
+	<%@ include file="../../layout/script.jspf" %>
 </body>
 </html>
