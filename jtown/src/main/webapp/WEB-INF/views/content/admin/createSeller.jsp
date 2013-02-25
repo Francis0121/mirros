@@ -21,6 +21,7 @@
 				</th>
 				<td>
 					<form:input path="shopName" cssClass="jt-join-user-input" />
+					<form:errors path="shopName" cssClass="commonError"/>
 				</td>
 			</tr>
 			<tr>
@@ -29,6 +30,7 @@
 				</th>
 				<td>
 					<form:input path="shopUrl" cssClass="jt-join-user-input" />
+					<form:errors path="shopUrl" cssClass="commonError" />
 				</td>
 			</tr>
 			<tr>
@@ -49,6 +51,7 @@
 				</th>
 				<td>
 					<form:input path="interestSectionList" cssClass="jt-join-user-input"/>
+					<form:errors path="interestSectionList" cssClass="commonError" />
 				</td>
 			</tr>
 		</tbody>

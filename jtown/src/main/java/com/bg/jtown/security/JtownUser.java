@@ -39,6 +39,8 @@ public class JtownUser implements JtownDetails, CredentialsContainer {
 	private String name;
 	private String joinDate;
 	
+	private String newPassword;
+	
 	//user_seller
 	private String shopName;
 	private String shopUrl;
@@ -284,6 +286,14 @@ public class JtownUser implements JtownDetails, CredentialsContainer {
 
 	public void setInterestSectionList(String interestSectionList) {
 		this.interestSectionList = interestSectionList;
+	}	
+
+	public String getNewPassword() {
+		return newPassword;
+	}
+
+	public void setNewPassword(String newPassword) {
+		this.newPassword = newPassword;
 	}
 	
     public void eraseCredentials() {
@@ -365,6 +375,7 @@ public class JtownUser implements JtownDetails, CredentialsContainer {
         sb.append("viewCount: ").append(this.viewCount).append("; ");
         sb.append("interestCategory : ").append(this.interestCategory).append("; ");
         sb.append("interestSectionList : ").append(this.interestSectionList).append("; ");
+        sb.append("newPassword : ").append(this.newPassword).append("; ");
 
         if (!authorities.isEmpty()) {
             sb.append("Granted Authorities: ");
@@ -384,5 +395,4 @@ public class JtownUser implements JtownDetails, CredentialsContainer {
 
         return sb.toString();
     }
-
 }

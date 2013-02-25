@@ -14,4 +14,6 @@ public interface LoginService {
 	void addUserToGroup(Map<String, Integer> groupMap);
 
 	Integer createUserSeller(JtownUser jtownUser);
+
+	void changePassword(JtownUser jtownUser);
 }
