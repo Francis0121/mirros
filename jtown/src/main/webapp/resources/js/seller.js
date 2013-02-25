@@ -10,6 +10,10 @@ $(document).ready(function(){
 	jtown.seller.syncMainNotice();
 	
 	jtown.seller.syncMainImage();
+	
+	jtown.seller.syncProductList();
+
+	jtown.seller.syncEvent();
 });
 
 jtown.seller.syncMainNotice = function(){
@@ -80,3 +84,54 @@ jtown.seller.syncMainImage = function(){
 	});
 };
 
+jtown.seller.syncProductList = function(){
+	$('.jt-home-expand-shop-products ul li').unbind('mouseover mouseout');
+	$('.jt-home-expand-shop-products ul li').bind('mouseover mouseout',function(evnet){
+		if(event.type == 'mouseover'){
+			$(this).children('.jt-seller-expand-product-delete-tool').show();
+		}else if(event.type == 'mouseout'){
+			$(this).children('.jt-seller-expand-product-delete-tool').hide();
+		}
+	});
+	
+	$('.jt-seller-product-delete').unbind('click');
+	$('.jt-seller-product-delete').bind('click', function(){
+		//TODO 사진 삭제후 재조회(ajax X) Slide 변경어려움
+		location.href= contextPath + 'seller/2';
+	});
+	
+	$('.jt-home-expand-shop-products').unbind('mouseover mouseout');
+	$('.jt-home-expand-shop-products').bind('mouseover mouseout', function(){
+		if(event.type == 'mouseover'){
+			$(this).children('.jt-seller-expand-product-insert-tool').show();
+		}else if(event.type == 'mouseout'){
+			$(this).children('.jt-seller-expand-product-insert-tool').hide();
+		}
+	});
+};
+
+jtown.seller.syncEvent = function(){
+	
+	$('#jt-seller-expand-event-first, #jt-seller-expand-event-second').unbind('mouseover mouseout');
+	$('#jt-seller-expand-event-first, #jt-seller-expand-event-second').bind('mouseover mouseout', function(){
+		if($(this).children('input').css('display') == 'none'){
+			if(event.type == 'mouseover'){
+				$(this).children('div').show();
+			}else if(event.type == 'mouseout'){
+				$(this).children('div').hide();
+			}
+		}
+	});
+
+	$('#jt-seller-expand-event-first div a').unbind('click');
+	$('#jt-seller-expand-event-first div a').bind('click', function(){
+		$('#jt-seller-expand-event-first').children('div').hide();
+		$('#jt-seller-expand-event-first').children('input').show();
+	});
+	
+	$('#jt-seller-expand-event-second div a').unbind('click');
+	$('#jt-seller-expand-event-second div a').bind('click', function(){
+		$('#jt-seller-expand-event-second').children('div').hide();
+		$('#jt-seller-expand-event-second').children('input').show();
+	});
+};

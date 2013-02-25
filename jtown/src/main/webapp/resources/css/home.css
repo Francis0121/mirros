@@ -16,7 +16,7 @@
 .jt-home-shop-footer-lastTalk{}
 #jt-home-center{}
 #jt-home-container{ margin: 0 auto;}
-.jt-home-shop-content{ float: left; width: 100%; font-size: 12px;}
+.jt-home-shop-content{ float: left; width: 100%; font-size: 12px; cursor: -webkit-zoom-in; cursor: -moz-zoom-in; }
 .jt-home-shop-content-image{ float: left; width: 100%;}
 .jt-home-shop-content-image>li{ float: left; width: 310px; padding: 3px; }
 .jt-home-shop-content-image>li>img{ float: left; width: 100%;}
