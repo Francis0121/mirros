@@ -88,7 +88,7 @@ public class AdminController {
 		return "admin/createSeller";
 	}
 	
-	@PreAuthorize("hasRole('ROLE_ADMIN")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/admin/cs", method = RequestMethod.POST)
 	public ModelAndView createSeller(@ModelAttribute JtownUser jtownUser, BindingResult result){
 		ModelAndView mav = new ModelAndView();

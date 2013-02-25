@@ -36,3 +36,12 @@
 *
 */
 .jt-seller-expand{ width: 640px; float: left; margin-left: 10px; }
+.jt-seller-expand-product-delete-tool{ float: left; width: 100%; display: none;}
+.jt-seller-product-delete{float: left; position: absolute; font-size: 12px; font-family: Gulim; font-weight: bold; color: #000; z-index: 10;}
+.jt-seller-product-delete:HOVER, .jt-seller-product-delete:VISITED, .jt-seller-product-delete:ACTIVE { color: #000; }
+.jt-seller-expand-product-insert-tool{float: left; width: 100%; font-size: 12px; display: none;}
+.jt-seller-expand-product-insert{float: left; position: absolute; }
+.jt-home-expand-shop-event-first>div{float : left; position: absolute; display:  none; font-size: 12px;}
+.jt-home-expand-shop-event-second>div{float : left; position: absolute; display:  none; font-size: 12px;}
+.jt-home-expand-shop-event-first>input{display: none;}
+.jt-home-expand-shop-event-second>input{display: none;}
