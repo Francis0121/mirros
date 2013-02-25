@@ -3,8 +3,6 @@ if (typeof jtown.expand == 'undefined') {
 }
 
 $(document).ready(function(){
-	jtown.expand.syncProductMove();
-	
 	jtown.expand.loadExpandShop();
 });
 
@@ -13,9 +11,11 @@ jtown.expand.loadExpandShop = function(){
 	$('.jt-home-shop-content').bind('click', function(){
 		$.smartPop.open({
 			width : 640,
-			height : 700,
+			height : 780,
 			html : jtown.expand.makeInnerHtml()
 		});
+		
+		setTimeout(jtown.expand.syncProductMove(), 1000);	
 	});
 };
 
@@ -33,14 +33,14 @@ jtown.expand.makeInnerHtml = function(){
 				for(var i=1; i<11; i++){
 					if(i<4){
 						html+=
-				'			<div class="jt-home-expand-shop-expandProduct" id="jt-product-${loop.count }">';	
+				'			<div class="jt-home-expand-shop-expandProduct" id="jt-product-'+i+'">';	
 					}else{
 						html+=	
-				'						<div class="jt-home-expand-shop-expandProduct" id="jt-product-${loop.count }" style="display: none;">';		
+				'			<div class="jt-home-expand-shop-expandProduct" id="jt-product-'+i+'" style="display: none;">';		
 					}
 						html+=
-				'			<img alt="상품" src="'+contextPath+'resources/uploadImage/Product-'+i+'.png"/>'+
-				'				</div>';
+				'				<img alt="상품" src="'+contextPath+'resources/uploadImage/Product-'+i+'.png"/>'+
+				'			</div>';
 				}
 				html+=
 				'		</li>'+
@@ -60,7 +60,7 @@ jtown.expand.makeInnerHtml = function(){
 				'					<a href="#none"class="jt-product-list"><img alt="상품" src="'+contextPath+'/resources/uploadImage/Product-'+i+'.png"/></a>'+
 				'				</li>';
 				}
-			html+=	
+				html+=	
 				'		</ul>'+
 				'	</div>'+
 				'	<div class="jt-home-expand-shop-event-first" id="jt-seller-expand-event-first">'+
@@ -68,6 +68,29 @@ jtown.expand.makeInnerHtml = function(){
 				'	</div>'+
 				'	<div class="jt-home-expand-shop-event-second" id="jt-seller-expand-event-second">'+
 				'		<img alt="event2" src="'+contextPath+'resources/uploadImage/event-2.png"/>'+
+				'	</div>'+
+				'	<ul class="jt-home-expand-shop-content-fn">'+
+				'		<li>'+
+				'			VIEW 3,000'+	
+				'		</li>'+
+				'		<li>'+
+				'			COMMENT 8'+
+				'		</li>'+
+				'		<li>'+
+				'			♥'+
+				'		</li>'+
+				'	</ul>'+
+				'	<div class="jt-home-expand-shop-comment-wrap">'+
+				'		<ul class="jt-home-expand-shop-comment">'+
+				'			<li><span class="jt-home-expand-shop-comment-name">김성근</span> 이 매장 정말 좋아요</li>'+
+				'			<li><span class="jt-home-expand-shop-comment-name">박광열</span> 상품 배송이 정말 빨랑</li>'+
+				'			<li><span class="jt-home-expand-shop-comment-name">이진섭</span> 대박쇼핑몰!!</li>'+
+				'			<li><span class="jt-home-expand-shop-comment-name">홍길동</span> 상품이 정말 많아요</li>'+
+				'			<li><span class="jt-home-expand-shop-comment-name">홍길동</span> 상품이 정말 많아요</li>'+
+				'		</ul>'+
+				'	</div>'+
+				'	<div class="jt-home-expand-shop-comment-insert">'+
+				'		<input type="text"/>'+
 				'	</div>'+
 				'</div>';
 	
