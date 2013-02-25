@@ -41,7 +41,7 @@ public class FileController {
 
 	@RequestMapping(value = "/file/upload.jt")
 	@ResponseBody
-	public void upload(@ModelAttribute MultipartFile multipartFile,
+	public void ajaxUpload(@ModelAttribute MultipartFile multipartFile,
 			BindingResult result, HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
 

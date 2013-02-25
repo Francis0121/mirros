@@ -18,7 +18,6 @@ $(document).ready(function() {
 	$('#representImageForm').ajaxForm({
 		success : function(data) {
 			jtown.seller.mainImage(getFile(data));
-			alert('이미지가 업로드 되었습니다');
 		},
 		error : function() {
 			alert('파일입력시 에러가 발생하였습니다.');
@@ -50,16 +49,29 @@ jtown.seller.syncMainNotice = function() {
 	$('#jt-seller-main-notice-update').unbind('click');
 	$('#jt-seller-main-notice-update').bind('click', function() {
 		$('#jt-seller-main-notice-update-tool').hide();
-		// Ajax 로 Return 된 값 넣어줌
-		$('#jt-seller-main-textarea').hide();
-		$('#jt-seller-main-footer-text').show();
+		var url = contextPath + '/ajax/seller/changeNotice.jt',
+			notice =  $('#jt-seller-main-textarea').val(),
+			json = { 'notice' : notice	};
+		
+		$.postJSON(url, json, function(){
+			return jQuery.ajax({
+				'success' : function(){
+					$('#jt-seller-main-textarea').hide();
+					$('#jt-seller-main-footer-text').html(notice).show();
+				},
+				'error' : function(){
+					$('#jt-seller-main-textarea').hide();
+					$('#jt-seller-main-footer-text').show();
+					alert('오류발생');
+				}
+			});
+		});
 	});
 
 	$('#jt-seller-main-notice-cancle').unbind('click');
 	$('#jt-seller-main-notice-cancle').bind('click', function() {
 		$('#jt-seller-main-notice-update-tool').hide();
-		// Ajax 로 Return 된 값 넣어줌
-		$('#jt-seller-main-textarea').hide().val();
+		$('#jt-seller-main-textarea').hide().val($('#jt-seller-main-footer-text').html());
 		$('#jt-seller-main-footer-text').show();
 	});
 };
@@ -86,16 +98,46 @@ jtown.seller.syncMainImage = function() {
 	$('#jt-seller-main-image-update').unbind('click');
 	$('#jt-seller-main-image-update').bind('click', function() {
 		$('#jt-seller-main-image-update-tool').hide();
+		jtown.seller.mainImageUpdate();
 	});
 
 	$('#jt-seller-main-image-cancle').unbind('click');
 	$('#jt-seller-main-image-cancle').bind('click', function() {
 		$('#jt-seller-main-image-update-tool').hide();
+		jtown.seller.mainImageCancle();
 	});
 };
 
 jtown.seller.mainImage = function(file) {
-	alert(file.saveName + ' ' + file.imagePn);
+	var oldSrc = $('#jt-seller-main-image-area').attr('src'),
+		newSrc = contextPath+'resources/uploadImage/'+file.saveName,
+		oldSrcObject = $('#jt-seller-main-image-area').attr('data-oldSrc');
+	$('#jt-seller-main-image-area').attr('src', newSrc).attr('data-imagePn', file.imagePn);
+	if(nullValueCheck(oldSrcObject)){
+		$('#jt-seller-main-image-area').attr('data-oldSrc', oldSrc);
+	}
+};
+
+jtown.seller.mainImageUpdate = function(){
+	var url = contextPath + 'ajax/seller/changeMainImage.jt',
+		json = { 'imagePn' : $('#jt-seller-main-image-area').attr('data-imagePn')};
+	
+	$.postJSON(url, json, function(){
+		return jQuery.ajax({
+			'success' : function(){
+				$('#jt-seller-main-image-area').attr('data-oldSrc', '').attr('data-imagePn', '');
+			},
+			'error' : function(){
+				alert("오류 발생!");
+			}
+		});
+	});
+};
+
+jtown.seller.mainImageCancle = function(){
+	var oldSrc = $('#jt-seller-main-image-area').attr('data-oldSrc');
+	$('#jt-seller-main-image-area').attr('src', oldSrc).attr('data-oldSrc', '').attr('data-imagePn', '');
+	$('#representImageForm #filedata').val('');
 };
 
 jtown.seller.syncProductList = function() {
@@ -130,18 +172,16 @@ jtown.seller.syncProductList = function() {
 
 jtown.seller.syncEvent = function() {
 
-	$('#jt-seller-expand-event-first, #jt-seller-expand-event-second').unbind(
-			'mouseover mouseout');
-	$('#jt-seller-expand-event-first, #jt-seller-expand-event-second').bind(
-			'mouseover mouseout', function() {
-				if ($(this).children('input').css('display') == 'none') {
-					if (event.type == 'mouseover') {
-						$(this).children('div').show();
-					} else if (event.type == 'mouseout') {
-						$(this).children('div').hide();
-					}
-				}
-			});
+	$('#jt-seller-expand-event-first, #jt-seller-expand-event-second').unbind('mouseover mouseout');
+	$('#jt-seller-expand-event-first, #jt-seller-expand-event-second').bind('mouseover mouseout', function() {
+		if ($(this).children('input').css('display') == 'none') {
+			if (event.type == 'mouseover') {
+				$(this).children('div').show();
+			} else if (event.type == 'mouseout') {
+				$(this).children('div').hide();
+			}
+		}
+	});
 
 	$('#jt-seller-expand-event-first div a').unbind('click');
 	$('#jt-seller-expand-event-first div a').bind('click', function() {

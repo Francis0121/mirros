@@ -11,7 +11,7 @@
 		<result column="view_count" property="viewCount"/>
 	</resultMap>
 
-	<select id="selectSellerInformation" parameterType="Integer" resultMap="jtown-seller-map">
+	<select id="selectSellerInformation" parameterType="java.lang.Integer" resultMap="jtown-seller-map">
 		SELECT
 			pn, shop_name, shop_url, notice, love_count, view_count
 		FROM
@@ -19,5 +19,42 @@
 		WHERE
 			pn = #{properNumber}
 	</select>
+	
+	<select id="selectSellerImage" parameterType="java.lang.Integer" resultType="java.lang.String">
+		SELECT
+			usin.save_name
+		FROM
+			user_seller_image_name usin
+		WHERE
+			usin.seller_pn = #{properNumber}
+	</select>
+	
+	<insert id="insertSellerImage" parameterType="com.bg.jtown.util.FileVO">
+		INSERT INTO
+			user_seller_image
+			(	seller_pn, image_pn, image_order	)
+		VALUES
+			(	#{ownerPn}, #{imagePn}, 1	)
+	</insert>
+	
+	<update id="updateSellerImage" parameterType="com.bg.jtown.util.FileVO">
+		UPDATE 
+			user_seller_image
+		SET
+			image_pn = #{imagePn} 
+		WHERE
+			seller_pn = #{ownerPn}
+		AND
+			image_order = 1
+	</update>
+	
+	<update id="updateSellerNotice" parameterType="com.bg.jtown.security.JtownUser">
+		UPDATE
+			user_seller
+		SET
+			notice = #{notice}
+		WHERE
+			pn = #{pn}
+	</update>
 	
 </mapper>

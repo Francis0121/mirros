@@ -9,11 +9,14 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bg.jtown.business.SellerService;
 import com.bg.jtown.security.JtownUser;
+import com.bg.jtown.util.FileVO;
 
 /**
  * @author Francis, 김성근
@@ -39,8 +42,27 @@ public class SellerControlller {
 			return "noPermission";
 		}
 		logger.debug("Show seller page");
-		JtownUser jtownUser = sellerService.selectSellerInformation(sellerPn);
-		model.addAttribute("jtownUser", jtownUser);
+		model.addAllAttributes(sellerService.selectAllInformation(sellerPn));
 		return "seller";
+	}
+
+	@PreAuthorize("hasRole('ROLE_SELLER')")
+	@RequestMapping(value = "/ajax/seller/changeMainImage.jt", method = RequestMethod.POST)
+	@ResponseBody
+	public void ajaxChangeMainImage(@RequestBody FileVO fileVO) {
+		JtownUser user = (JtownUser) SecurityContextHolder.getContext()
+				.getAuthentication().getPrincipal();
+		fileVO.setOwnerPn(user.getPn());
+		sellerService.updateSellerImage(fileVO);
+	}
+
+	@PreAuthorize("hasRole('ROLE_SELLER')")
+	@RequestMapping(value = "/ajax/seller/changeNotice.jt", method = RequestMethod.POST)
+	@ResponseBody
+	public void ajaxChangeNotice(@RequestBody JtownUser jtownUser) {
+		JtownUser user = (JtownUser) SecurityContextHolder.getContext()
+				.getAuthentication().getPrincipal();
+		jtownUser.setPn(user.getPn());
+		sellerService.updateSellerNotice(jtownUser);
 	}
 }

@@ -10,6 +10,9 @@
 <head>
 <title>J TOWN</title>
 <%@ include file="../layout/style.jspf"%>
+<style type="text/css">
+	.jt-home-shop-content{cursor: default;}
+</style>
 </head>
 <body>
 	<section class="jt-body">
@@ -59,8 +62,8 @@
 								<a href="#none" class="jt-seller-main-image-updateShow" id="jt-seller-main-image-updateShow">수정</a>
 							</li>
 							<li>
-								<c:url value="/resources/uploadImage/8.jpg" var="image"/>
-								<img alt="사진" src="${image }"/>	
+								<c:url value="/resources/uploadImage/${mainImage eq null ? '8.jpg' : mainImage}" var="image"/>
+								<img alt="" src="${image }" title="${jtownUser.shopName}" id="jt-seller-main-image-area"/>	
 							</li>
 							<li id="jt-seller-main-image-update-tool" class="jt-seller-main-image-update-tool">
 								<c:url value="/file/upload.jt" var="upload"/>
@@ -88,10 +91,8 @@
 							<a href="#none" id="jt-seller-main-notice-updateShow" class="jt-seller-main-notice-updateShow">수정</a>
 						</div>
 						<span class="jt-home-shop-footer-firstQuotationMark">"</span>
-						<span id="jt-seller-main-footer-text" class="jt-home-shop-footer-text">
-							감독이 선수단 숙소에서 함께 생활한다? 프로 야구단에서 상상하기 어려운 풍경이다. 더구나 현역 최고령 김응용 감독
-						</span>
-						<textarea id="jt-seller-main-textarea" class="jt-seller-main-textarea" maxlength="80">감독이 선수단 숙소에서 함께 생활한다? 프로 야구단에서 상상하기 어려운 풍경이다. 더구나 현역 최고령 김응용 감독</textarea>
+						<pre id="jt-seller-main-footer-text" class="jt-home-shop-footer-text"><c:out value="${jtownUser.notice }"/></pre>
+						<textarea id="jt-seller-main-textarea" class="jt-seller-main-textarea" maxlength="80"><c:out value="${jtownUser.notice }"/></textarea>
 						<div class="jt-seller-main-notice-update-tool" id="jt-seller-main-notice-update-tool">
 							<a href="#none" id="jt-seller-main-notice-update" class="jt-seller-main-notice-update">수정</a>
 							<a href="#none" id="jt-seller-main-notice-cancle" class="jt-seller-main-notice-cancle">취소</a>
