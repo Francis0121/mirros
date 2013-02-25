@@ -1,6 +1,5 @@
 package com.bg.jtown.security;
 
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -17,11 +16,9 @@ import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.authentication.dao.SaltSource;
 import org.springframework.security.authentication.encoding.PasswordEncoder;
 import org.springframework.security.core.Authentication;
@@ -43,6 +40,7 @@ public class CustomJdbcUserDetailManager extends JdbcUserDetailsManager  {
 
 	protected final Logger logger = LoggerFactory.getLogger(getClass());
 
+	@SuppressWarnings("unused")
 	private AuthenticationManager authenticationManager;
 	private PasswordEncoder passwordEncoder;
 	private SaltSource saltSource;

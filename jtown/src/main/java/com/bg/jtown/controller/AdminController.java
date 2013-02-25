@@ -16,11 +16,9 @@ import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.bg.jtown.business.AdminService;
 import com.bg.jtown.business.Interest;
-import com.bg.jtown.controller.validator.VaildationUtil;
 import com.bg.jtown.security.JtownUser;
 
 /**
@@ -32,10 +30,9 @@ public class AdminController {
 
 	private static final Logger logger = LoggerFactory
 			.getLogger(AdminController.class);
-	
-	@Resource(name="adminServiceImpl")
+
+	@Resource(name = "adminServiceImpl")
 	private AdminService adminService;
-	
 
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/admin", method = RequestMethod.GET)
@@ -81,43 +78,50 @@ public class AdminController {
 
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/admin/cs", method = RequestMethod.GET)
-	public String showCreatSellerPage(Model model, @ModelAttribute JtownUser jtownUser) {
+	public String showCreatSellerPage(Model model,
+			@ModelAttribute JtownUser jtownUser) {
 		logger.debug("Show createSeller Page");
-		
-		List<Interest> interestCategoryList = adminService.getInterestCategoryList();  
+
+		List<Interest> interestCategoryList = adminService
+				.getInterestCategoryList();
 		model.addAttribute("categoryList", interestCategoryList);
-		
+
 		return "admin/createSeller";
 	}
-	
+
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/admin/cs", method = RequestMethod.POST)
-	public String formCreateSeller(Model model, @ModelAttribute JtownUser jtownUser, BindingResult result){	
+	public String formCreateSeller(Model model,
+			@ModelAttribute JtownUser jtownUser, BindingResult result) {
 		logger.debug(jtownUser.toString());
 		new Validator() {
-			
+
 			@Override
 			public void validate(Object target, Errors errors) {
-				JtownUser jtownUser = (JtownUser)target;
-				
-				ValidationUtils.rejectIfEmptyOrWhitespace(errors, "shopName", "create.seller.shopName.empty");
-				ValidationUtils.rejectIfEmptyOrWhitespace(errors, "shopUrl", "create.seller.shopUrl.empty");
-				ValidationUtils.rejectIfEmptyOrWhitespace(errors, "interestSectionList", "create.seller.interestSection.notAllow");				
+
+				ValidationUtils.rejectIfEmptyOrWhitespace(errors, "shopName",
+						"create.seller.shopName.empty");
+				ValidationUtils.rejectIfEmptyOrWhitespace(errors, "shopUrl",
+						"create.seller.shopUrl.empty");
+				ValidationUtils.rejectIfEmptyOrWhitespace(errors,
+						"interestSectionList",
+						"create.seller.interestSection.notAllow");
 			}
-			
+
 			@Override
 			public boolean supports(Class<?> clazz) {
 				return JtownUser.class.isAssignableFrom(clazz);
 			}
 		}.validate(jtownUser, result);
-		
-		if(!result.hasErrors()){
+
+		if (!result.hasErrors()) {
 			adminService.createSeller(jtownUser);
 			return "admin/main";
 		} else {
-			List<Interest> interestCategoryList = adminService.getInterestCategoryList();  
+			List<Interest> interestCategoryList = adminService
+					.getInterestCategoryList();
 			model.addAttribute("categoryList", interestCategoryList);
-			
+
 			return "admin/createSeller";
 		}
 	}
