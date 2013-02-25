@@ -4,6 +4,8 @@ if (typeof jtown.expand == 'undefined') {
 
 $(document).ready(function(){
 	jtown.expand.loadExpandShop();
+	
+	jtown.expand.syncProductMove();
 });
 
 jtown.expand.loadExpandShop = function(){
