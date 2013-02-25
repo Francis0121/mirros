@@ -16,7 +16,7 @@
 .jt-home-shop-footer-lastTalk{}
 #jt-home-center{}
 #jt-home-container{ margin: 0 auto;}
-.jt-home-shop-content{ float: left; width: 100%; font-size: 12px;}
+.jt-home-shop-content{ float: left; width: 100%; font-size: 12px; cursor: -webkit-zoom-in; cursor: -moz-zoom-in; }
 .jt-home-shop-content-image{ float: left; width: 100%;}
 .jt-home-shop-content-image>li{ float: left; width: 310px; padding: 3px; }
 .jt-home-shop-content-image>li>img{ float: left; width: 100%;}
@@ -41,9 +41,9 @@
 .jt-home-expand-shop-rigthArrow{}
 .jt-home-expand-shop-rigthArrow>a{ width: 60px; height: 160px; background: url("../images/jt-expand-right-arrow.png"); display: block; text-indent: -9999px;}
 .jt-home-expand-shop-expandProduct-slide{ width: 510px; float: left; overflow: hidden;}
-.jt-home-expand-shop-expandProduct{ width: 170px; float:left;}
+.jt-home-expand-shop-expandProduct{ width: 170px; float:left; position: relative;}
 .jt-home-expand-shop-expandProduct>img{ width: 160px; height: 160px; padding: 5px; float:left;}
-.jt-home-expand-shop-products{ width : 100%; height: 130px; float: left; border-bottom: 2px solid #999999;}
+.jt-home-expand-shop-products{ width : 100%; min-height: 130px; float: left; border-bottom: 2px solid #999999;}
 .jt-home-expand-shop-products>ul{ float: left; margin: 15px;}
 .jt-home-expand-shop-products>ul>li{ float: left; margin-right: 5px;}
 .jt-home-expand-shop-products>ul>li>a{ float: left; display: block; width: 50px; height: 50px;}
@@ -53,3 +53,10 @@
 .jt-home-expand-shop-event-first>img{width: 310px; height: 150px; margin: 2px;}
 .jt-home-expand-shop-event-second{ width: 314px; height: 154px; float: left; border-left: 1px solid #999999;}
 .jt-home-expand-shop-event-second>img{width: 310px; height: 150px; margin: 2px;}
+.jt-home-expand-shop-content-fn{ width: 100%; float:left; font-size: 12px; font-family: Arial; border-top: 2px solid #999999; height: 40px;}
+.jt-home-expand-shop-content-fn>li{ float: left; width: 33.3%; text-align: center; height: 15px; padding: 15px 0 0 0;}
+.jt-home-expand-shop-comment-wrap{width: 100%; float: left; border-top: 2px solid #999999; font-size: 12px; font-family: Gulim; overflow-y:scroll;  height: 120px;}
+.jt-home-expand-shop-comment{width: 100%; float: left; ; }
+.jt-home-expand-shop-comment>li{float: left; height: 20px; width: 100%; padding: 2px 0;}
+.jt-home-expand-shop-comment-name{color: #143180;}
+.jt-home-expand-shop-comment-insert>input{width: 620px; border: 2px solid #808080; margin: 1px; padding: 2px; }
