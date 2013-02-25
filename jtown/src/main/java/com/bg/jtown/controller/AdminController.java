@@ -88,26 +88,14 @@ public class AdminController {
 		return "admin/createSeller";
 	}
 	
-	@PreAuthorize("hasRole('ROLE_ADMIN")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/admin/cs", method = RequestMethod.POST)
-	public ModelAndView createSeller(@ModelAttribute JtownUser jtownUser, BindingResult result){
-		ModelAndView mav = new ModelAndView();
+	public String createSeller(Model model, @ModelAttribute JtownUser jtownUser){	
+		logger.debug(jtownUser.toString());
 		
-		new Validator() {
-			
-			@Override
-			public void validate(Object target, Errors errors) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public boolean supports(Class<?> clazz) {
-				return JtownUser.class.isAssignableFrom(clazz);
-			}
-		}.validate(jtownUser, result);
+		adminService.createSeller(jtownUser);
 		
-		return mav;	
+		return "admin/main";
 	}
 
 	@PreAuthorize("hasRole('ROLE_ADMIN')")

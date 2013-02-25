@@ -363,6 +363,8 @@ public class JtownUser implements JtownDetails, CredentialsContainer {
         sb.append("notice: ").append(this.notice).append("; ");
         sb.append("loveCount: ").append(this.loveCount).append("; ");
         sb.append("viewCount: ").append(this.viewCount).append("; ");
+        sb.append("interestCategory : ").append(this.interestCategory).append("; ");
+        sb.append("interestSectionList : ").append(this.interestSectionList).append("; ");
 
         if (!authorities.isEmpty()) {
             sb.append("Granted Authorities: ");

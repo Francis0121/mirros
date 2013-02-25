@@ -13,4 +13,40 @@
 		FROM
 			interest_category
 	</select>
+	
+	<select id="interestSectionPn" parameterType="String" resultType="Integer">
+		SELECT
+			pn
+		FROM
+			interest_section
+		WHERE
+			name = #{interest}
+	</select>
+	
+	<insert id="insertInterestSection" parameterType="com.bg.jtown.business.Interest">
+		INSERT INTO
+			interest_section
+			(
+				category_pn, name
+			)
+		VALUES
+			(
+				#{categoryPn}, #{name}
+			)
+		<selectKey keyProperty="sectionPn" resultType="Integer">
+			SELECT LAST_INSERT_ID()
+		</selectKey>			
+	</insert>
+	
+	<insert id="insertUserInterest" parameterType="com.bg.jtown.business.Interest">
+		INSERT INTO
+			user_seller_interest
+			(
+				seller_pn, section_pn
+			)
+		VALUES
+			(
+				#{sellerPn}, #{sectionPn}
+			)
+	</insert>
 </mapper>

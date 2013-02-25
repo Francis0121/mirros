@@ -12,4 +12,6 @@ public interface LoginService {
 	int findGroupdId(String group);
 
 	void addUserToGroup(Map<String, Integer> groupMap);
+
+	Integer createUserSeller(JtownUser jtownUser);
 }

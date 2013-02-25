@@ -32,6 +32,15 @@ public class LoginServiceImpl extends SqlSessionDaoSupport implements LoginServi
 	}
 	
 	@Override
+	public Integer createUserSeller(JtownUser jtownUser) {
+		getSqlSession().insert("LoginMapper.insertUsers", jtownUser);
+
+		getSqlSession().insert("LoginMapper.insertUserSeller", jtownUser);
+		
+		return jtownUser.getPn();
+	}
+	
+	@Override
 	public int findGroupdId(String group) {
 		return getSqlSession().selectOne("LoginMapper.findGroupId", group);
 	}

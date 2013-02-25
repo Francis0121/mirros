@@ -50,7 +50,7 @@
 				 - 판매자
 			</li>
 			<li>
-				<c:url value="/admin/sc" var="creatSellerUrl" />
+				<c:url value="/admin/cs" var="creatSellerUrl" />
 				<a href="${creatSellerUrl }" > - - 판매자 생성</a>
 			</li>	
 			<li>

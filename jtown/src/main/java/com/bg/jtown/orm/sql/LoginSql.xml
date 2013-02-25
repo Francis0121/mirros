@@ -37,6 +37,18 @@
 			)			
 	</insert>
 	
+	<insert id="insertUserSeller" parameterType="com.bg.jtown.security.JtownUser">
+		INSERT
+			user_seller
+			(
+				pn, shop_name, shop_url
+			)		
+		VALUES
+			(
+				#{pn}, #{shopName}, #{shopUrl}
+			)
+	</insert>	
+	
 	<select id="findGroupId" parameterType="String" resultType="Integer">
 		SELECT
 			id

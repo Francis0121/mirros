@@ -173,6 +173,14 @@ public class CustomJdbcUserDetailManager extends JdbcUserDetailsManager  {
 	public void setEnableGroups(boolean enableGroups) {
 		this.enableGroups = enableGroups;
 	}
+	
+	public Integer createUserSellerAndAuthority(JtownUser jtownUser) {
+		Integer pn = createUserSeller(jtownUser);
+		
+		addUserToGroup(jtownUser.getPn(), "Seller");
+		
+		return pn;
+	}
 
 	public void createUserCustomAndAuthority(JtownUser jtownUser) {
 		creatUserCustomer(jtownUser);
@@ -196,6 +204,26 @@ public class CustomJdbcUserDetailManager extends JdbcUserDetailsManager  {
 		jtownUser.setPassword(encodedPassword);
 		
 		loginService.creatUserCustomer(jtownUser);
+	}
+	
+	private Integer createUserSeller(JtownUser jtownUser){
+		// PasswordEncoder SaltSource
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",
+				Locale.KOREA);
+		Date date = new Date();
+		String salt = sdf.format(date);
+		jtownUser.setSalt(salt);
+		
+		jtownUser.setUsername(jtownUser.getShopUrl());
+		jtownUser.setPassword("admin" + salt);
+		
+		logger.debug(jtownUser.toString());
+		
+		String encodedPassword = passwordEncoder.encodePassword(jtownUser.getPassword(), saltSource.getSalt(jtownUser));
+		jtownUser.setPassword(encodedPassword);
+		
+		return loginService.createUserSeller(jtownUser);
+		
 	}
 	
 	private void addUserToGroup(Integer userPn, String groupName) {
