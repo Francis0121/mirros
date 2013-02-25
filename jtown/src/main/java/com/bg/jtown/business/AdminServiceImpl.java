@@ -31,14 +31,14 @@ public class AdminServiceImpl extends SqlSessionDaoSupport implements
 		// insert user_interest
 		String [] interestSection = jtownUser.getInterestSectionList().trim().split(",");
 		
-		Interest interestParam = new Interest();
+		Interest interestParam;
 		
 		for( String interest : interestSection){
 			Integer pn = getSqlSession().selectOne("AdminMapper.interestSectionPn", interest);
 			
 			if(pn != null){
-				interestParam.setCategoryPn(Integer.parseInt(jtownUser.getInterestCategory()));
-				interestParam.setSectionPn(pn);				
+				interestParam = new Interest(sellerPn, Integer.parseInt(jtownUser.getInterestCategory()), pn, null);			
+				
 			} else {							
 				interestParam = new Interest(sellerPn, Integer.parseInt(jtownUser.getInterestCategory()), null, interest);
 				getSqlSession().insert("AdminMapper.insertInterestSection", interestParam);

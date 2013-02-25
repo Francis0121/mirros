@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -65,7 +66,7 @@ public class LoginController {
 	}
 	
 	@RequestMapping(value = "/login/joinSubmit", method = RequestMethod.POST)
-	public ModelAndView joinSubmit(@ModelAttribute JtownUser jtownUser,
+	public ModelAndView formJoinSubmit(@ModelAttribute JtownUser jtownUser,
 			@RequestParam("confirmPassword") final String confirmPassword,
 			BindingResult result,
 			HttpServletRequest request, HttpServletResponse response){
@@ -110,6 +111,47 @@ public class LoginController {
 		}
 		
 		return mav;
+	}
+	
+	@PreAuthorize("hasRole('ROLE_USER')")
+	@RequestMapping(value = "/login/modify", method = RequestMethod.GET)
+	public String showModifyPage(@ModelAttribute JtownUser jtownUser){				
+		return "login/modify";
+	}
+	
+	@PreAuthorize("hasRole('ROLE_USER')")
+	@RequestMapping(value = "/login/modify", method = RequestMethod.POST)
+	public String formPassword(@ModelAttribute JtownUser jtownUser, @RequestParam final String confirmPassword, BindingResult result){
+		
+		new Validator() {			
+			@Override
+			public void validate(Object target, Errors errors) {
+				JtownUser jtownUser = (JtownUser)target;
+				if(customJdbcUserDetailManager.confirmPassword(jtownUser)){
+					errors.rejectValue("password", "change.password.notEqualPassword");
+				}
+				
+				if(VaildationUtil.checkNullAndBlank(jtownUser.getNewPassword())){
+					errors.rejectValue("newPassword", "join.password.empty");
+				}else if (VaildationUtil.confirmPassword(jtownUser.getNewPassword(), confirmPassword)){
+					errors.rejectValue("newPassword", "join.password.isNotEqual");
+				}
+				
+			}
+			
+			@Override
+			public boolean supports(Class<?> clazz) {
+				return JtownUser.class.isAssignableFrom(clazz);
+			}
+		}.validate(jtownUser, result);		
+		
+		if(!result.hasErrors()){
+			customJdbcUserDetailManager.changePassword(jtownUser.getPassword(), jtownUser.getNewPassword());
+			
+			return "home";
+		} else {
+			return "login/modify";
+		}
 	}
 
 }

@@ -9,6 +9,8 @@ $(document).ready(function() {
 	jtown.login.joinFormSubmit();
 	
 	jtown.login.nickNameLength();
+	
+	jtown.login.changePasswordSubmit();
 });
 
 if (typeof jtown.login == 'undefined') {
@@ -92,6 +94,14 @@ jtown.login.nickNameLength = function(){
 jtown.login.joinFormSubmit = function() {
 	$('.jt-join-submit').unbind('click');
 	$('.jt-join-submit').bind('click', function() {
+		var form = document.forms['jtownUser'];
+		form.submit();
+	});
+};
+
+jtown.login.changePasswordSubmit = function(){
+	$('.jt-change-password-btn').unbind('click');
+	$('.jt-change-password-btn').bind('click', function(){
 		var form = document.forms['jtownUser'];
 		form.submit();
 	});

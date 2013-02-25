@@ -70,4 +70,14 @@
 			)
 
 	</insert>
+	
+	<update id="changePassword" parameterType="com.bg.jtown.security.JtownUser">
+		UPDATE
+			users
+		SET
+			password = #{newPassword},
+			salt = #{salt}
+		WHERE
+			id = #{username}
+	</update>
 </mapper>

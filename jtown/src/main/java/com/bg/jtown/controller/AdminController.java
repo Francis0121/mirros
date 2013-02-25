@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
+import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.bg.jtown.business.AdminService;
 import com.bg.jtown.business.Interest;
+import com.bg.jtown.controller.validator.VaildationUtil;
 import com.bg.jtown.security.JtownUser;
 
 /**
@@ -90,12 +92,34 @@ public class AdminController {
 	
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/admin/cs", method = RequestMethod.POST)
-	public String createSeller(Model model, @ModelAttribute JtownUser jtownUser){	
+	public String formCreateSeller(Model model, @ModelAttribute JtownUser jtownUser, BindingResult result){	
 		logger.debug(jtownUser.toString());
+		new Validator() {
+			
+			@Override
+			public void validate(Object target, Errors errors) {
+				JtownUser jtownUser = (JtownUser)target;
+				
+				ValidationUtils.rejectIfEmptyOrWhitespace(errors, "shopName", "create.seller.shopName.empty");
+				ValidationUtils.rejectIfEmptyOrWhitespace(errors, "shopUrl", "create.seller.shopUrl.empty");
+				ValidationUtils.rejectIfEmptyOrWhitespace(errors, "interestSectionList", "create.seller.interestSection.notAllow");				
+			}
+			
+			@Override
+			public boolean supports(Class<?> clazz) {
+				return JtownUser.class.isAssignableFrom(clazz);
+			}
+		}.validate(jtownUser, result);
 		
-		adminService.createSeller(jtownUser);
-		
-		return "admin/main";
+		if(!result.hasErrors()){
+			adminService.createSeller(jtownUser);
+			return "admin/main";
+		} else {
+			List<Interest> interestCategoryList = adminService.getInterestCategoryList();  
+			model.addAttribute("categoryList", interestCategoryList);
+			
+			return "admin/createSeller";
+		}
 	}
 
 	@PreAuthorize("hasRole('ROLE_ADMIN')")

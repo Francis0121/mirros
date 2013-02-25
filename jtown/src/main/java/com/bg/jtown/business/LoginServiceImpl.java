@@ -49,4 +49,9 @@ public class LoginServiceImpl extends SqlSessionDaoSupport implements LoginServi
 	public void addUserToGroup(Map<String, Integer> groupMap) {
 		getSqlSession().insert("LoginMapper.addUserToGroup", groupMap);		
 	}
+	
+	@Override
+	public void changePassword(JtownUser jtownUser) {
+		getSqlSession().update("LoginMapper.changePassword", jtownUser);
+	}
 }

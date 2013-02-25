@@ -19,12 +19,17 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.authentication.dao.SaltSource;
 import org.springframework.security.authentication.encoding.PasswordEncoder;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserCache;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -45,6 +50,8 @@ public class CustomJdbcUserDetailManager extends JdbcUserDetailsManager  {
 
 	private boolean enableAuthorities;
 	private boolean enableGroups;
+	
+	private UserCache userCache = new NullUserCache();
 
 	@Autowired
 	private void config(PasswordEncoder passwordEncoder, SaltSource saltSource, LoginService loginService) {
@@ -187,6 +194,56 @@ public class CustomJdbcUserDetailManager extends JdbcUserDetailsManager  {
 		
 		addUserToGroup(jtownUser.getPn(), "Customer");
 	}
+	
+	@Override
+	public void changePassword(String oldPassword, String newPassword)
+			throws AuthenticationException {
+		Authentication currentUser = SecurityContextHolder.getContext().getAuthentication();
+
+        if (currentUser == null) {
+            // This would indicate bad coding somewhere
+            throw new AccessDeniedException("Can't change password as no Authentication object found in context " +
+                    "for current user.");
+        }
+
+        String username = currentUser.getName();
+        
+        JtownUser jtownUser = (JtownUser) loadUserByUsername(username);
+        
+        // PasswordEncoder SaltSource
+ 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",
+ 				Locale.KOREA);
+ 		Date date = new Date();
+ 		String salt = sdf.format(date);
+ 		jtownUser.setSalt(salt);
+    
+        String encodedPassword = passwordEncoder.encodePassword(newPassword, saltSource.getSalt(jtownUser));
+        jtownUser.setNewPassword(encodedPassword);
+        
+        loginService.changePassword(jtownUser);        
+        
+		SecurityContextHolder.getContext().setAuthentication(
+				createNewAuthentication(currentUser, newPassword));
+
+		userCache.removeUserFromCache(username);        
+	}
+	
+	public boolean confirmPassword(JtownUser jtownUser) {
+		Authentication currentUser = SecurityContextHolder.getContext().getAuthentication();
+		
+		String username = currentUser.getName();
+		String oldPassword = jtownUser.getPassword();
+		
+		JtownUser confirmUserInfo = (JtownUser)loadUserByUsername(username);
+		
+		String encodedPassword = passwordEncoder.encodePassword(oldPassword, saltSource.getSalt(confirmUserInfo));
+		
+		if( encodedPassword.equals(confirmUserInfo.getPassword())){
+			return false;
+		} else {
+			return true;
+		}
+	}
 
 	private void creatUserCustomer(JtownUser jtownUser) {
 		validateUserDetails(jtownUser);
@@ -214,8 +271,9 @@ public class CustomJdbcUserDetailManager extends JdbcUserDetailsManager  {
 		String salt = sdf.format(date);
 		jtownUser.setSalt(salt);
 		
-		jtownUser.setUsername(jtownUser.getShopUrl());
-		jtownUser.setPassword("admin" + salt);
+		String ran = new SimpleDateFormat("yyyyMMddHHmmss", Locale.KOREA).format(date);
+		jtownUser.setUsername("seller" + ran);
+		jtownUser.setPassword("seller" + ran);
 		
 		logger.debug(jtownUser.toString());
 		
