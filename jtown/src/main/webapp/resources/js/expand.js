@@ -9,13 +9,17 @@ $(document).ready(function(){
 jtown.expand.loadExpandShop = function(){
 	$('.jt-home-shop-content').unbind('click');
 	$('.jt-home-shop-content').bind('click', function(){
-		$.smartPop.open({
-			width : 640,
-			height : 780,
-			html : jtown.expand.makeInnerHtml()
-		});
+		var $parent = $(this).parents('.jt-seller-main');
 		
-		setTimeout(jtown.expand.syncProductMove(), 1000);	
+		if(nullValueCheck($parent.html())){
+			$.smartPop.open({
+				width : 640,
+				height : 780,
+				html : jtown.expand.makeInnerHtml()
+			});
+			
+			setTimeout(jtown.expand.syncProductMove(), 1000);	
+		}
 	});
 };
 

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sellerMapper">
+
+	<resultMap type="com.bg.jtown.security.JtownUser" id="jtown-seller-map">
+		<result column="pn" property="pn"/>
+		<result column="shop_name" property="shopName"/>
+		<result column="shop_url" property="shopUrl"/>
+		<result column="notice" property="notice"/>
+		<result column="love_count" property="loveCount"/>
+		<result column="view_count" property="viewCount"/>
+	</resultMap>
+
+	<select id="selectSellerInformation" parameterType="Integer" resultMap="jtown-seller-map">
+		SELECT
+			pn, shop_name, shop_url, notice, love_count, view_count
+		FROM
+			user_seller
+		WHERE
+			pn = #{properNumber}
+	</select>
+	
+</mapper>

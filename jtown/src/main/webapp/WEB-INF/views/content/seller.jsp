@@ -16,7 +16,7 @@
 		<header class="jt-header">
 			<div class="jt-header-title">
 				<div class="jt-header-banner">
-					<a href="${cp }"><h1>J Town</h1></a>
+					<a href="${cp }seller/<c:out value="${jtownUser.pn}"/>"><h1>J Town</h1></a>
 				</div>
 				<menu class="jt-header-login-menu">
 					<li>
@@ -43,15 +43,15 @@
 		<article class="jt-seller-content">
 			<header>
 				<ul>
-					<li>Teacher's Fitting Shop</li>
-					<li>www.jogunshop.com</li>
+					<li><c:out value="${jtownUser.shopName }"/></li>
+					<li><c:out value="${jtownUser.shopUrl}"/></li>
 					<li>관심사 : 남성, 댄디, 힙합, 패션</li>
 				</ul>
 			</header>
 			<section class="jt-seller-main">
 				<div class="jt-home-shop">
 					<header>
-						<a href="#none">Teacher's Fitting Shop</a>
+						<a href="#none" onclick="window.open('${jtownUser.shopUrl }');"><c:out value="${jtownUser.shopName }"/></a>
 					</header>
 					<div class="jt-home-shop-content">
 						<ul class="jt-home-shop-content-image" id="jt-seller-main-image">
@@ -63,20 +63,23 @@
 								<img alt="사진" src="${image }"/>	
 							</li>
 							<li id="jt-seller-main-image-update-tool" class="jt-seller-main-image-update-tool">
-								<input type="file"/><br/>
+								<c:url value="/file/upload.jt" var="upload"/>
+								<form name="representImageForm" id="representImageForm" method="POST" enctype="multipart/form-data" action="${upload }">
+									<input type="file" id="filedata" name="filedata" onchange="$('#representImageForm').submit();" />
+								</form><br/>
 								<a href="#none" id="jt-seller-main-image-update">수정</a>
 								<a href="#none" id="jt-seller-main-image-cancle">취소</a>
 							</li>
 						</ul>
 						<ul class="jt-home-shop-content-fn">
 							<li>
-								VIEW 3,000	
+								VIEW <c:out value="${jtownUser.viewCount eq null ? 0 : jtownUser.viewCount}"/>	
 							</li>
 							<li>
-								COMMENT 8
+								COMMENT 
 							</li>
 							<li>
-								♥
+								♥ <c:out value="${jtownUser.loveCount eq null ? 0 : jtownUser.loveCount}"/>
 							</li>
 						</ul>
 					</div>
@@ -100,7 +103,7 @@
 			<section class="jt-seller-expand">
 				<div class="jt-home-expand-shop" id="jt-home-expand-shop" data-size="10" data-nowPosition="2">
 					<header>
-						<a href="#none">Teacher's Fitting Shop</a>
+						<a href="#none"><c:out value="${jtownUser.shopName }"/></a>
 					</header>
 					<ul class="jt-home-expand-shop-expandProducts">
 						<li class="jt-home-expand-shop-leftArrow jt-home-expand-shop-arrow">
