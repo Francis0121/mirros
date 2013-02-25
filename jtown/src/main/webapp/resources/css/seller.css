@@ -41,7 +41,5 @@
 .jt-seller-product-delete:HOVER, .jt-seller-product-delete:VISITED, .jt-seller-product-delete:ACTIVE { color: #000; }
 .jt-seller-expand-product-insert-tool{float: left; width: 100%; font-size: 12px; display: none;}
 .jt-seller-expand-product-insert{float: left; position: absolute; }
-.jt-home-expand-shop-event-first>div{float : left; position: absolute; display:  none; font-size: 12px;}
-.jt-home-expand-shop-event-second>div{float : left; position: absolute; display:  none; font-size: 12px;}
-.jt-home-expand-shop-event-first>input{display: none;}
-.jt-home-expand-shop-event-second>input{display: none;}
+.jt-home-expand-shop-event-tool{float : left; position: absolute; display:  none; font-size: 12px;}
+.jt-home-expand-shop-event-update-wrap{ font-size: 12px; display: none; float: left; position: absolute; width: 314px; height: 154px; background: rgba(255, 255, 255, 0.5); }

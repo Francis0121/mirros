@@ -174,24 +174,25 @@ jtown.seller.syncEvent = function() {
 
 	$('#jt-seller-expand-event-first, #jt-seller-expand-event-second').unbind('mouseover mouseout');
 	$('#jt-seller-expand-event-first, #jt-seller-expand-event-second').bind('mouseover mouseout', function() {
-		if ($(this).children('input').css('display') == 'none') {
+		if ($(this).children('.jt-home-expand-shop-event-update-wrap').css('display') == 'none') {
 			if (event.type == 'mouseover') {
-				$(this).children('div').show();
+				$(this).children('.jt-home-expand-shop-event-tool').show();
 			} else if (event.type == 'mouseout') {
-				$(this).children('div').hide();
+				$(this).children('.jt-home-expand-shop-event-tool').hide();
 			}
 		}
 	});
 
-	$('#jt-seller-expand-event-first div a').unbind('click');
-	$('#jt-seller-expand-event-first div a').bind('click', function() {
-		$('#jt-seller-expand-event-first').children('div').hide();
-		$('#jt-seller-expand-event-first').children('input').show();
+	$('.jt-home-expand-shop-event-tool').unbind('click');
+	$('.jt-home-expand-shop-event-tool').bind('click', function() {
+		$(this).parents('.jt-home-expand-shop-event').children('.jt-home-expand-shop-event-tool').hide();
+		$(this).parents('.jt-home-expand-shop-event').children('.jt-home-expand-shop-event-update-wrap').show();
 	});
+	
+	$('.jt-home-expand-shop-event-update-cancle').unbind('click');
+	$('.jt-home-expand-shop-event-update-cancle').bind('click', function(){
+		$(this).parents('.jt-home-expand-shop-event').children('.jt-home-expand-shop-event-update-wrap').hide();
+	});
+	
 
-	$('#jt-seller-expand-event-second div a').unbind('click');
-	$('#jt-seller-expand-event-second div a').bind('click', function() {
-		$('#jt-seller-expand-event-second').children('div').hide();
-		$('#jt-seller-expand-event-second').children('input').show();
-	});
 };
