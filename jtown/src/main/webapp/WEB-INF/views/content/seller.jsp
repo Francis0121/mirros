@@ -48,7 +48,15 @@
 				<ul>
 					<li><c:out value="${jtownUser.shopName }"/></li>
 					<li><c:out value="${jtownUser.shopUrl}"/></li>
-					<li>관심사 : 남성, 댄디, 힙합, 패션</li>
+					<li>
+						관심사 : 
+						<c:forEach items="${interestes }" var="interest" varStatus="loop">
+							<c:out value="${interest }"/>
+							<c:if test="${loop.count ne fn:length(interestes) }">
+								,
+							</c:if>
+						</c:forEach>
+					</li>
 				</ul>
 			</header>
 			<section class="jt-seller-main">
@@ -66,10 +74,8 @@
 								<img alt="" src="${image }" title="${jtownUser.shopName}" id="jt-seller-main-image-area"/>	
 							</li>
 							<li id="jt-seller-main-image-update-tool" class="jt-seller-main-image-update-tool">
-								<c:url value="/file/upload.jt" var="upload"/>
-								<form name="representImageForm" id="representImageForm" method="POST" enctype="multipart/form-data" action="${upload }">
-									<input type="file" id="filedata" name="filedata" onchange="$('#representImageForm').submit();" />
-								</form><br/>
+								<input type="file" id="jt-represent-image" name="jt-represent-image"/>
+								<br/>
 								<a href="#none" id="jt-seller-main-image-update">수정</a>
 								<a href="#none" id="jt-seller-main-image-cancle">취소</a>
 							</li>
@@ -132,9 +138,10 @@
 					<div class="jt-home-expand-shop-products">
 						<div class="jt-seller-expand-product-insert-tool">
 							<div class="jt-seller-expand-product-insert">
-								상품등록 <input type="file"/>
+								
 							</div>
 						</div>
+						 <input type="file" id="jt-product-file" name="jt-product-file"/>
 						<h2>Products</h2>
 						<ul>
 							<c:forEach begin="0" end="9" varStatus="loop">
@@ -148,29 +155,31 @@
 							</c:forEach>
 						</ul>
 					</div>
-					<div class="jt-home-expand-shop-event" id="jt-seller-expand-event-first">
+					<div class="jt-home-expand-shop-event" id="jt-seller-expand-event-first" data-epn="<c:out value="${event1.pn }"/>" data-bo="1">
 						<div class="jt-home-expand-shop-event-tool">
 							<a href="#none">수정</a>
 						</div>
 						<div class="jt-home-expand-shop-event-update-wrap">
-							<input type="file"/><br/>
+							310 X 150 (pixel) <br/>
+							<input type="file" id="jt-event-first-image" name="jt-event-first-image"/><br/>
 							<a href="#none" class="jt-home-expand-shop-event-update-done">수정</a>
 							<a href="#none" class="jt-home-expand-shop-event-update-cancle">취소</a>
 						</div>
-						<c:url value="/resources/uploadImage/event-1.png" var="image"/>
-						<img alt="event1" src="${image }"/>
+						<c:url value="/resources/uploadImage/${event1.saveName eq null ? 'event-1.png' : event1.saveName}" var="image"/>
+						<img alt="event1" src="${image }" title="<c:out value="${jtownUser.shopName }"/> Event" id="jt-seller-expand-event-first-img"/>
 					</div>
-					<div class="jt-home-expand-shop-event" id="jt-seller-expand-event-second">
+					<div class="jt-home-expand-shop-event" id="jt-seller-expand-event-second" data-epn="<c:out value="${event2.pn }"/>" data-bo="2">
 						<div class="jt-home-expand-shop-event-tool">
 							<a href="#none">수정</a>
 						</div>
 						<div class="jt-home-expand-shop-event-update-wrap">
-							<input type="file"/><br/>
+							310 X 150 (pixel) <br/>
+							<input type="file" id="jt-event-second-image" name="jt-event-second-image"/><br/>
 							<a href="#none" class="jt-home-expand-shop-event-update-done">수정</a>
 							<a href="#none" class="jt-home-expand-shop-event-update-cancle">취소</a>
 						</div>
-						<c:url value="/resources/uploadImage/event-2.png" var="image"/>
-						<img alt="event2" src="${image }"/>
+						<c:url value="/resources/uploadImage/${event2.saveName eq null ? 'event-2.png' : event2.saveName}" var="image"/>
+						<img alt="event2" src="${image }" title="<c:out value="${jtownUser.shopName }"/> Event" id="jt-seller-expand-event-second-img"/>
 					</div>
 				</div>
 			</section>

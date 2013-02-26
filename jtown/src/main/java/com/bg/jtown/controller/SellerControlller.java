@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.bg.jtown.business.SellerService;
 import com.bg.jtown.security.JtownUser;
 import com.bg.jtown.util.FileVO;
+import com.bg.jtown.business.Event;
 
 /**
  * @author Francis, 김성근
@@ -65,4 +66,16 @@ public class SellerControlller {
 		jtownUser.setPn(user.getPn());
 		sellerService.updateSellerNotice(jtownUser);
 	}
+
+	@PreAuthorize("hasRole('ROLE_SELLER')")
+	@RequestMapping(value = "/ajax/seller/changeEvent.jt", method = RequestMethod.POST)
+	@ResponseBody
+	public void ajaxChangeNotice(@RequestBody Event event) {
+		JtownUser user = (JtownUser) SecurityContextHolder.getContext()
+				.getAuthentication().getPrincipal();
+		event.setSellerPn(user.getPn());
+		event.setBannerType(1);
+		sellerService.updateSellerEvent(event);
+	}
+
 }

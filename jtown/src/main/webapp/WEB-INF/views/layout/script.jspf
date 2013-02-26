@@ -19,6 +19,7 @@
 <script src="${cp}resources/js/jquery.masonry.js"></script>
 <script src="${cp}resources/js/jquery.infinitescroll.js"></script>
 <script src="${cp}resources/js/jquery.plugin.js"></script>
+<script src="${cp}resources/uploadify/jquery.uploadify.min.js"></script>
 <%-- Custom --%>
 <script src="${cp}resources/js/jtown.js"></script>
 <script src="${cp}resources/js/util.js"></script>

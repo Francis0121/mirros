@@ -57,4 +57,63 @@
 			pn = #{pn}
 	</update>
 	
+	<resultMap type="com.bg.jtown.business.Event" id="jtown-event-map">
+		<result column="pn" property="pn"/>
+		<result column="seller_pn" property="sellerPn"/>
+		<result column="banner_type" property="bannerType"/>
+		<result column="image_pn" property="imagePn"/>
+		<result column="content" property="content"/>
+		<result column="banner_order" property="bannerOrder"/>
+		<result column="save_name" property="saveName"/>
+	</resultMap>
+	
+	<select id="selectSellerEvent" parameterType="java.lang.Integer" resultMap="jtown-event-map">
+		SELECT
+			usb.pn, usb.seller_pn, usb.banner_type, usb.image_pn, usb.content, usb.banner_order,
+			i.save_name
+		FROM
+			user_seller_banner usb 
+			LEFT OUTER JOIN image i
+			ON usb.image_pn = i.pn
+		WHERE
+			usb.seller_pn = #{properNumber}
+		ORDER BY usb.banner_order
+	</select>	
+	
+	<insert id="insertSellerEvent" parameterType="com.bg.jtown.business.Event">
+		INSERT INTO
+			user_seller_banner
+			(	seller_pn, banner_type, image_pn, content, banner_order)
+		VALUES
+			(	#{sellerPn}, #{bannerType}, #{imagePn}, #{content}, #{bannerOrder} )
+		<selectKey resultType="java.lang.Integer" keyProperty="pn">
+			SELECT LAST_INSERT_ID()
+		</selectKey>	
+	</insert>
+	
+	<update id="updateSellerEvent" parameterType="com.bg.jtown.business.Event">
+		UPDATE
+			user_seller_banner
+		SET
+			banner_type = #{bannerType},
+			image_pn = #{imagePn},
+			content = #{content}
+		WHERE
+			pn = #{pn}
+		AND
+			seller_pn = #{sellerPn}
+	</update>
+
+	<select id="selectSellerInterest" parameterType="java.lang.Integer" resultType="java.lang.String">
+		SELECT
+			ise.name
+		FROM
+			user_seller_interest usi,
+			interest_section ise
+		WHERE
+			usi.seller_pn = #{properNumber}
+		AND
+			usi.section_pn  = pn 
+	</select>
+
 </mapper>

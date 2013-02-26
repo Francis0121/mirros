@@ -1,5 +1,6 @@
 package com.bg.jtown.business;
 
+import java.util.List;
 import java.util.Map;
 
 import com.bg.jtown.security.JtownUser;
@@ -13,7 +14,11 @@ public interface SellerService {
 
 	Map<String, Object> selectAllInformation(Integer properNumber);
 
+	// ~ Seller Information
+
 	JtownUser selectSellerInformation(Integer properNumber);
+
+	// ~ SellerImage
 
 	String selectSellerImage(Integer properNumber);
 
@@ -21,5 +26,20 @@ public interface SellerService {
 
 	void updateSellerImage(FileVO fileVO);
 
+	// ~ SellerNotice
+
 	void updateSellerNotice(JtownUser jtownUser);
+
+	// ~ SellerEvent
+
+	Map<String, Event> selectSellerEvent(Integer properNumber);
+
+	void insertSellerEvent(Event event);
+
+	void updateSellerEvent(Event event);
+
+	// ~ SellerInterest
+
+	List<String> selectSellerInterest(Integer properNumber);
+
 }

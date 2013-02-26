@@ -15,12 +15,45 @@ $(document).ready(function() {
 
 	jtown.seller.syncEvent();
 
-	$('#representImageForm').ajaxForm({
-		success : function(data) {
+	$('#jt-event-second-image').uploadify({
+		'multi'	: false,
+		'swf' : contextPath + 'resources/uploadify/uploadify.swf',
+		'uploader' : contextPath + 'file/upload.jt',
+		'itemTemplate' : '<div></div>',
+		'onUploadSuccess' : function(file, data, response){
+			jtown.seller.secondEvent(getFile(data));
+		}
+	});
+	
+	$('#jt-event-first-image').uploadify({
+		'multi'	: false,
+		'swf' : contextPath + 'resources/uploadify/uploadify.swf',
+		'uploader' : contextPath + 'file/upload.jt',
+		'itemTemplate' : '<div></div>',
+		'onUploadSuccess' : function(file, data, response){
+			jtown.seller.firstEvent(getFile(data));
+		}
+	});
+	
+	$('#jt-represent-image').uploadify({
+		'multi'	: false,
+		'swf' : contextPath + 'resources/uploadify/uploadify.swf',
+		'uploader' : contextPath + 'file/upload.jt',
+		'itemTemplate' : '<div></div>',
+		'onUploadSuccess' : function(file, data, response){
 			jtown.seller.mainImage(getFile(data));
+		}
+	});
+
+	$('#jt-product-file').uploadify({
+		'swf' : contextPath + 'resources/uploadify/uploadify.swf',
+		'uploader' : contextPath + 'file/upload.jt',
+		'onQueueComplete' : function(queueData) {
+//				if (queueData.uploadsSuccessful) {
+//					location.reload();
+//				}
 		},
-		error : function() {
-			alert('파일입력시 에러가 발생하였습니다.');
+		'onUploadSuccess' : function(file, data, response){
 		}
 	});
 });
@@ -191,8 +224,59 @@ jtown.seller.syncEvent = function() {
 	
 	$('.jt-home-expand-shop-event-update-cancle').unbind('click');
 	$('.jt-home-expand-shop-event-update-cancle').bind('click', function(){
-		$(this).parents('.jt-home-expand-shop-event').children('.jt-home-expand-shop-event-update-wrap').hide();
+		var $parent = $(this).parents('.jt-home-expand-shop-event');
+		var $img = $parent.find('img');
+		var oldSrc = $img.attr('data-oldSrc');
+		
+		$img.attr('src', oldSrc).attr('data-oldSrc', '').attr('data-imagePn', '');
+		$parent.find('input[type=file]').val('');
+		
+		$parent.children('.jt-home-expand-shop-event-update-wrap').hide();
 	});
 	
+	$('.jt-home-expand-shop-event-update-done').unbind('click');
+	$('.jt-home-expand-shop-event-update-done').bind('click', function(){
+		var $parent = $(this).parents('.jt-home-expand-shop-event');
+		var $img = $parent.find('img');
+		
+		var url = contextPath + 'ajax/seller/changeEvent.jt',
+			json = { 	'imagePn' 		:	$img.attr('data-imagePn'),
+						'pn'			:	$parent.attr('data-epn'),
+						'bannerOrder'	:	$parent.attr('data-bo')		};
+		
+		$.postJSON(url, json, function(){
+			return jQuery.ajax({
+				'success' : function(){
+					$img.attr('data-oldSrc', '').attr('data-imagePn', '');
+					$parent.children('.jt-home-expand-shop-event-update-wrap').hide();
+				},
+				'error' : function(){
+					alert("오류 발생!");
+				}
+			});
+		});
+	});
+	
+};
 
+jtown.seller.firstEvent = function(file){
+	var oldSrc = $('#jt-seller-expand-event-first-img').attr('src'),
+		newSrc = contextPath+'resources/uploadImage/'+file.saveName,
+		oldSrcObject = $('#jt-seller-expand-event-first-img').attr('data-oldSrc');
+	
+	$('#jt-seller-expand-event-first-img').attr('src', newSrc).attr('data-imagePn', file.imagePn);
+	if(nullValueCheck(oldSrcObject)){
+		$('#jt-seller-expand-event-first-img').attr('data-oldSrc', oldSrc);
+	}
+};
+
+jtown.seller.secondEvent = function(file){
+	var oldSrc = $('#jt-seller-expand-event-second-img').attr('src'),
+		newSrc = contextPath+'resources/uploadImage/'+file.saveName,
+		oldSrcObject = $('#jt-seller-expand-event-second-img').attr('data-oldSrc');
+
+	$('#jt-seller-expand-event-second-img').attr('src', newSrc).attr('data-imagePn', file.imagePn);
+	if(nullValueCheck(oldSrcObject)){
+		$('#jt-seller-expand-event-second-img').attr('data-oldSrc', oldSrc);
+	}
 };
