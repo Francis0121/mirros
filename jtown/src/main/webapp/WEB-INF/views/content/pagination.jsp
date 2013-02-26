@@ -30,11 +30,9 @@
 				</ul>
 			</div>
 			<footer>
-				<span>"</span>
-				<span>
-					감독이 선수단 숙소에서 함께 생활한다? 프로 야구단에서 상상하기 어려운 풍경이다. 더구나 현역 최고령 김응용 감독			
-				</span>
-				<span>"</span>
+				<span class="jt-home-shop-footer-firstQuotationMark">"</span>
+				<pre id="jt-seller-main-footer-text" class="jt-home-shop-footer-text">감독이 선수단 숙소에서 함께 생활한다? 프로 야구단에서 상상하기 어려운 풍경이다. 더구나 현역 최고령 김응용 감독</pre>
+				<span class="jt-home-shop-footer-lastQuotationMark">"</span>
 			</footer>
 		</div>	
 	</c:forEach>

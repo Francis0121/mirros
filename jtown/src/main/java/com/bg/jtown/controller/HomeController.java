@@ -1,5 +1,7 @@
 package com.bg.jtown.controller;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.slf4j.Logger;
@@ -9,14 +11,15 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
-import com.bg.jtown.business.Home;
 import com.bg.jtown.business.HomeService;
+import com.bg.jtown.business.search.HomeFilter;
 import com.bg.jtown.security.JtownUser;
 
 /**
@@ -33,10 +36,11 @@ public class HomeController {
 	private HomeService homeService;
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public ModelAndView showMainPage(Model model) {
+	public ModelAndView showMainPage(Model model,
+			@ModelAttribute HomeFilter homeFilter) {
 		logger.debug("Show Main page");
-		Home home = homeService.selectHomeTest();
-		logger.info(home.toString());
+		List<JtownUser> jtownUsers = homeService.selectSeller(homeFilter);
+		model.addAttribute("jtownUsers", jtownUsers);
 		return new ModelAndView("home");
 	}
 
@@ -56,8 +60,9 @@ public class HomeController {
 
 		Authentication auth = SecurityContextHolder.getContext()
 				.getAuthentication();
-		
-		JtownUser user = (JtownUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+		JtownUser user = (JtownUser) SecurityContextHolder.getContext()
+				.getAuthentication().getPrincipal();
 
 		for (GrantedAuthority grantedAuthority : auth.getAuthorities()) {
 			String authority = grantedAuthority.getAuthority();

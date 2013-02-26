@@ -6,10 +6,10 @@
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <%@ include file="../layout/layout_header.jspf" %>
 <div id="jt-home-container">
-	<c:forEach begin="0" end="19" varStatus="loop">
+	<c:forEach items="${jtownUsers }" var="seller" varStatus="loop">
 		<div class="jt-home-shop">
 			<header>
-				<a href="#none">조군샵</a>
+				<a href="#none" onclick="window.open('http://${seller.shopUrl }');"><c:out value="${seller.shopName }"/></a>
 			</header>
 			<div class="jt-home-shop-content">
 				<ul class="jt-home-shop-content-image">
@@ -20,19 +20,19 @@
 				</ul>
 				<ul class="jt-home-shop-content-fn">
 					<li>
-						VIEW 3,000	
+						VIEW <c:out value="${seller.viewCount eq null ? 0 : seller.viewCount}"/>	
 					</li>
 					<li>
 						COMMENT 8
 					</li>
 					<li>
-						♥
+						♥ <c:out value="${seller.loveCount eq null ? 0 : seller.loveCount}"/>
 					</li>
 				</ul>
 			</div>
 			<footer>
 				<span class="jt-home-shop-footer-firstQuotationMark">"</span>
-				<pre id="jt-seller-main-footer-text" class="jt-home-shop-footer-text">감독이 선수단 숙소에서 함께 생활한다? 프로 야구단에서 상상하기 어려운 풍경이다. 더구나 현역 최고령 김응용 감독</pre>
+				<pre id="jt-seller-main-footer-text" class="jt-home-shop-footer-text"><c:out value="${seller.notice }"/></pre>
 				<span class="jt-home-shop-footer-lastQuotationMark">"</span>
 			</footer>
 		</div>	
