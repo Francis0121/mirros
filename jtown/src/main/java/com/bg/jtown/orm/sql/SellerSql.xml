@@ -130,6 +130,10 @@
 			usp.input_date DESC	
 	</select>
 	
+	<select id="selectSellerProductCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+		SELECT	COUNT(pn) FROM	user_seller_product WHERE seller_pn = #{properNumber}
+	</select>
+	
 	<delete id="deleteSellerProduct" parameterType="com.bg.jtown.business.Product">
 		DELETE	FROM
 			user_seller_product
