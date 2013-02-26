@@ -42,4 +42,11 @@ public interface SellerService {
 
 	List<String> selectSellerInterest(Integer properNumber);
 
+	// ~ SellerProduct
+
+	List<Product> selectSellerProduct(Integer properNumber);
+
+	void deleteSellerProduct(Product product);
+
+	void insertSellerProduct(Product product);
 }

@@ -48,12 +48,9 @@ $(document).ready(function() {
 	$('#jt-product-file').uploadify({
 		'swf' : contextPath + 'resources/uploadify/uploadify.swf',
 		'uploader' : contextPath + 'file/upload.jt',
-		'onQueueComplete' : function(queueData) {
-//				if (queueData.uploadsSuccessful) {
-//					location.reload();
-//				}
-		},
+		'itemTemplate' : '<div></div>',
 		'onUploadSuccess' : function(file, data, response){
+			jtown.seller.productImage(getFile(data));
 		}
 	});
 });
@@ -173,6 +170,40 @@ jtown.seller.mainImageCancle = function(){
 	$('#representImageForm #filedata').val('');
 };
 
+jtown.seller.productImage = function(file){
+	var url = contextPath + 'ajax/seller/insertProduct.jt',
+		json = { 'imagePn' : file.imagePn};
+	
+	$.postJSON(url, json, function(product){
+		return jQuery.ajax({
+			'success' : function(){
+				var $parent = $('#jt-home-expand-shop'),
+					size = Number($parent.attr('data-size'))+1,
+					image = contextPath + 'resources/uploadImage/'+file.saveName;
+				
+				var bigHtml = 	'<div class="jt-home-expand-shop-expandProduct" id="jt-product-'+size+'" style="display: none;">'+
+								'	<img alt="상품" src="'+image+'"/>'+
+								'</div>';
+					smallHtml = '<li data-count="'+size+'" data-ppn="'+product.pn+'">'+
+								'	<div class="jt-seller-expand-product-delete-tool">'+
+								'		<a href="#none" class="jt-seller-product-delete">X</a>'+
+								'	</div>'+
+								'	<a href="#none"class="jt-product-list"><img alt="상품" src="'+image+'"/></a>'+
+								'</li>';
+				
+				$('#jt-seller-slide-big div:nth-child(1)').before(bigHtml);
+				$('#jt-seller-slide-small li:nth-child(1)').before(smallHtml);
+				$parent.attr('data-size', size);
+				
+				jtown.seller.syncProductList();
+			},
+			'error' : function(){
+				alert("오류 발생!");
+			}
+		});
+	});
+};
+
 jtown.seller.syncProductList = function() {
 	$('.jt-home-expand-shop-products ul li').unbind('mouseover mouseout');
 	$('.jt-home-expand-shop-products ul li').bind(
@@ -189,17 +220,33 @@ jtown.seller.syncProductList = function() {
 
 	$('.jt-seller-product-delete').unbind('click');
 	$('.jt-seller-product-delete').bind('click', function() {
-		// TODO 사진 삭제후 재조회(ajax X) Slide 변경어려움
-		location.href = contextPath + 'seller/2';
+		var pn = $(this).parents('li').attr('data-ppn');
+		var form = document.forms['product'];
+		form.pn.value = pn;
+		form.submit();
 	});
 
 	$('.jt-home-expand-shop-products').unbind('mouseover mouseout');
 	$('.jt-home-expand-shop-products').bind('mouseover mouseout', function() {
-		if (event.type == 'mouseover') {
-			$(this).children('.jt-seller-expand-product-insert-tool').show();
-		} else if (event.type == 'mouseout') {
-			$(this).children('.jt-seller-expand-product-insert-tool').hide();
+		var display = $('.jt-seller-expand-product-insert-wrap').css('display');
+		if(display != 'block'){
+			if (event.type == 'mouseover') {
+				$(this).children('.jt-seller-expand-product-insert-tool').show();
+			} else if (event.type == 'mouseout') {
+				$(this).children('.jt-seller-expand-product-insert-tool').hide();
+			}
 		}
+	});
+	
+	$('.jt-seller-expand-product-insert-tool a').unbind('click');
+	$('.jt-seller-expand-product-insert-tool a').bind('click', function(){
+		$('.jt-seller-expand-product-insert-tool').hide();
+		$('.jt-seller-expand-product-insert-wrap').show();
+	});
+	
+	$('.jt-seller-expand-product-insert-cancle').unbind('click');
+	$('.jt-seller-expand-product-insert-cancle').bind('click', function(){
+		$('.jt-seller-expand-product-insert-wrap').hide();
 	});
 };
 

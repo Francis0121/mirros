@@ -8,12 +8,14 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.bg.jtown.business.Product;
 import com.bg.jtown.business.SellerService;
 import com.bg.jtown.security.JtownUser;
 import com.bg.jtown.util.FileVO;
@@ -48,6 +50,19 @@ public class SellerControlller {
 	}
 
 	@PreAuthorize("hasRole('ROLE_SELLER')")
+	@RequestMapping(value = "/seller/dp.jt", method = RequestMethod.POST)
+	public String formDeleteProduct(@ModelAttribute Product product) {
+		JtownUser user = (JtownUser) SecurityContextHolder.getContext()
+				.getAuthentication().getPrincipal();
+
+		product.setSellerPn(user.getPn());
+		logger.debug(product.toString());
+		sellerService.deleteSellerProduct(product);
+
+		return "redirect:" + user.getPn();
+	}
+
+	@PreAuthorize("hasRole('ROLE_SELLER')")
 	@RequestMapping(value = "/ajax/seller/changeMainImage.jt", method = RequestMethod.POST)
 	@ResponseBody
 	public void ajaxChangeMainImage(@RequestBody FileVO fileVO) {
@@ -76,6 +91,18 @@ public class SellerControlller {
 		event.setSellerPn(user.getPn());
 		event.setBannerType(1);
 		sellerService.updateSellerEvent(event);
+	}
+
+	@PreAuthorize("hasRole('ROLE_SELLER')")
+	@RequestMapping(value = "/ajax/seller/insertProduct.jt", method = RequestMethod.POST)
+	@ResponseBody
+	public Product ajaxChangeNotice(@RequestBody Product product) {
+		JtownUser user = (JtownUser) SecurityContextHolder.getContext()
+				.getAuthentication().getPrincipal();
+		product.setSellerPn(user.getPn());
+		sellerService.insertSellerProduct(product);
+		
+		return product;
 	}
 
 }

@@ -31,6 +31,7 @@ public class SellerServiceImpl extends SqlSessionDaoSupport implements
 		map.put("mainImage", selectSellerImage(properNumber));
 		map.putAll(selectSellerEvent(properNumber));
 		map.put("interestes", selectSellerInterest(properNumber));
+		map.put("products", selectSellerProduct(properNumber));
 
 		logger.debug(map.toString());
 
@@ -113,6 +114,24 @@ public class SellerServiceImpl extends SqlSessionDaoSupport implements
 	public List<String> selectSellerInterest(Integer properNumber) {
 		return getSqlSession().selectList("sellerMapper.selectSellerInterest",
 				properNumber);
+	}
+
+	// ~ Seller Product
+
+	@Override
+	public List<Product> selectSellerProduct(Integer properNumber) {
+		return getSqlSession().selectList("sellerMapper.selectSellerProduct",
+				properNumber);
+	}
+
+	@Override
+	public void deleteSellerProduct(Product product) {
+		getSqlSession().delete("sellerMapper.deleteSellerProduct", product);
+	}
+
+	@Override
+	public void insertSellerProduct(Product product) {
+		getSqlSession().insert("sellerMapper.insertSellerProduct", product);
 	}
 
 }

@@ -108,7 +108,8 @@
 				</div>
 			</section>
 			<section class="jt-seller-expand">
-				<div class="jt-home-expand-shop" id="jt-home-expand-shop" data-size="10" data-nowPosition="2">
+				<c:set value="${fn:length(products) }" var="productSize"/>
+				<div class="jt-home-expand-shop" id="jt-home-expand-shop" data-size="${productSize }" data-nowPosition="${productSize - 1 }">
 					<header>
 						<a href="#none" onclick="window.open('${jtownUser.shopUrl }');"><c:out value="${jtownUser.shopName }"/></a>
 					</header>
@@ -116,17 +117,17 @@
 						<li class="jt-home-expand-shop-leftArrow jt-home-expand-shop-arrow">
 							<a href="#none" id="jt-home-expand-shop-leftArrow">&lt;</a>
 						</li>
-						<li class="jt-home-expand-shop-expandProduct-slide">
-							<c:forEach begin="0" end="9" varStatus="loop">
+						<li class="jt-home-expand-shop-expandProduct-slide" id="jt-seller-slide-big">
+							<c:forEach items="${products }" var="product" varStatus="loop">
 								<c:choose>
 									<c:when test="${loop.count < 4 }">
-										<div class="jt-home-expand-shop-expandProduct" id="jt-product-${loop.count }">
+										<div class="jt-home-expand-shop-expandProduct" id="jt-product-${productSize - loop.index }">
 									</c:when>
 									<c:otherwise>
-										<div class="jt-home-expand-shop-expandProduct" id="jt-product-${loop.count }" style="display: none;">
+										<div class="jt-home-expand-shop-expandProduct" id="jt-product-${productSize - loop.index }" style="display: none;">
 									</c:otherwise>
 								</c:choose>
-									<c:url value="/resources/uploadImage/Product-${loop.count }.png" var="image"/>
+									<c:url value="/resources/uploadImage/${product.saveName }" var="image"/>
 									<img alt="상품" src="${image }"/>
 								</div>
 							</c:forEach>
@@ -137,23 +138,28 @@
 					</ul>
 					<div class="jt-home-expand-shop-products">
 						<div class="jt-seller-expand-product-insert-tool">
-							<div class="jt-seller-expand-product-insert">
-								
-							</div>
+							<a href="#none">상품입력</a>
 						</div>
-						 <input type="file" id="jt-product-file" name="jt-product-file"/>
+						<div class="jt-seller-expand-product-insert-wrap">
+							<input type="file" id="jt-product-file" name="jt-product-file"/>
+							160X160<br/>
+							<a href="#none" class="jt-seller-expand-product-insert-cancle">닫기</a>
+						</div>
 						<h2>Products</h2>
-						<ul>
-							<c:forEach begin="0" end="9" varStatus="loop">
-								<li data-count="${loop.count }">
+						<ul id="jt-seller-slide-small">
+							<c:forEach items="${products }" var="product" varStatus="loop">
+								<li data-count="${productSize - loop.index }" data-ppn="${product.pn }">
 									<div class="jt-seller-expand-product-delete-tool">	
 										<a href="#none" class="jt-seller-product-delete">X</a>
 									</div>
-									<c:url value="/resources/uploadImage/Product-${loop.count }.png" var="image"/>
+									<c:url value="/resources/uploadImage/${product.saveName }" var="image"/>
 									<a href="#none"class="jt-product-list"><img alt="상품" src="${image }"/></a>
 								</li>
 							</c:forEach>
 						</ul>
+						<form action="<c:url value="/seller/dp.jt"/>" method="post" id="product" name="product">
+							<input type="hidden" id="pn" name="pn" value="pn"/>
+						</form>
 					</div>
 					<div class="jt-home-expand-shop-event" id="jt-seller-expand-event-first" data-epn="<c:out value="${event1.pn }"/>" data-bo="1">
 						<div class="jt-home-expand-shop-event-tool">

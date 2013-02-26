@@ -116,4 +116,38 @@
 			usi.section_pn  = pn 
 	</select>
 
+	<select id="selectSellerProduct" parameterType="java.lang.Integer" resultType="com.bg.jtown.business.Product">
+		SELECT
+			usp.pn, i.save_name AS saveName
+		FROM
+			user_seller_product usp,
+			image i
+		WHERE
+			usp.seller_pn = #{properNumber}
+		AND
+			usp.image_pn = i.pn
+		ORDER BY
+			usp.input_date DESC	
+	</select>
+	
+	<delete id="deleteSellerProduct" parameterType="com.bg.jtown.business.Product">
+		DELETE	FROM
+			user_seller_product
+		WHERE
+			pn = #{pn}
+		AND
+			seller_pn = #{sellerPn}
+	</delete>
+	
+	<insert id="insertSellerProduct" parameterType="com.bg.jtown.business.Product">
+		INSERT INTO
+			user_seller_product
+			(	seller_pn,	image_pn, input_date )
+		VALUES
+			(	#{sellerPn}, #{imagePn}, SYSDATE() )
+		<selectKey resultType="java.lang.Integer" keyProperty="pn">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+
 </mapper>
