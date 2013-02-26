@@ -37,7 +37,12 @@
 					</sec:authorize>
 					<sec:authorize access="hasRole('ROLE_USER')">
 						<li>
-							<a href="#none" class="jt-common-a-base" id="jt-logout">로그아웃</a>
+							<c:url value="/login/modify" var="modifyUrl"/>
+							<a href="${modifyUrl }" class="jt-common-a-base" id="jt-modify">비밀번호 변경</a>
+						</li>
+						<li>
+							<c:url value="/login/logout" var="logoutUrl"/>
+							<a href="${logoutUrl }" class="jt-common-a-base" id="jt-logout">로그아웃</a>
 						</li>
 					</sec:authorize>
 				</menu>
