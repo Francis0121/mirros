@@ -14,13 +14,14 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bg.jtown.business.AdminService;
 import com.bg.jtown.business.Interest;
-import com.bg.jtown.controller.validator.VaildationUtil;
+import com.bg.jtown.business.search.UserSearch;
 import com.bg.jtown.security.JtownUser;
 
 /**
@@ -66,10 +67,13 @@ public class AdminController {
 	}
 
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	@RequestMapping(value = "/admin/users", method = RequestMethod.GET)
-	public String showUsersPage(Model model) {
-		logger.debug("Show Users Page");
-		return "admin/users";
+	@RequestMapping(value = "/admin/seller", method = RequestMethod.GET)
+	public String showSellerPage(Model model, @ModelAttribute UserSearch search) {
+		logger.debug("Show Seller Page");
+		
+		model.addAllAttributes(adminService.getSellerModelMap(search));
+		
+		return "admin/seller";
 	}
 
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -84,7 +88,7 @@ public class AdminController {
 	public String showCreatSellerPage(Model model, @ModelAttribute JtownUser jtownUser) {
 		logger.debug("Show createSeller Page");
 		
-		List<Interest> interestCategoryList = adminService.getInterestCategoryList();  
+		List<Interest> interestCategoryList = adminService.selectInterestCategoryList();  
 		model.addAttribute("categoryList", interestCategoryList);
 		
 		return "admin/createSeller";
@@ -112,10 +116,10 @@ public class AdminController {
 		}.validate(jtownUser, result);
 		
 		if(!result.hasErrors()){
-			adminService.createSeller(jtownUser);
+			adminService.insertCreateSeller(jtownUser);
 			return "admin/main";
 		} else {
-			List<Interest> interestCategoryList = adminService.getInterestCategoryList();  
+			List<Interest> interestCategoryList = adminService.selectInterestCategoryList();  
 			model.addAttribute("categoryList", interestCategoryList);
 			
 			return "admin/createSeller";
@@ -126,6 +130,13 @@ public class AdminController {
 	@RequestMapping(value = "/admin/administrator", method = RequestMethod.GET)
 	public String showAdministratorPage(Model model) {
 		logger.debug("Show Administrator Page");
-		return "admin/Administrator";
+		return "admin/administrator";
+	}
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@RequestMapping(value = "/admin/changeShopUrl", method = RequestMethod.POST)
+	@ResponseBody
+	public void ajaxChangeShopUrl(@RequestBody JtownUser jtownUser){
+		adminService.updateShopUrl(jtownUser);
 	}
 }

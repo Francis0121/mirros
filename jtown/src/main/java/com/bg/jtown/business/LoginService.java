@@ -5,15 +5,15 @@ import java.util.Map;
 import com.bg.jtown.security.JtownUser;
 
 public interface LoginService {
-	boolean checkExistEmail(String id);
+	boolean selectCheckExistEmail(String id);
 
-	void creatUserCustomer(JtownUser jtownUser);
+	void insertCreatUserCustomer(JtownUser jtownUser);
 
 	int findGroupdId(String group);
 
 	void addUserToGroup(Map<String, Integer> groupMap);
 
-	Integer createUserSeller(JtownUser jtownUser);
+	Integer insertCreateUserSeller(JtownUser jtownUser);
 
-	void changePassword(JtownUser jtownUser);
+	void updateChangePassword(JtownUser jtownUser);
 }

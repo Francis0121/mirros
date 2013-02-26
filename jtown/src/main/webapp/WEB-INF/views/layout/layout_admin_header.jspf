@@ -44,7 +44,7 @@
 				- 사용자
 			</li>			
 			<li>
-				<a href="#" > - - 불량 사용자 관리</a>
+				<a href="#" > - - 사용자 관리</a>
 			</li>			
 			<li>
 				 - 판매자
@@ -54,7 +54,8 @@
 				<a href="${creatSellerUrl }" > - - 판매자 생성</a>
 			</li>	
 			<li>
-				<a href="#" > - - 불량 판매자 관리</a>
+				<c:url value="/admin/seller" var="adminSeller" />
+				<a href="${adminSeller }" > - - 판매자 관리</a>
 			</li>						
 			<li>
 				- 관리자

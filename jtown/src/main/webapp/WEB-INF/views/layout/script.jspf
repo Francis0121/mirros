@@ -17,6 +17,7 @@
 <script src="${cp}resources/js/jquery.masonry.js"></script>
 <script src="${cp}resources/js/jquery.infinitescroll.js"></script>
 <script src="${cp}resources/js/jquery.plugin.js"></script>
+<script src="${cp}resources/js/json.min.js"></script>
 <script src="${cp}resources/js/jtown.js"></script>
 <script src="${cp}resources/js/login.js"></script>
 <script src="${cp}resources/js/admin.js"></script>

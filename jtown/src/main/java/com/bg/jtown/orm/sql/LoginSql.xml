@@ -10,7 +10,7 @@
 			id = #{id}
 	</select>
 	
-	<insert id="insertUsers" parameterType="com.bg.jtown.security.JtownUser">
+	<insert id="insertUsers" parameterType="JtownUser">
 		INSERT INTO
 			users
 			(
@@ -25,7 +25,7 @@
 		</selectKey>
 	</insert>
 	
-	<insert id="insertUserCustomer" parameterType="com.bg.jtown.security.JtownUser">
+	<insert id="insertUserCustomer" parameterType="JtownUser">
 		INSERT INTO
 			user_customer
 			(
@@ -37,7 +37,7 @@
 			)			
 	</insert>
 	
-	<insert id="insertUserSeller" parameterType="com.bg.jtown.security.JtownUser">
+	<insert id="insertUserSeller" parameterType="JtownUser">
 		INSERT
 			user_seller
 			(
@@ -71,7 +71,7 @@
 
 	</insert>
 	
-	<update id="changePassword" parameterType="com.bg.jtown.security.JtownUser">
+	<update id="changePassword" parameterType="JtownUser">
 		UPDATE
 			users
 		SET

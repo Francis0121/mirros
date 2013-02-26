@@ -11,7 +11,7 @@ import com.bg.jtown.security.JtownUser;
 public class LoginServiceImpl extends SqlSessionDaoSupport implements LoginService {
 
 	@Override
-	public boolean checkExistEmail(String id) {
+	public boolean selectCheckExistEmail(String id) {
 		if(id != null){
 			if((Integer)getSqlSession().selectOne("LoginMapper.checkExistEmail", id) > 0){
 				return true;
@@ -24,7 +24,7 @@ public class LoginServiceImpl extends SqlSessionDaoSupport implements LoginServi
 	}
 	
 	@Override
-	public void creatUserCustomer(JtownUser jtownUser) {
+	public void insertCreatUserCustomer(JtownUser jtownUser) {
 		getSqlSession().insert("LoginMapper.insertUsers", jtownUser);
 		
 		getSqlSession().insert("LoginMapper.insertUserCustomer", jtownUser);
@@ -32,7 +32,7 @@ public class LoginServiceImpl extends SqlSessionDaoSupport implements LoginServi
 	}
 	
 	@Override
-	public Integer createUserSeller(JtownUser jtownUser) {
+	public Integer insertCreateUserSeller(JtownUser jtownUser) {
 		getSqlSession().insert("LoginMapper.insertUsers", jtownUser);
 
 		getSqlSession().insert("LoginMapper.insertUserSeller", jtownUser);
@@ -51,7 +51,7 @@ public class LoginServiceImpl extends SqlSessionDaoSupport implements LoginServi
 	}
 	
 	@Override
-	public void changePassword(JtownUser jtownUser) {
+	public void updateChangePassword(JtownUser jtownUser) {
 		getSqlSession().update("LoginMapper.changePassword", jtownUser);
 	}
 }

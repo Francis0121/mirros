@@ -1,13 +1,19 @@
 package com.bg.jtown.business;
 
 import java.util.List;
+import java.util.Map;
 
+import com.bg.jtown.business.search.UserSearch;
 import com.bg.jtown.security.JtownUser;
 
 public interface AdminService {
 
-	List<Interest> getInterestCategoryList();
+	List<Interest> selectInterestCategoryList();
 
-	void createSeller(JtownUser jtownUser);
+	void insertCreateSeller(JtownUser jtownUser);
+
+	Map<String, Object> getSellerModelMap(UserSearch search);
+
+	void updateShopUrl(JtownUser jtownUser);
 
 }

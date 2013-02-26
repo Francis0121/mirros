@@ -30,7 +30,7 @@ public class LoginValidator implements Validator {
 		
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username", "join.username.empty");
 		
-		boolean exist = loginService.checkExistEmail(username);
+		boolean exist = loginService.selectCheckExistEmail(username);
 		if(exist){
 			errors.rejectValue("username", "join.username.exist");
 		}

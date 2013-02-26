@@ -220,7 +220,7 @@ public class CustomJdbcUserDetailManager extends JdbcUserDetailsManager  {
         String encodedPassword = passwordEncoder.encodePassword(newPassword, saltSource.getSalt(jtownUser));
         jtownUser.setNewPassword(encodedPassword);
         
-        loginService.changePassword(jtownUser);        
+        loginService.updateChangePassword(jtownUser);        
         
 		SecurityContextHolder.getContext().setAuthentication(
 				createNewAuthentication(currentUser, newPassword));
@@ -260,7 +260,7 @@ public class CustomJdbcUserDetailManager extends JdbcUserDetailsManager  {
 		String encodedPassword = passwordEncoder.encodePassword(jtownUser.getPassword(), saltSource.getSalt(jtownUser));
 		jtownUser.setPassword(encodedPassword);
 		
-		loginService.creatUserCustomer(jtownUser);
+		loginService.insertCreatUserCustomer(jtownUser);
 	}
 	
 	private Integer createUserSeller(JtownUser jtownUser){
@@ -280,7 +280,7 @@ public class CustomJdbcUserDetailManager extends JdbcUserDetailsManager  {
 		String encodedPassword = passwordEncoder.encodePassword(jtownUser.getPassword(), saltSource.getSalt(jtownUser));
 		jtownUser.setPassword(encodedPassword);
 		
-		return loginService.createUserSeller(jtownUser);
+		return loginService.insertCreateUserSeller(jtownUser);
 		
 	}
 	

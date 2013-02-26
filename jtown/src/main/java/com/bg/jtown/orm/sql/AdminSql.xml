@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="AdminMapper">
-	
-	<resultMap type="com.bg.jtown.business.Interest" id="interestCategoryMap">
+<mapper namespace="AdminMapper">	
+	<resultMap type="Interest" id="interestCategoryMap">
 		<result property="categoryPn" column="pn" />
 		<result property="name" column="name"/>
 	</resultMap>
@@ -23,7 +22,7 @@
 			name = #{interest}
 	</select>
 	
-	<insert id="insertInterestSection" parameterType="com.bg.jtown.business.Interest">
+	<insert id="insertInterestSection" parameterType="Interest">
 		INSERT INTO
 			interest_section
 			(
@@ -38,7 +37,7 @@
 		</selectKey>			
 	</insert>
 	
-	<insert id="insertUserInterest" parameterType="com.bg.jtown.business.Interest">
+	<insert id="insertUserInterest" parameterType="Interest">
 		INSERT INTO
 			user_seller_interest
 			(
@@ -49,4 +48,56 @@
 				#{sellerPn}, #{sectionPn}
 			)
 	</insert>
+	
+	<resultMap type="Interest" id="getInterestNameListMap" extends="interestCategoryMap">
+		<result column="seller_pn" property="sellerPn"/>
+		<result column="interest_name_list" property="interestSectionNameList" />
+	</resultMap>
+	
+	<select id="getInterestNameList" parameterType="UserSearch" resultMap="getInterestNameListMap">
+		SELECT 
+			seller_pn, category_pn, interest_name_list
+		FROM (
+			SELECT
+				*, GROUP_CONCAT(isn.name) AS interest_name_list
+			FROM
+				interest_section isn,
+				user_seller_interest usi
+			WHERE
+				isn.pn = usi.section_pn
+			GROUP BY usi.seller_pn
+		) interest			
+	</select>
+	
+	<resultMap type="JtownUser" id="getSellerListMap">
+		<result column="pn" property="pn"/>
+		<result column="shop_name" property="shopName"/>
+		<result column="shop_url" property="shopUrl"/>
+		<result column="id" property="username"/>
+		<result column="enable" property="enabled"/>
+	</resultMap>
+	
+	<select id="getSellerList" parameterType="UserSearch" resultMap="getSellerListMap">
+		SELECT
+			u.pn, us.shop_name, us.shop_url, u.id, u.enable
+		FROM
+			(SELECT
+				pn, id, ENABLE
+			FROM
+				users
+			WHERE
+				id LIKE	'seller%'
+			) u, user_seller us
+		WHERE
+			u.pn = us.pn
+	</select>
+	
+	<update id="updateShopUrl" parameterType="JtownUser">
+		UPDATE
+			user_seller
+		SET
+			shop_url = #{shopUrl}
+		WHERE
+			pn = #{pn}
+	</update>
 </mapper>
