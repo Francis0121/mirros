@@ -44,7 +44,7 @@ $(document).ready(function() {
 			jtown.seller.mainImage(getFile(data));
 		}
 	});
-
+	
 	$('#jt-product-file').uploadify({
 		'swf' : contextPath + 'resources/uploadify/uploadify.swf',
 		'uploader' : contextPath + 'file/upload.jt',
@@ -196,6 +196,7 @@ jtown.seller.productImage = function(file){
 				$parent.attr('data-size', size);
 				
 				jtown.seller.syncProductList();
+				jtown.expand.syncProductMove();
 			},
 			'error' : function(){
 				alert("오류 발생!");
