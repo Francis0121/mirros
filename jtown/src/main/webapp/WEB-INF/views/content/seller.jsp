@@ -10,13 +10,16 @@
 <head>
 <title>J TOWN</title>
 <%@ include file="../layout/style.jspf"%>
+<style type="text/css">
+	.jt-home-shop-content{cursor: default;}
+</style>
 </head>
 <body>
 	<section class="jt-body">
 		<header class="jt-header">
 			<div class="jt-header-title">
 				<div class="jt-header-banner">
-					<a href="${cp }"><h1>J Town</h1></a>
+					<a href="${cp }seller/<c:out value="${jtownUser.pn}"/>"><h1>J Town</h1></a>
 				</div>
 				<menu class="jt-header-login-menu">
 					<li>
@@ -34,7 +37,12 @@
 					</sec:authorize>
 					<sec:authorize access="hasRole('ROLE_USER')">
 						<li>
-							<a href="#none" class="jt-common-a-base" id="jt-logout">로그아웃</a>
+							<c:url value="/login/modify" var="modifyUrl"/>
+							<a href="${modifyUrl }" class="jt-common-a-base" id="jt-modify">비밀번호 변경</a>
+						</li>
+						<li>
+							<c:url value="/login/logout" var="logoutUrl"/>
+							<a href="${logoutUrl }" class="jt-common-a-base" id="jt-logout">로그아웃</a>
 						</li>
 					</sec:authorize>
 				</menu>
@@ -43,15 +51,23 @@
 		<article class="jt-seller-content">
 			<header>
 				<ul>
-					<li>Teacher's Fitting Shop</li>
-					<li>www.jogunshop.com</li>
-					<li>관심사 : 남성, 댄디, 힙합, 패션</li>
+					<li><c:out value="${jtownUser.shopName }"/></li>
+					<li><c:out value="${jtownUser.shopUrl}"/></li>
+					<li>
+						관심사 : 
+						<c:forEach items="${interestes }" var="interest" varStatus="loop">
+							<c:out value="${interest }"/>
+							<c:if test="${loop.count ne fn:length(interestes) }">
+								,
+							</c:if>
+						</c:forEach>
+					</li>
 				</ul>
 			</header>
 			<section class="jt-seller-main">
 				<div class="jt-home-shop">
 					<header>
-						<a href="#none">Teacher's Fitting Shop</a>
+						<a href="#none" onclick="window.open('${jtownUser.shopUrl }');"><c:out value="${jtownUser.shopName }"/></a>
 					</header>
 					<div class="jt-home-shop-content">
 						<ul class="jt-home-shop-content-image" id="jt-seller-main-image">
@@ -59,24 +75,25 @@
 								<a href="#none" class="jt-seller-main-image-updateShow" id="jt-seller-main-image-updateShow">수정</a>
 							</li>
 							<li>
-								<c:url value="/resources/uploadImage/8.jpg" var="image"/>
-								<img alt="사진" src="${image }"/>	
+								<c:url value="/resources/uploadImage/${mainImage eq null ? '8.jpg' : mainImage}" var="image"/>
+								<img alt="" src="${image }" title="${jtownUser.shopName}" id="jt-seller-main-image-area"/>	
 							</li>
 							<li id="jt-seller-main-image-update-tool" class="jt-seller-main-image-update-tool">
-								<input type="file"/><br/>
+								<input type="file" id="jt-represent-image" name="jt-represent-image"/>
+								<br/>
 								<a href="#none" id="jt-seller-main-image-update">수정</a>
 								<a href="#none" id="jt-seller-main-image-cancle">취소</a>
 							</li>
 						</ul>
 						<ul class="jt-home-shop-content-fn">
 							<li>
-								VIEW 3,000	
+								VIEW <c:out value="${jtownUser.viewCount eq null ? 0 : jtownUser.viewCount}"/>	
 							</li>
 							<li>
-								COMMENT 8
+								COMMENT 
 							</li>
 							<li>
-								♥
+								♥ <c:out value="${jtownUser.loveCount eq null ? 0 : jtownUser.loveCount}"/>
 							</li>
 						</ul>
 					</div>
@@ -85,10 +102,8 @@
 							<a href="#none" id="jt-seller-main-notice-updateShow" class="jt-seller-main-notice-updateShow">수정</a>
 						</div>
 						<span class="jt-home-shop-footer-firstQuotationMark">"</span>
-						<span id="jt-seller-main-footer-text" class="jt-home-shop-footer-text">
-							감독이 선수단 숙소에서 함께 생활한다? 프로 야구단에서 상상하기 어려운 풍경이다. 더구나 현역 최고령 김응용 감독
-						</span>
-						<textarea id="jt-seller-main-textarea" class="jt-seller-main-textarea" maxlength="80">감독이 선수단 숙소에서 함께 생활한다? 프로 야구단에서 상상하기 어려운 풍경이다. 더구나 현역 최고령 김응용 감독</textarea>
+						<pre id="jt-seller-main-footer-text" class="jt-home-shop-footer-text"><c:out value="${jtownUser.notice }"/></pre>
+						<textarea id="jt-seller-main-textarea" class="jt-seller-main-textarea" maxlength="80"><c:out value="${jtownUser.notice }"/></textarea>
 						<div class="jt-seller-main-notice-update-tool" id="jt-seller-main-notice-update-tool">
 							<a href="#none" id="jt-seller-main-notice-update" class="jt-seller-main-notice-update">수정</a>
 							<a href="#none" id="jt-seller-main-notice-cancle" class="jt-seller-main-notice-cancle">취소</a>
@@ -98,25 +113,26 @@
 				</div>
 			</section>
 			<section class="jt-seller-expand">
-				<div class="jt-home-expand-shop" id="jt-home-expand-shop" data-size="10" data-nowPosition="2">
+				<c:set value="${fn:length(products) }" var="productSize"/>
+				<div class="jt-home-expand-shop" id="jt-home-expand-shop" data-size="${productSize }" data-nowPosition="${productSize - 1 }">
 					<header>
-						<a href="#none">Teacher's Fitting Shop</a>
+						<a href="#none" onclick="window.open('${jtownUser.shopUrl }');"><c:out value="${jtownUser.shopName }"/></a>
 					</header>
 					<ul class="jt-home-expand-shop-expandProducts">
 						<li class="jt-home-expand-shop-leftArrow jt-home-expand-shop-arrow">
 							<a href="#none" id="jt-home-expand-shop-leftArrow">&lt;</a>
 						</li>
-						<li class="jt-home-expand-shop-expandProduct-slide">
-							<c:forEach begin="0" end="9" varStatus="loop">
+						<li class="jt-home-expand-shop-expandProduct-slide" id="jt-seller-slide-big">
+							<c:forEach items="${products }" var="product" varStatus="loop">
 								<c:choose>
 									<c:when test="${loop.count < 4 }">
-										<div class="jt-home-expand-shop-expandProduct" id="jt-product-${loop.count }">
+										<div class="jt-home-expand-shop-expandProduct" id="jt-product-${productSize - loop.index }">
 									</c:when>
 									<c:otherwise>
-										<div class="jt-home-expand-shop-expandProduct" id="jt-product-${loop.count }" style="display: none;">
+										<div class="jt-home-expand-shop-expandProduct" id="jt-product-${productSize - loop.index }" style="display: none;">
 									</c:otherwise>
 								</c:choose>
-									<c:url value="/resources/uploadImage/Product-${loop.count }.png" var="image"/>
+									<c:url value="/resources/uploadImage/${product.saveName }" var="image"/>
 									<img alt="상품" src="${image }"/>
 								</div>
 							</c:forEach>
@@ -127,38 +143,54 @@
 					</ul>
 					<div class="jt-home-expand-shop-products">
 						<div class="jt-seller-expand-product-insert-tool">
-							<div class="jt-seller-expand-product-insert">
-								상품등록 <input type="file"/>
-							</div>
+							<a href="#none">상품입력</a>
+						</div>
+						<div class="jt-seller-expand-product-insert-wrap">
+							<input type="file" id="jt-product-file" name="jt-product-file"/>
+							160X160<br/>
+							<a href="#none" class="jt-seller-expand-product-insert-cancle">닫기</a>
 						</div>
 						<h2>Products</h2>
-						<ul>
-							<c:forEach begin="0" end="9" varStatus="loop">
-								<li data-count="${loop.count }">
+						<ul id="jt-seller-slide-small">
+							<c:forEach items="${products }" var="product" varStatus="loop">
+								<li data-count="${productSize - loop.index }" data-ppn="${product.pn }">
 									<div class="jt-seller-expand-product-delete-tool">	
 										<a href="#none" class="jt-seller-product-delete">X</a>
 									</div>
-									<c:url value="/resources/uploadImage/Product-${loop.count }.png" var="image"/>
+									<c:url value="/resources/uploadImage/${product.saveName }" var="image"/>
 									<a href="#none"class="jt-product-list"><img alt="상품" src="${image }"/></a>
 								</li>
 							</c:forEach>
 						</ul>
+						<form action="<c:url value="/seller/dp.jt"/>" method="post" id="product" name="product">
+							<input type="hidden" id="pn" name="pn" value="pn"/>
+						</form>
 					</div>
-					<div class="jt-home-expand-shop-event-first" id="jt-seller-expand-event-first">
-						<div>
+					<div class="jt-home-expand-shop-event" id="jt-seller-expand-event-first" data-epn="<c:out value="${event1.pn }"/>" data-bo="1">
+						<div class="jt-home-expand-shop-event-tool">
 							<a href="#none">수정</a>
 						</div>
-						<c:url value="/resources/uploadImage/event-1.png" var="image"/>
-						<img alt="event1" src="${image }"/>
-						<input type="file"/>
+						<div class="jt-home-expand-shop-event-update-wrap">
+							310 X 150 (pixel) <br/>
+							<input type="file" id="jt-event-first-image" name="jt-event-first-image"/><br/>
+							<a href="#none" class="jt-home-expand-shop-event-update-done">수정</a>
+							<a href="#none" class="jt-home-expand-shop-event-update-cancle">취소</a>
+						</div>
+						<c:url value="/resources/uploadImage/${event1.saveName eq null ? 'event-1.png' : event1.saveName}" var="image"/>
+						<img alt="event1" src="${image }" title="<c:out value="${jtownUser.shopName }"/> Event" id="jt-seller-expand-event-first-img"/>
 					</div>
-					<div class="jt-home-expand-shop-event-second" id="jt-seller-expand-event-second">
-						<div>
+					<div class="jt-home-expand-shop-event" id="jt-seller-expand-event-second" data-epn="<c:out value="${event2.pn }"/>" data-bo="2">
+						<div class="jt-home-expand-shop-event-tool">
 							<a href="#none">수정</a>
 						</div>
-						<c:url value="/resources/uploadImage/event-2.png" var="image"/>
-						<img alt="event2" src="${image }"/>
-						<input type="file"/>
+						<div class="jt-home-expand-shop-event-update-wrap">
+							310 X 150 (pixel) <br/>
+							<input type="file" id="jt-event-second-image" name="jt-event-second-image"/><br/>
+							<a href="#none" class="jt-home-expand-shop-event-update-done">수정</a>
+							<a href="#none" class="jt-home-expand-shop-event-update-cancle">취소</a>
+						</div>
+						<c:url value="/resources/uploadImage/${event2.saveName eq null ? 'event-2.png' : event2.saveName}" var="image"/>
+						<img alt="event2" src="${image }" title="<c:out value="${jtownUser.shopName }"/> Event" id="jt-seller-expand-event-second-img"/>
 					</div>
 				</div>
 			</section>

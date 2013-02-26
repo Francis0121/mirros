@@ -4,18 +4,24 @@ if (typeof jtown.expand == 'undefined') {
 
 $(document).ready(function(){
 	jtown.expand.loadExpandShop();
+	
+	jtown.expand.syncProductMove();
 });
 
 jtown.expand.loadExpandShop = function(){
 	$('.jt-home-shop-content').unbind('click');
 	$('.jt-home-shop-content').bind('click', function(){
-		$.smartPop.open({
-			width : 640,
-			height : 780,
-			html : jtown.expand.makeInnerHtml()
-		});
+		var $parent = $(this).parents('.jt-seller-main');
 		
-		setTimeout(jtown.expand.syncProductMove(), 1000);	
+		if(nullValueCheck($parent.html())){
+			$.smartPop.open({
+				width : 640,
+				height : 780,
+				html : jtown.expand.makeInnerHtml()
+			});
+			
+			setTimeout(jtown.expand.syncProductMove(), 1000);	
+		}
 	});
 };
 
@@ -105,29 +111,29 @@ jtown.expand.syncProductMove = function(){
 			size = Number($parent.attr('data-size')),
 			nowPosition = Number($parent.attr('data-nowPosition'));
 	
-		if(nowPosition == size){
-			$('#jt-product-'+1).css({'display':'none'});	
+		if(nowPosition == 1){
+			$('#jt-product-'+size).css({'display':'none'});	
 		}else{
-			$('#jt-product-'+(nowPosition+1)).css({'display':'none'});
+			$('#jt-product-'+(nowPosition-1)).css({'display':'none'});
 		}
 		
-		if(nowPosition == 2 ){
-			$('#jt-product-2').css({'left': '170px'});
-			$('#jt-product-1').css({'left': '170px'});
-			$('#jt-product-'+size).css({'left': '-340px', 'display':'block'});
-		}else if(nowPosition == 1){
-			$('#jt-product-1').css({'left': '340px'});
-			$('#jt-product-'+(size)).css({'left': '-170px'});
-			$('#jt-product-'+(size-1)).css({'left': '-170px', 'display':'block'});
+		if(nowPosition == size ){
+			$('#jt-product-'+size).css({'left': '340px'});
+			$('#jt-product-1').css({'left': '-170px'});
+			$('#jt-product-2').css({'left': '-170px', 'display':'block'});
+		}else if(nowPosition == (size-1)){
+			$('#jt-product-'+(size-1)).css({'left': '170px'});
+			$('#jt-product-'+(size)).css({'left': '170px'});
+			$('#jt-product-1').css({'left': '-340px', 'display':'block'});
 		}else{
 			$('.jt-home-expand-shop-expandProduct').css({'left':'0'});
-			$('#jt-product-'+(nowPosition - 2)).css({'display':'block'});
+			$('#jt-product-'+(nowPosition + 2)).css({'display':'block'});
 		}
 		
-		if(nowPosition - 1 < 1){
-			$parent.attr('data-nowPosition', size );			
+		if(nowPosition + 1 > size){
+			$parent.attr('data-nowPosition', 1 );			
 		}else{
-			$parent.attr('data-nowPosition', (nowPosition - 1) );			
+			$parent.attr('data-nowPosition', (nowPosition + 1) );			
 		}
 	});	
 
@@ -137,29 +143,29 @@ jtown.expand.syncProductMove = function(){
 			size = Number($parent.attr('data-size')),
 			nowPosition = Number($parent.attr('data-nowPosition'));
 
-		if(nowPosition == 1){
-			$('#jt-product-'+size).css({'display':'none'});
-		}else{
-			$('#jt-product-'+(nowPosition-1)).css({'display':'none'});	
-		}
-		
 		if(nowPosition == size){
-			$('#jt-product-2').css({'display':'block', 'left': '170px'});
-			$('#jt-product-1').css({'left': '170px'});
-			$('#jt-product-'+size).css({'left': '-340px'});
-		}else if(nowPosition == (size-1)){
-			$('#jt-product-'+(size-1)).css({'left': '-170px'});
-			$('#jt-product-'+(size)).css({'left': '-170px'});
-			$('#jt-product-1').css({'display':'block', 'left': '340px'});
+			$('#jt-product-1').css({'display':'none'});
 		}else{
-			$('.jt-home-expand-shop-expandProduct').css({'left':'0'});
-			$('#jt-product-'+(nowPosition + 2)).css('display', 'block');
+			$('#jt-product-'+(nowPosition+1)).css({'display':'none'});	
 		}
 		
-		if(nowPosition + 1 > size){
-			$parent.attr('data-nowPosition', 1 );			
+		if(nowPosition == 2){
+			$('#jt-product-2').css({'left': '-170px'});
+			$('#jt-product-1').css({'left': '-170px'});
+			$('#jt-product-'+size).css({'left': '340px','display':'block'});
+		}else if(nowPosition == 1){
+			$('#jt-product-'+(size-1)).css({'left': '170px','display':'block'});
+			$('#jt-product-'+(size)).css({'left': '170px'});
+			$('#jt-product-1').css({'left': '-340px'});
 		}else{
-			$parent.attr('data-nowPosition', (nowPosition + 1) );			
+			$('.jt-home-expand-shop-expandProduct').css({'left':'0'});	
+			$('#jt-product-'+(nowPosition - 2)).css('display', 'block');
+		}
+		
+		if(nowPosition - 1 < 1){
+			$parent.attr('data-nowPosition', size );			
+		}else{
+			$parent.attr('data-nowPosition', (nowPosition - 1) );			
 		}
 	});
 	
@@ -172,13 +178,13 @@ jtown.expand.syncProductMove = function(){
 		$('.jt-home-expand-shop-expandProduct').css({'display':'none', 'left':'0'});
 		
 		if(count == size){			
-			$('#jt-product-'+(size-1)).css({'display':'block', 'left': '-170px'});
-			$('#jt-product-'+(size)).css({'display':'block', 'left': '-170px'});
-			$('#jt-product-'+1).css({'display':'block', 'left': '340px'});
+			$('#jt-product-'+(size-1)).css({'display':'block', 'left': '170px'});
+			$('#jt-product-'+(size)).css({'display':'block', 'left': '170px'});
+			$('#jt-product-'+1).css({'display':'block', 'left': '-340px'});
 		}else if(count == 1){
-			$('#jt-product-2').css({'display':'block', 'left': '170px'});
-			$('#jt-product-1').css({'display':'block', 'left': '170px'});
-			$('#jt-product-'+size).css({'display':'block', 'left': '-340px'});
+			$('#jt-product-2').css({'display':'block', 'left': '-170px'});
+			$('#jt-product-1').css({'display':'block', 'left': '-170px'});
+			$('#jt-product-'+size).css({'display':'block', 'left': '340px'});
 		}else{
 			$('#jt-product-'+(count - 1)).css('display', 'block');
 			$('#jt-product-'+count).css('display', 'block');

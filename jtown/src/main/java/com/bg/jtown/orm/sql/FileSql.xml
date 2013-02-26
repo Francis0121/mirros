@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="fileMapper">
+	
+	<insert id="insertFileVO" parameterType="com.bg.jtown.util.FileVO">
+		INSERT INTO
+			image
+			( save_name, original_name, owner_pn, memory_size)
+		VALUES
+			( #{saveName}, #{originalName}, #{ownerPn}, #{memorySize} )
+		<selectKey resultType="java.lang.Integer" keyProperty="imagePn">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+	
+</mapper>

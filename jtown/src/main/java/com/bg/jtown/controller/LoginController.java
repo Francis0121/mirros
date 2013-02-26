@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
-import com.bg.jtown.business.LoginService;
 import com.bg.jtown.controller.validator.LoginValidator;
 import com.bg.jtown.controller.validator.VaildationUtil;
 import com.bg.jtown.security.CustomJdbcUserDetailManager;
@@ -35,20 +34,19 @@ public class LoginController {
 
 	private static final Logger logger = LoggerFactory
 			.getLogger(LoginController.class);
-	
+
 	private LoginValidator loginValidator;
-	private LoginService loginService;
 	private UserAuthenticator userAuthenticator;
 	private CustomJdbcUserDetailManager customJdbcUserDetailManager;
-	
+
 	@Autowired
-	private void config(LoginValidator loginValidator, LoginService loginService, UserAuthenticator userAuthenticator, CustomJdbcUserDetailManager customJdbcUserDetailManager){
+	private void config(LoginValidator loginValidator,
+			UserAuthenticator userAuthenticator,
+			CustomJdbcUserDetailManager customJdbcUserDetailManager) {
 		this.loginValidator = loginValidator;
-		this.loginService = loginService;
 		this.userAuthenticator = userAuthenticator;
 		this.customJdbcUserDetailManager = customJdbcUserDetailManager;
 	}
-	
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String showLoginPage(Model model) {
@@ -57,97 +55,107 @@ public class LoginController {
 	}
 
 	@RequestMapping(value = "/login/join", method = RequestMethod.GET)
-	public String showJoinPage(Model model, @ModelAttribute JtownUser jtownUser, HttpServletRequest request) {
+	public String showJoinPage(Model model,
+			@ModelAttribute JtownUser jtownUser, HttpServletRequest request) {
 		logger.debug("Show Join page");
-		
-		request.getSession().setAttribute("beforJoinUrl", request.getHeader("referer"));
-		
+
+		request.getSession().setAttribute("beforJoinUrl",
+				request.getHeader("referer"));
+
 		return "login/join";
 	}
-	
+
 	@RequestMapping(value = "/login/joinSubmit", method = RequestMethod.POST)
 	public ModelAndView formJoinSubmit(@ModelAttribute JtownUser jtownUser,
 			@RequestParam("confirmPassword") final String confirmPassword,
-			BindingResult result,
-			HttpServletRequest request, HttpServletResponse response){
+			BindingResult result, HttpServletRequest request,
+			HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView();
-		
+
 		loginValidator.validate(jtownUser, result);
-		
-		new Validator() {			
+
+		new Validator() {
 			@Override
 			public void validate(Object target, Errors errors) {
-				JtownUser jtownUser = (JtownUser)target;
-				
-				if(jtownUser.getPassword() == null){
+				JtownUser jtownUser = (JtownUser) target;
+
+				if (jtownUser.getPassword() == null) {
 					errors.rejectValue("password", "join.password.empty");
-				} else if (VaildationUtil.confirmPassword(jtownUser.getPassword(), confirmPassword)){
+				} else if (VaildationUtil.confirmPassword(
+						jtownUser.getPassword(), confirmPassword)) {
 					errors.rejectValue("password", "join.password.isNotEqual");
 				}
-				
+
 			}
-			
+
 			@Override
 			public boolean supports(Class<?> clazz) {
 				return JtownUser.class.isAssignableFrom(clazz);
 			}
 		}.validate(jtownUser, result);
-		
-		if(!result.hasErrors()){			
+
+		if (!result.hasErrors()) {
 			request.setAttribute("username", jtownUser.getUsername());
-			request.setAttribute("password", jtownUser.getPassword());			
+			request.setAttribute("password", jtownUser.getPassword());
 
 			customJdbcUserDetailManager.createUserCustomAndAuthority(jtownUser);
-			
+
 			userAuthenticator.login(request, response);
-			
-			String beforeAddress = (String) request.getSession().getAttribute("beforJoinUrl");
-			
+
+			String beforeAddress = (String) request.getSession().getAttribute(
+					"beforJoinUrl");
+
 			logger.debug(beforeAddress);
-			
+
 			mav.setView(new RedirectView(beforeAddress));
 		} else {
 			mav.setViewName("login/join");
 		}
-		
+
 		return mav;
 	}
-	
+
 	@PreAuthorize("hasRole('ROLE_USER')")
 	@RequestMapping(value = "/login/modify", method = RequestMethod.GET)
-	public String showModifyPage(@ModelAttribute JtownUser jtownUser){				
+	public String showModifyPage(@ModelAttribute JtownUser jtownUser) {
 		return "login/modify";
 	}
-	
+
 	@PreAuthorize("hasRole('ROLE_USER')")
 	@RequestMapping(value = "/login/modify", method = RequestMethod.POST)
-	public String formPassword(@ModelAttribute JtownUser jtownUser, @RequestParam final String confirmPassword, BindingResult result){
-		
-		new Validator() {			
+	public String formPassword(@ModelAttribute JtownUser jtownUser,
+			@RequestParam final String confirmPassword, BindingResult result) {
+
+		new Validator() {
 			@Override
 			public void validate(Object target, Errors errors) {
-				JtownUser jtownUser = (JtownUser)target;
-				if(customJdbcUserDetailManager.confirmPassword(jtownUser)){
-					errors.rejectValue("password", "change.password.notEqualPassword");
+				JtownUser jtownUser = (JtownUser) target;
+				if (customJdbcUserDetailManager.confirmPassword(jtownUser)) {
+					errors.rejectValue("password",
+							"change.password.notEqualPassword");
 				}
-				
-				if(VaildationUtil.checkNullAndBlank(jtownUser.getNewPassword())){
+
+				if (VaildationUtil
+						.checkNullAndBlank(jtownUser.getNewPassword())) {
 					errors.rejectValue("newPassword", "join.password.empty");
-				}else if (VaildationUtil.confirmPassword(jtownUser.getNewPassword(), confirmPassword)){
-					errors.rejectValue("newPassword", "join.password.isNotEqual");
+				} else if (VaildationUtil.confirmPassword(
+						jtownUser.getNewPassword(), confirmPassword)) {
+					errors.rejectValue("newPassword",
+							"join.password.isNotEqual");
 				}
-				
+
 			}
-			
+
 			@Override
 			public boolean supports(Class<?> clazz) {
 				return JtownUser.class.isAssignableFrom(clazz);
 			}
-		}.validate(jtownUser, result);		
-		
-		if(!result.hasErrors()){
-			customJdbcUserDetailManager.changePassword(jtownUser.getPassword(), jtownUser.getNewPassword());
-			
+		}.validate(jtownUser, result);
+
+		if (!result.hasErrors()) {
+			customJdbcUserDetailManager.changePassword(jtownUser.getPassword(),
+					jtownUser.getNewPassword());
+
 			return "home";
 		} else {
 			return "login/modify";

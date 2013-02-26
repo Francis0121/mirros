@@ -33,10 +33,9 @@ public class AdminController {
 
 	private static final Logger logger = LoggerFactory
 			.getLogger(AdminController.class);
-	
-	@Resource(name="adminServiceImpl")
+
+	@Resource(name = "adminServiceImpl")
 	private AdminService adminService;
-	
 
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/admin", method = RequestMethod.GET)
@@ -70,9 +69,9 @@ public class AdminController {
 	@RequestMapping(value = "/admin/seller", method = RequestMethod.GET)
 	public String showSellerPage(Model model, @ModelAttribute UserSearch search) {
 		logger.debug("Show Seller Page");
-		
+
 		model.addAllAttributes(adminService.getSellerModelMap(search));
-		
+
 		return "admin/seller";
 	}
 
@@ -85,43 +84,52 @@ public class AdminController {
 
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/admin/cs", method = RequestMethod.GET)
-	public String showCreatSellerPage(Model model, @ModelAttribute JtownUser jtownUser) {
+	public String showCreatSellerPage(Model model,
+			@ModelAttribute JtownUser jtownUser) {
 		logger.debug("Show createSeller Page");
-		
-		List<Interest> interestCategoryList = adminService.selectInterestCategoryList();  
+
+		List<Interest> interestCategoryList = adminService
+				.selectInterestCategoryList();
+
 		model.addAttribute("categoryList", interestCategoryList);
-		
+
 		return "admin/createSeller";
 	}
-	
+
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/admin/cs", method = RequestMethod.POST)
-	public String formCreateSeller(Model model, @ModelAttribute JtownUser jtownUser, BindingResult result){	
+	public String formCreateSeller(Model model,
+			@ModelAttribute JtownUser jtownUser, BindingResult result) {
 		logger.debug(jtownUser.toString());
 		new Validator() {
-			
+
 			@Override
 			public void validate(Object target, Errors errors) {
-				JtownUser jtownUser = (JtownUser)target;
-				
-				ValidationUtils.rejectIfEmptyOrWhitespace(errors, "shopName", "create.seller.shopName.empty");
-				ValidationUtils.rejectIfEmptyOrWhitespace(errors, "shopUrl", "create.seller.shopUrl.empty");
-				ValidationUtils.rejectIfEmptyOrWhitespace(errors, "interestSectionList", "create.seller.interestSection.notAllow");				
+
+				ValidationUtils.rejectIfEmptyOrWhitespace(errors, "shopName",
+						"create.seller.shopName.empty");
+				ValidationUtils.rejectIfEmptyOrWhitespace(errors, "shopUrl",
+						"create.seller.shopUrl.empty");
+				ValidationUtils.rejectIfEmptyOrWhitespace(errors,
+						"interestSectionList",
+						"create.seller.interestSection.notAllow");
 			}
-			
+
 			@Override
 			public boolean supports(Class<?> clazz) {
 				return JtownUser.class.isAssignableFrom(clazz);
 			}
 		}.validate(jtownUser, result);
-		
-		if(!result.hasErrors()){
+
+		if (!result.hasErrors()) {
 			adminService.insertCreateSeller(jtownUser);
 			return "admin/main";
 		} else {
-			List<Interest> interestCategoryList = adminService.selectInterestCategoryList();  
+			List<Interest> interestCategoryList = adminService
+					.selectInterestCategoryList();
+
 			model.addAttribute("categoryList", interestCategoryList);
-			
+
 			return "admin/createSeller";
 		}
 	}
@@ -132,11 +140,11 @@ public class AdminController {
 		logger.debug("Show Administrator Page");
 		return "admin/administrator";
 	}
-	
+
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/admin/changeShopUrl", method = RequestMethod.POST)
 	@ResponseBody
-	public void ajaxChangeShopUrl(@RequestBody JtownUser jtownUser){
+	public void ajaxChangeShopUrl(@RequestBody JtownUser jtownUser) {
 		adminService.updateShopUrl(jtownUser);
 	}
 }

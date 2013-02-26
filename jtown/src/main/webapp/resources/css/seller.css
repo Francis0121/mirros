@@ -25,7 +25,7 @@
 .jt-seller-main-notice-update-tool{ width: 100%; display: none; }
 .jt-seller-main-notice-update{}
 .jt-seller-main-notice-cancle{}
-.jt-seller-main-textarea{ display:none; float: left; width: 298px; padding: 2px 3px; border: 1px solid #8080;overflow: hidden; min-height: 50px; margin: 0 5px; resize : none;}
+.jt-seller-main-textarea{ display:none; float: left; width: 298px; padding: 2px 3px; border: 1px solid #8080;overflow: hidden; min-height: 50px; margin: 0 5px; resize : none; line-height: 1.5;}
 .jt-seller-main-image-hover-tool{ padding: 0 !important; display: none;}
 .jt-seller-main-image-updateShow{ position: absolute; float: left;}
 .jt-seller-main-image-update-tool{ display: none;}
@@ -40,8 +40,7 @@
 .jt-seller-product-delete{float: left; position: absolute; font-size: 12px; font-family: Gulim; font-weight: bold; color: #000; z-index: 10;}
 .jt-seller-product-delete:HOVER, .jt-seller-product-delete:VISITED, .jt-seller-product-delete:ACTIVE { color: #000; }
 .jt-seller-expand-product-insert-tool{float: left; width: 100%; font-size: 12px; display: none;}
-.jt-seller-expand-product-insert{float: left; position: absolute; }
-.jt-home-expand-shop-event-first>div{float : left; position: absolute; display:  none; font-size: 12px;}
-.jt-home-expand-shop-event-second>div{float : left; position: absolute; display:  none; font-size: 12px;}
-.jt-home-expand-shop-event-first>input{display: none;}
-.jt-home-expand-shop-event-second>input{display: none;}
+.jt-seller-expand-product-insert-tool>a{position: absolute;float: left;}
+.jt-seller-expand-product-insert-wrap{font-size: 12px; font-family: Gulim; float: left; width: 630px; height: 130px; background : rgba(255,255,255, .5); display: none; position: absolute;}
+.jt-home-expand-shop-event-tool{float : left; position: absolute; display:  none; font-size: 12px;}
+.jt-home-expand-shop-event-update-wrap{ font-size: 12px; display: none; float: left; position: absolute; width: 314px; height: 154px; background: rgba(255, 255, 255, 0.5); }
