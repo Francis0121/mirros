@@ -7,12 +7,13 @@
 <%@ include file="../layout/layout_header.jspf" %>
 <div id="jt-home-container">
 	<c:forEach items="${jtownUsers }" var="seller" varStatus="loop">
-		<c:set value="${images[seller.pn] }" var="mainImages"/>
+		<c:set value="${seller.pn }" var="spn"/>
+		<c:set value="${images[spn] }" var="mainImages"/>
 		<div class="jt-home-shop">
 			<header>
 				<a href="#none" onclick="window.open('http://${seller.shopUrl }');"><c:out value="${seller.shopName }"/></a>
 			</header>
-			<div class="jt-home-shop-content">
+			<div class="jt-home-shop-content" data-spn="<c:out value="${spn }"/>">
 				<ul class="jt-home-shop-content-image">
 					<li>
 						<c:forEach items="${mainImages }" var="mainImage" varStatus="loop" >

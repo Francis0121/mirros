@@ -160,7 +160,7 @@
 										<a href="#none" class="jt-seller-product-delete">X</a>
 									</div>
 									<c:url value="/resources/uploadImage/${product.saveName }" var="image"/>
-									<a href="#none"class="jt-product-list"><img alt="상품" src="${image }"/></a>
+									<a href="#none" class="jt-product-list"><img alt="상품" src="${image }"/></a>
 								</li>
 							</c:forEach>
 						</ul>

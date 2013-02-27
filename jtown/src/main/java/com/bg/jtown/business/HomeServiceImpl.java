@@ -50,6 +50,16 @@ public class HomeServiceImpl extends SqlSessionDaoSupport implements
 	}
 
 	@Override
+	public Map<String, Object> selectExpandShop(Integer properNumber) {
+		Map<String, Object> selectMap = new HashMap<String, Object>();
+		selectMap.put("jtownUser", sellerService.selectSellerInformation(properNumber));
+		selectMap.putAll(sellerService.selectSellerEvent(properNumber));
+		selectMap.put("products",
+				sellerService.selectSellerProduct(properNumber));
+		return selectMap;
+	}
+
+	@Override
 	public List<JtownUser> selectSeller(HomeFilter homeFilter) {
 		Integer categoryPn = homeFilter.getCategoryPn();
 		Integer sectionPn = homeFilter.getSectionPn();

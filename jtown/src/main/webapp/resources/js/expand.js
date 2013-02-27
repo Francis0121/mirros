@@ -14,78 +14,93 @@ jtown.expand.loadExpandShop = function(){
 		var $parent = $(this).parents('.jt-seller-main');
 		
 		if(nullValueCheck($parent.html())){
-			$.smartPop.open({
-				width : 640,
-				height : 780,
-				html : jtown.expand.makeInnerHtml()
-			});
-			
-			setTimeout(jtown.expand.syncProductMove(), 1000);	
+			jtown.expand.makeInnerHtml($(this).attr('data-spn'));	
 		}
 	});
 };
 
-jtown.expand.makeInnerHtml = function(){
+jtown.expand.makeInnerHtml = function(spn){
 	
-	var html = 	'<div class="jt-home-expand-shop" id="jt-home-expand-shop" data-size="10" data-nowPosition="9">'+
-				'	<header>'+
-				'		<a href="#none">Teachers Fitting Shop</a>'+
-				'	</header>'+
-				'	<ul class="jt-home-expand-shop-expandProducts">'+
-				'		<li class="jt-home-expand-shop-leftArrow jt-home-expand-shop-arrow">'+
-				'			<a href="#none" id="jt-home-expand-shop-leftArrow">&lt;</a>'+
-				'		</li>'+
-				'		<li class="jt-home-expand-shop-expandProduct-slide">';
-				for(var i=0; i<10; i++){
-					if((i+1)<4){
-						html+=
-				'			<div class="jt-home-expand-shop-expandProduct" id="jt-product-'+(10-i)+'">';	
-					}else{
-						html+=	
-				'			<div class="jt-home-expand-shop-expandProduct" id="jt-product-'+(10-i)+'" style="display: none;">';		
-					}
-						html+=
-				'				<img alt="상품" src="'+contextPath+'resources/uploadImage/Product-'+(i+1)+'.png"/>'+
-				'			</div>';
-				}
-				html+=
-				'		</li>'+
-				'		<li class="jt-home-expand-shop-rigthArrow jt-home-expand-shop-arrow">'+
-				'			<a href="#none" id="jt-home-expand-shop-rigthArrow">&gt;</a>'+
-				'		</li>'+
-				'	</ul>'+
-				'	<div class="jt-home-expand-shop-products">'+
-				'		<h2>Products</h2>'+
-				'		<ul>';
-				for(var i=0; i<10; i++){
-					html +=
-				'				<li data-count="'+(10-i)+'">'+
-				'					<div class="jt-seller-expand-product-delete-tool">	'+
-				'						<a href="#none" class="jt-seller-product-delete">X</a>'+
-				'					</div>'+
-				'					<a href="#none"class="jt-product-list"><img alt="상품" src="'+contextPath+'/resources/uploadImage/Product-'+(i+1)+'.png"/></a>'+
-				'				</li>';
-				}
-				html+=	
-				'		</ul>'+
-				'	</div>'+
-				'	<div class="jt-home-expand-shop-event" id="jt-seller-expand-event-first">'+
-				'		<img alt="event1" src="'+contextPath+'resources/uploadImage/event-1.png"/>'+
-				'	</div>'+
-				'	<div class="jt-home-expand-shop-event" id="jt-seller-expand-event-second">'+
-				'		<img alt="event2" src="'+contextPath+'resources/uploadImage/event-2.png"/>'+
-				'	</div>'+
-				'	<ul class="jt-home-expand-shop-content-fn">'+
-				'		<li>'+
-				'			VIEW 3,000'+	
-				'		</li>'+
-				'		<li>'+
-				'			COMMENT 8'+
-				'		</li>'+
-				'		<li>'+
-				'			♥'+
-				'		</li>'+
-				'	</ul>'+
+	var url = contextPath + 'ajax/home/expandShop.jt',
+		json = { 'pn' : spn };
+
+	$.postJSON(url, json, function(selectMap){
+		var html ='';
+		var path = contextPath + 'resources/uploadImage/';
+		var event1 = selectMap.event1, 
+			event2 = selectMap.event2, 
+			products = selectMap.products, 
+			jtownUser = selectMap.jtownUser;
+		
+		var productSize = Number(products.length);
+		var bigProductHtml = '';
+		var smallProductHtml = '';
+		for(var i=0; i<productSize; i++){
+			var product = products[i],
+				count = Number(i)+1,
+				index = productSize-Number(i);
+			if(count < 4){
+				bigProductHtml+='<div class="jt-home-expand-shop-expandProduct" id="jt-product-'+index+'">';
+			}else{
+				bigProductHtml+='<div class="jt-home-expand-shop-expandProduct" id="jt-product-'+index+'" style="display: none;">';
+			}
+			bigProductHtml += '<img alt="상품" src="'+path+product.saveName+'"/>';
+			bigProductHtml += '</div>';
+			
+			smallProductHtml += '<li data-count="'+index+'">';
+			smallProductHtml += '	<a href="#none" class="jt-product-list"><img alt="상품" src="'+path+product.saveName+'"/></a>';
+			smallProductHtml += '</li>';
+		}
+		
+		var eventImage1='event-1.png', eventImage2 = 'event-2.png';
+		
+		if(!nullValueCheck(event1)){
+			eventImage1 = event1.saveName;
+		}
+		
+		if(!nullValueCheck(event2)){
+			eventImage2 = event2.saveName;
+		}
+		
+		
+		html += '<div class="jt-home-expand-shop" id="jt-home-expand-shop" data-size="'+productSize+'" data-nowPosition="'+(productSize-1)+'">';
+		html += '	<header>';
+		html += '		<a href="#none" onclick="window.open(\'http://'+htmlChars(jtownUser.shopUrl)+'\');">'+htmlChars(jtownUser.shopName)+'</a>';
+		html += '	</header>';
+		html += '	<ul class="jt-home-expand-shop-expandProducts">';
+		html += '		<li class="jt-home-expand-shop-leftArrow jt-home-expand-shop-arrow">';
+		html += '			<a href="#none" id="jt-home-expand-shop-leftArrow">&lt;</a>';
+		html += '		</li>';
+		html += '		<li class="jt-home-expand-shop-expandProduct-slide" id="jt-seller-slide-big">';
+		html +=	'			'+bigProductHtml;
+		html +=	'		</li>';
+		html +=	'		<li class="jt-home-expand-shop-rigthArrow jt-home-expand-shop-arrow">';
+		html +=	'			<a href="#none" id="jt-home-expand-shop-rigthArrow">&gt;</a>';
+		html +=	'		</li>';
+		html += '	</ul>';
+		html += '	<div class="jt-home-expand-shop-products">';
+		html += '		<h2>Products</h2>';
+		html += '		<ul id="jt-seller-slide-small">';
+		html += '			'+smallProductHtml;
+		html += '		</ul>';
+		html += '	</div>';
+		html += '	<div class="jt-home-expand-shop-event" id="jt-seller-expand-event-first">';
+		html += '		<img alt="event1" src="'+path + eventImage1 +'" title="'+htmlChars(jtownUser.shopName)+' Event"/>';
+		html += '	</div>';
+		html += '	<div class="jt-home-expand-shop-event" id="jt-seller-expand-event-second">';
+		html +=	'		<img alt="event2" src="'+path + eventImage2 +'" title="'+htmlChars(jtownUser.shopName)+' Event"/>';
+		html +=	'	</div>';	
+		html += '	<ul class="jt-home-expand-shop-content-fn">';
+		html +=	'		<li>';
+		html +=	'			VIEW '+ jtownUser.viewCount;	
+		html +=	'		</li>';
+		html +=	'		<li>';
+		html +=	'			COMMENT 8';
+		html +=	'		</li>';
+		html +=	'		<li>';
+		html +=	'			♥ ' + jtownUser.loveCount;
+		html +=	'		</li>';
+		html +=	'	</ul>'+
 				'	<div class="jt-home-expand-shop-comment-wrap">'+
 				'		<ul class="jt-home-expand-shop-comment">'+
 				'			<li><span class="jt-home-expand-shop-comment-name">김성근</span> 이 매장 정말 좋아요</li>'+
@@ -99,8 +114,9 @@ jtown.expand.makeInnerHtml = function(){
 				'		<input type="text"/>'+
 				'	</div>'+
 				'</div>';
-	
-		return html;
+		$.smartPop.open({width : 640,height : 780,html : html });
+		setTimeout(jtown.expand.syncProductMove(), 1300);
+	});
 };
 
 jtown.expand.syncProductMove = function(){

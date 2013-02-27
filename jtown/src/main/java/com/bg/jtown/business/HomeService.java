@@ -14,6 +14,8 @@ public interface HomeService {
 
 	Map<String, Object> selectHome(HomeFilter homeFilter);
 
+	Map<String, Object> selectExpandShop(Integer properNumber);
+
 	List<JtownUser> selectSeller(HomeFilter homeFilter);
 
 	List<JtownUser> selectFromInterestCategory(HomeFilter homeFilter);
