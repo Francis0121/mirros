@@ -12,9 +12,13 @@ import com.bg.jtown.security.JtownUser;
  */
 public interface HomeService {
 
+	// ~ map model
+
 	Map<String, Object> selectHome(HomeFilter homeFilter);
 
 	Map<String, Object> selectExpandShop(Integer properNumber);
+
+	// ~ seller Information
 
 	List<JtownUser> selectSeller(HomeFilter homeFilter);
 
@@ -22,4 +26,11 @@ public interface HomeService {
 
 	List<JtownUser> selectFromInterest(HomeFilter homeFilter);
 
+	// ~ comment
+
+	Comment insertComment(Comment comment);
+
+	Comment updateComment(Comment comment);
+
+	void deleteComment(Comment comment);
 }

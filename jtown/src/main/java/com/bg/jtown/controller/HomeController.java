@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.bg.jtown.business.Comment;
 import com.bg.jtown.business.HomeService;
 import com.bg.jtown.business.search.HomeFilter;
 import com.bg.jtown.security.JtownUser;
@@ -90,7 +91,50 @@ public class HomeController {
 	@RequestMapping(value = "/ajax/home/expandShop.jt", method = RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> ajaxExpandShop(@RequestBody JtownUser jtownUser) {
-		return homeService.selectExpandShop(jtownUser.getPn());
+		Map<String, Object> selectMap = homeService.selectExpandShop(jtownUser
+				.getPn());
+
+		try {
+			JtownUser user = (JtownUser) SecurityContextHolder.getContext()
+					.getAuthentication().getPrincipal();
+			logger.debug(user.toString());
+			if (user.getGroupName().equals("Customer")) {
+				selectMap.put("cpn", user.getPn());
+			}else{
+				selectMap.put("cpn", 0);
+			}
+		} catch (ClassCastException e) {
+			logger.debug("로그인하지않은 사용자");
+		}
+
+		return selectMap;
+	}
+
+	@RequestMapping(value = "/ajax/home/insertComment.jt", method = RequestMethod.POST)
+	@ResponseBody
+	public Comment ajaxInsertComment(@RequestBody Comment comment) {
+		JtownUser user = (JtownUser) SecurityContextHolder.getContext()
+				.getAuthentication().getPrincipal();
+		comment.setCustomerPn(user.getPn());
+		return homeService.insertComment(comment);
+	}
+
+	@RequestMapping(value = "/ajax/home/updateComment.jt", method = RequestMethod.POST)
+	@ResponseBody
+	public Comment ajaxUpdateComment(@RequestBody Comment comment) {
+		JtownUser user = (JtownUser) SecurityContextHolder.getContext()
+				.getAuthentication().getPrincipal();
+		comment.setCustomerPn(user.getPn());
+		return homeService.updateComment(comment);
+	}
+
+	@RequestMapping(value = "/ajax/home/deleteComment.jt", method = RequestMethod.POST)
+	@ResponseBody
+	public void ajaxDeleteComment(@RequestBody Comment comment) {
+		JtownUser user = (JtownUser) SecurityContextHolder.getContext()
+				.getAuthentication().getPrincipal();
+		comment.setCustomerPn(user.getPn());
+		homeService.deleteComment(comment);
 	}
 
 }

@@ -27,6 +27,7 @@
 <script src="${cp}resources/js/admin.js"></script>
 <script src="${cp}resources/js/seller.js"></script>
 <script src="${cp}resources/js/expand.js"></script>
+<script src="${cp}resources/js/comment.js"></script>
 
 <script type="text/javascript">
 /* <![CDATA[ */   	

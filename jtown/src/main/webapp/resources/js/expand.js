@@ -30,7 +30,9 @@ jtown.expand.makeInnerHtml = function(spn){
 		var event1 = selectMap.event1, 
 			event2 = selectMap.event2, 
 			products = selectMap.products, 
-			jtownUser = selectMap.jtownUser;
+			jtownUser = selectMap.jtownUser,
+			comments = selectMap.comments,
+			cpn = selectMap.cpn;
 		
 		var productSize = Number(products.length);
 		var bigProductHtml = '';
@@ -62,8 +64,37 @@ jtown.expand.makeInnerHtml = function(spn){
 			eventImage2 = event2.saveName;
 		}
 		
+		var commentHtml = '';
+		for(var i=0; i<comments.length; i++){
+			var comment = comments[i];
+			commentHtml += 	'<li data-copn="'+comment.commentPn+'">';
+			commentHtml +=	'	<ul class="jt-home-expand-shop-text-wrap">';
+			commentHtml += 	'		<li class="jt-home-expand-shop-comment-name">'+htmlChars(comment.customerName)+'</li>';
+			commentHtml +=	'		<li class="jt-home-expand-shop-comment-text">'+htmlChars(comment.comment)+'</li>';
+			commentHtml	+= 	'	</ul>';
+			if(comment.customerPn == cpn){
+				commentHtml +=	'<div class="jt-home-expand-shop-update-wrap">';
+				commentHtml +=	'	<input type="text" class="jt-comment-update-input" value="'+htmlChars(comment.comment)+'"/><br/>';
+				commentHtml += 	'	<span>esc를 누르시면 수정이 취소 됩니다.</span>';
+				commentHtml +=	'</div>';
+				commentHtml +=	'<div class="jt-home-expand-shop-tool-wrap">';
+				commentHtml +=	'	<a href="#none" class="jt-comment-update">수정</a>';
+				commentHtml +=	'	<a href="#none" class="jt-comment-delete">삭제</a>';
+				commentHtml +=	'</div>';
+			}
+			commentHtml += '</li>';
+		}
 		
-		html += '<div class="jt-home-expand-shop" id="jt-home-expand-shop" data-size="'+productSize+'" data-nowPosition="'+(productSize-1)+'">';
+		var commentInputHtml = '';
+		if(cpn == 0){
+			commentInputHtml += '<input type="text" id="jt-comment-insert" readonly="readonly" value="판매자 아이디로는 이용하실 수 없습니다."/>';	
+		}else if(!nullValueCheck(cpn)){			
+			commentInputHtml += '<input type="text" id="jt-comment-insert"/>';
+		}else{
+			commentInputHtml += '<input type="text" id="jt-comment-insert" readonly="readonly" value="로그인한 사용자만 사용할 수 있습니다."/>';
+		}
+		
+		html += '<div class="jt-home-expand-shop" id="jt-home-expand-shop" data-size="'+productSize+'" data-nowPosition="'+(productSize-1)+'" data-spn="'+jtownUser.pn+'">';
 		html += '	<header>';
 		html += '		<a href="#none" onclick="window.open(\'http://'+htmlChars(jtownUser.shopUrl)+'\');">'+htmlChars(jtownUser.shopName)+'</a>';
 		html += '	</header>';
@@ -100,22 +131,19 @@ jtown.expand.makeInnerHtml = function(spn){
 		html +=	'		<li>';
 		html +=	'			♥ ' + jtownUser.loveCount;
 		html +=	'		</li>';
-		html +=	'	</ul>'+
-				'	<div class="jt-home-expand-shop-comment-wrap">'+
-				'		<ul class="jt-home-expand-shop-comment">'+
-				'			<li><span class="jt-home-expand-shop-comment-name">김성근</span> 이 매장 정말 좋아요</li>'+
-				'			<li><span class="jt-home-expand-shop-comment-name">박광열</span> 상품 배송이 정말 빨랑</li>'+
-				'			<li><span class="jt-home-expand-shop-comment-name">이진섭</span> 대박쇼핑몰!!</li>'+
-				'			<li><span class="jt-home-expand-shop-comment-name">홍길동</span> 상품이 정말 많아요</li>'+
-				'			<li><span class="jt-home-expand-shop-comment-name">홍길동</span> 상품이 정말 많아요</li>'+
-				'		</ul>'+
-				'	</div>'+
-				'	<div class="jt-home-expand-shop-comment-insert">'+
-				'		<input type="text"/>'+
-				'	</div>'+
-				'</div>';
+		html +=	'	</ul>';
+		html +=	'	<div class="jt-home-expand-shop-comment-wrap">';
+		html +=	'		<ul class="jt-home-expand-shop-comment">';
+		html +=	'			'+commentHtml;
+		html +=	'		</ul>';
+		html +=	'	</div>';
+		html +=	'	<div class="jt-home-expand-shop-comment-insert">';
+		html +=	'		'+commentInputHtml;
+		html +=	'	</div>';
+		html +=	'</div>';
 		$.smartPop.open({width : 640,height : 780,html : html });
 		setTimeout(jtown.expand.syncProductMove(), 1300);
+		setTimeout(jtown.comment.syncComment(), 1300);
 	});
 };
 

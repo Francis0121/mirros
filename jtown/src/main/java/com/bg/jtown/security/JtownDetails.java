@@ -59,4 +59,6 @@ public interface JtownDetails extends UserDetails {
     boolean isEnabled();
     
     Integer getPn();
+    
+    String getGroupName();
 }
