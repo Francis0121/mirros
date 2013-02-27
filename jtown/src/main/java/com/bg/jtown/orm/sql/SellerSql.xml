@@ -153,5 +153,16 @@
 			SELECT LAST_INSERT_ID()
 		</selectKey>
 	</insert>
+	
+	<select id="selectCommentCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+		SELECT
+			COUNT(seller_pn) AS comment_count
+		FROM
+			user_customer_comment
+		WHERE
+			seller_pn = #{properNumber}
+		GROUP BY
+			seller_pn
+	</select>
 
 </mapper>

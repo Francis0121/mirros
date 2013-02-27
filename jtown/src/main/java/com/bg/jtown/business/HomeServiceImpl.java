@@ -44,6 +44,8 @@ public class HomeServiceImpl extends SqlSessionDaoSupport implements
 		for (JtownUser jtownUser : jtownUsers) {
 			Integer pn = jtownUser.getPn();
 			homeMap.put(pn, sellerService.selectSellerImage(pn));
+
+			jtownUser.setCommentCount(sellerService.selectCommentCount(pn));
 		}
 		logger.debug(homeMap.toString());
 		selectMap.put("images", homeMap);

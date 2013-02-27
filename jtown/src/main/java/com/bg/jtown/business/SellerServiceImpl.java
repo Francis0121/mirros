@@ -51,8 +51,13 @@ public class SellerServiceImpl extends SqlSessionDaoSupport implements
 			if (jtownUser.getViewCount() == null) {
 				jtownUser.setViewCount(0);
 			}
+			Integer count = selectCommentCount(properNumber);
+			if (count == null) {
+				jtownUser.setCommentCount(0);
+			} else {
+				jtownUser.setCommentCount(count);
+			}
 		}
-
 		return jtownUser;
 	}
 
@@ -150,4 +155,10 @@ public class SellerServiceImpl extends SqlSessionDaoSupport implements
 		getSqlSession().insert("sellerMapper.insertSellerProduct", product);
 	}
 
+	// ~ SellerComment
+	@Override
+	public Integer selectCommentCount(Integer properNumber) {
+		return getSqlSession().selectOne("sellerMapper.selectCommentCount",
+				properNumber);
+	}
 }

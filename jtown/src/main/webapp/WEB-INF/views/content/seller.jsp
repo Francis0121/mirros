@@ -93,7 +93,7 @@
 								VIEW <c:out value="${jtownUser.viewCount eq null ? 0 : jtownUser.viewCount}"/>	
 							</li>
 							<li>
-								COMMENT 
+								COMMENT <c:out value="${jtownUser.commentCount eq null ? 0 : jtownUser.commentCount}"/>
 							</li>
 							<li>
 								♥ <c:out value="${jtownUser.loveCount eq null ? 0 : jtownUser.loveCount}"/>

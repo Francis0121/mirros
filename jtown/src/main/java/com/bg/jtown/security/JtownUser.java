@@ -47,6 +47,7 @@ public class JtownUser implements JtownDetails, CredentialsContainer {
 	private String notice;
 	private Integer loveCount;
 	private Integer viewCount;
+	private Integer commentCount;
 
 	private String interestCategory;
 	private String interestSectionList;
@@ -149,7 +150,8 @@ public class JtownUser implements JtownDetails, CredentialsContainer {
 	public JtownUser(Integer pn, String username, String password,
 			boolean enabled, boolean accountNonExpired,
 			boolean credentialsNonExpired, boolean accountNonLocked,
-			Collection<? extends GrantedAuthority> authorities, String salt, String groupName) {
+			Collection<? extends GrantedAuthority> authorities, String salt,
+			String groupName) {
 
 		if (((username == null) || "".equals(username)) || (password == null)) {
 			throw new IllegalArgumentException(
@@ -233,6 +235,10 @@ public class JtownUser implements JtownDetails, CredentialsContainer {
 		return groupName;
 	}
 
+	public Integer getCommentCount() {
+		return commentCount;
+	}
+
 	public boolean isAccountNonExpired() {
 		return accountNonExpired;
 	}
@@ -247,6 +253,10 @@ public class JtownUser implements JtownDetails, CredentialsContainer {
 
 	public boolean isEnabled() {
 		return enabled;
+	}
+
+	public void setCommentCount(Integer commentCount) {
+		this.commentCount = commentCount;
 	}
 
 	public void setEnabled(boolean enabled) {
@@ -422,6 +432,7 @@ public class JtownUser implements JtownDetails, CredentialsContainer {
 				.append("; ");
 		sb.append("newPassword : ").append(this.newPassword).append("; ");
 		sb.append("GroupName : ").append(this.groupName).append("; ");
+		sb.append("commentCount : ").append(this.commentCount).append("; ");
 
 		if (!authorities.isEmpty()) {
 			sb.append("Granted Authorities: ");

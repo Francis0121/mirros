@@ -27,7 +27,7 @@
 						VIEW <c:out value="${seller.viewCount eq null ? 0 : seller.viewCount}"/>	
 					</li>
 					<li>
-						COMMENT 8
+						COMMENT <c:out value="${seller.commentCount eq null ? 0 : seller.commentCount}"/>
 					</li>
 					<li>
 						♥ <c:out value="${seller.loveCount eq null ? 0 : seller.loveCount}"/>
