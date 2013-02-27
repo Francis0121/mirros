@@ -2,13 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="AdminMapper">	
 	<resultMap type="Interest" id="interestCategoryMap">
-		<result property="categoryPn" column="pn" />
+		<result property="categoryPn" column="category_pn" />
 		<result property="name" column="name"/>
 	</resultMap>
 	
 	<select id="getInterestCategoryList" resultMap="interestCategoryMap">
 		SELECT
-			pn, name
+			pn AS category_pn, name
 		FROM
 			interest_category
 	</select>
@@ -99,5 +99,22 @@
 			shop_url = #{shopUrl}
 		WHERE
 			pn = #{pn}
+	</update>
+	
+	<delete id="deleteInterestSellerInterest" parameterType="Interest">
+		DELETE
+		FROM
+			user_seller_interest
+		WHERE
+			seller_pn = #{sellerPn}
+	</delete>
+	
+	<update id="updateEnable" parameterType="JtownUser">
+		UPDATE
+			users
+		SET
+			enable = #{enabled}
+		WHERE
+			id = #{username}
 	</update>
 </mapper>

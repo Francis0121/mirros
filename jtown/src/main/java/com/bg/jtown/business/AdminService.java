@@ -16,4 +16,8 @@ public interface AdminService {
 
 	void updateShopUrl(JtownUser jtownUser);
 
+	void updateInterest(Interest interest);
+
+	void updateEnable(JtownUser jtownUser);
+
 }

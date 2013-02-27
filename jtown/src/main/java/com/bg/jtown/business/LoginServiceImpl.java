@@ -13,11 +13,7 @@ public class LoginServiceImpl extends SqlSessionDaoSupport implements LoginServi
 	@Override
 	public boolean selectCheckExistEmail(String id) {
 		if(id != null){
-			if((Integer)getSqlSession().selectOne("LoginMapper.checkExistEmail", id) > 0){
-				return true;
-			} else {
-				return false;
-			}
+			return (Integer)getSqlSession().selectOne("LoginMapper.checkExistEmail", id) > 0;
 		}
 		
 		return false;

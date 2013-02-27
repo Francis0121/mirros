@@ -147,4 +147,18 @@ public class AdminController {
 	public void ajaxChangeShopUrl(@RequestBody JtownUser jtownUser) {
 		adminService.updateShopUrl(jtownUser);
 	}
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@RequestMapping(value = "/admin/changeInterest", method = RequestMethod.POST)
+	@ResponseBody
+	public void ajaxChangeInterest(@RequestBody Interest interest){
+		adminService.updateInterest(interest);
+	}
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@RequestMapping(value = "/admin/changeEnable", method = RequestMethod.POST)
+	@ResponseBody
+	public void ajaxChangeEnable(@RequestBody JtownUser jtownUser){
+		adminService.updateEnable(jtownUser);
+	}
 }

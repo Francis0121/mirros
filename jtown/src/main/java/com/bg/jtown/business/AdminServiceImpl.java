@@ -73,4 +73,32 @@ public class AdminServiceImpl extends SqlSessionDaoSupport implements
 	public void updateShopUrl(JtownUser jtownUser) {
 		getSqlSession().update("AdminMapper.updateShopUrl", jtownUser);		
 	}
+	
+	@Override
+	public void updateInterest(Interest interest) {		
+		getSqlSession().delete("AdminMapper.deleteInterestSellerInterest", interest);
+		
+		String [] interestListStr = interest.getInterestSectionNameList().trim().split(",");
+		
+		Interest interestParam;
+		
+		for( String interestTemp : interestListStr){
+			Integer pn = getSqlSession().selectOne("AdminMapper.interestSectionPn", interestTemp);
+			
+			if(pn != null){
+				interestParam = new Interest(interest.getSellerPn(), interest.getCategoryPn(), pn, null);			
+				
+			} else {							
+				interestParam = new Interest(interest.getSellerPn(), interest.getCategoryPn(), null, interestTemp);
+				getSqlSession().insert("AdminMapper.insertInterestSection", interestParam);
+			}
+			
+			getSqlSession().insert("AdminMapper.insertUserInterest", interestParam);
+		}				
+	}
+	
+	@Override
+	public void updateEnable(JtownUser jtownUser) {
+		getSqlSession().update("AdminMapper.updateEnable", jtownUser);		
+	}
 }

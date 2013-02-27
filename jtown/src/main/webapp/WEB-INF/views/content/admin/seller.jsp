@@ -20,16 +20,16 @@
 		<tbody>
 			<c:forEach items="${sellerList }" var="seller" varStatus="i">
 				<c:set var="sellerPn" value="${seller.pn }" />
-				<tr class="jt-admin-seller-table-tr" data-pn=${sellerPn }>
+				<tr class="jt-admin-seller-table-tr" data-pn=${sellerPn } data-categoryPn=${interestMap[sellerPn].categoryPn }>
 					<td>${i.count }</td>
 					<td>${seller.shopName }</td>
 					<td class="jt-admin-seller-table-shopUrl">${seller.shopUrl }</td>
-					<td>${seller.username }</td>
+					<td class="jt-admin-seller-table-sellerId">${seller.username }</td>
 					<td class="jt-admin-seller-table-interestList">${interestMap[sellerPn].interestSectionNameList }</td>
 					<td>
-						<select>
-							<option value="1">정상 사용자</option>
-							<option value="0">불량 사용자</option>					
+						<select class="jt-admin-seller-enable">
+							<option value="1" ${seller.enabled eq true ? 'selected=selected' : ''}>정상 사용자</option>
+							<option value="0" ${seller.enabled eq false ? 'selected=selected' : ''}>불량 사용자</option>					
 						</select>
 					</td>
 				</tr>
