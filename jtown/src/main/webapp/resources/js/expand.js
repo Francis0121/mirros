@@ -126,7 +126,7 @@ jtown.expand.makeInnerHtml = function(spn){
 		html +=	'			VIEW '+ jtownUser.viewCount;	
 		html +=	'		</li>';
 		html +=	'		<li>';
-		html +=	'			COMMENT ' + jtownUser.commentCount;
+		html +=	'			COMMENT <span id="comment-expand-'+spn+'">' + jtownUser.commentCount+'</span>';
 		html +=	'		</li>';
 		html +=	'		<li>';
 		html +=	'			♥ ' + jtownUser.loveCount;

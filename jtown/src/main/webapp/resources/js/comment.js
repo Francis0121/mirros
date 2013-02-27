@@ -84,10 +84,16 @@ jtown.comment.insertComment = function(me){
 		}
 		me.val('');
 		jtown.comment.syncComment();
+		var count = Number(trim($('#comment-expand-'+spn).html())) +1;
+		$('#comment-expand-'+spn).html(count);
+		$('#comment-'+spn).html(count);
 	});
 };
 
 jtown.comment.deleteComment = function(me){
+	var $shop = me.parents('#jt-home-expand-shop'),
+		spn = $shop.attr('data-spn');
+	
 	var $parents = me.parents('li');
 	var commentPn = $parents.attr('data-copn');
 	
@@ -96,6 +102,10 @@ jtown.comment.deleteComment = function(me){
 
 	$.postJSON(url, json, function(){
 		$parents.remove();
+		
+		var count = Number(trim($('#comment-expand-'+spn).html())) - 1;
+		$('#comment-expand-'+spn).html(count);
+		$('#comment-'+spn).html(count);
 	});
 };
 
