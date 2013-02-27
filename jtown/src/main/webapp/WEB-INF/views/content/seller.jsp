@@ -5,13 +5,14 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <c:url var="cp" value="/"/>
+<c:set value="${fn:length(products) }" var="productSize"/>
 <!DOCTYPE HTML>
 <html>
 <head>
 <title>J TOWN</title>
 <%@ include file="../layout/style.jspf"%>
 <style type="text/css">
-	.jt-home-shop-content{cursor: default;}
+	.jt-home-shop-content-image{cursor: default;}
 </style>
 </head>
 <body>
@@ -115,7 +116,6 @@
 				</div>
 			</section>
 			<section class="jt-seller-expand">
-				<c:set value="${fn:length(products) }" var="productSize"/>
 				<div class="jt-home-expand-shop" id="jt-home-expand-shop" data-size="${productSize }" data-nowPosition="${productSize - 1 }">
 					<header>
 						<a href="#none" onclick="window.open('${jtownUser.shopUrl }');"><c:out value="${jtownUser.shopName }"/></a>

@@ -13,8 +13,8 @@
 			<header>
 				<a href="#none" onclick="window.open('http://${seller.shopUrl }');"><c:out value="${seller.shopName }"/></a>
 			</header>
-			<div class="jt-home-shop-content" data-spn="<c:out value="${spn }"/>">
-				<ul class="jt-home-shop-content-image">
+			<div class="jt-home-shop-content">
+				<ul class="jt-home-shop-content-image" data-spn="<c:out value="${spn }"/>">
 					<li>
 						<c:forEach items="${mainImages }" var="mainImage" varStatus="loop" >
 							<c:url value="/resources/uploadImage/${mainImage eq null ? '8.jpg' : mainImage}" var="image"/>

@@ -180,7 +180,12 @@ jtown.seller.productImage = function(file){
 				size = Number($parent.attr('data-size'))+1,
 				image = contextPath + 'resources/uploadImage/'+file.saveName;
 			
-			var bigHtml = 	'<div class="jt-home-expand-shop-expandProduct" id="jt-product-'+size+'" style="display: none;">'+
+			var display = 'style="display: none;"';
+			if(size==1 || size == 2 || size == 3){
+				display = '';
+			}
+			
+			var bigHtml = 	'<div class="jt-home-expand-shop-expandProduct" id="jt-product-'+size+'" '+display+'>'+
 							'	<img alt="상품" src="'+image+'"/>'+
 							'</div>';
 				smallHtml = '<li data-count="'+size+'" data-ppn="'+product.pn+'">'+
@@ -189,9 +194,13 @@ jtown.seller.productImage = function(file){
 							'	</div>'+
 							'	<a href="#none"class="jt-product-list"><img alt="상품" src="'+image+'"/></a>'+
 							'</li>';
-			
-			$('#jt-seller-slide-big div:nth-child(1)').before(bigHtml);
-			$('#jt-seller-slide-small li:nth-child(1)').before(smallHtml);
+			if(size == 1){
+				$('#jt-seller-slide-big').html(bigHtml);
+				$('#jt-seller-slide-small').html(smallHtml);				
+			}else{
+				$('#jt-seller-slide-big div:nth-child(1)').before(bigHtml);
+				$('#jt-seller-slide-small li:nth-child(1)').before(smallHtml);				
+			}
 			$parent.attr('data-size', size);
 			
 			jtown.seller.syncProductList();
