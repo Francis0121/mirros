@@ -60,7 +60,7 @@ jtown.comment.insertComment = function(me){
 				 	'comment'	: comment 	};
 	
 	$.postJSON(url, json, function(comment){
-		var innerHtml = $('.jt-home-expand-shop-comment').html();
+		var innerHtml = $('.jt-home-expand-shop-comment>li:last').html();
 		var commentHtml ='';
 		commentHtml += 	'<li data-copn="'+comment.commentPn+'">';
 		commentHtml +=	'	<ul class="jt-home-expand-shop-text-wrap">';
@@ -76,10 +76,11 @@ jtown.comment.insertComment = function(me){
 		commentHtml +=	'		<a href="#none" class="jt-comment-delete">삭제</a>';
 		commentHtml +=	'	</div>';
 		commentHtml += 	'</li>';
+		
 		if(!nullValueCheck(innerHtml)){			
 			$('.jt-home-expand-shop-comment>li:last').after(commentHtml);
 		}else{
-			 $('.jt-home-expand-shop-comment').html(commentHtml);
+			$('.jt-home-expand-shop-comment').html(commentHtml);
 		}
 		me.val('');
 		jtown.comment.syncComment();
