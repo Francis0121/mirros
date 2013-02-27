@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="AdminMapper">	
+	<resultMap type="JtownUser" id="usersMap">
+		<result column="pn" property="pn"/>
+		<result column="id" property="username"/>
+		<result column="enable" property="enabled"/>
+		<result column="salt" property="salt" />
+	</resultMap>
+	
 	<resultMap type="Interest" id="interestCategoryMap">
 		<result property="categoryPn" column="category_pn" />
 		<result property="name" column="name"/>
@@ -50,6 +57,7 @@
 	</insert>
 	
 	<resultMap type="Interest" id="getInterestNameListMap" extends="interestCategoryMap">
+		<result column="customer_pn" property="customerPn"/>
 		<result column="seller_pn" property="sellerPn"/>
 		<result column="interest_name_list" property="interestSectionNameList" />
 	</resultMap>
@@ -69,12 +77,9 @@
 		) interest			
 	</select>
 	
-	<resultMap type="JtownUser" id="getSellerListMap">
-		<result column="pn" property="pn"/>
+	<resultMap type="JtownUser" id="getSellerListMap" extends="usersMap">
 		<result column="shop_name" property="shopName"/>
 		<result column="shop_url" property="shopUrl"/>
-		<result column="id" property="username"/>
-		<result column="enable" property="enabled"/>
 	</resultMap>
 	
 	<select id="getSellerList" parameterType="UserSearch" resultMap="getSellerListMap">
@@ -117,4 +122,40 @@
 		WHERE
 			id = #{username}
 	</update>
+	
+	<resultMap type="JtownUser" id="getCustomerListMap" extends="usersMap">
+		<result column="name" property="name" />
+		<result column="join_date" property="joinDate" />
+	</resultMap>
+	<select id="getCustomerList" parameterType="UserSearch" resultMap="getCustomerListMap">
+		SELECT
+			u.pn, u.id, uc.name, u.enable, uc.join_date
+		FROM
+			(SELECT
+				pn, id, ENABLE
+			FROM
+				users
+			WHERE
+				id NOT LIKE 'seller%'
+			AND
+				id NOT LIKE 'admin%'
+			) u, user_customer uc
+		WHERE
+			u.pn = uc.pn		
+	</select>
+	
+	<select id="getCustomerInterestList" parameterType="UserSearch" resultMap="interestCategoryMap">
+		SELECT 
+			customer_pn, category_pn, interest_name_list
+		FROM (
+			SELECT
+				*, GROUP_CONCAT(isn.name) AS interest_name_list
+			FROM
+				interest_section isn,
+				user_customer_interest uci
+			WHERE
+				isn.pn = uci.section_pn
+			GROUP BY uci.customer_pn
+		) interest		
+	</select>
 </mapper>

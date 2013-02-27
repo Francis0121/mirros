@@ -1,6 +1,8 @@
 package com.bg.jtown.business;
 
 public class Interest {
+	private Integer customerPn;
+
 	private Integer sellerPn;
 
 	private Integer categoryPn;
@@ -31,9 +33,23 @@ public class Interest {
 		this.name = name;
 		this.interestSectionNameList = interestSectionNameList;
 	}
+	
+	public Interest(Integer customerPn, Integer sellerPn, Integer categoryPn,
+			Integer sectionPn, String name, String interestSectionNameList) {
+		this.customerPn = customerPn;
+		this.sellerPn = sellerPn;
+		this.categoryPn = categoryPn;
+		this.sectionPn = sectionPn;
+		this.name = name;
+		this.interestSectionNameList = interestSectionNameList;
+	}
 
 	public Integer getCategoryPn() {
 		return categoryPn;
+	}
+
+	public Integer getCustomerPn() {
+		return customerPn;
 	}
 
 	public String getInterestSectionNameList() {
@@ -56,6 +72,10 @@ public class Interest {
 		this.categoryPn = categoryPn;
 	}
 
+	public void setCustomerPn(Integer customerPn) {
+		this.customerPn = customerPn;
+	}
+
 	public void setInterestSectionNameList(String interestSectionNameList) {
 		this.interestSectionNameList = interestSectionNameList;
 	}
@@ -74,10 +94,11 @@ public class Interest {
 
 	@Override
 	public String toString() {
-		return "Interest [sellerPn=" + sellerPn + ", categoryPn=" + categoryPn
-				+ ", sectionPn=" + sectionPn + ", name=" + name
-				+ ", interestSectionNameList=" + interestSectionNameList
-				+ ", toString()=" + super.toString() + "]";
+		return "Interest [customerPn=" + customerPn + ", sellerPn=" + sellerPn
+				+ ", categoryPn=" + categoryPn + ", sectionPn=" + sectionPn
+				+ ", name=" + name + ", interestSectionNameList="
+				+ interestSectionNameList + ", toString()=" + super.toString()
+				+ "]";
 	}
 
 }

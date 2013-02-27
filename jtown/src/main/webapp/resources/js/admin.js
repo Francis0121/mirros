@@ -52,6 +52,11 @@ jtown.admin.syncAdminPage = function(){
 	$('.jt-admin-seller-enable').bind('change', function(){
 		jtown.admin.changeEnable($(this));
 	});
+	
+	$('.jt-admin-customer-enable').unbind('change');
+	$('.jt-admin-customer-enable').bind('change', function(){
+		jtown.admin.changeCustomerEnable($(this));
+	});
 };
 
 jtown.admin.changeShopUrl = function(me){
@@ -132,6 +137,30 @@ jtown.admin.changeEnable = function(me){
 		return jQuery.ajax({
 			'success' : function(){
 				alert('판매자 상태가 변경되었습니다.');
+			},
+			'error' : function(){
+				alert('에러 발생!!!');
+			}
+		});
+	});
+};
+
+jtown.admin.changeCustomerEnable = function(me){
+	var parents = me.parents('.jt-admin-customer-table-tr');
+	var enabled = me.val();
+	var customerId = parents.children('.jt-admin-customer-table-customerId').text();
+	
+	var json = {
+			'username' : customerId,
+			'enabled' : (enabled == 1 ? true : false)
+	};
+	
+	var url = contextPath + 'admin/changeEnable';
+	
+	$.postJSON(url, json, function(){
+		return jQuery.ajax({
+			'success' : function(){
+				alert('사용자의 상태가 변경되었습니다.');
 			},
 			'error' : function(){
 				alert('에러 발생!!!');

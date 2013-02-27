@@ -26,7 +26,8 @@
 	<section>
 		<menu>
 			<li>
-				<a href="#" >공지사항</a>
+				<c:url value="/admin/notice" var="noticeUrl" />
+				<a href="${noticeUrl }" >공지사항</a>
 			</li>
 			<li>
 				Q&A
@@ -44,7 +45,8 @@
 				- 사용자
 			</li>			
 			<li>
-				<a href="#" > - - 사용자 관리</a>
+				<c:url value="/admin/customer" var="adminCustomer"/>
+				<a href="${adminCustomer }" > - - 사용자 관리</a>
 			</li>			
 			<li>
 				 - 판매자

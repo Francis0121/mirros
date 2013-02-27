@@ -43,6 +43,13 @@ public class AdminController {
 		logger.debug("Show Admin Page");
 		return "admin/main";
 	}
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@RequestMapping(value = "/admin/notice", method = RequestMethod.GET)
+	public String showNoticePage(Model model) {
+		logger.debug("Show Admin Page");
+		return "admin/notice/noticeList";
+	}
 
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/admin/qna", method = RequestMethod.GET)
@@ -70,15 +77,18 @@ public class AdminController {
 	public String showSellerPage(Model model, @ModelAttribute UserSearch search) {
 		logger.debug("Show Seller Page");
 
-		model.addAllAttributes(adminService.getSellerModelMap(search));
+		model.addAllAttributes(adminService.selectSellerModelMap(search));
 
 		return "admin/seller";
 	}
 
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/admin/customer", method = RequestMethod.GET)
-	public String showCustomerPage(Model model) {
+	public String showCustomerPage(Model model, @ModelAttribute UserSearch search) {
 		logger.debug("Show Customer Page");
+		
+		model.addAllAttributes(adminService.selectCustomerModelMap(search));
+		
 		return "admin/customer";
 	}
 

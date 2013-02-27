@@ -49,7 +49,7 @@ public class AdminServiceImpl extends SqlSessionDaoSupport implements
 	}
 	
 	@Override
-	public Map<String, Object> getSellerModelMap(UserSearch search) {
+	public Map<String, Object> selectSellerModelMap(UserSearch search) {
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 		
 		List<JtownUser> sellerList = getSqlSession().selectList("AdminMapper.getSellerList", search);
@@ -100,5 +100,26 @@ public class AdminServiceImpl extends SqlSessionDaoSupport implements
 	@Override
 	public void updateEnable(JtownUser jtownUser) {
 		getSqlSession().update("AdminMapper.updateEnable", jtownUser);		
+	}
+	
+	@Override
+	public Map<String, Object> selectCustomerModelMap(UserSearch search) {
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		
+		List<JtownUser> customerList = getSqlSession().selectList("AdminMapper.getCustomerList", search);
+		
+		modelMap.put("customerList", customerList);		
+		
+		List<Interest> customInterestList = getSqlSession().selectList("AdminMapper.getCustomerInterestList", search);
+		
+		Map<Integer, Interest> interestMap = new HashMap<Integer, Interest>();
+		
+		for( Interest interest : customInterestList ){
+			interestMap.put(interest.getCustomerPn(), interest);
+		}
+		
+		modelMap.put("interestMap", interestMap);
+		
+		return modelMap;
 	}
 }

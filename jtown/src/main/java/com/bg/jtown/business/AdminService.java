@@ -12,7 +12,7 @@ public interface AdminService {
 
 	void insertCreateSeller(JtownUser jtownUser);
 
-	Map<String, Object> getSellerModelMap(UserSearch search);
+	Map<String, Object> selectSellerModelMap(UserSearch search);
 
 	void updateShopUrl(JtownUser jtownUser);
 
@@ -20,4 +20,5 @@ public interface AdminService {
 
 	void updateEnable(JtownUser jtownUser);
 
+	Map<String, Object> selectCustomerModelMap(UserSearch search);
 }
