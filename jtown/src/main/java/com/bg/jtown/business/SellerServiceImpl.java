@@ -25,32 +25,47 @@ public class SellerServiceImpl extends SqlSessionDaoSupport implements
 
 	@Override
 	public Map<String, Object> selectAllInformation(Integer properNumber) {
-		Map<String, Object> map = new HashMap<String, Object>();
+		Map<String, Object> selectMap = new HashMap<String, Object>();
 
-		map.put("jtownUser", selectSellerInformation(properNumber));
-		map.put("mainImage", selectSellerImage(properNumber));
-		map.putAll(selectSellerEvent(properNumber));
-		map.put("interestes", selectSellerInterest(properNumber));
-		map.put("products", selectSellerProduct(properNumber));
+		selectMap.put("jtownUser", selectSellerInformation(properNumber));
+		selectMap.put("mainImages", selectSellerImage(properNumber));
+		selectMap.putAll(selectSellerEvent(properNumber));
+		selectMap.put("interestes", selectSellerInterest(properNumber));
+		selectMap.put("products", selectSellerProduct(properNumber));
 
-		logger.debug(map.toString());
+		logger.debug(selectMap.toString());
 
-		return map;
+		return selectMap;
 	}
 
 	// ~ Seller Information
 
 	@Override
 	public JtownUser selectSellerInformation(Integer properNumber) {
-		return getSqlSession().selectOne(
+		JtownUser jtownUser = getSqlSession().selectOne(
 				"sellerMapper.selectSellerInformation", properNumber);
+		if (jtownUser != null) {
+			if (jtownUser.getLoveCount() == null) {
+				jtownUser.setLoveCount(0);
+			}
+			if (jtownUser.getViewCount() == null) {
+				jtownUser.setViewCount(0);
+			}
+			Integer count = selectCommentCount(properNumber);
+			if (count == null) {
+				jtownUser.setCommentCount(0);
+			} else {
+				jtownUser.setCommentCount(count);
+			}
+		}
+		return jtownUser;
 	}
 
 	// ~ SellerImage
 
 	@Override
-	public String selectSellerImage(Integer properNumber) {
-		return getSqlSession().selectOne("sellerMapper.selectSellerImage",
+	public List<String> selectSellerImage(Integer properNumber) {
+		return getSqlSession().selectList("sellerMapper.selectSellerImage",
 				properNumber);
 	}
 
@@ -61,8 +76,8 @@ public class SellerServiceImpl extends SqlSessionDaoSupport implements
 
 	@Override
 	public void updateSellerImage(FileVO fileVO) {
-		String saveName = selectSellerImage(fileVO.getOwnerPn());
-		if (saveName != null && !saveName.equals("")) {
+		List<String> saveName = selectSellerImage(fileVO.getOwnerPn());
+		if (saveName != null && saveName.size() != 0) {
 			getSqlSession().update("sellerMapper.updateSellerImage", fileVO);
 		} else {
 			insertSellerImage(fileVO);
@@ -140,4 +155,10 @@ public class SellerServiceImpl extends SqlSessionDaoSupport implements
 		getSqlSession().insert("sellerMapper.insertSellerProduct", product);
 	}
 
+	// ~ SellerComment
+	@Override
+	public Integer selectCommentCount(Integer properNumber) {
+		return getSqlSession().selectOne("sellerMapper.selectCommentCount",
+				properNumber);
+	}
 }

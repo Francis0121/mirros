@@ -5,13 +5,14 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <c:url var="cp" value="/"/>
+<c:set value="${fn:length(products) }" var="productSize"/>
 <!DOCTYPE HTML>
 <html>
 <head>
 <title>J TOWN</title>
 <%@ include file="../layout/style.jspf"%>
 <style type="text/css">
-	.jt-home-shop-content{cursor: default;}
+	.jt-home-shop-content-image{cursor: default;}
 </style>
 </head>
 <body>
@@ -75,8 +76,10 @@
 								<a href="#none" class="jt-seller-main-image-updateShow" id="jt-seller-main-image-updateShow">수정</a>
 							</li>
 							<li>
-								<c:url value="/resources/uploadImage/${mainImage eq null ? '8.jpg' : mainImage}" var="image"/>
-								<img alt="" src="${image }" title="${jtownUser.shopName}" id="jt-seller-main-image-area"/>	
+								<c:forEach items="${mainImages }" var="mainImage" varStatus="loop" >
+									<c:url value="/resources/uploadImage/${mainImage eq null ? '8.jpg' : mainImage}" var="image"/>
+									<img alt="" src="${image }" title="${jtownUser.shopName}" id="jt-seller-main-image-area"/>	
+								</c:forEach>
 							</li>
 							<li id="jt-seller-main-image-update-tool" class="jt-seller-main-image-update-tool">
 								<input type="file" id="jt-represent-image" name="jt-represent-image"/>
@@ -90,7 +93,7 @@
 								VIEW <c:out value="${jtownUser.viewCount eq null ? 0 : jtownUser.viewCount}"/>	
 							</li>
 							<li>
-								COMMENT 
+								COMMENT <c:out value="${jtownUser.commentCount eq null ? 0 : jtownUser.commentCount}"/>
 							</li>
 							<li>
 								♥ <c:out value="${jtownUser.loveCount eq null ? 0 : jtownUser.loveCount}"/>
@@ -113,7 +116,6 @@
 				</div>
 			</section>
 			<section class="jt-seller-expand">
-				<c:set value="${fn:length(products) }" var="productSize"/>
 				<div class="jt-home-expand-shop" id="jt-home-expand-shop" data-size="${productSize }" data-nowPosition="${productSize - 1 }">
 					<header>
 						<a href="#none" onclick="window.open('${jtownUser.shopUrl }');"><c:out value="${jtownUser.shopName }"/></a>
@@ -158,7 +160,7 @@
 										<a href="#none" class="jt-seller-product-delete">X</a>
 									</div>
 									<c:url value="/resources/uploadImage/${product.saveName }" var="image"/>
-									<a href="#none"class="jt-product-list"><img alt="상품" src="${image }"/></a>
+									<a href="#none" class="jt-product-list"><img alt="상품" src="${image }"/></a>
 								</li>
 							</c:forEach>
 						</ul>

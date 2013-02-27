@@ -20,7 +20,7 @@ public interface SellerService {
 
 	// ~ SellerImage
 
-	String selectSellerImage(Integer properNumber);
+	List<String> selectSellerImage(Integer properNumber);
 
 	void insertSellerImage(FileVO fileVO);
 
@@ -51,5 +51,9 @@ public interface SellerService {
 	void deleteSellerProduct(Product product);
 
 	void insertSellerProduct(Product product);
+
+	// ~ SellerComment
+
+	Integer selectCommentCount(Integer properNumber);
 
 }
