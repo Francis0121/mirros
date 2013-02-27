@@ -1,6 +1,10 @@
 package com.bg.jtown.business;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
 
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.slf4j.Logger;
@@ -23,6 +27,27 @@ public class HomeServiceImpl extends SqlSessionDaoSupport implements
 
 	private static Logger logger = LoggerFactory
 			.getLogger(HomeServiceImpl.class);
+
+	@Resource
+	private SellerService sellerService;
+
+	@Override
+	public Map<String, Object> selectHome(HomeFilter homeFilter) {
+		Map<String, Object> selectMap = new HashMap<String, Object>();
+
+		List<JtownUser> jtownUsers = selectSeller(homeFilter);
+		selectMap.put("jtownUsers", jtownUsers);
+
+		Map<Integer, List<String>> homeMap = new HashMap<Integer, List<String>>();
+		for (JtownUser jtownUser : jtownUsers) {
+			Integer pn = jtownUser.getPn();
+			homeMap.put(pn, sellerService.selectSellerImage(pn));
+		}
+		logger.debug(homeMap.toString());
+		selectMap.put("images", homeMap);
+
+		return selectMap;
+	}
 
 	@Override
 	public List<JtownUser> selectSeller(HomeFilter homeFilter) {

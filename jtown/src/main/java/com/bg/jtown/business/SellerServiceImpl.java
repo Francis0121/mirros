@@ -28,7 +28,7 @@ public class SellerServiceImpl extends SqlSessionDaoSupport implements
 		Map<String, Object> map = new HashMap<String, Object>();
 
 		map.put("jtownUser", selectSellerInformation(properNumber));
-		map.put("mainImage", selectSellerImage(properNumber));
+		map.put("mainImages", selectSellerImage(properNumber));
 		map.putAll(selectSellerEvent(properNumber));
 		map.put("interestes", selectSellerInterest(properNumber));
 		map.put("products", selectSellerProduct(properNumber));
@@ -49,8 +49,8 @@ public class SellerServiceImpl extends SqlSessionDaoSupport implements
 	// ~ SellerImage
 
 	@Override
-	public String selectSellerImage(Integer properNumber) {
-		return getSqlSession().selectOne("sellerMapper.selectSellerImage",
+	public List<String> selectSellerImage(Integer properNumber) {
+		return getSqlSession().selectList("sellerMapper.selectSellerImage",
 				properNumber);
 	}
 
@@ -61,8 +61,8 @@ public class SellerServiceImpl extends SqlSessionDaoSupport implements
 
 	@Override
 	public void updateSellerImage(FileVO fileVO) {
-		String saveName = selectSellerImage(fileVO.getOwnerPn());
-		if (saveName != null && !saveName.equals("")) {
+		List<String> saveName = selectSellerImage(fileVO.getOwnerPn());
+		if (saveName != null && saveName.size() != 0) {
 			getSqlSession().update("sellerMapper.updateSellerImage", fileVO);
 		} else {
 			insertSellerImage(fileVO);

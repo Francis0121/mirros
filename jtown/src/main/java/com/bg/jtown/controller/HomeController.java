@@ -1,6 +1,5 @@
 package com.bg.jtown.controller;
 
-import java.util.List;
 
 import javax.annotation.Resource;
 
@@ -39,8 +38,7 @@ public class HomeController {
 	public ModelAndView showMainPage(Model model,
 			@ModelAttribute HomeFilter homeFilter) {
 		logger.debug("Show Main page");
-		List<JtownUser> jtownUsers = homeService.selectSeller(homeFilter);
-		model.addAttribute("jtownUsers", jtownUsers);
+		model.addAllAttributes(homeService.selectHome(homeFilter));
 		return new ModelAndView("home");
 	}
 

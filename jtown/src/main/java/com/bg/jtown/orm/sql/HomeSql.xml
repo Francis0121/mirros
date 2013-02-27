@@ -59,7 +59,7 @@
 	<select id="selectFromInterestCategory" parameterType="com.bg.jtown.business.search.HomeFilter" resultMap="jtown-seller-map">
 		<include refid="paginationBefore"/>
 		SELECT
-			us.pn AS seller_pn, us.shop_name, us.shop_url, us.notice, 
+			us.pn , us.shop_name, us.shop_url, us.notice, 
 			us.love_count, us.view_count
 		FROM
 			user_seller us,
@@ -124,4 +124,21 @@
 		<include refid="paginationAfter"/>
 	</select>
 	
+	<resultMap type="com.bg.jtown.business.Home" id="jtown-seller-image-map" >
+		<result column="seller_pn" property="sellerPn" />
+		<association property="" ></association>
+		<collection property="saveNameList" column="save_name" javaType="java.util.ArrayList" ofType="java.lang.String" select=""/>
+	</resultMap>
+	
+	<select id="selectSellerImage" resultMap="jtown-seller-image-map">
+		SELECT
+			seller_pn, save_name
+		FROM
+			user_seller_image_name
+		WHERE
+			seller_pn IN
+			<foreach collection="list" item="item" index="index"  open="(" separator="," close=")">
+				#{item.value}
+			</foreach>
+	</select>
 </mapper>

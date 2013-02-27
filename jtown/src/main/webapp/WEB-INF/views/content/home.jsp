@@ -7,6 +7,7 @@
 <%@ include file="../layout/layout_header.jspf" %>
 <div id="jt-home-container">
 	<c:forEach items="${jtownUsers }" var="seller" varStatus="loop">
+		<c:set value="${images[seller.pn] }" var="mainImages"/>
 		<div class="jt-home-shop">
 			<header>
 				<a href="#none" onclick="window.open('http://${seller.shopUrl }');"><c:out value="${seller.shopName }"/></a>
@@ -14,8 +15,10 @@
 			<div class="jt-home-shop-content">
 				<ul class="jt-home-shop-content-image">
 					<li>
-						<c:url value="/resources/uploadImage/${loop.count > 10 ? loop.count - 10 : loop.count }.jpg" var="image"/>
-						<img alt="사진" src="${image }"/>	
+						<c:forEach items="${mainImages }" var="mainImage" varStatus="loop" >
+							<c:url value="/resources/uploadImage/${mainImage eq null ? '8.jpg' : mainImage}" var="image"/>
+							<img alt="" src="${image }" title="${jtownUser.shopName}" id="jt-seller-main-image-area"/>	
+						</c:forEach>
 					</li>
 				</ul>
 				<ul class="jt-home-shop-content-fn">
