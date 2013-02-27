@@ -1,26 +1,127 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="HomeMapper">
+<mapper namespace="homeMapper">
 
-	<resultMap type="com.bg.jtown.business.Home" id="homeMap">
-		<result column="username" property="username"/>
+	<sql id="paginationBefore">
+		SELECT 
+			t.*
+		FROM 
+		( 
+			SELECT  
+				z.*, @RNUM := @RNUM + 1 AS rnum
+			FROM
+				(
+	</sql>
+	
+	<sql id="paginationAfter">
+		<![CDATA[
+				) z,  
+				( SELECT @RNUM := 0 ) R
+			WHERE @RNUM + 1 <=  #{pagination.itemSeqEnd}#
+		) t
+		WHERE t.rnum >= #{pagination.itemSeqBegin}#
+		]]>
+	</sql>
+
+	<resultMap type="com.bg.jtown.security.JtownUser" id="jtown-seller-map">
+		<result column="pn" property="pn"/>
+		<result column="shop_name" property="shopName"/>
+		<result column="shop_url" property="shopUrl"/>
+		<result column="notice" property="notice"/>
+		<result column="love_count" property="loveCount"/>
+		<result column="view_count" property="viewCount"/>
 	</resultMap>
 
-	<select id="getHomeTest" resultMap="homeMap">
+	<select id="selectFromInterestCategoryCount" parameterType="com.bg.jtown.business.search.HomeFilter" resultType="java.lang.Integer">
 		SELECT
-			id
+			COUNT(*)
+		FROM	(
+				SELECT
+					us.pn
+				FROM
+					user_seller us,
+					user_seller_interest usi,
+					interest_section ise,
+					interest_category ic
+				WHERE
+					us.pn = usi.seller_pn
+				AND
+					usi.section_pn = ise.pn
+				AND
+					ise.category_pn = ic.pn
+				AND
+					ise.category_pn = #{categoryPn}
+				GROUP BY 
+					us.pn
+			) t
+	</select>
+
+	<select id="selectFromInterestCategory" parameterType="com.bg.jtown.business.search.HomeFilter" resultMap="jtown-seller-map">
+		<include refid="paginationBefore"/>
+		SELECT
+			us.pn AS seller_pn, us.shop_name, us.shop_url, us.notice, 
+			us.love_count, us.view_count
 		FROM
-			users
+			user_seller us,
+			user_seller_interest usi,
+			interest_section ise,
+			interest_category ic
 		WHERE
-			pn = 1
+			us.pn = usi.seller_pn
+		AND
+			usi.section_pn = ise.pn
+		AND
+			ise.category_pn = ic.pn
+		AND
+			ise.category_pn = #{categoryPn}
+		GROUP BY 
+			us.pn
+		ORDER BY
+			us.pn
+		<include refid="paginationAfter"/>
 	</select>
 	
-	<insert id="insertHomeTest" parameterType="com.bg.jtown.business.Home">
-		INSERT 
-		INTO
-			test	(username)
-		VALUES
-			(#{username})
-	</insert>
+	<select id="selectFromInterestCount" parameterType="com.bg.jtown.business.search.HomeFilter" resultType="java.lang.Integer">
+		SELECT
+			COUNT(*)
+		FROM
+			user_seller us,
+			user_seller_interest usi,
+			interest_section ise,
+			interest_category ic
+		WHERE
+			us.pn = usi.seller_pn
+		AND
+			usi.section_pn = ise.pn
+		AND
+			ise.category_pn = ic.pn
+		AND
+			ise.pn = #{sectionPn}
+		ORDER BY
+			us.pn
+	</select>
+	
+	<select id="selectFromInterest" parameterType="com.bg.jtown.business.search.HomeFilter" resultMap="jtown-seller-map">
+		<include refid="paginationBefore"/>
+		SELECT
+			us.pn, us.shop_name, us.shop_url, us.notice, 
+			us.love_count, us.view_count
+		FROM
+			user_seller us,
+			user_seller_interest usi,
+			interest_section ise,
+			interest_category ic
+		WHERE
+			us.pn = usi.seller_pn
+		AND
+			usi.section_pn = ise.pn
+		AND
+			ise.category_pn = ic.pn
+		AND
+			ise.pn = #{sectionPn}
+		ORDER BY
+			us.pn
+		<include refid="paginationAfter"/>
+	</select>
 	
 </mapper>

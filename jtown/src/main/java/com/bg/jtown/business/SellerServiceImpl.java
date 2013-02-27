@@ -125,6 +125,12 @@ public class SellerServiceImpl extends SqlSessionDaoSupport implements
 	}
 
 	@Override
+	public Integer selectSellerProductCount(Integer properNumber) {
+		return getSqlSession().selectOne(
+				"sellerMapper.selectSellerProductCount", properNumber);
+	}
+
+	@Override
 	public void deleteSellerProduct(Product product) {
 		getSqlSession().delete("sellerMapper.deleteSellerProduct", product);
 	}

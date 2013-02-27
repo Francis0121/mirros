@@ -175,33 +175,30 @@ jtown.seller.productImage = function(file){
 		json = { 'imagePn' : file.imagePn};
 	
 	$.postJSON(url, json, function(product){
-		return jQuery.ajax({
-			'success' : function(){
-				var $parent = $('#jt-home-expand-shop'),
-					size = Number($parent.attr('data-size'))+1,
-					image = contextPath + 'resources/uploadImage/'+file.saveName;
-				
-				var bigHtml = 	'<div class="jt-home-expand-shop-expandProduct" id="jt-product-'+size+'" style="display: none;">'+
-								'	<img alt="상품" src="'+image+'"/>'+
-								'</div>';
-					smallHtml = '<li data-count="'+size+'" data-ppn="'+product.pn+'">'+
-								'	<div class="jt-seller-expand-product-delete-tool">'+
-								'		<a href="#none" class="jt-seller-product-delete">X</a>'+
-								'	</div>'+
-								'	<a href="#none"class="jt-product-list"><img alt="상품" src="'+image+'"/></a>'+
-								'</li>';
-				
-				$('#jt-seller-slide-big div:nth-child(1)').before(bigHtml);
-				$('#jt-seller-slide-small li:nth-child(1)').before(smallHtml);
-				$parent.attr('data-size', size);
-				
-				jtown.seller.syncProductList();
-				jtown.expand.syncProductMove();
-			},
-			'error' : function(){
-				alert("오류 발생!");
-			}
-		});
+		if(!nullValueCheck(product)){
+			var $parent = $('#jt-home-expand-shop'),
+				size = Number($parent.attr('data-size'))+1,
+				image = contextPath + 'resources/uploadImage/'+file.saveName;
+			
+			var bigHtml = 	'<div class="jt-home-expand-shop-expandProduct" id="jt-product-'+size+'" style="display: none;">'+
+							'	<img alt="상품" src="'+image+'"/>'+
+							'</div>';
+				smallHtml = '<li data-count="'+size+'" data-ppn="'+product.pn+'">'+
+							'	<div class="jt-seller-expand-product-delete-tool">'+
+							'		<a href="#none" class="jt-seller-product-delete">X</a>'+
+							'	</div>'+
+							'	<a href="#none"class="jt-product-list"><img alt="상품" src="'+image+'"/></a>'+
+							'</li>';
+			
+			$('#jt-seller-slide-big div:nth-child(1)').before(bigHtml);
+			$('#jt-seller-slide-small li:nth-child(1)').before(smallHtml);
+			$parent.attr('data-size', size);
+			
+			jtown.seller.syncProductList();
+			jtown.expand.syncProductMove();
+		}else{
+			alert('상품은 10개 이하로 등록 가능합니다.');
+		}
 	});
 };
 

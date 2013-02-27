@@ -27,7 +27,7 @@ jtown.expand.loadExpandShop = function(){
 
 jtown.expand.makeInnerHtml = function(){
 	
-	var html = 	'<div class="jt-home-expand-shop" id="jt-home-expand-shop" data-size="10" data-nowPosition="2">'+
+	var html = 	'<div class="jt-home-expand-shop" id="jt-home-expand-shop" data-size="10" data-nowPosition="9">'+
 				'	<header>'+
 				'		<a href="#none">Teachers Fitting Shop</a>'+
 				'	</header>'+
@@ -36,16 +36,16 @@ jtown.expand.makeInnerHtml = function(){
 				'			<a href="#none" id="jt-home-expand-shop-leftArrow">&lt;</a>'+
 				'		</li>'+
 				'		<li class="jt-home-expand-shop-expandProduct-slide">';
-				for(var i=1; i<11; i++){
-					if(i<4){
+				for(var i=0; i<10; i++){
+					if((i+1)<4){
 						html+=
-				'			<div class="jt-home-expand-shop-expandProduct" id="jt-product-'+i+'">';	
+				'			<div class="jt-home-expand-shop-expandProduct" id="jt-product-'+(10-i)+'">';	
 					}else{
 						html+=	
-				'			<div class="jt-home-expand-shop-expandProduct" id="jt-product-'+i+'" style="display: none;">';		
+				'			<div class="jt-home-expand-shop-expandProduct" id="jt-product-'+(10-i)+'" style="display: none;">';		
 					}
 						html+=
-				'				<img alt="상품" src="'+contextPath+'resources/uploadImage/Product-'+i+'.png"/>'+
+				'				<img alt="상품" src="'+contextPath+'resources/uploadImage/Product-'+(i+1)+'.png"/>'+
 				'			</div>';
 				}
 				html+=
@@ -57,22 +57,22 @@ jtown.expand.makeInnerHtml = function(){
 				'	<div class="jt-home-expand-shop-products">'+
 				'		<h2>Products</h2>'+
 				'		<ul>';
-				for(var i=1; i<11; i++){
+				for(var i=0; i<10; i++){
 					html +=
-				'				<li data-count="'+i+'">'+
+				'				<li data-count="'+(10-i)+'">'+
 				'					<div class="jt-seller-expand-product-delete-tool">	'+
 				'						<a href="#none" class="jt-seller-product-delete">X</a>'+
 				'					</div>'+
-				'					<a href="#none"class="jt-product-list"><img alt="상품" src="'+contextPath+'/resources/uploadImage/Product-'+i+'.png"/></a>'+
+				'					<a href="#none"class="jt-product-list"><img alt="상품" src="'+contextPath+'/resources/uploadImage/Product-'+(i+1)+'.png"/></a>'+
 				'				</li>';
 				}
 				html+=	
 				'		</ul>'+
 				'	</div>'+
-				'	<div class="jt-home-expand-shop-event-first" id="jt-seller-expand-event-first">'+
+				'	<div class="jt-home-expand-shop-event" id="jt-seller-expand-event-first">'+
 				'		<img alt="event1" src="'+contextPath+'resources/uploadImage/event-1.png"/>'+
 				'	</div>'+
-				'	<div class="jt-home-expand-shop-event-second" id="jt-seller-expand-event-second">'+
+				'	<div class="jt-home-expand-shop-event" id="jt-seller-expand-event-second">'+
 				'		<img alt="event2" src="'+contextPath+'resources/uploadImage/event-2.png"/>'+
 				'	</div>'+
 				'	<ul class="jt-home-expand-shop-content-fn">'+
