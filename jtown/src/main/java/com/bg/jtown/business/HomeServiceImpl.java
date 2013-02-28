@@ -46,6 +46,7 @@ public class HomeServiceImpl extends SqlSessionDaoSupport implements
 			homeMap.put(pn, sellerService.selectSellerImage(pn));
 
 			jtownUser.setCommentCount(sellerService.selectCommentCount(pn));
+			jtownUser.setLoveCount(sellerService.selectLoveCount(pn));
 		}
 		logger.debug(homeMap.toString());
 		selectMap.put("images", homeMap);
@@ -143,4 +144,24 @@ public class HomeServiceImpl extends SqlSessionDaoSupport implements
 		getSqlSession().update("homeMapper.deleteComment", comment);
 	}
 
+	@Override
+	public JtownUser insertViewCount(Count count) {
+		return null;
+	}
+
+	@Override
+	public Count insertLoveCount(Count count) {
+		Integer loveCount = selectLoveCount(count);
+		if (loveCount == 0) {
+			getSqlSession().insert("homeMapper.insertLoveCount", count);
+		} else {
+			getSqlSession().delete("homeMapper.deleteLoveCount", count);
+		}
+		count.setCount(sellerService.selectLoveCount(count.getSellerPn()));
+		return count;
+	}
+
+	private Integer selectLoveCount(Count count) {
+		return getSqlSession().selectOne("homeMapper.selectLoveCount", count);
+	}
 }

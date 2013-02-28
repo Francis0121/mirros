@@ -161,4 +161,11 @@ public class SellerServiceImpl extends SqlSessionDaoSupport implements
 		return getSqlSession().selectOne("sellerMapper.selectCommentCount",
 				properNumber);
 	}
+
+	// ~ LoveCount
+	@Override
+	public Integer selectLoveCount(Integer properNumber) {
+		return getSqlSession().selectOne("sellerMapper.selectLoveCount",
+				properNumber);
+	}
 }

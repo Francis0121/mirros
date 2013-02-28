@@ -90,3 +90,36 @@ jtown.header.navInterestDelete = function(me){
 	var $parent = me.parents('.jt-header-nav-down');
 	$parent.remove();
 };
+
+if (typeof jtown.home == 'undefined') {
+	jtown.home = {};
+}
+
+jtown.home.clickShop = function(spn, href){
+	var url = contextPath + 'ajax/clickShop.jt',
+		json = {	'pn' :	spn	};
+	
+	$.postJSON(url, json, function(view){
+		if(nullValueCheck(view)){
+			window.open('http://'+href);			
+		}else{
+			$('#view-expand'+spn).html(view);
+			$('#view-'+spn).html(view);
+		}
+	});
+};
+
+jtown.home.clickLove = function(spn){
+	var url = contextPath + 'ajax/clickLove.jt',
+	json = {	'sellerPn'	:	spn};
+
+	$.postJSON(url, json, function(count){
+		if(nullValueCheck(count.message)){
+			$('#love-expand'+spn).html(count.count);
+			$('#love-'+spn).html(count.count);
+		}else{
+			alert(count.message);
+		}
+	});
+};
+

@@ -33,4 +33,10 @@ public interface HomeService {
 	Comment updateComment(Comment comment);
 
 	void deleteComment(Comment comment);
+
+	// ~ count
+	
+	JtownUser insertViewCount(Count count);
+
+	Count insertLoveCount(Count count);
 }

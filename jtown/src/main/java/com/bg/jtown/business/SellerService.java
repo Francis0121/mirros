@@ -56,4 +56,8 @@ public interface SellerService {
 
 	Integer selectCommentCount(Integer properNumber);
 
+	// ~ LoveCount
+	
+	Integer selectLoveCount(Integer properNumber);
+
 }

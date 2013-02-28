@@ -189,5 +189,33 @@
 		AND
 			pn = #{commentPn}
 	</delete>
+	
+	<select id="selectLoveCount" parameterType="com.bg.jtown.business.Count" resultType="java.lang.Integer">
+		SELECT
+			COUNT(*)
+		FROM
+			count_love
+		WHERE
+			customer_pn = #{customerPn}
+		AND
+			seller_pn = #{sellerPn}
+	</select>
+	
+	<insert id="insertLoveCount" parameterType="com.bg.jtown.business.Count">
+		INSERT INTO
+			count_love
+			(customer_pn, seller_pn, input_date)
+		VALUES
+			(	#{customerPn},	#{sellerPn}, SYSDATE() )
+	</insert>
+	
+	<delete id="deleteLoveCount" parameterType="com.bg.jtown.business.Count">
+		DELETE FROM
+			count_love
+		WHERE
+			customer_pn = #{customerPn}
+		AND
+			seller_pn = #{sellerPn}
+	</delete>
 
 </mapper>

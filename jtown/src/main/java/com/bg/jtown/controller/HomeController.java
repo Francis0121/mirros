@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.bg.jtown.business.Comment;
+import com.bg.jtown.business.Count;
 import com.bg.jtown.business.HomeService;
 import com.bg.jtown.business.search.HomeFilter;
 import com.bg.jtown.security.JtownUser;
@@ -100,7 +101,7 @@ public class HomeController {
 			logger.debug(user.toString());
 			if (user.getGroupName().equals("Customer")) {
 				selectMap.put("cpn", user.getPn());
-			}else{
+			} else {
 				selectMap.put("cpn", 0);
 			}
 		} catch (ClassCastException e) {
@@ -137,4 +138,43 @@ public class HomeController {
 		homeService.deleteComment(comment);
 	}
 
+	@RequestMapping(value = "/ajax/clickShop.jt", method = RequestMethod.POST)
+	@ResponseBody
+	public JtownUser ajaxClickShop(@RequestBody Count count) {
+		try {
+			JtownUser user = (JtownUser) SecurityContextHolder.getContext()
+					.getAuthentication().getPrincipal();
+			logger.debug(user.toString());
+			if (user.getGroupName().equals("Customer")) {
+				count.setCustomerPn(user.getPn());
+				return homeService.insertViewCount(count);
+			} else {
+				return user;
+			}
+		} catch (ClassCastException e) {
+			logger.debug("로그인하지않은 사용자");
+			return null;
+		}
+	}
+
+	@RequestMapping(value = "/ajax/clickLove.jt", method = RequestMethod.POST)
+	@ResponseBody
+	public Count ajaxClickLove(@RequestBody Count count) {
+		try {
+			JtownUser user = (JtownUser) SecurityContextHolder.getContext()
+					.getAuthentication().getPrincipal();
+			logger.debug(user.toString());
+			if (user.getGroupName().equals("Customer")) {
+				count.setCustomerPn(user.getPn());
+				return homeService.insertLoveCount(count);
+			} else {
+				count.setMessage("판매자는 불가능합니다");
+				return count;
+			}
+		} catch (ClassCastException e) {
+			logger.debug("로그인하지않은 사용자");
+			count.setMessage("로그인한 사용자만 사용가능합니다");
+			return count;
+		}
+	}
 }

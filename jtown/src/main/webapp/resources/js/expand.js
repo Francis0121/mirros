@@ -123,13 +123,13 @@ jtown.expand.makeInnerHtml = function(spn){
 		html +=	'	</div>';	
 		html += '	<ul class="jt-home-expand-shop-content-fn">';
 		html +=	'		<li>';
-		html +=	'			VIEW '+ jtownUser.viewCount;	
+		html +=	'			VIEW <span id="view-expand-'+spn+'"/>'+jtownUser.viewCount+'</span>';	
 		html +=	'		</li>';
 		html +=	'		<li>';
 		html +=	'			COMMENT <span id="comment-expand-'+spn+'">' + jtownUser.commentCount+'</span>';
 		html +=	'		</li>';
 		html +=	'		<li>';
-		html +=	'			♥ ' + jtownUser.loveCount;
+		html +=	'			<a href="#none" onclick="jtown.home.clickLove(\''+spn+'\');">♥</a> <span id="love-expand-'+spn+'">'+jtownUser.loveCount+'</span>';
 		html +=	'		</li>';
 		html +=	'	</ul>';
 		html +=	'	<div class="jt-home-expand-shop-comment-wrap">';
