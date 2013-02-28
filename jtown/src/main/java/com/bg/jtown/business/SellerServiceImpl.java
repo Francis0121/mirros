@@ -45,8 +45,11 @@ public class SellerServiceImpl extends SqlSessionDaoSupport implements
 		JtownUser jtownUser = getSqlSession().selectOne(
 				"sellerMapper.selectSellerInformation", properNumber);
 		if (jtownUser != null) {
-			if (jtownUser.getLoveCount() == null) {
+			Integer loveCount = selectLoveCount(properNumber);
+			if (loveCount == null) {
 				jtownUser.setLoveCount(0);
+			} else {
+				jtownUser.setLoveCount(loveCount);
 			}
 			if (jtownUser.getViewCount() == null) {
 				jtownUser.setViewCount(0);

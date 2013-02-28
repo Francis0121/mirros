@@ -103,7 +103,7 @@ jtown.home.clickShop = function(spn, href){
 		if(nullValueCheck(view)){
 			window.open('http://'+href);			
 		}else{
-			$('#view-expand'+spn).html(view);
+			$('#view-expand-'+spn).html(view);
 			$('#view-'+spn).html(view);
 		}
 	});
@@ -115,7 +115,7 @@ jtown.home.clickLove = function(spn){
 
 	$.postJSON(url, json, function(count){
 		if(nullValueCheck(count.message)){
-			$('#love-expand'+spn).html(count.count);
+			$('#love-expand-'+spn).html(count.count);
 			$('#love-'+spn).html(count.count);
 		}else{
 			alert(count.message);
