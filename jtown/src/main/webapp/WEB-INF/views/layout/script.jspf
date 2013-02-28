@@ -28,6 +28,7 @@
 <script src="${cp}resources/js/seller.js"></script>
 <script src="${cp}resources/js/expand.js"></script>
 <script src="${cp}resources/js/comment.js"></script>
+<script src="${cp}resources/js/board.js"></script>
 <script type="text/javascript">
 /* <![CDATA[ */   	
 // 	$('.jt-header-nav-all').navHover();

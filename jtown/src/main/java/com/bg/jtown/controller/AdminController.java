@@ -18,9 +18,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.bg.jtown.business.AdminService;
 import com.bg.jtown.business.Interest;
+import com.bg.jtown.business.board.Board;
+import com.bg.jtown.business.board.BoardService;
 import com.bg.jtown.business.search.UserSearch;
 import com.bg.jtown.security.JtownUser;
 
@@ -36,6 +40,9 @@ public class AdminController {
 
 	@Resource(name = "adminServiceImpl")
 	private AdminService adminService;
+	
+	@Resource(name = "boardServiceImpl")
+	private BoardService boardService;
 
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/admin", method = RequestMethod.GET)
@@ -47,9 +54,66 @@ public class AdminController {
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/admin/notice", method = RequestMethod.GET)
 	public String showNoticePage(Model model) {
-		logger.debug("Show Admin Page");
-		return "admin/notice/noticeList";
+		logger.debug("Show Notice Page");
+		
+		model.addAttribute("noticeList", boardService.selectNoticeList());
+		
+		return "admin/notice/list";
 	}
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@RequestMapping(value = "/admin/noticeWrite", method = RequestMethod.GET)
+	public String showNoticeWritePage(Model model, @ModelAttribute Board board) {
+		logger.debug("Show Notice Page");
+		
+		return "admin/notice/write";
+	}
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@RequestMapping(value = "/admin/noticeWrite", method = RequestMethod.POST)
+	public String showNoticeWritePagePost(Model model, @ModelAttribute Board board) {
+		logger.debug("Show Notice Page");
+		
+		boardService.insertNoticeWrite(board);
+		
+		model.addAttribute("noticeList", boardService.selectNoticeList());
+		
+		return "admin/notice/list";
+	}
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@RequestMapping(value = "/admin/noticeContent", method = RequestMethod.GET)
+	public String showNoticeContent(Model model, @ModelAttribute Board board) {
+		logger.debug("Show Notice Page");
+		
+		model.addAttribute("notice", boardService.selectNoticeContent(board));
+		
+		return "admin/notice/content";
+	}
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@RequestMapping(value = "/admin/noticeModify", method = RequestMethod.GET)
+	public String showNoticeModify(Model model, @ModelAttribute Board board) {
+		
+		model.addAttribute("board", boardService.selectNoticeContent(board));
+		
+		return "admin/notice/modify";
+	}
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@RequestMapping(value = "/admin/noticeModify", method = RequestMethod.POST)
+	public ModelAndView showNoticeModifyPost(@ModelAttribute Board board) {
+		ModelAndView mav = new ModelAndView();
+		
+		boardService.updateNotice(board);
+		
+		mav.addObject("notice", boardService.selectNoticeContent(board));
+	
+		mav.setView(new RedirectView("noticeContent?pn=" + board.getPn()));
+		
+		return mav;
+		
+	}	
 
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/admin/qna", method = RequestMethod.GET)

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="boardMapper">
+	<insert id="insertNoticeWrite" parameterType="Board">
+		INSERT INTO
+			notice
+			(
+				title, content, read_count, input_date
+			)			
+		VALUES
+			(
+				#{title}, #{content}, 0, SYSDATE()
+			)
+	</insert>
+	
+	<resultMap type="Board" id="noticetMap">
+		<result column="pn" property="pn" />
+		<result column="title" property="title" />
+		<result column="content" property="content" />
+		<result column="read_count" property="readCount" />
+		<result column="input_date" property="inputDate" />
+	</resultMap>
+	
+	<select id="selectNoticeList" resultMap="noticetMap">
+		SELECT
+			pn, title, content, read_count, input_date
+		FROM
+			notice
+	</select>
+	
+	<select id="selectNoticeContent" parameterType="Board" resultMap="noticetMap">
+		SELECT
+			pn, title, content, read_count, input_date
+		FROM
+			notice
+		WHERE
+			pn = #{pn}
+	</select>
+	
+	<update id="updateNotice" parameterType="Board">
+		UPDATE
+			notice
+		SET
+			title = #{title},
+			content = #{content}
+		WHERE
+			pn = #{pn}
+	</update>
+
+</mapper>

@@ -1,26 +1,193 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="HomeMapper">
+<mapper namespace="homeMapper">
 
-	<resultMap type="com.bg.jtown.business.Home" id="homeMap">
-		<result column="username" property="username"/>
+	<sql id="paginationBefore">
+		SELECT 
+			t.*
+		FROM 
+		( 
+			SELECT  
+				z.*, @RNUM := @RNUM + 1 AS rnum
+			FROM
+				(
+	</sql>
+	
+	<sql id="paginationAfter">
+		<![CDATA[
+				) z,  
+				( SELECT @RNUM := 0 ) R
+			WHERE @RNUM + 1 <=  #{pagination.itemSeqEnd}#
+		) t
+		WHERE t.rnum >= #{pagination.itemSeqBegin}#
+		]]>
+	</sql>
+
+	<resultMap type="com.bg.jtown.security.JtownUser" id="jtown-seller-map">
+		<result column="pn" property="pn"/>
+		<result column="shop_name" property="shopName"/>
+		<result column="shop_url" property="shopUrl"/>
+		<result column="notice" property="notice"/>
+		<result column="love_count" property="loveCount"/>
+		<result column="view_count" property="viewCount"/>
 	</resultMap>
 
-	<select id="getHomeTest" resultMap="homeMap">
+	<select id="selectFromInterestCategoryCount" parameterType="com.bg.jtown.business.search.HomeFilter" resultType="java.lang.Integer">
 		SELECT
-			id
+			COUNT(*)
+		FROM	(
+				SELECT
+					us.pn
+				FROM
+					user_seller us,
+					user_seller_interest usi,
+					interest_section ise,
+					interest_category ic
+				WHERE
+					us.pn = usi.seller_pn
+				AND
+					usi.section_pn = ise.pn
+				AND
+					ise.category_pn = ic.pn
+				AND
+					ise.category_pn = #{categoryPn}
+				GROUP BY 
+					us.pn
+			) t
+	</select>
+
+	<select id="selectFromInterestCategory" parameterType="com.bg.jtown.business.search.HomeFilter" resultMap="jtown-seller-map">
+		<include refid="paginationBefore"/>
+		SELECT
+			us.pn , us.shop_name, us.shop_url, us.notice, 
+			us.love_count, us.view_count
 		FROM
-			users
+			user_seller us,
+			user_seller_interest usi,
+			interest_section ise,
+			interest_category ic
 		WHERE
-			pn = 1
+			us.pn = usi.seller_pn
+		AND
+			usi.section_pn = ise.pn
+		AND
+			ise.category_pn = ic.pn
+		AND
+			ise.category_pn = #{categoryPn}
+		GROUP BY 
+			us.pn
+		ORDER BY
+			us.pn
+		<include refid="paginationAfter"/>
 	</select>
 	
-	<insert id="insertHomeTest" parameterType="com.bg.jtown.business.Home">
-		INSERT 
-		INTO
-			test	(username)
+	<select id="selectFromInterestCount" parameterType="com.bg.jtown.business.search.HomeFilter" resultType="java.lang.Integer">
+		SELECT
+			COUNT(*)
+		FROM
+			user_seller us,
+			user_seller_interest usi,
+			interest_section ise,
+			interest_category ic
+		WHERE
+			us.pn = usi.seller_pn
+		AND
+			usi.section_pn = ise.pn
+		AND
+			ise.category_pn = ic.pn
+		AND
+			ise.pn = #{sectionPn}
+		ORDER BY
+			us.pn
+	</select>
+	
+	<select id="selectFromInterest" parameterType="com.bg.jtown.business.search.HomeFilter" resultMap="jtown-seller-map">
+		<include refid="paginationBefore"/>
+		SELECT
+			us.pn, us.shop_name, us.shop_url, us.notice, 
+			us.love_count, us.view_count
+		FROM
+			user_seller us,
+			user_seller_interest usi,
+			interest_section ise,
+			interest_category ic
+		WHERE
+			us.pn = usi.seller_pn
+		AND
+			usi.section_pn = ise.pn
+		AND
+			ise.category_pn = ic.pn
+		AND
+			ise.pn = #{sectionPn}
+		ORDER BY
+			us.pn
+		<include refid="paginationAfter"/>
+	</select>
+
+	<!-- Comment -->
+	
+	<resultMap type="com.bg.jtown.business.Comment" id="jtown-comment-map">
+		<result column="pn" property="commentPn"/>
+		<result column="customer_pn" property="customerPn"/>
+		<result column="name" property="customerName"/>
+		<result column="seller_pn" property="sellerPn"/>
+		<result column="comment" property="comment"/>
+		<result column="input_date" property="inputDate"/>
+	</resultMap>
+	
+	<select id="selectComment" parameterType="java.lang.Integer" resultMap="jtown-comment-map">
+		SELECT
+			ucc.pn, ucc.customer_pn, uc.name, ucc.seller_pn, ucc.comment, ucc.input_date
+		FROM
+			user_customer_comment ucc,
+			user_customer uc
+		WHERE
+			ucc.customer_pn = uc.pn
+		AND
+			ucc.seller_pn = #{properNumber}
+	</select>
+	
+	<select id="selectCommentOne" parameterType="java.lang.Integer" resultMap="jtown-comment-map">
+		SELECT
+			ucc.pn, ucc.customer_pn, uc.name, ucc.seller_pn, ucc.comment, ucc.input_date
+		FROM
+			user_customer_comment ucc,
+			user_customer uc
+		WHERE
+			ucc.customer_pn = uc.pn
+		AND
+			ucc.pn = #{commentPn}
+	</select>
+	
+	<insert id="insertComment" parameterType="com.bg.jtown.business.Comment">
+		INSERT INTO
+			user_customer_comment
+			( customer_pn, seller_pn, COMMENT, input_date)
 		VALUES
-			(#{username})
+			( #{customerPn}, #{sellerPn}, #{comment}, SYSDATE())
+		<selectKey resultType="java.lang.Integer" keyProperty="commentPn">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
 	</insert>
 	
+	<update id="updateComment" parameterType="com.bg.jtown.business.Comment">
+		UPDATE
+			user_customer_comment
+		SET
+			comment = #{comment}
+		WHERE
+			customer_pn = #{customerPn}
+		AND
+			pn = #{commentPn}
+	</update>
+
+	<delete id="deleteComment" parameterType="com.bg.jtown.business.Comment">
+		DELETE FROM
+			user_customer_comment
+		WHERE
+			customer_pn = #{customerPn}
+		AND
+			pn = #{commentPn}
+	</delete>
+
 </mapper>
