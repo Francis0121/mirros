@@ -60,6 +60,33 @@ public class HomeServiceImpl extends SqlSessionDaoSupport implements
 	}
 
 	@Override
+	public List<Integer> makeRandomCount(HomeFilter homeFilter) {
+		Integer categoryPn = homeFilter.getCategoryPn();
+		Integer sectionPn = homeFilter.getSectionPn();
+		int count = 0;
+		if (categoryPn != null && !categoryPn.equals(0)) {
+			count = selectFromInterestCategoryCount(homeFilter);
+		} else if (sectionPn != null && !sectionPn.equals(0)) {
+			count = selectFromInterestCount(homeFilter);
+		} else {
+			homeFilter.setCategoryPn(CATEGORY_DEFAULT_FASION);
+			count = selectFromInterestCategoryCount(homeFilter);
+		}
+		Pagination pagination = homeFilter.getPagination();
+		pagination.setNumItems(count);
+
+		List<Integer> list = new ArrayList<Integer>();
+		Random random = new Random(System.currentTimeMillis());
+		logger.debug("Max Pages" + pagination.getNumPages());
+		for (int i = 1; i <= pagination.getNumPages(); i++) {
+			list.add(i);
+		}
+		Collections.shuffle(list, random);
+		logger.debug("RandomPage " + list.toString());
+		return list;
+	}
+
+	@Override
 	public Map<String, Object> selectExpandShop(Integer properNumber) {
 		Map<String, Object> selectMap = new HashMap<String, Object>();
 		selectMap.put("jtownUser",

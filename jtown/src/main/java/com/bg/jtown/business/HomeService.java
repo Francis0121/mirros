@@ -18,6 +18,8 @@ public interface HomeService {
 
 	Map<String, Object> selectExpandShop(Integer properNumber);
 
+	List<Integer> makeRandomCount(HomeFilter homeFilter);
+	
 	// ~ seller Information
 
 	List<JtownUser> selectSeller(HomeFilter homeFilter);

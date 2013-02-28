@@ -30,7 +30,6 @@ import com.bg.jtown.business.HomeService;
 import com.bg.jtown.business.Interest;
 import com.bg.jtown.business.search.HomeFilter;
 import com.bg.jtown.security.JtownUser;
-import com.bg.jtown.util.Pagination;
 
 /**
  * @author Francis, 박광열
@@ -46,36 +45,60 @@ public class HomeController {
 	private HomeService homeService;
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public ModelAndView showMainPage(@ModelAttribute HomeFilter homeFilter) {
-		ModelAndView mav = new ModelAndView("home");
+	public ModelAndView showMainPage(@ModelAttribute HomeFilter homeFilter,
+			HttpServletRequest request) {
 		logger.debug("Show Main page");
+
+		ModelAndView mav = new ModelAndView("home");
 		mav.addObject("interestCategories", homeService.selecInterestCategory());
+
+		List<Integer> randomPage = homeService.makeRandomCount(homeFilter);
+		logger.debug("RandomPage Controller" + randomPage.toString());
+		HttpSession session = request.getSession();
+		session.setAttribute("randomPage", randomPage);
+		logger.debug("RandomPage Controller" + randomPage.get(0));
+		homeFilter.setPage(randomPage.get(0));
 		mav.addAllObjects(homeService.selectHome(homeFilter));
+
 		return mav;
 	}
 
 	@RequestMapping(value = "/cpn/{categoryPn}/spn/{sectionPn}", method = RequestMethod.GET)
-	public ModelAndView showMainPageSearch(@ModelAttribute HomeFilter homeFilter) {
+	public ModelAndView showMainPageSearch(
+			@ModelAttribute HomeFilter homeFilter, HttpServletRequest request) {
+		logger.debug("Show Main page Search");
 		ModelAndView mav = new ModelAndView("home");
-		logger.debug("Show Main page");
-		logger.debug(homeFilter.toString());
 		mav.addObject("interestCategories", homeService.selecInterestCategory());
+
+		List<Integer> randomPage = homeService.makeRandomCount(homeFilter);
+		logger.debug("RandomPage Controller" + randomPage.toString());
+		HttpSession session = request.getSession();
+		session.setAttribute("randomPage", randomPage);
+		logger.debug("RandomPage Controller" + randomPage.get(0));
+		homeFilter.setPage(randomPage.get(0));
 		mav.addAllObjects(homeService.selectHome(homeFilter));
+		logger.debug(homeFilter.toString());
+
 		return mav;
 	}
 
 	@RequestMapping(value = "/cpn/{categoryPn}/spn/{sectionPn}/page/{page}", method = RequestMethod.GET)
 	public String showPagination(@ModelAttribute HomeFilter homeFilter,
-			@PathVariable Integer page, Model model) {
+			@PathVariable Integer page, Model model, HttpServletRequest request) {
 		logger.debug("Show Pagination page");
 		logger.debug("HomeFilter Page " + page + " " + homeFilter.toString());
-		homeFilter.setPage(page);
-		model.addAllAttributes(homeService.selectHome(homeFilter));
-		Pagination pagination = homeFilter.getPagination();
-		if (pagination.getNumPages() < page) {
+
+		HttpSession session = request.getSession();
+		@SuppressWarnings("unchecked")
+		List<Integer> randomPage = (List<Integer>) session
+				.getAttribute("randomPage");
+		if (randomPage.size() > page - 1) {
+			homeFilter.setPage(randomPage.get(page - 1));
+			model.addAllAttributes(homeService.selectHome(homeFilter));
+			return "pagination";
+		} else {
 			return "pageFinish";
 		}
-		return "pagination";
 	}
 
 	@RequestMapping(value = "/process")
