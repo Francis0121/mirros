@@ -30,6 +30,7 @@ import com.bg.jtown.business.HomeService;
 import com.bg.jtown.business.Interest;
 import com.bg.jtown.business.search.HomeFilter;
 import com.bg.jtown.security.JtownUser;
+import com.bg.jtown.util.Pagination;
 
 /**
  * @author Francis, 박광열
@@ -63,10 +64,15 @@ public class HomeController {
 		return mav;
 	}
 
-	@RequestMapping(value = "/page/{page}", method = RequestMethod.GET)
-	public String showPagination(@PathVariable Integer page, Model model) {
+	@RequestMapping(value = "/cpn/{categoryPn}/spn/{sectionPn}/page/{page}", method = RequestMethod.GET)
+	public String showPagination(@ModelAttribute HomeFilter homeFilter,
+			@PathVariable Integer page, Model model) {
 		logger.debug("Show Pagination page");
-		if (page > 5) {
+		logger.debug("HomeFilter Page " + page + " " + homeFilter.toString());
+		homeFilter.setPage(page);
+		model.addAllAttributes(homeService.selectHome(homeFilter));
+		Pagination pagination = homeFilter.getPagination();
+		if (pagination.getNumPages() < page) {
 			return "pageFinish";
 		}
 		return "pagination";

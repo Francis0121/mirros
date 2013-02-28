@@ -23,6 +23,9 @@
 						<c:url var="help" value="/help/question"/>
 						<a href="${help }" class="jt-common-a-base">고객센터</a>
 					</li>
+					<li>
+						<a href="#none" class="jt-common-a-base">관심사추가</a>
+					</li>
 					<sec:authorize access="anonymous">
 						<li>
 							<a href="#none" class="jt-common-a-base" id="jt-login-smartPopup">로그인</a>

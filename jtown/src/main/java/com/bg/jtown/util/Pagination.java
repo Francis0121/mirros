@@ -168,4 +168,12 @@ public class Pagination {
 	public void setNumPagesPerScreen(int numPagesPerScreen) {
 		this.numPagesPerScreen = numPagesPerScreen;
 	}
+
+	@Override
+	public String toString() {
+		return "Pagination [numItemsPerPage=" + numItemsPerPage
+				+ ", numPagesPerScreen=" + numPagesPerScreen + ", numItems="
+				+ numItems + ", page=" + page + "]";
+	}
+
 }

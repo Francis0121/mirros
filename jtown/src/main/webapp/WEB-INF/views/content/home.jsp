@@ -45,6 +45,6 @@
 	</c:forEach>
 </div>
 <nav id="page-nav" style="display: none;">
-  <a href="<c:url value="/page/2"/>"></a>
+  <a href="<c:url value="/cpn/${homeFilter.categoryPn eq null ? 0 : homeFilter.categoryPn}/spn/${homeFilter.sectionPn eq null ? 0 : homeFilter.sectionPn}/page/2"/>"></a>
 </nav>
 <%@ include file="../layout/layout_footer.jspf" %>
