@@ -165,4 +165,13 @@
 			seller_pn
 	</select>
 
+	<select id="selectLoveCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+		SELECT
+			COUNT(*)
+		FROM	
+			count_love
+		WHERE
+			seller_pn = #{properNumber}
+	</select>
+
 </mapper>

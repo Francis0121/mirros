@@ -1,8 +1,11 @@
 package com.bg.jtown.business;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import javax.annotation.Resource;
 
@@ -38,6 +41,8 @@ public class HomeServiceImpl extends SqlSessionDaoSupport implements
 		Map<String, Object> selectMap = new HashMap<String, Object>();
 
 		List<JtownUser> jtownUsers = selectSeller(homeFilter);
+		Random random = new Random(System.currentTimeMillis());
+		Collections.shuffle(jtownUsers, random);
 		selectMap.put("jtownUsers", jtownUsers);
 
 		Map<Integer, List<String>> homeMap = new HashMap<Integer, List<String>>();
@@ -46,11 +51,39 @@ public class HomeServiceImpl extends SqlSessionDaoSupport implements
 			homeMap.put(pn, sellerService.selectSellerImage(pn));
 
 			jtownUser.setCommentCount(sellerService.selectCommentCount(pn));
+			jtownUser.setLoveCount(sellerService.selectLoveCount(pn));
 		}
 		logger.debug(homeMap.toString());
 		selectMap.put("images", homeMap);
 
 		return selectMap;
+	}
+
+	@Override
+	public List<Integer> makeRandomCount(HomeFilter homeFilter) {
+		Integer categoryPn = homeFilter.getCategoryPn();
+		Integer sectionPn = homeFilter.getSectionPn();
+		int count = 0;
+		if (categoryPn != null && !categoryPn.equals(0)) {
+			count = selectFromInterestCategoryCount(homeFilter);
+		} else if (sectionPn != null && !sectionPn.equals(0)) {
+			count = selectFromInterestCount(homeFilter);
+		} else {
+			homeFilter.setCategoryPn(CATEGORY_DEFAULT_FASION);
+			count = selectFromInterestCategoryCount(homeFilter);
+		}
+		Pagination pagination = homeFilter.getPagination();
+		pagination.setNumItems(count);
+
+		List<Integer> list = new ArrayList<Integer>();
+		Random random = new Random(System.currentTimeMillis());
+		logger.debug("Max Pages" + pagination.getNumPages());
+		for (int i = 1; i <= pagination.getNumPages(); i++) {
+			list.add(i);
+		}
+		Collections.shuffle(list, random);
+		logger.debug("RandomPage " + list.toString());
+		return list;
 	}
 
 	@Override
@@ -143,4 +176,58 @@ public class HomeServiceImpl extends SqlSessionDaoSupport implements
 		getSqlSession().update("homeMapper.deleteComment", comment);
 	}
 
+	@Override
+	public JtownUser insertViewCount(Count count) {
+		return null;
+	}
+
+	@Override
+	public Count insertLoveCount(Count count) {
+		Integer loveCount = selectLoveCount(count);
+		if (loveCount == 0) {
+			getSqlSession().insert("homeMapper.insertLoveCount", count);
+		} else {
+			getSqlSession().delete("homeMapper.deleteLoveCount", count);
+		}
+		count.setCount(sellerService.selectLoveCount(count.getSellerPn()));
+		return count;
+	}
+
+	private Integer selectLoveCount(Count count) {
+		return getSqlSession().selectOne("homeMapper.selectLoveCount", count);
+	}
+
+	// ~ Navigation
+
+	@Override
+	public List<Interest> selecInterestCategory() {
+		return getSqlSession().selectList("homeMapper.selecInterestCategory");
+	}
+
+	@Override
+	public Map<Integer, List<Interest>> selectInterest(Integer customerPn) {
+		List<Interest> interests = getSqlSession().selectList(
+				"homeMapper.selectInterest", customerPn);
+		List<Interest> interestCategories = selecInterestCategory();
+
+		Map<Integer, List<Interest>> selectMap = new HashMap<Integer, List<Interest>>();
+		List<Interest> divideInterest;
+		for (Interest ic : interestCategories) {
+			divideInterest = new ArrayList<Interest>();
+			Integer categoryPnic = ic.getCategoryPn();
+			for (Interest i : interests) {
+				Integer categoryPni = i.getCategoryPn();
+				if (categoryPnic.equals(categoryPni)) {
+					divideInterest.add(i);
+				}
+			}
+			selectMap.put(categoryPnic, divideInterest);
+		}
+		return selectMap;
+	}
+
+	@Override
+	public void deleteInterest(Interest interest) {
+		getSqlSession().delete("homeMapper.deleteInterest", interest);
+	}
 }

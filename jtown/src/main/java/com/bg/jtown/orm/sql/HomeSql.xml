@@ -189,5 +189,77 @@
 		AND
 			pn = #{commentPn}
 	</delete>
+	
+	<select id="selectLoveCount" parameterType="com.bg.jtown.business.Count" resultType="java.lang.Integer">
+		SELECT
+			COUNT(*)
+		FROM
+			count_love
+		WHERE
+			customer_pn = #{customerPn}
+		AND
+			seller_pn = #{sellerPn}
+	</select>
+	
+	<insert id="insertLoveCount" parameterType="com.bg.jtown.business.Count">
+		INSERT INTO
+			count_love
+			(customer_pn, seller_pn, input_date)
+		VALUES
+			(	#{customerPn},	#{sellerPn}, SYSDATE() )
+	</insert>
+	
+	<delete id="deleteLoveCount" parameterType="com.bg.jtown.business.Count">
+		DELETE FROM
+			count_love
+		WHERE
+			customer_pn = #{customerPn}
+		AND
+			seller_pn = #{sellerPn}
+	</delete>
+
+	<resultMap type="com.bg.jtown.business.Interest" id="jtown-interest-category-map">
+		<result column="pn" property="categoryPn"/>
+		<result column="name" property="name"/>
+	</resultMap>
+
+	<select id="selecInterestCategory" resultMap="jtown-interest-category-map">
+		SELECT
+			pn, name
+		FROM
+			interest_category
+	</select>
+	
+	<resultMap type="com.bg.jtown.business.Interest" id="jtown-interest-map">
+		<result column="category_pn" property="categoryPn"/>
+		<result column="section_pn" property="sectionPn"/>
+		<result column="name" property="name"/>
+	</resultMap>
+
+	<select id="selectInterest" parameterType="java.lang.Integer" resultMap="jtown-interest-map">
+		SELECT
+			ise.category_pn,  uci.section_pn,  ise.name
+		FROM
+			user_customer_interest uci,
+			interest_section ise,
+			interest_category ic
+		WHERE
+			uci.section_pn = ise.pn
+		AND
+			ic.pn = ise.category_pn
+		AND
+			uci.customer_pn = #{customerPn}
+		ORDER BY
+			category_pn, section_pn	
+	</select>
+	
+	<delete id="deleteInterest" parameterType="com.bg.jtown.business.Interest">
+		DELETE FROM
+			user_customer_interest
+		WHERE
+			customer_pn = #{customerPn}
+		AND
+			section_pn = #{sectionPn}
+	</delete>
 
 </mapper>

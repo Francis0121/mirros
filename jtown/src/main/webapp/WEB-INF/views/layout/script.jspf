@@ -63,6 +63,8 @@
 			});
 		}
 	);
+	 
+	$container.infinitescroll().scroll(); 
 	
 	onResize = function(){
 		var clientWidth = Number(window.document.body.clientWidth),
