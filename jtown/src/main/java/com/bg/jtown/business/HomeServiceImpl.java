@@ -1,9 +1,11 @@
 package com.bg.jtown.business;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import javax.annotation.Resource;
 
@@ -39,6 +41,8 @@ public class HomeServiceImpl extends SqlSessionDaoSupport implements
 		Map<String, Object> selectMap = new HashMap<String, Object>();
 
 		List<JtownUser> jtownUsers = selectSeller(homeFilter);
+		Random random = new Random(System.currentTimeMillis());
+		Collections.shuffle(jtownUsers, random);
 		selectMap.put("jtownUsers", jtownUsers);
 
 		Map<Integer, List<String>> homeMap = new HashMap<Integer, List<String>>();
