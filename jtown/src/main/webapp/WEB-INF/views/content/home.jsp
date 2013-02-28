@@ -8,6 +8,7 @@
 <div id="jt-home-container">
 	<c:forEach items="${jtownUsers }" var="seller" varStatus="loop">
 		<c:set value="${seller.pn }" var="spn"/>
+		<c:if test="${spn ne 0 and spn ne null }">
 		<c:set value="${images[spn] }" var="mainImages"/>
 		<div class="jt-home-shop">
 			<header>
@@ -39,7 +40,8 @@
 				<pre id="jt-seller-main-footer-text" class="jt-home-shop-footer-text"><c:out value="${seller.notice }"/></pre>
 				<span class="jt-home-shop-footer-lastQuotationMark">"</span>
 			</footer>
-		</div>	
+		</div>
+		</c:if>	
 	</c:forEach>
 </div>
 <nav id="page-nav" style="display: none;">

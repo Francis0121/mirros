@@ -50,55 +50,26 @@
 						<a>&lt;</a>
 					</div>
 					<div class="jt-header-nav-scroll">
+						
 						<menu class="jt-header-nav-all" style="width: <c:out value="${119*10+2}"/>px;">
-							<li class="jt-header-nav-top" >
-								<a href="#none">FASHION</a>
-							</li>
-							<li class="jt-header-nav-down">
-								<div class="jt-header-nav-down-delete">
-									<a href="#none" >X</a>
-								</div>
-								<a href="#none">힙합</a>
-							</li>
-							<li class="jt-header-nav-down">
-								<div class="jt-header-nav-down-delete">
-									<a href="#none" >X</a>
-								</div>
-								<a href="#none">남성</a>
-							</li>
-							<li class="jt-header-nav-top">
-								<a href="#none">FOOD</a>
-							</li>
-							<li class="jt-header-nav-down">
-								<div class="jt-header-nav-down-delete">
-									<a href="#none" >X</a>
-								</div>
-								<a href="#none">과일</a>
-							</li>
-							<li class="jt-header-nav-down">
-								<div class="jt-header-nav-down-delete">
-									<a href="#none" >X</a>
-								</div>
-								<a href="#none">생선</a>
-							</li>
-							<li class="jt-header-nav-top">
-								<a href="#none">BABY</a>
-							</li>
-							<li class="jt-header-nav-down">
-								<div class="jt-header-nav-down-delete">
-									<a href="#none" >X</a>
-								</div>
-								<a href="#none">유모차</a>
-							</li>
-							<li class="jt-header-nav-top">
-								<a href="#none">OFFICE</a>
-							</li>
-							<li class="jt-header-nav-down">
-								<div class="jt-header-nav-down-delete">
-									<a href="#none" >X</a>
-								</div>
-								<a href="#none">펜</a>
-							</li>
+							<c:forEach var="interestCategory" items="${interestCategories }" varStatus="loop">
+								<c:set var="cpn" value="${interestCategory.categoryPn}"/>
+								<c:set var="interests" value="${interestMap[cpn] }"></c:set>
+								<li class="jt-header-nav-top" >
+									<c:url value="/cpn/${cpn}/spn/0" var="search"/>
+									<a href="${search }"><c:out value="${interestCategory.name }"/></a>
+								</li>
+								<c:forEach items="${interests }" var="interest">
+									<c:set var="spn" value="${interest.sectionPn }"/>
+									<li class="jt-header-nav-down" data-spn="${spn }" data-cpn="${cpn }">
+										<div class="jt-header-nav-down-delete">
+											<a href="#none" >X</a>
+										</div>
+										<c:url value="/cpn/0/spn/${spn }" var="search"/>
+										<a href="${search }">${interest.name }</a>
+									</li>
+								</c:forEach>
+							</c:forEach>
 						</menu>
 					</div>
 					<div href="#none" class="jt-header-nav-right">

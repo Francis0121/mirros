@@ -1,6 +1,7 @@
 package com.bg.jtown.business;
 
 public class Interest {
+
 	private Integer customerPn;
 
 	private Integer sellerPn;
@@ -10,20 +11,20 @@ public class Interest {
 	private Integer sectionPn;
 
 	private String name;
-	
+
 	private String interestSectionNameList;
 
 	public Interest() {
 		// TODO Auto-generated constructor stub
 	}
-	
+
 	public Interest(Integer sellerPn, Integer categoryPn, Integer sectionPn,
 			String name) {
 		this.sellerPn = sellerPn;
 		this.categoryPn = categoryPn;
 		this.sectionPn = sectionPn;
 		this.name = name;
-	}	
+	}
 
 	public Interest(Integer sellerPn, Integer categoryPn, Integer sectionPn,
 			String name, String interestSectionNameList) {
@@ -33,7 +34,7 @@ public class Interest {
 		this.name = name;
 		this.interestSectionNameList = interestSectionNameList;
 	}
-	
+
 	public Interest(Integer customerPn, Integer sellerPn, Integer categoryPn,
 			Integer sectionPn, String name, String interestSectionNameList) {
 		this.customerPn = customerPn;

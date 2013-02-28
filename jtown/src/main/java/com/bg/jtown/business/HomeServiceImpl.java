@@ -1,5 +1,6 @@
 package com.bg.jtown.business;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -163,5 +164,39 @@ public class HomeServiceImpl extends SqlSessionDaoSupport implements
 
 	private Integer selectLoveCount(Count count) {
 		return getSqlSession().selectOne("homeMapper.selectLoveCount", count);
+	}
+
+	// ~ Navigation
+
+	@Override
+	public List<Interest> selecInterestCategory() {
+		return getSqlSession().selectList("homeMapper.selecInterestCategory");
+	}
+
+	@Override
+	public Map<Integer, List<Interest>> selectInterest(Integer customerPn) {
+		List<Interest> interests = getSqlSession().selectList(
+				"homeMapper.selectInterest", customerPn);
+		List<Interest> interestCategories = selecInterestCategory();
+
+		Map<Integer, List<Interest>> selectMap = new HashMap<Integer, List<Interest>>();
+		List<Interest> divideInterest;
+		for (Interest ic : interestCategories) {
+			divideInterest = new ArrayList<Interest>();
+			Integer categoryPnic = ic.getCategoryPn();
+			for (Interest i : interests) {
+				Integer categoryPni = i.getCategoryPn();
+				if (categoryPnic.equals(categoryPni)) {
+					divideInterest.add(i);
+				}
+			}
+			selectMap.put(categoryPnic, divideInterest);
+		}
+		return selectMap;
+	}
+
+	@Override
+	public void deleteInterest(Interest interest) {
+		getSqlSession().delete("homeMapper.deleteInterest", interest);
 	}
 }

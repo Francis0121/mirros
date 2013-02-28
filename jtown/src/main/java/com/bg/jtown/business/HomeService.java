@@ -35,8 +35,16 @@ public interface HomeService {
 	void deleteComment(Comment comment);
 
 	// ~ count
-	
+
 	JtownUser insertViewCount(Count count);
 
 	Count insertLoveCount(Count count);
+
+	// ~ Navigation
+
+	List<Interest> selecInterestCategory();
+
+	Map<Integer, List<Interest>> selectInterest(Integer customerPn);
+
+	void deleteInterest(Interest interest);
 }
