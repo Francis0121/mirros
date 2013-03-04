@@ -111,6 +111,7 @@
 					};
 			opts.loading.finished = opts.loading.finished || function() {
 				opts.loading.msg.fadeOut('normal');
+				jtown.expand.loadExpandShop();
 			};
 			opts.callback = function(instance, data) {
 				if (!!opts.behavior
