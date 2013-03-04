@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -48,6 +49,7 @@ public class JtownUser implements JtownDetails, CredentialsContainer {
 	private Integer loveCount;
 	private Integer viewCount;
 	private Integer commentCount;
+	private List<String> images;
 
 	private String interestCategory;
 	private String interestSectionList;
@@ -237,6 +239,14 @@ public class JtownUser implements JtownDetails, CredentialsContainer {
 
 	public Integer getCommentCount() {
 		return commentCount;
+	}
+
+	public List<String> getImages() {
+		return images;
+	}
+
+	public void setImages(List<String> images) {
+		this.images = images;
 	}
 
 	public boolean isAccountNonExpired() {
@@ -433,6 +443,7 @@ public class JtownUser implements JtownDetails, CredentialsContainer {
 		sb.append("newPassword : ").append(this.newPassword).append("; ");
 		sb.append("GroupName : ").append(this.groupName).append("; ");
 		sb.append("commentCount : ").append(this.commentCount).append("; ");
+		sb.append("commentCount : ").append(this.images).append("; ");
 
 		if (!authorities.isEmpty()) {
 			sb.append("Granted Authorities: ");

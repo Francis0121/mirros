@@ -48,10 +48,7 @@ public class HomeServiceImpl extends SqlSessionDaoSupport implements
 		Map<Integer, List<String>> homeMap = new HashMap<Integer, List<String>>();
 		for (JtownUser jtownUser : jtownUsers) {
 			Integer pn = jtownUser.getPn();
-			homeMap.put(pn, sellerService.selectSellerImage(pn));
-
-			jtownUser.setCommentCount(sellerService.selectCommentCount(pn));
-			jtownUser.setLoveCount(sellerService.selectLoveCount(pn));
+			homeMap.put(pn, jtownUser.getImages());
 		}
 		logger.debug(homeMap.toString());
 		selectMap.put("images", homeMap);

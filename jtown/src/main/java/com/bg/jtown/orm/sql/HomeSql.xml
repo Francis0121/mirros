@@ -30,7 +30,18 @@
 		<result column="notice" property="notice"/>
 		<result column="love_count" property="loveCount"/>
 		<result column="view_count" property="viewCount"/>
+		<result column="comment_count" property="commentCount"/>
+		<collection property="images" column="pn" javaType="java.util.ArrayList" select="selectSellerImage" ofType="java.lang.String"/>
 	</resultMap>
+	
+	<select id="selectSellerImage" parameterType="java.lang.Integer" resultType="java.lang.String">
+		SELECT
+			usin.save_name
+		FROM
+			user_seller_image_name usin
+		WHERE
+			usin.seller_pn = #{properNumber}
+	</select>
 
 	<select id="selectFromInterestCategoryCount" parameterType="com.bg.jtown.business.search.HomeFilter" resultType="java.lang.Integer">
 		SELECT
@@ -60,9 +71,13 @@
 		<include refid="paginationBefore"/>
 		SELECT
 			us.pn , us.shop_name, us.shop_url, us.notice, 
-			us.love_count, us.view_count
+			us.view_count, clsp.love_count, ccsp.comment_count
 		FROM
-			user_seller us,
+			user_seller us 
+			LEFT OUTER JOIN count_love_seller_pn clsp
+			ON us.pn = clsp.seller_pn
+			LEFT OUTER JOIN count_comment_seller_pn ccsp
+			ON us.pn = clsp.seller_pn,
 			user_seller_interest usi,
 			interest_section ise,
 			interest_category ic
@@ -104,10 +119,14 @@
 	<select id="selectFromInterest" parameterType="com.bg.jtown.business.search.HomeFilter" resultMap="jtown-seller-map">
 		<include refid="paginationBefore"/>
 		SELECT
-			us.pn, us.shop_name, us.shop_url, us.notice, 
-			us.love_count, us.view_count
+			us.pn , us.shop_name, us.shop_url, us.notice, 
+			us.view_count, clsp.love_count, ccsp.comment_count
 		FROM
-			user_seller us,
+			user_seller us 
+			LEFT OUTER JOIN count_love_seller_pn clsp
+			ON us.pn = clsp.seller_pn
+			LEFT OUTER JOIN count_comment_seller_pn ccsp
+			ON us.pn = clsp.seller_pn,
 			user_seller_interest usi,
 			interest_section ise,
 			interest_category ic
