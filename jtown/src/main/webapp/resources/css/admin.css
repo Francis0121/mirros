@@ -3,7 +3,7 @@
 /*************************
 *	최상단
 **************************/
-.jt-body{ width: 100%; min-height: 700px; float: left; font-family: Gulim;}
+.jt-body{ width: 100%; min-width: 1250px; min-height: 600px; float: left; font-family: Gulim;}
 /*************************
 *	로그인메뉴
 **************************/
@@ -25,7 +25,7 @@
 /*************************
 *	내용물
 **************************/
-.jt-content{ padding: 10px; float: left;}
+.jt-content{ padding: 10px; float: left; min-width: 1040px;}
 /*************************
 *	공지사항 
 **************************/
