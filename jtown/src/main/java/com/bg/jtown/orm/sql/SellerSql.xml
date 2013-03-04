@@ -9,15 +9,20 @@
 		<result column="notice" property="notice"/>
 		<result column="love_count" property="loveCount"/>
 		<result column="view_count" property="viewCount"/>
+		<result column="comment_count" property="commentCount"/>
 	</resultMap>
 
 	<select id="selectSellerInformation" parameterType="java.lang.Integer" resultMap="jtown-seller-map">
 		SELECT
-			pn, shop_name, shop_url, notice, love_count, view_count
+			us.pn, us.shop_name, us.shop_url, us.notice, us.view_count, clsp.love_count, ccsp.comment_count
 		FROM
-			user_seller
+			user_seller us
+			LEFT OUTER JOIN count_love_seller_pn clsp
+			ON us.pn = clsp.seller_pn
+			LEFT OUTER JOIN count_comment_seller_pn ccsp
+			ON us.pn = clsp.seller_pn
 		WHERE
-			pn = #{properNumber}
+			us.pn = #{properNumber}
 	</select>
 	
 	<select id="selectSellerImage" parameterType="java.lang.Integer" resultType="java.lang.String">
