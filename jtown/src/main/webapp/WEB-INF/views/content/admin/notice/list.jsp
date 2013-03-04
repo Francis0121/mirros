@@ -5,33 +5,37 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
 <%@ include file="../../../layout/layout_admin_header.jspf" %>
-<div>
-	<div>
+
+<ul class="jt-notice-tool">
+	<li>
 		<c:url value="/admin/noticeWrite" var="write" />
-		<a href="${write }">글 작성</a>
-	</div>
-	<table class="jt-join-user-table">
-		<tfoot>
-		
-		</tfoot>
-		<thead>
-			<tr>
-				<th>번호</th>
-				<th>제목</th>
-				<th>날짜</th>
-				<th>조회수</th>				
+		<a href="${write }" class="jt-common-a-base-two">작성</a>
+	</li>
+</ul>
+
+<table class="jt-notice-table">
+	<thead>
+		<tr>
+			<th>번호</th>
+			<th>제목</th>
+			<th>날짜</th>
+			<th>조회수</th>				
+		</tr>
+	</thead>
+	<tfoot>
+		<tr>
+			<td colspan="4"></td>
+		</tr>
+	</tfoot>
+	<tbody>
+		<c:forEach items="${noticeList }" var="notice" varStatus="i">
+			<tr class="jt-notice-content-tr" data-pn="<c:out value="${notice.pn }"/>">
+				<td><c:out value="${i.count }"/></td>
+				<td><c:out value="${notice.title }"/></td>
+				<td><c:out value="${fn:substring(notice.inputDate, 0, 19) }"/></td>
+				<td><c:out value="${notice.readCount }"/></td>
 			</tr>
-		</thead>
-		<tbody>
-			<c:forEach items="${noticeList }" var="notice" varStatus="i">
-				<tr class="jt-notice-content-tr" data-pn="${notice.pn }">
-					<td>${i.count }</td>
-					<td>${notice.title }</td>
-					<td>${fn:substring(notice.inputDate, 0, 19) }</td>
-					<td>${notice.readCount }</td>
-				</tr>
-			</c:forEach>
-		</tbody>
-	</table>
-</div>
+		</c:forEach>
+	</tbody>
+</table>
 <%@ include file="../../../layout/layout_admin_footer.jspf" %>

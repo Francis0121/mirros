@@ -1,4 +1,20 @@
+		</section>
+	</section>
 	<%@ include file="login.jspf" %>
 	<%@ include file="script.jspf" %>
+	<script type="text/javascript">
+	<!--
+		onAdminResize = function(){
+			var clientHeight =  window.innerHeight;
+			var docHeight = $(document).height();
+			var barHeight = Number($('.jt-header').height());
+			var height = docHeight > clientHeight ? Number(docHeight) - Number(barHeight) : Number(clientHeight) - Number(barHeight);
+	
+			$('.jt-left-nav').css('height', height+'px');
+		};
+		onAdminResize();
+		$(window).resize(onAdminResize);
+	//-->
+	</script>
 </body>
 </html>

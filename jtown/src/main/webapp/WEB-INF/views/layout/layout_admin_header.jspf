@@ -9,61 +9,68 @@
 <html>
 <head>
 <title>J TOWN</title>
-<%@ include file="style.jspf" %>
+<c:url var="cp" value="/"/>
+<%-- Jquery --%>
+<link rel="stylesheet" type="text/css" href="${cp}resources/jquery/jquery-ui-1.10.0.custom.min.css" />
+<link rel="stylesheet" type="text/css" href="${cp}resources/uploadify/uploadify.css" />
+<%-- Custom --%>
+<link rel="stylesheet" type="text/css" href="${cp}resources/css/default.css" />
+<link rel="stylesheet" type="text/css" href="${cp}resources/css/admin.css" />
 </head>
 <body>
 	<section class="jt-body">
 		<header class="jt-header">
 			<menu class="jt-header-login-menu">
 				<li>
+					<c:url value="/admin" var="admin"/>
+					<a href="${admin }" class="jt-common-a-base">관리자페이지</a>
+				</li>
+				<li>
+					<c:url value="/login/modify" var="modifyUrl"/>
+					<a href="${modifyUrl }" class="jt-common-a-base" id="jt-modify">비밀번호 변경</a>
+				</li>
+				<li>
 					<c:url value="/login/logout" var="logoutUrl"/>
 					<a href="${logoutUrl }" class="jt-common-a-base" id="jt-logout">로그아웃</a>
-				</li>			
+				</li>		
 			</menu>
 		</header>
-	</section>
-	
-	<section>
-		<menu>
-			<li>
-				<c:url value="/admin/notice" var="noticeUrl" />
-				<a href="${noticeUrl }" >공지사항</a>
-			</li>
-			<li>
-				Q&A
-			</li>
-			<li>
-				<a href="#" >- 판매자</a>
-			</li>
-			<li>
-				<a href="#" >- 소비자</a>
-			</li>	
-			<li>
-				사용자관리
-			</li>
-			<li>
-				- 사용자
-			</li>			
-			<li>
-				<c:url value="/admin/customer" var="adminCustomer"/>
-				<a href="${adminCustomer }" > - - 사용자 관리</a>
-			</li>			
-			<li>
-				 - 판매자
-			</li>
-			<li>
-				<c:url value="/admin/cs" var="creatSellerUrl" />
-				<a href="${creatSellerUrl }" > - - 판매자 생성</a>
-			</li>	
-			<li>
-				<c:url value="/admin/seller" var="adminSeller" />
-				<a href="${adminSeller }" > - - 판매자 관리</a>
-			</li>						
-			<li>
-				- 관리자
-			</li>
-			<li>
-				<a href="#" > - - 관리자 아이디 생성</a>
-			</li>						
-		</menu>
-	</section>
+		<nav class="jt-left-nav">
+			<menu class="jt-left_menu">
+				<li class="jt-left-nav-category">
+					게시판
+				</li>
+				<li class="jt-left-nav-content">
+					<c:url value="/admin/notice" var="noticeUrl" />
+					<a href="${noticeUrl }">- 공지사항</a>
+				</li>
+				<li class="jt-left-nav-category">
+					Q&A
+				</li>
+				<li class="jt-left-nav-content">
+					<a href="#">- 판매자</a>
+				</li>
+				<li class="jt-left-nav-content">
+					<a href="#">- 소비자</a>
+				</li>	
+				<li class="jt-left-nav-category">
+					사용자관리
+				</li>			
+				<li class="jt-left-nav-content">
+					<c:url value="/admin/customer" var="adminCustomer"/>
+					<a href="${adminCustomer }">- 사용자 관리</a>
+				</li>			
+				<li class="jt-left-nav-content">
+					<c:url value="/admin/cs" var="creatSellerUrl" />
+					<a href="${creatSellerUrl }" >- 판매자 생성</a>
+				</li>	
+				<li class="jt-left-nav-content">
+					<c:url value="/admin/seller" var="adminSeller" />
+					<a href="${adminSeller }">- 판매자 관리</a>
+				</li>
+				<li class="jt-left-nav-content">
+					<a href="#none">- 관리자 생성</a>
+				</li>						
+			</menu>
+		</nav>
+		<section class="jt-content">

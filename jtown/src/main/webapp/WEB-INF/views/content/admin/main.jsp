@@ -6,6 +6,6 @@
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <%@ include file="../../layout/layout_admin_header.jspf" %>
 
-관리자 페이지
+<span style="font-size: 12px;">관리자 페이지</span>
 
 <%@ include file="../../layout/layout_admin_footer.jspf" %>
