@@ -178,8 +178,8 @@ jtown.admin.insertInputBox = function(me, clazz){
 	
 	var inputName = clazz + '-input';
 	
-	var html = '<input class="' + inputName + '" id="' + inputName + '" type="text" value="' + value + '" />';
-	
+	var html = '<input class="' + inputName + '" id="' + inputName + '" type="text" value="' + value + '" style="width: '+(Number(me.width())-14)+'px;"/>';
+
 	me.html(html);
 	jtown.admin.setFocus(inputName);
 	
