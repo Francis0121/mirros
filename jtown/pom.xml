@@ -40,6 +40,12 @@
 			<version>${org.springframework-version}</version>
 			<scope>test</scope>
 		</dependency>
+		<!-- Spring data -->
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-redis</artifactId>
+			<version>1.0.3.RELEASE</version>
+		</dependency> 
 		
 		<!-- Spring Security -->
 		<dependency>
