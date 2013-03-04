@@ -92,6 +92,18 @@
 .jt-manage-table>tbody>tr>td:nth-child(6)>select{ border: 2px solid #d9d9d9; padding: 2px 3px; width: 102px;}
 .jt-manage-table>tbody>tr>td>input{border: 2px solid #d9d9d9; padding: 2px 3px;}
 /*************************
+*	판매자 생성
+**************************/
+.jt-create-table { border-bottom: 1px solid #ffd5a6; border-right: 1px solid #ffd5a6; border-collapse: collapse; font-size: 12px; width: 600px;}
+.jt-create-table th{ background: #ffead1; vertical-align: middle;}
+.jt-create-table th, .jt-create-table td{ padding: 2px 3px; border-top: 1px solid #ffd5a6; border-left: 1px solid #ffd5a6; min-height: 20px;}
+.jt-create-table>tbody>tr>th{width: 143px;}
+.jt-create-table>tbody>tr>td{width: 442px;}
+.jt-create-table tbody input{border: 2px solid #d9d9d9; padding: 2px 3px; width: 430px;}
+.jt-create-table tbody select{border: 2px solid #d9d9d9; padding: 2px 3px;}
+.jt-create-table tfoot{text-align: center;}
+.jt-create-table tfoot input { padding: 6px 10px;}
+/*************************
 *	공통적용
 **************************/
 .jt-common-a-base, .jt-common-a-base:VISITED{ color: #fff; }
@@ -99,3 +111,34 @@
 
 .jt-common-a-base-two, .jt-common-a-bas-two:VISITED{ color: #808080; }
 .jt-common-a-base-two:HOVER, .jt-common-a-base-two:ACTIVE{ color: #000; }
+
+.jt-btn-orange{
+	cursor:pointer;
+	border:1px solid #ffad41; 
+	-webkit-border-radius: 3px; 
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	font-family:arial, helvetica, sans-serif; 
+	padding: 10px 10px 10px 10px; 
+	text-shadow: -1px -1px 0 rgba(0,0,0,0.3);
+	font-weight:bold; 
+	text-align: center; 
+	color: #FFFFFF; 
+	background-color: #ffc579;
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffc579), color-stop(100%, #fb9d23));
+	background-image: -webkit-linear-gradient(top, #ffc579, #fb9d23);
+ 	background-image: -moz-linear-gradient(top, #ffc579, #fb9d23);
+ 	background-image: -ms-linear-gradient(top, #ffc579, #fb9d23);
+ 	background-image: -o-linear-gradient(top, #ffc579, #fb9d23);
+ 	background-image: linear-gradient(top, #ffc579, #fb9d23);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#ffc579, endColorstr=#fb9d23);
+}
+.jt-btn-orange:HOVER{
+	border:1px solid #ff9913; 
+	background-color: #ffaf46;
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffaf46), color-stop(100%, #e78404));
+ 	background-image: -webkit-linear-gradient(top, #ffaf46, #e78404);
+ 	background-image: -moz-linear-gradient(top, #ffaf46, #e78404);
+ 	background-image: -ms-linear-gradient(top, #ffaf46, #e78404);
+ 	background-image: -o-linear-gradient(top, #ffaf46, #e78404);
+ 	background-image: linear-gradient(top, #ffaf46, #e78404);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#ffaf46, endColorstr=#e78404);
+}
