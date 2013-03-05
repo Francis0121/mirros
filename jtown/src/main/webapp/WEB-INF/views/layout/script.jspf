@@ -80,3 +80,20 @@
 	$(window).resize(onResize);
 /* ]]> */	
 </script>
+<%-- Node --%>
+<script src="http://localhost:8000/socket.io/socket.io.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		var socket = io.connect('http://localhost:8000');
+		
+		socket.on('real_time', function(data){
+			var obj = eval('('+data+')');
+			if(obj.type =='love_count'){
+				var spn = obj.sellerPn;
+				var count = obj.count;
+				$('#love-expand-'+spn).html(count);
+				$('#love-'+spn).html(count);
+			}
+		});
+	});
+</script>

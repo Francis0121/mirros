@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.bg.jtown.business.search.HomeFilter;
+import com.bg.jtown.redis.Publisher;
 import com.bg.jtown.security.JtownUser;
 import com.bg.jtown.util.Pagination;
 
@@ -33,6 +34,9 @@ public class HomeServiceImpl extends SqlSessionDaoSupport implements
 
 	@Resource
 	private SellerService sellerService;
+
+	@Resource
+	private Publisher publisher;
 
 	// ~ map model
 
@@ -187,6 +191,7 @@ public class HomeServiceImpl extends SqlSessionDaoSupport implements
 			getSqlSession().delete("homeMapper.deleteLoveCount", count);
 		}
 		count.setCount(sellerService.selectLoveCount(count.getSellerPn()));
+		publisher.lovePublish(count);
 		return count;
 	}
 

@@ -27,6 +27,7 @@
         <property name="locations">
             <list>
                 <value>classpath:/com/bg/jtown/orm/DBSetting.properties</value>
+                <value>classpath:/com/bg/jtown/redis/RedisSetting.properties</value>
             </list>
         </property>
     </bean>

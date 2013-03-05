@@ -40,7 +40,7 @@ public class AdminController {
 
 	@Resource(name = "adminServiceImpl")
 	private AdminService adminService;
-	
+
 	@Resource(name = "boardServiceImpl")
 	private BoardService boardService;
 
@@ -50,70 +50,71 @@ public class AdminController {
 		logger.debug("Show Admin Page");
 		return "admin/main";
 	}
-	
+
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/admin/notice", method = RequestMethod.GET)
 	public String showNoticePage(Model model) {
 		logger.debug("Show Notice Page");
-		
+
 		model.addAttribute("noticeList", boardService.selectNoticeList());
-		
+
 		return "admin/notice/list";
 	}
-	
+
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/admin/noticeWrite", method = RequestMethod.GET)
 	public String showNoticeWritePage(Model model, @ModelAttribute Board board) {
 		logger.debug("Show Notice Page");
-		
+
 		return "admin/notice/write";
 	}
-	
+
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/admin/noticeWrite", method = RequestMethod.POST)
-	public String showNoticeWritePagePost(Model model, @ModelAttribute Board board) {
+	public String showNoticeWritePagePost(Model model,
+			@ModelAttribute Board board) {
 		logger.debug("Show Notice Page");
-		
+
 		boardService.insertNoticeWrite(board);
-		
+
 		model.addAttribute("noticeList", boardService.selectNoticeList());
-		
+
 		return "admin/notice/list";
 	}
-	
+
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/admin/noticeContent", method = RequestMethod.GET)
 	public String showNoticeContent(Model model, @ModelAttribute Board board) {
 		logger.debug("Show Notice Page");
-		
+
 		model.addAttribute("notice", boardService.selectNoticeContent(board));
-		
+
 		return "admin/notice/content";
 	}
-	
+
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/admin/noticeModify", method = RequestMethod.GET)
 	public String showNoticeModify(Model model, @ModelAttribute Board board) {
-		
+
 		model.addAttribute("board", boardService.selectNoticeContent(board));
-		
+
 		return "admin/notice/modify";
 	}
-	
+
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/admin/noticeModify", method = RequestMethod.POST)
 	public ModelAndView showNoticeModifyPost(@ModelAttribute Board board) {
 		ModelAndView mav = new ModelAndView();
-		
+
 		boardService.updateNotice(board);
-		
+
 		mav.addObject("notice", boardService.selectNoticeContent(board));
-	
+
 		mav.setView(new RedirectView("noticeContent?pn=" + board.getPn()));
-		
+
 		return mav;
-		
-	}	
+
+	}
 
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/admin/qna", method = RequestMethod.GET)
@@ -148,11 +149,12 @@ public class AdminController {
 
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/admin/customer", method = RequestMethod.GET)
-	public String showCustomerPage(Model model, @ModelAttribute UserSearch search) {
+	public String showCustomerPage(Model model,
+			@ModelAttribute UserSearch search) {
 		logger.debug("Show Customer Page");
-		
+
 		model.addAllAttributes(adminService.selectCustomerModelMap(search));
-		
+
 		return "admin/customer";
 	}
 
@@ -221,18 +223,18 @@ public class AdminController {
 	public void ajaxChangeShopUrl(@RequestBody JtownUser jtownUser) {
 		adminService.updateShopUrl(jtownUser);
 	}
-	
+
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/admin/changeInterest", method = RequestMethod.POST)
 	@ResponseBody
-	public void ajaxChangeInterest(@RequestBody Interest interest){
+	public void ajaxChangeInterest(@RequestBody Interest interest) {
 		adminService.updateInterest(interest);
 	}
-	
+
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/admin/changeEnable", method = RequestMethod.POST)
 	@ResponseBody
-	public void ajaxChangeEnable(@RequestBody JtownUser jtownUser){
+	public void ajaxChangeEnable(@RequestBody JtownUser jtownUser) {
 		adminService.updateEnable(jtownUser);
 	}
 }

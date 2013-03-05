@@ -9,6 +9,7 @@
 		<param-value>
 			/WEB-INF/spring/jtown-context.xml
 			/WEB-INF/spring/jtown-security.xml
+			/WEB-INF/spring/jtown-redis.xml
 		</param-value>
 	</context-param>
 	

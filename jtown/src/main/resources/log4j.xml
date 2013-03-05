@@ -36,8 +36,8 @@
 		<level value="error" />
 	</logger>
 	
-	<logger name="java.sql">
-		<level value="debug"/>
+	<logger name="com.bg.jtown.controller.interceptor">
+		<level value="error"/>
 	</logger>	
 
 	<!-- Root Logger -->
