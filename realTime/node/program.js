@@ -5,7 +5,8 @@
  * 
  **************************/
 //server setting
-const modulePath = '/root/node_modules/';
+//const modulePath = '/root/node_modules/';
+const modulePath = '';
 const serverPort = 8000;
 
 const redisHost = '127.0.0.1';
@@ -14,9 +15,9 @@ const redisPort = 6379;
 //open node server
 var http = require('http');
 var server = http.createServer(function(request, response){
-	console.log("Create Server Doing ... ");
+//	console.log("Create Server Doing ... ");
 }).listen(serverPort);
-console.log("Server Listening on port " + serverPort);
+//console.log("Server Listening on port " + serverPort);
 
 //set SocketIo And Connection Socket
 var socketio = require(modulePath+'socket.io');
@@ -43,12 +44,12 @@ io.sockets.on('connection', function(socket){
 //	});
 
 	socket.on('disconnect', function() {
-		console.log('disconnect');
+//		console.log('disconnect');
 	});
 });
 
 subscriber.on('message', function(channel, message) {
-	console.log('Redis Connection' + message);
+//	console.log('Redis Connection' + message);
 	//Broadcast
 	io.sockets.emit('real_time', message);
 	
