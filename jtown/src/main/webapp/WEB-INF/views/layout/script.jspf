@@ -81,10 +81,12 @@
 /* ]]> */	
 </script>
 <%-- Node --%>
-<script src="http://14.63.226.97:8000/socket.io/socket.io.js"></script>
+<script src="http://localhost:8000/socket.io/socket.io.js"></script>
+<!-- <script src="http://14.63.226.97:8000/socket.io/socket.io.js"></script> -->
 <script type="text/javascript">
 	$(document).ready(function(){
-		var socket = io.connect('http://14.63.226.97:8000');
+// 		var socket = io.connect('http://14.63.226.97:8000');
+		var socket = io.connect('http://localhost:8000');
 		
 		socket.on('real_time', function(data){
 			var obj = eval('('+data+')');
