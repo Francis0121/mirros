@@ -95,9 +95,9 @@
 				$('#love-'+spn).html(count);
 			}
 		});
-		
-		socket.on("auth", function(data) {
-			socket.emit('authcheck', 'who');
-		});
+		//You need Authortiy From page 		
+// 		socket.on('authority', function(data) {
+// 			socket.emit('authority_page', '');
+// 		});
 	});
 </script>
