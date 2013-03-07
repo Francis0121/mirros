@@ -34,7 +34,8 @@ subscriber.on("error", function(err) {
 });
 subscriber.subscribe("real_time");
 
-io.set('log level', 2);
+// Test 할 경우에는 log level 2로 두고 test
+io.set('log level', 1);
 io.sockets.on('connection', function(socket){
 	//You need Authortiy From page 
 //	socket.emit('authority');
