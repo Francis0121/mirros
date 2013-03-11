@@ -15,7 +15,7 @@
 /*************************
 *	머리말
 **************************/
-.jt-header{ width: 100%; float: left; min-width: 990px;}
+.jt-header{ width: 100%; float: left; min-width: 990px; position: fixed; z-index: 5;background: #fff;}
 .jt-header-title{ width: 100%; min-height: 30px; float: left;}
 .jt-header-banner{ position: absolute; top: 0; left: 50%; width: 150px; font-size: 16px; margin-left: -75px;}
 .jt-header-banner>a>h1{ text-indent: -9999px; background: url("../images/jt-main-banner.png"); width: 60px; height: 29px; }
@@ -100,11 +100,11 @@
 /*************************
 *	내용
 **************************/
-.jt-content{ width: 100%; min-height: 1000px; float: left; min-width: 990px; }
+.jt-content{ width: 100%; min-height: 1000px; float: left; min-width: 990px; margin-top: 87px; z-index: 1;}
 /*************************
 *	꼬리말
 **************************/
-.jt-footer{ width: 100%; float: left; background: #e5e5e5;}
+.jt-footer{ width: 100%; float: left; background: #e5e5e5; position: fixed; bottom: 0;}
 .jt-footer-nav{ width: 990px; margin:auto; font-size: 12px; min-height: 20px; padding: 10px 0 0 0;}
 .jt-footer-nav>li{float: left; margin-right: 10px;}
 .jt-footer-company-info{ width: 990px; margin: auto; font-size: 12px; min-height: 50px; line-height: 1.4; color: #808080;}
