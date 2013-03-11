@@ -5,7 +5,7 @@
 *	seller
 *
 */
-.jt-seller-content { width: 990px; margin: auto auto; }
+.jt-seller-content { width: 990px; margin: auto auto; margin-top: 30px;}
 .jt-seller-content>header{ width: 970px; float: left; padding: 5px 9px; border: 1px solid #fff; }
 .jt-seller-content>header>ul{ font-size: 12px; }
 .jt-seller-content>header>ul>li{ float: left; margin-right: 9px;}
