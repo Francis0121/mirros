@@ -272,6 +272,25 @@
 			category_pn, section_pn	
 	</select>
 	
+	<select id="selectInterestSectionCount" parameterType="com.bg.jtown.business.Interest" resultType="java.lang.Integer">
+		SELECT
+			COUNT(*)
+		FROM
+			user_customer_interest
+		WHERE
+			customer_pn = #{customerPn}
+		AND
+			section_pn = #{sectionPn}
+	</select>
+	
+	<insert id="insertInterest" parameterType="com.bg.jtown.business.Interest">
+		INSERT	INTO
+			user_customer_interest
+			(customer_pn, section_pn)
+		VALUES
+			(#{customerPn}, #{sectionPn})
+	</insert>
+	
 	<delete id="deleteInterest" parameterType="com.bg.jtown.business.Interest">
 		DELETE FROM
 			user_customer_interest
@@ -280,5 +299,21 @@
 		AND
 			section_pn = #{sectionPn}
 	</delete>
+	
+	<resultMap type="com.bg.jtown.business.Interest" id="jtown-interest-section-map">
+		<result column="pn" property="sectionPn"/>
+		<result column="name" property="name"/>
+	</resultMap>
+	
+	<select id="selectInterestSection" parameterType="java.lang.Integer" resultMap="jtown-interest-section-map">
+		SELECT
+			pn, name
+		FROM
+			interest_section
+		WHERE
+			category_pn = #{categoryPn}
+		ORDER BY
+			name
+	</select>
 
 </mapper>

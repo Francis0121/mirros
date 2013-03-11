@@ -17,10 +17,88 @@ $(document).ready(function(){
 		});
 	});
 	
+	$('#jt-person-addInterest').unbind('click');
+	$('#jt-person-addInterest').bind('click', function(){
+		jtown.header.addInterest(1);
+	});
+	
 	jtown.header.syncNavMove();
 	
 	jtown.header.syncNavInterest();
 });
+
+jtown.header.addInterest = function(pn){
+	
+	var url = contextPath + 'ajax/getNavInterest.jt',
+		json = { 'categoryPn' : pn };
+	
+	$.postJSON(url, json, function(data){
+		var interestSections = data.interestSections,
+			interestCategories = data.interestCategories,
+			pn = data.pn;
+		
+		var innerHtml = '';
+		innerHtml += '<div id="jt-addInterest-wrap" data-categoryPn="'+pn+'" data-categoryLen="'+interestCategories.length+'">';
+		innerHtml += '	<div class="jt-addInterest-arrow">';
+		innerHtml += '		<a href="#none" id="jt-addInterest-leftArrow">&lt;</a>';
+		innerHtml += '	</div>';
+		innerHtml += '	<div id="jt-interest-tag">';
+		for(var i=0, len = interestSections.length; i<len; i++){
+			var interestSection = interestSections[i];
+			innerHtml += '<a href="#none" class="jt-interestSection-click" data-sectionPn="'+interestSection.sectionPn+'">'+interestSection.name + '</a>&nbsp;';
+			if(i%5 == 4){
+				innerHtml +='<br/>';
+			}
+		}
+		innerHtml += '	</div>';
+		innerHtml += '	<div>';
+		innerHtml += '		<a href="#none" id="jt-addInterest-rightArrow">&gt;</a>';
+		innerHtml += '	</div>';
+		innerHtml += '</div>';
+		$.smartPop.open({
+			width : 800,
+			height : 525,
+			html : innerHtml,
+			categoryFn : function(){document.location.reload();}
+		});
+		
+		setTimeout('jtown.header.addInterestSync()', 0);
+	});
+};
+
+jtown.header.addInterestSync = function(){
+	
+	$('#jt-addInterest-leftArrow').unbind('click');
+	$('#jt-addInterest-leftArrow').bind('click', function(){
+		var categoryPn = Number($('#jt-addInterest-wrap').attr('data-categoryPn')) - 1;
+		jtown.header.addInterest(categoryPn);
+	});
+	
+	$('#jt-addInterest-rightArrow').unbind('click');
+	$('#jt-addInterest-rightArrow').bind('click', function(){
+		var categoryPn = Number($('#jt-addInterest-wrap').attr('data-categoryPn')) + 1;
+		jtown.header.addInterest(categoryPn);
+	});
+	
+	$('.jt-interestSection-click').unbind('click');
+	$('.jt-interestSection-click').bind('click', function(){
+		var parent = $(this).parents('#jt-addInterest-wrap');
+		var categoryPn = parent.attr('data-categoryPn');
+		var sectionPn = $(this).attr('data-sectionPn');
+		var sectionName = $(this).html();
+		jtown.header.insertInterestSectionPn(categoryPn, sectionPn, sectionName);
+	});
+};
+
+jtown.header.insertInterestSectionPn = function(categoryPn, sectionPn, sectionName){
+	var url = contextPath+'ajax/navInterestInsert.jt';
+	var json = { 	'categoryPn'	: 	categoryPn,
+					'sectionPn'		:	sectionPn,
+					'name'			:	sectionName	};		
+	$.postJSON(url, json, function(data){
+	
+	});
+};
 
 jtown.header.syncNavMove = function(){
 	$('.jt-header-nav-right').unbind('click');

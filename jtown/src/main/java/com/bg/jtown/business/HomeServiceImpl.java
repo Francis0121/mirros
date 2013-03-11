@@ -229,7 +229,41 @@ public class HomeServiceImpl extends SqlSessionDaoSupport implements
 	}
 
 	@Override
+	public void insertInterest(Interest interest) {
+		Integer count = getSqlSession().selectOne(
+				"homeMapper.selectInterestSectionCount", interest);
+		if (count == 0) {
+			getSqlSession().insert("homeMapper.insertInterest", interest);
+		}
+
+	}
+
+	@Override
 	public void deleteInterest(Interest interest) {
 		getSqlSession().delete("homeMapper.deleteInterest", interest);
+	}
+
+	@Override
+	public Map<String, Object> selectInterestDataMap(Integer categoryPn) {
+		List<Interest> interestCategories = selecInterestCategory();
+		int size = interestCategories.size();
+
+		if (categoryPn.equals(0)) {
+			categoryPn = size;
+		} else if (categoryPn.equals(size + 1)) {
+			categoryPn = 1;
+		}
+
+		Map<String, Object> selectMap = new HashMap<String, Object>();
+		selectMap.put("interestSections", selectInterestSection(categoryPn));
+		selectMap.put("interestCategories", interestCategories);
+		selectMap.put("pn", categoryPn);
+		return selectMap;
+	}
+
+	@Override
+	public List<Interest> selectInterestSection(Integer categoryPn) {
+		return getSqlSession().selectList("homeMapper.selectInterestSection",
+				categoryPn);
 	}
 }

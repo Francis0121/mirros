@@ -35,7 +35,7 @@
 						<a href="${help }" class="jt-common-a-base">고객센터</a>
 					</li>
 					<li>
-						<a href="#none" class="jt-common-a-base">관심사추가</a>
+						<a href="#none" class="jt-common-a-base" id="jt-person-addInterest">관심사추가</a>
 					</li>
 					<sec:authorize access="anonymous">
 						<li>
@@ -64,12 +64,11 @@
 						<a>&lt;</a>
 					</div>
 					<div class="jt-header-nav-scroll">
-						
 						<menu class="jt-header-nav-all" style="width: <c:out value="${119*10+2}"/>px;">
 							<c:forEach var="interestCategory" items="${interestCategories }" varStatus="loop">
 								<c:set var="cpn" value="${interestCategory.categoryPn}"/>
 								<c:set var="interests" value="${interestMap[cpn] }"></c:set>
-								<li class="jt-header-nav-top" >
+								<li class="jt-header-nav-top" id="cpn_${cpn }">
 									<c:url value="/cpn/${cpn}/spn/0" var="search"/>
 									<a href="${search }"><c:out value="${interestCategory.name }"/></a>
 								</li>

@@ -1,6 +1,7 @@
 package com.bg.jtown.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -43,6 +44,8 @@ public class HomeController {
 
 	@Resource
 	private HomeService homeService;
+
+	// ~ FORM
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView showMainPage(@ModelAttribute HomeFilter homeFilter,
@@ -141,6 +144,8 @@ public class HomeController {
 		logger.debug("Show noPermission page");
 		return "noPermission";
 	}
+
+	// ~ AJAX
 
 	@RequestMapping(value = "/ajax/home/expandShop.jt", method = RequestMethod.POST)
 	@ResponseBody
@@ -264,5 +269,66 @@ public class HomeController {
 			}
 		}
 		interestMap.put(categoryPn, newInterests);
+		session.setAttribute("interestMap", interestMap);
+	}
+
+	@RequestMapping(value = "/ajax/getNavInterest.jt", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> ajaxGetNavInterest(@RequestBody Interest interest) {
+		return homeService.selectInterestDataMap(interest.getCategoryPn());
+	}
+
+	@RequestMapping(value = "/ajax/navInterestInsert.jt", method = RequestMethod.POST)
+	@ResponseBody
+	public void navInterestInsert(@RequestBody Interest interest,
+			HttpServletRequest request) {
+		try {
+			JtownUser user = (JtownUser) SecurityContextHolder.getContext()
+					.getAuthentication().getPrincipal();
+			logger.debug(user.toString());
+			if (user.getGroupName().equals("Customer")) {
+				interest.setCustomerPn(user.getPn());
+				homeService.insertInterest(interest);
+			} else {
+				logger.debug("판매자 사용불가");
+			}
+		} catch (ClassCastException e) {
+			logger.debug("로그인하지않은 사용자");
+		}
+
+		HttpSession session = request.getSession();
+		@SuppressWarnings("unchecked")
+		Map<Integer, List<Interest>> interestMap = (Map<Integer, List<Interest>>) session
+				.getAttribute("interestMap");
+		Integer categoryPn = interest.getCategoryPn();
+		if (interestMap == null) {
+			Map<Integer, List<Interest>> newInterestMap = new HashMap<Integer, List<Interest>>();
+			List<Interest> newInterest = new ArrayList<Interest>();
+			newInterest.add(interest);
+			newInterestMap.put(categoryPn, newInterest);
+			session.setAttribute("interestMap", newInterestMap);
+			logger.debug(newInterestMap.toString());
+		} else {
+			List<Interest> interests = interestMap.get(categoryPn);
+			boolean result = true;
+			if (interests == null) {
+				interests = new ArrayList<Interest>();
+			} else {
+				for (Interest i : interests) {
+					Integer addSectionPn = interest.getSectionPn();
+					Integer innerSectionPn = i.getSectionPn();
+					if (addSectionPn.equals(innerSectionPn)) {
+						result = false;
+						break;
+					}
+				}
+			}
+			if (result) {
+				interests.add(interest);
+				interestMap.put(categoryPn, interests);
+				logger.debug(interestMap.toString());
+				session.setAttribute("interestMap", interestMap);
+			}
+		}
 	}
 }

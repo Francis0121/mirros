@@ -19,7 +19,7 @@ public interface HomeService {
 	Map<String, Object> selectExpandShop(Integer properNumber);
 
 	List<Integer> makeRandomCount(HomeFilter homeFilter);
-	
+
 	// ~ seller Information
 
 	List<JtownUser> selectSeller(HomeFilter homeFilter);
@@ -48,5 +48,12 @@ public interface HomeService {
 
 	Map<Integer, List<Interest>> selectInterest(Integer customerPn);
 
+	void insertInterest(Interest interest);
+
 	void deleteInterest(Interest interest);
+
+	List<Interest> selectInterestSection(Integer categoryPn);
+
+	Map<String, Object> selectInterestDataMap(Integer categoryPn);
+
 }
