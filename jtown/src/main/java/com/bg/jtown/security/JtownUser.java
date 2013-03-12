@@ -50,6 +50,7 @@ public class JtownUser implements JtownDetails, CredentialsContainer {
 	private Integer viewCount;
 	private Integer commentCount;
 	private List<String> images;
+	private Integer bannerDate;
 
 	private String interestCategory;
 	private String interestSectionList;
@@ -243,6 +244,14 @@ public class JtownUser implements JtownDetails, CredentialsContainer {
 
 	public List<String> getImages() {
 		return images;
+	}
+	
+	public Integer getBannerDate() {
+		return bannerDate;
+	}
+
+	public void setBannerDate(Integer bannerDate) {
+		this.bannerDate = bannerDate;
 	}
 
 	public void setImages(List<String> images) {
@@ -443,7 +452,8 @@ public class JtownUser implements JtownDetails, CredentialsContainer {
 		sb.append("newPassword : ").append(this.newPassword).append("; ");
 		sb.append("GroupName : ").append(this.groupName).append("; ");
 		sb.append("commentCount : ").append(this.commentCount).append("; ");
-		sb.append("commentCount : ").append(this.images).append("; ");
+		sb.append("images : ").append(this.images).append("; ");
+		sb.append("bannerDate : ").append(this.bannerDate).append("; ");
 
 		if (!authorities.isEmpty()) {
 			sb.append("Granted Authorities: ");

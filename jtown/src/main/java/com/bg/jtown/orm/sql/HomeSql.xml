@@ -31,6 +31,7 @@
 		<result column="love_count" property="loveCount"/>
 		<result column="view_count" property="viewCount"/>
 		<result column="comment_count" property="commentCount"/>
+		<result column="banner_date" property="bannerDate"/>
 		<collection property="images" column="pn" javaType="java.util.ArrayList" select="selectSellerImage" ofType="java.lang.String"/>
 	</resultMap>
 	
@@ -71,13 +72,15 @@
 		<include refid="paginationBefore"/>
 		SELECT
 			us.pn , us.shop_name, us.shop_url, us.notice, 
-			us.view_count, clsp.love_count, ccsp.comment_count
+			us.view_count, clsp.love_count, ccsp.comment_count, bdl.banner_date
 		FROM
 			user_seller us 
 			LEFT OUTER JOIN count_love_seller_pn clsp
 			ON us.pn = clsp.seller_pn
 			LEFT OUTER JOIN count_comment_seller_pn ccsp
-			ON us.pn = ccsp.seller_pn,
+			ON us.pn = ccsp.seller_pn
+			LEFT OUTER JOIN banner_diff_least bdl
+			ON us.pn = bdl.seller_pn,
 			user_seller_interest usi,
 			interest_section ise,
 			interest_category ic
@@ -120,13 +123,15 @@
 		<include refid="paginationBefore"/>
 		SELECT
 			us.pn , us.shop_name, us.shop_url, us.notice, 
-			us.view_count, clsp.love_count, ccsp.comment_count
+			us.view_count, clsp.love_count, ccsp.comment_count, bdl.banner_date
 		FROM
 			user_seller us 
 			LEFT OUTER JOIN count_love_seller_pn clsp
 			ON us.pn = clsp.seller_pn
 			LEFT OUTER JOIN count_comment_seller_pn ccsp
-			ON us.pn = ccsp.seller_pn,
+			ON us.pn = ccsp.seller_pn
+			LEFT OUTER JOIN banner_diff_least bdl
+			ON us.pn = bdl.seller_pn,,
 			user_seller_interest usi,
 			interest_section ise,
 			interest_category ic
