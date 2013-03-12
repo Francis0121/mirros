@@ -77,7 +77,7 @@
 			LEFT OUTER JOIN count_love_seller_pn clsp
 			ON us.pn = clsp.seller_pn
 			LEFT OUTER JOIN count_comment_seller_pn ccsp
-			ON us.pn = clsp.seller_pn,
+			ON us.pn = ccsp.seller_pn,
 			user_seller_interest usi,
 			interest_section ise,
 			interest_category ic
@@ -126,7 +126,7 @@
 			LEFT OUTER JOIN count_love_seller_pn clsp
 			ON us.pn = clsp.seller_pn
 			LEFT OUTER JOIN count_comment_seller_pn ccsp
-			ON us.pn = clsp.seller_pn,
+			ON us.pn = ccsp.seller_pn,
 			user_seller_interest usi,
 			interest_section ise,
 			interest_category ic
