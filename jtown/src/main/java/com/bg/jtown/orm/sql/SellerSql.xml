@@ -88,9 +88,9 @@
 	<insert id="insertSellerEvent" parameterType="com.bg.jtown.business.Event">
 		INSERT INTO
 			user_seller_banner
-			(	seller_pn, banner_type, image_pn, content, banner_order)
+			(	seller_pn, banner_type, image_pn, content, banner_order, input_date)
 		VALUES
-			(	#{sellerPn}, #{bannerType}, #{imagePn}, #{content}, #{bannerOrder} )
+			(	#{sellerPn}, #{bannerType}, #{imagePn}, #{content}, #{bannerOrder}, SYSDATE() )
 		<selectKey resultType="java.lang.Integer" keyProperty="pn">
 			SELECT LAST_INSERT_ID()
 		</selectKey>	
@@ -102,7 +102,8 @@
 		SET
 			banner_type = #{bannerType},
 			image_pn = #{imagePn},
-			content = #{content}
+			content = #{content},
+			input_date = SYSDATE()
 		WHERE
 			pn = #{pn}
 		AND

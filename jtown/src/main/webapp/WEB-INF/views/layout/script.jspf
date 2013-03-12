@@ -64,7 +64,7 @@
 		}
 	);
 	 
-	$container.infinitescroll().scroll(); 
+	setTimeout('$container.infinitescroll().scroll()',0); 
 	
 	onResize = function(){
 		var clientWidth = Number(window.document.body.clientWidth),

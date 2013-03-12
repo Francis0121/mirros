@@ -23,7 +23,7 @@
 			msg : null,
 			msgText : "<em>Loading the next set of posts...</em>",
 			selector : null,
-			speed : 'fast',
+			speed : 'slow',
 			start : undefined
 		},
 		state : {

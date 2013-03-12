@@ -16,7 +16,7 @@ jtown.real.time = function(obj){
 		$('#comment-'+spn).html(count);
 	}else if(obj.type == 'event'){
 		var spn = obj.sellerPn;
-		$('#love-'+spn).after('new');
+		$('#new-'+spn).html('new');
 	}
 	
 };
