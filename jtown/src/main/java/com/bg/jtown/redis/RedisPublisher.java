@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.bg.jtown.business.Comment;
 import com.bg.jtown.business.Count;
+import com.bg.jtown.business.Event;
 
 /**
  * Redis Test
@@ -62,6 +63,24 @@ public class RedisPublisher implements Publisher {
 			sb.append("count : '").append(count).append("'");
 			sb.append(",");
 			sb.append("sellerPn : '").append(comment.getSellerPn()).append("'");
+			sb.append("}");
+			String message = sb.toString();
+			publishTemplate.convertAndSend("real_time", message);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("Redis 서버가 작동하지 않고 있습니다. Redis 서버를 실행시켜야 합니다");
+		}
+	}
+
+	@Override
+	public void eventPublish(Event event) {
+		try {
+			logger.debug("Publish Reids " + event.toString());
+			StringBuffer sb = new StringBuffer();
+			sb.append("{");
+			sb.append("type : 'event' ");
+			sb.append(",");
+			sb.append("sellerPn : '").append(event.getSellerPn()).append("'");
 			sb.append("}");
 			String message = sb.toString();
 			publishTemplate.convertAndSend("real_time", message);

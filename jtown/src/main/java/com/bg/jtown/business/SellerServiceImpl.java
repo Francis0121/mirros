@@ -4,11 +4,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
+
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import com.bg.jtown.redis.Publisher;
 import com.bg.jtown.security.JtownUser;
 import com.bg.jtown.util.FileVO;
 
@@ -22,6 +25,9 @@ public class SellerServiceImpl extends SqlSessionDaoSupport implements
 
 	private static Logger logger = LoggerFactory
 			.getLogger(SellerServiceImpl.class);
+
+	@Resource
+	private Publisher publisher;
 
 	@Override
 	public Map<String, Object> selectAllInformation(Integer properNumber) {
@@ -118,6 +124,7 @@ public class SellerServiceImpl extends SqlSessionDaoSupport implements
 		} else {
 			insertSellerEvent(event);
 		}
+		publisher.eventPublish(event);
 	}
 
 	// ~ Seller Interest

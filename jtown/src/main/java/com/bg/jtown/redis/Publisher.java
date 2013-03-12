@@ -2,6 +2,7 @@ package com.bg.jtown.redis;
 
 import com.bg.jtown.business.Comment;
 import com.bg.jtown.business.Count;
+import com.bg.jtown.business.Event;
 
 /**
  * Redis Test
@@ -16,5 +17,7 @@ public interface Publisher {
 	public void lovePublish(Count count);
 
 	public void commentPublish(Integer count, Comment comment);
+
+	public void eventPublish(Event event);
 
 }
