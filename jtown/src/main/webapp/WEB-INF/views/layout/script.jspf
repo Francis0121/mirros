@@ -81,6 +81,7 @@
 /* ]]> */	
 </script>
 <%-- Node --%>
+<script src="${cp}resources/js/real.time.js"></script>
 <script src="http://localhost:8000/socket.io/socket.io.js"></script>
 <!-- <script src="http://14.63.226.97:8000/socket.io/socket.io.js"></script> -->
 <script type="text/javascript">
@@ -90,12 +91,7 @@
 		
 		socket.on('real_time', function(data){
 			var obj = eval('('+data+')');
-			if(obj.type =='love_count'){
-				var spn = obj.sellerPn;
-				var count = obj.count;
-				$('#love-expand-'+spn).html(count);
-				$('#love-'+spn).html(count);
-			}
+			jtown.real.time(obj);
 		});
 		//You need Authortiy From page 		
 // 		socket.on('authority', function(data) {

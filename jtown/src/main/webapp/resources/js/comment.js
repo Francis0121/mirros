@@ -84,9 +84,6 @@ jtown.comment.insertComment = function(me){
 		}
 		me.val('');
 		jtown.comment.syncComment();
-		var count = Number(trim($('#comment-expand-'+spn).html())) +1;
-		$('#comment-expand-'+spn).html(count);
-		$('#comment-'+spn).html(count);
 	});
 };
 
@@ -98,14 +95,11 @@ jtown.comment.deleteComment = function(me){
 	var commentPn = $parents.attr('data-copn');
 	
 	var url = contextPath + 'ajax/home/deleteComment.jt',
-		json = {	'commentPn' : commentPn };
+		json = {	'commentPn' : commentPn,
+					'sellerPn'	: spn		};
 
 	$.postJSON(url, json, function(){
 		$parents.remove();
-		
-		var count = Number(trim($('#comment-expand-'+spn).html())) - 1;
-		$('#comment-expand-'+spn).html(count);
-		$('#comment-'+spn).html(count);
 	});
 };
 

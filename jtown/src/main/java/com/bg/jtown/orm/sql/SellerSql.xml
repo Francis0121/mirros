@@ -20,7 +20,7 @@
 			LEFT OUTER JOIN count_love_seller_pn clsp
 			ON us.pn = clsp.seller_pn
 			LEFT OUTER JOIN count_comment_seller_pn ccsp
-			ON us.pn = clsp.seller_pn
+			ON us.pn = ccsp.seller_pn
 		WHERE
 			us.pn = #{properNumber}
 	</select>
@@ -161,13 +161,11 @@
 	
 	<select id="selectCommentCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
 		SELECT
-			COUNT(seller_pn) AS comment_count
-		FROM
-			user_customer_comment
+			comment_count
+		FROM	
+			count_comment_seller_pn
 		WHERE
 			seller_pn = #{properNumber}
-		GROUP BY
-			seller_pn
 	</select>
 
 	<select id="selectLoveCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">

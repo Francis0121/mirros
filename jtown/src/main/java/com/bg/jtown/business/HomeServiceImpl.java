@@ -163,7 +163,10 @@ public class HomeServiceImpl extends SqlSessionDaoSupport implements
 	@Override
 	public Comment insertComment(Comment comment) {
 		getSqlSession().insert("homeMapper.insertComment", comment);
-		return selectCommentOne(comment.getCommentPn());
+		Comment newComment = selectCommentOne(comment.getCommentPn());
+		int count = sellerService.selectCommentCount(comment.getSellerPn());
+		publisher.commentPublish(count, newComment);
+		return newComment;
 	}
 
 	@Override
@@ -175,6 +178,8 @@ public class HomeServiceImpl extends SqlSessionDaoSupport implements
 	@Override
 	public void deleteComment(Comment comment) {
 		getSqlSession().update("homeMapper.deleteComment", comment);
+		Integer count = sellerService.selectCommentCount(comment.getSellerPn());
+		publisher.commentPublish(count, comment);
 	}
 
 	@Override
