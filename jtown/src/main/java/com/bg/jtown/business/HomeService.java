@@ -38,9 +38,9 @@ public interface HomeService {
 
 	// ~ count
 
-	JtownUser insertViewCount(Count count);
+	void insertViewCount(Count count, String remoteAddr);
 
-	Count insertLoveCount(Count count);
+	void insertLoveCount(Count count);
 
 	// ~ Navigation
 

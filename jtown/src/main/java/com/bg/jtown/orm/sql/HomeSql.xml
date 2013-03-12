@@ -72,7 +72,7 @@
 		<include refid="paginationBefore"/>
 		SELECT
 			us.pn , us.shop_name, us.shop_url, us.notice, 
-			us.view_count, clsp.love_count, ccsp.comment_count, bdl.banner_date
+			cvsp.view_count, clsp.love_count, ccsp.comment_count, bdl.banner_date
 		FROM
 			user_seller us 
 			LEFT OUTER JOIN count_love_seller_pn clsp
@@ -80,7 +80,9 @@
 			LEFT OUTER JOIN count_comment_seller_pn ccsp
 			ON us.pn = ccsp.seller_pn
 			LEFT OUTER JOIN banner_diff_least bdl
-			ON us.pn = bdl.seller_pn,
+			ON us.pn = bdl.seller_pn
+			LEFT OUTER JOIN count_view_seller_pn cvsp
+			ON us.pn = cvsp.seller_pn,
 			user_seller_interest usi,
 			interest_section ise,
 			interest_category ic
@@ -123,7 +125,7 @@
 		<include refid="paginationBefore"/>
 		SELECT
 			us.pn , us.shop_name, us.shop_url, us.notice, 
-			us.view_count, clsp.love_count, ccsp.comment_count, bdl.banner_date
+			cvsp.view_count, clsp.love_count, ccsp.comment_count, bdl.banner_date
 		FROM
 			user_seller us 
 			LEFT OUTER JOIN count_love_seller_pn clsp
@@ -131,7 +133,9 @@
 			LEFT OUTER JOIN count_comment_seller_pn ccsp
 			ON us.pn = ccsp.seller_pn
 			LEFT OUTER JOIN banner_diff_least bdl
-			ON us.pn = bdl.seller_pn,,
+			ON us.pn = bdl.seller_pn
+			LEFT OUTER JOIN count_view_seller_pn cvsp
+			ON us.pn = cvsp.seller_pn,
 			user_seller_interest usi,
 			interest_section ise,
 			interest_category ic
@@ -320,5 +324,54 @@
 		ORDER BY
 			name
 	</select>
+
+	<select id="selectViewCountIp" parameterType="java.lang.String" resultType="java.lang.Integer">
+		SELECT
+			COUNT(*)
+		FROM
+			view_ip
+		WHERE
+			ip = #{remoteAddr}
+		AND
+			input_date = DATE_FORMAT(SYSDATE(), '%Y-%m-%d')
+	</select>
+	
+	<insert id="insertViewIp" parameterType="java.lang.String">
+		INSERT INTO
+			view_ip
+			(ip, input_date)
+		VALUES
+			( #{remoteAddr}, SYSDATE() )
+	</insert>
+	
+	<select id="selectViewDayCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+		SELECT
+			COUNT(*)
+		FROM
+			view_ip_day
+		WHERE
+			seller_pn = #{sellerPn}
+		AND
+			count_date = DATE_FORMAT(SYSDATE(), '%Y-%m-%d')
+	</select>
+	
+	<insert id="insertViewDayCount" parameterType="java.lang.Integer">
+		INSERT INTO
+			view_ip_day
+			(	seller_pn, count_date, day_count)
+		VALUES
+			(	#{sellerPn}, SYSDATE(), 1)
+	</insert>
+	
+	<update id="updateViewDayCount" parameterType="com.bg.jtown.business.Count">
+		UPDATE
+			view_ip_day
+		SET
+			day_count = #{count}
+		WHERE
+			seller_pn = #{sellerPn}
+		AND
+			count_date = DATE_FORMAT(SYSDATE(), '%Y-%m-%d')
+	</update>
 
 </mapper>

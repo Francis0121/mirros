@@ -20,4 +20,6 @@ public interface Publisher {
 
 	public void eventPublish(Event event);
 
+	public void viewPublish(Count count);
+
 }

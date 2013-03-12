@@ -14,13 +14,15 @@
 
 	<select id="selectSellerInformation" parameterType="java.lang.Integer" resultMap="jtown-seller-map">
 		SELECT
-			us.pn, us.shop_name, us.shop_url, us.notice, us.view_count, clsp.love_count, ccsp.comment_count
+			us.pn, us.shop_name, us.shop_url, us.notice, cvsp.view_count, clsp.love_count, ccsp.comment_count
 		FROM
 			user_seller us
 			LEFT OUTER JOIN count_love_seller_pn clsp
 			ON us.pn = clsp.seller_pn
 			LEFT OUTER JOIN count_comment_seller_pn ccsp
 			ON us.pn = ccsp.seller_pn
+			LEFT OUTER JOIN count_view_seller_pn cvsp
+			ON us.pn = cvsp.seller_pn
 		WHERE
 			us.pn = #{properNumber}
 	</select>

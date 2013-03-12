@@ -184,15 +184,10 @@ if (typeof jtown.home == 'undefined') {
 
 jtown.home.clickShop = function(spn, href){
 	var url = contextPath + 'ajax/clickShop.jt',
-		json = {	'pn' :	spn	};
+		json = {	'sellerPn' :	spn	};
 	
-	$.postJSON(url, json, function(view){
-		if(nullValueCheck(view)){
-			window.open('http://'+href);			
-		}else{
-			$('#view-expand-'+spn).html(view);
-			$('#view-'+spn).html(view);
-		}
+	$.postJSON(url, json, function(){
+		window.open('http://'+href);			
 	});
 };
 
@@ -201,10 +196,7 @@ jtown.home.clickLove = function(spn){
 	json = {	'sellerPn'	:	spn};
 
 	$.postJSON(url, json, function(count){
-		if(nullValueCheck(count.message)){
-			$('#love-expand-'+spn).html(count.count);
-			$('#love-'+spn).html(count.count);
-		}else{
+		if(!nullValueCheck(count.message)){
 			alert(count.message);
 		}
 	});

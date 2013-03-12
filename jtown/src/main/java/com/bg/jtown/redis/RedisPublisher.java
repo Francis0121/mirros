@@ -89,4 +89,24 @@ public class RedisPublisher implements Publisher {
 			logger.error("Redis 서버가 작동하지 않고 있습니다. Redis 서버를 실행시켜야 합니다");
 		}
 	}
+
+	@Override
+	public void viewPublish(Count count) {
+		try {
+			logger.debug("Publish Reids " + count.toString());
+			StringBuffer sb = new StringBuffer();
+			sb.append("{");
+			sb.append("type : 'view_count' ");
+			sb.append(",");
+			sb.append("sellerPn : '").append(count.getSellerPn()).append("'");
+			sb.append(",");
+			sb.append("count : '").append(count.getCount()).append("'");
+			sb.append("}");
+			String message = sb.toString();
+			publishTemplate.convertAndSend("real_time", message);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("Redis 서버가 작동하지 않고 있습니다. Redis 서버를 실행시켜야 합니다");
+		}
+	}
 }

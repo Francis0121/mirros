@@ -198,20 +198,18 @@ public class HomeController {
 
 	@RequestMapping(value = "/ajax/clickShop.jt", method = RequestMethod.POST)
 	@ResponseBody
-	public JtownUser ajaxClickShop(@RequestBody Count count) {
+	public void ajaxClickShop(@RequestBody Count count,
+			HttpServletRequest request) {
 		try {
 			JtownUser user = (JtownUser) SecurityContextHolder.getContext()
 					.getAuthentication().getPrincipal();
 			logger.debug(user.toString());
 			if (user.getGroupName().equals("Customer")) {
 				count.setCustomerPn(user.getPn());
-				return homeService.insertViewCount(count);
-			} else {
-				return user;
+				homeService.insertViewCount(count, request.getRemoteAddr());
 			}
 		} catch (ClassCastException e) {
 			logger.debug("로그인하지않은 사용자");
-			return null;
 		}
 	}
 
@@ -224,11 +222,11 @@ public class HomeController {
 			logger.debug(user.toString());
 			if (user.getGroupName().equals("Customer")) {
 				count.setCustomerPn(user.getPn());
-				return homeService.insertLoveCount(count);
+				homeService.insertLoveCount(count);
 			} else {
 				count.setMessage("판매자는 불가능합니다");
-				return count;
 			}
+			return count;
 		} catch (ClassCastException e) {
 			logger.debug("로그인하지않은 사용자");
 			count.setMessage("로그인한 사용자만 사용가능합니다");

@@ -9,6 +9,11 @@ jtown.real.time = function(obj){
 		var count = obj.count;
 		$('#love-expand-'+spn).html(count);
 		$('#love-'+spn).html(count);
+	}else if(obj.type == 'view_count'){
+		var spn = obj.sellerPn;
+		var count = obj.count;
+		$('#view-expand-'+spn).html(count);
+		$('#view-'+spn).html(count);
 	}else if(obj.type == 'comment'){
 		var spn = obj.sellerPn;
 		var count = obj.count;

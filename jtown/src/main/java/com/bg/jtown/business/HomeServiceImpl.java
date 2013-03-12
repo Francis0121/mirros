@@ -183,12 +183,28 @@ public class HomeServiceImpl extends SqlSessionDaoSupport implements
 	}
 
 	@Override
-	public JtownUser insertViewCount(Count count) {
-		return null;
+	public void insertViewCount(Count count, String remoteAddr) {
+		Integer ipCount = getSqlSession().selectOne(
+				"homeMapper.selectViewCountIp", remoteAddr);
+		if (ipCount == 0) {
+			getSqlSession().insert("homeMapper.insertViewIp", remoteAddr);
+
+			Integer dayCount = getSqlSession().selectOne(
+					"homeMapper.selectViewDayCount", count.getSellerPn());
+			if (dayCount == 0) {
+				getSqlSession().insert("homeMapper.insertViewDayCount",
+						count.getSellerPn());
+				count.setCount(1);
+			} else {
+				count.setCount(dayCount + 1);
+				getSqlSession().update("homeMapper.updateViewDayCount", count);
+			}
+			publisher.viewPublish(count);
+		}
 	}
 
 	@Override
-	public Count insertLoveCount(Count count) {
+	public void insertLoveCount(Count count) {
 		Integer loveCount = selectLoveCount(count);
 		if (loveCount == 0) {
 			getSqlSession().insert("homeMapper.insertLoveCount", count);
@@ -197,7 +213,6 @@ public class HomeServiceImpl extends SqlSessionDaoSupport implements
 		}
 		count.setCount(sellerService.selectLoveCount(count.getSellerPn()));
 		publisher.lovePublish(count);
-		return count;
 	}
 
 	private Integer selectLoveCount(Count count) {
