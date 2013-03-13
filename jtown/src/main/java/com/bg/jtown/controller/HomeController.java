@@ -206,11 +206,12 @@ public class HomeController {
 			logger.debug(user.toString());
 			if (user.getGroupName().equals("Customer")) {
 				count.setCustomerPn(user.getPn());
-				homeService.insertViewCount(count, request.getRemoteAddr());
 			}
 		} catch (ClassCastException e) {
 			logger.debug("로그인하지않은 사용자");
 		}
+		
+		homeService.insertViewCount(count, request.getRemoteAddr());
 	}
 
 	@RequestMapping(value = "/ajax/clickLove.jt", method = RequestMethod.POST)
