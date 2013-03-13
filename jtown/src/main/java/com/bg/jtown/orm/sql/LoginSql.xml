@@ -1,25 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="LoginMapper">
+<mapper namespace="loginMapper">
+
 	<select id="checkExistEmail" parameterType="String" resultType="Integer">
-		SELECT
-			count(*)
-		FROM
-			users
-		WHERE
-			id = #{id}
+		SELECT count(*) FROM users WHERE id = #{id}
+	</select>
+	
+	<select id="findGroupId" parameterType="String" resultType="Integer">
+		SELECT id FROM groups WHERE group_name = #{group}
 	</select>
 	
 	<insert id="insertUsers" parameterType="JtownUser">
 		INSERT INTO
 			users
-			(
-				id, password, enable, salt
-			)
+			( id, password, enable, salt )
 		VALUES
-			(
-				#{username}, #{password}, #{enabled}, #{salt}
-			)
+			( #{username}, #{password}, #{enabled}, #{salt} )
 		<selectKey keyProperty="pn" resultType="Integer">
 			SELECT LAST_INSERT_ID()
 		</selectKey>
@@ -28,47 +24,25 @@
 	<insert id="insertUserCustomer" parameterType="JtownUser">
 		INSERT INTO
 			user_customer
-			(
-				pn, name, join_date
-			)
+			( pn, name, join_date )
 		VALUES
-			(
-				#{pn}, #{name}, SYSDATE()
-			)			
+			( #{pn}, #{name}, SYSDATE() )			
 	</insert>
 	
 	<insert id="insertUserSeller" parameterType="JtownUser">
 		INSERT
 			user_seller
-			(
-				pn, shop_name, shop_url
-			)		
+			( pn, shop_name, shop_url )		
 		VALUES
-			(
-				#{pn}, #{shopName}, #{shopUrl}
-			)
+			( #{pn}, #{shopName}, #{shopUrl} )
 	</insert>	
-	
-	<select id="findGroupId" parameterType="String" resultType="Integer">
-		SELECT
-			id
-		FROM
-			groups
-		WHERE
-			group_name = #{group}
-	</select>
-	
+		
 	<insert id="addUserToGroup" parameterType="Map">
 		INSERT INTO
 			group_members
-			(
-				group_id, user_pn
-			)
+			( group_id, user_pn )
 		VALUES
-			(
-				#{groupId}, #{userPn}
-			)
-
+			( #{groupId}, #{userPn} )
 	</insert>
 	
 	<update id="changePassword" parameterType="JtownUser">
@@ -80,4 +54,14 @@
 		WHERE
 			id = #{username}
 	</update>
+	
+	<!-- Use Only TestCase -->
+	<delete id="deleteUserAll">
+		DELETE FROM users
+	</delete>
+	
+	<select id="selectUsersCount" resultType="Integer">
+		SELECT COUNT(*) FROM users
+	</select>
+	
 </mapper>

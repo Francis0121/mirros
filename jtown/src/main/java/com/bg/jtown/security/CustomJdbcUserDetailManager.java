@@ -34,8 +34,6 @@ import org.springframework.security.core.userdetails.cache.NullUserCache;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.util.Assert;
 
-import com.bg.jtown.business.LoginService;
-
 /**
  * @author 박광열
  * 
@@ -44,16 +42,18 @@ public class CustomJdbcUserDetailManager extends JdbcUserDetailsManager {
 
 	protected final Logger logger = LoggerFactory.getLogger(getClass());
 
+	// ~ Variable
+	private boolean enableAuthorities;
+	private boolean enableGroups;
+	private UserCache userCache = new NullUserCache();
+
+	// ~ Dynamic Injection
+
 	@SuppressWarnings("unused")
 	private AuthenticationManager authenticationManager;
 	private PasswordEncoder passwordEncoder;
 	private SaltSource saltSource;
 	private LoginService loginService;
-
-	private boolean enableAuthorities;
-	private boolean enableGroups;
-
-	private UserCache userCache = new NullUserCache();
 
 	@Autowired
 	private void config(PasswordEncoder passwordEncoder, SaltSource saltSource,
@@ -67,6 +67,26 @@ public class CustomJdbcUserDetailManager extends JdbcUserDetailsManager {
 			AuthenticationManager authenticationManager) {
 		this.authenticationManager = authenticationManager;
 	}
+
+	// ~ Set,Get Method
+
+	public boolean isEnableAuthorities() {
+		return enableAuthorities;
+	}
+
+	public void setEnableAuthorities(boolean enableAuthorities) {
+		this.enableAuthorities = enableAuthorities;
+	}
+
+	public boolean isEnableGroups() {
+		return enableGroups;
+	}
+
+	public void setEnableGroups(boolean enableGroups) {
+		this.enableGroups = enableGroups;
+	}
+
+	// ~ Method
 
 	protected UserDetails createUserDetails(String id,
 			JtownDetails userFromUserQuery,
@@ -176,33 +196,14 @@ public class CustomJdbcUserDetailManager extends JdbcUserDetailsManager {
 				});
 	}
 
-	public boolean isEnableAuthorities() {
-		return enableAuthorities;
-	}
-
-	public void setEnableAuthorities(boolean enableAuthorities) {
-		this.enableAuthorities = enableAuthorities;
-	}
-
-	public boolean isEnableGroups() {
-		return enableGroups;
-	}
-
-	public void setEnableGroups(boolean enableGroups) {
-		this.enableGroups = enableGroups;
-	}
-
 	public Integer createUserSellerAndAuthority(JtownUser jtownUser) {
 		Integer pn = createUserSeller(jtownUser);
-
 		addUserToGroup(jtownUser.getPn(), "Seller");
-
 		return pn;
 	}
 
 	public void createUserCustomAndAuthority(JtownUser jtownUser) {
 		creatUserCustomer(jtownUser);
-
 		addUserToGroup(jtownUser.getPn(), "Customer");
 	}
 
@@ -322,18 +323,6 @@ public class CustomJdbcUserDetailManager extends JdbcUserDetailsManager {
 		return loginService.findGroupdId(group);
 	}
 
-	// /**
-	// * Optionally sets the UserCache if one is in use in the application.
-	// * This allows the user to be removed from the cache after updates have
-	// taken place to avoid stale data.
-	// *
-	// * @param userCache the cache used by the AuthenticationManager.
-	// */
-	// public void setUserCache(UserCache userCache) {
-	// Assert.notNull(userCache, "userCache cannot be null");
-	// this.userCache = userCache;
-	// }
-
 	private void validateUserDetails(UserDetails user) {
 		Assert.hasText(user.getUsername(), "Username may not be empty or null");
 		validateAuthorities(user.getAuthorities());
@@ -349,4 +338,5 @@ public class CustomJdbcUserDetailManager extends JdbcUserDetailsManager {
 					"getAuthority() method must return a non-empty string");
 		}
 	}
+
 }

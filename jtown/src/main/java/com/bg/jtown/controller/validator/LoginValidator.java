@@ -7,8 +7,8 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
-import com.bg.jtown.business.LoginService;
 import com.bg.jtown.security.JtownUser;
+import com.bg.jtown.security.LoginService;
 import com.bg.jtown.util.VaildationUtil;
 
 /**

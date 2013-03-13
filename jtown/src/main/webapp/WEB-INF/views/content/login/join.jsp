@@ -26,7 +26,8 @@
 				<h1>회원가입</h1>
 				<span>회원정보는 개인정보취급방침에 따라 안전하게 보호되며<br>회원님의 명백한 동의 없이 공개 또는 제3자에게 제공되지 않습니다.</span>
 			</div>
-			<form:form commandName="jtownUser" action="joinSubmit" htmlEscape="true" method="post">
+			<c:url value="/login/joinSubmit.jt" var="joinSubmit"/>
+			<form:form commandName="jtownUser" action="${joinSubmit }" htmlEscape="true" method="post">
 			<table class="jt-join-user-table">
 			<tfoot>
 				<tr>

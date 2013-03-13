@@ -1,11 +1,11 @@
-package com.bg.jtown.business;
+package com.bg.jtown.security;
 
 import java.util.Map;
 
 import com.bg.jtown.security.JtownUser;
 
 /**
- * @author 박광열
+ * @author 박광열, Francis
  * 
  */
 public interface LoginService {
@@ -21,4 +21,10 @@ public interface LoginService {
 	int findGroupdId(String group);
 
 	boolean selectCheckExistEmail(String id);
+
+	// ~ Use Only Test Case
+
+	void deleteUserAll();
+
+	Integer selectUsersCount();
 }

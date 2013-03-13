@@ -65,15 +65,12 @@ public class LoginController {
 		return "login/join";
 	}
 
-	@RequestMapping(value = "/login/joinSubmit", method = RequestMethod.POST)
+	@RequestMapping(value = "/login/joinSubmit.jt", method = RequestMethod.POST)
 	public ModelAndView formJoinSubmit(@ModelAttribute JtownUser jtownUser,
 			@RequestParam("confirmPassword") final String confirmPassword,
 			BindingResult result, HttpServletRequest request,
 			HttpServletResponse response) {
-		ModelAndView mav = new ModelAndView();
-
 		loginValidator.validate(jtownUser, result);
-
 		new Validator() {
 			@Override
 			public void validate(Object target, Errors errors) {
@@ -87,31 +84,26 @@ public class LoginController {
 				}
 
 			}
-
 			@Override
 			public boolean supports(Class<?> clazz) {
 				return JtownUser.class.isAssignableFrom(clazz);
 			}
 		}.validate(jtownUser, result);
-
+		ModelAndView mav = new ModelAndView();
 		if (!result.hasErrors()) {
 			request.setAttribute("username", jtownUser.getUsername());
 			request.setAttribute("password", jtownUser.getPassword());
-
+			
 			customJdbcUserDetailManager.createUserCustomAndAuthority(jtownUser);
-
 			userAuthenticator.login(request, response);
-
+			
 			String beforeAddress = (String) request.getSession().getAttribute(
 					"beforJoinUrl");
-
 			logger.debug(beforeAddress);
-
 			mav.setView(new RedirectView(beforeAddress));
 		} else {
 			mav.setViewName("login/join");
 		}
-
 		return mav;
 	}
 

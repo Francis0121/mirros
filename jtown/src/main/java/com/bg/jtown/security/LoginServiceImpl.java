@@ -1,4 +1,4 @@
-package com.bg.jtown.business;
+package com.bg.jtown.security;
 
 import java.util.Map;
 
@@ -19,39 +19,51 @@ public class LoginServiceImpl extends SqlSessionDaoSupport implements
 	public boolean selectCheckExistEmail(String id) {
 		if (id != null) {
 			return (Integer) getSqlSession().selectOne(
-					"LoginMapper.checkExistEmail", id) > 0;
+					"loginMapper.checkExistEmail", id) > 0;
 		}
 		return false;
 	}
 
 	@Override
 	public void insertCreatUserCustomer(JtownUser jtownUser) {
-		getSqlSession().insert("LoginMapper.insertUsers", jtownUser);
+		getSqlSession().insert("loginMapper.insertUsers", jtownUser);
 
-		getSqlSession().insert("LoginMapper.insertUserCustomer", jtownUser);
+		getSqlSession().insert("loginMapper.insertUserCustomer", jtownUser);
 	}
 
 	@Override
 	public Integer insertCreateUserSeller(JtownUser jtownUser) {
-		getSqlSession().insert("LoginMapper.insertUsers", jtownUser);
+		getSqlSession().insert("loginMapper.insertUsers", jtownUser);
 
-		getSqlSession().insert("LoginMapper.insertUserSeller", jtownUser);
+		getSqlSession().insert("loginMapper.insertUserSeller", jtownUser);
 
 		return jtownUser.getPn();
 	}
 
 	@Override
 	public int findGroupdId(String group) {
-		return getSqlSession().selectOne("LoginMapper.findGroupId", group);
+		return getSqlSession().selectOne("loginMapper.findGroupId", group);
 	}
 
 	@Override
 	public void addUserToGroup(Map<String, Integer> groupMap) {
-		getSqlSession().insert("LoginMapper.addUserToGroup", groupMap);
+		getSqlSession().insert("loginMapper.addUserToGroup", groupMap);
 	}
 
 	@Override
 	public void updateChangePassword(JtownUser jtownUser) {
-		getSqlSession().update("LoginMapper.changePassword", jtownUser);
+		getSqlSession().update("loginMapper.changePassword", jtownUser);
+	}
+
+	// ~ Use Only Test Case
+
+	@Override
+	public void deleteUserAll() {
+		getSqlSession().delete("loginMapper.deleteUserAll");
+	}
+
+	@Override
+	public Integer selectUsersCount() {
+		return getSqlSession().selectOne("loginMapper.selectUsersCount");
 	}
 }
