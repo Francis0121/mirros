@@ -186,11 +186,12 @@ public class HomeServiceImpl extends SqlSessionDaoSupport implements
 	public void insertViewCount(Count count, String remoteAddr) {
 		Integer ipCount = getSqlSession().selectOne(
 				"homeMapper.selectViewCountIp", remoteAddr);
+		Integer sellerPn = count.getSellerPn();
 		if (ipCount == 0) {
 			getSqlSession().insert("homeMapper.insertViewIp", remoteAddr);
 
 			Integer dayCount = getSqlSession().selectOne(
-					"homeMapper.selectViewDayCount", count.getSellerPn());
+					"homeMapper.selectViewDayCount", sellerPn);
 			if (dayCount == 0) {
 				getSqlSession().insert("homeMapper.insertViewDayCount",
 						count.getSellerPn());
@@ -199,8 +200,14 @@ public class HomeServiceImpl extends SqlSessionDaoSupport implements
 				count.setCount(dayCount + 1);
 				getSqlSession().update("homeMapper.updateViewDayCount", count);
 			}
+			count.setCount(selectViewTotalCount(sellerPn));
 			publisher.viewPublish(count);
 		}
+	}
+
+	private Integer selectViewTotalCount(Integer sellerPn) {
+		return getSqlSession().selectOne("homeMapper.selectViewTotalCount",
+				sellerPn);
 	}
 
 	@Override

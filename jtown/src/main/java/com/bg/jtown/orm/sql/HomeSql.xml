@@ -374,4 +374,13 @@
 			count_date = DATE_FORMAT(SYSDATE(), '%Y-%m-%d')
 	</update>
 
+	<select id="selectViewTotalCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+		SELECT
+			view_count
+		FROM
+			count_view_seller_pn
+		WHERE
+			seller_pn = #{sellerPn}
+	</select>
+
 </mapper>
