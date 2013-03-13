@@ -20,7 +20,7 @@
 <body>
 	<section class="jt-body">
 		<header class="jt-header">
-			<menu class="jt-header-login-menu">
+			<ul class="jt-header-login-menu">
 				<li>
 					<c:url value="/admin" var="admin"/>
 					<a href="${admin }" class="jt-common-a-base">관리자페이지</a>
@@ -33,10 +33,10 @@
 					<c:url value="/login/logout" var="logoutUrl"/>
 					<a href="${logoutUrl }" class="jt-common-a-base" id="jt-logout">로그아웃</a>
 				</li>		
-			</menu>
+			</ul>
 		</header>
 		<nav class="jt-left-nav">
-			<menu class="jt-left_menu">
+			<ul class="jt-left_menu">
 				<li class="jt-left-nav-category">
 					게시판
 				</li>
@@ -45,7 +45,7 @@
 					<a href="${noticeUrl }">- 공지사항</a>
 				</li>
 				<li class="jt-left-nav-category">
-					Q&A
+					Q&amp;A
 				</li>
 				<li class="jt-left-nav-content">
 					<a href="#">- 판매자</a>
@@ -71,6 +71,6 @@
 				<li class="jt-left-nav-content">
 					<a href="#none">- 관리자 생성</a>
 				</li>						
-			</menu>
+			</ul>
 		</nav>
 		<section class="jt-content">

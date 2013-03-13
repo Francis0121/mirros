@@ -22,7 +22,7 @@
 				<div class="jt-header-banner">
 					<a href="${cp }seller/<c:out value="${jtownUser.pn}"/>"><h1>J Town</h1></a>
 				</div>
-				<menu class="jt-header-login-menu">
+				<ul class="jt-header-login-menu">
 					<li>
 						<c:url var="help" value="/help/question"/>
 						<a href="${help }" class="jt-common-a-base">고객센터</a>
@@ -46,7 +46,7 @@
 							<a href="${logoutUrl }" class="jt-common-a-base" id="jt-logout">로그아웃</a>
 						</li>
 					</sec:authorize>
-				</menu>
+				</ul>
 			</div>
 		</header>
 		<article class="jt-seller-content">

@@ -41,7 +41,7 @@
 			</div>
 			<footer>
 				<span class="jt-home-shop-footer-firstQuotationMark">"</span>
-				<pre id="jt-seller-main-footer-text" class="jt-home-shop-footer-text"><c:out value="${seller.notice }"/></pre>
+				<pre class="jt-home-shop-footer-text"><c:out value="${seller.notice }"/></pre>
 				<span class="jt-home-shop-footer-lastQuotationMark">"</span>
 			</footer>
 		</div>

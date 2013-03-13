@@ -26,7 +26,7 @@
 				<table class="jt-login-form-table">
 					<thead>
 						<tr>
-							<th colspan="2"/> 
+							<th colspan="2"> 
 								J-TOWN
 							</th>
 						</tr>
