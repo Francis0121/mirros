@@ -20,10 +20,10 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.bg.jtown.controller.validator.LoginValidator;
-import com.bg.jtown.controller.validator.VaildationUtil;
 import com.bg.jtown.security.CustomJdbcUserDetailManager;
 import com.bg.jtown.security.JtownUser;
 import com.bg.jtown.security.UserAuthenticator;
+import com.bg.jtown.util.VaildationUtil;
 
 /**
  * @author Francis, 박광열
