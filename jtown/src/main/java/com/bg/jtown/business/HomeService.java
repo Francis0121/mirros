@@ -42,7 +42,7 @@ public interface HomeService {
 
 	void insertLoveCount(Count count);
 
-	// ~ Navigation
+	// ~ Navigation Interest
 
 	List<Interest> selecInterestCategory();
 

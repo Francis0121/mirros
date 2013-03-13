@@ -35,6 +35,16 @@ public class Count {
 		super();
 	}
 
+	public Count(Integer count, Integer customerPn, String inputDate,
+			String message, Integer sellerPn) {
+		super();
+		this.count = count;
+		this.customerPn = customerPn;
+		this.inputDate = inputDate;
+		this.message = message;
+		this.sellerPn = sellerPn;
+	}
+
 	public Integer getCount() {
 		return count;
 	}

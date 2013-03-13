@@ -40,6 +40,17 @@ public class Comment {
 		super();
 	}
 
+	public Comment(String comment, Integer commentPn, String customerName,
+			Integer customerPn, Integer inputDate, Integer sellerPn) {
+		super();
+		this.comment = comment;
+		this.commentPn = commentPn;
+		this.customerName = customerName;
+		this.customerPn = customerPn;
+		this.inputDate = inputDate;
+		this.sellerPn = sellerPn;
+	}
+
 	public String getComment() {
 		return comment;
 	}

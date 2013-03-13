@@ -6,19 +6,23 @@ import java.util.Map;
 import com.bg.jtown.business.search.UserSearch;
 import com.bg.jtown.security.JtownUser;
 
+/**
+ * @author 박광열
+ * 
+ */
 public interface AdminService {
 
-	List<Interest> selectInterestCategoryList();
-
 	void insertCreateSeller(JtownUser jtownUser);
-
-	Map<String, Object> selectSellerModelMap(UserSearch search);
 
 	void updateShopUrl(JtownUser jtownUser);
 
 	void updateInterest(Interest interest);
 
 	void updateEnable(JtownUser jtownUser);
+
+	List<Interest> selectInterestCategoryList();
+
+	Map<String, Object> selectSellerModelMap(UserSearch search);
 
 	Map<String, Object> selectCustomerModelMap(UserSearch search);
 }

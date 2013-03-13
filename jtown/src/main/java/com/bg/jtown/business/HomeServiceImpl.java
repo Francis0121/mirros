@@ -226,7 +226,7 @@ public class HomeServiceImpl extends SqlSessionDaoSupport implements
 		return getSqlSession().selectOne("homeMapper.selectLoveCount", count);
 	}
 
-	// ~ Navigation
+	// ~ Navigation Interest
 
 	@Override
 	public List<Interest> selecInterestCategory() {

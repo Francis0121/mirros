@@ -4,16 +4,21 @@ import java.util.Map;
 
 import com.bg.jtown.security.JtownUser;
 
+/**
+ * @author 박광열
+ * 
+ */
 public interface LoginService {
-	boolean selectCheckExistEmail(String id);
 
 	void insertCreatUserCustomer(JtownUser jtownUser);
 
-	int findGroupdId(String group);
+	Integer insertCreateUserSeller(JtownUser jtownUser);
 
 	void addUserToGroup(Map<String, Integer> groupMap);
 
-	Integer insertCreateUserSeller(JtownUser jtownUser);
-
 	void updateChangePassword(JtownUser jtownUser);
+
+	int findGroupdId(String group);
+
+	boolean selectCheckExistEmail(String id);
 }

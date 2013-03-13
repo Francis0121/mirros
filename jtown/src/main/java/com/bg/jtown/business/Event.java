@@ -47,6 +47,19 @@ public class Event {
 		super();
 	}
 
+	public Event(Integer pn, Integer sellerPn, Integer bannerType,
+			String saveName, Integer imagePn, String content,
+			Integer bannerOrder) {
+		super();
+		this.pn = pn;
+		this.sellerPn = sellerPn;
+		this.bannerType = bannerType;
+		this.saveName = saveName;
+		this.imagePn = imagePn;
+		this.content = content;
+		this.bannerOrder = bannerOrder;
+	}
+
 	public Integer getBannerOrder() {
 		return bannerOrder;
 	}

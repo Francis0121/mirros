@@ -1,19 +1,27 @@
 package com.bg.jtown.business.board;
 
+/**
+ * @author 박광열
+ * 
+ */
 public class Board {
+
 	private Integer pn;
+
 	private String title;
+
 	private String content;
+
 	private String inputDate;
 
 	private Integer readCount;
-	
+
 	private Integer ownerPn;
-	
+
 	public Board() {
-		// TODO Auto-generated constructor stub
+		super();
 	}
-	
+
 	public Board(Integer pn, String title, String content, String inputDate,
 			Integer readCount, Integer ownerPn) {
 		super();
@@ -78,6 +86,6 @@ public class Board {
 		return "Board [pn=" + pn + ", title=" + title + ", content=" + content
 				+ ", inputDate=" + inputDate + ", readCount=" + readCount
 				+ ", ownerPn=" + ownerPn + "]";
-	}	
-	
+	}
+
 }

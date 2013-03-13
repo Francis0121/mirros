@@ -1,5 +1,9 @@
 package com.bg.jtown.business;
 
+/**
+ * @author Francis
+ * 
+ */
 public class Interest {
 
 	private Integer customerPn;
@@ -15,7 +19,7 @@ public class Interest {
 	private String interestSectionNameList;
 
 	public Interest() {
-		// TODO Auto-generated constructor stub
+		super();
 	}
 
 	public Interest(Integer sellerPn, Integer categoryPn, Integer sectionPn,

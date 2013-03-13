@@ -30,6 +30,15 @@ public class Product {
 		super();
 	}
 
+	public Product(Integer pn, Integer sellerPn, Integer imagePn,
+			String saveName) {
+		super();
+		this.pn = pn;
+		this.sellerPn = sellerPn;
+		this.imagePn = imagePn;
+		this.saveName = saveName;
+	}
+
 	public Integer getImagePn() {
 		return imagePn;
 	}
