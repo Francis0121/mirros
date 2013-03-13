@@ -22,9 +22,14 @@ public interface LoginService {
 
 	boolean selectCheckExistEmail(String id);
 
+	JtownUser selectCustomer(Integer pn);
+
+	void updateUserCustomer(JtownUser jtownUser);
+
 	// ~ Use Only Test Case
 
 	void deleteUserAll();
 
 	Integer selectUsersCount();
+
 }

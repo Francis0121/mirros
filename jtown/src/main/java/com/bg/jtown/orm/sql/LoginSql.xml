@@ -10,6 +10,20 @@
 		SELECT id FROM groups WHERE group_name = #{group}
 	</select>
 	
+	<resultMap type="com.bg.jtown.security.JtownUser" id="jtown-customer-map">
+		<result column="name" property="name"/>
+		<result column="join_date" property="joinDate"/>
+	</resultMap>
+	
+	<select id="selectCustomer" parameterType="Integer" resultMap="jtown-customer-map">
+		SELECT
+			name, join_date
+		FROM
+			user_customer
+		WHERE
+			pn = #{pn}
+	</select>
+	
 	<insert id="insertUsers" parameterType="JtownUser">
 		INSERT INTO
 			users
@@ -55,6 +69,12 @@
 			id = #{username}
 	</update>
 	
+	<update id="updateUserCustomer" parameterType="com.bg.jtown.security.JtownUser">
+		UPDATE user_customer
+		SET	name = #{name}
+		WHERE pn = #{pn}
+	</update>
+		
 	<!-- Use Only TestCase -->
 	<delete id="deleteUserAll">
 		DELETE FROM users

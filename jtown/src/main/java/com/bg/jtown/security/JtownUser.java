@@ -42,6 +42,7 @@ public class JtownUser implements JtownDetails, CredentialsContainer {
 			return g1.getAuthority().compareTo(g2.getAuthority());
 		}
 	}
+
 	private static SortedSet<GrantedAuthority> sortAuthorities(
 			Collection<? extends GrantedAuthority> authorities) {
 		Assert.notNull(authorities,
@@ -59,43 +60,41 @@ public class JtownUser implements JtownDetails, CredentialsContainer {
 
 		return sortedAuthorities;
 	}
+
+	// base Variable
+
+	// users
 	private final boolean accountNonExpired;
 	private final boolean accountNonLocked;
-	private Set<GrantedAuthority> authorities;
-	private Integer bannerDate;
-	private Integer commentCount;
 	private final boolean credentialsNonExpired;
-
 	private boolean enabled;
+	private Set<GrantedAuthority> authorities;
+	private String username;
 	private String groupName;
+	private String password;
+	private String newPassword;
+	private String salt;
+	private Integer pn;
 
-	private List<String> images;
-	private String interestCategory;
-
-	private String interestSectionList;
-
-	private String joinDate;
-	private Integer loveCount;
 	// user_customer
 	private String name;
-	private String newPassword;
-	private String notice;
-	// base Variable
-	private String password;
-	// users
-	private Integer pn;
-	private String salt;
+	private String joinDate;
 
 	// user_seller
+	private String notice;
 	private String shopName;
 	private String shopUrl;
+	private Integer loveCount;
+	private Integer commentCount;
+	private Integer viewCount;
+	private Integer bannerDate;
+	private List<String> images;
+
+	private String interestCategory;
+	private String interestSectionList;
 
 	// ~ Constructors
 	// ===================================================================================================
-
-	private String username;
-
-	private Integer viewCount;
 
 	public JtownUser() {
 		this.username = "";
@@ -439,6 +438,7 @@ public class JtownUser implements JtownDetails, CredentialsContainer {
 				.append("; ");
 		sb.append("Pn: ").append(this.pn).append("; ");
 		sb.append("Salt: ").append(this.salt).append("; ");
+		sb.append("Name :").append(this.name).append("; ");
 		sb.append("JoinDate: ").append(this.joinDate).append("; ");
 		sb.append("shopName: ").append(this.shopName).append("; ");
 		sb.append("shopUrl: ").append(this.shopUrl).append("; ");

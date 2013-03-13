@@ -339,4 +339,11 @@ public class CustomJdbcUserDetailManager extends JdbcUserDetailsManager {
 		}
 	}
 
+	public void deleteUserCustomer(JtownUser jtownUser) {
+		Integer pn = jtownUser.getPn();
+		String username = jtownUser.getUsername();
+		getJdbcTemplate().update("DELETE FROM users WHERE pn = ?", pn);
+		userCache.removeUserFromCache(username);
+	}
+
 }
