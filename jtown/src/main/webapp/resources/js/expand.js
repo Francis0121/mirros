@@ -141,7 +141,8 @@ jtown.expand.makeInnerHtml = function(spn){
 		html +=	'		'+commentInputHtml;
 		html +=	'	</div>';
 		html +=	'</div>';
-		$.smartPop.open({width : 640,height : 780,html : html });
+		
+		$.smartPop.open({width : 640,height : 780,html : html ,effect : 'transfer', target : '#jt-home-shop-'+spn });
 		setTimeout(jtown.expand.syncProductMove(), 1300);
 		setTimeout(jtown.comment.syncComment(), 1300);
 	});

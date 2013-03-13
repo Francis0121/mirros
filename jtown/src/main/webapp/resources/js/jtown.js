@@ -13,7 +13,8 @@ $(document).ready(function(){
 		$.smartPop.open({
 			width : 400,
 			height : 270,
-			html : inner.html()
+			html : inner.html(),
+			effect : null
 		});
 	});
 	
@@ -59,7 +60,8 @@ jtown.header.addInterest = function(pn){
 			width : 800,
 			height : 525,
 			html : innerHtml,
-			categoryFn : function(){document.location.reload();}
+			categoryFn : function(){document.location.reload();},
+			effect : null
 		});
 		
 		setTimeout('jtown.header.addInterestSync()', 0);

@@ -20,8 +20,8 @@
             this.install();
             this.resize();
 
-            $('html').css({ display: 'block', overflow: 'hidden', overflowY: 'hidden' });
-            $('#smartPop').show();
+            $('html').css({ display: 'block', overflow: 'hidden', overflowY: 'hidden'});
+         
             if(this.opts.log) $('#smartPop_log').show();
         },
         resize : function() {
@@ -79,10 +79,11 @@
                 smartPop.append($('<div />').attr('id', 'smartPop_log'));
                 body.append(smartPop_overlay).append(smartPop);
                 this.isInstall = true;
-            } else {
-                $('#smartPop').show();
-                $('#smartPop_overlay').show();
-            }
+                $('#smartPop').hide();
+            } 
+            
+            $('#smartPop').fadeIn(500);
+            $('#smartPop_overlay').fadeIn(500);
 
             // 닫기 버튼 설정
             if(this.opts.closeImg != undefined) {
@@ -111,8 +112,21 @@
             }
             $('html').css({ marginRight: 0, display: '', overflowY: 'scroll'});
             
-            $('#smartPop').effect( this.opts.effect, {}, 500);
-            setTimeout($('#smartPop_overlay').fadeOut(), 1000);
+            var options = {};
+            
+            if ( this.opts.effect === "transfer" ) {
+            	if(this.opts.target)
+            	options = { to: this.opts.target , className: "ui-effects-transfer" };
+            	$('#smartPop').hide();
+            } 
+            
+            if(this.opts.effect === null){
+            	$('#smartPop').hide();
+            	$('#smartPop_overlay').fadeOut(500);  
+            }else{
+            	$('#smartPop').effect( this.opts.effect, options, 250);
+            	$('#smartPop_overlay').fadeOut(500);            	
+            }
             this.opts.categoryFn();
         },
         log : function(msg) {

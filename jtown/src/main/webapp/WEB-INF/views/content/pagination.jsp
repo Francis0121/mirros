@@ -9,7 +9,7 @@
 		<c:set value="${seller.pn }" var="spn"/>
 		<c:if test="${spn ne 0 and spn ne null }">
 		<c:set value="${images[spn] }" var="mainImages"/>
-		<div class="jt-home-shop">
+		<div class="jt-home-shop" id="jt-home-shop-<c:out value="${spn }"/>">
 			<header>
 				<a href="#none" onclick="jtown.home.clickShop('<c:out value="${spn }"/>', '<c:out value="${seller.shopUrl }"/>')"><c:out value="${seller.shopName }"/></a>
 			</header>
@@ -18,7 +18,7 @@
 					<li>
 						<c:forEach items="${mainImages }" var="mainImage" varStatus="loop" >
 							<c:url value="/resources/uploadImage/${mainImage eq null ? '8.jpg' : mainImage}" var="image"/>
-							<img alt="" src="${image }" title="${jtownUser.shopName}" id="jt-seller-main-image-area"/>	
+							<img alt="" src="${image }" title="${jtownUser.shopName}"/>	
 						</c:forEach>
 					</li>
 				</ul>
