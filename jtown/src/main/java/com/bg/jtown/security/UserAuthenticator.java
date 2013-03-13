@@ -16,6 +16,10 @@ import org.springframework.security.core.context.SecurityContextImpl;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.stereotype.Component;
 
+/**
+ * @author Francis
+ *
+ */
 @Component
 public class UserAuthenticator {
 	

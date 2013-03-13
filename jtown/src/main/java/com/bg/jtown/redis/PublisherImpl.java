@@ -12,16 +12,16 @@ import com.bg.jtown.business.Count;
 import com.bg.jtown.business.Event;
 
 /**
- * Redis Test
+ * Redis
  * 
  * @author Francis
  * 
  */
 @Repository
-public class RedisPublisher implements Publisher {
+public class PublisherImpl implements Publisher {
 
 	private static Logger logger = LoggerFactory
-			.getLogger(RedisPublisher.class);
+			.getLogger(PublisherImpl.class);
 
 	@Resource(name = "publishTemplate")
 	private StringRedisTemplate publishTemplate;

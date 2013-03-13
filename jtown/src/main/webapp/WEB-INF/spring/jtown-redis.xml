@@ -15,9 +15,9 @@
   		http://www.springframework.org/schema/aop/spring-aop-3.1.xsd">
   		
 	<bean id="connectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
-		<property name="hostName" value="${jtown.redis.serverIp}" />  
-		<property name="port" value="${jtown.redis.serverPort}" />  
-		<property name="password" value="${jtown.redis.password}" /> 
+		<property name="hostName" value="${redis.serverIp}" />  
+		<property name="port" value="${redis.serverPort}" />  
+		<property name="password" value="${redis.password}" /> 
 	</bean> 
 
 	<bean id="publishTemplate" class="org.springframework.data.redis.core.StringRedisTemplate">

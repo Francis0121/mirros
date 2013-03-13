@@ -35,6 +35,16 @@ public class FileVO {
 		super();
 	}
 
+	public FileVO(Integer imagePn, String originalName, String saveName,
+			Integer ownerPn, Integer memorySize) {
+		super();
+		this.imagePn = imagePn;
+		this.originalName = originalName;
+		this.saveName = saveName;
+		this.ownerPn = ownerPn;
+		this.memorySize = memorySize;
+	}
+
 	public Integer getImagePn() {
 		return imagePn;
 	}

@@ -36,7 +36,11 @@ import org.springframework.util.Assert;
 
 import com.bg.jtown.business.LoginService;
 
-public class CustomJdbcUserDetailManager extends JdbcUserDetailsManager  {
+/**
+ * @author 박광열
+ * 
+ */
+public class CustomJdbcUserDetailManager extends JdbcUserDetailsManager {
 
 	protected final Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -48,11 +52,12 @@ public class CustomJdbcUserDetailManager extends JdbcUserDetailsManager  {
 
 	private boolean enableAuthorities;
 	private boolean enableGroups;
-	
+
 	private UserCache userCache = new NullUserCache();
 
 	@Autowired
-	private void config(PasswordEncoder passwordEncoder, SaltSource saltSource, LoginService loginService) {
+	private void config(PasswordEncoder passwordEncoder, SaltSource saltSource,
+			LoginService loginService) {
 		this.passwordEncoder = passwordEncoder;
 		this.saltSource = saltSource;
 		this.loginService = loginService;
@@ -72,9 +77,11 @@ public class CustomJdbcUserDetailManager extends JdbcUserDetailsManager  {
 			returnUserid = id;
 		}
 
-		return new JtownUser(userFromUserQuery.getPn() ,returnUserid, userFromUserQuery.getPassword(),
-				userFromUserQuery.isEnabled(), true, true, true,
-				combinedAuthorities, ((JtownUser) userFromUserQuery).getSalt(), userFromUserQuery.getGroupName());
+		return new JtownUser(userFromUserQuery.getPn(), returnUserid,
+				userFromUserQuery.getPassword(), userFromUserQuery.isEnabled(),
+				true, true, true, combinedAuthorities,
+				((JtownUser) userFromUserQuery).getSalt(),
+				userFromUserQuery.getGroupName());
 	}
 
 	@SuppressWarnings("deprecation")
@@ -92,7 +99,8 @@ public class CustomJdbcUserDetailManager extends JdbcUserDetailsManager  {
 					"Username {0} not found"), username);
 		}
 
-		JtownDetails user = (JtownDetails) users.get(0); // contains no GrantedAuthority[]
+		JtownDetails user = (JtownDetails) users.get(0); // contains no
+															// GrantedAuthority[]
 
 		Set<GrantedAuthority> dbAuthsSet = new HashSet<GrantedAuthority>();
 
@@ -122,25 +130,27 @@ public class CustomJdbcUserDetailManager extends JdbcUserDetailsManager  {
 
 	@Override
 	protected List<UserDetails> loadUsersByUsername(String id) {
-		return getJdbcTemplate().query(
-				"SELECT u.id, u.password, u.enable, DATE_FORMAT(u.salt, '%Y-%m-%d %H:%i:%s') AS salt, u.pn, gmn.group_name " +
-				"FROM users u, group_members_name gmn " +
-				"WHERE u.id = ? AND u.pn = gmn.user_pn",
-				new String[] { id }, new RowMapper<UserDetails>() {
-					@Override
-					public UserDetails mapRow(ResultSet rs, int rowNum)
-							throws SQLException {
-						String id = rs.getString(1);
-						String password = rs.getString(2);
-						boolean enable = rs.getBoolean(3);
-						String salt = rs.getString(4);
-						Integer pn = rs.getInt(5);
-						String groupName = rs.getString(6);
+		return getJdbcTemplate()
+				.query("SELECT u.id, u.password, u.enable, DATE_FORMAT(u.salt, '%Y-%m-%d %H:%i:%s') AS salt, u.pn, gmn.group_name "
+						+ "FROM users u, group_members_name gmn "
+						+ "WHERE u.id = ? AND u.pn = gmn.user_pn",
+						new String[] { id }, new RowMapper<UserDetails>() {
+							@Override
+							public UserDetails mapRow(ResultSet rs, int rowNum)
+									throws SQLException {
+								String id = rs.getString(1);
+								String password = rs.getString(2);
+								boolean enable = rs.getBoolean(3);
+								String salt = rs.getString(4);
+								Integer pn = rs.getInt(5);
+								String groupName = rs.getString(6);
 
-						return new JtownUser(pn, id, password, enable, true, true,
-								true, AuthorityUtils.NO_AUTHORITIES, salt, groupName);
-					}
-				});
+								return new JtownUser(pn, id, password, enable,
+										true, true, true,
+										AuthorityUtils.NO_AUTHORITIES, salt,
+										groupName);
+							}
+						});
 	}
 
 	@Override
@@ -181,65 +191,70 @@ public class CustomJdbcUserDetailManager extends JdbcUserDetailsManager  {
 	public void setEnableGroups(boolean enableGroups) {
 		this.enableGroups = enableGroups;
 	}
-	
+
 	public Integer createUserSellerAndAuthority(JtownUser jtownUser) {
 		Integer pn = createUserSeller(jtownUser);
-		
+
 		addUserToGroup(jtownUser.getPn(), "Seller");
-		
+
 		return pn;
 	}
 
 	public void createUserCustomAndAuthority(JtownUser jtownUser) {
 		creatUserCustomer(jtownUser);
-		
+
 		addUserToGroup(jtownUser.getPn(), "Customer");
 	}
-	
+
 	@Override
 	public void changePassword(String oldPassword, String newPassword)
 			throws AuthenticationException {
-		Authentication currentUser = SecurityContextHolder.getContext().getAuthentication();
+		Authentication currentUser = SecurityContextHolder.getContext()
+				.getAuthentication();
 
-        if (currentUser == null) {
-            // This would indicate bad coding somewhere
-            throw new AccessDeniedException("Can't change password as no Authentication object found in context " +
-                    "for current user.");
-        }
+		if (currentUser == null) {
+			// This would indicate bad coding somewhere
+			throw new AccessDeniedException(
+					"Can't change password as no Authentication object found in context "
+							+ "for current user.");
+		}
 
-        String username = currentUser.getName();
-        
-        JtownUser jtownUser = (JtownUser) loadUserByUsername(username);
-        
-        // PasswordEncoder SaltSource
- 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",
- 				Locale.KOREA);
- 		Date date = new Date();
- 		String salt = sdf.format(date);
- 		jtownUser.setSalt(salt);
-    
-        String encodedPassword = passwordEncoder.encodePassword(newPassword, saltSource.getSalt(jtownUser));
-        jtownUser.setNewPassword(encodedPassword);
-        
-        loginService.updateChangePassword(jtownUser);        
-        
+		String username = currentUser.getName();
+
+		JtownUser jtownUser = (JtownUser) loadUserByUsername(username);
+
+		// PasswordEncoder SaltSource
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",
+				Locale.KOREA);
+		Date date = new Date();
+		String salt = sdf.format(date);
+		jtownUser.setSalt(salt);
+
+		String encodedPassword = passwordEncoder.encodePassword(newPassword,
+				saltSource.getSalt(jtownUser));
+		jtownUser.setNewPassword(encodedPassword);
+
+		loginService.updateChangePassword(jtownUser);
+
 		SecurityContextHolder.getContext().setAuthentication(
 				createNewAuthentication(currentUser, newPassword));
 
-		userCache.removeUserFromCache(username);        
+		userCache.removeUserFromCache(username);
 	}
-	
+
 	public boolean confirmPassword(JtownUser jtownUser) {
-		Authentication currentUser = SecurityContextHolder.getContext().getAuthentication();
-		
+		Authentication currentUser = SecurityContextHolder.getContext()
+				.getAuthentication();
+
 		String username = currentUser.getName();
 		String oldPassword = jtownUser.getPassword();
-		
-		JtownUser confirmUserInfo = (JtownUser)loadUserByUsername(username);
-		
-		String encodedPassword = passwordEncoder.encodePassword(oldPassword, saltSource.getSalt(confirmUserInfo));
-		
-		if( encodedPassword.equals(confirmUserInfo.getPassword())){
+
+		JtownUser confirmUserInfo = (JtownUser) loadUserByUsername(username);
+
+		String encodedPassword = passwordEncoder.encodePassword(oldPassword,
+				saltSource.getSalt(confirmUserInfo));
+
+		if (encodedPassword.equals(confirmUserInfo.getPassword())) {
 			return false;
 		} else {
 			return true;
@@ -255,50 +270,54 @@ public class CustomJdbcUserDetailManager extends JdbcUserDetailsManager  {
 		Date date = new Date();
 		String salt = sdf.format(date);
 		jtownUser.setSalt(salt);
-		
+
 		logger.debug(jtownUser.toString());
-		
-		String encodedPassword = passwordEncoder.encodePassword(jtownUser.getPassword(), saltSource.getSalt(jtownUser));
+
+		String encodedPassword = passwordEncoder.encodePassword(
+				jtownUser.getPassword(), saltSource.getSalt(jtownUser));
 		jtownUser.setPassword(encodedPassword);
-		
+
 		loginService.insertCreatUserCustomer(jtownUser);
 	}
-	
-	private Integer createUserSeller(JtownUser jtownUser){
+
+	private Integer createUserSeller(JtownUser jtownUser) {
 		// PasswordEncoder SaltSource
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",
 				Locale.KOREA);
 		Date date = new Date();
 		String salt = sdf.format(date);
 		jtownUser.setSalt(salt);
-		
-		String ran = new SimpleDateFormat("yyyyMMddHHmmss", Locale.KOREA).format(date);
+
+		String ran = new SimpleDateFormat("yyyyMMddHHmmss", Locale.KOREA)
+				.format(date);
 		jtownUser.setUsername("seller" + ran);
 		jtownUser.setPassword("seller" + ran);
-		
-		logger.debug(jtownUser.toString());
-		
-		String encodedPassword = passwordEncoder.encodePassword(jtownUser.getPassword(), saltSource.getSalt(jtownUser));
-		jtownUser.setPassword(encodedPassword);
-		
-		return loginService.insertCreateUserSeller(jtownUser);
-		
-	}
-	
-	private void addUserToGroup(Integer userPn, String groupName) {
-        logger.debug("Adding user '" + userPn + "' to group '" + groupName + "'");
-        Assert.hasText(userPn.toString());
-        Assert.hasText(groupName);
 
-        final int id = findGroupId(groupName);
-        
-        Map<String, Integer> groupMap = new HashMap<String, Integer>();
-        groupMap.put("groupId", id);
-        groupMap.put("userPn", userPn);
-        
-        loginService.addUserToGroup(groupMap);
+		logger.debug(jtownUser.toString());
+
+		String encodedPassword = passwordEncoder.encodePassword(
+				jtownUser.getPassword(), saltSource.getSalt(jtownUser));
+		jtownUser.setPassword(encodedPassword);
+
+		return loginService.insertCreateUserSeller(jtownUser);
+
 	}
-	
+
+	private void addUserToGroup(Integer userPn, String groupName) {
+		logger.debug("Adding user '" + userPn + "' to group '" + groupName
+				+ "'");
+		Assert.hasText(userPn.toString());
+		Assert.hasText(groupName);
+
+		final int id = findGroupId(groupName);
+
+		Map<String, Integer> groupMap = new HashMap<String, Integer>();
+		groupMap.put("groupId", id);
+		groupMap.put("userPn", userPn);
+
+		loginService.addUserToGroup(groupMap);
+	}
+
 	private int findGroupId(String group) {
 		return loginService.findGroupdId(group);
 	}

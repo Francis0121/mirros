@@ -7,6 +7,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
  * 
  */
 public class MultipartFile {
+	
 	private CommonsMultipartFile filedata;
 
 	public CommonsMultipartFile getFiledata() {

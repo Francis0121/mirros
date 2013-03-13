@@ -5,7 +5,7 @@ import com.bg.jtown.business.Count;
 import com.bg.jtown.business.Event;
 
 /**
- * Redis Test
+ * Redis
  * 
  * @author Francis
  * 

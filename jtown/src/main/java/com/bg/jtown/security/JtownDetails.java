@@ -58,7 +58,15 @@ public interface JtownDetails extends UserDetails {
      */
     boolean isEnabled();
     
+    /**
+     * Database Propernumber 
+     * 
+     * @return unique Propernumber From ID
+     */
     Integer getPn();
     
+    /**
+     * @return GropupName
+     */
     String getGroupName();
 }
