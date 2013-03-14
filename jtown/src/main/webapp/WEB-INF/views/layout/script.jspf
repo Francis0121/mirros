@@ -31,9 +31,7 @@
 <script src="${cp}resources/js/comment.js"></script>
 <script src="${cp}resources/js/board.js"></script>
 <script type="text/javascript">
-/* <![CDATA[ */   	
-// 	$('.jt-header-nav-all').navHover();
-	
+/* <![CDATA[ */   
 	var $container = $('#jt-home-container');
 	
 	$container.imagesLoaded(function(){
@@ -58,34 +56,10 @@
 						columnWidth : 330
 				});
 			});
+			setTimeout(jtown.expand.loadExpandShop(), 0);
 		},
 		'maxPage'		: <c:out value='${homeFilter.pagination.numPages}'/>
 	});
-	
-// 	 $container.infinitescroll({
-// 		navSelector  : '#page-nav',    // selector for the paged navigation 
-// 		nextSelector : '#page-nav a',  // selector for the NEXT link (to page 2)
-// 		itemSelector : '.jt-home-shop',     // selector for all items you'll retrieve
-// 		maxPage	: <c:out value='${homeFilter.pagination.numPages}'/>,
-// 		loading: {
-// 		    finishedMsg: 'No more pages to load.',
-// 		    img: contextPath + 'resources/images/jt-loading-big.gif'
-// 		  }
-// 		},
-// 		// trigger Masonry as a callback
-// 		function( newElements ) {
-// 			// hide new items while they are loading
-// 			var $newElems = $( newElements ).css({ opacity: 0 });
-// 			// ensure that images load before adding to masonry layout
-// 			$newElems.imagesLoaded(function(){
-// 				// show elems now they're ready
-// 				$newElems.animate({ opacity: 1 });
-// 				$container.masonry( 'appended', $newElems, true ); 
-// 			});
-// 		}
-// 	);
-	 
-// 	setTimeout('$container.infinitescroll().scroll()',0); 
 	
 	onResize = function(){
 		var clientWidth = Number(window.document.body.clientWidth),
