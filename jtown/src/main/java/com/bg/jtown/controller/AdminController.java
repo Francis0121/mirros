@@ -57,10 +57,8 @@ public class AdminController {
 	public String showNoticePage(Model model,
 			@ModelAttribute BoardFilter boardFilter) {
 		logger.debug("Show Notice Page");
-
 		model.addAttribute("noticeList",
 				boardService.selectNoticeList(boardFilter));
-
 		return "admin/notice/list";
 	}
 
@@ -68,7 +66,6 @@ public class AdminController {
 	@RequestMapping(value = "/admin/noticeWrite", method = RequestMethod.GET)
 	public String showNoticeWritePage(Model model, @ModelAttribute Board board) {
 		logger.debug("Show Notice Page");
-
 		return "admin/notice/write";
 	}
 
@@ -77,12 +74,15 @@ public class AdminController {
 	public String showNoticeWritePagePost(Model model,
 			@ModelAttribute Board board) {
 		logger.debug("Show Notice Page");
-
 		boardService.insertNoticeWrite(board);
+		return "redirect:/admin/notice";
+	}
 
-		model.addAttribute("noticeList", boardService.selectNoticeList(new BoardFilter()));
-
-		return "admin/notice/list";
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@RequestMapping(value = "/admin/noticeWrite", method = RequestMethod.DELETE)
+	public String formNoticeDelete(Model model, @ModelAttribute Board board) {
+		boardService.deleteBoard(board);
+		return "redirect:/admin/notice";
 	}
 
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
