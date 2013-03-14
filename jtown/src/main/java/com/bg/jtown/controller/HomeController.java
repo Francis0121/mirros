@@ -104,6 +104,29 @@ public class HomeController {
 		}
 	}
 
+	@RequestMapping(value = "/ajax/homePagination.jt", method = RequestMethod.POST)
+	@ResponseBody
+	@SuppressWarnings("unchecked")
+	public Object ajaxHomePagination(@RequestBody HomeFilter homeFilter,
+			HttpServletRequest request) {
+		logger.debug("Ajax Pagination page" + homeFilter.toString()
+				+ ", Page [ " + homeFilter.getPage() + " ] ");
+
+		HttpSession session = request.getSession();
+		List<Integer> randomPage = (List<Integer>) session
+				.getAttribute("randomPage");
+
+		Integer page = homeFilter.getCurrentPage();
+		if (randomPage.size() > page - 1) {
+			homeFilter.setPage(randomPage.get(page - 1));
+			Map<String, Object> object = homeService.selectHome(homeFilter);
+			logger.debug("Home Pagination " + object);
+			return object;
+		} else {
+			return null;
+		}
+	}
+
 	@RequestMapping(value = "/process")
 	public ModelAndView redirectView(HttpServletRequest request) {
 
@@ -210,7 +233,7 @@ public class HomeController {
 		} catch (ClassCastException e) {
 			logger.debug("로그인하지않은 사용자");
 		}
-		
+
 		homeService.insertViewCount(count, request.getRemoteAddr());
 	}
 

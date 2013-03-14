@@ -16,6 +16,11 @@ public class HomeFilter extends AbstractListFilter {
 	private Integer categoryPn;
 
 	/**
+	 * 현재페이지 번호
+	 */
+	private Integer currentPage;
+
+	/**
 	 * 관심사 고유번호
 	 */
 	private Integer sectionPn;
@@ -24,14 +29,19 @@ public class HomeFilter extends AbstractListFilter {
 		super();
 	}
 
-	public HomeFilter(Integer categoryPn, Integer sectionPn) {
+	public HomeFilter(Integer categoryPn, Integer currentPage, Integer sectionPn) {
 		super();
 		this.categoryPn = categoryPn;
+		this.currentPage = currentPage;
 		this.sectionPn = sectionPn;
 	}
 
 	public Integer getCategoryPn() {
 		return categoryPn;
+	}
+
+	public Integer getCurrentPage() {
+		return currentPage;
 	}
 
 	public Integer getSectionPn() {
@@ -42,14 +52,18 @@ public class HomeFilter extends AbstractListFilter {
 		this.categoryPn = categoryPn;
 	}
 
+	public void setCurrentPage(Integer currentPage) {
+		this.currentPage = currentPage;
+	}
+
 	public void setSectionPn(Integer sectionPn) {
 		this.sectionPn = sectionPn;
 	}
 
 	@Override
 	public String toString() {
-		return "HomeFilter [categoryPn=" + categoryPn + ", sectionPn="
-				+ sectionPn + "]";
+		return "HomeFilter [categoryPn=" + categoryPn + ", currentPage="
+				+ currentPage + ", sectionPn=" + sectionPn + "]";
 	}
 
 }

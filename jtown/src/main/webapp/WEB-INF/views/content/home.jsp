@@ -17,7 +17,7 @@
 			<div class="jt-home-shop-content">
 				<ul class="jt-home-shop-content-image" data-spn="<c:out value="${spn }"/>">
 					<li>
-						<c:forEach items="${mainImages }" var="mainImage" varStatus="loop" >
+						<c:forEach items="${mainImages }" var="mainImage">
 							<c:url value="/resources/uploadImage/${mainImage eq null ? '8.jpg' : mainImage}" var="image"/>
 							<img alt="" src="${image }" title="${jtownUser.shopName}"/>	
 						</c:forEach>
@@ -49,7 +49,7 @@
 		</c:if>	
 	</c:forEach>
 </div>
-<nav id="page-nav" style="display: none;">
-  <a href="<c:url value="/cpn/${homeFilter.categoryPn eq null ? 0 : homeFilter.categoryPn}/spn/${homeFilter.sectionPn eq null ? 0 : homeFilter.sectionPn}/page/2"/>"></a>
-</nav>
+<!-- <nav id="page-nav" style="display: none;"> -->
+<%--   <a href="<c:url value="/cpn/${homeFilter.categoryPn eq null ? 0 : homeFilter.categoryPn}/spn/${homeFilter.sectionPn eq null ? 0 : homeFilter.sectionPn}/page/2"/>"></a> --%>
+<!-- </nav> -->
 <%@ include file="../layout/layout_footer.jspf" %>

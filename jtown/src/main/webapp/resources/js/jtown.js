@@ -204,3 +204,56 @@ jtown.home.clickLove = function(spn){
 	});
 };
 
+jtown.home.html = function(data){
+	var jtownUsers = data.jtownUsers;
+	var images = data.images;
+	
+	var html = '';
+	for(var i=0, len=jtownUsers.length; i<len ; i++){
+		var seller = jtownUsers[i],
+			spn = seller.pn,
+			mainImages = images[spn],
+			bannerDate = seller.bannerDate;
+		
+		var imageHtml = '';
+		for(var j=0, jLen = mainImages.length; j < jLen ; j++){
+			var mainImage = mainImages[j];
+			var imageSrc = contextPath + 'resources/uploadImage/'+ ( (mainImage == null )? '8.jpg' : mainImage );
+			imageHtml+='<img alt="" src="'+imageSrc+'" title="'+htmlChars(seller.shopName)+'"/>	';
+		}
+		
+		html+='	<div class="jt-home-shop" id="jt-home-shop-'+spn+'">';
+		html+='		<header>';
+		html+='			<a href="#none" onclick="jtown.home.clickShop(\''+spn+'\', \''+htmlChars(seller.shopUrl)+'\')">'+htmlChars(seller.shopName)+'</a>';
+		html+='		</header>';
+		html+='		<div class="jt-home-shop-content">';
+		html+='			<ul class="jt-home-shop-content-image" data-spn="'+spn+'">';
+		html+='				<li>';
+		html+='					'+imageHtml;
+		html+='				</li>';
+		html+='			</ul>';
+		html+='			<ul class="jt-home-shop-content-fn">';
+		html+='				<li>';
+		html+='					VIEW <span id="view-'+spn+'">'+( nullValueCheck(seller.viewCount) ? 0 : seller.viewCount )+'</span>';	
+		html+='				</li>';
+		html+='				<li>';
+		html+='					COMMENT <span id="comment-'+spn+'">'+ ( nullValueCheck(seller.commentCount) ? 0 : seller.commentCount )+ '</span>';
+		html+='				</li>';
+		html+='				<li>';
+		html+='					<a href="#none" onclick="jtown.home.clickLove(\''+spn+'\');">♥</a> <span id="love-'+spn+'">'+ ( nullValueCheck(seller.loveCount) ? 0 : seller.loveCount) + '</span>';
+		html+='					<span id="new-'+spn+'">';
+		html+='						'+ ( bannerDate == null && Number(bannerDate) < 7 ) ? 'new' : '' ;
+		html+='					</span>';
+		html+='				</li>';
+		html+='			</ul>';
+		html+='		</div>';
+		html+='		<footer>';
+		html+='			<span class="jt-home-shop-footer-firstQuotationMark">"</span>';
+		html+='			<pre class="jt-home-shop-footer-text">'+htmlChars(seller.notice)+'</pre>';
+		html+='			<span class="jt-home-shop-footer-lastQuotationMark">"</span>';
+		html+='		</footer>';
+		html+='	</div>';
+	}
+	return html;
+};
+

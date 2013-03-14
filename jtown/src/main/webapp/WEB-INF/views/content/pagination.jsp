@@ -16,9 +16,9 @@
 			<div class="jt-home-shop-content">
 				<ul class="jt-home-shop-content-image" data-spn="<c:out value="${spn }"/>">
 					<li>
-						<c:forEach items="${mainImages }" var="mainImage" varStatus="loop" >
+						<c:forEach items="${mainImages }" var="mainImage">
 							<c:url value="/resources/uploadImage/${mainImage eq null ? '8.jpg' : mainImage}" var="image"/>
-							<img alt="" src="${image }" title="${jtownUser.shopName}"/>	
+							<img alt="" src="${image }" title="<c:out value="${jtownUser.shopName}"/>"/>	
 						</c:forEach>
 					</li>
 				</ul>

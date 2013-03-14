@@ -1,14 +1,12 @@
 /**
-*	
-*	Infinite Scroll
-*	
-*	https://github.com/paulirish/infinitescroll
-*	version 2.0b2.110713
-*	Copyright 2011 Paul Irish & Luke Shumard
-*	Licensed under the MIT license
-*	
-*	Documentation: http://infinite-scroll.com/
-*	
+ * 
+ * Infinite Scroll
+ * 
+ * https://github.com/paulirish/infinitescroll version 2.0b2.110713 Copyright
+ * 2011 Paul Irish & Luke Shumard Licensed under the MIT license
+ * 
+ * Documentation: http://infinite-scroll.com/
+ * 
  */
 (function(window, $, undefined) {
 	$.infinitescroll = function infscr(options, callback, element) {
