@@ -113,11 +113,11 @@ public class UserCustomerTest {
 		JtownUser customerUser = loginService.selectCustomer(jtownUser.getPn());
 		logger.debug(customerUser.toString());
 		confirmCustmoerAndLoadCustomer(jtownUser, customerUser);
-		
-		JtownUser customerUser2 = loginService.selectCustomer(jtownUser2.getPn());
+
+		JtownUser customerUser2 = loginService.selectCustomer(jtownUser2
+				.getPn());
 		logger.debug(customerUser.toString());
 		confirmCustmoerAndLoadCustomer(jtownUser2, customerUser2);
-		
 	}
 
 	/**
