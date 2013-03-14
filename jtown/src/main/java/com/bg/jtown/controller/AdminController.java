@@ -24,6 +24,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import com.bg.jtown.business.AdminService;
 import com.bg.jtown.business.Interest;
 import com.bg.jtown.business.board.Board;
+import com.bg.jtown.business.board.BoardFilter;
 import com.bg.jtown.business.board.BoardService;
 import com.bg.jtown.business.search.UserSearch;
 import com.bg.jtown.security.JtownUser;
@@ -53,10 +54,12 @@ public class AdminController {
 
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/admin/notice", method = RequestMethod.GET)
-	public String showNoticePage(Model model) {
+	public String showNoticePage(Model model,
+			@ModelAttribute BoardFilter boardFilter) {
 		logger.debug("Show Notice Page");
 
-		model.addAttribute("noticeList", boardService.selectNoticeList());
+		model.addAttribute("noticeList",
+				boardService.selectNoticeList(boardFilter));
 
 		return "admin/notice/list";
 	}
@@ -77,7 +80,7 @@ public class AdminController {
 
 		boardService.insertNoticeWrite(board);
 
-		model.addAttribute("noticeList", boardService.selectNoticeList());
+		model.addAttribute("noticeList", boardService.selectNoticeList(new BoardFilter()));
 
 		return "admin/notice/list";
 	}

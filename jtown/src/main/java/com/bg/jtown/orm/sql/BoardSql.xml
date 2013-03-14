@@ -1,19 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="boardMapper">
-	<insert id="insertNoticeWrite" parameterType="Board">
-		INSERT INTO
-			notice
-			(
-				title, content, read_count, input_date
-			)			
-		VALUES
-			(
-				#{title}, #{content}, 0, SYSDATE()
-			)
-	</insert>
 	
-	<resultMap type="Board" id="noticetMap">
+	<sql id="paginationBefore">
+		SELECT 
+			t.*
+		FROM 
+		( 
+			SELECT  
+				z.*, @RNUM := @RNUM + 1 AS rnum
+			FROM
+				(
+	</sql>
+	
+	<sql id="paginationAfter">
+		<![CDATA[
+				) z,  
+				( SELECT @RNUM := 0 ) R
+			WHERE @RNUM + 1 <=  #{pagination.itemSeqEnd}
+		) t
+		WHERE t.rnum >= #{pagination.itemSeqBegin}
+		]]>
+	</sql>
+	
+	<resultMap type="Board" id="noticet-map">
 		<result column="pn" property="pn" />
 		<result column="title" property="title" />
 		<result column="content" property="content" />
@@ -21,21 +31,41 @@
 		<result column="input_date" property="inputDate" />
 	</resultMap>
 	
-	<select id="selectNoticeList" resultMap="noticetMap">
-		SELECT
-			pn, title, content, read_count, input_date
-		FROM
-			notice
+	<select id="selectNoticeList" resultMap="noticet-map">
+		<include refid="paginationBefore"/>
+			SELECT 
+				pn, title, content, read_count, input_date
+			FROM 
+				notice
+		<include refid="paginationAfter"/>
 	</select>
 	
-	<select id="selectNoticeContent" parameterType="Board" resultMap="noticetMap">
-		SELECT
+	<select id="selectNoticeContent" parameterType="Board" resultMap="noticet-map">
+		SELECT 
 			pn, title, content, read_count, input_date
-		FROM
+		FROM 
 			notice
 		WHERE
 			pn = #{pn}
 	</select>
+	
+	<select id="selectNoticeCount" parameterType="BoardFilter" resultType="Integer">
+		SELECT	
+			COUNT(*)
+		FROM	
+			notice
+	</select>
+	
+	<insert id="insertNoticeWrite" parameterType="Board">
+		INSERT INTO
+			notice
+			( title, content, read_count, input_date )			
+		VALUES
+			( #{title}, #{content}, 0, SYSDATE() )
+		<selectKey keyProperty="pn" resultType="Integer">
+			SELECT LAST_INSERT_ID()
+		</selectKey>	
+	</insert>
 	
 	<update id="updateNotice" parameterType="Board">
 		UPDATE
@@ -46,5 +76,14 @@
 		WHERE
 			pn = #{pn}
 	</update>
+	
+	<delete id="deleteNotice" parameterType="Board">
+		DELETE FROM
+			notice
+		<if test="pn != null">
+		WHERE
+			pn = #{pn}
+		</if>
+	</delete>
 
 </mapper>

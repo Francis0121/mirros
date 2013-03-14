@@ -8,5 +8,6 @@
 		<typeAlias alias="Interest" type="com.bg.jtown.business.Interest"/>
 		<typeAlias alias="UserSearch" type="com.bg.jtown.business.search.UserSearch"/>
 		<typeAlias alias="Board" type="com.bg.jtown.business.board.Board" />
+		<typeAlias alias="BoardFilter" type="com.bg.jtown.business.board.BoardFilter" />
 	</typeAliases>
 </configuration>

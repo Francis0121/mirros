@@ -17,9 +17,9 @@
 		<![CDATA[
 				) z,  
 				( SELECT @RNUM := 0 ) R
-			WHERE @RNUM + 1 <=  #{pagination.itemSeqEnd}#
+			WHERE @RNUM + 1 <=  #{pagination.itemSeqEnd}
 		) t
-		WHERE t.rnum >= #{pagination.itemSeqBegin}#
+		WHERE t.rnum >= #{pagination.itemSeqBegin}
 		]]>
 	</sql>
 

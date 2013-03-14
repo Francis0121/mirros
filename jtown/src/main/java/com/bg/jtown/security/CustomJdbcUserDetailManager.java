@@ -196,15 +196,19 @@ public class CustomJdbcUserDetailManager extends JdbcUserDetailsManager {
 				});
 	}
 
-	public Integer createUserSellerAndAuthority(JtownUser jtownUser) {
-		Integer pn = createUserSeller(jtownUser);
+	public void createUserSellerAndAuthority(JtownUser jtownUser) {
+		createUserSeller(jtownUser);
 		addUserToGroup(jtownUser.getPn(), "Seller");
-		return pn;
 	}
 
 	public void createUserCustomAndAuthority(JtownUser jtownUser) {
 		creatUserCustomer(jtownUser);
 		addUserToGroup(jtownUser.getPn(), "Customer");
+	}
+
+	public void createUserAdminAndAuthority(JtownUser jtownUser) {
+		createUserAdmin(jtownUser);
+		addUserToGroup(jtownUser.getPn(), "Administartor");
 	}
 
 	@Override
@@ -281,7 +285,7 @@ public class CustomJdbcUserDetailManager extends JdbcUserDetailsManager {
 		loginService.insertCreatUserCustomer(jtownUser);
 	}
 
-	private Integer createUserSeller(JtownUser jtownUser) {
+	private void createUserSeller(JtownUser jtownUser) {
 		// PasswordEncoder SaltSource
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",
 				Locale.KOREA);
@@ -300,8 +304,26 @@ public class CustomJdbcUserDetailManager extends JdbcUserDetailsManager {
 				jtownUser.getPassword(), saltSource.getSalt(jtownUser));
 		jtownUser.setPassword(encodedPassword);
 
-		return loginService.insertCreateUserSeller(jtownUser);
+		loginService.insertCreateUserSeller(jtownUser);
+	}
 
+	private void createUserAdmin(JtownUser jtownUser) {
+		validateUserDetails(jtownUser);
+
+		// PasswordEncoder SaltSource
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",
+				Locale.KOREA);
+		Date date = new Date();
+		String salt = sdf.format(date);
+		jtownUser.setSalt(salt);
+
+		logger.debug(jtownUser.toString());
+
+		String encodedPassword = passwordEncoder.encodePassword(
+				jtownUser.getPassword(), saltSource.getSalt(jtownUser));
+		jtownUser.setPassword(encodedPassword);
+
+		loginService.insertCreatUserAdmin(jtownUser);
 	}
 
 	private void addUserToGroup(Integer userPn, String groupName) {
@@ -345,5 +367,4 @@ public class CustomJdbcUserDetailManager extends JdbcUserDetailsManager {
 		getJdbcTemplate().update("DELETE FROM users WHERE pn = ?", pn);
 		userCache.removeUserFromCache(username);
 	}
-
 }

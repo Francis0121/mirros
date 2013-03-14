@@ -6,16 +6,34 @@ package com.bg.jtown.business.board;
  */
 public class Board {
 
+	/**
+	 * 게시판 고유번호
+	 */
 	private Integer pn;
 
+	/**
+	 * 게시판 제목
+	 */
 	private String title;
 
+	/**
+	 * 게시판 내용
+	 */
 	private String content;
 
+	/**
+	 * 게시판 입력 날짜
+	 */
 	private String inputDate;
 
+	/**
+	 * 읽은 횟수
+	 */
 	private Integer readCount;
 
+	/**
+	 * 소유자 고유번호
+	 */
 	private Integer ownerPn;
 
 	public Board() {

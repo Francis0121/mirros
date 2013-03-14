@@ -12,8 +12,13 @@ public interface BoardService {
 
 	void updateNotice(Board board);
 
+	void deleteBoard(Board board);
+
 	Board selectNoticeContent(Board board);
 
-	List<Board> selectNoticeList();
+	List<Board> selectNoticeList(BoardFilter boardFilter);
+
+	Integer selectNoticeCount(BoardFilter boardFilter);
+
 
 }

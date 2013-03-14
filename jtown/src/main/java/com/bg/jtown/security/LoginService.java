@@ -12,7 +12,9 @@ public interface LoginService {
 
 	void insertCreatUserCustomer(JtownUser jtownUser);
 
-	Integer insertCreateUserSeller(JtownUser jtownUser);
+	void insertCreateUserSeller(JtownUser jtownUser);
+	
+	void insertCreatUserAdmin(JtownUser jtownUser);
 
 	void addUserToGroup(Map<String, Integer> groupMap);
 
@@ -31,5 +33,6 @@ public interface LoginService {
 	void deleteUserAll();
 
 	Integer selectUsersCount();
+
 
 }

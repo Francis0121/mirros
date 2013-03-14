@@ -24,20 +24,25 @@ public class LoginServiceImpl extends SqlSessionDaoSupport implements
 		return false;
 	}
 
+	private void insertUser(JtownUser jtownUser) {
+		getSqlSession().insert("loginMapper.insertUsers", jtownUser);
+	}
+
 	@Override
 	public void insertCreatUserCustomer(JtownUser jtownUser) {
-		getSqlSession().insert("loginMapper.insertUsers", jtownUser);
-
+		insertUser(jtownUser);
 		getSqlSession().insert("loginMapper.insertUserCustomer", jtownUser);
 	}
 
 	@Override
-	public Integer insertCreateUserSeller(JtownUser jtownUser) {
-		getSqlSession().insert("loginMapper.insertUsers", jtownUser);
-
+	public void insertCreateUserSeller(JtownUser jtownUser) {
+		insertUser(jtownUser);
 		getSqlSession().insert("loginMapper.insertUserSeller", jtownUser);
+	}
 
-		return jtownUser.getPn();
+	@Override
+	public void insertCreatUserAdmin(JtownUser jtownUser) {
+		insertUser(jtownUser);
 	}
 
 	@Override
