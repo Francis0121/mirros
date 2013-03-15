@@ -76,10 +76,18 @@
 								<a href="#none" class="jt-seller-main-image-updateShow" id="jt-seller-main-image-updateShow">수정</a>
 							</li>
 							<li>
-								<c:forEach items="${mainImages }" var="mainImage" varStatus="loop" >
-									<c:url value="/resources/uploadImage/${mainImage eq null ? '8.jpg' : mainImage}" var="image"/>
-									<img alt="" src="${image }" title="${jtownUser.shopName}" id="jt-seller-main-image-area"/>	
-								</c:forEach>
+								<c:choose>
+									<c:when test="${fn:length(mainImages) eq 0 }">
+										<c:url value="/resources/uploadImage/8.jpg" var="image"/>
+										<img alt="" src="${image }" title="${jtownUser.shopName}" id="jt-seller-main-image-area"/>	
+									</c:when>
+									<c:otherwise>
+										<c:forEach items="${mainImages }" var="mainImage" varStatus="loop" >
+											<c:url value="/resources/uploadImage/${mainImage }" var="image"/>
+											<img alt="" src="${image }" title="${jtownUser.shopName}" id="jt-seller-main-image-area"/>	
+										</c:forEach>
+									</c:otherwise>
+								</c:choose>
 							</li>
 							<li id="jt-seller-main-image-update-tool" class="jt-seller-main-image-update-tool">
 								<input type="file" id="jt-represent-image" name="jt-represent-image"/>

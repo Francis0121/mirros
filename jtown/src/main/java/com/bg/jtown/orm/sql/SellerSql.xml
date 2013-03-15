@@ -27,13 +27,43 @@
 			us.pn = #{properNumber}
 	</select>
 	
+	<!-- Seller Image -->
+	
 	<select id="selectSellerImage" parameterType="java.lang.Integer" resultType="java.lang.String">
 		SELECT
 			usin.save_name
 		FROM
 			user_seller_image_name usin
+		<if test="value != null">
 		WHERE
-			usin.seller_pn = #{properNumber}
+			usin.seller_pn = #{value}		
+		</if>	
+	</select>
+	
+	<select id="selectSellerImageOne" parameterType="java.lang.Integer" resultType="java.lang.String">
+		SELECT
+			usin.save_name
+		FROM
+			user_seller_image_name usin
+		<if test="properNumber != null">
+		WHERE
+			usin.seller_pn = #{properNumber}		
+			<if test="imagePn != null">
+			AND
+				usin.image_pn = #{imagePn}
+			</if>
+		</if>	
+	</select>
+	
+	<select id="selectSellerImageCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+		SELECT
+			COUNT(*)
+		FROM
+			user_seller_image
+		<if test="value != null">
+		WHERE
+			seller_pn = #{value}
+		</if>
 	</select>
 	
 	<insert id="insertSellerImage" parameterType="com.bg.jtown.util.FileVO">
@@ -54,6 +84,15 @@
 		AND
 			image_order = 1
 	</update>
+	
+	<delete id="deleteSellerImage" parameterType="java.lang.Integer">
+		DELETE FROM
+			user_seller_image
+		<if test="properNumber != null">
+		WHERE
+			seller_pn = #{properNumber}		
+		</if>
+	</delete>
 	
 	<update id="updateSellerNotice" parameterType="com.bg.jtown.security.JtownUser">
 		UPDATE
