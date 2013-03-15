@@ -68,7 +68,27 @@ public class SellerServiceImpl extends SqlSessionDaoSupport implements
 
 	@Override
 	public List<String> selectSellerImage(Integer properNumber) {
-		return getSqlSession().selectList("sellerMapper.selectSellerImage",
+		List<String> images = getSqlSession().selectList(
+				"sellerMapper.selectSellerImage", properNumber);
+		logger.debug(images.toString());
+		return images;
+	}
+
+	@Override
+	public String selectSellerImageOne(Integer properNumber, Integer imagePn) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("properNumber", properNumber);
+		paramMap.put("imagePn", imagePn);
+
+		String savename = getSqlSession().selectOne(
+				"sellerMapper.selectSellerImageOne", paramMap);
+		logger.debug(savename.toString());
+		return savename;
+	}
+
+	@Override
+	public Integer selectSellerImageCount(Integer properNumber) {
+		return getSqlSession().selectOne("sellerMapper.selectSellerImageCount",
 				properNumber);
 	}
 
@@ -79,12 +99,17 @@ public class SellerServiceImpl extends SqlSessionDaoSupport implements
 
 	@Override
 	public void updateSellerImage(FileVO fileVO) {
-		List<String> saveName = selectSellerImage(fileVO.getOwnerPn());
-		if (saveName != null && saveName.size() != 0) {
+		Integer count = selectSellerImageCount(fileVO.getOwnerPn());
+		if (count != null && count != 0) {
 			getSqlSession().update("sellerMapper.updateSellerImage", fileVO);
 		} else {
 			insertSellerImage(fileVO);
 		}
+	}
+
+	@Override
+	public void deleteSellerImage(Integer properNumber) {
+		getSqlSession().delete("sellerMapper.deleteSellerImage", properNumber);
 	}
 
 	// ~ SellerNotice

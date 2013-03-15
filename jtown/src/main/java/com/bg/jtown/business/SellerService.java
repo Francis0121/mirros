@@ -22,9 +22,15 @@ public interface SellerService {
 
 	List<String> selectSellerImage(Integer properNumber);
 
+	String selectSellerImageOne(Integer properNumber, Integer imagePn);
+
+	Integer selectSellerImageCount(Integer properNumber);
+
 	void insertSellerImage(FileVO fileVO);
 
 	void updateSellerImage(FileVO fileVO);
+
+	void deleteSellerImage(Integer properNumber);
 
 	// ~ SellerNotice
 
@@ -57,7 +63,7 @@ public interface SellerService {
 	Integer selectCommentCount(Integer properNumber);
 
 	// ~ LoveCount
-	
+
 	Integer selectLoveCount(Integer properNumber);
 
 }

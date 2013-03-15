@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.bg.jtown.business.FileService;
+import com.bg.jtown.security.JtownUser;
 import com.bg.jtown.util.FileUtil;
 import com.bg.jtown.util.FileVO;
 import com.bg.jtown.util.MultipartFile;
@@ -78,7 +80,11 @@ public class FileController {
 						fileVO.setSaveName(saveName);
 						fileVO.setMemorySize((int) commonsMultipartFile
 								.getSize());
-
+						
+						JtownUser jtownUser = (JtownUser) SecurityContextHolder.getContext()
+								.getAuthentication().getPrincipal();
+						fileVO.setOwnerPn(jtownUser.getPn());
+						
 						fileService.insertFileVO(fileVO);
 
 						logger.debug("fileVO" + fileVO);
