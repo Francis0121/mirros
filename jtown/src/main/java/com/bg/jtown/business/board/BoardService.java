@@ -19,6 +19,6 @@ public interface BoardService {
 	List<Board> selectNoticeList(BoardFilter boardFilter);
 
 	Integer selectNoticeCount(BoardFilter boardFilter);
-
-
+	
+	void updateReadCount(Integer pn);
 }

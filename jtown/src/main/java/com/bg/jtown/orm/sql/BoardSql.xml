@@ -37,6 +37,8 @@
 				pn, title, content, read_count, input_date
 			FROM 
 				notice
+			ORDER BY
+				pn desc
 		<include refid="paginationAfter"/>
 	</select>
 	
@@ -47,6 +49,8 @@
 			notice
 		WHERE
 			pn = #{pn}
+		ORDER BY
+			pn desc
 	</select>
 	
 	<select id="selectNoticeCount" parameterType="BoardFilter" resultType="Integer">
@@ -85,5 +89,14 @@
 			pn = #{pn}
 		</if>
 	</delete>
+	
+	<update id="increaseReadCount" parameterType="Integer">
+		UPDATE
+			notice
+		SET
+			read_count = (select * from(select max(read_count) + 1 from notice where pn = #{pn}) a)
+		WHERE
+			pn = #{pn}
+	</update>
 
 </mapper>

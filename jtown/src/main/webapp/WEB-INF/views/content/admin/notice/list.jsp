@@ -85,7 +85,7 @@ function goToPreviousPages() {
 	<tbody>
 		<c:forEach items="${noticeList }" var="notice" varStatus="i">
 			<tr class="jt-notice-content-tr" data-pn="<c:out value="${notice.pn }"/>">
-				<td><c:out value="${i.count }"/></td>
+				<td><c:out value="${pagination.numItems - (pagination.currentPage - 1)* 10-i.count+1}"/></td>
 				<td><c:out value="${notice.title }"/></td>
 				<td><c:out value="${fn:substring(notice.inputDate, 0, 19) }"/></td>
 				<td><c:out value="${notice.readCount }"/></td>

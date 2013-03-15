@@ -1,6 +1,7 @@
 package com.bg.jtown.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -155,8 +156,11 @@ public class AdminController {
 	public String showCustomerPage(Model model,
 			@ModelAttribute UserSearch search) {
 		logger.debug("Show Customer Page");
-
-		model.addAllAttributes(adminService.selectCustomerModelMap(search));
+		
+		Map<String, Object> modelMap = adminService.selectCustomerModelMap(search);
+		
+		model.addAllAttributes(modelMap);
+		
 
 		return "admin/customer";
 	}

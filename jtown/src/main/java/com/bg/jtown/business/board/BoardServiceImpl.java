@@ -64,4 +64,10 @@ public class BoardServiceImpl extends SqlSessionDaoSupport implements
 		logger.debug(count.toString());
 		return count;
 	}
+
+	@Override
+	public void updateReadCount(Integer pn) {
+		getSqlSession().update("boardMapper.increaseReadCount", pn);
+
+	}
 }

@@ -33,11 +33,11 @@
 	</logger>
 	
 	<logger name="org.springframework.security">
-		<level value="error" />
+		<level value="info" />
 	</logger>
 	
-	<logger name="java.sql">
-		<level value="debug"/>
+	<logger name="com.bg.jtown.controller.interceptor">
+		<level value="info"/>
 	</logger>	
 
 	<!-- Root Logger -->

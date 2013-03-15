@@ -17,9 +17,9 @@
 		<![CDATA[
 				) z,  
 				( SELECT @RNUM := 0 ) R
-			WHERE @RNUM + 1 <=  #{pagination.itemSeqEnd}#
+			WHERE @RNUM + 1 <=  #{pagination.itemSeqEnd}
 		) t
-		WHERE t.rnum >= #{pagination.itemSeqBegin}#
+		WHERE t.rnum >= #{pagination.itemSeqBegin}
 		]]>
 	</sql>
 
@@ -30,7 +30,19 @@
 		<result column="notice" property="notice"/>
 		<result column="love_count" property="loveCount"/>
 		<result column="view_count" property="viewCount"/>
+		<result column="comment_count" property="commentCount"/>
+		<result column="banner_date" property="bannerDate"/>
+		<collection property="images" column="pn" javaType="java.util.ArrayList" select="selectSellerImage" ofType="java.lang.String"/>
 	</resultMap>
+	
+	<select id="selectSellerImage" parameterType="java.lang.Integer" resultType="java.lang.String">
+		SELECT
+			usin.save_name
+		FROM
+			user_seller_image_name usin
+		WHERE
+			usin.seller_pn = #{properNumber}
+	</select>
 
 	<select id="selectFromInterestCategoryCount" parameterType="com.bg.jtown.business.search.HomeFilter" resultType="java.lang.Integer">
 		SELECT
@@ -60,9 +72,17 @@
 		<include refid="paginationBefore"/>
 		SELECT
 			us.pn , us.shop_name, us.shop_url, us.notice, 
-			us.love_count, us.view_count
+			cvsp.view_count, clsp.love_count, ccsp.comment_count, bdl.banner_date
 		FROM
-			user_seller us,
+			user_seller us 
+			LEFT OUTER JOIN count_love_seller_pn clsp
+			ON us.pn = clsp.seller_pn
+			LEFT OUTER JOIN count_comment_seller_pn ccsp
+			ON us.pn = ccsp.seller_pn
+			LEFT OUTER JOIN banner_diff_least bdl
+			ON us.pn = bdl.seller_pn
+			LEFT OUTER JOIN count_view_seller_pn cvsp
+			ON us.pn = cvsp.seller_pn,
 			user_seller_interest usi,
 			interest_section ise,
 			interest_category ic
@@ -104,10 +124,18 @@
 	<select id="selectFromInterest" parameterType="com.bg.jtown.business.search.HomeFilter" resultMap="jtown-seller-map">
 		<include refid="paginationBefore"/>
 		SELECT
-			us.pn, us.shop_name, us.shop_url, us.notice, 
-			us.love_count, us.view_count
+			us.pn , us.shop_name, us.shop_url, us.notice, 
+			cvsp.view_count, clsp.love_count, ccsp.comment_count, bdl.banner_date
 		FROM
-			user_seller us,
+			user_seller us 
+			LEFT OUTER JOIN count_love_seller_pn clsp
+			ON us.pn = clsp.seller_pn
+			LEFT OUTER JOIN count_comment_seller_pn ccsp
+			ON us.pn = ccsp.seller_pn
+			LEFT OUTER JOIN banner_diff_least bdl
+			ON us.pn = bdl.seller_pn
+			LEFT OUTER JOIN count_view_seller_pn cvsp
+			ON us.pn = cvsp.seller_pn,
 			user_seller_interest usi,
 			interest_section ise,
 			interest_category ic
@@ -189,5 +217,170 @@
 		AND
 			pn = #{commentPn}
 	</delete>
+	
+	<select id="selectLoveCount" parameterType="com.bg.jtown.business.Count" resultType="java.lang.Integer">
+		SELECT
+			COUNT(*)
+		FROM
+			count_love
+		WHERE
+			customer_pn = #{customerPn}
+		AND
+			seller_pn = #{sellerPn}
+	</select>
+	
+	<insert id="insertLoveCount" parameterType="com.bg.jtown.business.Count">
+		INSERT INTO
+			count_love
+			(customer_pn, seller_pn, input_date)
+		VALUES
+			(	#{customerPn},	#{sellerPn}, SYSDATE() )
+	</insert>
+	
+	<delete id="deleteLoveCount" parameterType="com.bg.jtown.business.Count">
+		DELETE FROM
+			count_love
+		WHERE
+			customer_pn = #{customerPn}
+		AND
+			seller_pn = #{sellerPn}
+	</delete>
+
+	<resultMap type="com.bg.jtown.business.Interest" id="jtown-interest-category-map">
+		<result column="pn" property="categoryPn"/>
+		<result column="name" property="name"/>
+	</resultMap>
+
+	<select id="selecInterestCategory" resultMap="jtown-interest-category-map">
+		SELECT
+			pn, name
+		FROM
+			interest_category
+	</select>
+	
+	<resultMap type="com.bg.jtown.business.Interest" id="jtown-interest-map">
+		<result column="category_pn" property="categoryPn"/>
+		<result column="section_pn" property="sectionPn"/>
+		<result column="name" property="name"/>
+	</resultMap>
+
+	<select id="selectInterest" parameterType="java.lang.Integer" resultMap="jtown-interest-map">
+		SELECT
+			ise.category_pn,  uci.section_pn,  ise.name
+		FROM
+			user_customer_interest uci,
+			interest_section ise,
+			interest_category ic
+		WHERE
+			uci.section_pn = ise.pn
+		AND
+			ic.pn = ise.category_pn
+		AND
+			uci.customer_pn = #{customerPn}
+		ORDER BY
+			category_pn, section_pn	
+	</select>
+	
+	<select id="selectInterestSectionCount" parameterType="com.bg.jtown.business.Interest" resultType="java.lang.Integer">
+		SELECT
+			COUNT(*)
+		FROM
+			user_customer_interest
+		WHERE
+			customer_pn = #{customerPn}
+		AND
+			section_pn = #{sectionPn}
+	</select>
+	
+	<insert id="insertInterest" parameterType="com.bg.jtown.business.Interest">
+		INSERT	INTO
+			user_customer_interest
+			(customer_pn, section_pn)
+		VALUES
+			(#{customerPn}, #{sectionPn})
+	</insert>
+	
+	<delete id="deleteInterest" parameterType="com.bg.jtown.business.Interest">
+		DELETE FROM
+			user_customer_interest
+		WHERE
+			customer_pn = #{customerPn}
+		AND
+			section_pn = #{sectionPn}
+	</delete>
+	
+	<resultMap type="com.bg.jtown.business.Interest" id="jtown-interest-section-map">
+		<result column="pn" property="sectionPn"/>
+		<result column="name" property="name"/>
+	</resultMap>
+	
+	<select id="selectInterestSection" parameterType="java.lang.Integer" resultMap="jtown-interest-section-map">
+		SELECT
+			pn, name
+		FROM
+			interest_section
+		WHERE
+			category_pn = #{categoryPn}
+		ORDER BY
+			name
+	</select>
+
+	<select id="selectViewCountIp" parameterType="java.lang.String" resultType="java.lang.Integer">
+		SELECT
+			COUNT(*)
+		FROM
+			view_ip
+		WHERE
+			ip = #{remoteAddr}
+		AND
+			input_date = DATE_FORMAT(SYSDATE(), '%Y-%m-%d')
+	</select>
+	
+	<insert id="insertViewIp" parameterType="java.lang.String">
+		INSERT INTO
+			view_ip
+			(ip, input_date)
+		VALUES
+			( #{remoteAddr}, SYSDATE() )
+	</insert>
+	
+	<select id="selectViewDayCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+		SELECT
+			COUNT(*)
+		FROM
+			view_ip_day
+		WHERE
+			seller_pn = #{sellerPn}
+		AND
+			count_date = DATE_FORMAT(SYSDATE(), '%Y-%m-%d')
+	</select>
+	
+	<insert id="insertViewDayCount" parameterType="java.lang.Integer">
+		INSERT INTO
+			view_ip_day
+			(	seller_pn, count_date, day_count)
+		VALUES
+			(	#{sellerPn}, SYSDATE(), 1)
+	</insert>
+	
+	<update id="updateViewDayCount" parameterType="com.bg.jtown.business.Count">
+		UPDATE
+			view_ip_day
+		SET
+			day_count = #{count}
+		WHERE
+			seller_pn = #{sellerPn}
+		AND
+			count_date = DATE_FORMAT(SYSDATE(), '%Y-%m-%d')
+	</update>
+
+	<select id="selectViewTotalCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+		SELECT
+			view_count
+		FROM
+			count_view_seller_pn
+		WHERE
+			seller_pn = #{sellerPn}
+	</select>
 
 </mapper>

@@ -136,6 +136,15 @@ public class BoardTest {
 		boards = boardService.selectNoticeList(boardFilter);
 		assertThat(boards.size(), is(0));
 	}
+	
+	@Test
+	public void 조회수_증가(){
+		boardService.updateReadCount(1);
+		
+		Board board = boardService.selectNoticeContent(new Board(1, null, null, null, null, null));
+		
+		assertThat(board.getReadCount(), is(1));
+	}
 
 	private void confirmBoardAndLoadBoard(Board board, Board loadBoard) {
 		assertThat(board.getTitle(), is(loadBoard.getTitle()));
