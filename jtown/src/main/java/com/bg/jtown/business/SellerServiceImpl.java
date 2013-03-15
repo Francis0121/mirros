@@ -116,7 +116,15 @@ public class SellerServiceImpl extends SqlSessionDaoSupport implements
 
 	@Override
 	public void updateSellerNotice(JtownUser jtownUser) {
-		getSqlSession().update("sellerMapper.updateSellerNotice", jtownUser);
+		String notice = jtownUser.getNotice();
+		if (notice.length() < 100) {
+			getSqlSession()
+					.update("sellerMapper.updateSellerNotice", jtownUser);
+		} else {
+			logger.error("=================");
+			logger.error("Notice Over Flow ");
+			logger.error(jtownUser.getNotice());
+		}
 	}
 
 	// ~ SellerEvent
