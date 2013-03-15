@@ -17,7 +17,6 @@
 <script src="${cp}resources/js/jquery.form.js"></script>
 <script src="${cp}resources/js/json.min.js"></script>
 <script src="${cp}resources/js/jquery.masonry.js"></script>
-<script src="${cp}resources/js/jquery.infinitescroll.js"></script>
 <script src="${cp}resources/js/jquery.plugin.js"></script>
 <script src="${cp}resources/js/jquery.scroll.pagination.js"></script>
 <script src="${cp}resources/uploadify/jquery.uploadify.min.js"></script>

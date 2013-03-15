@@ -15,9 +15,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -94,48 +92,6 @@ public class HomeController {
 			mav.addObject("two", two);
 		}
 		return mav;
-	}
-
-	@RequestMapping(value = "/cpn/{categoryPn}/spn/{sectionPn}/page/{page}", method = RequestMethod.GET)
-	public String showPagination(@ModelAttribute HomeFilter homeFilter,
-			@PathVariable Integer page, Model model, HttpServletRequest request) {
-		logger.debug("Show Pagination page");
-		logger.debug("HomeFilter Page " + page + " " + homeFilter.toString());
-
-		HttpSession session = request.getSession();
-		@SuppressWarnings("unchecked")
-		List<Integer> randomPage = (List<Integer>) session
-				.getAttribute("randomPage");
-		if (randomPage.size() > page - 1) {
-			homeFilter.setPage(randomPage.get(page - 1));
-			model.addAllAttributes(homeService.selectHome(homeFilter));
-			return "pagination";
-		} else {
-			return "pageFinish";
-		}
-	}
-
-	@RequestMapping(value = "/ajax/homePagination.jt", method = RequestMethod.POST)
-	@ResponseBody
-	@SuppressWarnings("unchecked")
-	public Object ajaxHomePagination(@RequestBody HomeFilter homeFilter,
-			HttpServletRequest request) {
-		logger.debug("Ajax Pagination page" + homeFilter.toString()
-				+ ", Page [ " + homeFilter.getPage() + " ] ");
-
-		HttpSession session = request.getSession();
-		List<Integer> randomPage = (List<Integer>) session
-				.getAttribute("randomPage");
-
-		Integer page = homeFilter.getCurrentPage();
-		if (randomPage.size() > page - 1) {
-			homeFilter.setPage(randomPage.get(page - 1));
-			Map<String, Object> object = homeService.selectHome(homeFilter);
-			logger.debug("Home Pagination " + object);
-			return object;
-		} else {
-			return null;
-		}
 	}
 
 	@RequestMapping(value = "/process")
@@ -362,6 +318,29 @@ public class HomeController {
 				logger.debug(interestMap.toString());
 				session.setAttribute("interestMap", interestMap);
 			}
+		}
+	}
+
+	@RequestMapping(value = "/ajax/homePagination.jt", method = RequestMethod.POST)
+	@ResponseBody
+	@SuppressWarnings("unchecked")
+	public Object ajaxHomePagination(@RequestBody HomeFilter homeFilter,
+			HttpServletRequest request) {
+		logger.debug("Ajax Pagination page" + homeFilter.toString()
+				+ ", Page [ " + homeFilter.getPage() + " ] ");
+
+		HttpSession session = request.getSession();
+		List<Integer> randomPage = (List<Integer>) session
+				.getAttribute("randomPage");
+
+		Integer page = homeFilter.getCurrentPage();
+		if (randomPage.size() > page - 1) {
+			homeFilter.setPage(randomPage.get(page - 1));
+			Map<String, Object> object = homeService.selectHome(homeFilter);
+			logger.debug("Home Pagination " + object);
+			return object;
+		} else {
+			return null;
 		}
 	}
 }
