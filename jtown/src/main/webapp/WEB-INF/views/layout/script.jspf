@@ -30,7 +30,6 @@
 <script src="${cp}resources/js/expand.js"></script>
 <script src="${cp}resources/js/comment.js"></script>
 <script src="${cp}resources/js/board.js"></script>
-<input type="hidden" id="__current_page" value="3"/>
 <script type="text/javascript">
 /* <![CDATA[ */   
 	var $container = $('#jt-home-container');
@@ -51,7 +50,7 @@
 			var html = jtown.home.html(data);
 			var $boxes = $(html);
 			$('#jt-home-container').append($boxes).masonry('appended', $boxes);
-			setTimeout(jtown.expand.loadExpandShop(), 0);
+			setTimeout('jtown.expand.loadExpandShop()', 0);
 		},
 		'maxPage'		: <c:out value='${homeFilter.pagination.numPages}'/>
 	});
