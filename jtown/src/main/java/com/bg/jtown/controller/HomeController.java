@@ -60,15 +60,15 @@ public class HomeController {
 		HttpSession session = request.getSession();
 		session.setAttribute("randomPage", randomPage);
 		logger.debug("RandomPage Controller" + randomPage.get(0));
-		
+
 		homeFilter.setPage(randomPage.get(0));
 		Map<String, Object> one = homeService.selectHome(homeFilter);
 		mav.addObject("one", one);
-		
-		homeFilter.setPage(randomPage.get(1));
-		Map<String, Object> two = homeService.selectHome(homeFilter);
-		mav.addObject("two", two);
-		
+		if (randomPage.size() > 1) {
+			homeFilter.setPage(randomPage.get(1));
+			Map<String, Object> two = homeService.selectHome(homeFilter);
+			mav.addObject("two", two);
+		}
 		return mav;
 	}
 
@@ -84,14 +84,15 @@ public class HomeController {
 		HttpSession session = request.getSession();
 		session.setAttribute("randomPage", randomPage);
 		logger.debug("RandomPage Controller" + randomPage.get(0));
-		
+
 		homeFilter.setPage(randomPage.get(0));
 		Map<String, Object> one = homeService.selectHome(homeFilter);
 		mav.addObject("one", one);
-		
-		homeFilter.setPage(randomPage.get(1));
-		Map<String, Object> two = homeService.selectHome(homeFilter);
-		mav.addObject("two", two);
+		if (randomPage.size() > 1) {
+			homeFilter.setPage(randomPage.get(1));
+			Map<String, Object> two = homeService.selectHome(homeFilter);
+			mav.addObject("two", two);
+		}
 		return mav;
 	}
 
