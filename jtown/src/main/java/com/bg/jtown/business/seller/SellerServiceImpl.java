@@ -135,15 +135,13 @@ public class SellerServiceImpl extends SqlSessionDaoSupport implements
 	// ~ SellerEvent
 
 	@Override
-	public Map<String, Event> selectSellerEvent(Integer properNumber) {
-		List<Event> events = getSqlSession().selectList(
-				"sellerMapper.selectSellerEvent", properNumber);
+	public Map<String, Event> selectSellerEvent(Integer userPn) {
+		List<Event> events = selectEventList(userPn);
 
 		Map<String, Event> eventMap = new HashMap<String, Event>();
-
-		if (events == null) {
+		if (events == null)
 			return eventMap;
-		}
+
 		for (Event event : events) {
 			eventMap.put("event" + event.getBannerOrder().toString(), event);
 		}
@@ -151,16 +149,44 @@ public class SellerServiceImpl extends SqlSessionDaoSupport implements
 	}
 
 	@Override
-	public void insertSellerEvent(Event event) {
+	public List<Event> selectEventList(Integer userPn) {
+		return getSqlSession().selectList("sellerMapper.selectEventList",
+				userPn);
+	}
+
+	@Override
+	public Event selectEventOne(Integer eventPn) {
+		return getSqlSession()
+				.selectOne("sellerMapper.selectEventOne", eventPn);
+	}
+
+	@Override
+	public Integer selectEventCount(Integer userPn) {
+		return getSqlSession().selectOne("sellerMapper.selectEventCount",
+				userPn);
+	}
+
+	@Override
+	public void deleteEvent(Event event) {
+		getSqlSession().delete("sellerMapper.deleteEvent", event);
+	}
+
+	@Override
+	public void insertEvent(Event event) {
 		getSqlSession().insert("sellerMapper.insertSellerEvent", event);
 	}
 
 	@Override
-	public void updateSellerEvent(Event event) {
+	public void updateEvent(Event event) {
+		getSqlSession().update("sellerMapper.updateSellerEvent", event);
+	}
+
+	@Override
+	public void updateAndInsertEvent(Event event) {
 		if (event.getPn() != null && !event.getPn().equals("")) {
-			getSqlSession().update("sellerMapper.updateSellerEvent", event);
+			updateEvent(event);
 		} else {
-			insertSellerEvent(event);
+			insertEvent(event);
 		}
 		publisher.eventPublish(event);
 	}

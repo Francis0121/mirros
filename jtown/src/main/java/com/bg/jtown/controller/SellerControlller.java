@@ -22,7 +22,7 @@ import com.bg.jtown.business.Event;
 import com.bg.jtown.business.seller.SellerService;
 
 /**
- * @author Francis, 김성근
+ * @author Francis
  * 
  */
 @Controller
@@ -33,6 +33,8 @@ public class SellerControlller {
 
 	@Resource
 	private SellerService sellerService;
+
+	// ~ Show
 
 	@PreAuthorize("hasRole('ROLE_SELLER')")
 	@RequestMapping(value = "/seller/{p}", method = RequestMethod.GET)
@@ -49,6 +51,8 @@ public class SellerControlller {
 		return "seller";
 	}
 
+	// ~ Form
+
 	@PreAuthorize("hasRole('ROLE_SELLER')")
 	@RequestMapping(value = "/seller/dp.jt", method = RequestMethod.POST)
 	public String formDeleteProduct(@ModelAttribute Product product) {
@@ -60,6 +64,19 @@ public class SellerControlller {
 		sellerService.deleteSellerProduct(product);
 
 		return "redirect:" + user.getPn();
+	}
+
+	// ~ Ajax
+
+	@PreAuthorize("hasRole('ROLE_SELLER')")
+	@RequestMapping(value = "/ajax/seller/insertProduct.jt", method = RequestMethod.POST)
+	@ResponseBody
+	public Product ajaxChangeNotice(@RequestBody Product product) {
+		JtownUser user = (JtownUser) SecurityContextHolder.getContext()
+				.getAuthentication().getPrincipal();
+		product.setSellerPn(user.getPn());
+		sellerService.insertSellerProduct(product);
+		return product;
 	}
 
 	@PreAuthorize("hasRole('ROLE_SELLER')")
@@ -85,23 +102,12 @@ public class SellerControlller {
 	@PreAuthorize("hasRole('ROLE_SELLER')")
 	@RequestMapping(value = "/ajax/seller/changeEvent.jt", method = RequestMethod.POST)
 	@ResponseBody
-	public void ajaxChangeNotice(@RequestBody Event event) {
+	public void ajaxChangeEvent(@RequestBody Event event) {
 		JtownUser user = (JtownUser) SecurityContextHolder.getContext()
 				.getAuthentication().getPrincipal();
 		event.setSellerPn(user.getPn());
 		event.setBannerType(1);
-		sellerService.updateSellerEvent(event);
-	}
-
-	@PreAuthorize("hasRole('ROLE_SELLER')")
-	@RequestMapping(value = "/ajax/seller/insertProduct.jt", method = RequestMethod.POST)
-	@ResponseBody
-	public Product ajaxChangeNotice(@RequestBody Product product) {
-		JtownUser user = (JtownUser) SecurityContextHolder.getContext()
-				.getAuthentication().getPrincipal();
-		product.setSellerPn(user.getPn());
-		sellerService.insertSellerProduct(product);
-		return product;
+		sellerService.updateAndInsertEvent(event);
 	}
 
 }

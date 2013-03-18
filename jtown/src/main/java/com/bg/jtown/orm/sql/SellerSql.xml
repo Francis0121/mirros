@@ -94,6 +94,8 @@
 		</if>
 	</delete>
 	
+	<!-- Notice -->
+	
 	<update id="updateSellerNotice" parameterType="com.bg.jtown.security.JtownUser">
 		UPDATE
 			user_seller
@@ -102,6 +104,8 @@
 		WHERE
 			pn = #{pn}
 	</update>
+	
+	<!-- Event -->
 	
 	<resultMap type="com.bg.jtown.business.Event" id="jtown-event-map">
 		<result column="pn" property="pn"/>
@@ -113,7 +117,7 @@
 		<result column="save_name" property="saveName"/>
 	</resultMap>
 	
-	<select id="selectSellerEvent" parameterType="java.lang.Integer" resultMap="jtown-event-map">
+	<select id="selectEventList" parameterType="java.lang.Integer" resultMap="jtown-event-map">
 		SELECT
 			usb.pn, usb.seller_pn, usb.banner_type, usb.image_pn, usb.content, usb.banner_order,
 			i.save_name
@@ -122,9 +126,39 @@
 			LEFT OUTER JOIN image i
 			ON usb.image_pn = i.pn
 		WHERE
-			usb.seller_pn = #{properNumber}
+			usb.seller_pn = #{userPn}
 		ORDER BY usb.banner_order
-	</select>	
+	</select>
+	
+	<select id="selectEventOne" parameterType="java.lang.Integer" resultType="com.bg.jtown.business.Event">
+		SELECT
+			pn, seller_pn AS sellerPn, banner_type AS bannerType,
+			image_pn AS imagePn, content, banner_order AS bannerOrder
+		FROM
+			user_seller_banner
+		WHERE
+			pn = #{eventPn}
+	</select>
+	
+	<select id="selectEventCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+		SELECT
+			COUNT(pn)
+		FROM
+			user_seller_banner
+		WHERE
+			seller_pn = #{userPn}
+	</select>
+		
+	<delete id="deleteEvent" parameterType="com.bg.jtown.business.Event">
+		DELETE FROM
+			user_seller_banner
+		<if test="pn != null">
+		WHERE
+			pn = #{pn}
+		AND
+			seller_pn = #{sellerPn}
+		</if>
+	</delete>
 	
 	<insert id="insertSellerEvent" parameterType="com.bg.jtown.business.Event">
 		INSERT INTO
@@ -151,6 +185,8 @@
 			seller_pn = #{sellerPn}
 	</update>
 
+	<!-- Interest -->
+
 	<select id="selectSellerInterest" parameterType="java.lang.Integer" resultType="java.lang.String">
 		SELECT
 			ise.name
@@ -162,6 +198,8 @@
 		AND
 			usi.section_pn  = pn 
 	</select>
+
+	<!-- Product -->
 
 	<select id="selectSellerProduct" parameterType="java.lang.Integer" resultType="com.bg.jtown.business.Product">
 		SELECT
@@ -212,6 +250,8 @@
 		</selectKey>
 	</insert>
 	
+	<!-- CommentCount -->
+	
 	<select id="selectCommentCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
 		SELECT
 			comment_count
@@ -220,6 +260,8 @@
 		WHERE
 			seller_pn = #{properNumber}
 	</select>
+
+	<!-- LoveCount -->
 
 	<select id="selectLoveCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
 		SELECT

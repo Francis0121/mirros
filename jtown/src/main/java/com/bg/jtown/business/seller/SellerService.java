@@ -40,11 +40,21 @@ public interface SellerService {
 
 	// ~ SellerEvent
 
-	Map<String, Event> selectSellerEvent(Integer properNumber);
+	Map<String, Event> selectSellerEvent(Integer userPn);
 
-	void insertSellerEvent(Event event);
+	List<Event> selectEventList(Integer userPn);
 
-	void updateSellerEvent(Event event);
+	Event selectEventOne(Integer eventPn);
+
+	Integer selectEventCount(Integer userPn);
+
+	void deleteEvent(Event event);
+
+	void insertEvent(Event event);
+
+	void updateEvent(Event event);
+
+	void updateAndInsertEvent(Event event);
 
 	// ~ SellerInterest
 
@@ -59,7 +69,7 @@ public interface SellerService {
 	Product selectSellerProductOne(Integer productPn);
 
 	void deleteProduct(Product product);
-	
+
 	void deleteSellerProduct(Product product);
 
 	void insertProduct(Product product2);
