@@ -54,28 +54,6 @@ function changeFileString(character) {
 }
 
 /**
- * 문자열을 받아 파일 이름을 반환해주는 메소드
- * 
- * @param character
- *            'saveName : 1234.jpg, imagePn : 1'
- * @returns 1234.jpg
- */
-function getFile(character){
-	//TODO Error 처리
-	character = changeFileString(character);
-	
-	var list = character.split(',');
-	var saveName = list[0].split(':');
-	var imagePn = list[1].split(':');
-	
-	var file = { 	'saveName' 	: 	saveName[1],
-					'imagePn'	:	imagePn[1]	};
-	
-	return file;
-}
-
-
-/**
  * nullValue 값을 체크
  * 
  * @param object

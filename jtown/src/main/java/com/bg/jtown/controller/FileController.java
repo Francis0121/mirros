@@ -80,21 +80,24 @@ public class FileController {
 						fileVO.setSaveName(saveName);
 						fileVO.setMemorySize((int) commonsMultipartFile
 								.getSize());
-						
-						JtownUser jtownUser = (JtownUser) SecurityContextHolder.getContext()
-								.getAuthentication().getPrincipal();
+
+						JtownUser jtownUser = (JtownUser) SecurityContextHolder
+								.getContext().getAuthentication()
+								.getPrincipal();
 						fileVO.setOwnerPn(jtownUser.getPn());
-						
+
 						fileService.insertFileVO(fileVO);
 
 						logger.debug("fileVO" + fileVO);
 
 						StringBuffer param = new StringBuffer();
-
-						param.append("saveName:").append(fileVO.getSaveName())
-								.append(",");
-						param.append("imagePn:").append(fileVO.getImagePn());
-
+						param.append("{");
+						param.append("saveName : '")
+								.append(fileVO.getSaveName()).append("'");
+						param.append(",");
+						param.append("imagePn : '").append(fileVO.getImagePn())
+								.append("'");
+						param.append("}");
 						writer.print(param.toString());
 					} catch (FileNotFoundException e) {
 						e.printStackTrace();

@@ -21,7 +21,7 @@ $(document).ready(function() {
 		'uploader' : contextPath + 'file/upload.jt',
 		'itemTemplate' : '<div></div>',
 		'onUploadSuccess' : function(file, data, response){
-			jtown.seller.secondEvent(getFile(data));
+			jtown.seller.secondEvent(eval('('+data+')'));
 		}
 	});
 	
@@ -31,7 +31,7 @@ $(document).ready(function() {
 		'uploader' : contextPath + 'file/upload.jt',
 		'itemTemplate' : '<div></div>',
 		'onUploadSuccess' : function(file, data, response){
-			jtown.seller.firstEvent(getFile(data));
+			jtown.seller.firstEvent(eval('('+data+')'));
 		}
 	});
 	
@@ -41,7 +41,7 @@ $(document).ready(function() {
 		'uploader' : contextPath + 'file/upload.jt',
 		'itemTemplate' : '<div></div>',
 		'onUploadSuccess' : function(file, data, response){
-			jtown.seller.mainImage(getFile(data));
+			jtown.seller.mainImage(eval('('+data+')'));
 		}
 	});
 	
@@ -50,7 +50,7 @@ $(document).ready(function() {
 		'uploader' : contextPath + 'file/upload.jt',
 		'itemTemplate' : '<div></div>',
 		'onUploadSuccess' : function(file, data, response){
-			jtown.seller.productImage(getFile(data));
+			jtown.seller.productImage(eval('('+data+')'));
 		}
 	});
 });
