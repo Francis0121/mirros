@@ -110,6 +110,19 @@ public class SellerImageTest {
 		assertThat(saveName, is(fileVO1.getSaveName()));
 	}
 
+	@Test
+	public void 이미지_업로드_되지않고_수정클릭시() throws Exception {
+		fileService.insertFileVO(fileVO1);
+		sellerService.updateSellerImage(fileVO1);
+
+		sellerService.updateSellerImage(new FileVO(null, null, null,
+				loadJtownUser.getPn(), null));
+
+		String saveName = sellerService.selectSellerImageOne(
+				loadJtownUser.getPn(), fileVO1.getImagePn());
+		assertThat(saveName, is(fileVO1.getSaveName()));
+	}
+
 	/**
 	 * 현재 Controller 로직과 같음 Insert는 하나밖에 못하도록 되있고 파일 가져오는것도 한개임
 	 * 

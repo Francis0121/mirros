@@ -50,11 +50,17 @@ public interface SellerService {
 
 	// ~ SellerProduct
 
-	List<Product> selectSellerProduct(Integer properNumber);
+	List<Product> selectSellerProduct(Integer userPn);
 
-	Integer selectSellerProductCount(Integer properNumber);
+	Integer selectSellerProductCount(Integer userPn);
 
+	Product selectSellerProductOne(Integer productPn);
+
+	void deleteProduct(Product product);
+	
 	void deleteSellerProduct(Product product);
+
+	void insertProduct(Product product2);
 
 	void insertSellerProduct(Product product);
 

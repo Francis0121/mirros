@@ -100,6 +100,10 @@ public class SellerServiceImpl extends SqlSessionDaoSupport implements
 	@Override
 	public void updateSellerImage(FileVO fileVO) {
 		Integer count = selectSellerImageCount(fileVO.getOwnerPn());
+		Integer imagePn = fileVO.getImagePn();
+		if (imagePn == null || imagePn == 0)
+			return;
+
 		if (count != null && count != 0) {
 			getSqlSession().update("sellerMapper.updateSellerImage", fileVO);
 		} else {
@@ -121,8 +125,7 @@ public class SellerServiceImpl extends SqlSessionDaoSupport implements
 			getSqlSession()
 					.update("sellerMapper.updateSellerNotice", jtownUser);
 		} else {
-			logger.error("=================");
-			logger.error("Notice Over Flow ");
+			logger.error("=================> Notice Over Flow Character 100");
 			logger.error(jtownUser.getNotice());
 		}
 	}
@@ -171,24 +174,51 @@ public class SellerServiceImpl extends SqlSessionDaoSupport implements
 	// ~ Seller Product
 
 	@Override
-	public List<Product> selectSellerProduct(Integer properNumber) {
+	public List<Product> selectSellerProduct(Integer userPn) {
 		return getSqlSession().selectList("sellerMapper.selectSellerProduct",
-				properNumber);
+				userPn);
 	}
 
 	@Override
-	public Integer selectSellerProductCount(Integer properNumber) {
+	public Integer selectSellerProductCount(Integer userPn) {
 		return getSqlSession().selectOne(
-				"sellerMapper.selectSellerProductCount", properNumber);
+				"sellerMapper.selectSellerProductCount", userPn);
+	}
+
+	@Override
+	public Product selectSellerProductOne(Integer productPn) {
+		return getSqlSession().selectOne("sellerMapper.selectSellerProductOne",
+				productPn);
 	}
 
 	@Override
 	public void deleteSellerProduct(Product product) {
+		Integer sellerPn = product.getSellerPn();
+		Integer count = selectSellerProductCount(sellerPn);
+		if (count < 4) {
+			product = null;
+			return;
+		}
+		deleteProduct(product);
+	}
+
+	@Override
+	public void deleteProduct(Product product) {
 		getSqlSession().delete("sellerMapper.deleteSellerProduct", product);
 	}
 
 	@Override
 	public void insertSellerProduct(Product product) {
+		Integer sellerPn = product.getSellerPn();
+		Integer count = selectSellerProductCount(sellerPn);
+		if (count >= 10) {
+			return;
+		}
+		insertProduct(product);
+	}
+
+	@Override
+	public void insertProduct(Product product) {
 		getSqlSession().insert("sellerMapper.insertSellerProduct", product);
 	}
 

@@ -170,7 +170,7 @@
 			user_seller_product usp,
 			image i
 		WHERE
-			usp.seller_pn = #{properNumber}
+			usp.seller_pn = #{userPn}
 		AND
 			usp.image_pn = i.pn
 		ORDER BY
@@ -178,16 +178,27 @@
 	</select>
 	
 	<select id="selectSellerProductCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
-		SELECT	COUNT(pn) FROM	user_seller_product WHERE seller_pn = #{properNumber}
+		SELECT	COUNT(pn) FROM	user_seller_product WHERE seller_pn = #{userPn}
+	</select>
+	
+	<select id="selectSellerProductOne" parameterType="java.lang.Integer" resultType="com.bg.jtown.business.Product">
+		SELECT
+			pn, seller_pn AS sellerPn, image_pn AS imagePn
+		FROM
+			user_seller_product
+		WHERE
+			pn = #{productPn}
 	</select>
 	
 	<delete id="deleteSellerProduct" parameterType="com.bg.jtown.business.Product">
 		DELETE	FROM
 			user_seller_product
+		<if test="pn != null">
 		WHERE
 			pn = #{pn}
 		AND
-			seller_pn = #{sellerPn}
+			seller_pn = #{sellerPn}		
+		</if>
 	</delete>
 	
 	<insert id="insertSellerProduct" parameterType="com.bg.jtown.business.Product">

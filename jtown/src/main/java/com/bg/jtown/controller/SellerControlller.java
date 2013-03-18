@@ -100,12 +100,6 @@ public class SellerControlller {
 		JtownUser user = (JtownUser) SecurityContextHolder.getContext()
 				.getAuthentication().getPrincipal();
 		product.setSellerPn(user.getPn());
-
-		Integer count = sellerService.selectSellerProductCount(user.getPn());
-		if (count >= 10) {
-			return null;
-		}
-		
 		sellerService.insertSellerProduct(product);
 		return product;
 	}

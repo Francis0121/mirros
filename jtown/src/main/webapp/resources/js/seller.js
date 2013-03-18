@@ -175,7 +175,7 @@ jtown.seller.productImage = function(file){
 		json = { 'imagePn' : file.imagePn};
 	
 	$.postJSON(url, json, function(product){
-		if(!nullValueCheck(product)){
+		if(!nullValueCheck(product.pn)){
 			var $parent = $('#jt-home-expand-shop'),
 				size = Number($parent.attr('data-size'))+1,
 				image = contextPath + 'resources/uploadImage/'+file.saveName;
