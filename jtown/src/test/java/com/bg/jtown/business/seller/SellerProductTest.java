@@ -15,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.bg.jtown.business.FileService;
 import com.bg.jtown.business.Product;
-import com.bg.jtown.business.SellerService;
 import com.bg.jtown.security.CustomJdbcUserDetailManager;
 import com.bg.jtown.security.JtownUser;
 import com.bg.jtown.security.LoginService;

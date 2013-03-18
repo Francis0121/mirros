@@ -1,4 +1,4 @@
-package com.bg.jtown.business;
+package com.bg.jtown.business.seller;
 
 import java.util.HashMap;
 import java.util.List;
@@ -11,6 +11,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import com.bg.jtown.business.Event;
+import com.bg.jtown.business.Product;
 import com.bg.jtown.redis.Publisher;
 import com.bg.jtown.security.JtownUser;
 import com.bg.jtown.util.FileVO;

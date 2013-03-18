@@ -16,10 +16,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bg.jtown.business.Product;
-import com.bg.jtown.business.SellerService;
 import com.bg.jtown.security.JtownUser;
 import com.bg.jtown.util.FileVO;
 import com.bg.jtown.business.Event;
+import com.bg.jtown.business.seller.SellerService;
 
 /**
  * @author Francis, 김성근

@@ -1,8 +1,10 @@
-package com.bg.jtown.business;
+package com.bg.jtown.business.seller;
 
 import java.util.List;
 import java.util.Map;
 
+import com.bg.jtown.business.Event;
+import com.bg.jtown.business.Product;
 import com.bg.jtown.security.JtownUser;
 import com.bg.jtown.util.FileVO;
 
