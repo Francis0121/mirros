@@ -1,0 +1,39 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
+<div class="jt-header-nav-wrap">
+	<div class="jt-header-nav-left">
+		<a>&lt;</a>
+	</div>
+	<div class="jt-header-nav-scroll">
+		<ul class="jt-header-nav-all" style="width: <c:out value="${119*10+2}"/>px;">
+			<c:forEach var="interestCategory" items="${interestCategories }" varStatus="loop">
+				<c:set var="cpn" value="${interestCategory.categoryPn}"/>
+				<c:set var="interests" value="${interestMap[cpn] }"></c:set>
+				<li class="jt-header-nav-top" id="cpn_${cpn }">
+					<c:url value="/cpn/${cpn}/spn/0" var="search"/>
+					<a href="${search }"><c:out value="${interestCategory.name }"/></a>
+				</li>
+				<c:forEach items="${interests }" var="interest">
+					<c:set var="spn" value="${interest.sectionPn }"/>
+					<li class="jt-header-nav-down" data-spn="${spn }" data-cpn="${cpn }">
+						<div class="jt-header-nav-down-delete">
+							<a href="#none" >X</a>
+						</div>
+						<c:url value="/cpn/0/spn/${spn }" var="search"/>
+						<a href="${search }">${interest.name }</a>
+					</li>
+				</c:forEach>
+			</c:forEach>
+		</ul>
+	</div>
+	<div class="jt-header-nav-right">
+		<a>&gt;</a>
+	</div>
+</div>
+<div class="jt-header-search">
+	<input type="text"/>
+</div>

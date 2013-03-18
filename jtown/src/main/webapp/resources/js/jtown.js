@@ -18,6 +18,19 @@ $(document).ready(function(){
 		});
 	});
 	
+	$('.jt-header-nav-interestCategory-li').unbind('mouseover mouseout');
+	$('.jt-header-nav-interestCategory-li').bind('mouseover mouseout', function(event){
+		$('.jt-header-nav-interest').hide();
+		var $interest = $(this).find('.jt-header-nav-interest');
+		if(event.type == 'mouseover'){
+			$interest.show();
+		}
+	});
+	$('.jt-header-nav-interest').unbind('mouseout');
+	$('.jt-header-nav-interest').bind('mouseout',function(){
+		$(this).hide();
+	});
+	
 	$('#jt-person-addInterest').unbind('click');
 	$('#jt-person-addInterest').bind('click', function(){
 		jtown.header.addInterest(1);
