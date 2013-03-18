@@ -128,10 +128,11 @@
 /*************************
 *	꼬리말
 **************************/
-.jt-footer{ width: 100%; float: left; background: #e5e5e5; position: fixed; bottom: 0;}
+.jt-footer{ width: 100%; float: left; background: #e5e5e5; position: fixed; bottom: 0; display: none;}
 .jt-footer-nav{ width: 990px; margin:auto; font-size: 12px; min-height: 20px; padding: 10px 0 0 0;}
 .jt-footer-nav>li{float: left; margin-right: 10px;}
 .jt-footer-company-info{ width: 990px; margin: auto; font-size: 12px; min-height: 50px; line-height: 1.4; color: #808080;}
+#watermark {position:absolute; z-index: 10; }
 /*************************
 *	공통적용
 **************************/
