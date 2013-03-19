@@ -29,7 +29,7 @@ $(document).ready(function(){
 	});
 	
 	$('#jt-mypage').unbind('mouseover mouseout');
-	$('#jt-mypage').bind('mouseover mouseout', function(){
+	$('#jt-mypage').bind('mouseover mouseout', function(event){
 		var mypage = $('#jt-mypage-wrap');
 		if(event.type == 'mouseover'){
 			mypage.show();
@@ -39,7 +39,7 @@ $(document).ready(function(){
 	});
 	
 	$('#jt-help').unbind('mouseover mouseout');
-	$('#jt-help').bind('mouseover mouseout', function(){
+	$('#jt-help').bind('mouseover mouseout', function(event){
 		var help = $('#jt-help-wrap');
 		if(event.type == 'mouseover'){
 			help.show();
