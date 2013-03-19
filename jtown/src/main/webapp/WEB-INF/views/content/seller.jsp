@@ -96,19 +96,8 @@
 								<a href="#none" id="jt-seller-main-image-cancle">취소</a>
 							</li>
 						</ul>
-						<ul class="jt-home-shop-content-fn">
-							<li>
-								VIEW <c:out value="${jtownUser.viewCount eq null ? 0 : jtownUser.viewCount}"/>	
-							</li>
-							<li>
-								COMMENT <c:out value="${jtownUser.commentCount eq null ? 0 : jtownUser.commentCount}"/>
-							</li>
-							<li>
-								♥ <c:out value="${jtownUser.loveCount eq null ? 0 : jtownUser.loveCount}"/>
-							</li>
-						</ul>
 					</div>
-					<footer id="jt-seller-main-footer">
+					<div id="jt-seller-main-footer" class="jt-home-notice">
 						<div class="jt-seller-main-notice-hover-tool" id="jt-seller-main-notice-hover-tool">
 							<a href="#none" id="jt-seller-main-notice-updateShow" class="jt-seller-main-notice-updateShow">수정</a>
 						</div>
@@ -120,7 +109,23 @@
 							<a href="#none" id="jt-seller-main-notice-cancle" class="jt-seller-main-notice-cancle">취소</a>
 						</div>
 						<span class="jt-home-shop-footer-lastQuotationMark">"</span>
-					</footer>
+					</div>
+					<ul class="jt-home-shop-content-fn">
+						<li>
+							<span class="jt-home-shop-view">VIEW</span>&nbsp;<span id="view-<c:out value="${jtownUser.pn}"/>"><c:out value="${jtownUser.viewCount eq null ? 0 : jtownUser.viewCount}"/></span>	
+						</li>
+						<li>
+							<span class="jt-home-shop-love">♥</span>&nbsp;<span id="love-<c:out value="${jtownUser.pn}"/>"><c:out value="${jtownUser.loveCount eq null ? 0 : jtownUser.loveCount}"/></span>
+							<span id="new-<c:out value="${jtownUser.pn }"/>">
+							<c:if test="${jtownUser.bannerDate ne null and jtownUser.bannerDate < 7 }">
+								new
+							</c:if>
+							</span>
+						</li>
+						<li>
+							<span class="jt-home-shop-comment">COMMENT</span>&nbsp;<span id="comment-<c:out value="${jtownUser.pn }"/>"><c:out value="${jtownUser.commentCount eq null ? 0 : jtownUser.commentCount}"/></span>
+						</li>
+					</ul>
 				</div>
 			</section>
 			<section class="jt-seller-expand">

@@ -5,13 +5,21 @@
 *	/ - home
 *
 */
-.jt-home-shop{ float: left; width:316px; margin: 5px; border: 2px solid #999999; }
-.jt-home-shop>header{ float: left; width: 100%; font-size: 12px; }
-.jt-home-shop>header>a{ float: left; width: 100%; text-align: center; margin-top: 10px;  height: 20px;}
-.jt-home-shop>footer{ font-size: 12px; font-family: Dotum;}
-.jt-home-shop-footer-firstQuotationMark{ float: left; width: 100%; text-align: center; font-weight: bold; padding: 5px 0; height: 15px; }
-.jt-home-shop-footer-text{ float: left; width: 94%; padding: 2px 3%; text-align: left; font-size: 12px; min-height: 30px; line-height: 1.5; white-space: pre-wrap; /* CSS3*/white-space: -moz-pre-wrap; /* Mozilla, since 1999 */word-wrap: break-all; /* Internet Explorer 5.5+ */}
-.jt-home-shop-footer-lastQuotationMark{ float: left; width: 100%; text-align: center; font-weight: bold; padding: 5px 0; height: 15px; }
+.jt-home-shop{ float: left; width:316px; margin: 5px; border: 1px solid #dbd9ca;
+	box-shadow : inset 0 1px #fff,0 1px 3px rgba(214,213,201,0.7);
+	-moz-box-shadow : inset 0 1px #fff,0 1px 3px rgba(34,25,25,0.7);
+	-webkit-box-shadow : inset 0 1px #fff,0 1px 3px rgba(34,25,25,0.7);
+}
+.jt-home-shop>header{ float: left; width: 100%; font-size: 12px; background: #f2f2f2; }
+.jt-home-shop>header>a{ float: left; width: 100%; text-align: center; margin-top: 10px; font-weight: bold; height: 20px;  color: #4f4f4f;}
+.jt-home-shop>.jt-home-notice{ font-size: 12px; font-family: Dotum; float: left; width: 100%;}
+.jt-home-shop-footer-firstQuotationMark{ float: left; width: 15px; height:15px; 
+	background: url("../images/jt-home-icon.png") 0 0 no-repeat; margin: 5px 10px 0 10px; text-indent: -99999px;
+}
+.jt-home-shop-footer-text{ float: left; width: 242px; padding: 15px 0 15px 0 ; text-align: left; font-size: 12px; min-height: 30px; line-height: 1.5; white-space: pre-wrap; /* CSS3*/white-space: -moz-pre-wrap; /* Mozilla, since 1999 */word-wrap: break-all; /* Internet Explorer 5.5+ */}
+.jt-home-shop-footer-lastQuotationMark{ float: left; width: 15px; height: 15px;
+	background: url("../images/jt-home-icon.png") 0 -15px no-repeat; margin: 5px 10px 0 10px; text-indent: -99999px;
+}
 .jt-home-shop-footer-firstTalk{}
 .jt-home-shop-footer-lastTalk{}
 #jt-home-center{}
@@ -20,9 +28,12 @@
 .jt-home-shop-content-image{ float: left; width: 100%;  cursor: -webkit-zoom-in; cursor: -moz-zoom-in; }
 .jt-home-shop-content-image>li{ float: left; width: 310px; padding: 3px; }
 .jt-home-shop-content-image>li>img{ float: left; width: 100%;}
-.jt-home-shop-content-fn{ width: 100%; float:left; font-size: 12px; font-family: Arial;}
-.jt-home-shop-content-fn>li{ float: left; width: 33.3%; text-align: center; height: 15px; padding: 15px 0 0 0;}
-
+.jt-home-shop-content-fn{ width: 100%; float:left; font-size: 12px; font-family: Arial; border-top: 1px solid #dbd9ca;}
+.jt-home-shop-content-fn>li{ float: left; width: 33.3%; text-align: center; height: 15px; padding: 12px 0 9px 0;}
+.jt-home-shop-content-fn>li>a,.jt-home-shop-content-fn>li>span{float: left; margin-right: 5px; font-weight: bold; color: #b2b2b2;}
+.jt-home-shop-view{ float: left; margin-left: 30px; width: 15px; height: 15px; background: url("../images/jt-home-icon.png") 0 -45px no-repeat; text-indent: -99999px;}
+.jt-home-shop-love{ float: left; margin-left: 30px; width: 15px; height: 15px; background: url("../images/jt-home-icon.png") 0 -30px no-repeat; text-indent: -99999px; }
+.jt-home-shop-comment{ float: left; margin-left: 30px; width: 15px; height: 15px; background: url("../images/jt-home-icon.png") 0 -60px no-repeat; text-indent: -99999px;}
 /**
 *
 *	@author Francis

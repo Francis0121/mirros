@@ -32,28 +32,28 @@
 							</c:forEach>
 						</li>
 					</ul>
-					<ul class="jt-home-shop-content-fn">
-						<li>
-							VIEW <span id="view-<c:out value="${spn }"/>"><c:out value="${seller.viewCount eq null ? 0 : seller.viewCount}"/></span>	
-						</li>
-						<li>
-							COMMENT <span id="comment-<c:out value="${spn }"/>"><c:out value="${seller.commentCount eq null ? 0 : seller.commentCount}"/></span>
-						</li>
-						<li>
-							<a href="#none" onclick="jtown.home.clickLove('<c:out value="${spn }"/>');">♥</a> <span id="love-<c:out value="${spn }"/>"><c:out value="${seller.loveCount eq null ? 0 : seller.loveCount}"/></span>
-							<span id="new-<c:out value="${spn }"/>">
-							<c:if test="${seller.bannerDate ne null and seller.bannerDate < 7 }">
-								new
-							</c:if>
-							</span>
-						</li>
-					</ul>
 				</div>
-				<footer>
-					<span class="jt-home-shop-footer-firstQuotationMark">"</span>
+				<div class="jt-home-notice">
+					<span class="jt-home-shop-footer-firstQuotationMark"></span>
 					<pre class="jt-home-shop-footer-text"><c:out value="${seller.notice }"/></pre>
-					<span class="jt-home-shop-footer-lastQuotationMark">"</span>
-				</footer>
+					<span class="jt-home-shop-footer-lastQuotationMark"></span>
+				</div>
+				<ul class="jt-home-shop-content-fn">
+					<li>
+						<span class="jt-home-shop-view">VIEW</span>&nbsp;<span id="view-<c:out value="${spn }"/>"><c:out value="${seller.viewCount eq null ? 0 : seller.viewCount}"/></span>	
+					</li>
+					<li>
+						<a href="#none" onclick="jtown.home.clickLove('<c:out value="${spn }"/>');" class="jt-home-shop-love">♥</a>&nbsp;<span id="love-<c:out value="${spn }"/>"><c:out value="${seller.loveCount eq null ? 0 : seller.loveCount}"/></span>
+						<span id="new-<c:out value="${spn }"/>">
+						<c:if test="${seller.bannerDate ne null and seller.bannerDate < 7 }">
+							new
+						</c:if>
+						</span>
+					</li>
+					<li>
+						<span class="jt-home-shop-comment">COMMENT</span>&nbsp;<span id="comment-<c:out value="${spn }"/>"><c:out value="${seller.commentCount eq null ? 0 : seller.commentCount}"/></span>
+					</li>
+				</ul>
 			</div>
 			</c:if>	
 		</c:forEach>
