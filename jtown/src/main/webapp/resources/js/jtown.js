@@ -20,15 +20,32 @@ $(document).ready(function(){
 	
 	$('.jt-header-nav-interestCategory-li').unbind('mouseover mouseout');
 	$('.jt-header-nav-interestCategory-li').bind('mouseover mouseout', function(event){
-		$('.jt-header-nav-interest').hide();
 		var $interest = $(this).find('.jt-header-nav-interest');
 		if(event.type == 'mouseover'){
 			$interest.show();
+		}else if(event.type =='mouseout'){
+			$interest.hide();
 		}
 	});
-	$('.jt-header-nav-interest').unbind('mouseout');
-	$('.jt-header-nav-interest').bind('mouseout',function(){
-		$(this).hide();
+	
+	$('#jt-mypage').unbind('mouseover mouseout');
+	$('#jt-mypage').bind('mouseover mouseout', function(){
+		var mypage = $('#jt-mypage-wrap');
+		if(event.type == 'mouseover'){
+			mypage.show();
+		}else if(event.type =='mouseout'){
+			mypage.hide();
+		}	
+	});
+	
+	$('#jt-help').unbind('mouseover mouseout');
+	$('#jt-help').bind('mouseover mouseout', function(){
+		var help = $('#jt-help-wrap');
+		if(event.type == 'mouseover'){
+			help.show();
+		}else if(event.type =='mouseout'){
+			help.hide();
+		}	
 	});
 	
 	$('#jt-person-addInterest').unbind('click');

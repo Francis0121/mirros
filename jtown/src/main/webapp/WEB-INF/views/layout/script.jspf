@@ -69,10 +69,10 @@
 		var scrollY = document.all ? (!de.scrollTop ? b.scrollTop : de.scrollTop) : (window.pageYOffset ? window.pageYOffset : window.scrollY);
 		if(scrollY == 0){
 			$('.jt-header-title').slideDown('fast');
-			setTimeout('$(\'.jt-header-nav-interestCategory\').css(\'top\', \'40px\')');
+			setTimeout('$(\'.jt-header-nav-interestCategory\').css(\'top\', \'59px\')');
 		}else{
 			$('.jt-header-title').slideUp('fast', function(){
-				$('.jt-header-nav-interestCategory').css('top', '10px');
+				$('.jt-header-nav-interestCategory').css('top', '14px');
 			});
 		}
 	});

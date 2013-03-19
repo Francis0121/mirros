@@ -26,36 +26,48 @@
 	<section class="jt-body">
 		<header class="jt-header">
 			<div class="jt-header-title">
+				<div class="jt-header-search">
+					<input type="text"/>
+				</div>
 				<div class="jt-header-banner">
 					<a href="${cp }"><h1>J Town</h1></a>
 				</div>
 				<ul class="jt-header-login-menu">
-					<li>
-						<c:url var="help" value="/help/question"/>
-						<a href="${help }" class="jt-common-a-base">고객센터</a>
-					</li>
-					<li>
-						<a href="#none" class="jt-common-a-base" id="jt-person-addInterest">관심사추가</a>
-					</li>
+					<sec:authorize access="hasRole('ROLE_USER')">
+						<li id="jt-mypage">
+							<a href="#none" class="jt-common-a-base">MYPAGE&nbsp;<span class="jt-btn-underArrow">▼</span></a>
+							<ul class="jt-under-wrap" id="jt-mypage-wrap">
+								<li>
+									<c:url value="/login/modify" var="modifyUrl"/>
+									<a href="${modifyUrl }" class="jt-common-a-base" id="jt-modify">비밀번호 변경</a>
+								</li>
+								<li>
+									<c:url value="/login/logout" var="logoutUrl"/>
+									<a href="${logoutUrl }" class="jt-common-a-base" id="jt-logout">로그아웃</a>
+								</li>	
+							</ul>
+						</li>
+					</sec:authorize>
+<!-- 					<li> -->
+<!-- 						<a href="#none" class="jt-common-a-base" id="jt-person-addInterest">관심사추가</a> -->
+<!-- 					</li> -->
 					<sec:authorize access="anonymous">
 						<li>
-							<a href="#none" class="jt-common-a-base" id="jt-login-smartPopup">로그인</a>
+							<a href="#none" class="jt-common-a-base" id="jt-login-smartPopup">LOG IN</a>
 						</li>
 						<li>
 							<c:url var="join" value="/login/join"/>
-							<a href="${join }" class="jt-common-a-base">회원가입</a>
+							<a href="${join }" class="jt-common-a-base">SIGN UP</a>
 						</li>
 					</sec:authorize>
-					<sec:authorize access="hasRole('ROLE_USER')">
-						<li>
-							<c:url value="/login/modify" var="modifyUrl"/>
-							<a href="${modifyUrl }" class="jt-common-a-base" id="jt-modify">비밀번호 변경</a>
-						</li>
-						<li>
-							<c:url value="/login/logout" var="logoutUrl"/>
-							<a href="${logoutUrl }" class="jt-common-a-base" id="jt-logout">로그아웃</a>
-						</li>
-					</sec:authorize>
+					<li id="jt-help">
+						<c:url var="help" value="/help/question"/>
+						<a href="#none" class="jt-common-a-base">HELP&nbsp;<span class="jt-btn-underArrow">▼</span></a>
+						<ul class="jt-help-under-wrap" id="jt-help-wrap">
+							<li>HELP</li>
+							<li>HELP</li>
+						</ul>
+					</li>
 				</ul>
 			</div>
 			<nav class="jt-header-nav">
