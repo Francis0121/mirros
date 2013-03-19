@@ -104,11 +104,11 @@
 						<span class="jt-home-shop-footer-firstQuotationMark">"</span>
 						<pre id="jt-seller-main-footer-text" class="jt-home-shop-footer-text"><c:out value="${jtownUser.notice }"/></pre>
 						<textarea id="jt-seller-main-textarea" class="jt-seller-main-textarea" maxlength="80"><c:out value="${jtownUser.notice }"/></textarea>
+						<span class="jt-home-shop-footer-lastQuotationMark">"</span>
 						<div class="jt-seller-main-notice-update-tool" id="jt-seller-main-notice-update-tool">
 							<a href="#none" id="jt-seller-main-notice-update" class="jt-seller-main-notice-update">수정</a>
 							<a href="#none" id="jt-seller-main-notice-cancle" class="jt-seller-main-notice-cancle">취소</a>
 						</div>
-						<span class="jt-home-shop-footer-lastQuotationMark">"</span>
 					</div>
 					<ul class="jt-home-shop-content-fn">
 						<li>

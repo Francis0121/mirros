@@ -22,10 +22,10 @@
 .jt-seller-main{ width: 330px; float: left;}
 .jt-seller-main-notice-hover-tool{ width: 100%; float: left; display: none;}
 .jt-seller-main-notice-updateShow{ position: absolute; float: left; }
-.jt-seller-main-notice-update-tool{ width: 100%; display: none; }
+.jt-seller-main-notice-update-tool{ width: 100%; display: none; float: left; }
 .jt-seller-main-notice-update{}
 .jt-seller-main-notice-cancle{}
-.jt-seller-main-textarea{ display:none; float: left; width: 298px; padding: 2px 3px; border: 1px solid #8080;overflow: hidden; min-height: 50px; margin: 0 5px; resize : none; line-height: 1.5;}
+.jt-seller-main-textarea{ display:none; float: left; width: 234px; padding: 2px 3px; border: 1px solid #8080;overflow: hidden; min-height: 50px; margin: 20px 0 0 0; resize : none; line-height: 1.5;}
 .jt-seller-main-image-hover-tool{ padding: 0 !important; display: none;}
 .jt-seller-main-image-updateShow{ position: absolute; float: left;}
 .jt-seller-main-image-update-tool{ display: none;}

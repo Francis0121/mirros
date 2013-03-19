@@ -9,6 +9,7 @@
 	box-shadow : inset 0 1px #fff,0 1px 3px rgba(214,213,201,0.7);
 	-moz-box-shadow : inset 0 1px #fff,0 1px 3px rgba(34,25,25,0.7);
 	-webkit-box-shadow : inset 0 1px #fff,0 1px 3px rgba(34,25,25,0.7);
+	background: #fff;
 }
 .jt-home-shop>header{ float: left; width: 100%; font-size: 12px; background: #f2f2f2; }
 .jt-home-shop>header>a{ float: left; width: 100%; text-align: center; margin-top: 10px; font-weight: bold; height: 20px;  color: #4f4f4f;}
