@@ -4,13 +4,14 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
-<c:url var="cp" value="/"/>
+<c:set var="cp" value="<%=request.getContextPath() %>"/>
 <c:set value="${fn:length(products) }" var="productSize"/>
 <!DOCTYPE HTML>
 <html>
 <head>
 <title>J TOWN</title>
 <%@ include file="../layout/style.jspf"%>
+<%@ include file="../layout/header_script.jspf" %>
 <style type="text/css">
 	.jt-home-shop-content-image{cursor: default;}
 </style>
@@ -20,7 +21,7 @@
 		<header class="jt-header">
 			<div class="jt-header-title">
 				<div class="jt-header-banner">
-					<a href="${cp }seller/<c:out value="${jtownUser.pn}"/>"><h1>J Town</h1></a>
+					<a href="${cp }/seller/<c:out value="${jtownUser.pn}"/>"><h1>J Town</h1></a>
 				</div>
 				<ul class="jt-header-login-menu">
 					<li>

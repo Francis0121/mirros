@@ -4,19 +4,20 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
-<c:url var="cp" value="/"/>
+<c:set var="cp" value="<%=request.getContextPath() %>"/>
 <!DOCTYPE HTML>
 <html>
 <head>
 <title>J TOWN</title>
 <%@ include file="../../layout/style.jspf" %>
+<%@ include file="../../layout/header_script.jspf" %>
 </head>
 <body>
 	<sec:authorize access="anonymous">
 		<section class="jt-body">
 			<header class="jt-join-user-header">
 				<div class="jt-join-user-banner">
-					<a href="${cp }">J TOWN</a>
+					<a href="${cp }/">J TOWN</a>
 					
 				</div>
 			</header>
