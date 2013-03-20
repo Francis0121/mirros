@@ -83,7 +83,8 @@
 .jt-home-expand-shop-content-view{ float: left; margin-left: 130px; width: 15px; height: 15px; background: url("../images/jt-home-icon.png") -15px -45px no-repeat; text-indent: -99999px;}
 .jt-home-expand-shop-content-comment{ float: left; margin: 0 10px 0 30px; width: 25px; height: 18px; background: url("../images/jt-home-icon.png") -15px 0px no-repeat; text-indent: -99999px;}
 .jt-home-expand-shop-content-love{ float: left;  width: 15px; height: 15px; background: url("../images/jt-home-icon.png") -30px -30px no-repeat; text-indent: -99999px;}
-.jt-home-expand-shop-content-love-wrap-hover{ color: #ff5b00; }
+.jt-home-expand-shop-content-love-wrap>a, .jt-home-expand-shop-content-love-wrap:VISITED{color: #696969;}
+.jt-home-expand-shop-content-love-wrap>a:HOVER{ color: #ff5b00; }
 .jt-home-expand-shop-content-love-hover{ float: left;  width: 15px; height: 15px; background: url("../images/jt-home-icon.png") -15px -30px no-repeat; text-indent: -99999px;}
 
 .jt-home-expand-divide-orange-bar{float: left; width: 450px; height: 5px;  background: url("../images/jt-home-icon.png") 0 -75px no-repeat; margin: 0 90px;}

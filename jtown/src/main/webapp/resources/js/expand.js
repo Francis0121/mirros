@@ -6,6 +6,8 @@ $(document).ready(function(){
 	jtown.expand.loadExpandShop();
 	
 	jtown.expand.syncProductMove();
+	
+	jtown.comment.syncComment();
 });
 
 jtown.expand.loadExpandShop = function(){
@@ -41,7 +43,7 @@ jtown.expand.makeInnerHtml = function(spn){
 			var product = products[i],
 				count = Number(i)+1,
 				index = productSize-Number(i);
-			if(count < 4){
+			if(count == 1){
 				bigProductHtml+='<div class="jt-home-expand-shop-expandProduct" id="jt-product-'+index+'">';
 			}else{
 				bigProductHtml+='<div class="jt-home-expand-shop-expandProduct" id="jt-product-'+index+'" style="display: none;">';
@@ -110,28 +112,31 @@ jtown.expand.makeInnerHtml = function(spn){
 		html +=	'		</li>';
 		html += '	</ul>';
 		html += '	<div class="jt-home-expand-shop-products">';
-		html += '		<h2>Products</h2>';
 		html += '		<ul id="jt-seller-slide-small">';
 		html += '			'+smallProductHtml;
 		html += '		</ul>';
 		html += '	</div>';
 		html += '	<div class="jt-home-expand-shop-event" id="jt-seller-expand-event-first">';
+		html += '		<div class="jt-home-expand-shop-event-new">';
+		html += '			<span>NEW</span>';
+		html += '		</div>';
 		html += '		<img alt="event1" src="'+path + eventImage1 +'" title="'+htmlChars(jtownUser.shopName)+' Event"/>';
 		html += '	</div>';
 		html += '	<div class="jt-home-expand-shop-event" id="jt-seller-expand-event-second">';
 		html +=	'		<img alt="event2" src="'+path + eventImage2 +'" title="'+htmlChars(jtownUser.shopName)+' Event"/>';
 		html +=	'	</div>';	
 		html += '	<ul class="jt-home-expand-shop-content-fn">';
-		html +=	'		<li>';
-		html +=	'			VIEW <span id="view-expand-'+spn+'"/>'+jtownUser.viewCount+'</span>';	
+		html +=	'		<li class="jt-home-expand-shop-content-view-wrap">';
+		html +=	'			<span class="jt-home-expand-shop-content-view"></span>&nbsp;Look&nbsp;<span id="view-expand-'+spn+'"/>'+jtownUser.viewCount+'</span>';	
 		html +=	'		</li>';
-		html +=	'		<li>';
-		html +=	'			COMMENT <span id="comment-expand-'+spn+'">' + jtownUser.commentCount+'</span>';
+		html +=	'		<li class="jt-home-expand-shop-content-comment-wrap">';
+		html +=	'			<span class="jt-home-expand-shop-content-comment"></span>&nbsp;Comment&nbsp;&nbsp;<span id="comment-expand-'+spn+'">' + jtownUser.commentCount+'</span>';
 		html +=	'		</li>';
-		html +=	'		<li>';
-		html +=	'			<a href="#none" onclick="jtown.home.clickLove(\''+spn+'\');">♥</a> <span id="love-expand-'+spn+'">'+jtownUser.loveCount+'</span>';
+		html +=	'		<li class="jt-home-expand-shop-content-love-wrap">';
+		html +=	'			<a href="#none" onclick="jtown.home.clickLove(\''+spn+'\');"><span class="jt-home-expand-shop-content-love"></span>&nbsp;Love&nbsp;<span id="love-expand-'+spn+'">'+jtownUser.loveCount+'</span></a>';
 		html +=	'		</li>';
 		html +=	'	</ul>';
+		html += '	<div class="jt-home-expand-divide-orange-bar"></div>';
 		html +=	'	<div class="jt-home-expand-shop-comment-wrap">';
 		html +=	'		<ul class="jt-home-expand-shop-comment">';
 		html +=	'			'+commentHtml;
@@ -142,9 +147,9 @@ jtown.expand.makeInnerHtml = function(spn){
 		html +=	'	</div>';
 		html +=	'</div>';
 		
-		$.smartPop.open({width : 640,height : 780,html : html ,effect : 'transfer', target : '#jt-home-shop-'+spn });
-		setTimeout(jtown.expand.syncProductMove(), 1300);
-		setTimeout(jtown.comment.syncComment(), 1300);
+		$.smartPop.open({width : 640,height : 930,html : html ,effect : 'transfer', target : '#jt-home-shop-'+spn });
+		setTimeout('jtown.expand.syncProductMove()', 0);
+		setTimeout('jtown.comment.syncComment()', 0);
 	});
 };
 

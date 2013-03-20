@@ -16,6 +16,9 @@ $(document).ready(function() {
 	jtown.seller.syncEvent();
 
 	$('#jt-event-second-image').uploadify({
+		'buttonText' : '사진 업로드',
+		'fileTypeDesc' : 'Image Files',
+        'fileTypeExts' : '*.gif; *.jpg; *.png',
 		'multi'	: false,
 		'swf' : contextPath + 'resources/uploadify/uploadify.swf',
 		'uploader' : contextPath + 'file/upload.jt',
@@ -26,6 +29,9 @@ $(document).ready(function() {
 	});
 	
 	$('#jt-event-first-image').uploadify({
+		'buttonText' : '사진 업로드',
+		'fileTypeDesc' : 'Image Files',
+        'fileTypeExts' : '*.gif; *.jpg; *.png',
 		'multi'	: false,
 		'swf' : contextPath + 'resources/uploadify/uploadify.swf',
 		'uploader' : contextPath + 'file/upload.jt',
@@ -36,6 +42,9 @@ $(document).ready(function() {
 	});
 	
 	$('#jt-represent-image').uploadify({
+		'buttonText' : '사진 업로드',
+		'fileTypeDesc' : 'Image Files',
+        'fileTypeExts' : '*.gif; *.jpg; *.png',
 		'multi'	: false,
 		'swf' : contextPath + 'resources/uploadify/uploadify.swf',
 		'uploader' : contextPath + 'file/upload.jt',
@@ -46,6 +55,9 @@ $(document).ready(function() {
 	});
 	
 	$('#jt-product-file').uploadify({
+		'buttonText' : '사진 업로드',
+		'fileTypeDesc' : 'Image Files',
+        'fileTypeExts' : '*.gif; *.jpg; *.png',
 		'swf' : contextPath + 'resources/uploadify/uploadify.swf',
 		'uploader' : contextPath + 'file/upload.jt',
 		'itemTemplate' : '<div></div>',

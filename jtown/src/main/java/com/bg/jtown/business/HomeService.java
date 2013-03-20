@@ -30,6 +30,8 @@ public interface HomeService {
 
 	// ~ comment
 
+	List<Comment> selectComment(Integer properNumber);
+
 	Comment insertComment(Comment comment);
 
 	Comment updateComment(Comment comment);

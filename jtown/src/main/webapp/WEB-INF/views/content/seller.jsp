@@ -16,7 +16,7 @@
 	.jt-home-shop-content-image{cursor: default;}
 </style>
 </head>
-<body>
+<body style="background: #f2f2f2;">
 	<section class="jt-body">
 		<header class="jt-header">
 			<div class="jt-header-title jt-seller-header-title">
@@ -87,7 +87,12 @@
 						<div class="jt-home-shop-content">
 							<ul class="jt-home-shop-content-image" id="jt-seller-main-image">
 								<li id="jt-seller-main-image-hover-tool" class="jt-seller-main-image-hover-tool">
-									<a href="#none" class="jt-seller-main-image-updateShow" id="jt-seller-main-image-updateShow">수정</a>
+									<div>
+										<a href="#none" class="jt-seller-main-image-updateShow jt-btn-white-small" id="jt-seller-main-image-updateShow">
+											<span class="btnImage"></span>
+											<span class="btnText">수정</span>
+										</a>
+									</div>
 								</li>
 								<li>
 									<c:choose>
@@ -106,22 +111,39 @@
 								<li id="jt-seller-main-image-update-tool" class="jt-seller-main-image-update-tool">
 									<input type="file" id="jt-represent-image" name="jt-represent-image"/>
 									<br/>
-									<a href="#none" id="jt-seller-main-image-update">수정</a>
-									<a href="#none" id="jt-seller-main-image-cancle">취소</a>
+									<a href="#none" id="jt-seller-main-image-update" class="jt-btn-white-small">
+										<span class="btnImage"></span>
+										<span class="btnText">수정</span>
+									</a>
+									<a href="#none" id="jt-seller-main-image-cancle" class="jt-btn-white-small">
+										<span class="btnImage"></span>
+										<span class="btnText">취소</span>
+									</a>
 								</li>
 							</ul>
 						</div>
 						<div id="jt-seller-main-footer" class="jt-home-notice">
 							<div class="jt-seller-main-notice-hover-tool" id="jt-seller-main-notice-hover-tool">
-								<a href="#none" id="jt-seller-main-notice-updateShow" class="jt-seller-main-notice-updateShow">수정</a>
+								<div>
+									<a href="#none" id="jt-seller-main-notice-updateShow" class="jt-seller-main-notice-updateShow jt-btn-white-small">
+										<span class="btnImage"></span>
+										<span class="btnText">수정</span>
+									</a>
+								</div>
 							</div>
 							<span class="jt-home-shop-footer-firstQuotationMark">"</span>
 							<pre id="jt-seller-main-footer-text" class="jt-home-shop-footer-text"><c:out value="${jtownUser.notice }"/></pre>
 							<textarea id="jt-seller-main-textarea" class="jt-seller-main-textarea" maxlength="80"><c:out value="${jtownUser.notice }"/></textarea>
 							<span class="jt-home-shop-footer-lastQuotationMark">"</span>
 							<div class="jt-seller-main-notice-update-tool" id="jt-seller-main-notice-update-tool">
-								<a href="#none" id="jt-seller-main-notice-update" class="jt-seller-main-notice-update">수정</a>
-								<a href="#none" id="jt-seller-main-notice-cancle" class="jt-seller-main-notice-cancle">취소</a>
+								<a href="#none" id="jt-seller-main-notice-update" class="jt-seller-main-notice-update jt-btn-white-small">
+									<span class="btnImage"></span>
+									<span class="btnText">수정</span>
+								</a>
+								<a href="#none" id="jt-seller-main-notice-cancle" class="jt-seller-main-notice-cancle jt-btn-white-small">
+									<span class="btnImage"></span>
+									<span class="btnText">취소</span>
+								</a>
 							</div>
 						</div>
 						<ul class="jt-home-shop-content-fn">
@@ -143,7 +165,7 @@
 					</div>
 				</section>
 				<section class="jt-seller-expand">
-					<div class="jt-home-expand-shop" id="jt-home-expand-shop" data-size="${productSize }" data-nowPosition="${productSize }">
+					<div class="jt-home-expand-shop" id="jt-home-expand-shop" data-spn="${jtownUser.pn }" data-size="${productSize }" data-nowPosition="${productSize }">
 						<header>
 							<a href="#none" onclick="window.open('${jtownUser.shopUrl }');"><c:out value="${jtownUser.shopName }"/></a>
 						</header>
@@ -172,18 +194,29 @@
 						</ul>
 						<div class="jt-home-expand-shop-products">
 							<div class="jt-seller-expand-product-insert-tool">
-								<a href="#none">상품입력</a>
+								<div>
+									<a href="#none" class="jt-seller-expand-product-insert-btn jt-btn-white-small">
+										<span class="btnImage"></span>
+										<span class="btnText">상품입력</span>
+									</a>
+								</div>
 							</div>
 							<div class="jt-seller-expand-product-insert-wrap">
-								<input type="file" id="jt-product-file" name="jt-product-file"/>
-								160X160<br/>
-								<a href="#none" class="jt-seller-expand-product-insert-cancle">닫기</a>
+								<input type="file" id="jt-product-file" name="jt-product-file"/><br/>
+								<a href="#none" class="jt-seller-expand-product-insert-cancle jt-btn-white-small">
+									<span class="btnImage"></span>
+									<span class="btnText">취소</span>
+								</a>
 							</div>
 							<ul id="jt-seller-slide-small">
 								<c:forEach items="${products }" var="product" varStatus="loop">
 									<li data-count="${productSize - loop.index }" data-ppn="${product.pn }">
 										<div class="jt-seller-expand-product-delete-tool">	
-											<a href="#none" class="jt-seller-product-delete">X</a>
+											<div>
+												<a href="#none" class="jt-seller-product-delete jt-btn-white-small">
+													<span class="btnImage"></span>
+												</a>
+											</div>
 										</div>
 										<c:url value="/resources/uploadImage/${product.saveName }" var="image"/>
 										<a href="#none" class="jt-product-list"><img alt="상품" src="${image }"/></a>
@@ -199,13 +232,22 @@
 								<span>NEW</span>
 							</div>
 							<div class="jt-home-expand-shop-event-tool">
-								<a href="#none">수정</a>
+								<a href="#none" class="jt-home-expand-shop-event-update-btn jt-btn-white-small">
+									<span class="btnImage"></span>
+									<span class="btnText">수정</span>
+								</a>
 							</div>
 							<div class="jt-home-expand-shop-event-update-wrap">
-								310 X 150 (pixel) <br/>
+								<span style="color: #fff;">310 X 150 (pixel)</span><br/>
 								<input type="file" id="jt-event-first-image" name="jt-event-first-image"/><br/>
-								<a href="#none" class="jt-home-expand-shop-event-update-done">수정</a>
-								<a href="#none" class="jt-home-expand-shop-event-update-cancle">취소</a>
+								<a href="#none" class="jt-home-expand-shop-event-update-done jt-btn-white-small">
+									<span class="btnImage"></span>
+									<span class="btnText">수정</span>
+								</a>
+								<a href="#none" class="jt-home-expand-shop-event-update-cancle jt-btn-white-small">
+									<span class="btnImage"></span>
+									<span class="btnText">취소</span>
+								</a>
 							</div>
 							<c:url value="/resources/uploadImage/${event1.saveName eq null ? 'event-1.png' : event1.saveName}" var="image"/>
 							<img alt="event1" src="${image }" title="<c:out value="${jtownUser.shopName }"/> Event" id="jt-seller-expand-event-first-img"/>
@@ -215,13 +257,22 @@
 								<span>NEW</span>
 							</div>
 							<div class="jt-home-expand-shop-event-tool">
-								<a href="#none">수정</a>
+								<a href="#none" class="jt-home-expand-shop-event-update-btn jt-btn-white-small">
+									<span class="btnImage"></span>
+									<span class="btnText">수정</span>
+								</a>
 							</div>
 							<div class="jt-home-expand-shop-event-update-wrap">
-								310 X 150 (pixel) <br/>
+								<span style="color: #fff;">310 X 150 (pixel)</span><br/>
 								<input type="file" id="jt-event-second-image" name="jt-event-second-image"/><br/>
-								<a href="#none" class="jt-home-expand-shop-event-update-done">수정</a>
-								<a href="#none" class="jt-home-expand-shop-event-update-cancle">취소</a>
+								<a href="#none" class="jt-home-expand-shop-event-update-done jt-btn-white-small">
+									<span class="btnImage"></span>
+									<span class="btnText">수정</span>
+								</a>
+								<a href="#none" class="jt-home-expand-shop-event-update-cancle jt-btn-white-small">
+									<span class="btnImage"></span>
+									<span class="btnText">취소</span>
+								</a>
 							</div>
 							<c:url value="/resources/uploadImage/${event2.saveName eq null ? 'event-2.png' : event2.saveName}" var="image"/>
 							<img alt="event2" src="${image }" title="<c:out value="${jtownUser.shopName }"/> Event" id="jt-seller-expand-event-second-img"/>
@@ -240,7 +291,35 @@
 						<div class="jt-home-expand-divide-orange-bar"></div>
 						<div class="jt-home-expand-shop-comment-wrap">
 							<ul class="jt-home-expand-shop-comment">
+								<c:forEach items="${comments }" var="comment">
+									<li data-copn="<c:out value="${comment.commentPn }"/>">
+										<ul class="jt-home-expand-shop-text-wrap">
+											<li class="jt-home-expand-shop-comment-name"><c:out value="${comment.customerName }"/></li>
+											<li class="jt-home-expand-shop-comment-text"><c:out value="${comment.comment }"/></li>
+										</ul>
+										<c:choose>
+											<c:when test="${comment.customerPn eq jtownUser.pn }">
+												<div class="jt-home-expand-shop-update-wrap">
+													<input type="text" class="jt-comment-update-input" value="'+htmlChars(comment.comment)+'"/><br/>
+													<span>esc를 누르시면 수정이 취소 됩니다.</span>
+												</div>
+												<div class="jt-home-expand-shop-tool-wrap">
+													<a href="#none" class="jt-comment-update">수정</a>
+													<a href="#none" class="jt-comment-delete">삭제</a>
+												</div>
+											</c:when>
+											<c:otherwise>
+												<div class="jt-home-expand-shop-tool-wrap">
+													<a href="#none" class="jt-comment-delete">삭제</a>
+												</div>
+											</c:otherwise>
+										</c:choose>
+									</li>
+								</c:forEach>
 							</ul>
+						</div>
+						<div class="jt-home-expand-shop-comment-insert">
+							<input type="text" id="jt-comment-insert" readonly="readonly" value="판매자 아이디로는 이용하실 수 없습니다."/>
 						</div>
 					</div>
 				</section>

@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.bg.jtown.business.Event;
+import com.bg.jtown.business.HomeService;
 import com.bg.jtown.business.Product;
 import com.bg.jtown.redis.Publisher;
 import com.bg.jtown.security.JtownUser;
@@ -30,6 +31,8 @@ public class SellerServiceImpl extends SqlSessionDaoSupport implements
 
 	@Resource
 	private Publisher publisher;
+	@Resource
+	private HomeService homeService;
 
 	@Override
 	public Map<String, Object> selectAllInformation(Integer properNumber) {
@@ -40,6 +43,7 @@ public class SellerServiceImpl extends SqlSessionDaoSupport implements
 		selectMap.putAll(selectSellerEvent(properNumber));
 		selectMap.put("interestes", selectSellerInterest(properNumber));
 		selectMap.put("products", selectSellerProduct(properNumber));
+		selectMap.put("comments", homeService.selectComment(properNumber));
 
 		logger.debug(selectMap.toString());
 
