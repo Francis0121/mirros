@@ -43,15 +43,15 @@
 						<span class="jt-home-shop-view">VIEW</span>&nbsp;<span id="view-<c:out value="${spn }"/>"><c:out value="${seller.viewCount eq null ? 0 : seller.viewCount}"/></span>	
 					</li>
 					<li>
+						<span class="jt-home-shop-comment">COMMENT</span>&nbsp;<span id="comment-<c:out value="${spn }"/>"><c:out value="${seller.commentCount eq null ? 0 : seller.commentCount}"/></span>
+					</li>
+					<li>
 						<a href="#none" onclick="jtown.home.clickLove('<c:out value="${spn }"/>');" class="jt-home-shop-love">♥</a>&nbsp;<span id="love-<c:out value="${spn }"/>"><c:out value="${seller.loveCount eq null ? 0 : seller.loveCount}"/></span>
 						<span id="new-<c:out value="${spn }"/>">
 						<c:if test="${seller.bannerDate ne null and seller.bannerDate < 7 }">
 							new
 						</c:if>
 						</span>
-					</li>
-					<li>
-						<span class="jt-home-shop-comment">COMMENT</span>&nbsp;<span id="comment-<c:out value="${spn }"/>"><c:out value="${seller.commentCount eq null ? 0 : seller.commentCount}"/></span>
 					</li>
 				</ul>
 			</div>

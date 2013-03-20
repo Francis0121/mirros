@@ -5,8 +5,14 @@
 *	seller
 *
 */
-.jt-seller-content { width: 990px; margin: auto auto; margin-top: 30px;}
-.jt-seller-content>header{ width: 970px; float: left; padding: 5px 9px; border: 1px solid #fff; }
+.jt-seller-header-title{	
+	box-shadow : inset 0 1px #fff,0 1px 3px rgba(214,213,201,0.7);
+	-moz-box-shadow : inset 0 1px #fff,0 1px 3px rgba(34,25,25,0.7);
+	-webkit-box-shadow : inset 0 1px #fff,0 1px 3px rgba(34,25,25,0.7);}
+
+.jt-seller-content-wrap{ width: 990px; margin: auto auto; }
+.jt-seller-content { float: left; background: #e5e3e4; padding: 45px 0;}
+.jt-seller-content>header{ width: 970px; float: left; padding: 5px 10px;}
 .jt-seller-content>header>ul{ font-size: 12px; }
 .jt-seller-content>header>ul>li{ float: left; margin-right: 9px;}
 .jt-seller-content>header>ul>li:nth-child(1){}
@@ -14,7 +20,7 @@
 .jt-seller-content>header>ul>li:nth-child(3){}
 .jt-seller-content>footer{ width: 100%; float: left; text-align: right;  font-size: 12px;}
 /**
-*
+*i
 *	@author Francis
 *	seller - main update
 *

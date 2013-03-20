@@ -273,13 +273,13 @@ jtown.home.html = function(data){
 		html+='				<span class="jt-home-shop-view">VIEW</span>&nbsp;<span id="view-'+spn+'">'+( nullValueCheck(seller.viewCount) ? 0 : seller.viewCount )+'</span>';	
 		html+='			</li>';
 		html+='			<li>';
+		html+='				<span class="jt-home-shop-comment">COMMENT</span>&nbsp;<span id="comment-'+spn+'">'+ ( nullValueCheck(seller.commentCount) ? 0 : seller.commentCount )+ '</span>';
+		html+='			</li>';
+		html+='			<li>';
 		html+='				<a href="#none" onclick="jtown.home.clickLove(\''+spn+'\');" class="jt-home-shop-love">♥</a>&nbsp;<span id="love-'+spn+'">'+ ( nullValueCheck(seller.loveCount) ? 0 : seller.loveCount) + '</span>';
 		html+='				<span id="new-'+spn+'">';
 		html+='					'+ ( bannerDate == null && Number(bannerDate) < 7 ) ? 'new' : '' ;
 		html+='				</span>';
-		html+='			</li>';
-		html+='			<li>';
-		html+='				<span class="jt-home-shop-comment">COMMENT</span>&nbsp;<span id="comment-'+spn+'">'+ ( nullValueCheck(seller.commentCount) ? 0 : seller.commentCount )+ '</span>';
 		html+='			</li>';
 		html+='		</ul>';
 		html+='	</div>';

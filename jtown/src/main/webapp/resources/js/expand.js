@@ -155,31 +155,14 @@ jtown.expand.syncProductMove = function(){
 		var $parent = $(this).parents('#jt-home-expand-shop'),
 			size = Number($parent.attr('data-size')),
 			nowPosition = Number($parent.attr('data-nowPosition'));
-		if(size > 3){
-			if(nowPosition == 1){
-				$('#jt-product-'+size).css({'display':'none'});	
-			}else{
-				$('#jt-product-'+(nowPosition-1)).css({'display':'none'});
-			}
-			
-			if(nowPosition == size ){
-				$('#jt-product-'+size).css({'left': '340px'});
-				$('#jt-product-1').css({'left': '-170px'});
-				$('#jt-product-2').css({'left': '-170px', 'display':'block'});
-			}else if(nowPosition == (size-1)){
-				$('#jt-product-'+(size-1)).css({'left': '170px'});
-				$('#jt-product-'+(size)).css({'left': '170px'});
-				$('#jt-product-1').css({'left': '-340px', 'display':'block'});
-			}else{
-				$('.jt-home-expand-shop-expandProduct').css({'left':'0'});
-				$('#jt-product-'+(nowPosition + 2)).css({'display':'block'});
-			}
-			
-			if(nowPosition + 1 > size){
-				$parent.attr('data-nowPosition', 1 );			
-			}else{
-				$parent.attr('data-nowPosition', (nowPosition + 1) );			
-			}
+		
+		$('#jt-product-'+nowPosition).css('display','none');	
+		if(nowPosition == size){
+			$parent.attr('data-nowPosition', 1);
+			$('#jt-product-1').css('display', 'block');
+		}else{
+			$parent.attr('data-nowPosition', (nowPosition +1));	
+			$('#jt-product-'+(nowPosition + 1)).css('display', 'block');
 		}
 	});	
 
@@ -188,57 +171,24 @@ jtown.expand.syncProductMove = function(){
 		var $parent = $(this).parents('#jt-home-expand-shop'),
 			size = Number($parent.attr('data-size')),
 			nowPosition = Number($parent.attr('data-nowPosition'));
-		if(size > 3){
-			if(nowPosition == size){
-				$('#jt-product-1').css({'display':'none'});
-			}else{
-				$('#jt-product-'+(nowPosition+1)).css({'display':'none'});	
-			}
-			
-			if(nowPosition == 2){
-				$('#jt-product-2').css({'left': '-170px'});
-				$('#jt-product-1').css({'left': '-170px'});
-				$('#jt-product-'+size).css({'left': '340px','display':'block'});
-			}else if(nowPosition == 1){
-				$('#jt-product-'+(size-1)).css({'left': '170px','display':'block'});
-				$('#jt-product-'+(size)).css({'left': '170px'});
-				$('#jt-product-1').css({'left': '-340px'});
-			}else{
-				$('.jt-home-expand-shop-expandProduct').css({'left':'0'});	
-				$('#jt-product-'+(nowPosition - 2)).css('display', 'block');
-			}
-			
-			if(nowPosition - 1 < 1){
-				$parent.attr('data-nowPosition', size );			
-			}else{
-				$parent.attr('data-nowPosition', (nowPosition - 1) );			
-			}
+		$('#jt-product-'+nowPosition).css('display','none');	
+		if(nowPosition == 1){
+			$parent.attr('data-nowPosition', size);
+			$('#jt-product-'+size).css('display', 'block');
+		}else{
+			$parent.attr('data-nowPosition', (nowPosition - 1));	
+			$('#jt-product-'+(nowPosition - 1)).css('display', 'block');
 		}
 	});
 	
 	$('.jt-product-list').unbind('click');
 	$('.jt-product-list').bind('click', function(){
 		var $parent = $(this).parents('#jt-home-expand-shop'),
-			size = Number($parent.attr('data-size')),
 			count = Number($(this).parents('li').attr('data-count'));
-		if(size > 3){
-			$('.jt-home-expand-shop-expandProduct').css({'display':'none', 'left':'0'});
-			
-			if(count == size){			
-				$('#jt-product-'+(size-1)).css({'display':'block', 'left': '170px'});
-				$('#jt-product-'+(size)).css({'display':'block', 'left': '170px'});
-				$('#jt-product-'+1).css({'display':'block', 'left': '-340px'});
-			}else if(count == 1){
-				$('#jt-product-2').css({'display':'block', 'left': '-170px'});
-				$('#jt-product-1').css({'display':'block', 'left': '-170px'});
-				$('#jt-product-'+size).css({'display':'block', 'left': '340px'});
-			}else{
-				$('#jt-product-'+(count - 1)).css('display', 'block');
-				$('#jt-product-'+count).css('display', 'block');
-				$('#jt-product-'+(count + 1)).css('display', 'block');
-			}
-			$parent.attr('data-nowPosition', count);			
-		}
+		
+		$('.jt-home-expand-shop-expandProduct').css('display','none');
+		$parent.attr('data-nowPosition', count);
+		$('#jt-product-'+count).css('display', 'block');
 	});
 	
 };
