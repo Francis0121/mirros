@@ -28,6 +28,7 @@ import com.bg.jtown.business.board.Board;
 import com.bg.jtown.business.board.BoardFilter;
 import com.bg.jtown.business.board.BoardService;
 import com.bg.jtown.business.search.UserSearch;
+import com.bg.jtown.security.CustomJdbcUserDetailManager;
 import com.bg.jtown.security.JtownUser;
 
 /**
@@ -45,6 +46,9 @@ public class AdminController {
 
 	@Resource(name = "boardServiceImpl")
 	private BoardService boardService;
+	
+	@Resource
+	private CustomJdbcUserDetailManager customJdbcUserDetailManager;
 
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/admin", method = RequestMethod.GET)
@@ -221,7 +225,11 @@ public class AdminController {
 	@RequestMapping(value = "/admin/administrator", method = RequestMethod.GET)
 	public String showAdministratorPage(Model model) {
 		logger.debug("Show Administrator Page");
-		return "admin/administrator";
+		
+		customJdbcUserDetailManager.createUserAdminAndAuthority(new JtownUser());
+		
+		return "admin/main";
+		
 	}
 
 	@PreAuthorize("hasRole('ROLE_ADMIN')")

@@ -68,7 +68,8 @@
 					<a href="${adminSeller }">- 판매자 관리</a>
 				</li>
 				<li class="jt-left-nav-content">
-					<a href="#none">- 관리자 생성</a>
+					<c:url value="/admin/administrator" var="createAdmin" />
+					<a href="${createAdmin }">- 관리자 생성</a>
 				</li>						
 			</ul>
 		</nav>
