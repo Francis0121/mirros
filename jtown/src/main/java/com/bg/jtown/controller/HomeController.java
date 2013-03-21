@@ -49,13 +49,17 @@ public class HomeController {
 	public ModelAndView showMainPage(@ModelAttribute HomeFilter homeFilter,
 			HttpServletRequest request) {
 		logger.debug("Show Main page");
-
+		HttpSession session = request.getSession();
 		ModelAndView mav = new ModelAndView("home");
 		mav.addObject("interestCategories", homeService.selecInterestCategory());
-
+		if(session.getAttribute("interestMap") == null){
+			Map<Integer, List<Interest>> interestMap = homeService
+					.selectInterest(null);
+			session.setAttribute("interestMap", interestMap);
+		}
+		
 		List<Integer> randomPage = homeService.makeRandomCount(homeFilter);
 		logger.debug("RandomPage Controller" + randomPage.toString());
-		HttpSession session = request.getSession();
 		session.setAttribute("randomPage", randomPage);
 		logger.debug("RandomPage Controller" + randomPage.get(0));
 
@@ -74,12 +78,17 @@ public class HomeController {
 	public ModelAndView showMainPageSearch(
 			@ModelAttribute HomeFilter homeFilter, HttpServletRequest request) {
 		logger.debug("Show Main page Search");
+		HttpSession session = request.getSession();
 		ModelAndView mav = new ModelAndView("home");
 		mav.addObject("interestCategories", homeService.selecInterestCategory());
-
+		if(session.getAttribute("interestMap") == null){
+			Map<Integer, List<Interest>> interestMap = homeService
+					.selectInterest(null);
+			session.setAttribute("interestMap", interestMap);
+		}
+		
 		List<Integer> randomPage = homeService.makeRandomCount(homeFilter);
 		logger.debug("RandomPage Controller" + randomPage.toString());
-		HttpSession session = request.getSession();
 		session.setAttribute("randomPage", randomPage);
 		logger.debug("RandomPage Controller" + randomPage.get(0));
 

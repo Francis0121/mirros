@@ -278,7 +278,7 @@ jtown.home.html = function(data){
 		html+='			<li>';
 		html+='				<a href="#none" onclick="jtown.home.clickLove(\''+spn+'\');" class="jt-home-shop-love">♥</a>&nbsp;<span id="love-'+spn+'">'+ ( nullValueCheck(seller.loveCount) ? 0 : seller.loveCount) + '</span>';
 		html+='				<span id="new-'+spn+'">';
-		html+='					'+ ( bannerDate == null && Number(bannerDate) < 7 ) ? 'new' : '' ;
+		html+='					'+ ( seller.bannerDate != null && Number(seller.bannerDate) < 7 ) ? 'new' : '' ;
 		html+='				</span>';
 		html+='			</li>';
 		html+='		</ul>';

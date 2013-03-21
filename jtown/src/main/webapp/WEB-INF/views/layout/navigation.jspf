@@ -10,12 +10,34 @@
 		<c:set var="interests" value="${interestMap[cpn] }"/>
 		<li class="jt-header-nav-interestCategory-li">
 			<c:url var="search" value="/cpn/${cpn }/spn/0"/>
-			<a href="${search }"><c:out value="${interestCategory.name }"/></a>
+			<c:url var="check" value="/cpn/${homeFilter.categoryPn }/spn/0"/>
+			<c:choose>
+				<c:when test="${search eq check }">
+					<a href="${search }" class="jt-header-nav-interestCategory-realPath">
+						<c:choose>
+							<c:when test="${homeFilter.sectionPn eq null or homeFilter.sectionPn eq 0}">
+								<c:out value="${interestCategory.name }"/>
+							</c:when>
+							<c:otherwise>
+								<c:out value="${interestCategory.name }"/>
+<%-- 								<c:forEach var="interest" items="${interests }"> --%>
+<%-- 									<c:if test="${interest.sectionPn eq homeFilter.sectionPn }"> --%>
+<%-- 										<c:out value="${interest.name }"/>	 --%>
+<%-- 									</c:if> --%>
+<%-- 								</c:forEach> --%>
+							</c:otherwise>
+						</c:choose>
+					</a>
+				</c:when>
+				<c:otherwise>
+					<a href="${search }"><c:out value="${interestCategory.name }"/></a>
+				</c:otherwise>
+			</c:choose>
 			<ul class="jt-header-nav-interest">
 			<c:forEach var="interest" items="${interests }">
 				<c:set var="spn" value="${interest.sectionPn }"/>
 				<li>
-					<c:url var="search" value="/cpn/0/spn/${spn }"/>
+					<c:url var="search" value="/cpn/${cpn }/spn/${spn }"/>
 					<a href="${search }"><c:out value="${interest.name }"/></a>
 				</li>
 			</c:forEach>

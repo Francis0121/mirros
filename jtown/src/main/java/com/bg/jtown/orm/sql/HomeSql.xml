@@ -271,20 +271,32 @@
 	</resultMap>
 
 	<select id="selectInterest" parameterType="java.lang.Integer" resultMap="jtown-interest-map">
-		SELECT
-			ise.category_pn,  uci.section_pn,  ise.name
-		FROM
-			user_customer_interest uci,
-			interest_section ise,
-			interest_category ic
-		WHERE
-			uci.section_pn = ise.pn
-		AND
-			ic.pn = ise.category_pn
-		AND
-			uci.customer_pn = #{customerPn}
-		ORDER BY
-			category_pn, section_pn	
+		<choose>
+			<when test="value != null">
+				SELECT
+					ise.category_pn,  uci.section_pn,  ise.name
+				FROM
+					user_customer_interest uci,
+					interest_section ise,
+					interest_category ic
+				WHERE
+					uci.section_pn = ise.pn
+				AND
+					ic.pn = ise.category_pn
+				AND
+					uci.customer_pn = #{customerPn}
+				ORDER BY
+					category_pn, section_pn
+			</when>
+			<otherwise>
+				SELECT
+					pn AS section_pn, category_pn, NAME
+				FROM
+					interest_section
+				ORDER BY
+					category_pn, section_pn	
+			</otherwise>
+		</choose>
 	</select>
 	
 	<select id="selectInterestSectionCount" parameterType="com.bg.jtown.business.Interest" resultType="java.lang.Integer">

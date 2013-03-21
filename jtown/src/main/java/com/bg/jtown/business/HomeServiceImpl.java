@@ -106,10 +106,10 @@ public class HomeServiceImpl extends SqlSessionDaoSupport implements
 	public List<JtownUser> selectSeller(HomeFilter homeFilter) {
 		Integer categoryPn = homeFilter.getCategoryPn();
 		Integer sectionPn = homeFilter.getSectionPn();
-		if (categoryPn != null && !categoryPn.equals(0)) {
-			return selectFromInterestCategory(homeFilter);
-		} else if (sectionPn != null && !sectionPn.equals(0)) {
+		if (sectionPn != null && !sectionPn.equals(0)) {
 			return selectFromInterest(homeFilter);
+		} else if (categoryPn != null && !categoryPn.equals(0)) {
+			return selectFromInterestCategory(homeFilter);
 		} else {
 			homeFilter.setCategoryPn(CATEGORY_DEFAULT_FASION);
 			return selectFromInterestCategory(homeFilter);
@@ -242,13 +242,16 @@ public class HomeServiceImpl extends SqlSessionDaoSupport implements
 
 		Map<Integer, List<Interest>> selectMap = new HashMap<Integer, List<Interest>>();
 		List<Interest> divideInterest;
+		Map<Integer, String> interestMap = new HashMap<Integer, String>();
 		for (Interest ic : interestCategories) {
 			divideInterest = new ArrayList<Interest>();
+			interestMap = new HashMap<Integer, String>();
 			Integer categoryPnic = ic.getCategoryPn();
 			for (Interest i : interests) {
 				Integer categoryPni = i.getCategoryPn();
 				if (categoryPnic.equals(categoryPni)) {
 					divideInterest.add(i);
+					interestMap.put(i.getSectionPn(), i.getName());
 				}
 			}
 			selectMap.put(categoryPnic, divideInterest);
