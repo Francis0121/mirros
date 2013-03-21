@@ -17,6 +17,11 @@ public class Comment {
 	private Integer commentPn;
 
 	/**
+	 * 판매자에 따른 댓글 개수
+	 */
+	private Integer count;
+
+	/**
 	 * 소비자 닉네임
 	 */
 	private String customerName;
@@ -32,6 +37,11 @@ public class Comment {
 	private Integer inputDate;
 
 	/**
+	 * redisType
+	 */
+	private String redisType;
+
+	/**
 	 * 판매자 고유번호
 	 */
 	private Integer sellerPn;
@@ -40,11 +50,13 @@ public class Comment {
 		super();
 	}
 
-	public Comment(String comment, Integer commentPn, String customerName,
-			Integer customerPn, Integer inputDate, Integer sellerPn) {
+	public Comment(String comment, Integer commentPn, Integer count,
+			String customerName, Integer customerPn, Integer inputDate,
+			Integer sellerPn) {
 		super();
 		this.comment = comment;
 		this.commentPn = commentPn;
+		this.count = count;
 		this.customerName = customerName;
 		this.customerPn = customerPn;
 		this.inputDate = inputDate;
@@ -59,6 +71,10 @@ public class Comment {
 		return commentPn;
 	}
 
+	public Integer getCount() {
+		return count;
+	}
+
 	public String getCustomerName() {
 		return customerName;
 	}
@@ -69,6 +85,10 @@ public class Comment {
 
 	public Integer getInputDate() {
 		return inputDate;
+	}
+
+	public String getRedisType() {
+		return redisType;
 	}
 
 	public Integer getSellerPn() {
@@ -83,6 +103,10 @@ public class Comment {
 		this.commentPn = commentPn;
 	}
 
+	public void setCount(Integer count) {
+		this.count = count;
+	}
+
 	public void setCustomerName(String customerName) {
 		this.customerName = customerName;
 	}
@@ -95,6 +119,10 @@ public class Comment {
 		this.inputDate = inputDate;
 	}
 
+	public void setRedisType(String redisType) {
+		this.redisType = redisType;
+	}
+
 	public void setSellerPn(Integer sellerPn) {
 		this.sellerPn = sellerPn;
 	}
@@ -102,9 +130,9 @@ public class Comment {
 	@Override
 	public String toString() {
 		return "Comment [comment=" + comment + ", commentPn=" + commentPn
-				+ ", customerName=" + customerName + ", customerPn="
-				+ customerPn + ", inputDate=" + inputDate + ", sellerPn="
-				+ sellerPn + "]";
+				+ ", count=" + count + ", customerName=" + customerName
+				+ ", customerPn=" + customerPn + ", inputDate=" + inputDate
+				+ ", redisType=" + redisType + ", sellerPn=" + sellerPn + "]";
 	}
 
 }

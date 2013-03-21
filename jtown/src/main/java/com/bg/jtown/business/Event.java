@@ -9,14 +9,9 @@ package com.bg.jtown.business;
 public class Event {
 
 	/**
-	 * 이벤트 고유번호
+	 * 배너 순서
 	 */
-	private Integer pn;
-
-	/**
-	 * 판매자 고유번호
-	 */
-	private Integer sellerPn;
+	private Integer bannerOrder;
 
 	/**
 	 * Event Type
@@ -24,9 +19,9 @@ public class Event {
 	private Integer bannerType;
 
 	/**
-	 * 파일 저장된 이름
+	 * 내용
 	 */
-	private String saveName;
+	private String content;
 
 	/**
 	 * 파일 고유 번호
@@ -34,14 +29,24 @@ public class Event {
 	private Integer imagePn;
 
 	/**
-	 * 내용
+	 * 이벤트 고유번호
 	 */
-	private String content;
+	private Integer pn;
 
 	/**
-	 * 배너 순서
+	 * 실시간 적용 타입
 	 */
-	private Integer bannerOrder;
+	private String redisType = "event";
+
+	/**
+	 * 파일 저장된 이름
+	 */
+	private String saveName;
+
+	/**
+	 * 판매자 고유번호
+	 */
+	private Integer sellerPn;
 
 	public Event() {
 		super();
@@ -78,6 +83,10 @@ public class Event {
 
 	public Integer getPn() {
 		return pn;
+	}
+
+	public String getRedisType() {
+		return redisType;
 	}
 
 	public String getSaveName() {
@@ -118,10 +127,10 @@ public class Event {
 
 	@Override
 	public String toString() {
-		return "Event [pn=" + pn + ", sellerPn=" + sellerPn + ", bannerType="
-				+ bannerType + ", saveName=" + saveName + ", imagePn="
-				+ imagePn + ", content=" + content + ", bannerOrder="
-				+ bannerOrder + "]";
+		return "Event [bannerOrder=" + bannerOrder + ", bannerType="
+				+ bannerType + ", content=" + content + ", imagePn=" + imagePn
+				+ ", pn=" + pn + ", redisType=" + redisType + ", saveName="
+				+ saveName + ", sellerPn=" + sellerPn + "]";
 	}
 
 }

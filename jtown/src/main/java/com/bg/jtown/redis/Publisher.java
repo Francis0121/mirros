@@ -16,7 +16,7 @@ public interface Publisher {
 
 	public void lovePublish(Count count);
 
-	public void commentPublish(Integer count, Comment comment);
+	public void commentPublish(Comment comment);
 
 	public void eventPublish(Event event);
 

@@ -27,6 +27,11 @@ public class Count {
 	private String message;
 
 	/**
+	 * redisType
+	 */
+	private String redisType;
+
+	/**
 	 * 판매자 고유번호
 	 */
 	private Integer sellerPn;
@@ -36,13 +41,14 @@ public class Count {
 	}
 
 	public Count(Integer count, Integer customerPn, String inputDate,
-			String message, Integer sellerPn) {
+			String message, Integer sellerPn, String redisType) {
 		super();
 		this.count = count;
 		this.customerPn = customerPn;
 		this.inputDate = inputDate;
 		this.message = message;
 		this.sellerPn = sellerPn;
+		this.redisType = redisType;
 	}
 
 	public Integer getCount() {
@@ -59,6 +65,10 @@ public class Count {
 
 	public String getMessage() {
 		return message;
+	}
+
+	public String getRedisType() {
+		return redisType;
 	}
 
 	public Integer getSellerPn() {
@@ -81,6 +91,10 @@ public class Count {
 		this.message = message;
 	}
 
+	public void setRedisType(String redisType) {
+		this.redisType = redisType;
+	}
+
 	public void setSellerPn(Integer sellerPn) {
 		this.sellerPn = sellerPn;
 	}
@@ -89,7 +103,7 @@ public class Count {
 	public String toString() {
 		return "Count [count=" + count + ", customerPn=" + customerPn
 				+ ", inputDate=" + inputDate + ", message=" + message
-				+ ", sellerPn=" + sellerPn + "]";
+				+ ", sellerPn=" + sellerPn + ", redisType=" + redisType + "]";
 	}
 
 }

@@ -47,6 +47,38 @@ jtown.comment.syncComment = function(){
 	});
 };
 
+jtown.comment.commentHtml = function(comment){
+	var innerHtml = $('.jt-home-expand-shop-comment>li:last').html();
+	var commentHtml ='';
+	commentHtml += 	'<li data-copn="'+comment.commentPn+'">';
+	commentHtml +=	'	<ul class="jt-home-expand-shop-text-wrap">';
+	commentHtml += 	'		<li class="jt-home-expand-shop-comment-header">';
+	commentHtml += 	'			<span class="jt-home-expand-shop-comment-name">'+htmlChars(comment.customerName)+'</span>';
+	commentHtml += 	'			<span class="jt-home-expand-shop-comment-progress-date">3 시간전</span>';
+	commentHtml += 	'		</li>';
+	commentHtml +=	'		<li class="jt-home-expand-shop-comment-text">'+htmlChars(comment.comment)+'</li>';
+	commentHtml	+= 	'	</ul>';
+	commentHtml +=	'	<div class="jt-home-expand-shop-update-wrap">';
+	commentHtml +=	'		<input type="text" class="jt-comment-update-input" value="'+htmlChars(comment.comment)+'"/><br/>';
+	commentHtml += 	'		<span>esc를 누르시면 수정이 취소 됩니다.</span>';
+	commentHtml +=	'	</div>';
+	commentHtml +=	'	<div class="jt-home-expand-shop-tool-wrap">';
+	commentHtml +=	'		<a href="#none" class="jt-comment-update jt-btn-white-small">';
+	commentHtml +=	'			<span class="btnImage"></span>';
+	commentHtml +=	'		</a>';
+	commentHtml +=	'		<a href="#none" class="jt-comment-delete jt-btn-white-small">';
+	commentHtml +=	'			<span class="btnImage"></span>';
+	commentHtml +=	'		</a>';
+	commentHtml +=	'	</div>';
+	commentHtml += 	'</li>';
+	
+	if(!nullValueCheck(innerHtml)){			
+		$('.jt-home-expand-shop-comment>li:last').after(commentHtml);
+	}else{
+		$('.jt-home-expand-shop-comment').html(commentHtml);
+	}
+};
+
 jtown.comment.insertComment = function(me){
 	var $parent = me.parents('#jt-home-expand-shop'),
 		spn = $parent.attr('data-spn'),
@@ -57,38 +89,7 @@ jtown.comment.insertComment = function(me){
 				 	'comment'	: comment 	};
 	
 	$.postJSON(url, json, function(comment){
-		var innerHtml = $('.jt-home-expand-shop-comment>li:last').html();
-		var commentHtml ='';
-		commentHtml += 	'<li data-copn="'+comment.commentPn+'">';
-		commentHtml +=	'	<ul class="jt-home-expand-shop-text-wrap">';
-		commentHtml += 	'		<li class="jt-home-expand-shop-comment-header">';
-		commentHtml += 	'			<span class="jt-home-expand-shop-comment-name">'+htmlChars(comment.customerName)+'</span>';
-		commentHtml += 	'			<span class="jt-home-expand-shop-comment-progress-date">3 시간전</span>';
-		commentHtml += 	'		</li>';
-		commentHtml +=	'		<li class="jt-home-expand-shop-comment-text">'+htmlChars(comment.comment)+'</li>';
-		commentHtml	+= 	'	</ul>';
-		commentHtml +=	'	<div class="jt-home-expand-shop-update-wrap">';
-		commentHtml +=	'		<input type="text" class="jt-comment-update-input" value="'+htmlChars(comment.comment)+'"/><br/>';
-		commentHtml += 	'		<span>esc를 누르시면 수정이 취소 됩니다.</span>';
-		commentHtml +=	'	</div>';
-		commentHtml +=	'	<div class="jt-home-expand-shop-tool-wrap">';
-		commentHtml +=	'		<a href="#none" class="jt-comment-update jt-btn-white-small">';
-		commentHtml +=	'			<span class="btnImage"></span>';
-		commentHtml +=	'		</a>';
-		commentHtml +=	'		<a href="#none" class="jt-comment-delete jt-btn-white-small">';
-		commentHtml +=	'			<span class="btnImage"></span>';
-		commentHtml +=	'		</a>';
-		commentHtml +=	'	</div>';
-		commentHtml += 	'</li>';
-		
-		if(!nullValueCheck(innerHtml)){			
-			$('.jt-home-expand-shop-comment>li:last').after(commentHtml);
-		}else{
-			$('.jt-home-expand-shop-comment').html(commentHtml);
-		}
 		me.val('');
-		jtown.comment.syncComment();
-		setTimeout('jtown.expand.changeContainerHeight(\'1\')', 0);
 	});
 };
 
@@ -104,8 +105,6 @@ jtown.comment.deleteComment = function(me){
 					'sellerPn'	: spn		};
 
 	$.postJSON(url, json, function(){
-		$parents.remove();
-		setTimeout('jtown.expand.changeContainerHeight(\'-1\')', 0);
 	});
 };
 
@@ -121,7 +120,6 @@ jtown.comment.updateComment = function(me){
 	$.postJSON(url, json, function(comment){
 		$parents.find('.jt-home-expand-shop-text-wrap').show();
 		$parents.find('.jt-home-expand-shop-update-wrap').hide();
-		$parents.find('.jt-home-expand-shop-comment-text').html(htmlChars(comment.comment));
 	});
 };
 

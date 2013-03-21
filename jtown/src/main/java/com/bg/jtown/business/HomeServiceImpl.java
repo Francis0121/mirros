@@ -166,21 +166,28 @@ public class HomeServiceImpl extends SqlSessionDaoSupport implements
 		getSqlSession().insert("homeMapper.insertComment", comment);
 		Comment newComment = selectCommentOne(comment.getCommentPn());
 		int count = sellerService.selectCommentCount(comment.getSellerPn());
-		publisher.commentPublish(count, newComment);
+		newComment.setCount(count);
+		newComment.setRedisType("insert_comment");
+		publisher.commentPublish(newComment);
 		return newComment;
 	}
 
 	@Override
 	public Comment updateComment(Comment comment) {
 		getSqlSession().update("homeMapper.updateComment", comment);
-		return selectCommentOne(comment.getCommentPn());
+		Comment newComment = selectCommentOne(comment.getCommentPn());
+		newComment.setRedisType("update_comment");
+		publisher.commentPublish(newComment);
+		return newComment;
 	}
 
 	@Override
 	public void deleteComment(Comment comment) {
 		getSqlSession().update("homeMapper.deleteComment", comment);
 		Integer count = sellerService.selectCommentCount(comment.getSellerPn());
-		publisher.commentPublish(count, comment);
+		comment.setCount(count);
+		comment.setRedisType("delete_comment");
+		publisher.commentPublish(comment);
 	}
 
 	@Override
