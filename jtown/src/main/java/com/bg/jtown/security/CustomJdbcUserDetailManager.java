@@ -309,7 +309,7 @@ public class CustomJdbcUserDetailManager extends JdbcUserDetailsManager {
 	}
 
 	private void createUserAdmin(JtownUser jtownUser) {
-		validateUserDetails(jtownUser);
+		//validateUserDetails(jtownUser);
 
 		// PasswordEncoder SaltSource
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",
@@ -317,6 +317,11 @@ public class CustomJdbcUserDetailManager extends JdbcUserDetailsManager {
 		Date date = new Date();
 		String salt = sdf.format(date);
 		jtownUser.setSalt(salt);
+
+		String ran = new SimpleDateFormat("yyyyMMddHHmmss", Locale.KOREA)
+				.format(date);
+		jtownUser.setUsername("admin" + ran);
+		jtownUser.setPassword("admin" + ran);
 
 		logger.debug(jtownUser.toString());
 
