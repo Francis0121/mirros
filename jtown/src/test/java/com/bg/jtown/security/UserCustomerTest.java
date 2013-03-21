@@ -132,6 +132,7 @@ public class UserCustomerTest {
 	private void confirmUserAndLoadUser(JtownUser user, JtownUser loadUser) {
 		assertThat(user.getUsername(), is(loadUser.getUsername()));
 		assertThat(user.getPassword(), is(loadUser.getPassword()));
+		assertThat(user.getName(), is(loadUser.getName()));
 	}
 
 	/**
@@ -143,7 +144,6 @@ public class UserCustomerTest {
 	 */
 	private void confirmCustmoerAndLoadCustomer(JtownUser user,
 			JtownUser loadCustomer) {
-		assertThat(user.getName(), is(loadCustomer.getName()));
 		assertThat(null, is(not(loadCustomer.getJoinDate())));
 	}
 

@@ -96,9 +96,9 @@ jtown.expand.makeInnerHtml = function(spn){
 			commentInputHtml += '<input type="text" id="jt-comment-insert" readonly="readonly" value="로그인한 사용자만 사용할 수 있습니다."/>';
 		}
 		
-		html += '<div class="jt-home-expand-shop" id="jt-home-expand-shop" data-size="'+productSize+'" data-nowPosition="'+(productSize-1)+'" data-spn="'+jtownUser.pn+'">';
+		html += '<div class="jt-home-expand-shop" id="jt-home-expand-shop" data-size="'+productSize+'" data-nowPosition="'+productSize+'" data-spn="'+jtownUser.pn+'">';
 		html += '	<header>';
-		html += '		<a href="#none" onclick="window.open(\'http://'+htmlChars(jtownUser.shopUrl)+'\');">'+htmlChars(jtownUser.shopName)+'</a>';
+		html += '		<a href="#none" onclick="window.open(\'http://'+htmlChars(jtownUser.shopUrl)+'\');">'+htmlChars(jtownUser.name)+'</a>';
 		html += '	</header>';
 		html += '	<ul class="jt-home-expand-shop-expandProducts">';
 		html += '		<li class="jt-home-expand-shop-leftArrow jt-home-expand-shop-arrow">';
@@ -120,10 +120,10 @@ jtown.expand.makeInnerHtml = function(spn){
 		html += '		<div class="jt-home-expand-shop-event-new">';
 		html += '			<span>NEW</span>';
 		html += '		</div>';
-		html += '		<img alt="event1" src="'+path + eventImage1 +'" title="'+htmlChars(jtownUser.shopName)+' Event"/>';
+		html += '		<img alt="event1" src="'+path + eventImage1 +'" title="'+htmlChars(jtownUser.name)+' Event"/>';
 		html += '	</div>';
 		html += '	<div class="jt-home-expand-shop-event" id="jt-seller-expand-event-second">';
-		html +=	'		<img alt="event2" src="'+path + eventImage2 +'" title="'+htmlChars(jtownUser.shopName)+' Event"/>';
+		html +=	'		<img alt="event2" src="'+path + eventImage2 +'" title="'+htmlChars(jtownUser.name)+' Event"/>';
 		html +=	'	</div>';	
 		html += '	<ul class="jt-home-expand-shop-content-fn">';
 		html +=	'		<li class="jt-home-expand-shop-content-view-wrap">';

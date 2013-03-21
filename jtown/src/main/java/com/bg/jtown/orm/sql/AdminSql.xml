@@ -78,16 +78,16 @@
 	</select>
 	
 	<resultMap type="JtownUser" id="getSellerListMap" extends="usersMap">
-		<result column="shop_name" property="shopName"/>
+		<result column="name" property="name"/>
 		<result column="shop_url" property="shopUrl"/>
 	</resultMap>
 	
 	<select id="getSellerList" parameterType="UserSearch" resultMap="getSellerListMap">
 		SELECT
-			u.pn, us.shop_name, us.shop_url, u.id, u.enable
+			u.pn, u.name, us.shop_url, u.id, u.enable
 		FROM
 			(SELECT
-				pn, id, ENABLE
+				pn, id, ENABLE, name
 			FROM
 				users
 			WHERE
@@ -129,10 +129,10 @@
 	</resultMap>
 	<select id="getCustomerList" parameterType="UserSearch" resultMap="getCustomerListMap">
 		SELECT
-			u.pn, u.id, uc.name, u.enable, uc.join_date
+			u.pn, u.id, u.name, u.enable, uc.join_date
 		FROM
 			(SELECT
-				pn, id, ENABLE
+				pn, id, ENABLE, name
 			FROM
 				users
 			WHERE

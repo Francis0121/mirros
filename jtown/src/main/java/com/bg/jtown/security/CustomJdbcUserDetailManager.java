@@ -101,7 +101,7 @@ public class CustomJdbcUserDetailManager extends JdbcUserDetailsManager {
 				userFromUserQuery.getPassword(), userFromUserQuery.isEnabled(),
 				true, true, true, combinedAuthorities,
 				((JtownUser) userFromUserQuery).getSalt(),
-				userFromUserQuery.getGroupName());
+				userFromUserQuery.getGroupName(), userFromUserQuery.getName());
 	}
 
 	@SuppressWarnings("deprecation")
@@ -151,7 +151,7 @@ public class CustomJdbcUserDetailManager extends JdbcUserDetailsManager {
 	@Override
 	protected List<UserDetails> loadUsersByUsername(String id) {
 		return getJdbcTemplate()
-				.query("SELECT u.id, u.password, u.enable, DATE_FORMAT(u.salt, '%Y-%m-%d %H:%i:%s') AS salt, u.pn, gmn.group_name "
+				.query("SELECT u.id, u.password, u.enable, DATE_FORMAT(u.salt, '%Y-%m-%d %H:%i:%s') AS salt, u.pn, gmn.group_name, u.name "
 						+ "FROM users u, group_members_name gmn "
 						+ "WHERE u.id = ? AND u.pn = gmn.user_pn",
 						new String[] { id }, new RowMapper<UserDetails>() {
@@ -164,11 +164,12 @@ public class CustomJdbcUserDetailManager extends JdbcUserDetailsManager {
 								String salt = rs.getString(4);
 								Integer pn = rs.getInt(5);
 								String groupName = rs.getString(6);
+								String name = rs.getString(7);
 
 								return new JtownUser(pn, id, password, enable,
 										true, true, true,
 										AuthorityUtils.NO_AUTHORITIES, salt,
-										groupName);
+										groupName, name);
 							}
 						});
 	}

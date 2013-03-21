@@ -21,14 +21,14 @@
 			<c:set value="${images[spn] }" var="mainImages"/>
 			<div class="jt-home-shop" id="jt-home-shop-<c:out value="${spn }"/>">
 				<header>
-					<a href="#none" onclick="jtown.home.clickShop('<c:out value="${spn }"/>', '<c:out value="${seller.shopUrl }"/>')"><c:out value="${seller.shopName }"/></a>
+					<a href="#none" onclick="jtown.home.clickShop('<c:out value="${spn }"/>', '<c:out value="${seller.shopUrl }"/>')"><c:out value="${seller.name }"/></a>
 				</header>
 				<div class="jt-home-shop-content">
 					<ul class="jt-home-shop-content-image" data-spn="<c:out value="${spn }"/>">
 						<li>
 							<c:forEach items="${mainImages }" var="mainImage">
 								<c:url value="/resources/uploadImage/${mainImage eq null ? '8.jpg' : mainImage}" var="image"/>
-								<img alt="" src="${image }" title="${jtownUser.shopName}"/>	
+								<img alt="" src="${image }" title="${jtownUser.name}"/>	
 							</c:forEach>
 						</li>
 					</ul>

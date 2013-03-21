@@ -25,7 +25,7 @@
 				<ul class="jt-header-login-menu">
 					<sec:authorize access="hasRole('ROLE_USER')">
 						<li id="jt-mypage">
-							<a href="#none" class="jt-common-a-base">MYPAGE&nbsp;<span class="jt-btn-underArrow">▼</span></a>
+							<a href="#none" class="jt-common-a-base"><sec:authentication property="principal.name" />&nbsp;<span class="jt-btn-underArrow">▼</span></a>
 							<ul class="jt-under-wrap" id="jt-mypage-wrap">
 								<li>
 									<c:url value="/login/modify" var="modifyUrl"/>
@@ -34,7 +34,19 @@
 								<li>
 									<c:url value="/login/logout" var="logoutUrl"/>
 									<a href="${logoutUrl }" class="jt-common-a-base" id="jt-logout">로그아웃</a>
+								</li>
+								<sec:authorize access="hasRole('ROLE_SELLER')">
+								<li>
+									<c:url value="/seller" var="sellerUrl"/>
+									<a href="${sellerUrl }/<sec:authentication property="principal.pn" />" class="jt-common-a-base" id="jt-logout">판매자 페이지</a>
 								</li>	
+								</sec:authorize>
+								<sec:authorize access="hasRole('ROLE_ADMIN')">
+								<li>
+									<c:url value="/admin" var="sellerUrl"/>
+									<a href="${adminUrl }" class="jt-common-a-base" id="jt-logout">관리자 페이지</a>
+								</li>	
+								</sec:authorize>	
 							</ul>
 						</li>
 					</sec:authorize>

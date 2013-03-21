@@ -46,7 +46,7 @@ public class UserSellerTest {
 		int count = loginService.selectUsersCount();
 		assertThat(count, is(0));
 
-		jtownUser.setShopName("SellerShop");
+		jtownUser.setName("SellerShop");
 		jtownUser.setShopUrl("www.sellerShop.com");
 	}
 

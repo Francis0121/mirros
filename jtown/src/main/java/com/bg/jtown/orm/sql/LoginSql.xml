@@ -11,13 +11,12 @@
 	</select>
 	
 	<resultMap type="com.bg.jtown.security.JtownUser" id="jtown-customer-map">
-		<result column="name" property="name"/>
 		<result column="join_date" property="joinDate"/>
 	</resultMap>
 	
 	<select id="selectCustomer" parameterType="Integer" resultMap="jtown-customer-map">
 		SELECT
-			name, join_date
+			join_date
 		FROM
 			user_customer
 		WHERE
@@ -27,9 +26,9 @@
 	<insert id="insertUsers" parameterType="JtownUser">
 		INSERT INTO
 			users
-			( id, password, enable, salt )
+			( id, password, enable, salt, name )
 		VALUES
-			( #{username}, #{password}, #{enabled}, #{salt} )
+			( #{username}, #{password}, #{enabled}, #{salt}, #{name} )
 		<selectKey keyProperty="pn" resultType="Integer">
 			SELECT LAST_INSERT_ID()
 		</selectKey>
@@ -38,17 +37,17 @@
 	<insert id="insertUserCustomer" parameterType="JtownUser">
 		INSERT INTO
 			user_customer
-			( pn, name, join_date )
+			( pn, join_date )
 		VALUES
-			( #{pn}, #{name}, SYSDATE() )			
+			( #{pn}, SYSDATE() )			
 	</insert>
 	
 	<insert id="insertUserSeller" parameterType="JtownUser">
 		INSERT
 			user_seller
-			( pn, shop_name, shop_url )		
+			( pn, shop_url )		
 		VALUES
-			( #{pn}, #{shopName}, #{shopUrl} )
+			( #{pn}, #{shopUrl} )
 	</insert>	
 		
 	<insert id="addUserToGroup" parameterType="Map">
@@ -70,9 +69,12 @@
 	</update>
 	
 	<update id="updateUserCustomer" parameterType="com.bg.jtown.security.JtownUser">
-		UPDATE user_customer
-		SET	name = #{name}
-		WHERE pn = #{pn}
+		UPDATE 
+			users
+		SET	
+			name = #{name}
+		WHERE 
+			pn = #{pn}
 	</update>
 		
 	<!-- Use Only TestCase -->

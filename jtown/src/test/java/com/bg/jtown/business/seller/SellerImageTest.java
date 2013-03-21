@@ -54,7 +54,7 @@ public class SellerImageTest {
 	@Before
 	public void BEFORE_TEST() throws Exception {
 		// ~ User And File Setting
-		jtownUser.setShopName("SellerShop");
+		jtownUser.setName("SellerShop");
 		jtownUser.setShopUrl("www.sellerShop.com");
 
 		loginService.deleteUserAll();

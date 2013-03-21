@@ -189,8 +189,8 @@ public class AdminController {
 			@Override
 			public void validate(Object target, Errors errors) {
 
-				ValidationUtils.rejectIfEmptyOrWhitespace(errors, "shopName",
-						"create.seller.shopName.empty");
+				ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name",
+						"create.seller.name.empty");
 				ValidationUtils.rejectIfEmptyOrWhitespace(errors, "shopUrl",
 						"create.seller.shopUrl.empty");
 				ValidationUtils.rejectIfEmptyOrWhitespace(errors,

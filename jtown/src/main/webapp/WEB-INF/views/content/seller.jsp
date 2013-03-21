@@ -29,7 +29,7 @@
 				<ul class="jt-header-login-menu">
 					<sec:authorize access="hasRole('ROLE_USER')">
 						<li id="jt-mypage">
-							<a href="#none" class="jt-common-a-base">MYPAGE&nbsp;<span class="jt-btn-underArrow">▼</span></a>
+							<a href="#none" class="jt-common-a-base"><sec:authentication property="principal.name" />&nbsp;<span class="jt-btn-underArrow">▼</span></a>
 							<ul class="jt-under-wrap" id="jt-mypage-wrap">
 								<li>
 									<c:url value="/login/modify" var="modifyUrl"/>
@@ -39,6 +39,18 @@
 									<c:url value="/login/logout" var="logoutUrl"/>
 									<a href="${logoutUrl }" class="jt-common-a-base" id="jt-logout">로그아웃</a>
 								</li>	
+								<sec:authorize access="hasRole('ROLE_SELLER')">
+								<li>
+									<c:url value="/seller/${jtownUser.pn}" var="sellerUrl"/>
+									<a href="${sellerUrl }" class="jt-common-a-base" id="jt-logout">판매자 페이지</a>
+								</li>	
+								</sec:authorize>
+								<sec:authorize access="hasRole('ROLE_ADMIN')">
+								<li>
+									<c:url value="/admin" var="sellerUrl"/>
+									<a href="${adminUrl }" class="jt-common-a-base" id="jt-logout">관리자 페이지</a>
+								</li>	
+								</sec:authorize>
 							</ul>
 						</li>
 					</sec:authorize>
@@ -66,7 +78,7 @@
 			<section class="jt-seller-content">
 				<header>
 					<ul>
-						<li><c:out value="${jtownUser.shopName }"/></li>
+						<li><c:out value="${jtownUser.name }"/></li>
 						<li><c:out value="${jtownUser.shopUrl}"/></li>
 						<li>
 							관심사 : 
@@ -82,7 +94,7 @@
 				<section class="jt-seller-main">
 					<div class="jt-home-shop">
 						<header>
-							<a href="#none" onclick="window.open('${jtownUser.shopUrl }');"><c:out value="${jtownUser.shopName }"/></a>
+							<a href="#none" onclick="window.open('${jtownUser.shopUrl }');"><c:out value="${jtownUser.name }"/></a>
 						</header>
 						<div class="jt-home-shop-content">
 							<ul class="jt-home-shop-content-image" id="jt-seller-main-image">
@@ -98,12 +110,12 @@
 									<c:choose>
 										<c:when test="${fn:length(mainImages) eq 0 }">
 											<c:url value="/resources/uploadImage/8.jpg" var="image"/>
-											<img alt="" src="${image }" title="${jtownUser.shopName}" id="jt-seller-main-image-area"/>	
+											<img alt="" src="${image }" title="${jtownUser.name}" id="jt-seller-main-image-area"/>	
 										</c:when>
 										<c:otherwise>
 											<c:forEach items="${mainImages }" var="mainImage" varStatus="loop" >
 												<c:url value="/resources/uploadImage/${mainImage }" var="image"/>
-												<img alt="" src="${image }" title="${jtownUser.shopName}" id="jt-seller-main-image-area"/>	
+												<img alt="" src="${image }" title="${jtownUser.name}" id="jt-seller-main-image-area"/>	
 											</c:forEach>
 										</c:otherwise>
 									</c:choose>
@@ -167,7 +179,7 @@
 				<section class="jt-seller-expand">
 					<div class="jt-home-expand-shop" id="jt-home-expand-shop" data-spn="${jtownUser.pn }" data-size="${productSize }" data-nowPosition="${productSize }">
 						<header>
-							<a href="#none" onclick="window.open('${jtownUser.shopUrl }');"><c:out value="${jtownUser.shopName }"/></a>
+							<a href="#none" onclick="window.open('${jtownUser.shopUrl }');"><c:out value="${jtownUser.name }"/></a>
 						</header>
 						<ul class="jt-home-expand-shop-expandProducts">
 							<li class="jt-home-expand-shop-leftArrow jt-home-expand-shop-arrow">
@@ -250,7 +262,7 @@
 								</a>
 							</div>
 							<c:url value="/resources/uploadImage/${event1.saveName eq null ? 'event-1.png' : event1.saveName}" var="image"/>
-							<img alt="event1" src="${image }" title="<c:out value="${jtownUser.shopName }"/> Event" id="jt-seller-expand-event-first-img"/>
+							<img alt="event1" src="${image }" title="<c:out value="${jtownUser.name }"/> Event" id="jt-seller-expand-event-first-img"/>
 						</div>
 						<div class="jt-home-expand-shop-event" id="jt-seller-expand-event-second" data-epn="<c:out value="${event2.pn }"/>" data-bo="2">
 							<div class="jt-home-expand-shop-event-new">
@@ -275,7 +287,7 @@
 								</a>
 							</div>
 							<c:url value="/resources/uploadImage/${event2.saveName eq null ? 'event-2.png' : event2.saveName}" var="image"/>
-							<img alt="event2" src="${image }" title="<c:out value="${jtownUser.shopName }"/> Event" id="jt-seller-expand-event-second-img"/>
+							<img alt="event2" src="${image }" title="<c:out value="${jtownUser.name }"/> Event" id="jt-seller-expand-event-second-img"/>
 						</div>
 						<ul class="jt-home-expand-shop-content-fn">
 							<li class="jt-home-expand-shop-content-view-wrap">

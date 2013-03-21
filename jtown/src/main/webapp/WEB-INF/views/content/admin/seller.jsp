@@ -27,7 +27,7 @@
 			<tr class="jt-admin-seller-table-tr" data-pn="<c:out value="${sellerPn }"/>" data-categoryPn="<c:out value="${interestMap[sellerPn].categoryPn }"/>">
 				<td><c:out value="${i.count }"/></td>
 				<td class="jt-admin-seller-table-shopUrl"><c:out value="${seller.shopUrl }"/></td>
-				<td><c:out value="${seller.shopName }"/></td>
+				<td><c:out value="${seller.name }"/></td>
 				<td class="jt-admin-seller-table-interestList"><c:out value="${interestMap[sellerPn].interestSectionNameList }"/></td>
 				<td class="jt-admin-seller-table-sellerId"><c:out value="${seller.username }"/></td>
 				<td>

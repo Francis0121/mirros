@@ -249,12 +249,12 @@ jtown.home.html = function(data){
 		for(var j=0, jLen = mainImages.length; j < jLen ; j++){
 			var mainImage = mainImages[j];
 			var imageSrc = contextPath + 'resources/uploadImage/'+ ( (mainImage == null )? '8.jpg' : mainImage );
-			imageHtml+='<img alt="" src="'+imageSrc+'" title="'+htmlChars(seller.shopName)+'"/>	';
+			imageHtml+='<img alt="" src="'+imageSrc+'" title="'+htmlChars(seller.name)+'"/>	';
 		}
 		
 		html+='	<div class="jt-home-shop" id="jt-home-shop-'+spn+'">';
 		html+='		<header>';
-		html+='			<a href="#none" onclick="jtown.home.clickShop(\''+spn+'\', \''+htmlChars(seller.shopUrl)+'\')">'+htmlChars(seller.shopName)+'</a>';
+		html+='			<a href="#none" onclick="jtown.home.clickShop(\''+spn+'\', \''+htmlChars(seller.shopUrl)+'\')">'+htmlChars(seller.name)+'</a>';
 		html+='		</header>';
 		html+='		<div class="jt-home-shop-content">';
 		html+='			<ul class="jt-home-shop-content-image" data-spn="'+spn+'">';

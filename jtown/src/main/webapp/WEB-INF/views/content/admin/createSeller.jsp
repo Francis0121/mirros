@@ -36,11 +36,11 @@
 		</tr>
 		<tr>
 			<th>
-				<form:label path="shopName">가게 이름</form:label>
+				<form:label path="name">가게 이름</form:label>
 			</th>
 			<td>
-				<form:input path="shopName" cssClass="jt-join-user-input" />
-				<form:errors path="shopName" cssClass="commonError"/>
+				<form:input path="name" cssClass="jt-join-user-input" />
+				<form:errors path="name" cssClass="commonError"/>
 			</td>
 		</tr>
 		<tr>

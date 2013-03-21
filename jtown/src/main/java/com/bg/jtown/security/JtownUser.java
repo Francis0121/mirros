@@ -82,7 +82,6 @@ public class JtownUser implements JtownDetails, CredentialsContainer {
 
 	// user_seller
 	private String notice;
-	private String shopName;
 	private String shopUrl;
 	private Integer loveCount;
 	private Integer commentCount;
@@ -109,8 +108,7 @@ public class JtownUser implements JtownDetails, CredentialsContainer {
 
 		this.name = "";
 		this.joinDate = "";
-
-		this.shopName = "";
+		
 		this.shopUrl = "";
 		this.notice = "";
 
@@ -122,7 +120,7 @@ public class JtownUser implements JtownDetails, CredentialsContainer {
 			boolean enabled, boolean accountNonExpired,
 			boolean credentialsNonExpired, boolean accountNonLocked,
 			Collection<? extends GrantedAuthority> authorities, String salt,
-			String groupName) {
+			String groupName, String name) {
 
 		if (((username == null) || "".equals(username)) || (password == null)) {
 			throw new IllegalArgumentException(
@@ -140,6 +138,7 @@ public class JtownUser implements JtownDetails, CredentialsContainer {
 				.unmodifiableSet(sortAuthorities(authorities));
 		this.salt = salt;
 		this.groupName = groupName;
+		this.name = name;
 	}
 
 	/**
@@ -303,10 +302,6 @@ public class JtownUser implements JtownDetails, CredentialsContainer {
 		return salt;
 	}
 
-	public String getShopName() {
-		return shopName;
-	}
-
 	public String getShopUrl() {
 		return shopUrl;
 	}
@@ -407,10 +402,6 @@ public class JtownUser implements JtownDetails, CredentialsContainer {
 		this.salt = salt;
 	}
 
-	public void setShopName(String shopName) {
-		this.shopName = shopName;
-	}
-
 	public void setShopUrl(String shopUrl) {
 		this.shopUrl = shopUrl;
 	}
@@ -440,7 +431,6 @@ public class JtownUser implements JtownDetails, CredentialsContainer {
 		sb.append("Salt: ").append(this.salt).append("; ");
 		sb.append("Name :").append(this.name).append("; ");
 		sb.append("JoinDate: ").append(this.joinDate).append("; ");
-		sb.append("shopName: ").append(this.shopName).append("; ");
 		sb.append("shopUrl: ").append(this.shopUrl).append("; ");
 		sb.append("notice: ").append(this.notice).append("; ");
 		sb.append("loveCount: ").append(this.loveCount).append("; ");
