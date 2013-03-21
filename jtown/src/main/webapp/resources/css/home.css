@@ -5,10 +5,10 @@
 *	/ - home
 *
 */
-.jt-home-shop{ float: left; width:316px; margin: 5px; border: 1px solid #dbd9ca;
-	box-shadow : inset 0 1px #fff,0 1px 3px rgba(214,213,201,0.7);
-	-moz-box-shadow : inset 0 1px #fff,0 1px 3px rgba(34,25,25,0.7);
-	-webkit-box-shadow : inset 0 1px #fff,0 1px 3px rgba(34,25,25,0.7);
+.jt-home-shop{ float: left; width:316px; margin: 5px; 
+	box-shadow : 0 1px 3px rgba(34,25,25,0.4);
+	-moz-box-shadow : 0 1px 3px rgba(34,25,25,0.4);
+	-webkit-box-shadow : 0 1px 3px rgba(34,25,25,0.4);
 	background: #fff;
 }
 .jt-home-shop>header{ float: left; width: 100%; font-size: 12px; background: #f2f2f2; }
