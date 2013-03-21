@@ -125,11 +125,18 @@ jtown.expand.makeInnerHtml = function(spn){
 		html += '	</div>';
 		html += '	<div class="jt-home-expand-shop-event" id="jt-seller-expand-event-first">';
 		html += '		<div class="jt-home-expand-shop-event-new">';
-		html += '			<span>NEW</span>';
+		html += '			<div>';
+		html += '				<span class="jt-home-expand-shop-event-new-image">NEW</span>';
+		html += '			</div>';
 		html += '		</div>';
 		html += '		<img alt="event1" src="'+path + eventImage1 +'" title="'+htmlChars(jtownUser.name)+' Event"/>';
 		html += '	</div>';
 		html += '	<div class="jt-home-expand-shop-event" id="jt-seller-expand-event-second">';
+		html += '		<div class="jt-home-expand-shop-event-new">';
+		html += '			<div>';
+		html += '				<span class="jt-home-expand-shop-event-new-image">NEW</span>';
+		html += '			</div>';
+		html += '		</div>';
 		html +=	'		<img alt="event2" src="'+path + eventImage2 +'" title="'+htmlChars(jtownUser.name)+' Event"/>';
 		html +=	'	</div>';	
 		html += '	<ul class="jt-home-expand-shop-content-fn">';
@@ -138,6 +145,7 @@ jtown.expand.makeInnerHtml = function(spn){
 		html +=	'		</li>';
 		html +=	'		<li class="jt-home-expand-shop-content-comment-wrap">';
 		html +=	'			<span class="jt-home-expand-shop-content-comment"></span>&nbsp;Comment&nbsp;&nbsp;<span id="comment-expand-'+spn+'">' + jtownUser.commentCount+'</span>';
+		html += '			<div class="jt-home-expand-shop-border-hide"></div>';
 		html +=	'		</li>';
 		html +=	'		<li class="jt-home-expand-shop-content-love-wrap">';
 		html +=	'			<a href="#none" onclick="jtown.home.clickLove(\''+spn+'\');"><span class="jt-home-expand-shop-content-love"></span>&nbsp;Love&nbsp;<span id="love-expand-'+spn+'">'+jtownUser.loveCount+'</span></a>';
@@ -148,13 +156,13 @@ jtown.expand.makeInnerHtml = function(spn){
 		html +=	'		<ul class="jt-home-expand-shop-comment">';
 		html +=	'			'+commentHtml;
 		html +=	'		</ul>';
-		html +=	'	</div>';
-		html +=	'	<div class="jt-home-expand-shop-comment-insert">';
-		html +=	'		'+commentInputHtml;
+		html +=	'		<div class="jt-home-expand-shop-comment-insert">';
+		html +=	'			'+commentInputHtml;
+		html +=	'		</div>';
 		html +=	'	</div>';
 		html +=	'</div>';
 		
-		$.smartPop.open({width : 640,height : 840,html : html ,effect : 'transfer', target : '#jt-home-shop-'+spn });
+		$.smartPop.open({width : 640,height : 860,html : html ,effect : 'transfer', target : '#jt-home-shop-'+spn });
 		setTimeout('jtown.expand.syncProductMove()', 0);
 		setTimeout('jtown.comment.syncComment()', 0);
 		setTimeout('jtown.expand.changeContainerHeight(\''+comments.length+'\')', 0);

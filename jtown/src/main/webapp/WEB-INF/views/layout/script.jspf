@@ -29,6 +29,7 @@
 <script src="${cp}/resources/js/expand.js"></script>
 <script src="${cp}/resources/js/comment.js"></script>
 <script src="${cp}/resources/js/board.js"></script>
+<c:set var="maxPage" value="${homeFilter.pagination.numPages eq null ? 0 : homeFilter.pagination.numPages }"/>
 <script type="text/javascript">
 /* <![CDATA[ */   
 	var $container = $('#jt-home-container');
@@ -51,7 +52,7 @@
 			$('#jt-home-container').append($boxes).masonry('appended', $boxes);
 			setTimeout('jtown.expand.loadExpandShop()', 0);
 		},
-		'maxPage'		: <c:out value='${homeFilter.pagination.numPages}'/>
+		'maxPage'		: <c:out value='${maxPage}'/>
 	});
 	
 	onResize = function(){

@@ -6,26 +6,32 @@
 *
 */
 .jt-seller-header-title{	
-	box-shadow : inset 0 1px #fff,0 1px 3px rgba(214,213,201,0.7);
-	-moz-box-shadow : inset 0 1px #fff,0 1px 3px rgba(34,25,25,0.7);
-	-webkit-box-shadow : inset 0 1px #fff,0 1px 3px rgba(34,25,25,0.7);}
+	box-shadow : inset 0 1px #fff,0 1px 3px rgba(121,63,41,0.7);
+	-moz-box-shadow : inset 0 1px #fff,0 1px 3px rgba(121,63,41,0.7);
+	-webkit-box-shadow : inset 0 1px #fff,0 1px 3px rgba(121,63,41,0.7);
+}
+
+#folderBar{ width: 990px; height: 55px; padding-top: 40px; }
+#folderTabName{ width:150px; height : 23px; padding: 7px 0 0 0; margin: 0 0 0 804px; font-weight: bold; text-align: center; font-size: 18px;}
+#diagonalFolder{ width: 150px; padding: 7px 0; text-decoration: none; color: white; font-weight: bold; display: block; border-left: 36px solid transparent; border-bottom: 36px solid #ff7822;  height: 0;	line-height: 50px; cursor: default; }
 
 .jt-seller-content-wrap{ width: 990px; margin: auto auto; }
-.jt-seller-content { float: left; padding: 45px 0;}
-.jt-seller-content>header{ width: 970px; float: left; padding: 5px 10px;}
-.jt-seller-content>header>ul{ font-size: 12px; }
-.jt-seller-content>header>ul>li{ float: left; margin-right: 9px;}
-.jt-seller-content>header>ul>li:nth-child(1){}
-.jt-seller-content>header>ul>li:nth-child(2){}
-.jt-seller-content>header>ul>li:nth-child(3){}
-.jt-seller-content>footer{ width: 100%; float: left; text-align: right;  font-size: 12px;}
+.jt-seller-content { width: 984px; float: left; padding-bottom: 45px; border: 3px solid #ff7822; background: #fff;}
+
+.jt-seller-text-content{width: 330px; margin: 15px 0; float: left;}
+.jt-seller-text-content>li{ float: left; width: 320px; padding: 8px 5px;}
+.jt-seller-text-content>li>h3{float: left; font-size: 13px; width: 100%; color: #1a1a1a; font-weight: normal;}
+.jt-seller-text-content>li>span{ float: left; font-size: 13px; width: 100%; color: #b2b2b2; margin-top: 8px;}
+.jt-seller-text-content>li:nth-child(1){}
+.jt-seller-text-content>li:nth-child(2){}
+.jt-seller-text-content>li:nth-child(3){}
 /**
 *i
 *	@author Francis
 *	seller - main update
 *
 */
-.jt-seller-main{ width: 330px; float: left;}
+.jt-seller-main{ width: 330px; float: left; margin-left: 10px; }
 .jt-seller-main-notice-hover-tool{ width: 100%; float: left; display: none;}
 .jt-seller-main-notice-hover-tool>div{position: absolute; float: left;}
 .jt-seller-main-notice-updateShow{margin: 3px 0 0 3px;}
@@ -50,7 +56,7 @@
 *	seller - expand update
 *
 */
-.jt-seller-expand{ width: 640px; float: left; margin-left: 10px; }
+.jt-seller-expand{ width: 630px; float: left; margin-top: 15px; margin-left: 3px; }
 .jt-seller-expand-product-delete-tool{ float: left; width: 100%; display: none;}
 .jt-seller-expand-product-delete-tool>div{float: left; position: absolute;}
 .jt-seller-product-delete{font-size: 12px; font-weight: bold; color: #000; z-index: 10;}

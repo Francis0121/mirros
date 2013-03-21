@@ -75,23 +75,34 @@
 			</div>
 		</header>
 		<article class="jt-seller-content-wrap">
+			<div id="folderBar">
+				<div id="folderTabName">
+					<span id="diagonalFolder">My Page</span>
+				</div>
+			</div>
 			<section class="jt-seller-content">
-				<header>
-					<ul>
-						<li><c:out value="${jtownUser.name }"/></li>
-						<li><c:out value="${jtownUser.shopUrl}"/></li>
+				<section class="jt-seller-main">
+					<ul class="jt-seller-text-content">
 						<li>
-							관심사 : 
-							<c:forEach items="${interestes }" var="interest" varStatus="loop">
-								<c:out value="${interest }"/>
-								<c:if test="${loop.count ne fn:length(interestes) }">
-									,
-								</c:if>
-							</c:forEach>
+							<h3>판매자</h3>
+							<span><c:out value="${jtownUser.name }"/></span>
+						</li>
+						<li>
+							<h3>사이트</h3>
+							<span><c:out value="${jtownUser.shopUrl}"/></span>
+						</li>
+						<li>
+							<h3>관련태그</h3>
+							<span>
+								<c:forEach items="${interestes }" var="interest" varStatus="loop">
+									<c:out value="${interest }"/>
+									<c:if test="${loop.count ne fn:length(interestes) }">
+										,
+									</c:if>
+								</c:forEach>
+							</span>
 						</li>
 					</ul>
-				</header>
-				<section class="jt-seller-main">
 					<div class="jt-home-shop">
 						<header>
 							<a href="#none" onclick="window.open('${jtownUser.shopUrl }');"><c:out value="${jtownUser.name }"/></a>
@@ -178,9 +189,6 @@
 				</section>
 				<section class="jt-seller-expand">
 					<div class="jt-home-expand-shop" id="jt-home-expand-shop" data-spn="${jtownUser.pn }" data-size="${productSize }" data-nowPosition="${productSize }">
-						<header>
-							<a href="#none" onclick="window.open('${jtownUser.shopUrl }');"><c:out value="${jtownUser.name }"/></a>
-						</header>
 						<ul class="jt-home-expand-shop-expandProducts">
 							<li class="jt-home-expand-shop-leftArrow jt-home-expand-shop-arrow">
 								<a href="#none" id="jt-home-expand-shop-leftArrow">&lt;</a>
@@ -241,7 +249,9 @@
 						</div>
 						<div class="jt-home-expand-shop-event" id="jt-seller-expand-event-first" data-epn="<c:out value="${event1.pn }"/>" data-bo="1">
 							<div class="jt-home-expand-shop-event-new">
-								<span>NEW</span>
+								<div>
+									<span class="jt-home-expand-shop-event-new-image">NEW</span>
+								</div>
 							</div>
 							<div class="jt-home-expand-shop-event-tool">
 								<a href="#none" class="jt-home-expand-shop-event-update-btn jt-btn-white-small">
@@ -266,7 +276,9 @@
 						</div>
 						<div class="jt-home-expand-shop-event" id="jt-seller-expand-event-second" data-epn="<c:out value="${event2.pn }"/>" data-bo="2">
 							<div class="jt-home-expand-shop-event-new">
-								<span>NEW</span>
+								<div>
+									<span class="jt-home-expand-shop-event-new-image">NEW</span>
+								</div>
 							</div>
 							<div class="jt-home-expand-shop-event-tool">
 								<a href="#none" class="jt-home-expand-shop-event-update-btn jt-btn-white-small">
@@ -289,66 +301,65 @@
 							<c:url value="/resources/uploadImage/${event2.saveName eq null ? 'event-2.png' : event2.saveName}" var="image"/>
 							<img alt="event2" src="${image }" title="<c:out value="${jtownUser.name }"/> Event" id="jt-seller-expand-event-second-img"/>
 						</div>
-						<ul class="jt-home-expand-shop-content-fn">
-							<li class="jt-home-expand-shop-content-view-wrap">
-								<span class="jt-home-expand-shop-content-view"></span>&nbsp;Look&nbsp;<span id="view-expand-<c:out value="${jtownUser.pn }"/>"/><c:out value="${jtownUser.viewCount eq null ? 0 : jtownUser.viewCount}"/></span>
-							</li>
-							<li class="jt-home-expand-shop-content-comment-wrap">
-								<span class="jt-home-expand-shop-content-comment"></span>&nbsp;Comment&nbsp;&nbsp;<span id="comment-expand-<c:out value="${jtownUser.pn }"/>"><c:out value="${jtownUser.commentCount eq null ? 0 : jtownUser.commentCount}"/></span>
-							</li>
-							<li class="jt-home-expand-shop-content-love-wrap">
-								<span class="jt-home-expand-shop-content-love"></span>&nbsp;Love&nbsp;<span id="love-expand-<c:out value="${jtownUser.pn }"/>"><c:out value="${jtownUser.loveCount eq null ? 0 : jtownUser.loveCount}"/></span>
-							</li>
-						</ul>
-						<div class="jt-home-expand-divide-orange-bar"></div>
-						<div class="jt-home-expand-shop-comment-wrap">
-							<ul class="jt-home-expand-shop-comment">
-								<c:forEach items="${comments }" var="comment">
-									<li data-copn="<c:out value="${comment.commentPn }"/>">
-										<ul class="jt-home-expand-shop-text-wrap">
-											<li class="jt-home-expand-shop-comment-header">
-												<span class="jt-home-expand-shop-comment-name"><c:out value="${comment.customerName }"/></span>
-												<span class="jt-home-expand-shop-comment-progress-date">3 시간전</span>
-											</li>
-											<li class="jt-home-expand-shop-comment-text">
-												<c:out value="${comment.comment }"/>
-											</li>
-										</ul>
-										<c:choose>
-											<c:when test="${comment.customerPn eq jtownUser.pn }">
-												<div class="jt-home-expand-shop-update-wrap">
-													<input type="text" class="jt-comment-update-input" value="'+htmlChars(comment.comment)+'"/><br/>
-													<span>esc를 누르시면 수정이 취소 됩니다.</span>
-												</div>
-												<div class="jt-home-expand-shop-tool-wrap">
-													<a href="#none" class="jt-comment-update jt-btn-white-small">
-														<span class="btnImage"></span>
-													</a>
-													<a href="#none" class="jt-comment-delete jt-btn-white-small">
-														<span class="btnImage"></span>
-													</a>
-												</div>
-											</c:when>
-											<c:otherwise>
-												<div class="jt-home-expand-shop-tool-wrap">
-													<a href="#none" class="jt-comment-delete jt-btn-white-small">
-														<span class="btnImage"></span>
-													</a>
-												</div>
-											</c:otherwise>
-										</c:choose>
-									</li>
-								</c:forEach>
+						<div class="jt-home-expand-shop-content-wrpa">
+							<ul class="jt-home-expand-shop-content-fn">
+								<li class="jt-home-expand-shop-content-view-wrap">
+									<span class="jt-home-expand-shop-content-view">Look</span>&nbsp;<span id="view-expand-<c:out value="${jtownUser.pn }"/>"/><c:out value="${jtownUser.viewCount eq null ? 0 : jtownUser.viewCount}"/></span>
+								</li>
+								<li class="jt-home-expand-shop-content-comment-wrap">
+									<span class="jt-home-expand-shop-content-comment"></span>&nbsp;Comment&nbsp;&nbsp;<span id="comment-expand-<c:out value="${jtownUser.pn }"/>"><c:out value="${jtownUser.commentCount eq null ? 0 : jtownUser.commentCount}"/></span>
+									<div class="jt-home-expand-shop-border-hide"></div>
+								</li>
+								<li class="jt-home-expand-shop-content-love-wrap">
+									<span class="jt-home-expand-shop-content-love">Love</span>&nbsp;<span id="love-expand-<c:out value="${jtownUser.pn }"/>"><c:out value="${jtownUser.loveCount eq null ? 0 : jtownUser.loveCount}"/></span>
+								</li>
 							</ul>
-						</div>
-						<div class="jt-home-expand-shop-comment-insert">
-							<input type="text" id="jt-comment-insert" readonly="readonly" placeholder="판매자 아이디로는 이용하실 수 없습니다."/>
+							<div class="jt-home-expand-shop-comment-wrap">
+								<ul class="jt-home-expand-shop-comment">
+									<c:forEach items="${comments }" var="comment">
+										<li data-copn="<c:out value="${comment.commentPn }"/>">
+											<ul class="jt-home-expand-shop-text-wrap">
+												<li class="jt-home-expand-shop-comment-header">
+													<span class="jt-home-expand-shop-comment-name"><c:out value="${comment.customerName }"/></span>
+													<span class="jt-home-expand-shop-comment-progress-date">3 시간전</span>
+												</li>
+												<li class="jt-home-expand-shop-comment-text">
+													<c:out value="${comment.comment }"/>
+												</li>
+											</ul>
+											<c:choose>
+												<c:when test="${comment.customerPn eq jtownUser.pn }">
+													<div class="jt-home-expand-shop-update-wrap">
+														<input type="text" class="jt-comment-update-input" value="'+htmlChars(comment.comment)+'"/><br/>
+														<span>esc를 누르시면 수정이 취소 됩니다.</span>
+													</div>
+													<div class="jt-home-expand-shop-tool-wrap">
+														<a href="#none" class="jt-comment-update jt-btn-white-small">
+															<span class="btnImage"></span>
+														</a>
+														<a href="#none" class="jt-comment-delete jt-btn-white-small">
+															<span class="btnImage"></span>
+														</a>
+													</div>
+												</c:when>
+												<c:otherwise>
+													<div class="jt-home-expand-shop-tool-wrap">
+														<a href="#none" class="jt-comment-delete jt-btn-white-small">
+															<span class="btnImage"></span>
+														</a>
+													</div>
+												</c:otherwise>
+											</c:choose>
+										</li>
+									</c:forEach>
+								</ul>
+								<div class="jt-home-expand-shop-comment-insert">
+									<input type="text" id="jt-comment-insert" readonly="readonly" placeholder="판매자 아이디로는 이용하실 수 없습니다."/>
+								</div>
+							</div>
 						</div>
 					</div>
 				</section>
-				<footer>
-					※ 홈페이지 주소, 샵이름, 관심사 테그 변경은 고객센터로 문의하기 바랍니다.
-				</footer>
 			</section>
 		</article>
 	</section>
