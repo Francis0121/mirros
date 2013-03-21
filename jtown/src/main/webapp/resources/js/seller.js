@@ -193,16 +193,17 @@ jtown.seller.productImage = function(file){
 				image = contextPath + 'resources/uploadImage/'+file.saveName;
 			
 			var display = 'style="display: none;"';
-			if(size==1 || size == 2 || size == 3){
-				display = '';
-			}
 			
 			var bigHtml = 	'<div class="jt-home-expand-shop-expandProduct" id="jt-product-'+size+'" '+display+'>'+
 							'	<img alt="상품" src="'+image+'"/>'+
 							'</div>';
 				smallHtml = '<li data-count="'+size+'" data-ppn="'+product.pn+'">'+
 							'	<div class="jt-seller-expand-product-delete-tool">'+
-							'		<a href="#none" class="jt-seller-product-delete">X</a>'+
+							'		<div>'+
+							'			<a href="#none" class="jt-seller-product-delete jt-btn-white-small">'+
+							'				<span class="btnImage"></span>'+
+							'			</a>'+
+							'		</div>'+
 							'	</div>'+
 							'	<a href="#none"class="jt-product-list"><img alt="상품" src="'+image+'"/></a>'+
 							'</li>';

@@ -306,8 +306,13 @@
 								<c:forEach items="${comments }" var="comment">
 									<li data-copn="<c:out value="${comment.commentPn }"/>">
 										<ul class="jt-home-expand-shop-text-wrap">
-											<li class="jt-home-expand-shop-comment-name"><c:out value="${comment.customerName }"/></li>
-											<li class="jt-home-expand-shop-comment-text"><c:out value="${comment.comment }"/></li>
+											<li class="jt-home-expand-shop-comment-header">
+												<span class="jt-home-expand-shop-comment-name"><c:out value="${comment.customerName }"/></span>
+												<span class="jt-home-expand-shop-comment-progress-date">3 시간전</span>
+											</li>
+											<li class="jt-home-expand-shop-comment-text">
+												<c:out value="${comment.comment }"/>
+											</li>
 										</ul>
 										<c:choose>
 											<c:when test="${comment.customerPn eq jtownUser.pn }">
@@ -316,13 +321,19 @@
 													<span>esc를 누르시면 수정이 취소 됩니다.</span>
 												</div>
 												<div class="jt-home-expand-shop-tool-wrap">
-													<a href="#none" class="jt-comment-update">수정</a>
-													<a href="#none" class="jt-comment-delete">삭제</a>
+													<a href="#none" class="jt-comment-update jt-btn-white-small">
+														<span class="btnImage"></span>
+													</a>
+													<a href="#none" class="jt-comment-delete jt-btn-white-small">
+														<span class="btnImage"></span>
+													</a>
 												</div>
 											</c:when>
 											<c:otherwise>
 												<div class="jt-home-expand-shop-tool-wrap">
-													<a href="#none" class="jt-comment-delete">삭제</a>
+													<a href="#none" class="jt-comment-delete jt-btn-white-small">
+														<span class="btnImage"></span>
+													</a>
 												</div>
 											</c:otherwise>
 										</c:choose>
@@ -331,7 +342,7 @@
 							</ul>
 						</div>
 						<div class="jt-home-expand-shop-comment-insert">
-							<input type="text" id="jt-comment-insert" readonly="readonly" value="판매자 아이디로는 이용하실 수 없습니다."/>
+							<input type="text" id="jt-comment-insert" readonly="readonly" placeholder="판매자 아이디로는 이용하실 수 없습니다."/>
 						</div>
 					</div>
 				</section>

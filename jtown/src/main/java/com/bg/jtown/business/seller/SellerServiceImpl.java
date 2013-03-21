@@ -227,7 +227,7 @@ public class SellerServiceImpl extends SqlSessionDaoSupport implements
 	public void deleteSellerProduct(Product product) {
 		Integer sellerPn = product.getSellerPn();
 		Integer count = selectSellerProductCount(sellerPn);
-		if (count < 4) {
+		if (count < 2) {
 			product = null;
 			return;
 		}

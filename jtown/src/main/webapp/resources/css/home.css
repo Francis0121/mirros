@@ -89,13 +89,18 @@
 
 .jt-home-expand-divide-orange-bar{float: left; width: 450px; height: 5px;  background: url("../images/jt-home-icon.png") 0 -75px no-repeat; margin: 0 90px;}
 
-.jt-home-expand-shop-comment-wrap{width: 100%; float: left; font-size: 12px; font-family: Dotum; overflow-y:scroll;  height: 120px;}
-.jt-home-expand-shop-comment{width: 100%; float: left; ; }
+.jt-home-expand-shop-comment-wrap{width: 100%; float: left; font-size: 12px; font-family: Dotum; }
+.jt-home-expand-shop-comment{width: 100%; float: left; }
 .jt-home-expand-shop-comment>li{float: left; min-height: 20px; width: 100%; padding: 2px 0;}
-.jt-home-expand-shop-comment-insert>input{width: 620px; border: 1px solid #d1cdcd; margin: 1px; padding: 2px; }
+.jt-home-expand-shop-comment-insert{margin: 10px 20px; float: left;}
+.jt-home-expand-shop-comment-insert>input{width: 580px; border: 1px solid #d1cdcd; padding: 4px; float: left;}
 .jt-home-expand-shop-text-wrap{ float: left; width: 100%;}
 .jt-home-expand-shop-text-wrap>li{float: left;}
-.jt-home-expand-shop-comment-name{color: #143180; width: 10%;}
-.jt-home-expand-shop-comment-text{ width: 90%; background: transparent;}
-.jt-home-expand-shop-update-wrap{display: none; float: left; width: 100%;}
+.jt-home-expand-shop-comment-header{width: 590px; margin: 0 20px; padding: 4px 0; }
+.jt-home-expand-shop-comment-name{ color: #010101; font-weight: bold; font-size: 13px;}
+.jt-home-expand-shop-comment-progress-date{ color: #999999; font-size: 12px;}
+.jt-home-expand-shop-comment-text{width: 590px; margin: 0 20px; padding: 5px 0; color: #4d4d4d; border-bottom: 1px solid #cfcfcf;}
+.jt-home-expand-shop-update-wrap{display: none; float: left; width: 590px; border-bottom: 1px solid #cfcfcf; margin: 0 20px;}
+.jt-home-expand-shop-update-wrap>input{ float: left; width: 580px; border: 1px solid #d1cdcd; margin: 5px 0; padding: 4px; }
+.jt-home-expand-shop-update-wrap>span{width: 590px; margin: 5px 0; float: left;}
 .jt-home-expand-shop-tool-wrap{display: none; float: left; width: 620px; position: absolute; text-align: right;}

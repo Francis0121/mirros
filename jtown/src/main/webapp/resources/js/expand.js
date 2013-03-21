@@ -71,7 +71,10 @@ jtown.expand.makeInnerHtml = function(spn){
 			var comment = comments[i];
 			commentHtml += 	'<li data-copn="'+comment.commentPn+'">';
 			commentHtml +=	'	<ul class="jt-home-expand-shop-text-wrap">';
-			commentHtml += 	'		<li class="jt-home-expand-shop-comment-name">'+htmlChars(comment.customerName)+'</li>';
+			commentHtml += 	'		<li class="jt-home-expand-shop-comment-header">';
+			commentHtml += 	'			<span class="jt-home-expand-shop-comment-name">'+htmlChars(comment.customerName)+'</span>';
+			commentHtml += 	'		 	<span class="jt-home-expand-shop-comment-progress-date">3 시간전</span>';
+			commentHtml += 	'		</li>';
 			commentHtml +=	'		<li class="jt-home-expand-shop-comment-text">'+htmlChars(comment.comment)+'</li>';
 			commentHtml	+= 	'	</ul>';
 			if(comment.customerPn == cpn){
@@ -80,8 +83,12 @@ jtown.expand.makeInnerHtml = function(spn){
 				commentHtml += 	'	<span>esc를 누르시면 수정이 취소 됩니다.</span>';
 				commentHtml +=	'</div>';
 				commentHtml +=	'<div class="jt-home-expand-shop-tool-wrap">';
-				commentHtml +=	'	<a href="#none" class="jt-comment-update">수정</a>';
-				commentHtml +=	'	<a href="#none" class="jt-comment-delete">삭제</a>';
+				commentHtml +=	'	<a href="#none" class="jt-comment-update jt-btn-white-small">';
+				commentHtml +=	'		<span class="btnImage"></span>';
+				commentHtml +=	'	</a>';
+				commentHtml +=	'	<a href="#none" class="jt-comment-delete jt-btn-white-small">';
+				commentHtml +=	'		<span class="btnImage"></span>';
+				commentHtml +=	'	</a>';
 				commentHtml +=	'</div>';
 			}
 			commentHtml += '</li>';
@@ -89,14 +96,14 @@ jtown.expand.makeInnerHtml = function(spn){
 		
 		var commentInputHtml = '';
 		if(cpn == 0){
-			commentInputHtml += '<input type="text" id="jt-comment-insert" readonly="readonly" value="판매자 아이디로는 이용하실 수 없습니다."/>';	
+			commentInputHtml += '<input type="text" id="jt-comment-insert" readonly="readonly" placeholder="판매자 아이디로는 이용하실 수 없습니다."/>';	
 		}else if(!nullValueCheck(cpn)){			
-			commentInputHtml += '<input type="text" id="jt-comment-insert"/>';
+			commentInputHtml += '<input type="text" id="jt-comment-insert" placeholder="회사를 평가해 주세요."/>';
 		}else{
-			commentInputHtml += '<input type="text" id="jt-comment-insert" readonly="readonly" value="로그인한 사용자만 사용할 수 있습니다."/>';
+			commentInputHtml += '<input type="text" id="jt-comment-insert" readonly="readonly" placeholder="로그인한 사용자만 사용할 수 있습니다."/>';
 		}
 		
-		html += '<div class="jt-home-expand-shop" id="jt-home-expand-shop" data-size="'+productSize+'" data-nowPosition="'+productSize+'" data-spn="'+jtownUser.pn+'">';
+		html += '<div class="jt-home-expand-shop" id="jt-home-expand-shop" data-size="'+productSize+'" data-nowPosition="'+productSize+'" data-spn="'+jtownUser.pn+'" >';
 		html += '	<header>';
 		html += '		<a href="#none" onclick="window.open(\'http://'+htmlChars(jtownUser.shopUrl)+'\');">'+htmlChars(jtownUser.name)+'</a>';
 		html += '	</header>';
@@ -147,10 +154,22 @@ jtown.expand.makeInnerHtml = function(spn){
 		html +=	'	</div>';
 		html +=	'</div>';
 		
-		$.smartPop.open({width : 640,height : 930,html : html ,effect : 'transfer', target : '#jt-home-shop-'+spn });
+		$.smartPop.open({width : 640,height : 840,html : html ,effect : 'transfer', target : '#jt-home-shop-'+spn });
 		setTimeout('jtown.expand.syncProductMove()', 0);
 		setTimeout('jtown.comment.syncComment()', 0);
+		setTimeout('jtown.expand.changeContainerHeight(\''+comments.length+'\')', 0);
 	});
+};
+
+jtown.expand.changeContainerHeight = function(number){
+	var smartPopContainer = $('#smartPop_container');
+	var smartPopContent = $('#smartPop_content');
+	var height = smartPopContainer.css('height');
+	height = Number(height.replace('px', ''));
+	var changeHeight = height + (48 * Number(number));
+
+	smartPopContainer.css('height', changeHeight+'px');
+	smartPopContent.css('height', changeHeight+'px');
 };
 
 jtown.expand.syncProductMove = function(){

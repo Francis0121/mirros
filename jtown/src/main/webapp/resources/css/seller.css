@@ -71,3 +71,8 @@
 .jt-home-expand-shop-event-update-done>.btnImage{ background-position: 0 -36px; }
 .jt-home-expand-shop-event-update-cancle{ margin-left: 3px; }
 .jt-home-expand-shop-event-update-cancle>.btnImage{ background-position: 0 -24px; }
+
+.jt-comment-update{padding:3px;}
+.jt-comment-update>.btnImage{background-position: 0 -36px;}
+.jt-comment-delete{padding:3px;}
+.jt-comment-delete>.btnImage{background-position: 0 -12px;}

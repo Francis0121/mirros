@@ -43,8 +43,8 @@
 }
 .jt-header-nav-interestCategory{ float: left; position: absolute; top: 59px; left: 50%; width: 600px; margin-left: -350px; }
 .jt-header-nav-interestCategory>li{ float: left; width: 100px; text-align: center; }
-.jt-header-nav-interestCategory>li>a, .jt-header-nav-interestCategory>li>a:VISITED, .jt-header-nav-interestCategory>li>a:ACTIVE{ color: #000; font-weight: bold;}
-.jt-header-nav-interestCategory>li>a:HOVER{ color: #f78200; }
+.jt-header-nav-interestCategory>li>a, .jt-header-nav-interestCategory>li>a:VISITED, .jt-header-nav-interestCategory>li>a:ACTIVE{ color: #f78200; font-weight: bold;}
+.jt-header-nav-interestCategory>li>a:HOVER{ color: #f72e00; }
 .jt-header-nav-interest{ display: none; border-top: 1px solid #cccaca;
 	box-shadow : inset 0 1px #fff,0 1px 3px rgba(34,25,25,0.4);
 	-moz-box-shadow : inset 0 1px #fff,0 1px 3px rgba(34,25,25,0.4);

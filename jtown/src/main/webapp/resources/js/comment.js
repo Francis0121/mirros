@@ -20,14 +20,13 @@ jtown.comment.syncComment = function(){
 	$('.jt-comment-update').unbind('click');
 	$('.jt-comment-update').bind('click', function(){
 		var $parents = $(this).parents('li');
-		$parents.css('background' , '#fff');
 		$parents.find('.jt-home-expand-shop-tool-wrap').hide();
 		$parents.find('.jt-home-expand-shop-text-wrap').hide();
 		$parents.find('.jt-home-expand-shop-update-wrap').show();
 	});
 	
 	$('.jt-comment-update-input').unbind(eventString);
-	$('.jt-comment-update-input').bind(eventString, function(){
+	$('.jt-comment-update-input').bind(eventString, function(event){
 		if(event.keyCode == 13){
 			jtown.comment.updateComment($(this));
 		}else if(event.keyCode == 27){
@@ -40,10 +39,8 @@ jtown.comment.syncComment = function(){
 		var display = $(this).find('.jt-home-expand-shop-update-wrap').css('display');
 		if(display != 'block'){
 			if(event.type == 'mouseover'){
-				$(this).css('background', '#e5e5e5');
 				$(this).find('.jt-home-expand-shop-tool-wrap').show();
 			}else if(event.type == 'mouseout'){
-				$(this).css('background', '#fff');
 				$(this).find('.jt-home-expand-shop-tool-wrap').hide();
 			}
 		}
@@ -64,7 +61,10 @@ jtown.comment.insertComment = function(me){
 		var commentHtml ='';
 		commentHtml += 	'<li data-copn="'+comment.commentPn+'">';
 		commentHtml +=	'	<ul class="jt-home-expand-shop-text-wrap">';
-		commentHtml += 	'		<li class="jt-home-expand-shop-comment-name">'+htmlChars(comment.customerName)+'</li>';
+		commentHtml += 	'		<li class="jt-home-expand-shop-comment-header">';
+		commentHtml += 	'			<span class="jt-home-expand-shop-comment-name">'+htmlChars(comment.customerName)+'</span>';
+		commentHtml += 	'			<span class="jt-home-expand-shop-comment-progress-date">3 시간전</span>';
+		commentHtml += 	'		</li>';
 		commentHtml +=	'		<li class="jt-home-expand-shop-comment-text">'+htmlChars(comment.comment)+'</li>';
 		commentHtml	+= 	'	</ul>';
 		commentHtml +=	'	<div class="jt-home-expand-shop-update-wrap">';
@@ -72,8 +72,12 @@ jtown.comment.insertComment = function(me){
 		commentHtml += 	'		<span>esc를 누르시면 수정이 취소 됩니다.</span>';
 		commentHtml +=	'	</div>';
 		commentHtml +=	'	<div class="jt-home-expand-shop-tool-wrap">';
-		commentHtml +=	'		<a href="#none" class="jt-comment-update">수정</a>';
-		commentHtml +=	'		<a href="#none" class="jt-comment-delete">삭제</a>';
+		commentHtml +=	'		<a href="#none" class="jt-comment-update jt-btn-white-small">';
+		commentHtml +=	'			<span class="btnImage"></span>';
+		commentHtml +=	'		</a>';
+		commentHtml +=	'		<a href="#none" class="jt-comment-delete jt-btn-white-small">';
+		commentHtml +=	'			<span class="btnImage"></span>';
+		commentHtml +=	'		</a>';
 		commentHtml +=	'	</div>';
 		commentHtml += 	'</li>';
 		
@@ -84,6 +88,7 @@ jtown.comment.insertComment = function(me){
 		}
 		me.val('');
 		jtown.comment.syncComment();
+		setTimeout('jtown.expand.changeContainerHeight(\'1\')', 0);
 	});
 };
 
@@ -100,6 +105,7 @@ jtown.comment.deleteComment = function(me){
 
 	$.postJSON(url, json, function(){
 		$parents.remove();
+		setTimeout('jtown.expand.changeContainerHeight(\'-1\')', 0);
 	});
 };
 
