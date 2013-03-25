@@ -64,5 +64,18 @@ public class LoginValidator implements Validator {
 				errors.rejectValue("name", "join.nickName.notAllow");
 			}
 		}
+
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "sex",
+				"join.sex.empty");
+
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "year",
+				"join.year.empty");
+
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "month",
+				"join.month.empty");
+
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "day",
+				"join.day.empty");
+
 	}
 }

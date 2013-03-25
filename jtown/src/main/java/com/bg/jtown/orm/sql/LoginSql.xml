@@ -37,9 +37,9 @@
 	<insert id="insertUserCustomer" parameterType="JtownUser">
 		INSERT INTO
 			user_customer
-			( pn, join_date )
+			( pn, sex, year, month, day, join_date )
 		VALUES
-			( #{pn}, SYSDATE() )			
+			( #{pn}, #{sex}, #{year}, #{month}, #{day}, SYSDATE() )			
 	</insert>
 	
 	<insert id="insertUserSeller" parameterType="JtownUser">

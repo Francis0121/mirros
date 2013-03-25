@@ -58,10 +58,18 @@ public class UserCustomerTest {
 		jtownUser.setName("User");
 		jtownUser.setUsername("user@jtown.com");
 		jtownUser.setPassword("1q2w3e4r!");
+		jtownUser.setSex(true);
+		jtownUser.setYear(1991);
+		jtownUser.setMonth(1);
+		jtownUser.setDay(1);
 
 		jtownUser2.setName("User2");
 		jtownUser2.setUsername("user2@jtown.com");
 		jtownUser2.setPassword("2w3e4r5t@");
+		jtownUser2.setSex(false);
+		jtownUser2.setYear(1992);
+		jtownUser2.setMonth(2);
+		jtownUser2.setDay(3);
 	}
 
 	@Test
