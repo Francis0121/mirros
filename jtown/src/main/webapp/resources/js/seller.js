@@ -228,7 +228,7 @@ jtown.seller.syncProductList = function() {
 	$('.jt-home-expand-shop-products ul li').unbind('mouseover mouseout');
 	$('.jt-home-expand-shop-products ul li').bind(
 			'mouseover mouseout',
-			function(evnet) {
+			function(event) {
 				if (event.type == 'mouseover') {
 					$(this).children('.jt-seller-expand-product-delete-tool')
 							.show();

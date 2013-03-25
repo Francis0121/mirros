@@ -371,9 +371,30 @@
 	<%@ include file="../layout/login.jspf" %>
 	<%@ include file="../layout/script.jspf" %>
 	<c:if test="${error eq 1 }">
+		<%--F5, CTRL + N, CTRL + R 시에는 error 메시지 안뜨도록 설정 --%>
+		<c:url value="/seller/${jtownUser.pn}" var="sellerUrl"/>
 		<script type="text/javascript">
 		/* <![CDATA[ */  
 		    alert('상품을 3개 이하로 삭제할 수 없습니다.');
+		
+		    document.onkeydown = checkKeycode;
+			
+		    function checkKeycode(e) {
+				var keycode = 0;
+				if (window.event) 
+					keycode = window.event.keyCode;
+ 				else if (e) 
+ 					keycode = e.which;
+				
+			    if (keycode == 116) {
+			    	keycode= 2;
+			        location.href='${sellerUrl}';
+			        return false;
+			    }else if(e.ctrlKey && (keycode==78 || keycode == 82)){
+			    	location.href='${sellerUrl}';
+			        return false;
+			    }
+			}
 		/* ]]> */	            
 		</script>
 	</c:if>
