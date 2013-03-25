@@ -73,7 +73,7 @@ jtown.expand.makeInnerHtml = function(spn){
 			commentHtml +=	'	<ul class="jt-home-expand-shop-text-wrap">';
 			commentHtml += 	'		<li class="jt-home-expand-shop-comment-header">';
 			commentHtml += 	'			<span class="jt-home-expand-shop-comment-name">'+htmlChars(comment.customerName)+'</span>';
-			commentHtml += 	'		 	<span class="jt-home-expand-shop-comment-progress-date">3 시간전</span>';
+			commentHtml += 	'		 	<span class="jt-home-expand-shop-comment-progress-date">'+htmlChars(comment.inputDate)+'</span>';
 			commentHtml += 	'		</li>';
 			commentHtml +=	'		<li class="jt-home-expand-shop-comment-text">'+htmlChars(comment.comment)+'</li>';
 			commentHtml	+= 	'	</ul>';

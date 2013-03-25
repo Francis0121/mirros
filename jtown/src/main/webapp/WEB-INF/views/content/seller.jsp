@@ -326,7 +326,7 @@
 											<ul class="jt-home-expand-shop-text-wrap">
 												<li class="jt-home-expand-shop-comment-header">
 													<span class="jt-home-expand-shop-comment-name"><c:out value="${comment.customerName }"/></span>
-													<span class="jt-home-expand-shop-comment-progress-date">3 시간전</span>
+													<span class="jt-home-expand-shop-comment-progress-date">${comment.inputDate}</span>
 												</li>
 												<li class="jt-home-expand-shop-comment-text">
 													<c:out value="${comment.comment }"/>
@@ -357,6 +357,9 @@
 											</c:choose>
 										</li>
 									</c:forEach>
+									<li>
+										<a href="#none" style="width: 550px; margin: 8px 15px 0 15px; text-align: center; display: block;">댓글 더 보기</a>
+									</li>
 								</ul>
 								<div class="jt-home-expand-shop-comment-insert">
 									<input type="text" id="jt-comment-insert" readonly="readonly" placeholder="판매자 아이디로는 이용하실 수 없습니다."/>

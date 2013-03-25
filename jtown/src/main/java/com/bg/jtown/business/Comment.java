@@ -34,7 +34,7 @@ public class Comment {
 	/**
 	 * 입력한 날짜
 	 */
-	private Integer inputDate;
+	private String inputDate;
 
 	/**
 	 * redisType
@@ -51,7 +51,7 @@ public class Comment {
 	}
 
 	public Comment(String comment, Integer commentPn, Integer count,
-			String customerName, Integer customerPn, Integer inputDate,
+			String customerName, Integer customerPn, String inputDate,
 			Integer sellerPn) {
 		super();
 		this.comment = comment;
@@ -83,7 +83,7 @@ public class Comment {
 		return customerPn;
 	}
 
-	public Integer getInputDate() {
+	public String getInputDate() {
 		return inputDate;
 	}
 
@@ -115,7 +115,7 @@ public class Comment {
 		this.customerPn = customerPn;
 	}
 
-	public void setInputDate(Integer inputDate) {
+	public void setInputDate(String inputDate) {
 		this.inputDate = inputDate;
 	}
 

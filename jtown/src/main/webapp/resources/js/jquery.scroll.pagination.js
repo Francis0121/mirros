@@ -71,7 +71,7 @@
 	$.fn.scrollPagination.init = function(obj, opts) {
 		var target = opts.scrollTarget;
 		$(obj).attr('scrollPagination', 'enabled');
-		$(obj).append('<input type="hidden" id="__current_page" value="2"/>');
+		$(obj).append('<input type="hidden" id="__current_page" value="3"/>');
 		$(target).scroll(function(event) {
 			if ($(obj).attr('scrollPagination') == 'enabled') {
 				$.fn.scrollPagination.loadContent(obj, opts);

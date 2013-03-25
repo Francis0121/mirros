@@ -170,7 +170,8 @@
 	
 	<select id="selectComment" parameterType="java.lang.Integer" resultMap="jtown-comment-map">
 		SELECT
-			ucc.pn, ucc.customer_pn, u.name, ucc.seller_pn, ucc.comment, ucc.input_date
+			ucc.pn, ucc.customer_pn, u.name, ucc.seller_pn, ucc.comment, 
+			DATE_FORMAT(ucc.input_date, '%Y-%m-%d %H:%i:%s') AS input_date
 		FROM
 			user_customer_comment ucc,
 			user_customer uc
