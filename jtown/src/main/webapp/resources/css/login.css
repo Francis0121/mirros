@@ -23,10 +23,16 @@
     -moz-border-radius: 5px 5px;
     border-radius: 5px 5px;
 }
+.jt-join-user-input:FOCUS{
+	border: 1px solid #ff8a00;	
+}
 .jt-join-user-select{width: 225px; padding: 2px 3px; border: 1px solid #ad9c9c; height: 30px;
  	-webkit-border-radius: 5px 5px;
     -moz-border-radius: 5px 5px;
     border-radius: 5px 5px;
+}
+.jt-join-user-select:FOCUS{
+	border: 1px solid #ff8a00;
 }
 .jt-join-user-select-year{width: 105px;}
 .jt-join-user-select-month{width: 55px;}
@@ -38,6 +44,7 @@
 .jt-join-user-nameLength{display: none; width: 200px;}
 .jt-form-invalid { line-height: 24px; color: red; }
 .jt-form-valid { line-height: 24px; color: green; }
+.jt-join-submit{width: 100px; font-size: 15px;}
 
 .jt-join-user-warning{font-size: 11px; color: #7a7a7a; margin: 20px 0 0 20px;}
 .jt-join-user-warning>ul{}
