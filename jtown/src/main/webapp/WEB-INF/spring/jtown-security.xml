@@ -29,9 +29,9 @@
 		<intercept-url pattern="/*" access="permitAll" requires-channel="any"/>
 		
 		<form-login 
-			login-page=""
+			login-page="/login/"
 			always-use-default-target="true"
-			authentication-failure-url=""
+			authentication-failure-url="/login/?login_error=1"
 			default-target-url="/process"/>
 			
 		<logout logout-url="/login/logout"  />

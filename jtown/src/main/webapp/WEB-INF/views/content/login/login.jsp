@@ -69,7 +69,14 @@
 				</form>
 			</div>
 		</section>
-	</sec:authorize>	
+	</sec:authorize>
+	<c:if test="${not empty param.login_error}">  
+	<div class="loginErrorBox">
+        <spring:message code="login.error.message"/>
+        <br />
+        <c:out value="${SPRING_SECURITY_LAST_EXCEPTION.message}"/>
+    </div>
+	</c:if>		
 	<%@ include file="../../layout/login.jspf" %>
 	<%@ include file="../../layout/script.jspf" %>
 </body>
