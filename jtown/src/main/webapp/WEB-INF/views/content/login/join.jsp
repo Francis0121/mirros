@@ -90,10 +90,13 @@
 							<form:label path="name">이름</form:label>
 						</th>
 						<td>
-							<form:input path="name" cssClass="jt-join-user-input" maxlength="10"/>
-							<br/>
-							<span class="jt-form-invalid jt-join-user-nameLength" id="nameLength">10글자&nbsp;이하</span>
-							<form:errors path="name" cssClass="commonError"></form:errors>
+							<div class="jt-join-user-vaild-wrap" id="nameLength">
+								<span class="jt-form-invalid">이름은&nbsp;10글자&nbsp;이하&nbsp;이어야&nbsp;합니다.</span>
+							</div>
+							<form:input path="name" cssClass="jt-join-user-input" maxlength="10" cssErrorClass="jt-join-user-input-error"/>
+							<div class="jt-join-user-error">
+								<form:errors path="name" cssClass="commonError"></form:errors>
+							</div>
 						</td>
 					</tr>
 					<tr>
@@ -101,10 +104,13 @@
 							<form:label path="username" >이메일</form:label>
 						</th>
 						<td>
-							<form:input path="username" htmlEscape="true" data-type="create" cssClass="jt-join-user-input" maxlength="50"/>
-							<br/>
-							<span class="jt-form-invalid jt-join-user-confirmEmail" id="confirmEmail">정확한&nbsp;이메일&nbsp;주소를&nbsp;입력해&nbsp;주시기&nbsp;바랍니다.(ex&nbsp;abcde@abc.com)</span>
-							<form:errors path="username" cssClass="commonError"></form:errors>
+							<div class="jt-join-user-vaild-wrap" id="confirmEmail">
+								<span class="jt-form-invalid">정확한&nbsp;이메일&nbsp;주소를&nbsp;입력해&nbsp;주시기&nbsp;바랍니다.(ex&nbsp;abcde@abc.com)</span>
+							</div>
+							<form:input path="username" htmlEscape="true" data-type="create" cssClass="jt-join-user-input" maxlength="50" cssErrorClass="jt-join-user-input-error"/>
+							<div class="jt-join-user-error">
+								<form:errors path="username" cssClass="commonError"></form:errors>
+							</div>
 						</td>
 					</tr>
 					<tr>
@@ -112,10 +118,13 @@
 							<form:label path="password" >비밀번호</form:label>
 						</th>
 						<td>
-							<form:password path="password" cssClass="jt-join-user-input" maxlength="16" />
-							<br/>
-							<span class="jt-form-invalid jt-join-user-passwordLength" id="passwordLength">비밀번호는&nbsp;8자&nbsp;이상&nbsp;16자&nbsp;이하&nbsp;이어야&nbsp;합니다.</span>
-							<form:errors path="password" cssClass="commonError"></form:errors>
+							<div class="jt-join-user-vaild-wrap" id="passwordLength">
+								<span class="jt-form-invalid">비밀번호는&nbsp;8자&nbsp;이상&nbsp;16자&nbsp;이하&nbsp;이어야&nbsp;합니다.</span>
+							</div>
+							<form:password path="password" cssClass="jt-join-user-input" maxlength="16" cssErrorClass="jt-join-user-input-error"/>
+							<div class="jt-join-user-error">
+								<form:errors path="password" cssClass="commonError"></form:errors>
+							</div>
 						</td>
 					</tr>
 					<tr>
@@ -123,9 +132,10 @@
 							<label for="confirmPassword">비밀번호&nbsp;확인</label>
 						</th>
 						<td>
+							<div class="jt-join-user-vaild-wrap" id="confirmPW">
+								<span class="jt-form-invalid" id="confirmPW">비밀번호를&nbsp;동일하게&nbsp;입력해&nbsp;주시기&nbsp;바랍니다.</span>
+							</div>
 							<input type="password" id="confirmPassword" name="confirmPassword" class="jt-join-user-input" maxlength="16"/>
-							<br/>
-							<span class="jt-form-invalid jt-join-user-confirmPw" id="confirmPW">비밀번호를&nbsp;동일하게&nbsp;입력해&nbsp;주시기&nbsp;바랍니다.</span>
 						</td>
 					</tr>
 					<tr>
@@ -133,12 +143,14 @@
 							<label for="">성별</label>
 						</th>
 						<td>
-							<form:select path="sex" cssClass="jt-join-user-select">
+							<form:select path="sex" cssClass="jt-join-user-select" cssErrorClass="jt-join-user-select-error">
 								<form:option value="">성별을 선택하세요</form:option>
 								<form:option value="true">남자</form:option>
 								<form:option value="false">여자</form:option>
-							</form:select><br/>
-							<form:errors path="sex" cssClass="commonError"></form:errors>
+							</form:select>
+							<div class="jt-join-user-error">
+								<form:errors path="sex" cssClass="commonError"></form:errors>
+							</div>
 						</td>
 					</tr>
 					<tr>
@@ -146,27 +158,29 @@
 							<label for="confirmPassword">생년월일</label>
 						</th>
 						<td>
-							<form:select path="year" cssClass="jt-join-user-select jt-join-user-select-year">
+							<form:select path="year" cssClass="jt-join-user-select jt-join-user-select-year" cssErrorClass="jt-join-user-select-error jt-join-user-select-year">
 								<form:option value="">연도</form:option>
 								<c:forEach begin="0" end="100" varStatus="loop">
 									<form:option value="${jtownUser.nowYear - loop.index }">${jtownUser.nowYear - loop.index }</form:option>	
 								</c:forEach>
 							</form:select>
-							<form:select path="month" cssClass="jt-join-user-select jt-join-user-select-month">
+							<form:select path="month" cssClass="jt-join-user-select jt-join-user-select-month" cssErrorClass="jt-join-user-select-error jt-join-user-select-month">
 								<form:option value="">월</form:option>
 								<c:forEach begin="1" end="12" varStatus="loop">
 									<form:option value="${loop.index }">${loop.index }</form:option>
 								</c:forEach>
 							</form:select>
-							<form:select path="day" cssClass="jt-join-user-select jt-join-user-select-day">
+							<form:select path="day" cssClass="jt-join-user-select jt-join-user-select-day" cssErrorClass="jt-join-user-select-error jt-join-user-select-day">
 								<form:option value="">일</form:option>
 								<c:forEach begin="1" end="31" varStatus="loop">
 									<form:option value="${loop.index }">${loop.index }</form:option>
 								</c:forEach>
-							</form:select><br/>
-							<form:errors path="year" cssClass="commonError"></form:errors><br/>
-							<form:errors path="month" cssClass="commonError"></form:errors><br/>
-							<form:errors path="day" cssClass="commonError"></form:errors>
+							</form:select>
+							<div class="jt-join-user-error">
+								<form:errors path="year" cssClass="commonError"></form:errors><br/>
+								<form:errors path="month" cssClass="commonError"></form:errors><br/>
+								<form:errors path="day" cssClass="commonError"></form:errors>
+							</div>
 						</td>
 					</tr>
 				</tbody>
