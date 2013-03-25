@@ -273,7 +273,7 @@ jtown.seller.syncProductList = function() {
 jtown.seller.syncEvent = function() {
 
 	$('#jt-seller-expand-event-first, #jt-seller-expand-event-second').unbind('mouseover mouseout');
-	$('#jt-seller-expand-event-first, #jt-seller-expand-event-second').bind('mouseover mouseout', function() {
+	$('#jt-seller-expand-event-first, #jt-seller-expand-event-second').bind('mouseover mouseout', function(event) {
 		if ($(this).children('.jt-home-expand-shop-event-update-wrap').css('display') == 'none') {
 			if (event.type == 'mouseover') {
 				$(this).children('.jt-home-expand-shop-event-tool').show();

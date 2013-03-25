@@ -77,22 +77,23 @@
 		<article class="jt-seller-content-wrap">
 			<div id="folderBar">
 				<div id="folderTabName">
-					<span id="diagonalFolder">My Page</span>
+<!-- 					<span id="diagonalFolder">My Page</span> -->
+					<span id="digonalFolderImage">My Page</span>
 				</div>
 			</div>
 			<section class="jt-seller-content">
 				<section class="jt-seller-main">
 					<ul class="jt-seller-text-content">
 						<li>
-							<h3>판매자</h3>
+							<h3>Seller</h3>
 							<span><c:out value="${jtownUser.name }"/></span>
 						</li>
 						<li>
-							<h3>사이트</h3>
+							<h3>Site</h3>
 							<span><c:out value="${jtownUser.shopUrl}"/></span>
 						</li>
 						<li>
-							<h3>관련태그</h3>
+							<h3>Tag</h3>
 							<span>
 								<c:forEach items="${interestes }" var="interest" varStatus="loop">
 									<c:out value="${interest }"/>
@@ -188,7 +189,7 @@
 					</div>
 				</section>
 				<section class="jt-seller-expand">
-					<div class="jt-home-expand-shop" id="jt-home-expand-shop" data-spn="${jtownUser.pn }" data-size="${productSize }" data-nowPosition="${productSize }">
+					<div class="jt-home-expand-shop" id="jt-home-expand-shop" data-spn="${jtownUser.pn }" data-size="${productSize }" data-nowPosition="${productSize -1 }">
 						<ul class="jt-home-expand-shop-expandProducts">
 							<li class="jt-home-expand-shop-leftArrow jt-home-expand-shop-arrow">
 								<a href="#none" id="jt-home-expand-shop-leftArrow">&lt;</a>
@@ -196,7 +197,7 @@
 							<li class="jt-home-expand-shop-expandProduct-slide" id="jt-seller-slide-big">
 								<c:forEach items="${products }" var="product" varStatus="loop">
 									<c:choose>
-										<c:when test="${loop.count == 1 }">
+										<c:when test="${loop.count < 4 }">
 											<div class="jt-home-expand-shop-expandProduct" id="jt-product-${productSize - loop.index }">
 										</c:when>
 										<c:otherwise>
