@@ -16,6 +16,8 @@ import org.springframework.security.core.SpringSecurityCoreVersion;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.util.Assert;
 
+import com.bg.jtown.util.DateUtil;
+
 /**
  * @author 박광열
  * 
@@ -80,6 +82,10 @@ public class JtownUser implements JtownDetails, CredentialsContainer {
 	// user_customer
 	private String name;
 	private String joinDate;
+	private Integer year;
+	private Integer month;
+	private Integer day;
+	private Boolean sex;
 
 	// user_seller
 	private String notice;
@@ -356,6 +362,38 @@ public class JtownUser implements JtownDetails, CredentialsContainer {
 		return enabled;
 	}
 
+	public Integer getYear() {
+		return year;
+	}
+
+	public void setYear(Integer year) {
+		this.year = year;
+	}
+
+	public Integer getMonth() {
+		return month;
+	}
+
+	public void setMonth(Integer month) {
+		this.month = month;
+	}
+
+	public Integer getDay() {
+		return day;
+	}
+
+	public void setDay(Integer day) {
+		this.day = day;
+	}
+
+	public Boolean getSex() {
+		return sex;
+	}
+
+	public void setSex(Boolean sex) {
+		this.sex = sex;
+	}
+
 	public void setAuthorities(Set<GrantedAuthority> authorities) {
 		this.authorities = authorities;
 	}
@@ -448,6 +486,10 @@ public class JtownUser implements JtownDetails, CredentialsContainer {
 		this.viewCount = viewCount;
 	}
 
+	public int getNowYear() {
+		return DateUtil.getYear();
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
@@ -478,7 +520,11 @@ public class JtownUser implements JtownDetails, CredentialsContainer {
 		sb.append("commentCount : ").append(this.commentCount).append("; ");
 		sb.append("images : ").append(this.images).append("; ");
 		sb.append("bannerDate : ").append(this.bannerDate).append("; ");
-
+		sb.append("bannerFirst : ").append(this.bannerFirst).append("; ");
+		sb.append("bannerSecond : ").append(this.bannerSecond).append("; ");
+		sb.append("BirthDay : ").append(this.year).append("-")
+				.append(this.month).append("-").append(this.day).append("; ");
+		sb.append("Sex :").append(this.sex).append("; ");
 		if (!authorities.isEmpty()) {
 			sb.append("Granted Authorities: ");
 

@@ -12,7 +12,7 @@
 <%@ include file="../../layout/style.jspf" %>
 <%@ include file="../../layout/header_script.jspf" %>
 </head>
-<body>
+<body> 
 	<sec:authorize access="anonymous">
 		<section class="jt-body">
 			<header class="jt-join-user-header">
