@@ -242,8 +242,7 @@ jtown.home.html = function(data){
 	for(var i=0, len=jtownUsers.length; i<len ; i++){
 		var seller = jtownUsers[i],
 			spn = seller.pn,
-			mainImages = images[spn],
-			bannerDate = seller.bannerDate;
+			mainImages = images[spn];
 		
 		var imageHtml = '';
 		for(var j=0, jLen = mainImages.length; j < jLen ; j++){
@@ -278,7 +277,7 @@ jtown.home.html = function(data){
 		html+='			<li>';
 		html+='				<a href="#none" onclick="jtown.home.clickLove(\''+spn+'\');" class="jt-home-shop-love">♥</a>&nbsp;<span id="love-'+spn+'">'+ ( nullValueCheck(seller.loveCount) ? 0 : seller.loveCount) + '</span>';
 		html+='				<span id="new-'+spn+'">';
-		html+='					'+ ( seller.bannerDate != null && Number(seller.bannerDate) < 8 ) ? 'new' : '' ;
+		html+='					'+ ( ( seller.bannerDate != null && Number(seller.bannerDate) < 8 ) ? 'new' : '' ) ;
 		html+='				</span>';
 		html+='			</li>';
 		html+='		</ul>';
