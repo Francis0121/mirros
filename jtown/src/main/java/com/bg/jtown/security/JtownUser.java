@@ -1,6 +1,7 @@
 package com.bg.jtown.security;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
@@ -87,6 +88,8 @@ public class JtownUser implements JtownDetails, CredentialsContainer {
 	private Integer commentCount;
 	private Integer viewCount;
 	private Integer bannerDate;
+	private Integer bannerFirst;
+	private Integer bannerSecond;
 	private List<String> images;
 
 	private String interestCategory;
@@ -108,7 +111,7 @@ public class JtownUser implements JtownDetails, CredentialsContainer {
 
 		this.name = "";
 		this.joinDate = "";
-		
+
 		this.shopUrl = "";
 		this.notice = "";
 
@@ -247,6 +250,21 @@ public class JtownUser implements JtownDetails, CredentialsContainer {
 	}
 
 	public Integer getBannerDate() {
+		if (this.bannerFirst != null && this.bannerSecond != null) {
+			int i[] = { this.bannerFirst, this.bannerSecond };
+			Arrays.sort(i);
+			this.bannerDate = i[0];
+		} else {
+			if (this.bannerFirst == null && this.bannerSecond == null) {
+				this.bannerDate = null;
+			} else if (this.bannerFirst == null) {
+				this.bannerDate = this.bannerSecond;
+			} else if (this.bannerSecond == null) {
+				this.bannerDate = this.bannerFirst;
+			} else {
+				this.bannerDate = null;
+			}
+		}
 		return bannerDate;
 	}
 
@@ -360,6 +378,22 @@ public class JtownUser implements JtownDetails, CredentialsContainer {
 
 	public void setImages(List<String> images) {
 		this.images = images;
+	}
+
+	public Integer getBannerFirst() {
+		return bannerFirst;
+	}
+
+	public void setBannerFirst(Integer bannerFirst) {
+		this.bannerFirst = bannerFirst;
+	}
+
+	public Integer getBannerSecond() {
+		return bannerSecond;
+	}
+
+	public void setBannerSecond(Integer bannerSecond) {
+		this.bannerSecond = bannerSecond;
 	}
 
 	public void setInterestCategory(String interestCategory) {

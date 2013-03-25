@@ -31,7 +31,8 @@
 		<result column="love_count" property="loveCount"/>
 		<result column="view_count" property="viewCount"/>
 		<result column="comment_count" property="commentCount"/>
-		<result column="banner_date" property="bannerDate"/>
+		<result column="banner_first" property="bannerFirst"/>
+		<result column="banner_second" property="bannerSecond"/>
 		<collection property="images" column="pn" javaType="java.util.ArrayList" select="selectSellerImage" ofType="java.lang.String"/>
 	</resultMap>
 	
@@ -72,7 +73,7 @@
 		<include refid="paginationBefore"/>
 		SELECT
 			us.pn , u.name, us.shop_url, us.notice, 
-			cvsp.view_count, clsp.love_count, ccsp.comment_count, bdl.banner_date
+			cvsp.view_count, clsp.love_count, ccsp.comment_count, bdl.banner_first, bdl.banner_second
 		FROM
 			user_seller us 
 			LEFT OUTER JOIN users u
@@ -127,7 +128,7 @@
 		<include refid="paginationBefore"/>
 		SELECT
 			us.pn , u.name, us.shop_url, us.notice, 
-			cvsp.view_count, clsp.love_count, ccsp.comment_count, bdl.banner_date
+			cvsp.view_count, clsp.love_count, ccsp.comment_count, bdl.banner_first, bdl.banner_second
 		FROM
 			user_seller us 
 			LEFT OUTER JOIN users u

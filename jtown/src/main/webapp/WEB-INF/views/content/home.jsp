@@ -48,7 +48,7 @@
 					<li>
 						<a href="#none" onclick="jtown.home.clickLove('<c:out value="${spn }"/>');" class="jt-home-shop-love">♥</a>&nbsp;<span id="love-<c:out value="${spn }"/>"><c:out value="${seller.loveCount eq null ? 0 : seller.loveCount}"/></span>
 						<span id="new-<c:out value="${spn }"/>">
-						<c:if test="${seller.bannerDate ne null and seller.bannerDate < 7 }">
+						<c:if test="${seller.bannerDate ne null and seller.bannerDate < 8 }">
 							new
 						</c:if>
 						</span>

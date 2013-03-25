@@ -68,5 +68,6 @@ input:FOCUS, textarea:FOCUS, select:FOCUS{
 }
 
 body{
+	overflow-x: auto;
 	overflow-y: scroll;
 }

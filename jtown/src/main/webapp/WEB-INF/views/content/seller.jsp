@@ -180,7 +180,7 @@
 							<li>
 								<span class="jt-home-shop-love">♥</span>&nbsp;<span id="love-<c:out value="${jtownUser.pn}"/>"><c:out value="${jtownUser.loveCount eq null ? 0 : jtownUser.loveCount}"/></span>
 								<span id="new-<c:out value="${jtownUser.pn }"/>">
-								<c:if test="${jtownUser.bannerDate ne null and jtownUser.bannerDate < 7 }">
+								<c:if test="${jtownUser.bannerDate ne null and jtownUser.bannerDate < 8 }">
 									new
 								</c:if>
 								</span>
@@ -249,11 +249,13 @@
 							</form>
 						</div>
 						<div class="jt-home-expand-shop-event" id="jt-seller-expand-event-first" data-epn="<c:out value="${event1.pn }"/>" data-bo="1">
-							<div class="jt-home-expand-shop-event-new">
-								<div>
-									<span class="jt-home-expand-shop-event-new-image">NEW</span>
+							<c:if test="${jtownUser.bannerFirst < 8 }">
+								<div class="jt-home-expand-shop-event-new">
+									<div>
+										<span class="jt-home-expand-shop-event-new-image">NEW</span>
+									</div>
 								</div>
-							</div>
+							</c:if>
 							<div class="jt-home-expand-shop-event-tool">
 								<a href="#none" class="jt-home-expand-shop-event-update-btn jt-btn-white-small">
 									<span class="btnImage"></span>
@@ -276,11 +278,13 @@
 							<img alt="event1" src="${image }" title="<c:out value="${jtownUser.name }"/> Event" id="jt-seller-expand-event-first-img"/>
 						</div>
 						<div class="jt-home-expand-shop-event" id="jt-seller-expand-event-second" data-epn="<c:out value="${event2.pn }"/>" data-bo="2">
+							<c:if test="${jtownUser.bannerSecond < 8 }">
 							<div class="jt-home-expand-shop-event-new">
 								<div>
 									<span class="jt-home-expand-shop-event-new-image">NEW</span>
 								</div>
 							</div>
+							</c:if>
 							<div class="jt-home-expand-shop-event-tool">
 								<a href="#none" class="jt-home-expand-shop-event-update-btn jt-btn-white-small">
 									<span class="btnImage"></span>
