@@ -224,14 +224,15 @@ public class SellerServiceImpl extends SqlSessionDaoSupport implements
 	}
 
 	@Override
-	public void deleteSellerProduct(Product product) {
+	public boolean deleteSellerProduct(Product product) {
 		Integer sellerPn = product.getSellerPn();
 		Integer count = selectSellerProductCount(sellerPn);
-		if (count < 2) {
+		if (count < 4) {
 			product = null;
-			return;
+			return false;
 		}
 		deleteProduct(product);
+		return true;
 	}
 
 	@Override

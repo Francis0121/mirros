@@ -70,7 +70,7 @@ public interface SellerService {
 
 	void deleteProduct(Product product);
 
-	void deleteSellerProduct(Product product);
+	boolean deleteSellerProduct(Product product);
 
 	void insertProduct(Product product2);
 

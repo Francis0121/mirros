@@ -357,9 +357,6 @@
 											</c:choose>
 										</li>
 									</c:forEach>
-									<li>
-										<a href="#none" style="width: 550px; margin: 8px 15px 0 15px; text-align: center; display: block;">댓글 더 보기</a>
-									</li>
 								</ul>
 								<div class="jt-home-expand-shop-comment-insert">
 									<input type="text" id="jt-comment-insert" readonly="readonly" placeholder="판매자 아이디로는 이용하실 수 없습니다."/>
@@ -373,5 +370,12 @@
 	</section>
 	<%@ include file="../layout/login.jspf" %>
 	<%@ include file="../layout/script.jspf" %>
+	<c:if test="${error eq 1 }">
+		<script type="text/javascript">
+		/* <![CDATA[ */  
+		    alert('상품을 3개 이하로 삭제할 수 없습니다.');
+		/* ]]> */	            
+		</script>
+	</c:if>
 </body>
 </html>

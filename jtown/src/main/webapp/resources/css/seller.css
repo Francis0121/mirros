@@ -17,7 +17,7 @@
 #digonalFolderImage{ background: url("../images/jt-home-icon.png") 0 -75px; width: 160px; height: 26px; display: block; color: #fff; margin-top: 10px; padding-top: 12px; padding-left: 26px;}
 
 .jt-seller-content-wrap{ width: 990px; margin: auto auto; }
-.jt-seller-content { width: 984px; float: left; padding-bottom: 45px; border: 3px solid #f48409; background: #fff;
+.jt-seller-content { width: 984px; float: left; padding-bottom: 45px; margin-bottom: 30px; border: 3px solid #f48409; background: #fff;
  	-webkit-border-radius: 5px 0 25px 25px;
     -moz-border-radius: 5px 0 25px 25px;
     border-radius: 5px 0 25px 25px;
@@ -74,13 +74,13 @@
 .jt-seller-expand-product-insert-tool>div{position: absolute;float: left;}
 .jt-seller-expand-product-insert-btn{ margin: -15px 0 0 3px;}
 .jt-seller-expand-product-insert-btn>.btnImage{}
-.jt-seller-expand-product-insert-wrap{font-size: 12px; font-family: Dotum; float: left; width: 630px; height: 86px; background : rgba(0,0,0, .6); display: none; position: absolute;}
+.jt-seller-expand-product-insert-wrap{font-size: 12px; font-family: Dotum; float: left; width: 620px; height: 80px; background : rgba(0,0,0, .6); display: none; position: absolute;}
 .jt-seller-expand-product-insert-cancle{ margin-left: 3px; }
 .jt-seller-expand-product-insert-cancle>.btnImage{background-position: 0 -24px;}
 .jt-home-expand-shop-event-tool{float : left; position: absolute; display:  none; font-size: 12px;}
 .jt-home-expand-shop-event-update-btn{ margin: 3px 0 0 3px; }
 .jt-home-expand-shop-event-update-btn>.btnImage{background-position: 0 -36px;}
-.jt-home-expand-shop-event-update-wrap{ font-size: 12px; display: none; float: left; position: absolute; width: 314px; height: 154px; background: rgba(0,0,0, .6); }
+.jt-home-expand-shop-event-update-wrap{ font-size: 12px; display: none; float: left; position: absolute; width: 309px; height: 154px; background: rgba(0,0,0, .6); }
 .jt-home-expand-shop-event-update-done{ margin-left: 3px; }
 .jt-home-expand-shop-event-update-done>.btnImage{ background-position: 0 -36px; }
 .jt-home-expand-shop-event-update-cancle{ margin-left: 3px; }
