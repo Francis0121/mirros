@@ -13,8 +13,8 @@
 <%@ include file="style.jspf"%>
 </head>
 <body>
-	<div class="jt-body">
-		<div class="jt-header">
+	<section class="jt-body">
+		<header class="jt-header">
 			<div class="jt-header-title">
 				<div class="jt-header-search">
 					<input type="text" class="jt-header-search-input"/>
@@ -69,8 +69,8 @@
 					</li>
 				</ul>
 			</div>
-			<div class="jt-header-nav">
+			<nav class="jt-header-nav">
 				<%@ include file="navigation.jspf" %>
-			</div>
-		</div>
-		<div class="jt-content">
+			</nav>
+		</header>
+		<section class="jt-content">

@@ -4,8 +4,8 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
-		</div>
-	</div>
+		</section>
+	</section>
 	<%@ include file="login.jspf" %>
 	<%@ include file="script.jspf" %>
 </body>
