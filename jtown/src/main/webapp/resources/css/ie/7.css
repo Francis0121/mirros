@@ -1,5 +1,18 @@
 @CHARSET "UTF-8";
-/*************
-*	머리말
-**************/
-.jt-header{ width: 100%; background: #f9f9f9; position: fixed; top: 0; left: 0; z-index: 5;}
+
+.jt-header-nav{ min-height: 39px; background: url("../../images/jt-header-bar.png");}
+.jt-home-shop{width: 316px; padding: 0 2px; margin: 5px 3px;  border-top: 1px solid #e5e5e5;  background: url("../../images/jt-shop.png");}
+.jt-home-shop-image-footer{ background: url("../../images/jt-shop-footer.png"); width: 316px; height: 3px; float: left;}
+
+.jt-home-shop-content-fn>li{ padding: 4px 0 18px 0;}
+.jt-home-shop-content-fn>li>a,.jt-home-shop-content-fn>li>span{ height: 15px;}
+
+.jt-home-shop-view{ margin: 10px 0 0 45px; }
+.jt-home-shop-love{ margin: 10px 0 0 15px; }
+.jt-home-shop-comment{ margin: 10px 0 0 34px;}
+
+.jt-home-expand-shop-border-hide{width: 205px;height: 3px;position: absolute; margin: 25px 0 0 -175px; background: #fff; }
+
+.jt-one-header-title{ background: url("../../images/jt-one-header-bar.png");}
+#digonalFolderImage{ margin-top: 18px;}
+.jt-home-expand-shop-comment-wrap{float: left; margin: 0 20px 0 20px;  padding: 5px 0 20px 0;}

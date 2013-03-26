@@ -1,1 +1,7 @@
 @CHARSET "UTF-8";
+
+.jt-header-nav{ min-height: 39px; background: url("../../images/jt-header-bar.png");}
+.jt-home-shop{width: 316px; padding: 0 2px; margin: 5px 3px;  border-top: 1px solid #e5e5e5;  background: url("../../images/jt-shop.png");}
+.jt-home-shop-image-footer{ background: url("../../images/jt-shop-footer.png"); width: 316px; height: 3px; float: left;}
+
+.jt-one-header-title{ background: url("../../images/jt-one-header-bar.png");}

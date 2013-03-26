@@ -15,7 +15,7 @@
 <body style="background: #f2f2f2;">
 	<section class="jt-body">
 		<header class="jt-header">
-			<div class="jt-header-title jt-seller-header-title">
+			<div class="jt-header-title jt-one-header-title">
 				<div class="jt-header-banner">
 					<a href="${cp }/"><h1 class="jt-header-banner-h1">J Town</h1></a>
 				</div>

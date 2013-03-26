@@ -19,7 +19,7 @@
 <body style="background: #f2f2f2;">
 	<section class="jt-body">
 		<header class="jt-header">
-			<div class="jt-header-title jt-seller-header-title">
+			<div class="jt-header-title jt-one-header-title">
 				<div class="jt-header-banner">
 					<a href="${cp }/"><h1 class="jt-header-banner-h1">J Town</h1></a>
 				</div>
@@ -74,7 +74,6 @@
 		<article class="jt-seller-content-wrap">
 			<div id="folderBar">
 				<div id="folderTabName">
-<!-- 					<span id="diagonalFolder">My Page</span> -->
 					<span id="digonalFolderImage">My Page</span>
 				</div>
 			</div>
@@ -183,6 +182,12 @@
 								</span>
 							</li>
 						</ul>
+						<!--[if IE 7]>
+						<div class="jt-home-shop-image-footer"></div>
+						<![endif]-->
+						<!--[if IE 8]>
+						<div class="jt-home-shop-image-footer"></div>
+						<![endif]-->
 					</div>
 				</section>
 				<section class="jt-seller-expand">

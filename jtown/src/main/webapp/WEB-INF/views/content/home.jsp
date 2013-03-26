@@ -54,6 +54,12 @@
 						</span>
 					</li>
 				</ul>
+				<!--[if IE 7]>
+				<div class="jt-home-shop-image-footer"></div>
+				<![endif]-->
+				<!--[if IE 8]>
+				<div class="jt-home-shop-image-footer"></div>
+				<![endif]-->
 			</div>
 			</c:if>	
 		</c:forEach>
