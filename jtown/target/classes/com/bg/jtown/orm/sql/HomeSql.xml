@@ -31,7 +31,8 @@
 		<result column="love_count" property="loveCount"/>
 		<result column="view_count" property="viewCount"/>
 		<result column="comment_count" property="commentCount"/>
-		<result column="banner_date" property="bannerDate"/>
+		<result column="banner_first" property="bannerFirst"/>
+		<result column="banner_second" property="bannerSecond"/>
 		<collection property="images" column="pn" javaType="java.util.ArrayList" select="selectSellerImage" ofType="java.lang.String"/>
 	</resultMap>
 	
@@ -72,7 +73,7 @@
 		<include refid="paginationBefore"/>
 		SELECT
 			us.pn , u.name, us.shop_url, us.notice, 
-			cvsp.view_count, clsp.love_count, ccsp.comment_count, bdl.banner_date
+			cvsp.view_count, clsp.love_count, ccsp.comment_count, bdl.banner_first, bdl.banner_second
 		FROM
 			user_seller us 
 			LEFT OUTER JOIN users u
@@ -127,7 +128,7 @@
 		<include refid="paginationBefore"/>
 		SELECT
 			us.pn , u.name, us.shop_url, us.notice, 
-			cvsp.view_count, clsp.love_count, ccsp.comment_count, bdl.banner_date
+			cvsp.view_count, clsp.love_count, ccsp.comment_count, bdl.banner_first, bdl.banner_second
 		FROM
 			user_seller us 
 			LEFT OUTER JOIN users u
@@ -169,7 +170,8 @@
 	
 	<select id="selectComment" parameterType="java.lang.Integer" resultMap="jtown-comment-map">
 		SELECT
-			ucc.pn, ucc.customer_pn, u.name, ucc.seller_pn, ucc.comment, ucc.input_date
+			ucc.pn, ucc.customer_pn, u.name, ucc.seller_pn, ucc.comment, 
+			DATE_FORMAT(ucc.input_date, '%Y년도 %c월 %d일 %k시%i분') AS input_date
 		FROM
 			user_customer_comment ucc,
 			user_customer uc
@@ -183,7 +185,7 @@
 	
 	<select id="selectCommentOne" parameterType="java.lang.Integer" resultMap="jtown-comment-map">
 		SELECT
-			ucc.pn, ucc.customer_pn, u.name, ucc.seller_pn, ucc.comment, ucc.input_date
+			ucc.pn, ucc.customer_pn, u.name, ucc.seller_pn, ucc.comment, DATE_FORMAT(ucc.input_date, '%Y년도 %c월 %d일 %k시%i분')
 		FROM
 			user_customer_comment ucc,
 			user_customer uc
@@ -271,20 +273,32 @@
 	</resultMap>
 
 	<select id="selectInterest" parameterType="java.lang.Integer" resultMap="jtown-interest-map">
-		SELECT
-			ise.category_pn,  uci.section_pn,  ise.name
-		FROM
-			user_customer_interest uci,
-			interest_section ise,
-			interest_category ic
-		WHERE
-			uci.section_pn = ise.pn
-		AND
-			ic.pn = ise.category_pn
-		AND
-			uci.customer_pn = #{customerPn}
-		ORDER BY
-			category_pn, section_pn	
+		<choose>
+			<when test="value != null">
+				SELECT
+					ise.category_pn,  uci.section_pn,  ise.name
+				FROM
+					user_customer_interest uci,
+					interest_section ise,
+					interest_category ic
+				WHERE
+					uci.section_pn = ise.pn
+				AND
+					ic.pn = ise.category_pn
+				AND
+					uci.customer_pn = #{customerPn}
+				ORDER BY
+					category_pn, section_pn
+			</when>
+			<otherwise>
+				SELECT
+					pn AS section_pn, category_pn, NAME
+				FROM
+					interest_section
+				ORDER BY
+					category_pn, section_pn	
+			</otherwise>
+		</choose>
 	</select>
 	
 	<select id="selectInterestSectionCount" parameterType="com.bg.jtown.business.Interest" resultType="java.lang.Integer">
