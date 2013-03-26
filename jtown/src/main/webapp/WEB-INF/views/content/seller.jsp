@@ -21,10 +21,7 @@
 		<header class="jt-header">
 			<div class="jt-header-title jt-seller-header-title">
 				<div class="jt-header-banner">
-					<a href="${cp }/seller/<c:out value="${jtownUser.pn}"/>"><h1>J Town</h1></a>
-				</div>
-				<div class="jt-header-banner">
-					<a href="${cp }/"><h1>J Town</h1></a>
+					<a href="${cp }/"><h1 class="jt-header-banner-h1">J Town</h1></a>
 				</div>
 				<ul class="jt-header-login-menu">
 					<sec:authorize access="hasRole('ROLE_USER')">
@@ -42,13 +39,13 @@
 								<sec:authorize access="hasRole('ROLE_SELLER')">
 								<li>
 									<c:url value="/seller/${jtownUser.pn}" var="sellerUrl"/>
-									<a href="${sellerUrl }" class="jt-common-a-base" id="jt-logout">판매자 페이지</a>
+									<a href="${sellerUrl }" class="jt-common-a-base">판매자 페이지</a>
 								</li>	
 								</sec:authorize>
 								<sec:authorize access="hasRole('ROLE_ADMIN')">
 								<li>
 									<c:url value="/admin" var="sellerUrl"/>
-									<a href="${adminUrl }" class="jt-common-a-base" id="jt-logout">관리자 페이지</a>
+									<a href="${adminUrl }" class="jt-common-a-base">관리자 페이지</a>
 								</li>	
 								</sec:authorize>
 							</ul>
@@ -309,7 +306,7 @@
 						<div class="jt-home-expand-shop-content-wrpa">
 							<ul class="jt-home-expand-shop-content-fn">
 								<li class="jt-home-expand-shop-content-view-wrap">
-									<span class="jt-home-expand-shop-content-view">Look</span>&nbsp;<span id="view-expand-<c:out value="${jtownUser.pn }"/>"/><c:out value="${jtownUser.viewCount eq null ? 0 : jtownUser.viewCount}"/></span>
+									<span class="jt-home-expand-shop-content-view">Look</span>&nbsp;<span id="view-expand-<c:out value="${jtownUser.pn }"/>"><c:out value="${jtownUser.viewCount eq null ? 0 : jtownUser.viewCount}"/></span>
 								</li>
 								<li class="jt-home-expand-shop-content-comment-wrap">
 									<span class="jt-home-expand-shop-content-comment"></span>&nbsp;Comment&nbsp;&nbsp;<span id="comment-expand-<c:out value="${jtownUser.pn }"/>"><c:out value="${jtownUser.commentCount eq null ? 0 : jtownUser.commentCount}"/></span>

@@ -30,15 +30,15 @@
 					</a>
 				</c:when>
 				<c:otherwise>
-					<a href="${search }"><c:out value="${interestCategory.name }"/></a>
+					<a href="${search }" class="jt-header-nav-interestCategory-normal"><c:out value="${interestCategory.name }"/></a>
 				</c:otherwise>
 			</c:choose>
 			<ul class="jt-header-nav-interest">
 			<c:forEach var="interest" items="${interests }">
 				<c:set var="spn" value="${interest.sectionPn }"/>
-				<li>
+				<li class="jt-header-nav-interest-li">
 					<c:url var="search" value="/cpn/${cpn }/spn/${spn }"/>
-					<a href="${search }"><c:out value="${interest.name }"/></a>
+					<a class="jt-header-nav-interest-normal" href="${search }"><c:out value="${interest.name }"/></a>
 				</li>
 			</c:forEach>
 			</ul>

@@ -61,7 +61,7 @@
 		
 		if(widthItem < 3 ) widthItem = 3;
 		
-		$('#jt-home-container').css({width : (widthItem*330)});	
+		$('#jt-home-container').css({width : (widthItem*330), margin : 'auto'});	
 	};
 	
 	$(window).scroll(function(){

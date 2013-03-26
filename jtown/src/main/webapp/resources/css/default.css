@@ -63,10 +63,6 @@ input, textarea, select{
 	font-size: 12px;
 }
 
-input:FOCUS, textarea:FOCUS, select:FOCUS{
-	outline: 0;
-}
-
 body{
 	overflow-x: auto;
 	overflow-y: scroll;

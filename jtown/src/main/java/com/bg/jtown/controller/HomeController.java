@@ -44,7 +44,7 @@ public class HomeController {
 	private HomeService homeService;
 
 	// ~ FORM
-
+	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView showMainPage(@ModelAttribute HomeFilter homeFilter,
 			HttpServletRequest request) {
@@ -52,12 +52,12 @@ public class HomeController {
 		HttpSession session = request.getSession();
 		ModelAndView mav = new ModelAndView("home");
 		mav.addObject("interestCategories", homeService.selecInterestCategory());
-		if(session.getAttribute("interestMap") == null){
+		if (session.getAttribute("interestMap") == null) {
 			Map<Integer, List<Interest>> interestMap = homeService
 					.selectInterest(null);
 			session.setAttribute("interestMap", interestMap);
 		}
-		
+
 		List<Integer> randomPage = homeService.makeRandomCount(homeFilter);
 		logger.debug("RandomPage Controller" + randomPage.toString());
 		session.setAttribute("randomPage", randomPage);
@@ -81,12 +81,12 @@ public class HomeController {
 		HttpSession session = request.getSession();
 		ModelAndView mav = new ModelAndView("home");
 		mav.addObject("interestCategories", homeService.selecInterestCategory());
-		if(session.getAttribute("interestMap") == null){
+		if (session.getAttribute("interestMap") == null) {
 			Map<Integer, List<Interest>> interestMap = homeService
 					.selectInterest(null);
 			session.setAttribute("interestMap", interestMap);
 		}
-		
+
 		List<Integer> randomPage = homeService.makeRandomCount(homeFilter);
 		logger.debug("RandomPage Controller" + randomPage.toString());
 		session.setAttribute("randomPage", randomPage);

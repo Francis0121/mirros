@@ -9,18 +9,18 @@
 <html>
 <head>
 <title>J TOWN</title>
-<%@ include file="style.jspf"%>
 <%@ include file="header_script.jspf" %>
+<%@ include file="style.jspf"%>
 </head>
 <body>
-	<section class="jt-body">
-		<header class="jt-header">
+	<div class="jt-body">
+		<div class="jt-header">
 			<div class="jt-header-title">
 				<div class="jt-header-search">
-					<input type="text"/>
+					<input type="text" class="jt-header-search-input"/>
 				</div>
 				<div class="jt-header-banner">
-					<a href="${cp }/"><h1>J Town</h1></a>
+					<a href="${cp }/"><h1 class="jt-header-banner-h1">J Town</h1></a>
 				</div>
 				<ul class="jt-header-login-menu">
 					<sec:authorize access="hasRole('ROLE_USER')">
@@ -38,21 +38,18 @@
 								<sec:authorize access="hasRole('ROLE_SELLER')">
 								<li>
 									<c:url value="/seller" var="sellerUrl"/>
-									<a href="${sellerUrl }/<sec:authentication property="principal.pn" />" class="jt-common-a-base" id="jt-logout">판매자 페이지</a>
+									<a href="${sellerUrl }/<sec:authentication property="principal.pn" />" class="jt-common-a-base">판매자 페이지</a>
 								</li>	
 								</sec:authorize>
 								<sec:authorize access="hasRole('ROLE_ADMIN')">
 								<li>
 									<c:url value="/admin" var="sellerUrl"/>
-									<a href="${adminUrl }" class="jt-common-a-base" id="jt-logout">관리자 페이지</a>
+									<a href="${adminUrl }" class="jt-common-a-base">관리자 페이지</a>
 								</li>	
 								</sec:authorize>	
 							</ul>
 						</li>
 					</sec:authorize>
-<!-- 					<li> -->
-<!-- 						<a href="#none" class="jt-common-a-base" id="jt-person-addInterest">관심사추가</a> -->
-<!-- 					</li> -->
 					<sec:authorize access="anonymous">
 						<li>
 							<a href="#none" class="jt-common-a-base" id="jt-login-smartPopup">LOG IN</a>
@@ -72,8 +69,8 @@
 					</li>
 				</ul>
 			</div>
-			<nav class="jt-header-nav">
+			<div class="jt-header-nav">
 				<%@ include file="navigation.jspf" %>
-			</nav>
-		</header>
-		<section class="jt-content">
+			</div>
+		</div>
+		<div class="jt-content">

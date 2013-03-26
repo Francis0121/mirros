@@ -17,10 +17,7 @@
 		<header class="jt-header">
 			<div class="jt-header-title jt-seller-header-title">
 				<div class="jt-header-banner">
-					<a href="${cp }/seller/<c:out value="${jtownUser.pn}"/>"><h1>J Town</h1></a>
-				</div>
-				<div class="jt-header-banner">
-					<a href="${cp }/"><h1>J Town</h1></a>
+					<a href="${cp }/"><h1 class="jt-header-banner-h1">J Town</h1></a>
 				</div>
 				<ul class="jt-header-login-menu">
 					<sec:authorize access="hasRole('ROLE_USER')">
@@ -38,13 +35,13 @@
 								<sec:authorize access="hasRole('ROLE_SELLER')">
 								<li>
 									<c:url value="/seller/${jtownUser.pn}" var="sellerUrl"/>
-									<a href="${sellerUrl }" class="jt-common-a-base" id="jt-logout">판매자 페이지</a>
+									<a href="${sellerUrl }" class="jt-common-a-base">판매자 페이지</a>
 								</li>	
 								</sec:authorize>
 								<sec:authorize access="hasRole('ROLE_ADMIN')">
 								<li>
 									<c:url value="/admin" var="sellerUrl"/>
-									<a href="${adminUrl }" class="jt-common-a-base" id="jt-logout">관리자 페이지</a>
+									<a href="${adminUrl }" class="jt-common-a-base">관리자 페이지</a>
 								</li>	
 								</sec:authorize>
 							</ul>
@@ -80,7 +77,7 @@
 				<tfoot>
 					<tr>
 						<td colspan="2">
-							<input type="button" value="FINISH" class="jt-join-submit jt-btn-orange" />
+							<input type="button" value="가입하기" class="jt-join-submit jt-btn-orange" />
 						</td>
 					</tr>
 				</tfoot>
@@ -188,7 +185,7 @@
 			</form:form>
 			<footer class="jt-join-user-warning">
 				<ul>
-					<li>‘FINISH’를&nbsp;누르면&nbsp;<a href="#none">이용약관</a>&nbsp;및&nbsp;<a href="#none">개인정취급방침</a>에&nbsp;동의한&nbsp;것으로&nbsp;간주합니다.</li>
+					<li>‘가입하기’를&nbsp;누르면&nbsp;<a href="#none">이용약관</a>&nbsp;및&nbsp;<a href="#none">개인정취급방침</a>에&nbsp;동의한&nbsp;것으로&nbsp;간주합니다.</li>
 					<li>판매자&nbsp;회원가입은&nbsp;고객센터로&nbsp;문의주시기&nbsp;바랍니다.</li>
 				</ul>
 			</footer>

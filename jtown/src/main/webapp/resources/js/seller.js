@@ -247,7 +247,7 @@ jtown.seller.syncProductList = function() {
 	});
 
 	$('.jt-home-expand-shop-products').unbind('mouseover mouseout');
-	$('.jt-home-expand-shop-products').bind('mouseover mouseout', function() {
+	$('.jt-home-expand-shop-products').bind('mouseover mouseout', function(event) {
 		var display = $('.jt-seller-expand-product-insert-wrap').css('display');
 		if(display != 'block'){
 			if (event.type == 'mouseover') {
