@@ -63,7 +63,7 @@ input, textarea, select{
 	font-size: 12px;
 }
 
-body{
+html{
 	overflow-x: auto;
 	overflow-y: scroll;
 }

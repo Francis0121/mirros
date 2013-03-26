@@ -9,7 +9,6 @@
 <link rel="stylesheet" type="text/css" href="${cp}/resources/jquery/jquery-ui-1.10.0.custom.min.css" />
 <link rel="stylesheet" type="text/css" href="${cp}/resources/uploadify/uploadify.css" />
 <%-- Custom --%>
-
 <link rel="stylesheet" type="text/css" href="${cp}/resources/css/default.css" />
 <link rel="stylesheet" type="text/css" href="${cp}/resources/css/style.css" />
 <link rel="stylesheet" type="text/css" href="${cp}/resources/css/plugin.css" />
@@ -17,3 +16,13 @@
 <link rel="stylesheet" type="text/css" href="${cp}/resources/css/home.css" />
 <link rel="stylesheet" type="text/css" href="${cp}/resources/css/seller.css" />
 <link rel="stylesheet" type="text/css" href="${cp}/resources/css/addInterest.css" />
+
+<!--[if IE 8]>
+<link rel="stylesheet" type="text/css" href="${cp}/resources/css/ie/8.css" />
+<![endif]-->
+<!--[if IE 7]>
+<link rel="stylesheet" type="text/css" href="${cp}/resources/css/ie/7.css" />
+<![endif]-->
+<!--[if IE 6]>
+<link rel="stylesheet" type="text/css" href="${cp}/resources/css/ie/6.css" />
+<![endif]-->
