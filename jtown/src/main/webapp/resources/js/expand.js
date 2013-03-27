@@ -81,6 +81,9 @@ jtown.expand.makeInnerHtml = function(spn){
 			commentHtml += 	'<li data-copn="'+comment.commentPn+'" class="'+ (best ? 'jt-home-expand-shop-comment-li-best' : 'jt-home-expand-shop-comment-li')+'">';
 			commentHtml +=	'	<ul class="jt-home-expand-shop-text-wrap">';
 			commentHtml += 	'		<li class="jt-home-expand-shop-comment-header">';
+			if(best){
+			commentHtml += 	'			<span class="jt-home-expand-shop-comment-best">BEST</span>';	
+			}
 			commentHtml += 	'			<span class="jt-home-expand-shop-comment-name">'+htmlChars(comment.customerName)+'</span>';
 			commentHtml += 	'		 	<span class="jt-home-expand-shop-comment-progress-date">'+comment.inputDate+'</span>';
 			commentHtml +=	' 			<a href="#none" class="jt-home-expand-shop-comment-loveIt">Love&nbsp;It</a>';	

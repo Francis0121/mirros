@@ -111,11 +111,12 @@ word-wrap: break-word; /* Internet Explorer 5.5+ */}
 }
 .jt-home-expand-shop-comment{float: left; width: 580px; }
 .jt-home-expand-shop-comment>li{float: left; min-height: 20px;  width: 580px; padding: 0 0;  }
-.jt-home-expand-shop-comment-li-best{ outline: 1px solid red;}
+.jt-home-expand-shop-comment-li-best{}
 .jt-home-expand-shop-comment-insert{margin: 10px 0; float: left;}
 .jt-home-expand-shop-comment-insert>input{width: 540px; border: 1px solid #d1cdcd; padding: 4px; float: left; margin: 0 15px;}
 .jt-home-expand-shop-text-wrap{ float: left; width: 580px;}
 .jt-home-expand-shop-text-wrap>li{float: left;}
+.jt-home-expand-shop-comment-best{ color: #ff0000; font-weight: bold;}
 .jt-home-expand-shop-comment-header{width: 550px; padding: 4px 0; margin: 0 15px;}
 .jt-home-expand-shop-comment-name{ color: #010101; font-weight: bold; font-size: 13px;}
 .jt-home-expand-shop-comment-progress-date{ color: #999999; font-size: 11px;}
