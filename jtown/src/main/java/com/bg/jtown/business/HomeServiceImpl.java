@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.bg.jtown.business.comment.CommentService;
+import com.bg.jtown.business.search.CommentFilter;
 import com.bg.jtown.business.search.HomeFilter;
 import com.bg.jtown.business.seller.SellerService;
 import com.bg.jtown.redis.Publisher;
@@ -100,7 +101,8 @@ public class HomeServiceImpl extends SqlSessionDaoSupport implements
 		selectMap.putAll(sellerService.selectSellerEvent(properNumber));
 		selectMap.put("products",
 				sellerService.selectSellerProduct(properNumber));
-		selectMap.put("comments", commentService.selectComment(properNumber));
+		selectMap.put("comments",
+				commentService.selectComment(new CommentFilter(properNumber)));
 		return selectMap;
 	}
 

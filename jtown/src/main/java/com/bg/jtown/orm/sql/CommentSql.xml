@@ -2,6 +2,27 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="commentMapper">
 
+	<sql id="paginationBefore">
+		SELECT 
+			t.*
+		FROM 
+		( 
+			SELECT  
+				z.*, @RNUM := @RNUM + 1 AS rnum
+			FROM
+				(
+	</sql>
+	
+	<sql id="paginationAfter">
+		<![CDATA[
+				) z,  
+				( SELECT @RNUM := 0 ) R
+			WHERE @RNUM + 1 <=  #{pagination.itemSeqEnd}
+		) t
+		WHERE t.rnum >= #{pagination.itemSeqBegin}
+		]]>
+	</sql>
+
 	<resultMap type="com.bg.jtown.business.Comment" id="jtown-comment-map">
 		<result column="pn" property="commentPn"/>
 		<result column="customer_pn" property="customerPn"/>
@@ -11,7 +32,17 @@
 		<result column="input_date" property="inputDate"/>
 	</resultMap>
 	
-	<select id="selectComment" parameterType="java.lang.Integer" resultMap="jtown-comment-map">
+	<select id="selectCommentCount" parameterType="com.bg.jtown.business.search.CommentFilter" resultType="java.lang.Integer">
+		SELECT
+			comment_count
+		FROM	
+			count_comment_seller_pn
+		WHERE
+			seller_pn = #{sellerPn}
+	</select>
+	
+	<select id="selectComment" parameterType="com.bg.jtown.business.search.CommentFilter" resultMap="jtown-comment-map">
+		<include refid="paginationBefore"/>
 		SELECT
 			ucc.pn, ucc.customer_pn, u.name, ucc.seller_pn, ucc.comment, 
 			DATE_FORMAT(ucc.input_date, '%Y년도 %c월 %d일 %k시%i분') AS input_date
@@ -23,7 +54,10 @@
 		WHERE
 			ucc.customer_pn = uc.pn
 		AND
-			ucc.seller_pn = #{properNumber}
+			ucc.seller_pn = #{sellerPn}
+		ORDER BY
+			input_date DESC 
+		<include refid="paginationAfter"/>
 	</select>
 	
 	<select id="selectCommentOne" parameterType="java.lang.Integer" resultMap="jtown-comment-map">
@@ -38,15 +72,6 @@
 			ucc.customer_pn = uc.pn
 		AND
 			ucc.pn = #{commentPn}
-	</select>
-	
-	<select id="selectCommentCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
-		SELECT
-			comment_count
-		FROM	
-			count_comment_seller_pn
-		WHERE
-			seller_pn = #{properNumber}
 	</select>
 	
 	<insert id="insertComment" parameterType="com.bg.jtown.business.Comment">

@@ -3,6 +3,7 @@ package com.bg.jtown.business.comment;
 import java.util.List;
 
 import com.bg.jtown.business.Comment;
+import com.bg.jtown.business.search.CommentFilter;
 
 /**
  * @author Francis
@@ -10,7 +11,9 @@ import com.bg.jtown.business.Comment;
  */
 public interface CommentService {
 
-	List<Comment> selectComment(Integer properNumber);
+	Integer selectCommentCount(CommentFilter commentFilter);
+
+	List<Comment> selectComment(CommentFilter commentFilter);
 
 	Comment selectCommentOne(Integer commentPn);
 
@@ -20,5 +23,4 @@ public interface CommentService {
 
 	void deleteComment(Comment comment);
 
-	Integer selectCommentCount(Integer properNumber);
 }

@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import com.bg.jtown.business.Event;
 import com.bg.jtown.business.Product;
 import com.bg.jtown.business.comment.CommentService;
+import com.bg.jtown.business.search.CommentFilter;
 import com.bg.jtown.redis.Publisher;
 import com.bg.jtown.security.JtownUser;
 import com.bg.jtown.util.FileVO;
@@ -43,7 +44,8 @@ public class SellerServiceImpl extends SqlSessionDaoSupport implements
 		selectMap.putAll(selectSellerEvent(properNumber));
 		selectMap.put("interestes", selectSellerInterest(properNumber));
 		selectMap.put("products", selectSellerProduct(properNumber));
-		selectMap.put("comments", commentService.selectComment(properNumber));
+		selectMap.put("comments",
+				commentService.selectComment(new CommentFilter(properNumber)));
 
 		logger.debug(selectMap.toString());
 
