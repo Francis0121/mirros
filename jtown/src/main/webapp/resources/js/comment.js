@@ -61,7 +61,7 @@ jtown.comment.syncComment = function(){
 		$.postJSON(url, json, function(comments){
 			for(var i=0, len = comments.length; i < len ; i++){
 				var comment = comments[i];
-				jtown.comment.commentHtml(comment, 'last');
+				jtown.comment.commentHtml(comment, 'last', false);
 			}
 			
 			setTimeout('jtown.expand.changeContainerHeight(\''+comments.length+'\')', 0);
@@ -91,10 +91,9 @@ jtown.comment.syncComment = function(){
 	});
 };
 
-jtown.comment.commentHtml = function(comment, position){
-	var innerHtml = $('.jt-home-expand-shop-comment>li:'+position).html();
+jtown.comment.commentHtml = function(comment, position, best){
 	var commentHtml ='';
-	commentHtml += 	'<li data-copn="'+comment.commentPn+'" class="jt-home-expand-shop-comment-li">';
+	commentHtml += 	'<li data-copn="'+comment.commentPn+'" class="'+ (best ? 'jt-home-expand-shop-comment-li-best' : 'jt-home-expand-shop-comment-li')+'">';
 	commentHtml +=	'	<ul class="jt-home-expand-shop-text-wrap">';
 	commentHtml += 	'		<li class="jt-home-expand-shop-comment-header">';
 	commentHtml += 	'			<span class="jt-home-expand-shop-comment-name">'+htmlChars(comment.customerName)+'</span>';
@@ -118,10 +117,19 @@ jtown.comment.commentHtml = function(comment, position){
 	commentHtml +=	'	</div>';
 	commentHtml += 	'</li>';
 	
-	if(!nullValueCheck(innerHtml)){			
-		$('.jt-home-expand-shop-comment>li:'+position).before(commentHtml);
+	var innerHtml = $('.jt-home-expand-shop-comment-li:'+position).html();
+	if(!nullValueCheck(innerHtml)){		
+		if(position == 'last')
+			$('.jt-home-expand-shop-comment-li:'+position).after(commentHtml);
+		else if(position == 'first')
+			$('.jt-home-expand-shop-comment-li:'+position).before(commentHtml);
 	}else{
-		$('.jt-home-expand-shop-comment').html(commentHtml);
+		var innerBestHtml = $('.jt-home-expand-shop-comment-li-best:last').html();
+		if(!nullValueCheck(innerBestHtml)){
+			$('.jt-home-expand-shop-comment-li-best:last').after(commentHtml);
+		}else{			
+			$('.jt-home-expand-shop-comment').prepend(commentHtml);
+		}
 	}
 };
 

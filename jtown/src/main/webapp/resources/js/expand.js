@@ -34,8 +34,10 @@ jtown.expand.makeInnerHtml = function(spn){
 			products = selectMap.products, 
 			jtownUser = selectMap.jtownUser,
 			comments = selectMap.comments,
+			commentTops = selectMap.commentTops,
 			commentFilter = selectMap.commentFilter,
-			cpn = selectMap.cpn;
+			cpn = selectMap.cpn,
+			best = false;
 		
 		var productSize = Number(products.length);
 		var bigProductHtml = '';
@@ -68,9 +70,15 @@ jtown.expand.makeInnerHtml = function(spn){
 		}
 		
 		var commentHtml = '';
+
+		if(commentTops.length > 0){
+			comments = commentTops;
+			best = true;
+		}
+		
 		for(var i=0; i<comments.length; i++){
 			var comment = comments[i];
-			commentHtml += 	'<li data-copn="'+comment.commentPn+'" class="jt-home-expand-shop-comment-li">';
+			commentHtml += 	'<li data-copn="'+comment.commentPn+'" class="'+ (best ? 'jt-home-expand-shop-comment-li-best' : 'jt-home-expand-shop-comment-li')+'">';
 			commentHtml +=	'	<ul class="jt-home-expand-shop-text-wrap">';
 			commentHtml += 	'		<li class="jt-home-expand-shop-comment-header">';
 			commentHtml += 	'			<span class="jt-home-expand-shop-comment-name">'+htmlChars(comment.customerName)+'</span>';
@@ -98,14 +106,26 @@ jtown.expand.makeInnerHtml = function(spn){
 		}
 		
 		var pagination = commentFilter.pagination;
-		if(pagination.numItems > 0 ){
-			commentHtml +=	'<li class="jt-home-expand-shop-comment-add">';
-			commentHtml +=	'	<a href="#none" class="jt-btn-silver" id="comment-add-btn"';
-			commentHtml +=	'		data-spn="'+jtownUser.pn+'" data-page="0" ';
-			commentHtml +=	'		data-ni="'+pagination.numItems+'" data-nipp="'+pagination.numItemsPerPage+'">';
-			commentHtml +=	'			댓글&nbsp;더&nbsp;보기&nbsp;<span id="comment-now-count">0</span>/'+pagination.numItems;
-			commentHtml +=	'	</a>';
-			commentHtml +=	'</li>';
+		if(commentTops.length > 0){
+			if(pagination.numItems > 0 ){
+				commentHtml +=	'<li class="jt-home-expand-shop-comment-add">';
+				commentHtml +=	'	<a href="#none" class="jt-btn-silver" id="comment-add-btn"';
+				commentHtml +=	'		data-spn="'+jtownUser.pn+'" data-page="0" ';
+				commentHtml +=	'		data-ni="'+pagination.numItems+'" data-nipp="'+pagination.numItemsPerPage+'">';
+				commentHtml +=	'			댓글&nbsp;더&nbsp;보기&nbsp;<span id="comment-now-count">0</span>/'+pagination.numItems;
+				commentHtml +=	'	</a>';
+				commentHtml +=	'</li>';
+			}
+		}else{
+			if(pagination.numItems > pagination.numItemsPerPage ){
+				commentHtml +=	'<li class="jt-home-expand-shop-comment-add">';
+				commentHtml +=	'	<a href="#none" class="jt-btn-silver" id="comment-add-btn"';
+				commentHtml +=	'		data-spn="'+jtownUser.pn+'" data-page="1" ';
+				commentHtml +=	'		data-ni="'+pagination.numItems+'" data-nipp="'+pagination.numItemsPerPage+'">';
+				commentHtml +=	'			댓글&nbsp;더&nbsp;보기&nbsp;<span id="comment-now-count">'+pagination.numItemsPerPage+'</span>/'+pagination.numItems;
+				commentHtml +=	'	</a>';
+				commentHtml +=	'</li>';
+			}
 		}
 		
 		var commentInputHtml = '';

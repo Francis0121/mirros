@@ -323,7 +323,7 @@
 							</ul>
 							<div class="jt-home-expand-shop-comment-wrap">
 								<ul class="jt-home-expand-shop-comment">
-									<c:forEach items="${comments }" var="comment">
+									<c:forEach items="${null }" var="comment">
 										<li data-copn="<c:out value="${comment.commentPn }"/>" class="jt-home-expand-shop-comment-li">
 											<ul class="jt-home-expand-shop-text-wrap">
 												<li class="jt-home-expand-shop-comment-header">

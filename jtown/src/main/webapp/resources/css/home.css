@@ -110,7 +110,8 @@ word-wrap: break-word; /* Internet Explorer 5.5+ */}
 	-webkit-box-shadow : 0 1px 3px rgba(34,25,25,0.4);
 }
 .jt-home-expand-shop-comment{float: left; width: 580px; }
-.jt-home-expand-shop-comment>li{float: left; min-height: 20px;  width: 580px; padding: 2px 0;  }
+.jt-home-expand-shop-comment>li{float: left; min-height: 20px;  width: 580px; padding: 0 0;  }
+.jt-home-expand-shop-comment-li-best{ outline: 1px solid red;}
 .jt-home-expand-shop-comment-insert{margin: 10px 0; float: left;}
 .jt-home-expand-shop-comment-insert>input{width: 540px; border: 1px solid #d1cdcd; padding: 4px; float: left; margin: 0 15px;}
 .jt-home-expand-shop-text-wrap{ float: left; width: 580px;}
