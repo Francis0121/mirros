@@ -92,6 +92,7 @@ jtown.comment.syncComment = function(){
 };
 
 jtown.comment.commentHtml = function(comment, position, best){
+	var cpn = $('#jt-logout').attr('data-cpn');
 	var commentHtml ='';
 	commentHtml += 	'<li data-copn="'+comment.commentPn+'" class="'+ (best ? 'jt-home-expand-shop-comment-li-best' : 'jt-home-expand-shop-comment-li')+'">';
 	commentHtml +=	'	<ul class="jt-home-expand-shop-text-wrap">';
@@ -103,6 +104,7 @@ jtown.comment.commentHtml = function(comment, position, best){
 	commentHtml += 	'		</li>';
 	commentHtml +=	'		<li class="jt-home-expand-shop-comment-text">'+htmlChars(comment.comment)+'</li>';
 	commentHtml	+= 	'	</ul>';
+	if(comment.customerPn == cpn){
 	commentHtml +=	'	<div class="jt-home-expand-shop-update-wrap">';
 	commentHtml +=	'		<input type="text" class="jt-comment-update-input" value="'+htmlChars(comment.comment)+'"/><br/>';
 	commentHtml += 	'		<span>esc를 누르시면 수정이 취소 됩니다.</span>';
@@ -115,6 +117,7 @@ jtown.comment.commentHtml = function(comment, position, best){
 	commentHtml +=	'			<span class="btnImage"></span>';
 	commentHtml +=	'		</a>';
 	commentHtml +=	'	</div>';
+	}
 	commentHtml += 	'</li>';
 	
 	var innerHtml = $('.jt-home-expand-shop-comment-li:'+position).html();

@@ -34,7 +34,7 @@
 								</li>
 								<li>
 									<c:url value="/login/logout" var="logoutUrl"/>
-									<a href="${logoutUrl }" class="jt-common-a-base" id="jt-logout">로그아웃</a>
+									<a href="${logoutUrl }" class="jt-common-a-base" id="jt-logout" data-cpn="${jtownUser.pn }">로그아웃</a>
 								</li>	
 								<sec:authorize access="hasRole('ROLE_SELLER')">
 								<li>

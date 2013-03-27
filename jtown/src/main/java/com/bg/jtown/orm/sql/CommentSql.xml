@@ -144,6 +144,8 @@
 		DELETE FROM
 			user_customer_comment
 		WHERE
+			customer_pn = #{customerPn}
+		AND
 			pn = #{commentPn}
 	</delete>
 	
