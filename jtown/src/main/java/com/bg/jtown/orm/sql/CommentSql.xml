@@ -23,6 +23,8 @@
 		]]>
 	</sql>
 
+	<!-- Comment -->
+
 	<resultMap type="com.bg.jtown.business.Comment" id="jtown-comment-map">
 		<result column="pn" property="commentPn"/>
 		<result column="customer_pn" property="customerPn"/>
@@ -30,6 +32,7 @@
 		<result column="seller_pn" property="sellerPn"/>
 		<result column="comment" property="comment"/>
 		<result column="input_date" property="inputDate"/>
+		<result column="comment_love_count" property="commentLoveCount"/>
 	</resultMap>
 	
 	<select id="selectCommentCount" parameterType="com.bg.jtown.business.search.CommentFilter" resultType="java.lang.Integer">
@@ -44,10 +47,12 @@
 	<select id="selectComment" parameterType="com.bg.jtown.business.search.CommentFilter" resultMap="jtown-comment-map">
 		<include refid="paginationBefore"/>
 		SELECT
-			ucc.pn, ucc.customer_pn, u.name, ucc.seller_pn, ucc.comment, 
+			ucc.pn, ucc.customer_pn, u.name, ucc.seller_pn, ucc.comment, cclcp.comment_love_count, 
 			DATE_FORMAT(ucc.input_date, '%Y년도 %c월 %d일 %k시%i분') AS input_date
 		FROM
-			user_customer_comment ucc,
+			user_customer_comment ucc
+			LEFT OUTER JOIN count_comment_love_comment_pn cclcp
+			ON ucc.pn = cclcp.comment_pn,
 			user_customer uc
 			LEFT OUTER JOIN users u
 			ON uc.pn = u.pn
@@ -62,9 +67,12 @@
 	
 	<select id="selectCommentOne" parameterType="java.lang.Integer" resultMap="jtown-comment-map">
 		SELECT
-			ucc.pn, ucc.customer_pn, u.name, ucc.seller_pn, ucc.comment, DATE_FORMAT(ucc.input_date, '%Y년도 %c월 %d일 %k시%i분') AS input_date
+			ucc.pn, ucc.customer_pn, u.name, ucc.seller_pn, ucc.comment, cclcp.comment_love_count, 
+			DATE_FORMAT(ucc.input_date, '%Y년도 %c월 %d일 %k시%i분') AS input_date
 		FROM
-			user_customer_comment ucc,
+			user_customer_comment ucc
+			LEFT OUTER JOIN count_comment_love_comment_pn cclcp
+			ON ucc.pn = cclcp.comment_pn,
 			user_customer uc
 			LEFT OUTER JOIN users u
 			ON uc.pn = u.pn
@@ -101,6 +109,56 @@
 			user_customer_comment
 		WHERE
 			pn = #{commentPn}
+	</delete>
+	
+	<!-- Comment Love -->
+	<select id="selectCommentLove" parameterType="com.bg.jtown.business.Comment" resultType="com.bg.jtown.business.Comment">
+		SELECT
+			comment_pn AS commentPn, customer_pn AS customerPn, input_date AS inputDate
+		FROM
+			user_customer_comment_love
+		<if test="commentPn != null">
+			WHERE
+				comment_pn = #{commentPn}
+			<if test="customerPn != null">	
+				AND
+					customer_pn = #{customerPn}		
+			</if>
+		</if>
+	</select>
+	
+	<select id="selectCommentLoveCount" parameterType="com.bg.jtown.business.Comment" resultType="java.lang.Integer">
+		SELECT
+			COUNT(comment_pn)
+		FROM
+			user_customer_comment_love
+		<if test="commentPn != null">
+			WHERE
+				comment_pn = #{commentPn}
+			<if test="customerPn != null">	
+				AND
+					customer_pn = #{customerPn}		
+			</if>
+		</if>
+	</select>
+	
+	<insert id="insertCommentLove" parameterType="com.bg.jtown.business.Comment">
+		INSERT INTO
+			user_customer_comment_love
+			( comment_pn, customer_pn, input_date )
+		VALUES
+			( #{commentPn}, #{customerPn}, SYSDATE() )
+	</insert>
+	
+	<delete id="deleteCommentLove" parameterType="com.bg.jtown.business.Comment">
+		DELETE FROM
+			user_customer_comment_love
+		WHERE
+			comment_pn = #{commentPn}
+		<if test="customerPn != null">
+		AND
+			customer_pn = #{customerPn}
+		</if>
 	</delete>
 	
 </mapper>

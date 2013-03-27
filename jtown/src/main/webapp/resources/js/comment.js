@@ -75,6 +75,20 @@ jtown.comment.syncComment = function(){
 		});
 	});
 	
+	$('.jt-home-expand-shop-comment-loveIt').unbind('click');
+	$('.jt-home-expand-shop-comment-loveIt').bind('click', function(event){
+		var me = $(this),
+			parents = me.parents('.jt-home-expand-shop-comment-li'),
+			$shop = me.parents('#jt-home-expand-shop');
+		
+		var url = contextPath + 'ajax/home/toggleCommentLove.jt';
+		var json = {	commentPn	:	parents.attr('data-copn'),
+						sellerPn	:	$shop.attr('data-spn') 		};
+		
+		$.postJSON(url, json, function(){
+			
+		});
+	});
 };
 
 jtown.comment.commentHtml = function(comment, position){
@@ -85,6 +99,8 @@ jtown.comment.commentHtml = function(comment, position){
 	commentHtml += 	'		<li class="jt-home-expand-shop-comment-header">';
 	commentHtml += 	'			<span class="jt-home-expand-shop-comment-name">'+htmlChars(comment.customerName)+'</span>';
 	commentHtml += 	'			<span class="jt-home-expand-shop-comment-progress-date">'+comment.inputDate+'</span>';
+	commentHtml +=	' 			<a href="#none" class="jt-home-expand-shop-comment-loveIt">Love&nbsp;It</a>';	
+	commentHtml +=	'			<span id="copnLoveIt-'+comment.commentPn+'" class="jt-home-expand-shop-comment-loveIt-count"></span>';	
 	commentHtml += 	'		</li>';
 	commentHtml +=	'		<li class="jt-home-expand-shop-comment-text">'+htmlChars(comment.comment)+'</li>';
 	commentHtml	+= 	'	</ul>';

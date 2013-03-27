@@ -46,21 +46,35 @@ public class Comment {
 	 */
 	private Integer sellerPn;
 
+	/**
+	 * comment 좋아요 개수
+	 */
+	private Integer commentLoveCount;
+
+	public Integer getCommentLoveCount() {
+		return commentLoveCount;
+	}
+
+	public void setCommentLoveCount(Integer commentLoveCount) {
+		this.commentLoveCount = commentLoveCount;
+	}
+
 	public Comment() {
 		super();
 	}
 
 	public Comment(String comment, Integer commentPn, Integer count,
 			String customerName, Integer customerPn, String inputDate,
-			Integer sellerPn) {
-		super();
+			String redisType, Integer sellerPn, Integer commentLoveCount) {
 		this.comment = comment;
 		this.commentPn = commentPn;
 		this.count = count;
 		this.customerName = customerName;
 		this.customerPn = customerPn;
 		this.inputDate = inputDate;
+		this.redisType = redisType;
 		this.sellerPn = sellerPn;
+		this.commentLoveCount = commentLoveCount;
 	}
 
 	public String getComment() {
@@ -132,7 +146,8 @@ public class Comment {
 		return "Comment [comment=" + comment + ", commentPn=" + commentPn
 				+ ", count=" + count + ", customerName=" + customerName
 				+ ", customerPn=" + customerPn + ", inputDate=" + inputDate
-				+ ", redisType=" + redisType + ", sellerPn=" + sellerPn + "]";
+				+ ", redisType=" + redisType + ", sellerPn=" + sellerPn
+				+ ", commentLoveCount=" + commentLoveCount + "]";
 	}
 
 }

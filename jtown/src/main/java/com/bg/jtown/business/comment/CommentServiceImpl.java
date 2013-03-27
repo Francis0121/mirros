@@ -33,6 +33,8 @@ public class CommentServiceImpl extends SqlSessionDaoSupport implements
 	@Resource
 	private Publisher publisher;
 
+	// ~ Comment
+
 	@Override
 	public Integer selectCommentCount(CommentFilter commentFilter) {
 		Integer count = getSqlSession().selectOne(
@@ -89,6 +91,7 @@ public class CommentServiceImpl extends SqlSessionDaoSupport implements
 	@Override
 	public void deleteComment(Comment comment) {
 		getSqlSession().update("commentMapper.deleteComment", comment);
+		deleteCommentLove(comment);
 		Integer count = selectCommentCount(new CommentFilter(
 				comment.getSellerPn()));
 		comment.setCount(count);
@@ -97,4 +100,41 @@ public class CommentServiceImpl extends SqlSessionDaoSupport implements
 		publisher.commentPublish(comment);
 	}
 
+	// ~ Comment Love
+
+	@Override
+	public List<Comment> selectCommentLove(Comment comment) {
+		return getSqlSession().selectList("commentMapper.selectCommentLove",
+				comment);
+	}
+
+	@Override
+	public Integer selectCommentLoveCount(Comment comment) {
+		return getSqlSession().selectOne(
+				"commentMapper.selectCommentLoveCount", comment);
+	}
+
+	@Override
+	public void insertCommentLove(Comment comment) {
+		getSqlSession().insert("commentMapper.insertCommentLove", comment);
+
+	}
+
+	@Override
+	public void deleteCommentLove(Comment comment) {
+		getSqlSession().insert("commentMapper.deleteCommentLove", comment);
+	}
+
+	@Override
+	public void toggleCommentLove(Comment comment) {
+		if (selectCommentLoveCount(comment) == 0) {
+			insertCommentLove(comment);
+		} else {
+			deleteCommentLove(comment);
+		}
+		comment.setRedisType("love_comment");
+		comment.setCustomerPn(null);
+		comment.setCommentLoveCount(selectCommentLoveCount(comment));
+		publisher.commentPublish(comment);
+	}
 }

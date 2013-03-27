@@ -70,11 +70,13 @@ jtown.expand.makeInnerHtml = function(spn){
 		var commentHtml = '';
 		for(var i=0; i<comments.length; i++){
 			var comment = comments[i];
-			commentHtml += 	'<li data-copn="'+comment.commentPn+'">';
+			commentHtml += 	'<li data-copn="'+comment.commentPn+'" class="jt-home-expand-shop-comment-li">';
 			commentHtml +=	'	<ul class="jt-home-expand-shop-text-wrap">';
 			commentHtml += 	'		<li class="jt-home-expand-shop-comment-header">';
 			commentHtml += 	'			<span class="jt-home-expand-shop-comment-name">'+htmlChars(comment.customerName)+'</span>';
 			commentHtml += 	'		 	<span class="jt-home-expand-shop-comment-progress-date">'+comment.inputDate+'</span>';
+			commentHtml +=	' 			<a href="#none" class="jt-home-expand-shop-comment-loveIt">Love&nbsp;It</a>';	
+			commentHtml +=	'			<span id="copnLoveIt-'+comment.commentPn+'" class="jt-home-expand-shop-comment-loveIt-count">'+ ( nullValueCheck(comment.commentLoveCount) ? '' : comment.commentLoveCount )+'</span>';
 			commentHtml += 	'		</li>';
 			commentHtml +=	'		<li class="jt-home-expand-shop-comment-text">'+htmlChars(comment.comment)+'</li>';
 			commentHtml	+= 	'	</ul>';
@@ -96,14 +98,15 @@ jtown.expand.makeInnerHtml = function(spn){
 		}
 		
 		var pagination = commentFilter.pagination;
-		
-		commentHtml +=	'<li class="jt-home-expand-shop-comment-add">';
-		commentHtml +=	'	<a href="#none" class="jt-btn-silver" id="comment-add-btn"';
-		commentHtml +=	'		data-spn="'+jtownUser.pn+'" data-page="1" ';
-		commentHtml +=	'		data-ni="'+pagination.numItems+'" data-nipp="'+pagination.numItemsPerPage+'">';
-		commentHtml +=	'			댓글&nbsp;더&nbsp;보기&nbsp;<span id="comment-now-count">'+pagination.numItemsPerPage+'</span>/'+pagination.numItems;
-		commentHtml +=	'	</a>';
-		commentHtml +=	'</li>';
+		if(comments.length > 0 ){
+			commentHtml +=	'<li class="jt-home-expand-shop-comment-add">';
+			commentHtml +=	'	<a href="#none" class="jt-btn-silver" id="comment-add-btn"';
+			commentHtml +=	'		data-spn="'+jtownUser.pn+'" data-page="1" ';
+			commentHtml +=	'		data-ni="'+pagination.numItems+'" data-nipp="'+pagination.numItemsPerPage+'">';
+			commentHtml +=	'			댓글&nbsp;더&nbsp;보기&nbsp;<span id="comment-now-count">'+pagination.numItemsPerPage+'</span>/'+pagination.numItems;
+			commentHtml +=	'	</a>';
+			commentHtml +=	'</li>';
+		}
 		
 		var commentInputHtml = '';
 		if(cpn == 0){

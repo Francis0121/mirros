@@ -323,12 +323,14 @@
 							</ul>
 							<div class="jt-home-expand-shop-comment-wrap">
 								<ul class="jt-home-expand-shop-comment">
-									<c:forEach items="${null }" var="comment">
-										<li data-copn="<c:out value="${comment.commentPn }"/>">
+									<c:forEach items="${comments }" var="comment">
+										<li data-copn="<c:out value="${comment.commentPn }"/>" class="jt-home-expand-shop-comment-li">
 											<ul class="jt-home-expand-shop-text-wrap">
 												<li class="jt-home-expand-shop-comment-header">
 													<span class="jt-home-expand-shop-comment-name"><c:out value="${comment.customerName }"/></span>
 													<span class="jt-home-expand-shop-comment-progress-date">${comment.inputDate}</span>
+													<a href="#none" class="jt-home-expand-shop-comment-loveIt">Love&nbsp;It</a>
+													<span id="copnLoveIt-<c:out value="${comment.commentPn }"/>" class="jt-home-expand-shop-comment-loveIt-count"><c:out value="${comment.commentLoveCount eq null ? '' : comment.commentLoveCount }"/></span>
 												</li>
 												<li class="jt-home-expand-shop-comment-text">
 													<c:out value="${comment.comment }"/>

@@ -58,6 +58,17 @@ jtown.real.time = function(obj) {
 	} else if (obj.redisType == 'event') {
 		var spn = obj.sellerPn;
 		$('#new-' + spn).html('new');
+	} else if(obj.redisType == 'love_comment'){
+		var spn = obj.sellerPn;
+		var copn = obj.commentPn;
+		var count = obj.commentLoveCount;
+		
+		if (!nullValueCheck(expandShop.html())) {
+			var expandSpn = expandShop.attr('data-spn');
+			if (spn == expandSpn) {			
+				$('#copnLoveIt-'+copn).html(count == 0 ? '': count);
+			}
+		}
 	}
 
 };

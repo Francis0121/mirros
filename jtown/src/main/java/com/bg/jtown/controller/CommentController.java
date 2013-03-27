@@ -57,4 +57,15 @@ public class CommentController {
 		comment.setCustomerPn(user.getPn());
 		commentService.deleteComment(comment);
 	}
+
+	@RequestMapping(value = "/ajax/home/toggleCommentLove.jt", method = RequestMethod.POST)
+	@ResponseBody
+	public Comment ajaxInsertCommentLove(@RequestBody Comment comment) {
+		JtownUser user = (JtownUser) SecurityContextHolder.getContext()
+				.getAuthentication().getPrincipal();
+		comment.setCustomerPn(user.getPn());
+		commentService.toggleCommentLove(comment);
+		return comment;
+	}
+
 }

@@ -11,6 +11,8 @@ import com.bg.jtown.business.search.CommentFilter;
  */
 public interface CommentService {
 
+	// ~ Comment
+
 	Integer selectCommentCount(CommentFilter commentFilter);
 
 	List<Comment> selectComment(CommentFilter commentFilter);
@@ -22,5 +24,17 @@ public interface CommentService {
 	Comment updateComment(Comment comment);
 
 	void deleteComment(Comment comment);
+
+	// ~ CommentLove
+
+	Integer selectCommentLoveCount(Comment comment);
+
+	List<Comment> selectCommentLove(Comment comment);
+
+	void insertCommentLove(Comment comment);
+
+	void deleteCommentLove(Comment comment);
+
+	void toggleCommentLove(Comment comment);
 
 }
