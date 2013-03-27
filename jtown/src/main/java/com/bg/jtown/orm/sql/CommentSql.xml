@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="commentMapper">
+
+	<resultMap type="com.bg.jtown.business.Comment" id="jtown-comment-map">
+		<result column="pn" property="commentPn"/>
+		<result column="customer_pn" property="customerPn"/>
+		<result column="name" property="customerName"/>
+		<result column="seller_pn" property="sellerPn"/>
+		<result column="comment" property="comment"/>
+		<result column="input_date" property="inputDate"/>
+	</resultMap>
+	
+	<select id="selectComment" parameterType="java.lang.Integer" resultMap="jtown-comment-map">
+		SELECT
+			ucc.pn, ucc.customer_pn, u.name, ucc.seller_pn, ucc.comment, 
+			DATE_FORMAT(ucc.input_date, '%Y년도 %c월 %d일 %k시%i분') AS input_date
+		FROM
+			user_customer_comment ucc,
+			user_customer uc
+			LEFT OUTER JOIN users u
+			ON uc.pn = u.pn
+		WHERE
+			ucc.customer_pn = uc.pn
+		AND
+			ucc.seller_pn = #{properNumber}
+	</select>
+	
+	<select id="selectCommentOne" parameterType="java.lang.Integer" resultMap="jtown-comment-map">
+		SELECT
+			ucc.pn, ucc.customer_pn, u.name, ucc.seller_pn, ucc.comment, DATE_FORMAT(ucc.input_date, '%Y년도 %c월 %d일 %k시%i분') AS input_date
+		FROM
+			user_customer_comment ucc,
+			user_customer uc
+			LEFT OUTER JOIN users u
+			ON uc.pn = u.pn
+		WHERE
+			ucc.customer_pn = uc.pn
+		AND
+			ucc.pn = #{commentPn}
+	</select>
+	
+	<select id="selectCommentCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+		SELECT
+			comment_count
+		FROM	
+			count_comment_seller_pn
+		WHERE
+			seller_pn = #{properNumber}
+	</select>
+	
+	<insert id="insertComment" parameterType="com.bg.jtown.business.Comment">
+		INSERT INTO
+			user_customer_comment
+			( customer_pn, seller_pn, COMMENT, input_date)
+		VALUES
+			( #{customerPn}, #{sellerPn}, #{comment}, SYSDATE())
+		<selectKey resultType="java.lang.Integer" keyProperty="commentPn">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+	
+	<update id="updateComment" parameterType="com.bg.jtown.business.Comment">
+		UPDATE
+			user_customer_comment
+		SET
+			comment = #{comment}
+		WHERE
+			customer_pn = #{customerPn}
+		AND
+			pn = #{commentPn}
+	</update>
+
+	<delete id="deleteComment" parameterType="com.bg.jtown.business.Comment">
+		DELETE FROM
+			user_customer_comment
+		WHERE
+			pn = #{commentPn}
+	</delete>
+	
+</mapper>

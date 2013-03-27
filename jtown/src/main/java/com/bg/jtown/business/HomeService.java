@@ -28,16 +28,6 @@ public interface HomeService {
 
 	List<JtownUser> selectFromInterest(HomeFilter homeFilter);
 
-	// ~ comment
-
-	List<Comment> selectComment(Integer properNumber);
-
-	Comment insertComment(Comment comment);
-
-	Comment updateComment(Comment comment);
-
-	void deleteComment(Comment comment);
-
 	// ~ count
 
 	void insertViewCount(Count count, String remoteAddr);

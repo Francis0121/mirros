@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import com.bg.jtown.business.comment.CommentService;
 import com.bg.jtown.business.search.HomeFilter;
 import com.bg.jtown.business.seller.SellerService;
 import com.bg.jtown.redis.Publisher;
@@ -35,6 +36,9 @@ public class HomeServiceImpl extends SqlSessionDaoSupport implements
 
 	@Resource
 	private SellerService sellerService;
+
+	@Resource
+	private CommentService commentService;
 
 	@Resource
 	private Publisher publisher;
@@ -96,7 +100,7 @@ public class HomeServiceImpl extends SqlSessionDaoSupport implements
 		selectMap.putAll(sellerService.selectSellerEvent(properNumber));
 		selectMap.put("products",
 				sellerService.selectSellerProduct(properNumber));
-		selectMap.put("comments", selectComment(properNumber));
+		selectMap.put("comments", commentService.selectComment(properNumber));
 		return selectMap;
 	}
 
@@ -150,45 +154,6 @@ public class HomeServiceImpl extends SqlSessionDaoSupport implements
 	}
 
 	// ~ comment
-
-	public List<Comment> selectComment(Integer properNumber) {
-		return getSqlSession().selectList("homeMapper.selectComment",
-				properNumber);
-	}
-
-	private Comment selectCommentOne(Integer commentPn) {
-		return getSqlSession().selectOne("homeMapper.selectCommentOne",
-				commentPn);
-	}
-
-	@Override
-	public Comment insertComment(Comment comment) {
-		getSqlSession().insert("homeMapper.insertComment", comment);
-		Comment newComment = selectCommentOne(comment.getCommentPn());
-		int count = sellerService.selectCommentCount(comment.getSellerPn());
-		newComment.setCount(count);
-		newComment.setRedisType("insert_comment");
-		publisher.commentPublish(newComment);
-		return newComment;
-	}
-
-	@Override
-	public Comment updateComment(Comment comment) {
-		getSqlSession().update("homeMapper.updateComment", comment);
-		Comment newComment = selectCommentOne(comment.getCommentPn());
-		newComment.setRedisType("update_comment");
-		publisher.commentPublish(newComment);
-		return newComment;
-	}
-
-	@Override
-	public void deleteComment(Comment comment) {
-		getSqlSession().update("homeMapper.deleteComment", comment);
-		Integer count = sellerService.selectCommentCount(comment.getSellerPn());
-		comment.setCount(count);
-		comment.setRedisType("delete_comment");
-		publisher.commentPublish(comment);
-	}
 
 	@Override
 	public void insertViewCount(Count count, String remoteAddr) {

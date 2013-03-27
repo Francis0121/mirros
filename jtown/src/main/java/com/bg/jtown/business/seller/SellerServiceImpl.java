@@ -12,8 +12,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.bg.jtown.business.Event;
-import com.bg.jtown.business.HomeService;
 import com.bg.jtown.business.Product;
+import com.bg.jtown.business.comment.CommentService;
 import com.bg.jtown.redis.Publisher;
 import com.bg.jtown.security.JtownUser;
 import com.bg.jtown.util.FileVO;
@@ -32,7 +32,7 @@ public class SellerServiceImpl extends SqlSessionDaoSupport implements
 	@Resource
 	private Publisher publisher;
 	@Resource
-	private HomeService homeService;
+	private CommentService commentService;
 
 	@Override
 	public Map<String, Object> selectAllInformation(Integer properNumber) {
@@ -43,7 +43,7 @@ public class SellerServiceImpl extends SqlSessionDaoSupport implements
 		selectMap.putAll(selectSellerEvent(properNumber));
 		selectMap.put("interestes", selectSellerInterest(properNumber));
 		selectMap.put("products", selectSellerProduct(properNumber));
-		selectMap.put("comments", homeService.selectComment(properNumber));
+		selectMap.put("comments", commentService.selectComment(properNumber));
 
 		logger.debug(selectMap.toString());
 
@@ -253,17 +253,6 @@ public class SellerServiceImpl extends SqlSessionDaoSupport implements
 	@Override
 	public void insertProduct(Product product) {
 		getSqlSession().insert("sellerMapper.insertSellerProduct", product);
-	}
-
-	// ~ SellerComment
-	@Override
-	public Integer selectCommentCount(Integer properNumber) {
-		Integer count = getSqlSession().selectOne(
-				"sellerMapper.selectCommentCount", properNumber);
-		if (count == null) {
-			return 0;
-		}
-		return count;
 	}
 
 	// ~ LoveCount

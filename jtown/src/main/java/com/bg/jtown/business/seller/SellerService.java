@@ -76,10 +76,6 @@ public interface SellerService {
 
 	void insertSellerProduct(Product product);
 
-	// ~ SellerComment
-
-	Integer selectCommentCount(Integer properNumber);
-
 	// ~ LoveCount
 
 	Integer selectLoveCount(Integer properNumber);

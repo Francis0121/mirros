@@ -255,17 +255,6 @@
 			SELECT LAST_INSERT_ID()
 		</selectKey>
 	</insert>
-	
-	<!-- CommentCount -->
-	
-	<select id="selectCommentCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
-		SELECT
-			comment_count
-		FROM	
-			count_comment_seller_pn
-		WHERE
-			seller_pn = #{properNumber}
-	</select>
 
 	<!-- LoveCount -->
 

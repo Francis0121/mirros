@@ -27,6 +27,7 @@ import com.bg.jtown.business.Comment;
 import com.bg.jtown.business.Count;
 import com.bg.jtown.business.HomeService;
 import com.bg.jtown.business.Interest;
+import com.bg.jtown.business.comment.CommentService;
 import com.bg.jtown.business.search.HomeFilter;
 import com.bg.jtown.security.JtownUser;
 
@@ -43,8 +44,11 @@ public class HomeController {
 	@Resource
 	private HomeService homeService;
 
+	@Resource
+	private CommentService commentService;
+
 	// ~ FORM
-	
+
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView showMainPage(@ModelAttribute HomeFilter homeFilter,
 			HttpServletRequest request) {
@@ -174,7 +178,7 @@ public class HomeController {
 		JtownUser user = (JtownUser) SecurityContextHolder.getContext()
 				.getAuthentication().getPrincipal();
 		comment.setCustomerPn(user.getPn());
-		return homeService.insertComment(comment);
+		return commentService.insertComment(comment);
 	}
 
 	@RequestMapping(value = "/ajax/home/updateComment.jt", method = RequestMethod.POST)
@@ -183,7 +187,7 @@ public class HomeController {
 		JtownUser user = (JtownUser) SecurityContextHolder.getContext()
 				.getAuthentication().getPrincipal();
 		comment.setCustomerPn(user.getPn());
-		return homeService.updateComment(comment);
+		return commentService.updateComment(comment);
 	}
 
 	@RequestMapping(value = "/ajax/home/deleteComment.jt", method = RequestMethod.POST)
@@ -192,7 +196,7 @@ public class HomeController {
 		JtownUser user = (JtownUser) SecurityContextHolder.getContext()
 				.getAuthentication().getPrincipal();
 		comment.setCustomerPn(user.getPn());
-		homeService.deleteComment(comment);
+		commentService.deleteComment(comment);
 	}
 
 	@RequestMapping(value = "/ajax/clickShop.jt", method = RequestMethod.POST)
