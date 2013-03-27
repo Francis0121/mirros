@@ -64,11 +64,12 @@ jtown.comment.syncComment = function(){
 				jtown.comment.commentHtml(comment, 'last');
 			}
 			
+			setTimeout('jtown.expand.changeContainerHeight(\''+comments.length+'\')', 0);
+			setTimeout('jtown.comment.syncComment()',0);
 			if(nextPage * numItemsPerPage < numItems ||
 					(page * numItemsPerPage < numItems && nextPage * numItemsPerPage >= numItems )){
 				me.attr('data-page', page);
 				$('#comment-now-count').html(page * numItemsPerPage);
-				setTimeout('jtown.expand.changeContainerHeight(\''+comments.length+'\')', 0);
 			}else{
 				me.parents('li').remove();
 			}
@@ -76,7 +77,7 @@ jtown.comment.syncComment = function(){
 	});
 	
 	$('.jt-home-expand-shop-comment-loveIt').unbind('click');
-	$('.jt-home-expand-shop-comment-loveIt').bind('click', function(event){
+	$('.jt-home-expand-shop-comment-loveIt').bind('click', function(){
 		var me = $(this),
 			parents = me.parents('.jt-home-expand-shop-comment-li'),
 			$shop = me.parents('#jt-home-expand-shop');
@@ -86,7 +87,6 @@ jtown.comment.syncComment = function(){
 						sellerPn	:	$shop.attr('data-spn') 		};
 		
 		$.postJSON(url, json, function(){
-			
 		});
 	});
 };
@@ -94,7 +94,7 @@ jtown.comment.syncComment = function(){
 jtown.comment.commentHtml = function(comment, position){
 	var innerHtml = $('.jt-home-expand-shop-comment>li:'+position).html();
 	var commentHtml ='';
-	commentHtml += 	'<li data-copn="'+comment.commentPn+'">';
+	commentHtml += 	'<li data-copn="'+comment.commentPn+'" class="jt-home-expand-shop-comment-li">';
 	commentHtml +=	'	<ul class="jt-home-expand-shop-text-wrap">';
 	commentHtml += 	'		<li class="jt-home-expand-shop-comment-header">';
 	commentHtml += 	'			<span class="jt-home-expand-shop-comment-name">'+htmlChars(comment.customerName)+'</span>';
