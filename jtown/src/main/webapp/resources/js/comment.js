@@ -46,6 +46,27 @@ jtown.comment.syncComment = function(){
 		}
 	});
 	
+	$('#comment-add-btn-best').unbind('click');
+	$('#comment-add-btn-best').bind('click', function(event){
+		
+		var me = $(this);
+
+		var url = contextPath + 'ajax/home/selectCommentBest.jt';
+		var json = { 	sellerPn	:	me.attr('data-spn')	};
+		
+		$.postJSON(url, json, function(comments){
+			for(var i=0, len = comments.length; i < len ; i++){
+				var comment = comments[i];
+				jtown.comment.commentHtml(comment, 'last', true);
+			}
+			
+			setTimeout('jtown.comment.syncComment()',0);
+			
+			$('#comment-add-btn-best').parents('li').remove();
+			$('#comment-add-btn').parents('li').show();
+		});
+	});
+	
 	$('#comment-add-btn').unbind('click');
 	$('#comment-add-btn').bind('click', function(event){
 		var me = $(this), 

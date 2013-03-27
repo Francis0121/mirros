@@ -361,8 +361,13 @@
 											</c:choose>
 										</li>
 									</c:forEach>
+									<c:set var="pagination" value="${commentFilter.pagination }"/>
+									<c:if test="${fn:length(comments) > 0 }">
 									<li class="jt-home-expand-shop-comment-add">
-										<c:set var="pagination" value="${commentFilter.pagination }"/>
+										<a href="#none" class="jt-btn-silver" data-spn="${jtownUser.pn }"  id="comment-add-btn-best">베스트 리플보기</a>
+									</li>
+									</c:if>
+									<li class="jt-home-expand-shop-comment-add" style="display: none;">
 										<a href="#none" class="jt-btn-silver" id="comment-add-btn" 
 											data-spn="${jtownUser.pn }" 
 											data-page="0" 

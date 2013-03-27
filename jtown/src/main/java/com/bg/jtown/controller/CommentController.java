@@ -24,6 +24,13 @@ public class CommentController {
 
 	// ~ ajax
 
+	@RequestMapping(value = "/ajax/home/selectCommentBest.jt", method = RequestMethod.POST)
+	@ResponseBody
+	public List<Comment> ajaxSelectCommentTop(
+			@RequestBody CommentFilter commentFilter) {
+		return commentService.selectCommentTop(commentFilter);
+	}
+
 	@RequestMapping(value = "/ajax/home/selectComment.jt", method = RequestMethod.POST)
 	@ResponseBody
 	public List<Comment> ajaxSelectComment(
