@@ -63,8 +63,22 @@
 						<c:url var="help" value="/help/question"/>
 						<a href="#none" class="jt-common-a-base">HELP&nbsp;<span class="jt-btn-underArrow">▼</span></a>
 						<ul class="jt-help-under-wrap" id="jt-help-wrap">
-							<li>HELP</li>
-							<li>HELP</li>
+							<li>
+								<c:url var="serviceGuide" value="/help/serviceGuide"/>
+								<a href="${serviceGuide }" class="jt-common-a-base">About US</a>
+							</li>
+							<li>
+								<c:url var="notice" value="/help/notice"/>
+								<a href="${notice }" class="jt-common-a-base">News</a>
+							</li>
+							<li>
+								<c:url var="question" value="/help/question"/>
+								<a href="${question }" class="jt-common-a-base">FAQ</a>
+							</li>
+							<li>
+								<c:url var="business" value="/help/business"/>
+								<a href="${business }" class="jt-common-a-base">Business</a>
+							</li>
 						</ul>
 					</li>
 				</ul>

@@ -23,18 +23,6 @@ public class HelpController {
 		return "help/notice";
 	}
 
-	@RequestMapping(value = "/help/findUserInfo", method = RequestMethod.GET)
-	public String showFindUserInfoPage(Model model) {
-		logger.debug("Show FindUserInfo Main Page");
-		return "help/findUserInfo";
-	}
-
-	@RequestMapping(value = "/help/qna", method = RequestMethod.GET)
-	public String showQnaPage(Model model) {
-		logger.debug("Show Qna Main Page");
-		return "help/qna";
-	}
-
 	@RequestMapping(value = "/help/question", method = RequestMethod.GET)
 	public String showQuestionPage(Model model) {
 		logger.debug("Show Question Main Page");
@@ -44,12 +32,12 @@ public class HelpController {
 	@RequestMapping(value = "/help/serviceGuide", method = RequestMethod.GET)
 	public String showServiceGuidePage(Model model) {
 		logger.debug("Show ServiceGuide Main Page");
-		return "help/serviceGuidp";
+		return "help/serviceGuide";
 	}
 
-	@RequestMapping(value = "/help/rule", method = RequestMethod.GET)
+	@RequestMapping(value = "/help/business", method = RequestMethod.GET)
 	public String showRulePage(Model model) {
 		logger.debug("Show Rule Main Page");
-		return "help/rule";
+		return "help/business";
 	}
 }
