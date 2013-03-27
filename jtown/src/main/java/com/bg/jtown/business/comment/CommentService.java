@@ -15,6 +15,8 @@ public interface CommentService {
 
 	Integer selectCommentCount(CommentFilter commentFilter);
 
+	List<Comment> selectCommentTop(CommentFilter commentFilter);
+
 	List<Comment> selectComment(CommentFilter commentFilter);
 
 	Comment selectCommentOne(Integer commentPn);

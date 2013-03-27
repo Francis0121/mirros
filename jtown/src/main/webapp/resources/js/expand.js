@@ -98,12 +98,12 @@ jtown.expand.makeInnerHtml = function(spn){
 		}
 		
 		var pagination = commentFilter.pagination;
-		if(comments.length > 0 ){
+		if(pagination.numItems > 0 ){
 			commentHtml +=	'<li class="jt-home-expand-shop-comment-add">';
 			commentHtml +=	'	<a href="#none" class="jt-btn-silver" id="comment-add-btn"';
-			commentHtml +=	'		data-spn="'+jtownUser.pn+'" data-page="1" ';
+			commentHtml +=	'		data-spn="'+jtownUser.pn+'" data-page="0" ';
 			commentHtml +=	'		data-ni="'+pagination.numItems+'" data-nipp="'+pagination.numItemsPerPage+'">';
-			commentHtml +=	'			댓글&nbsp;더&nbsp;보기&nbsp;<span id="comment-now-count">'+pagination.numItemsPerPage+'</span>/'+pagination.numItems;
+			commentHtml +=	'			댓글&nbsp;더&nbsp;보기&nbsp;<span id="comment-now-count">0</span>/'+pagination.numItems;
 			commentHtml +=	'	</a>';
 			commentHtml +=	'</li>';
 		}

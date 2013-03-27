@@ -45,6 +45,20 @@ public class CommentServiceImpl extends SqlSessionDaoSupport implements
 		return count;
 	}
 
+	public List<Comment> selectCommentTop(CommentFilter commentFilter) {
+		Pagination pagination = commentFilter.getPagination();
+		int count = selectCommentCount(commentFilter);
+		if (count == 0) {
+			return new ArrayList<Comment>();
+		}
+		pagination.setNumItems(count);
+		pagination.setNumItemsPerPage(COMMENT_NUM_PER_PAGE);
+		
+		List<Comment> comments = getSqlSession().selectList(
+				"commentMapper.selectCommentTop", commentFilter);
+		return comments;
+	}
+
 	@Override
 	public List<Comment> selectComment(CommentFilter commentFilter) {
 		Pagination pagination = commentFilter.getPagination();

@@ -44,6 +44,42 @@
 			seller_pn = #{sellerPn}
 	</select>
 	
+	<select id="selectCommentTop" parameterType="com.bg.jtown.business.search.CommentFilter" resultMap="jtown-comment-map">	
+		SELECT
+			p.pn, p.customer_pn, p.name, p.seller_pn, p.comment, p.comment_love_count, 
+			DATE_FORMAT(p.input_date, '%Y년도 %c월 %d일 %k시%i분') AS input_date
+		FROM
+		(
+		<![CDATA[
+		SELECT
+			ucc.pn, ucc.customer_pn, u.name, ucc.seller_pn, ucc.comment,
+			CASE 
+				WHEN TO_DAYS(SYSDATE()) - TO_DAYS(ucc.input_date) < #{peroid} THEN 1
+				ELSE 0
+			END AS diff,
+			cclcp.comment_love_count, ucc.input_date
+		FROM
+			user_customer_comment ucc
+			LEFT OUTER JOIN count_comment_love_comment_pn cclcp
+			ON ucc.pn = cclcp.comment_pn,
+			user_customer uc
+			LEFT OUTER JOIN users u
+			ON uc.pn = u.pn
+		WHERE
+			ucc.customer_pn = uc.pn
+		AND
+			ucc.seller_pn = #{sellerPn}
+		AND
+			comment_love_count > 0
+		ORDER BY
+			diff DESC, cclcp.comment_love_count DESC, ucc.input_date DESC 
+		) p
+		]]> 
+		WHERE
+			diff = 1
+		LIMIT #{topItemNum}
+	</select>
+	
 	<select id="selectComment" parameterType="com.bg.jtown.business.search.CommentFilter" resultMap="jtown-comment-map">
 		<include refid="paginationBefore"/>
 		SELECT
