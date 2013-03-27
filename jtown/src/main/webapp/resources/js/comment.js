@@ -45,10 +45,40 @@ jtown.comment.syncComment = function(){
 			}
 		}
 	});
+	
+	$('#comment-add-btn').unbind('click');
+	$('#comment-add-btn').bind('click', function(event){
+		var me = $(this), 
+			page = ( Number(me.attr('data-page'))  + 1 ),
+			nextPage = ( page + 1 ),
+			numItemsPerPage = me.attr('data-nipp'),
+			numItems = me.attr('data-ni');
+
+		var url = contextPath + 'ajax/home/selectComment.jt';
+		var json = { 	page  		: 	page,
+						sellerPn	:	me.attr('data-spn')	};
+		
+		$.postJSON(url, json, function(comments){
+			for(var i=0, len = comments.length; i < len ; i++){
+				var comment = comments[i];
+				jtown.comment.commentHtml(comment, 'last');
+			}
+			
+			if(nextPage * numItemsPerPage < numItems ||
+					(page * numItemsPerPage < numItems && nextPage * numItemsPerPage >= numItems )){
+				me.attr('data-page', page);
+				$('#comment-now-count').html(page * numItemsPerPage);
+				setTimeout('jtown.expand.changeContainerHeight(\''+comments.length+'\')', 0);
+			}else{
+				me.parents('li').remove();
+			}
+		});
+	});
+	
 };
 
-jtown.comment.commentHtml = function(comment){
-	var innerHtml = $('.jt-home-expand-shop-comment>li:last').html();
+jtown.comment.commentHtml = function(comment, position){
+	var innerHtml = $('.jt-home-expand-shop-comment>li:'+position).html();
 	var commentHtml ='';
 	commentHtml += 	'<li data-copn="'+comment.commentPn+'">';
 	commentHtml +=	'	<ul class="jt-home-expand-shop-text-wrap">';
@@ -73,7 +103,7 @@ jtown.comment.commentHtml = function(comment){
 	commentHtml += 	'</li>';
 	
 	if(!nullValueCheck(innerHtml)){			
-		$('.jt-home-expand-shop-comment>li:last').after(commentHtml);
+		$('.jt-home-expand-shop-comment>li:'+position).before(commentHtml);
 	}else{
 		$('.jt-home-expand-shop-comment').html(commentHtml);
 	}

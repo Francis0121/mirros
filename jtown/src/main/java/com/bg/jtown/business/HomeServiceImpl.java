@@ -95,14 +95,19 @@ public class HomeServiceImpl extends SqlSessionDaoSupport implements
 
 	@Override
 	public Map<String, Object> selectExpandShop(Integer properNumber) {
+		CommentFilter commentFilter = new CommentFilter(properNumber);
+
 		Map<String, Object> selectMap = new HashMap<String, Object>();
 		selectMap.put("jtownUser",
 				sellerService.selectSellerInformation(properNumber));
 		selectMap.putAll(sellerService.selectSellerEvent(properNumber));
 		selectMap.put("products",
 				sellerService.selectSellerProduct(properNumber));
-		selectMap.put("comments",
-				commentService.selectComment(new CommentFilter(properNumber)));
+		selectMap.put("comments", commentService.selectComment(commentFilter));
+		selectMap.put("commentFilter", commentFilter);
+
+		logger.debug(selectMap.toString());
+
 		return selectMap;
 	}
 

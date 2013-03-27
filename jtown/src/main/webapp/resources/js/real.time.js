@@ -32,7 +32,7 @@ jtown.real.time = function(obj) {
 			var expandSpn = expandShop.attr('data-spn');
 			if (spn == expandSpn) {
 				$('#comment-expand-' + spn).html(count);
-				jtown.comment.commentHtml(obj);
+				jtown.comment.commentHtml(obj, 'first');
 				setTimeout('jtown.comment.syncComment()', 0);
 				setTimeout('jtown.expand.changeContainerHeight(\'1\')', 0);
 			}

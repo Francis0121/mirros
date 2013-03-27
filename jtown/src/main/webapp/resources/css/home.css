@@ -119,6 +119,9 @@ word-wrap: break-word; /* Internet Explorer 5.5+ */}
 .jt-home-expand-shop-comment-name{ color: #010101; font-weight: bold; font-size: 13px;}
 .jt-home-expand-shop-comment-progress-date{ color: #999999; font-size: 11px;}
 .jt-home-expand-shop-comment-text{width: 550px; margin: 0 15px; padding: 5px 0; color: #4d4d4d; border-bottom: 1px solid #cfcfcf;}
+.jt-home-expand-shop-comment-add{width: 550px; margin: 5px 15px;}
+.jt-home-expand-shop-comment-add>a{width: 530px; padding: 7px 10px; display: block;}
+
 .jt-home-expand-shop-update-wrap{display: none; float: left; width: 550px; border-bottom: 1px solid #cfcfcf; margin: 0 15px;}
 .jt-home-expand-shop-update-wrap>input{ float: left; width: 540px; border: 1px solid #d1cdcd; margin: 5px 0; padding: 4px; }
 .jt-home-expand-shop-update-wrap>span{width: 540px; margin: 5px 5px; float: left;}

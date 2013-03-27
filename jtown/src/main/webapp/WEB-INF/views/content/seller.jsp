@@ -323,7 +323,7 @@
 							</ul>
 							<div class="jt-home-expand-shop-comment-wrap">
 								<ul class="jt-home-expand-shop-comment">
-									<c:forEach items="${comments }" var="comment">
+									<c:forEach items="${null }" var="comment">
 										<li data-copn="<c:out value="${comment.commentPn }"/>">
 											<ul class="jt-home-expand-shop-text-wrap">
 												<li class="jt-home-expand-shop-comment-header">
@@ -359,6 +359,16 @@
 											</c:choose>
 										</li>
 									</c:forEach>
+									<li class="jt-home-expand-shop-comment-add">
+										<c:set var="pagination" value="${commentFilter.pagination }"/>
+										<a href="#none" class="jt-btn-silver" id="comment-add-btn" 
+											data-spn="${jtownUser.pn }" 
+											data-page="0" 
+											data-ni="<c:out value='${pagination.numItems }'/>"
+											data-nipp="<c:out value='${pagination.numItemsPerPage }'/>">
+											댓글 더 보기 <span id="comment-now-count"><c:out value="${pagination.numItemsPerPage * 0 }"/></span>/<c:out value="${pagination.numItems}"/>
+										</a>
+									</li>
 								</ul>
 								<div class="jt-home-expand-shop-comment-insert">
 									<input type="text" id="jt-comment-insert" readonly="readonly" placeholder="판매자 아이디로는 이용하실 수 없습니다."/>
