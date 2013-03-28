@@ -27,3 +27,8 @@
 <!--[if IE 6]>
 <link rel="stylesheet" type="text/css" href="${cp}/resources/css/ie/6.css" />
 <![endif]-->
+<!--[if IE ]>
+<style>
+	.jt-home-shop-content-image{ cursor: pointer; }
+</style>
+<![endif]-->
