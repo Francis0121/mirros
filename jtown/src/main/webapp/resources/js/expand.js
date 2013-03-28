@@ -147,10 +147,12 @@ jtown.expand.makeInnerHtml = function(spn){
 		newEventHtml += '			</div>';
 		newEventHtml += '		</div>';
 		
-		html += '<div class="jt-home-expand-shop" id="jt-home-expand-shop" data-size="'+productSize+'" data-nowPosition="'+(Number(productSize) - 1)+'" data-spn="'+jtownUser.pn+'" >';
-		html += '	<header>';
+		html += '<header class="jt-home-expand-click-shop-header">';
+		html += '	<div>';
 		html += '		<a href="#none" onclick="window.open(\'http://'+htmlChars(jtownUser.shopUrl)+'\');">'+htmlChars(jtownUser.name)+'</a>';
-		html += '	</header>';
+		html += '	</div>';	
+		html += '</header>';
+		html += '<div class="jt-home-expand-shop jt-home-expand-click-shop" id="jt-home-expand-shop" data-size="'+productSize+'" data-nowPosition="'+(Number(productSize) - 1)+'" data-spn="'+jtownUser.pn+'" >';
 		html += '	<ul class="jt-home-expand-shop-expandProducts">';
 		html += '		<li class="jt-home-expand-shop-leftArrow jt-home-expand-shop-arrow">';
 		if(productSize > 3){

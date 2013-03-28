@@ -13,11 +13,11 @@
 
 #folderBar{ width: 990px; height: 55px; padding-top: 40px; }
 #folderTabName{ width:150px; height : 23px; padding: 7px 0 0 0; margin: 0 0 0 804px; font-weight: bold; text-align: center; font-size: 17px;}
-#diagonalFolder{ width: 150px; padding: 7px 0; text-decoration: none; color: white; font-weight: bold; display: block; border-left: 36px solid transparent; border-bottom: 36px solid #ff7822;  height: 0;	line-height: 50px; cursor: default; }
 #digonalFolderImage{ background: url("../images/jt-home-icon.png") 0 -75px; width: 160px; height: 26px; display: block; color: #fff; margin-top: 10px; padding-top: 12px; padding-left: 26px;}
 
 .jt-seller-content-wrap{ width: 990px; margin: auto auto; }
-.jt-seller-content { width: 984px; float: left; padding-bottom: 45px; margin-bottom: 30px; border: 3px solid #f48409; background: #fff;
+.jt-seller-content { width: 984px; float: left; padding-bottom: 45px; margin-bottom: 30px;
+	border: 3px solid #f48409; background: #fff;
  	-webkit-border-radius: 5px 0 25px 25px;
     -moz-border-radius: 5px 0 25px 25px;
     border-radius: 5px 0 25px 25px;
