@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="helpMapper">
+
+	<sql id="paginationBefore">
+		SELECT 
+			t.*
+		FROM 
+		( 
+			SELECT  
+				z.*, @RNUM := @RNUM + 1 AS rnum
+			FROM
+				(
+	</sql>
+	
+	<sql id="paginationAfter">
+		<![CDATA[
+				) z,  
+				( SELECT @RNUM := 0 ) R
+			WHERE @RNUM + 1 <=  #{pagination.itemSeqEnd}
+		) t
+		WHERE t.rnum >= #{pagination.itemSeqBegin}
+		]]>
+	</sql>
+	
+	<!-- Partnership -->
+	<resultMap type="com.bg.jtown.business.Partnership" id="jtown-help-partnership-map">
+		<result column="pn" property="pn"/>
+		<result column="name" property="name"/>
+		<result column="email" property="email"/>
+		<result column="phone_number" property="phoneNumber"/>
+		<result column="category_pn" property="categoryPn"/>
+		<result column="content" property="content"/>
+		<result column="process" property="process"/>
+		<result column="input_date" property="inputDate"/>
+	</resultMap>
+	
+	<select id="selectPartnershipList" parameterType="com.bg.jtown.business.search.PartnershipFilter" resultMap="jtown-help-partnership-map">
+		<include refid="paginationBefore"/>
+		SELECT
+			pn, name, email, phone_number,
+			category_pn, content, process, input_date
+		FROM
+			partnership
+		WHERE
+			1 = 1
+		<if test="process != null">
+		AND	
+			process = #{process}	
+		</if>
+		<if test="categoryPn != null">
+		AND
+			category_pn = #{categoryPn}
+		</if>
+		ORDER BY
+			input_date DESC
+		<include refid="paginationAfter"/>
+	</select>
+	
+	<select id="selectPartnership" parameterType="java.lang.Integer" resultMap="jtown-help-partnership-map">
+		SELECT
+			pn, name, email, phone_number,
+			category_pn, content, process, input_date
+		FROM
+			partnership
+		WHERE
+			pn = #{partnershipPn}
+	</select>
+	
+	<select id="selectPartnershipCount" parameterType="com.bg.jtown.business.search.PartnershipFilter" resultType="java.lang.Integer">
+		SELECT
+			COUNT(*)
+		FROM
+			partnership
+	</select>
+	
+	<insert id="insertPartnership" parameterType="com.bg.jtown.business.Partnership">
+		INSERT INTO
+			partnership
+			(	name,	email,	phone_number,	category_pn,	content,	process, input_date	)
+		VAlUES	
+			(	#{name},	#{email},	#{phoneNumber},	#{categoryPn},	#{content}, #{process}, SYSDATE()	)
+		<selectKey keyProperty="pn" resultType="java.lang.Integer">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+	
+	<delete id="deletePartnership" parameterType="com.bg.jtown.business.Partnership">
+		DELETE FROM
+			partnership
+		<if test="pn != null">
+		WHERE
+			pn = #{pn}
+		</if>
+	</delete>
+	
+	<update id="updatePatnership" parameterType="com.bg.jtown.business.Partnership">
+		UPDATE
+			partnership
+		SET
+			<choose>
+				<when test="process == null">
+					content = #{content},
+					category_pn = #{categoryPn}
+				</when>
+				<otherwise>
+					process = #{process}
+				</otherwise>
+			</choose>
+		WHERE
+			pn = #{pn}
+	</update>
+	
+</mapper>
