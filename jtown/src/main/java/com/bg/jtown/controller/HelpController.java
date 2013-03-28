@@ -1,11 +1,16 @@
 package com.bg.jtown.controller;
 
+import javax.annotation.Resource;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.bg.jtown.business.board.BoardService;
+import com.bg.jtown.business.help.HelpService;
 
 /**
  * @author Francis, 박광열
@@ -16,6 +21,12 @@ public class HelpController {
 
 	private static final Logger logger = LoggerFactory
 			.getLogger(HelpController.class);
+
+	@Resource
+	private HelpService helpService;
+
+	@Resource
+	private BoardService boardService;
 
 	@RequestMapping(value = "/help/notice", method = RequestMethod.GET)
 	public String showNoticePage(Model model) {
