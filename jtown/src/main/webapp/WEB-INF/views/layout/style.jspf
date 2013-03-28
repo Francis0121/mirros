@@ -16,6 +16,7 @@
 <link rel="stylesheet" type="text/css" href="${cp}/resources/css/home.css" />
 <link rel="stylesheet" type="text/css" href="${cp}/resources/css/seller.css" />
 <link rel="stylesheet" type="text/css" href="${cp}/resources/css/addInterest.css" />
+<link rel="stylesheet" type="text/css" href="${cp}/resources/css/help.css" />
 
 <!--[if IE 8]>
 <link rel="stylesheet" type="text/css" href="${cp}/resources/css/ie/8.css" />

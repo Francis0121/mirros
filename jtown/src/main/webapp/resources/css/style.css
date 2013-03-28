@@ -85,6 +85,7 @@
 *	내용
 **************************/
 .jt-content{ width: 100%; min-height: 1000px; float: left; min-width: 990px; padding: 98px 0 30px 0; z-index: 1; background: #f6f4f5;}
+.jt-content-help{ width: 100%; float: left; min-width: 990px; padding: 98px 0 30px 0; z-index: 1; background: #f6f4f5;}
 /*************************
 *	꼬리말
 **************************/

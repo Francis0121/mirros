@@ -29,6 +29,8 @@
 <script src="${cp}/resources/js/expand.js"></script>
 <script src="${cp}/resources/js/comment.js"></script>
 <script src="${cp}/resources/js/board.js"></script>
+<script src="${cp}/resources/js/help.js"></script>
+
 <c:set var="maxPage" value="${homeFilter.pagination.numPages eq null ? 0 : homeFilter.pagination.numPages }"/>
 <script type="text/javascript">
 /* <![CDATA[ */   
@@ -91,6 +93,7 @@
 	</script>
 </c:if>
 
+<%--TODO partnership 페이지에서만 이용되고 있음 --%>
 <c:if test="${result eq 1 }">
 	<%--F5, CTRL + N, CTRL + R 시에는 result 메시지 안뜨도록 설정 --%>
 	<c:url value="/help/partnership" var="partnership"/>

@@ -56,12 +56,16 @@ public class PartnershipValidator implements Validator {
 			if (!VaildationUtil.onlyNumber(phoneNumberNd)) {
 				errors.rejectValue("phoneNumber",
 						"partnership.phoneNumber.notAllow");
+				errors.rejectValue("phoneNumberNd", "partnership.phoneNumberNd.check");
+				errors.rejectValue("phoneNumberRd", "partnership.phoneNumberRd.check");
 			} else {
 				String phoneNumberRd = partnership.getPhoneNumberRd();
 				if (!VaildationUtil.checkNullAndBlank(phoneNumberRd)) {
 					if (!VaildationUtil.onlyNumber(phoneNumberRd)) {
 						errors.rejectValue("phoneNumber",
 								"partnership.phoneNumber.notAllow");
+						errors.rejectValue("phoneNumberNd", "partnership.phoneNumberNd.check");
+						errors.rejectValue("phoneNumberRd", "partnership.phoneNumberRd.check");
 					} else {
 						partnership.makePhoneNumber();
 						Partnership loadPartnership = helpService
@@ -71,15 +75,21 @@ public class PartnershipValidator implements Validator {
 						if (loadPartnership != null) {
 							errors.rejectValue("phoneNumber",
 									"partnership.phoneNumber.exist");
+							errors.rejectValue("phoneNumberNd", "partnership.phoneNumberNd.check");
+							errors.rejectValue("phoneNumberRd", "partnership.phoneNumberRd.check");
 						}
 					}
 				} else {
 					errors.rejectValue("phoneNumber",
 							"partnership.phoneNumber.empty");
+					errors.rejectValue("phoneNumberNd", "partnership.phoneNumberNd.check");
+					errors.rejectValue("phoneNumberRd", "partnership.phoneNumberRd.check");
 				}
 			}
 		} else {
 			errors.rejectValue("phoneNumber", "partnership.phoneNumber.empty");
+			errors.rejectValue("phoneNumberNd", "partnership.phoneNumberNd.check");
+			errors.rejectValue("phoneNumberRd", "partnership.phoneNumberRd.check");
 		}
 
 	}

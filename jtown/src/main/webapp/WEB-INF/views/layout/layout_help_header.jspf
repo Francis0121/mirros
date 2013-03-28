@@ -12,7 +12,7 @@
 <%@ include file="header_script.jspf" %>
 <%@ include file="style.jspf"%>
 </head>
-<body>
+<body style="background: #f2f2f2;">
 	<section class="jt-body">
 		<header class="jt-header">
 			<div class="jt-header-title">
@@ -87,4 +87,4 @@
 				<%@ include file="navigation_help.jspf" %>
 			</nav>
 		</header>
-		<section class="jt-content">
+		<section class="jt-content-help">

@@ -76,7 +76,7 @@ jtown.login.confirmPassword = function() {
 };
 
 jtown.login.nickNameLength = function(){
-	$('input[name=name]').keyup(function(){
+	$('input[data-form=join]').keyup(function(){
 		var length = $(this).val().length;
 		
 		if(length <= 10 && length > 0){
