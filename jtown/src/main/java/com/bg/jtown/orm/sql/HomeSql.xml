@@ -286,15 +286,17 @@
 		WHERE
 			ip = #{remoteAddr}
 		AND
+			seller_pn = #{sellerPn}
+		AND
 			input_date = DATE_FORMAT(SYSDATE(), '%Y-%m-%d')
 	</select>
 	
 	<insert id="insertViewIp" parameterType="java.lang.String">
 		INSERT INTO
 			view_ip
-			(ip, input_date)
+			(ip, seller_pn, input_date)
 		VALUES
-			( #{remoteAddr}, SYSDATE() )
+			( #{remoteAddr}, #{sellerPn}, SYSDATE() )
 	</insert>
 	
 	<select id="selectViewDayCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">

@@ -171,11 +171,14 @@ public class HomeServiceImpl extends SqlSessionDaoSupport implements
 
 	@Override
 	public void insertViewCount(Count count, String remoteAddr) {
-		Integer ipCount = getSqlSession().selectOne(
-				"homeMapper.selectViewCountIp", remoteAddr);
 		Integer sellerPn = count.getSellerPn();
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("remoteAddr", remoteAddr);
+		map.put("sellerPn", sellerPn);
+		Integer ipCount = getSqlSession().selectOne(
+				"homeMapper.selectViewCountIp", map);
 		if (ipCount == 0) {
-			getSqlSession().insert("homeMapper.insertViewIp", remoteAddr);
+			getSqlSession().insert("homeMapper.insertViewIp", map);
 
 			Integer dayCount = getSqlSession().selectOne(
 					"homeMapper.selectViewDayCount", sellerPn);

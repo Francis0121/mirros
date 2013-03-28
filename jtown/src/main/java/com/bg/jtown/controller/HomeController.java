@@ -171,6 +171,8 @@ public class HomeController {
 	@ResponseBody
 	public void ajaxClickShop(@RequestBody Count count,
 			HttpServletRequest request) {
+		homeService.insertViewCount(count, request.getRemoteAddr());
+
 		try {
 			JtownUser user = (JtownUser) SecurityContextHolder.getContext()
 					.getAuthentication().getPrincipal();
@@ -182,7 +184,6 @@ public class HomeController {
 			logger.debug("로그인하지않은 사용자");
 		}
 
-		homeService.insertViewCount(count, request.getRemoteAddr());
 	}
 
 	@RequestMapping(value = "/ajax/clickLove.jt", method = RequestMethod.POST)
