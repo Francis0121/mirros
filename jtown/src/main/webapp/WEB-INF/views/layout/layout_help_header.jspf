@@ -76,8 +76,8 @@
 								<a href="${question }" class="jt-common-a-base">FAQ</a>
 							</li>
 							<li>
-								<c:url var="business" value="/help/business"/>
-								<a href="${business }" class="jt-common-a-base">Business</a>
+								<c:url var="partnership" value="/help/partnership"/>
+								<a href="${partnership }" class="jt-common-a-base">Business</a>
 							</li>
 						</ul>
 					</li>

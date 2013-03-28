@@ -70,6 +70,13 @@
 				<li class="jt-left-nav-content">
 					<c:url value="/admin/administrator" var="createAdmin" />
 					<a href="${createAdmin }">- 관리자 생성</a>
+				</li>
+				<li class="jt-left-nav-category">
+					제휴문의
+				</li>
+				<li class="jt-left-nav-content">
+					<c:url value="/admin/partnership" var="partnership" />
+					<a href="${partnership }">- 관리</a>
 				</li>						
 			</ul>
 		</nav>

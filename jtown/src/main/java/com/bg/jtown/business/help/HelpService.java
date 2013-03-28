@@ -15,7 +15,7 @@ public interface HelpService {
 
 	List<Partnership> selectPartnership(PartnershipFilter partnershipFilter);
 
-	Partnership selectPartnership(Integer partnershipPn);
+	Partnership selectPartnership(Partnership partnership);
 
 	Integer selectPartnershipCount(PartnershipFilter partnershipFilter);
 
@@ -24,5 +24,6 @@ public interface HelpService {
 	void deletePartnership(Partnership partnership);
 
 	void updatePatnership(Partnership partnership);
+
 
 }

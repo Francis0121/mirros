@@ -26,6 +26,24 @@ public class VaildationUtil {
 		return matcher.matches();
 	}
 
+	public static boolean onlyNumber(String number) {
+		String regex = "^[0-9]*$";
+
+		Pattern pattern = Pattern.compile(regex);
+		Matcher matcher = pattern.matcher(number);
+
+		return matcher.matches();
+	}
+
+	public static boolean onlyEucKR(String string) {
+		String regex = "^[가-힣]*$";
+
+		Pattern pattern = Pattern.compile(regex);
+		Matcher matcher = pattern.matcher(string);
+
+		return matcher.matches();
+	}
+
 	public static boolean lengthCheck(String value, String flag) {
 		int length = value.length();
 
@@ -55,4 +73,5 @@ public class VaildationUtil {
 		else
 			return true;
 	}
+
 }

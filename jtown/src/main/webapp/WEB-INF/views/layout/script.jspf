@@ -64,20 +64,6 @@
 		$('#jt-home-container').css({width : (widthItem*330), margin : 'auto'});	
 	};
 	
-	$(window).scroll(function(){
-		var de = document.documentElement;
-		var b = document.body;
-		var scrollY = document.all ? (!de.scrollTop ? b.scrollTop : de.scrollTop) : (window.pageYOffset ? window.pageYOffset : window.scrollY);
-		if(scrollY == 0){
-			$('.jt-header-title').slideDown('fast');
-			setTimeout('$(\'.jt-header-nav-interestCategory\').css(\'top\', \'59px\')');
-		}else{
-			$('.jt-header-title').slideUp('fast', function(){
-				$('.jt-header-nav-interestCategory').css('top', '14px');
-			});
-		}
-	});
-	
 	onResize();
 	
 	$(window).resize(onResize);
@@ -85,6 +71,55 @@
 /* ]]> */	
 </script>
 
+<c:if test="${one.jtownUsers ne null}">
+	<script type="text/javascript">
+	/* <![CDATA[ */ 
+		$(window).scroll(function(){
+			var de = document.documentElement;
+			var b = document.body;
+			var scrollY = document.all ? (!de.scrollTop ? b.scrollTop : de.scrollTop) : (window.pageYOffset ? window.pageYOffset : window.scrollY);
+			if(scrollY == 0){
+				$('.jt-header-title').slideDown('fast');
+				setTimeout('$(\'.jt-header-nav-interestCategory\').css(\'top\', \'59px\')');
+			}else{
+				$('.jt-header-title').slideUp('fast', function(){
+					$('.jt-header-nav-interestCategory').css('top', '14px');
+				});
+			}
+		});
+	/* ]]> */	
+	</script>
+</c:if>
+
+<c:if test="${result eq 1 }">
+	<%--F5, CTRL + N, CTRL + R 시에는 result 메시지 안뜨도록 설정 --%>
+	<c:url value="/help/partnership" var="partnership"/>
+	<script type="text/javascript">
+	/* <![CDATA[ */  
+	    alert('접수 되었습니다.');
+	
+	    document.onkeydown = checkKeycode;
+		
+	    function checkKeycode(e) {
+			var keycode = 0;
+			if (window.event) 
+				keycode = window.event.keyCode;
+				else if (e) 
+					keycode = e.which;
+			
+		    if (keycode == 116) {
+		    	keycode= 2;
+		        location.href='${partnership}';
+		        return false;
+		    }else if(e.ctrlKey && (keycode==78 || keycode == 82)){
+		    	location.href='${partnership}';
+		        return false;
+		    }
+		}
+	/* ]]> */	            
+	</script>
+</c:if>
+	
 <%-- Node --%>
 <script src="${cp}/resources/js/real.time.js"></script>
 <script src="http://localhost:8000/socket.io/socket.io.js"></script>

@@ -59,9 +59,30 @@ public class HelpPartnershipTest {
 		int count = helpService.selectPartnershipCount(new PartnershipFilter());
 		assertThat(1, is(count));
 
-		Partnership loadPartnership = helpService.selectPartnership(partnership
-				.getPn());
+		Partnership loadPartnership = helpService
+				.selectPartnership(new Partnership(null, null, null, null,
+						null, partnership.getPn(), null));
 		partnershipCompareLodaPartnership(partnership, loadPartnership);
+	}
+
+	@Test
+	public void 제휴문의_이메일_휴대폰_체크() throws Exception {
+		helpService.insertPartnership(partnership);
+		int count = helpService.selectPartnershipCount(new PartnershipFilter());
+		assertThat(1, is(count));
+
+		Partnership loadPartnership = helpService
+				.selectPartnership(new Partnership(null, null, partnership
+						.getEmail(), null, null, null, null));
+
+		partnershipCompareLodaPartnership(partnership, loadPartnership);
+
+		Partnership loadPartnership2 = helpService
+				.selectPartnership(new Partnership(null, null, null, null,
+						partnership.getPhoneNumber(), null, null));
+
+		partnershipCompareLodaPartnership(partnership, loadPartnership2);
+
 	}
 
 	@Test
@@ -79,12 +100,14 @@ public class HelpPartnershipTest {
 
 		partnership.setProcess(1);
 
-		Partnership loadPartnership = helpService.selectPartnership(partnership
-				.getPn());
+		Partnership loadPartnership = helpService
+				.selectPartnership(new Partnership(null, null, null, null,
+						null, partnership.getPn(), null));
 		partnershipCompareLodaPartnership(partnership, loadPartnership);
 
 		Partnership loadPartnership2 = helpService
-				.selectPartnership(partnership2.getPn());
+				.selectPartnership(new Partnership(null, null, null, null,
+						null, partnership2.getPn(), null));
 		partnershipCompareLodaPartnership(partnership2, loadPartnership2);
 	}
 
@@ -99,12 +122,14 @@ public class HelpPartnershipTest {
 
 		helpService.updatePatnership(partnership);
 
-		Partnership loadPartnership = helpService.selectPartnership(partnership
-				.getPn());
+		Partnership loadPartnership = helpService
+				.selectPartnership(new Partnership(null, null, null, null,
+						null, partnership.getPn(), null));
 		partnershipCompareLodaPartnership(partnership, loadPartnership);
 
 		Partnership loadPartnership2 = helpService
-				.selectPartnership(partnership2.getPn());
+				.selectPartnership(new Partnership(null, null, null, null,
+						null, partnership2.getPn(), null));
 		partnershipCompareLodaPartnership(partnership2, loadPartnership2);
 	}
 
@@ -117,8 +142,9 @@ public class HelpPartnershipTest {
 
 		helpService.deletePartnership(partnership2);
 
-		Partnership loadPartnership = helpService.selectPartnership(partnership
-				.getPn());
+		Partnership loadPartnership = helpService
+				.selectPartnership(new Partnership(null, null, null, null,
+						null, partnership.getPn(), null));
 		partnershipCompareLodaPartnership(partnership, loadPartnership);
 	}
 

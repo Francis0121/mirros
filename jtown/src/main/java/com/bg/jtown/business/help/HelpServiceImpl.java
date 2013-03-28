@@ -32,9 +32,9 @@ public class HelpServiceImpl extends SqlSessionDaoSupport implements
 	}
 
 	@Override
-	public Partnership selectPartnership(Integer partnershipPn) {
+	public Partnership selectPartnership(Partnership partnership) {
 		return getSqlSession().selectOne("helpMapper.selectPartnership",
-				partnershipPn);
+				partnership);
 	}
 
 	@Override

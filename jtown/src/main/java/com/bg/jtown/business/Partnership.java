@@ -39,6 +39,21 @@ public class Partnership {
 	private String phoneNumber;
 
 	/**
+	 * 핸드폰 번호 두번째 자리
+	 */
+	private String phoneNumberNd;
+
+	/**
+	 * 핸드폰 번호 세번째 자리
+	 */
+	private String phoneNumberRd;
+
+	/**
+	 * 핸드폰 번호 첫자리
+	 */
+	private String phoneNumberSt;
+
+	/**
 	 * 제휴문위 고유번호
 	 */
 	private Integer pn;
@@ -64,6 +79,11 @@ public class Partnership {
 		this.process = process;
 	}
 
+	public void makePhoneNumber() {
+		this.phoneNumber = this.phoneNumberSt + this.phoneNumberNd
+				+ this.phoneNumberRd;
+	}
+
 	public Integer getCategoryPn() {
 		return categoryPn;
 	}
@@ -86,6 +106,18 @@ public class Partnership {
 
 	public String getPhoneNumber() {
 		return phoneNumber;
+	}
+
+	public String getPhoneNumberNd() {
+		return phoneNumberNd;
+	}
+
+	public String getPhoneNumberRd() {
+		return phoneNumberRd;
+	}
+
+	public String getPhoneNumberSt() {
+		return phoneNumberSt;
 	}
 
 	public Integer getPn() {
@@ -120,6 +152,18 @@ public class Partnership {
 		this.phoneNumber = phoneNumber;
 	}
 
+	public void setPhoneNumberNd(String phoneNumberNd) {
+		this.phoneNumberNd = phoneNumberNd;
+	}
+
+	public void setPhoneNumberRd(String phoneNumberRd) {
+		this.phoneNumberRd = phoneNumberRd;
+	}
+
+	public void setPhoneNumberSt(String phoneNumberSt) {
+		this.phoneNumberSt = phoneNumberSt;
+	}
+
 	public void setPn(Integer pn) {
 		this.pn = pn;
 	}
@@ -132,8 +176,10 @@ public class Partnership {
 	public String toString() {
 		return "Partnership [categoryPn=" + categoryPn + ", content=" + content
 				+ ", email=" + email + ", inputDate=" + inputDate + ", name="
-				+ name + ", phoneNumber=" + phoneNumber + ", pn=" + pn
-				+ ", process=" + process + "]";
+				+ name + ", phoneNumber=" + phoneNumber + ", phoneNumberNd="
+				+ phoneNumberNd + ", phoneNumberSt=" + phoneNumberSt + ", pn="
+				+ pn + ", phoneNumberRd=" + phoneNumberRd + ", process="
+				+ process + "]";
 	}
 
 }

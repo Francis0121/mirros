@@ -27,6 +27,7 @@ import com.bg.jtown.business.Interest;
 import com.bg.jtown.business.board.Board;
 import com.bg.jtown.business.board.BoardFilter;
 import com.bg.jtown.business.board.BoardService;
+import com.bg.jtown.business.search.PartnershipFilter;
 import com.bg.jtown.business.search.UserSearch;
 import com.bg.jtown.security.CustomJdbcUserDetailManager;
 import com.bg.jtown.security.JtownUser;
@@ -46,7 +47,7 @@ public class AdminController {
 
 	@Resource(name = "boardServiceImpl")
 	private BoardService boardService;
-	
+
 	@Resource
 	private CustomJdbcUserDetailManager customJdbcUserDetailManager;
 
@@ -160,11 +161,11 @@ public class AdminController {
 	public String showCustomerPage(Model model,
 			@ModelAttribute UserSearch search) {
 		logger.debug("Show Customer Page");
-		
-		Map<String, Object> modelMap = adminService.selectCustomerModelMap(search);
-		
+
+		Map<String, Object> modelMap = adminService
+				.selectCustomerModelMap(search);
+
 		model.addAllAttributes(modelMap);
-		
 
 		return "admin/customer";
 	}
@@ -225,11 +226,12 @@ public class AdminController {
 	@RequestMapping(value = "/admin/administrator", method = RequestMethod.GET)
 	public String showAdministratorPage(Model model) {
 		logger.debug("Show Administrator Page");
-		
-		customJdbcUserDetailManager.createUserAdminAndAuthority(new JtownUser());
-		
+
+		customJdbcUserDetailManager
+				.createUserAdminAndAuthority(new JtownUser());
+
 		return "admin/main";
-		
+
 	}
 
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -251,5 +253,14 @@ public class AdminController {
 	@ResponseBody
 	public void ajaxChangeEnable(@RequestBody JtownUser jtownUser) {
 		adminService.updateEnable(jtownUser);
+	}
+
+	// ~ Partnership
+
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@RequestMapping(value = "/admin/partnership", method = RequestMethod.GET)
+	public String showSellerPage(Model model,
+			@ModelAttribute PartnershipFilter partnershipFilter) {
+		return "admin/partnership";
 	}
 }

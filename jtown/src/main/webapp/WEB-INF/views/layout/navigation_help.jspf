@@ -19,7 +19,7 @@
 		<a href="${question }" class="<c:out value="${realPath eq question ? 'jt-header-nav-interestCategory-realPath' : 'jt-header-nav-interestCategory-normal'}"/>">FAQ</a>
 	</li>
 	<li class="jt-header-nav-interestCategory-li">
-		<c:url var="business" value="/help/business"/>
-		<a href="${business }" class="<c:out value="${realPath eq business ? 'jt-header-nav-interestCategory-realPath' : 'jt-header-nav-interestCategory-normal'}"/>">Business</a>
+		<c:url var="partnership" value="/help/partnership"/>
+		<a href="${partnership }" class="<c:out value="${realPath eq business ? 'jt-header-nav-interestCategory-realPath' : 'jt-header-nav-interestCategory-normal'}"/>">Business</a>
 	</li>
 </ul>

@@ -64,7 +64,19 @@
 		FROM
 			partnership
 		WHERE
-			pn = #{partnershipPn}
+		<if test="pn != null">
+			pn = #{pn}		
+		</if>
+		<if test="email != null">
+			email = #{email}
+		AND
+			process = 1
+		</if>
+		<if test="phoneNumber != null">
+			phone_number = #{phoneNumber}
+		AND
+			process = 1
+		</if>
 	</select>
 	
 	<select id="selectPartnershipCount" parameterType="com.bg.jtown.business.search.PartnershipFilter" resultType="java.lang.Integer">
