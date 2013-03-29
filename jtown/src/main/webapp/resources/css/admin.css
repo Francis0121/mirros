@@ -168,3 +168,8 @@
 .jt-partnership-table>tbody>tr>td:nth-child(7){ text-align: center; cursor: auto;}
 .jt-partnership-table>tbody>tr:nth-child(2n){background: #ffead1; }
 .jt-partnership-table>tbody>tr:HOVER{background: #ffb866; cursor: pointer;}
+/**********************
+*	판매자 정보
+**********************/
+.jt-admin-sellerInformation-id{font-size: 12px; margin-left: 25px; float: left;}
+#folderBar { padding-top: 0;}

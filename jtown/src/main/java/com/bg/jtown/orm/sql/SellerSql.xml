@@ -4,6 +4,7 @@
 
 	<resultMap type="com.bg.jtown.security.JtownUser" id="jtown-seller-map">
 		<result column="pn" property="pn"/>
+		<result column="id" property="username"/>
 		<result column="name" property="name"/>
 		<result column="shop_url" property="shopUrl"/>
 		<result column="notice" property="notice"/>
@@ -16,7 +17,7 @@
 
 	<select id="selectSellerInformation" parameterType="java.lang.Integer" resultMap="jtown-seller-map">
 		SELECT
-			us.pn, u.name, us.shop_url, us.notice, cvsp.view_count, clsp.love_count, ccsp.comment_count, bdl.banner_first, bdl.banner_second
+			us.pn, u.id, u.name, us.shop_url, us.notice, cvsp.view_count, clsp.love_count, ccsp.comment_count, bdl.banner_first, bdl.banner_second
 		FROM
 			user_seller us
 			LEFT OUTER JOIN users u

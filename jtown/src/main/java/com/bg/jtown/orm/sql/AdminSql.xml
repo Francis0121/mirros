@@ -119,7 +119,9 @@
 		</if>
 		<if test="userId != null and userId != ''">
 		AND	u.id = #{userId}
-		</if>	
+		</if>
+		ORDER BY	
+			u.pn DESC
 		<include refid="paginationAfter"/>
 	</select>
 	

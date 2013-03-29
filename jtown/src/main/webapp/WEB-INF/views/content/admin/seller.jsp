@@ -96,7 +96,10 @@ function goToPreviousPages() {
 		<c:forEach items="${sellerList }" var="seller" varStatus="i">
 			<c:set var="sellerPn" value="${seller.pn }" />
 			<tr class="jt-admin-seller-table-tr" data-pn="<c:out value="${sellerPn }"/>" data-categoryPn="<c:out value="${interestMap[sellerPn].categoryPn }"/>">
-				<td><c:out value="${pagination.numItems - (pagination.currentPage - 1)* 10-i.count+1}"/></td>
+				<td>
+					<c:url value="/admin/sellerInformation/sp/${sellerPn }" var="informationUrl"/>
+					<a href="${informationUrl }"><c:out value="${pagination.numItems - (pagination.currentPage - 1)* 10-i.count+1}"/></a>
+				</td>
 				<td class="jt-admin-seller-table-shopUrl"><c:out value="${seller.shopUrl }"/></td>
 				<td><c:out value="${seller.name }"/></td>
 				<td class="jt-admin-seller-table-interestList"><c:out value="${interestMap[sellerPn].interestSectionNameList }"/></td>

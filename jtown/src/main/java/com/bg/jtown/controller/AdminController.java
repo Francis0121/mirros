@@ -14,22 +14,19 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
 
 import com.bg.jtown.business.AdminService;
 import com.bg.jtown.business.Interest;
 import com.bg.jtown.business.Partnership;
-import com.bg.jtown.business.board.Board;
-import com.bg.jtown.business.board.BoardFilter;
-import com.bg.jtown.business.board.BoardService;
 import com.bg.jtown.business.help.HelpService;
 import com.bg.jtown.business.search.PartnershipFilter;
 import com.bg.jtown.business.search.UserFilter;
+import com.bg.jtown.business.seller.SellerService;
 import com.bg.jtown.security.CustomJdbcUserDetailManager;
 import com.bg.jtown.security.JtownUser;
 
@@ -45,12 +42,10 @@ public class AdminController {
 
 	@Resource(name = "adminServiceImpl")
 	private AdminService adminService;
-
-	@Resource(name = "boardServiceImpl")
-	private BoardService boardService;
-
 	@Resource
 	private HelpService helpService;
+	@Resource
+	private SellerService sellerService;
 
 	@Resource
 	private CustomJdbcUserDetailManager customJdbcUserDetailManager;
@@ -60,73 +55,6 @@ public class AdminController {
 	public String showAdminPage(Model model) {
 		logger.debug("Show Admin Page");
 		return "admin/main";
-	}
-
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	@RequestMapping(value = "/admin/notice", method = RequestMethod.GET)
-	public String showNoticePage(Model model,
-			@ModelAttribute BoardFilter boardFilter) {
-		logger.debug("Show Notice Page");
-		model.addAttribute("noticeList",
-				boardService.selectNoticeList(boardFilter));
-		return "admin/notice/list";
-	}
-
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	@RequestMapping(value = "/admin/noticeWrite", method = RequestMethod.GET)
-	public String showNoticeWritePage(Model model, @ModelAttribute Board board) {
-		logger.debug("Show Notice Page");
-		return "admin/notice/write";
-	}
-
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	@RequestMapping(value = "/admin/noticeWrite", method = RequestMethod.POST)
-	public String showNoticeWritePagePost(Model model,
-			@ModelAttribute Board board) {
-		logger.debug("Show Notice Page");
-		boardService.insertNoticeWrite(board);
-		return "redirect:/admin/notice";
-	}
-
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	@RequestMapping(value = "/admin/noticeWrite", method = RequestMethod.DELETE)
-	public String formNoticeDelete(Model model, @ModelAttribute Board board) {
-		boardService.deleteBoard(board);
-		return "redirect:/admin/notice";
-	}
-
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	@RequestMapping(value = "/admin/noticeContent", method = RequestMethod.GET)
-	public String showNoticeContent(Model model, @ModelAttribute Board board) {
-		logger.debug("Show Notice Page");
-
-		model.addAttribute("notice", boardService.selectNoticeContent(board));
-
-		return "admin/notice/content";
-	}
-
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	@RequestMapping(value = "/admin/noticeModify", method = RequestMethod.GET)
-	public String showNoticeModify(Model model, @ModelAttribute Board board) {
-
-		model.addAttribute("board", boardService.selectNoticeContent(board));
-
-		return "admin/notice/modify";
-	}
-
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	@RequestMapping(value = "/admin/noticeModify", method = RequestMethod.POST)
-	public ModelAndView showNoticeModifyPost(@ModelAttribute Board board) {
-		ModelAndView mav = new ModelAndView();
-
-		boardService.updateNotice(board);
-
-		mav.addObject("notice", boardService.selectNoticeContent(board));
-
-		mav.setView(new RedirectView("noticeContent?pn=" + board.getPn()));
-
-		return mav;
-
 	}
 
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -170,13 +98,9 @@ public class AdminController {
 	@RequestMapping(value = "/admin/cs", method = RequestMethod.GET)
 	public String showCreatSellerPage(Model model,
 			@ModelAttribute JtownUser jtownUser) {
-		logger.debug("Show createSeller Page");
-
 		List<Interest> interestCategoryList = adminService
 				.selectInterestCategoryList();
-
 		model.addAttribute("categoryList", interestCategoryList);
-
 		return "admin/createSeller";
 	}
 
@@ -186,10 +110,8 @@ public class AdminController {
 			@ModelAttribute JtownUser jtownUser, BindingResult result) {
 		logger.debug(jtownUser.toString());
 		new Validator() {
-
 			@Override
 			public void validate(Object target, Errors errors) {
-
 				ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name",
 						"create.seller.name.empty");
 				ValidationUtils.rejectIfEmptyOrWhitespace(errors, "shopUrl",
@@ -207,27 +129,29 @@ public class AdminController {
 
 		if (!result.hasErrors()) {
 			adminService.insertCreateSeller(jtownUser);
-			return "admin/main";
+			return "redirect:sellerInformation/sp/" + jtownUser.getPn();
 		} else {
 			List<Interest> interestCategoryList = adminService
 					.selectInterestCategoryList();
-
 			model.addAttribute("categoryList", interestCategoryList);
-
 			return "admin/createSeller";
 		}
 	}
 
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@RequestMapping(value = "/admin/sellerInformation/sp/{sellerPn}", method = RequestMethod.GET)
+	public String showCreateSellerFinishPage(Model model,
+			@PathVariable Integer sellerPn) {
+		model.addAllAttributes(sellerService.selectAllInformation(sellerPn));
+		return "admin/sellerInformation";
+	}
+
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/admin/administrator", method = RequestMethod.GET)
 	public String showAdministratorPage(Model model) {
-		logger.debug("Show Administrator Page");
-
 		customJdbcUserDetailManager
 				.createUserAdminAndAuthority(new JtownUser());
-
 		return "admin/main";
-
 	}
 
 	@PreAuthorize("hasRole('ROLE_ADMIN')")

@@ -38,12 +38,10 @@ public class AdminServiceImpl extends SqlSessionDaoSupport implements
 		for (String interest : interestSection) {
 			Integer pn = getSqlSession().selectOne(
 					"adminMapper.interestSectionPn", interest);
-
 			if (pn != null) {
 				interestParam = new Interest(sellerPn,
 						Integer.parseInt(jtownUser.getInterestCategory()), pn,
 						null);
-
 			} else {
 				interestParam = new Interest(sellerPn,
 						Integer.parseInt(jtownUser.getInterestCategory()),
