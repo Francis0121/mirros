@@ -57,7 +57,7 @@
 .jt-notice-content-table>tbody>tr:nth-child(1)>td:nth-child(2){width: 353px;}
 .jt-notice-content-table>tbody>tr:nth-child(1)>td:nth-child(4){width: 72px; text-align: center;}
 .jt-notice-content-table>tbody>tr:nth-child(4)>th{vertical-align: middle;}
-.jt-notice-content-table>tbody>tr:nth-child(4)>td>pre{min-height:200px; white-space: pre-wrap; /* CSS3*/white-space: -moz-pre-wrap; /* Mozilla, since 1999 */word-wrap: break-all; /* Internet Explorer 5.5+ */}
+.jt-notice-content-table>tbody>tr:nth-child(4)>td>pre{min-height:200px; white-space: pre-wrap; /* CSS3*/white-space: -moz-pre-wrap; /* Mozilla, since 1999 */word-wrap: break-word; /* Internet Explorer 5.5+ */}
 .jt-notice-content-table>tfoot>tr>td{text-align: right;}
 /*************************
 *	공지사항 - 작성
@@ -168,6 +168,10 @@
 .jt-partnership-table>tbody>tr>td:nth-child(7){ text-align: center; cursor: auto;}
 .jt-partnership-table>tbody>tr:nth-child(2n){background: #ffead1; }
 .jt-partnership-table>tbody>tr:HOVER{background: #ffb866; cursor: pointer;}
+.jt-partnership-table-content{cursor: auto !important;}
+.jt-partnership-table-content:HOVER{cursor: auto !important; background:#ffead1; }
+.jt-partnership-table-content>td{ text-align: left; width: 991px;}
+.jt-partnership-table-content>td>pre{ text-align: left; width : 900px; white-space: pre-wrap; /* CSS3*/white-space: -moz-pre-wrap; /* Mozilla, since 1999 */word-wrap: break-word; /* Internet Explorer 5.5+ */}
 /**********************
 *	판매자 정보
 **********************/

@@ -121,6 +121,11 @@ function goToPreviousPages() {
 					</select>
 				</td>
 			</tr>
+			<tr class="jt-partnership-table-content">
+				<td colspan="7">
+					<pre><c:out value="${partnership.content }"/></pre>
+				</td>
+			</tr>
 		</c:forEach>
 	</tbody>
 </table>
