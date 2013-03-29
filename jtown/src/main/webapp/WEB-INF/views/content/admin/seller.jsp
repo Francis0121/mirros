@@ -5,6 +5,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <%@ include file="../../layout/layout_admin_header.jspf" %>
+
 <table class="jt-manage-table">
 	<thead>
 		<tr>

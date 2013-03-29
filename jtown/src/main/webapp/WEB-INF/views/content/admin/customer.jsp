@@ -5,7 +5,8 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <%@ include file="../../layout/layout_admin_header.jspf" %>
-<c:set var="pagination" value="${search.pagination }"/>
+
+<c:set var="pagination" value="${userFilter.pagination }"/>
 <script type="text/javascript">
 /* <![CDATA[ */
 var numPagesPerScreen = <c:out value='${pagination.numPagesPerScreen}'/>;
@@ -29,6 +30,28 @@ function goToPreviousPages() {
 }
 /* ]]> */
 </script>
+
+<c:url value="/admin/customer" var="customerUrl"/>
+<ul class="jt-manage-filter">
+<form:form commandName="userFilter" action="${customerUrl }" method="get" htmlEscape="true">
+	<form:hidden path="page" value="${pagination.currentPage}"/>
+	<li>
+		<form:select path="enabled" htmlEscape="true" onchange="document.forms['userFilter'].submit();">
+			<form:option value="">전체</form:option>
+			<form:option value="true">정상사용자</form:option>
+			<form:option value="false">불량사용자</form:option>
+		</form:select>
+	</li>
+	<li>
+		<form:label path="name">이름</form:label>
+		<form:input path="name"/>
+		<form:label path="userId">아이디</form:label>
+		<form:input path="userId"/>
+		<input type="submit" value="전송"/>
+	</li>
+</form:form>
+</ul>
+
 
 <table class="jt-manage-table">
 	<thead>
@@ -75,7 +98,7 @@ function goToPreviousPages() {
 		<c:forEach items="${customerList }" var="customer" varStatus="i">
 			<c:set var="customerPn" value="${customer.pn }" />
 			<tr class="jt-admin-customer-table-tr">
-				<td><c:out value="${i.count }"/></td>
+				<td><c:out value="${pagination.numItems - (pagination.currentPage - 1)* 10-i.count+1}"/></td>
 				<td class="jt-admin-customer-table-customerId"><c:out value="${customer.username }"/></td>
 				<td><c:out value="${customer.name }"/></td>
 				<td><c:out value="${interestMap[customerPn].interestSectionNameList }"/></td>

@@ -30,7 +30,7 @@ import com.bg.jtown.business.board.BoardFilter;
 import com.bg.jtown.business.board.BoardService;
 import com.bg.jtown.business.help.HelpService;
 import com.bg.jtown.business.search.PartnershipFilter;
-import com.bg.jtown.business.search.UserSearch;
+import com.bg.jtown.business.search.UserFilter;
 import com.bg.jtown.security.CustomJdbcUserDetailManager;
 import com.bg.jtown.security.JtownUser;
 
@@ -153,25 +153,19 @@ public class AdminController {
 
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/admin/seller", method = RequestMethod.GET)
-	public String showSellerPage(Model model, @ModelAttribute UserSearch search) {
-		logger.debug("Show Seller Page");
-
-		model.addAllAttributes(adminService.selectSellerModelMap(search));
-
+	public String showSellerPage(Model model,
+			@ModelAttribute UserFilter userFilter) {
+		model.addAllAttributes(adminService.selectSellerModelMap(userFilter));
 		return "admin/seller";
 	}
 
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/admin/customer", method = RequestMethod.GET)
 	public String showCustomerPage(Model model,
-			@ModelAttribute UserSearch search) {
-		logger.debug("Show Customer Page");
-
+			@ModelAttribute UserFilter userFilter) {
 		Map<String, Object> modelMap = adminService
-				.selectCustomerModelMap(search);
-
+				.selectCustomerModelMap(userFilter);
 		model.addAllAttributes(modelMap);
-
 		return "admin/customer";
 	}
 

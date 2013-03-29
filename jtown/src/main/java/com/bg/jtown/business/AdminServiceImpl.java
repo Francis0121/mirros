@@ -1,5 +1,6 @@
 package com.bg.jtown.business;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,9 +9,10 @@ import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.bg.jtown.business.search.UserSearch;
+import com.bg.jtown.business.search.UserFilter;
 import com.bg.jtown.security.CustomJdbcUserDetailManager;
 import com.bg.jtown.security.JtownUser;
+import com.bg.jtown.util.Pagination;
 
 /**
  * @author 박광열
@@ -35,7 +37,7 @@ public class AdminServiceImpl extends SqlSessionDaoSupport implements
 
 		for (String interest : interestSection) {
 			Integer pn = getSqlSession().selectOne(
-					"AdminMapper.interestSectionPn", interest);
+					"adminMapper.interestSectionPn", interest);
 
 			if (pn != null) {
 				interestParam = new Interest(sellerPn,
@@ -46,23 +48,23 @@ public class AdminServiceImpl extends SqlSessionDaoSupport implements
 				interestParam = new Interest(sellerPn,
 						Integer.parseInt(jtownUser.getInterestCategory()),
 						null, interest);
-				getSqlSession().insert("AdminMapper.insertInterestSection",
+				getSqlSession().insert("adminMapper.insertInterestSection",
 						interestParam);
 			}
 
-			getSqlSession().insert("AdminMapper.insertUserInterest",
+			getSqlSession().insert("adminMapper.insertUserInterest",
 					interestParam);
 		}
 	}
 
 	@Override
 	public void updateShopUrl(JtownUser jtownUser) {
-		getSqlSession().update("AdminMapper.updateShopUrl", jtownUser);
+		getSqlSession().update("adminMapper.updateShopUrl", jtownUser);
 	}
 
 	@Override
 	public void updateInterest(Interest interest) {
-		getSqlSession().delete("AdminMapper.deleteInterestSellerInterest",
+		getSqlSession().delete("adminMapper.deleteInterestSellerInterest",
 				interest);
 
 		String[] interestListStr = interest.getInterestSectionNameList().trim()
@@ -72,7 +74,7 @@ public class AdminServiceImpl extends SqlSessionDaoSupport implements
 
 		for (String interestTemp : interestListStr) {
 			Integer pn = getSqlSession().selectOne(
-					"AdminMapper.interestSectionPn", interestTemp);
+					"adminMapper.interestSectionPn", interestTemp);
 
 			if (pn != null) {
 				interestParam = new Interest(interest.getSellerPn(),
@@ -81,37 +83,37 @@ public class AdminServiceImpl extends SqlSessionDaoSupport implements
 			} else {
 				interestParam = new Interest(interest.getSellerPn(),
 						interest.getCategoryPn(), null, interestTemp);
-				getSqlSession().insert("AdminMapper.insertInterestSection",
+				getSqlSession().insert("adminMapper.insertInterestSection",
 						interestParam);
 			}
 
-			getSqlSession().insert("AdminMapper.insertUserInterest",
+			getSqlSession().insert("adminMapper.insertUserInterest",
 					interestParam);
 		}
 	}
 
 	@Override
 	public void updateEnable(JtownUser jtownUser) {
-		getSqlSession().update("AdminMapper.updateEnable", jtownUser);
+		getSqlSession().update("adminMapper.updateEnable", jtownUser);
 	}
 
 	@Override
 	public List<Interest> selectInterestCategoryList() {
 		return getSqlSession()
-				.selectList("AdminMapper.getInterestCategoryList");
+				.selectList("adminMapper.getInterestCategoryList");
 	}
 
 	@Override
-	public Map<String, Object> selectSellerModelMap(UserSearch search) {
+	public Map<String, Object> selectSellerModelMap(UserFilter userFilter) {
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 
 		List<JtownUser> sellerList = getSqlSession().selectList(
-				"AdminMapper.getSellerList", search);
+				"adminMapper.getSellerList", userFilter);
 
 		modelMap.put("sellerList", sellerList);
 
 		List<Interest> interestList = getSqlSession().selectList(
-				"AdminMapper.getInterestNameList", search);
+				"adminMapper.getInterestNameList", userFilter);
 
 		Map<Integer, Interest> interestMap = new HashMap<Integer, Interest>();
 
@@ -125,25 +127,49 @@ public class AdminServiceImpl extends SqlSessionDaoSupport implements
 	}
 
 	@Override
-	public Map<String, Object> selectCustomerModelMap(UserSearch search) {
+	public Map<String, Object> selectCustomerModelMap(UserFilter userFilter) {
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 
-		List<JtownUser> customerList = getSqlSession().selectList(
-				"AdminMapper.getCustomerList", search);
-
+		List<JtownUser> customerList = selectCustomerList(userFilter);
 		modelMap.put("customerList", customerList);
 
-		List<Interest> customInterestList = getSqlSession().selectList(
-				"AdminMapper.getCustomerInterestList", search);
+		List<Integer> pnList = new ArrayList<Integer>();
+		for (JtownUser ju : customerList) {
+			pnList.add(ju.getPn());
+		}
 
+		List<Interest> customInterestList = selectCustomerInterestList(pnList);
 		Map<Integer, Interest> interestMap = new HashMap<Integer, Interest>();
-
 		for (Interest interest : customInterestList) {
 			interestMap.put(interest.getCustomerPn(), interest);
 		}
-
 		modelMap.put("interestMap", interestMap);
 
 		return modelMap;
+	}
+
+	public Integer selectCustomerCount(UserFilter userFilter) {
+		return getSqlSession().selectOne("adminMapper.selectCustomerCount",
+				userFilter);
+	}
+
+	public List<JtownUser> selectCustomerList(UserFilter userFilter) {
+		Pagination pagination = userFilter.getPagination();
+		int count = selectCustomerCount(userFilter);
+		if (count == 0) {
+			return new ArrayList<JtownUser>();
+		}
+		pagination.setNumItems(count);
+
+		return getSqlSession().selectList("adminMapper.selectCustomerList",
+				userFilter);
+	}
+
+	public List<Interest> selectCustomerInterestList(List<Integer> pnList) {
+		if (pnList.size() ==  0) {
+			return new ArrayList<Interest>();
+		}
+		return getSqlSession().selectList(
+				"adminMapper.selectCustomerInterestList", pnList);
 	}
 }

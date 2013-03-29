@@ -3,7 +3,7 @@ package com.bg.jtown.business;
 import java.util.List;
 import java.util.Map;
 
-import com.bg.jtown.business.search.UserSearch;
+import com.bg.jtown.business.search.UserFilter;
 import com.bg.jtown.security.JtownUser;
 
 /**
@@ -22,7 +22,7 @@ public interface AdminService {
 
 	List<Interest> selectInterestCategoryList();
 
-	Map<String, Object> selectSellerModelMap(UserSearch search);
+	Map<String, Object> selectSellerModelMap(UserFilter userFilter);
 
-	Map<String, Object> selectCustomerModelMap(UserSearch search);
+	Map<String, Object> selectCustomerModelMap(UserFilter userFilter);
 }

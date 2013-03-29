@@ -1,6 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="AdminMapper">	
+<mapper namespace="adminMapper">	
+
+	<sql id="paginationBefore">
+		SELECT 
+			t.*
+		FROM 
+		( 
+			SELECT  
+				z.*, @RNUM := @RNUM + 1 AS rnum
+			FROM
+				(
+	</sql>
+	
+	<sql id="paginationAfter">
+		<![CDATA[
+				) z,  
+				( SELECT @RNUM := 0 ) R
+			WHERE @RNUM + 1 <=  #{pagination.itemSeqEnd}
+		) t
+		WHERE t.rnum >= #{pagination.itemSeqBegin}
+		]]>
+	</sql>
+	
 	<resultMap type="JtownUser" id="usersMap">
 		<result column="pn" property="pn"/>
 		<result column="id" property="username"/>
@@ -62,7 +84,7 @@
 		<result column="interest_name_list" property="interestSectionNameList" />
 	</resultMap>
 	
-	<select id="getInterestNameList" parameterType="UserSearch" resultMap="getInterestNameListMap">
+	<select id="getInterestNameList" parameterType="com.bg.jtown.business.search.UserFilter" resultMap="getInterestNameListMap">
 		SELECT 
 			seller_pn, category_pn, interest_name_list
 		FROM (
@@ -82,7 +104,7 @@
 		<result column="shop_url" property="shopUrl"/>
 	</resultMap>
 	
-	<select id="getSellerList" parameterType="UserSearch" resultMap="getSellerListMap">
+	<select id="getSellerList" parameterType="com.bg.jtown.business.search.UserFilter" resultMap="getSellerListMap">
 		SELECT
 			u.pn, u.name, us.shop_url, u.id, u.enable
 		FROM
@@ -127,35 +149,67 @@
 		<result column="name" property="name" />
 		<result column="join_date" property="joinDate" />
 	</resultMap>
-	<select id="getCustomerList" parameterType="UserSearch" resultMap="getCustomerListMap">
+	
+	<select id="selectCustomerCount" parameterType="com.bg.jtown.business.search.UserFilter" resultType="java.lang.Integer">
 		SELECT
-			u.pn, u.id, u.name, u.enable, uc.join_date
+			COUNT(u.pn)
 		FROM
-			(SELECT
-				pn, id, ENABLE, name
-			FROM
-				users
-			WHERE
-				id NOT LIKE 'seller%'
-			AND
-				id NOT LIKE 'admin%'
-			) u, user_customer uc
+			user_customer uc,
+			users u 
 		WHERE
-			u.pn = uc.pn		
+			uc.pn = u.pn
+		<if test="enabled != null">
+		AND	u.enable = #{enabled}
+		</if>
+		<if test="name != null and name != ''">
+		AND	u.name = #{name}
+		</if>
+		<if test="userId != null and userId != ''">
+		AND	u.id = #{userId}
+		</if>	
 	</select>
 	
-	<select id="getCustomerInterestList" parameterType="UserSearch" resultMap="interestCategoryMap">
+	<select id="selectCustomerList" parameterType="com.bg.jtown.business.search.UserFilter" resultMap="getCustomerListMap">
+		<include refid="paginationBefore"/>
+			SELECT
+				u.pn, u.id, u.name, u.enable, u.salt AS join_date
+			FROM
+				user_customer uc,
+				users u 
+			WHERE
+				uc.pn = u.pn
+			<if test="enabled != null">
+			AND	u.enable = #{enabled}
+			</if>
+			<if test="name != null and name != ''">
+			AND	u.name = #{name}
+			</if>
+			<if test="userId != null and userId != ''">
+			AND	u.id = #{userId}
+			</if>	
+			ORDER BY
+				u.salt DESC	 	
+		<include refid="paginationAfter"/>
+	</select>
+	
+	<select id="selectCustomerInterestList" parameterType="java.util.ArrayList" resultMap="getInterestNameListMap">
 		SELECT 
 			customer_pn, category_pn, interest_name_list
 		FROM (
-			SELECT
-				*, GROUP_CONCAT(isn.name) AS interest_name_list
-			FROM
-				interest_section isn,
-				user_customer_interest uci
-			WHERE
-				isn.pn = uci.section_pn
-			GROUP BY uci.customer_pn
-		) interest		
+				SELECT
+					*, GROUP_CONCAT(isn.name) AS interest_name_list
+				FROM
+					interest_section isn,
+					user_customer_interest uci
+				WHERE
+					isn.pn = uci.section_pn
+				GROUP BY uci.customer_pn
+			) interest
+		WHERE 
+			customer_pn IN
+		<foreach collection="list" item="item" index="index"  open="(" separator="," close=")">
+			#{item}
+		</foreach>		
 	</select>
+	
 </mapper>

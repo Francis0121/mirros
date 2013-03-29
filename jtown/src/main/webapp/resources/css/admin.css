@@ -74,6 +74,8 @@
 /*************************
 *	판매자 관리/ 사용자관리
 **************************/
+.jt-manage-filter{font-size: 12px;}
+
 .jt-manage-table { border-bottom: 1px solid #ffd5a6; border-right: 1px solid #ffd5a6; border-collapse: collapse; font-size: 12px; width: 1000px;}
 .jt-manage-table th{ background: #ffead1; vertical-align: middle;}
 .jt-manage-table th, .jt-manage-table td{ padding: 8px 3px; border-top: 1px solid #ffd5a6; border-left: 1px solid #ffd5a6; min-height: 20px;}
