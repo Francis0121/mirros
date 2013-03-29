@@ -107,23 +107,47 @@ public class AdminServiceImpl extends SqlSessionDaoSupport implements
 	public Map<String, Object> selectSellerModelMap(UserFilter userFilter) {
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 
-		List<JtownUser> sellerList = getSqlSession().selectList(
-				"adminMapper.getSellerList", userFilter);
-
+		List<JtownUser> sellerList = selectSellerList(userFilter);
 		modelMap.put("sellerList", sellerList);
 
-		List<Interest> interestList = getSqlSession().selectList(
-				"adminMapper.getInterestNameList", userFilter);
+		List<Integer> pnList = new ArrayList<Integer>();
+		for (JtownUser ju : sellerList) {
+			pnList.add(ju.getPn());
+		}
 
+		List<Interest> interestList = selectSellerInterestList(pnList);
 		Map<Integer, Interest> interestMap = new HashMap<Integer, Interest>();
-
 		for (Interest interest : interestList) {
 			interestMap.put(interest.getSellerPn(), interest);
 		}
-
 		modelMap.put("interestMap", interestMap);
 
 		return modelMap;
+	}
+
+	public Integer selectSellerCount(UserFilter userFilter) {
+		return getSqlSession().selectOne("adminMapper.selectSellerCount",
+				userFilter);
+	}
+
+	public List<JtownUser> selectSellerList(UserFilter userFilter) {
+		Pagination pagination = userFilter.getPagination();
+		int count = selectSellerCount(userFilter);
+		if (count == 0) {
+			return new ArrayList<JtownUser>();
+		}
+		pagination.setNumItems(count);
+
+		return getSqlSession().selectList("adminMapper.selectSellerList",
+				userFilter);
+	}
+
+	public List<Interest> selectSellerInterestList(List<Integer> pnList) {
+		if (pnList.size() == 0) {
+			return new ArrayList<Interest>();
+		}
+		return getSqlSession().selectList(
+				"adminMapper.selectSellerInterestList", pnList);
 	}
 
 	@Override
@@ -166,7 +190,7 @@ public class AdminServiceImpl extends SqlSessionDaoSupport implements
 	}
 
 	public List<Interest> selectCustomerInterestList(List<Integer> pnList) {
-		if (pnList.size() ==  0) {
+		if (pnList.size() == 0) {
 			return new ArrayList<Interest>();
 		}
 		return getSqlSession().selectList(

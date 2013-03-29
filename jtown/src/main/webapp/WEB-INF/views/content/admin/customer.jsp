@@ -5,7 +5,6 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <%@ include file="../../layout/layout_admin_header.jspf" %>
-
 <c:set var="pagination" value="${userFilter.pagination }"/>
 <script type="text/javascript">
 /* <![CDATA[ */
@@ -21,7 +20,7 @@ function goToPage(page) {
 	var input = document.getElementById('page');
 	input.value = page;
 	
-	var form = document.forms['boardFilter'];	
+	var form = document.forms['userFilter'];	
 	form.submit();
 }
 
@@ -51,7 +50,6 @@ function goToPreviousPages() {
 	</li>
 </form:form>
 </ul>
-
 
 <table class="jt-manage-table">
 	<thead>

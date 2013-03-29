@@ -28,6 +28,7 @@
 		<result column="id" property="username"/>
 		<result column="enable" property="enabled"/>
 		<result column="salt" property="salt" />
+		<result column="name" property="name" />
 	</resultMap>
 	
 	<resultMap type="Interest" id="interestCategoryMap">
@@ -78,45 +79,48 @@
 			)
 	</insert>
 	
-	<resultMap type="Interest" id="getInterestNameListMap" extends="interestCategoryMap">
-		<result column="customer_pn" property="customerPn"/>
-		<result column="seller_pn" property="sellerPn"/>
-		<result column="interest_name_list" property="interestSectionNameList" />
-	</resultMap>
-	
-	<select id="getInterestNameList" parameterType="com.bg.jtown.business.search.UserFilter" resultMap="getInterestNameListMap">
-		SELECT 
-			seller_pn, category_pn, interest_name_list
-		FROM (
-			SELECT
-				*, GROUP_CONCAT(isn.name) AS interest_name_list
-			FROM
-				interest_section isn,
-				user_seller_interest usi
-			WHERE
-				isn.pn = usi.section_pn
-			GROUP BY usi.seller_pn
-		) interest			
-	</select>
-	
 	<resultMap type="JtownUser" id="getSellerListMap" extends="usersMap">
-		<result column="name" property="name"/>
 		<result column="shop_url" property="shopUrl"/>
 	</resultMap>
 	
-	<select id="getSellerList" parameterType="com.bg.jtown.business.search.UserFilter" resultMap="getSellerListMap">
+	<select id="selectSellerCount" parameterType="com.bg.jtown.business.search.UserFilter" resultType="java.lang.Integer">
+		SELECT
+			COUNT(u.pn)
+		FROM
+			user_seller us,
+			users u
+		WHERE
+			us.pn = u.pn
+		<if test="enabled != null">
+		AND	u.enable = #{enabled}
+		</if>
+		<if test="name != null and name != ''">
+		AND	u.name = #{name}
+		</if>
+		<if test="userId != null and userId != ''">
+		AND	u.id = #{userId}
+		</if>	
+	</select>
+	
+	<select id="selectSellerList" parameterType="com.bg.jtown.business.search.UserFilter" resultMap="getSellerListMap">
+		<include refid="paginationBefore"/>
 		SELECT
 			u.pn, u.name, us.shop_url, u.id, u.enable
 		FROM
-			(SELECT
-				pn, id, ENABLE, name
-			FROM
-				users
-			WHERE
-				id LIKE	'seller%'
-			) u, user_seller us
+			user_seller us,
+			users u
 		WHERE
-			u.pn = us.pn
+			us.pn = u.pn
+		<if test="enabled != null">
+		AND	u.enable = #{enabled}
+		</if>
+		<if test="name != null and name != ''">
+		AND	u.name = #{name}
+		</if>
+		<if test="userId != null and userId != ''">
+		AND	u.id = #{userId}
+		</if>	
+		<include refid="paginationAfter"/>
 	</select>
 	
 	<update id="updateShopUrl" parameterType="JtownUser">
@@ -146,7 +150,6 @@
 	</update>
 	
 	<resultMap type="JtownUser" id="getCustomerListMap" extends="usersMap">
-		<result column="name" property="name" />
 		<result column="join_date" property="joinDate" />
 	</resultMap>
 	
@@ -192,7 +195,33 @@
 		<include refid="paginationAfter"/>
 	</select>
 	
-	<select id="selectCustomerInterestList" parameterType="java.util.ArrayList" resultMap="getInterestNameListMap">
+	<resultMap type="Interest" id="jt-interest-section-name-list-map" extends="interestCategoryMap">
+		<result column="customer_pn" property="customerPn"/>
+		<result column="seller_pn" property="sellerPn"/>
+		<result column="interest_name_list" property="interestSectionNameList" />
+	</resultMap>
+	
+	<select id="selectSellerInterestList" parameterType="java.util.ArrayList" resultMap="jt-interest-section-name-list-map">
+		SELECT 
+			seller_pn, category_pn, interest_name_list
+		FROM (
+			SELECT
+				*, GROUP_CONCAT(isn.name) AS interest_name_list
+			FROM
+				interest_section isn,
+				user_seller_interest usi
+			WHERE
+				isn.pn = usi.section_pn
+			GROUP BY usi.seller_pn
+		) interest
+		WHERE 
+			seller_pn IN
+		<foreach collection="list" item="item" index="index"  open="(" separator="," close=")">
+			#{item}
+		</foreach>				
+	</select>
+	
+	<select id="selectCustomerInterestList" parameterType="java.util.ArrayList" resultMap="jt-interest-section-name-list-map">
 		SELECT 
 			customer_pn, category_pn, interest_name_list
 		FROM (

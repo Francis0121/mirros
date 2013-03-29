@@ -1,7 +1,6 @@
 package com.bg.jtown.controller;
 
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -163,9 +162,7 @@ public class AdminController {
 	@RequestMapping(value = "/admin/customer", method = RequestMethod.GET)
 	public String showCustomerPage(Model model,
 			@ModelAttribute UserFilter userFilter) {
-		Map<String, Object> modelMap = adminService
-				.selectCustomerModelMap(userFilter);
-		model.addAllAttributes(modelMap);
+		model.addAllAttributes(adminService.selectCustomerModelMap(userFilter));
 		return "admin/customer";
 	}
 
