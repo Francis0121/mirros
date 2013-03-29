@@ -16,3 +16,5 @@
 .jt-one-header-title{ background: url("../../images/jt-one-header-bar.png");}
 #digonalFolderImage{ margin-top: 18px;}
 .jt-home-expand-shop-comment-wrap{float: left; margin: 0 20px 0 20px;  padding: 5px 0 20px 0;}
+
+.jt-home-expand-shop-tool-wrap{display: none; width: 60px; height:0px; position: absolute; text-align: right; margin-left: -80px;}
