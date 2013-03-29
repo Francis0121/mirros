@@ -161,18 +161,19 @@ public class HelpPartnershipTest {
 		assertThat(16, is(count));
 
 		List<Partnership> partnerships = helpService
-				.selectPartnership(new PartnershipFilter(null, 1));
+				.selectPartnership(new PartnershipFilter(null, 1, null, null));
 		assertThat(10, is(partnerships.size()));
 
 		List<Partnership> partnerships2 = helpService
-				.selectPartnership(new PartnershipFilter(null, 2));
+				.selectPartnership(new PartnershipFilter(null, 2, null, null));
 		assertThat(3, is(partnerships2.size()));
 
 		List<Partnership> partnerships3 = helpService
-				.selectPartnership(new PartnershipFilter(1, null));
+				.selectPartnership(new PartnershipFilter(1, null, null, null));
 		assertThat(10, is(partnerships3.size()));
 
-		PartnershipFilter partnershipFilter = new PartnershipFilter(1, null);
+		PartnershipFilter partnershipFilter = new PartnershipFilter(1, null,
+				null, null);
 		partnershipFilter.setPage(2);
 		List<Partnership> partnerships4 = helpService
 				.selectPartnership(partnershipFilter);

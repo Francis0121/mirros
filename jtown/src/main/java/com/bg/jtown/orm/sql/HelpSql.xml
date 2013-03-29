@@ -52,6 +52,14 @@
 		AND
 			category_pn = #{categoryPn}
 		</if>
+		<if test="email != null and email != ''">
+		AND
+			email = #{email}
+		</if>
+		<if test="phoneNumber != null and phoneNumber != ''">
+		AND
+			phone_number = #{phoneNumber}
+		</if>	
 		ORDER BY
 			input_date DESC
 		<include refid="paginationAfter"/>
@@ -84,6 +92,24 @@
 			COUNT(*)
 		FROM
 			partnership
+		WHERE
+			1 = 1
+		<if test="process != null">
+		AND	
+			process = #{process}	
+		</if>
+		<if test="categoryPn != null">
+		AND
+			category_pn = #{categoryPn}
+		</if>
+		<if test="email != null and email != ''">
+		AND
+			email = #{email}
+		</if>
+		<if test="phoneNumber != null and phoneNumber != ''">
+		AND
+			phone_number = #{phoneNumber}
+		</if>		
 	</select>
 	
 	<insert id="insertPartnership" parameterType="com.bg.jtown.business.Partnership">

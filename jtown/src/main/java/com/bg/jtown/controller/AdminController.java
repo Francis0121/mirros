@@ -27,6 +27,7 @@ import com.bg.jtown.business.Interest;
 import com.bg.jtown.business.board.Board;
 import com.bg.jtown.business.board.BoardFilter;
 import com.bg.jtown.business.board.BoardService;
+import com.bg.jtown.business.help.HelpService;
 import com.bg.jtown.business.search.PartnershipFilter;
 import com.bg.jtown.business.search.UserSearch;
 import com.bg.jtown.security.CustomJdbcUserDetailManager;
@@ -47,6 +48,9 @@ public class AdminController {
 
 	@Resource(name = "boardServiceImpl")
 	private BoardService boardService;
+
+	@Resource
+	private HelpService helpService;
 
 	@Resource
 	private CustomJdbcUserDetailManager customJdbcUserDetailManager;
@@ -261,6 +265,7 @@ public class AdminController {
 	@RequestMapping(value = "/admin/partnership", method = RequestMethod.GET)
 	public String showSellerPage(Model model,
 			@ModelAttribute PartnershipFilter partnershipFilter) {
+		model.addAllAttributes(helpService.selectObject(partnershipFilter));
 		return "admin/partnership";
 	}
 }

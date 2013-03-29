@@ -1,6 +1,7 @@
 package com.bg.jtown.business.help;
 
 import java.util.List;
+import java.util.Map;
 
 import com.bg.jtown.business.Partnership;
 import com.bg.jtown.business.search.PartnershipFilter;
@@ -13,6 +14,8 @@ public interface HelpService {
 
 	// ~ Partnershop
 
+	Map<String, Object> selectObject(PartnershipFilter partnershipFilter);
+
 	List<Partnership> selectPartnership(PartnershipFilter partnershipFilter);
 
 	Partnership selectPartnership(Partnership partnership);
@@ -24,6 +27,7 @@ public interface HelpService {
 	void deletePartnership(Partnership partnership);
 
 	void updatePatnership(Partnership partnership);
+
 
 
 }
