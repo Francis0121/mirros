@@ -8,6 +8,8 @@ $(document).ready(function() {
 	jtown.admin.syncAdminPage();
 	
 	jtown.admin.partnershipProcess();
+	
+	jtown.admin.showPartnershipContent();
 });
 
 jtown.admin.createSubmit = function(){
@@ -214,4 +216,13 @@ jtown.admin.partnershipProcess = function(){
 		}
 	});
 	
+};
+
+jtown.admin.showPartnershipContent = function(){
+	
+	$('.jt-partnership-table-information').unbind('click');
+	$('.jt-partnership-table-information').bind('click', function(){
+		var partnershipPn =	$(this).attr('data-pspn');
+		$('#partnership-content-'+partnershipPn).toggle();
+	});
 };

@@ -99,7 +99,7 @@ function goToPreviousPages() {
 	</tfoot>
 	<tbody>
 		<c:forEach items="${partnerships }" var="partnership" varStatus="loop">
-			<tr>
+			<tr class="jt-partnership-table-information" data-pspn="<c:out value="${partnership.pn }"/>">
 				<td><c:out value="${partnership.pn }"/></td>
 				<td><c:out value="${partnership.name }"/></td>
 				<td><c:out value="${partnership.email }"/></td>
@@ -121,7 +121,7 @@ function goToPreviousPages() {
 					</select>
 				</td>
 			</tr>
-			<tr class="jt-partnership-table-content">
+			<tr class="jt-partnership-table-content" id="partnership-content-<c:out value="${partnership.pn }"/>">
 				<td colspan="7">
 					<pre><c:out value="${partnership.content }"/></pre>
 				</td>
