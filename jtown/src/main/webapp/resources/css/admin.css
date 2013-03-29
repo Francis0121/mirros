@@ -72,19 +72,19 @@
 .jt-notice-write-table>tbody>tr:nth-child(3)>td>textarea{ border: 2px solid #d9d9d9; width: 502px; padding: 2px 3px; resize :none; height: 200px;}
 .jt-notice-write-table tfoot{text-align: right;}
 /*************************
-*	판매자 관리/ 사용자관리
+*	사용자관리
 **************************/
 .jt-manage-filter{font-size: 12px;}
 
 .jt-manage-table { border-bottom: 1px solid #ffd5a6; border-right: 1px solid #ffd5a6; border-collapse: collapse; font-size: 12px; width: 1000px;}
 .jt-manage-table th{ background: #ffead1; vertical-align: middle;}
 .jt-manage-table th, .jt-manage-table td{ padding: 8px 3px; border-top: 1px solid #ffd5a6; border-left: 1px solid #ffd5a6; min-height: 20px;}
-.jt-manage-table>thead>tr>th:nth-child(1){ width: 43px; }
-.jt-manage-table>thead>tr>th:nth-child(2){ width: 203px; }
-.jt-manage-table>thead>tr>th:nth-child(3){ width: 143px; }
-.jt-manage-table>thead>tr>th:nth-child(4){ width: 293px; }
-.jt-manage-table>thead>tr>th:nth-child(5){ width: 153px; }
-.jt-manage-table>thead>tr>th:nth-child(6){ width: 112px; }
+.jt-manage-table>thead>tr>th:nth-child(1){ width: 42px; }
+.jt-manage-table>thead>tr>th:nth-child(2){ width: 202px; }
+.jt-manage-table>thead>tr>th:nth-child(3){ width: 142px; }
+.jt-manage-table>thead>tr>th:nth-child(4){ width: 292px; }
+.jt-manage-table>thead>tr>th:nth-child(5){ width: 152px; }
+.jt-manage-table>thead>tr>th:nth-child(6){ width: 111px; }
 .jt-manage-table>tbody>tr>td:nth-child(1){ text-align: center; }
 .jt-manage-table>tbody>tr>td:nth-child(2){}
 .jt-manage-table>tbody>tr>td:nth-child(3){}
@@ -93,6 +93,30 @@
 .jt-manage-table>tbody>tr>td:nth-child(6){ text-align: center; }
 .jt-manage-table>tbody>tr>td:nth-child(6)>select{ border: 2px solid #d9d9d9; padding: 2px 3px; width: 102px;}
 .jt-manage-table>tbody>tr>td>input{border: 2px solid #d9d9d9; padding: 2px 3px;}
+/*************************
+*	판매자 관리
+**************************/
+
+.jt-manage-seller-table { border-bottom: 1px solid #ffd5a6; border-right: 1px solid #ffd5a6; border-collapse: collapse; font-size: 12px; width: 1200px;}
+.jt-manage-seller-table th{ background: #ffead1; vertical-align: middle;}
+.jt-manage-seller-table th, .jt-manage-seller-table td{ padding: 8px 3px; border-top: 1px solid #ffd5a6; border-left: 1px solid #ffd5a6; min-height: 20px;}
+.jt-manage-seller-table>thead>tr>th:nth-child(1){ width: 43px; }
+.jt-manage-seller-table>thead>tr>th:nth-child(2){ width: 203px; }
+.jt-manage-seller-table>thead>tr>th:nth-child(3){ width: 143px; }
+.jt-manage-seller-table>thead>tr>th:nth-child(4){ width: 293px; }
+.jt-manage-seller-table>thead>tr>th:nth-child(5){ width: 153px; }
+.jt-manage-seller-table>thead>tr>th:nth-child(6){ width: 113px; }
+.jt-manage-seller-table>thead>tr>th:nth-child(7){ width: 192px; }
+.jt-manage-seller-table>tbody>tr>td:nth-child(1){ text-align: center; }
+.jt-manage-seller-table>tbody>tr>td:nth-child(2){}
+.jt-manage-seller-table>tbody>tr>td:nth-child(3){}
+.jt-manage-seller-table>tbody>tr>td:nth-child(4){}
+.jt-manage-seller-table>tbody>tr>td:nth-child(5){ text-align: center; }
+.jt-manage-seller-table>tbody>tr>td:nth-child(6){ text-align: center; }
+.jt-manage-seller-table>tbody>tr>td:nth-child(6)>select{ border: 2px solid #d9d9d9; padding: 2px 3px; width: 102px;}
+.jt-manage-seller-table>tbody>tr>td:nth-child(7){ text-align: left; line-height: 1.2; }
+.jt-manage-seller-table>tbody>tr>td>input{border: 2px solid #d9d9d9; padding: 2px 3px;}
+
 /*************************
 *	판매자 생성
 **************************/

@@ -51,7 +51,7 @@ function goToPreviousPages() {
 </form:form>
 </ul>
 
-<table class="jt-manage-table">
+<table class="jt-manage-seller-table">
 	<thead>
 		<tr>
 			<th>번호</th>
@@ -60,11 +60,12 @@ function goToPreviousPages() {
 			<th>관심사</th>
 			<th>판매자 아이디</th>
 			<th>불량사용자 여부</th>
+			<th>계약기간</th>
 		</tr>
 	</thead>
 	<tfoot>
 		<tr>
-			<td colspan="6">
+			<td colspan="7">
 				<a href="javascript:void(goToPage(1))" onfocus="blur();">
 						처음
 <%-- 					<img src="<c:url value='/images/mims_pageFirst_btn.gif'/>" alt="처음" style="vertical-align: middle; border: none" /> --%>
@@ -109,6 +110,18 @@ function goToPreviousPages() {
 						<option value="1" ${seller.enabled eq true ? 'selected=selected' : ''}>정상 사용자</option>
 						<option value="0" ${seller.enabled eq false ? 'selected=selected' : ''}>불량 사용자</option>					
 					</select>
+				</td>
+				<td>
+					계약&nbsp;횟수 : <a href="#none"><c:out value="${seller.contractCount eq null ? 0 : seller.contractCount}"/></a>
+					<c:choose>
+						<c:when test="${seller.contractEndDate ne null }">
+							<br/>
+							계약&nbsp;만료&nbsp;:&nbsp;<c:out value="${seller.contractEndDate}"/>&nbsp;<a href="#none">계약연장</a>
+						</c:when>
+						<c:otherwise>
+							<a href="#none">계약</a>
+						</c:otherwise>
+					</c:choose>
 				</td>
 			</tr>
 		</c:forEach>

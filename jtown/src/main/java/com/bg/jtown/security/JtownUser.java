@@ -97,6 +97,8 @@ public class JtownUser implements JtownDetails, CredentialsContainer {
 	private Integer bannerFirst;
 	private Integer bannerSecond;
 	private List<String> images;
+	private Integer contractCount;
+	private String contractEndDate;
 
 	private String interestCategory;
 	private String interestSectionList;
@@ -442,6 +444,22 @@ public class JtownUser implements JtownDetails, CredentialsContainer {
 		this.interestSectionList = interestSectionList;
 	}
 
+	public Integer getContractCount() {
+		return contractCount;
+	}
+
+	public void setContractCount(Integer contractCount) {
+		this.contractCount = contractCount;
+	}
+
+	public String getContractEndDate() {
+		return contractEndDate;
+	}
+
+	public void setContractEndDate(String contractEndDate) {
+		this.contractEndDate = contractEndDate;
+	}
+
 	public void setJoinDate(String joinDate) {
 		this.joinDate = joinDate;
 	}
@@ -525,6 +543,10 @@ public class JtownUser implements JtownDetails, CredentialsContainer {
 		sb.append("BirthDay : ").append(this.year).append("-")
 				.append(this.month).append("-").append(this.day).append("; ");
 		sb.append("Sex :").append(this.sex).append("; ");
+		sb.append("ContractCount :").append(this.contractCount).append("; ");
+		sb.append("ContractEndDate :").append(this.contractEndDate)
+				.append("; ");
+		
 		if (!authorities.isEmpty()) {
 			sb.append("Granted Authorities: ");
 
