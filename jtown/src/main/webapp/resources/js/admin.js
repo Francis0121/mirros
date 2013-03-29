@@ -6,6 +6,8 @@ $(document).ready(function() {
 	jtown.admin.createSubmit();
 	
 	jtown.admin.syncAdminPage();
+	
+	jtown.admin.partnershipProcess();
 });
 
 jtown.admin.createSubmit = function(){
@@ -195,4 +197,21 @@ jtown.admin.deleteInputBox = function(me, clazz){
 
 jtown.admin.setFocus = function(clazz){
 	$('.' + clazz + ':input:visible:enabled:first').focus();
+};
+
+jtown.admin.partnershipProcess = function(){
+	
+	$('.jt-partnership-process').unbind('change');
+	$('.jt-partnership-process').bind('change', function(){
+		if(confirm('변경 하시겠습니까?')){
+			var partnershipPn = $(this).attr('data-pspn');
+			var process = $(this).val();
+			var url = contextPath + 'ajax/admin/process.jt';
+			var json = { pn : partnershipPn, process : process };
+			
+			$.postJSON(url, json, function(){
+			});
+		}
+	});
+	
 };

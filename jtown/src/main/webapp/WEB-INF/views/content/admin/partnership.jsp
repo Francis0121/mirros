@@ -107,7 +107,7 @@ function goToPreviousPages() {
 				<td><c:out value="${interestCategoryMap[partnership.categoryPn] }"/></td>
 				<td><c:out value="${partnership.inputDate }"/></td>
 				<td>
-					<select>
+					<select class="jt-partnership-process" data-pspn="<c:out value="${partnership.pn }"/>">
 						<c:forEach items="${processList }" var="process">
 							<c:choose>
 								<c:when test="${process.key eq partnership.process}">

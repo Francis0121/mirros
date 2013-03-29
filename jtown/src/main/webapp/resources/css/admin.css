@@ -163,6 +163,6 @@
 .jt-partnership-table>tbody>tr>td:nth-child(4){ text-align: center; }
 .jt-partnership-table>tbody>tr>td:nth-child(5){ text-align: center; }
 .jt-partnership-table>tbody>tr>td:nth-child(6){ text-align: center; }
-.jt-partnership-table>tbody>tr>td:nth-child(7){ text-align: center; }
+.jt-partnership-table>tbody>tr>td:nth-child(7){ text-align: center; cursor: auto;}
 .jt-partnership-table>tbody>tr:nth-child(2n){background: #ffead1; }
 .jt-partnership-table>tbody>tr:HOVER{background: #ffb866; cursor: pointer;}

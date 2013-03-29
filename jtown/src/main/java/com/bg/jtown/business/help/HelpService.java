@@ -28,6 +28,4 @@ public interface HelpService {
 
 	void updatePatnership(Partnership partnership);
 
-
-
 }

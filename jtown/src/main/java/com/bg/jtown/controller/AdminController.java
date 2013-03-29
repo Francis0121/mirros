@@ -24,6 +24,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import com.bg.jtown.business.AdminService;
 import com.bg.jtown.business.Interest;
+import com.bg.jtown.business.Partnership;
 import com.bg.jtown.business.board.Board;
 import com.bg.jtown.business.board.BoardFilter;
 import com.bg.jtown.business.board.BoardService;
@@ -268,4 +269,12 @@ public class AdminController {
 		model.addAllAttributes(helpService.selectObject(partnershipFilter));
 		return "admin/partnership";
 	}
+
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@RequestMapping(value = "/ajax/admin/process.jt", method = RequestMethod.POST)
+	@ResponseBody
+	public void showSellerPage(@RequestBody Partnership partnership) {
+		helpService.updatePatnership(partnership);
+	}
+
 }
