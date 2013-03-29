@@ -145,6 +145,8 @@
 /*************************
 *	제휴문의 관리
 **************************/
+.jt-partnership-filter{font-size: 12px;}
+
 .jt-partnership-table { border-bottom: 1px solid #ffd5a6; border-right: 1px solid #ffd5a6; border-collapse: collapse; font-size: 12px; width: 1000px;}
 .jt-partnership-table th, .jt-partnership-table td{ padding: 8px 3px; border-top: 1px solid #ffd5a6; border-left: 1px solid #ffd5a6; min-height: 20px;}
 .jt-partnership-table>thead>tr{background: #ff9921; color: #fff;}

@@ -34,22 +34,26 @@ function goToPreviousPages() {
 </script>
 
 <c:url value="/admin/partnership" var="partnershipUrl"/>
-<form:form commandName="partnershipFilter" action="${partnershipUrl }" htmlEscape="true" method="get">
-	<form:select path="categoryPn" onchange="document.forms['partnershipFilter'].submit();">
-		<form:option value="">전체</form:option>
-		<form:options items="${interestCategoryMap }"/>
-	</form:select>
-	<form:select path="process" onchange="document.forms['partnershipFilter'].submit();">
-		<form:option value="">전체</form:option>
-		<form:options items="${processMap }"/>
-	</form:select>
-	<form:hidden path="page" value="${pagination.currentPage}"/>
-	<br/>
-	<form:label path="email">이메일</form:label><form:input path="email"/>
-	<form:label path="phoneNumber">핸드폰번호</form:label><form:input path="phoneNumber"/>
-	<br/>
-	<input type="submit" value="전송"/>
-</form:form>
+<ul class="jt-partnership-filter">
+	<form:form commandName="partnershipFilter" action="${partnershipUrl }" htmlEscape="true" method="get">
+		<form:hidden path="page" value="${pagination.currentPage}"/>
+		<li>
+			<form:select path="categoryPn" onchange="document.forms['partnershipFilter'].submit();">
+				<form:option value="">전체</form:option>
+				<form:options items="${interestCategoryMap }"/>
+			</form:select>
+			<form:select path="process" onchange="document.forms['partnershipFilter'].submit();">
+				<form:option value="">전체</form:option>
+				<form:options items="${processMap }"/>
+			</form:select>
+		</li>
+		<li>
+			<form:label path="email">이메일</form:label><form:input path="email"/>	
+			<form:label path="phoneNumber">핸드폰번호</form:label><form:input path="phoneNumber"/>	
+			<input type="submit" value="전송"/>
+		</li>
+	</form:form>
+</ul>
 
 <table class="jt-partnership-table">
 	<thead>
