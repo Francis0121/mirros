@@ -132,7 +132,7 @@
 							<div class="jt-join-user-vaild-wrap" id="passwordLength">
 								<span class="jt-form-invalid">비밀번호는&nbsp;8자&nbsp;이상&nbsp;16자&nbsp;이하&nbsp;이어야&nbsp;합니다.</span>
 							</div>
-							<form:password path="password" cssClass="jt-join-user-input" maxlength="16" cssErrorClass="jt-join-user-input-error"/>
+							<form:password path="password" data-form="joinPw" cssClass="jt-join-user-input" maxlength="16" cssErrorClass="jt-join-user-input-error"/>
 							<div class="jt-join-user-error">
 								<form:errors path="password" cssClass="commonError"></form:errors>
 							</div>

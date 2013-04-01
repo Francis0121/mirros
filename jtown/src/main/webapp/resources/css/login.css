@@ -109,6 +109,7 @@
 }
 .jt-login-form-login-btn:HOVER { background: #ff3c00;}
 /****************
+*	로그인 페이지
 ****************/
 #jt-login-form-page { width: 500px; margin: 80px auto 0 auto; }
 .jt-login-form-table-page { border-collapse: collapse; width: 340px; margin: auto auto; margin: 0 30px 10px 30px; }
@@ -123,3 +124,39 @@
 .jt-login-form-join-btn-page{ float: left; margin: 0 0 0 40px; font-size: 13px; color: #e75200;}
 .jt-login-form-join-btn-page:VISITED{color: #e75200; }
 .jt-login-form-join-btn-page:HOVER { text-decoration: underline; color: #e75200;}
+/***********************
+*	비밀번호 변경 페이지
+***********************/
+.jt-modify-content-wrap{ width: 990px; margin: auto auto; }
+.jt-modify-content { width: 864px; float: left; padding: 35px 0 45px 120px; min-height: 500px;
+	border: 3px solid #f48409; background: #fff;
+ 	-webkit-border-radius: 5px 0 25px 25px;
+    -moz-border-radius: 5px 0 25px 25px;
+    border-radius: 5px 0 25px 25px;
+    box-shadow :  inset 4px 4px 10px -5px #000, 4px 4px 6px -4px #000;;
+	-moz-box-shadow : inset 4px 4px 10px -5px #000, 4px 4px 6px -4px #000;;
+	-webkit-box-shadow :  inset 4px 4px 10px -5px #000, 4px 4px 6px -4px #000;;
+}
+.jt-modify-content>hgroup>h2{ font-size: 20px; color: #524d4d; width: 100%; float: left;}
+.jt-modify-content>hgroup>h1{ font-size: 15px; color: #303030; width: 100%; float: left; margin-top: 30px;}
+.jt-modify-content-table{float: left; margin-top: 30px;}
+.jt-modify-content-table { border-collapse: collapse; width: 700px; font-size: 12px;}
+.jt-modify-content-table th, .jt-modify-content-table td{ padding: 3px 2px; height: 55px;}
+.jt-modify-content-table th{ width: 200px; vertical-align: middle; color: #8c827e;  text-align: left; font-size: 15px; font-weight: normal;}
+.jt-modify-content-table td{ width: 500px; vertical-align: middle;}
+.jt-modify-content-table tfoot td{text-align: center;}
+.jt-change-password-btn{width: 100px; font-size: 15px;}
+
+.jt-modify-content-input { width: 220px; padding: 2px 3px; border: 1px solid #ad9c9c; height: 25px;
+ 	-webkit-border-radius: 5px 5px;
+    -moz-border-radius: 5px 5px;
+    border-radius: 5px 5px;
+}
+.jt-modify-content-input:FOCUS{	border: 1px solid #ff8a00; }
+.jt-modify-content-input-error { width: 220px; padding: 2px 3px; border: 1px solid #ff8a00; height: 25px;
+ 	-webkit-border-radius: 5px 5px;
+    -moz-border-radius: 5px 5px;
+    border-radius: 5px 5px;
+}
+.jt-modify-content-input-error:FOCUS{ border: 1px solid #ff0000;  }
+.jt-modify-content-error{font-size: 11px; margin: 5px 0 0 5px; line-height: 1.2; color: #ff3c00;}

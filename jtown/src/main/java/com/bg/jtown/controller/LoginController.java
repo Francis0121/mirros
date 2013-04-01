@@ -84,6 +84,7 @@ public class LoginController {
 				}
 
 			}
+
 			@Override
 			public boolean supports(Class<?> clazz) {
 				return JtownUser.class.isAssignableFrom(clazz);
@@ -93,10 +94,10 @@ public class LoginController {
 		if (!result.hasErrors()) {
 			request.setAttribute("username", jtownUser.getUsername());
 			request.setAttribute("password", jtownUser.getPassword());
-			
+
 			customJdbcUserDetailManager.createUserCustomAndAuthority(jtownUser);
 			userAuthenticator.login(request, response);
-			
+
 			String beforeAddress = (String) request.getSession().getAttribute(
 					"beforJoinUrl");
 			logger.debug(beforeAddress);
@@ -109,12 +110,15 @@ public class LoginController {
 
 	@PreAuthorize("hasRole('ROLE_USER')")
 	@RequestMapping(value = "/login/modify", method = RequestMethod.GET)
-	public String showModifyPage(@ModelAttribute JtownUser jtownUser) {
+	public String showModifyPage(Model model,
+			@ModelAttribute JtownUser jtownUser,
+			@RequestParam(required = false) Integer result) {
+		model.addAttribute("result", result);
 		return "login/modify";
 	}
 
 	@PreAuthorize("hasRole('ROLE_USER')")
-	@RequestMapping(value = "/login/modify", method = RequestMethod.POST)
+	@RequestMapping(value = "/login/modify.jt", method = RequestMethod.POST)
 	public String formPassword(@ModelAttribute JtownUser jtownUser,
 			@RequestParam final String confirmPassword, BindingResult result) {
 
@@ -148,7 +152,7 @@ public class LoginController {
 			customJdbcUserDetailManager.changePassword(jtownUser.getPassword(),
 					jtownUser.getNewPassword());
 
-			return "home";
+			return "redirect:modify/?result=2";
 		} else {
 			return "login/modify";
 		}

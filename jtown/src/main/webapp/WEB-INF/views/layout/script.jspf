@@ -93,12 +93,19 @@
 </c:if>
 
 <%--TODO partnership 페이지에서만 이용되고 있음 --%>
-<c:if test="${result eq 1 }">
+<c:if test="${result ne null }">
 	<%--F5, CTRL + N, CTRL + R 시에는 result 메시지 안뜨도록 설정 --%>
-	<c:url value="/help/partnership" var="partnership"/>
+	<c:if test="${result eq 1 }">
+		<c:set var="alertText" value="접수 되었습니다."/>
+		<c:url value="/help/partnership" var="pageUrl"/>
+	</c:if>
+	<c:if test="${result eq 2 }">
+		<c:set var="alertText" value="변경 되었습니다."/>
+		<c:url value="/login/modify" var="pageUrl"/>
+	</c:if>
 	<script type="text/javascript">
 	/* <![CDATA[ */  
-	    alert('접수 되었습니다.');
+	    alert('${alertText}');
 	
 	    document.onkeydown = checkKeycode;
 		
@@ -111,10 +118,10 @@
 			
 		    if (keycode == 116) {
 		    	keycode= 2;
-		        location.href='${partnership}';
+		        location.href='${pageUrl}';
 		        return false;
 		    }else if(e.ctrlKey && (keycode==78 || keycode == 82)){
-		    	location.href='${partnership}';
+		    	location.href='${pageUrl}';
 		        return false;
 		    }
 		}

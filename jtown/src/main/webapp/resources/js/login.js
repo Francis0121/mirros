@@ -11,6 +11,8 @@ $(document).ready(function() {
 	jtown.login.nickNameLength();
 	
 	jtown.login.changePasswordSubmit();
+	
+	jtown.login.modifyPasswordLength();
 });
 
 if (typeof jtown.login == 'undefined') {
@@ -35,7 +37,7 @@ jtown.login.confirmEmail = function() {
 };
 
 jtown.login.passwordLength = function() {
-	$('input[name=password]').keyup(function() {
+	$('input[data-form=joinPw]').keyup(function() {
 		var length = $(this).val().length;
 
 		if (length >= 8 && length <= 16) {
@@ -53,7 +55,7 @@ jtown.login.passwordLength = function() {
 jtown.login.confirmPassword = function() {
 	$('input[name=confirmPassword]').keyup(function() {
 		var cpw = $(this).val();
-		var pw = $('input[name=password]').val();
+		var pw = nullValueCheck($('input[data-form=joinPw]').val()) ? $('input[data-form=modify]').val() : $('input[data-form=joinPw]').val();
 		// match cpw and pw
 		if (cpw == pw) {
 			$('#confirmPW>span').removeClass('jt-form-invalid').addClass('jt-form-valid');
@@ -62,7 +64,7 @@ jtown.login.confirmPassword = function() {
 		}
 	}).focus(function() {
 		var cpw = $(this).val();
-		var pw = $('input[name=password]').val();
+		var pw = nullValueCheck($('input[data-form=joinPw]').val()) ? $('input[data-form=modify]').val() : $('input[data-form=joinPw]').val();
 		// match cpw and pw
 		if (cpw == pw) {
 			$('#confirmPW>span').removeClass('jt-form-invalid').addClass('jt-form-valid');
@@ -104,5 +106,21 @@ jtown.login.changePasswordSubmit = function(){
 	$('.jt-change-password-btn').bind('click', function(){
 		var form = document.forms['jtownUser'];
 		form.submit();
+	});
+};
+
+jtown.login.modifyPasswordLength = function() {
+	$('input[data-form=modify]').keyup(function() {
+		var length = $(this).val().length;
+
+		if (length >= 8 && length <= 16) {
+			$('#passwordLength>span').removeClass('jt-form-invalid').addClass('jt-form-valid');
+		} else {
+			$('#passwordLength>span').removeClass('jt-form-valid').addClass('jt-form-invalid');
+		}
+	}).focus(function() {
+		$('#passwordLength').show();
+	}).blur(function() {
+		$('#passwordLength').hide();
 	});
 };
