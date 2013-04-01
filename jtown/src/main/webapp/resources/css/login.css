@@ -64,13 +64,47 @@
 *	login.jspf → smartPopup loginForm
 */
 #jt-login-form-wrap { display: none; }
-#jt-login-form { padding: 10px 0; height: 240px; border: 2px solid #808080; background: #fff; border-radius: 5px;}
-.jt-login-form-table {	border-bottom: 1px solid #e5e5e5; border-right: 1px solid #e5e5e5; border-collapse: collapse; width: 370px; margin: auto auto; }
-.jt-login-form-table td, .jt-login-form-table th{font-size: 12px; vertical-align: middle; padding: 3px 2px 3px 2px; border-top: 1px solid #e5e5e5;border-left: 1px solid #e5e5e5; height: 40px; text-align: center;}
-.jt-login-form-table thead th{ font-size: 18px; font-family : Arial; width: 344px; }
-.jt-login-form-table tfoot th{ width: 344px; }
-.jt-login-form-table tbody th{ width: 105px; }
-.jt-login-form-table tbody td{ width: 254px; }
+#jt-login-form { padding: 10px 0; width: 400px; height: 290px; background: #f5f5f7;
+	box-shadow : 1px 3px 5px rgba(193, 193, 193, 1);
+	-moz-box-shadow : 1px 3px 5px rgba(193, 193, 193, 1);
+	-webkit-box-shadow : 1px 3px 5px rgba(193, 193, 193, 1);
+}
+.jt-login-form-table { border-collapse: collapse; width: 340px; margin: auto auto; margin: 0 30px 10px 30px;}
+.jt-login-form-table td, .jt-login-form-table th{font-size: 12px; vertical-align: middle; padding: 3px 2px; height: 40px; text-align: center;}
+.jt-login-form-table thead th{ font-family: Arial; font-size: 15px; width: 336px; text-align: left; color: #333333;}
+.jt-login-form-table tfoot th{ width: 168px; text-align: left; color: #010101; font-weight: normal;}
+.jt-login-form-table tfoot td{ width: 168px; text-align: right; color: #010101; }
+.jt-login-form-table tbody td{ width: 336px; }
 .jt-login-form-table tbody th, .jt-login-form-table tbody td { }
 .jt-login-form-table thead th, .jt-login-form-table thead td { }
 .jt-login-form-table tfoot th, .jt-login-form-table tfoot td { }
+.jt-login-form-table-input{ width: 328px; padding: 2px 3px; border: 1px solid #ad9c9c; height: 25px;
+ 	-webkit-border-radius: 5px 5px;
+    -moz-border-radius: 5px 5px;
+    border-radius: 5px 5px;
+}
+.jt-login-form-find-password{ color: #010101; }
+.jt-login-form-find-password:VISITED{ color: #010101; }
+.jt-login-form-find-password:HOVER { text-decoration: underline;  }
+
+.jt-login-form-join-span{float: left; margin: 25px 0 0 60px; font-size: 12px;}
+.jt-login-form-join-btn{ float: left; margin: 25px 0 0 40px; font-size: 12px; color: #e75200;}
+.jt-login-form-join-btn:VISITED{color: #e75200; }
+.jt-login-form-join-btn:HOVER { text-decoration: underline; color: #e75200;}
+
+.jt-login-form-login-btn{
+	cursor:pointer;
+	-webkit-border-radius: 3px; 
+	-moz-border-radius: 3px;
+	border-radius: 3px; 
+	padding: 10px 10px 10px 10px; 
+	font-weight: bold; 
+	text-align: center; 
+	color: #fff; 
+	background: #ff6000;
+	width: 80px;
+	display: block;
+	font-size: 15px;
+	font-family: Arial;
+}
+.jt-login-form-login-btn:HOVER { background: #ff3c00;}

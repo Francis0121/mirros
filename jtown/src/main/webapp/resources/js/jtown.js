@@ -10,12 +10,17 @@ $(document).ready(function(){
 	$('#jt-login-smartPopup').unbind('click');
 	$('#jt-login-smartPopup').bind('click', function() {
 		var inner = $('#jt-login-form-wrap');
+		inner.find('input[name=j_username]').attr('id', 'j_username');
+		inner.find('input[name=j_password]').attr('id', 'j_password');
 		$.smartPop.open({
-			width : 400,
-			height : 270,
+			width : 420,
+			height : 330,
 			html : inner.html(),
 			effect : null
 		});
+		setTimeout("$(function() { $('#j_username, #j_password').placeholder(); });",0);
+		inner.find('#j_username').attr('id', '');
+		inner.find('#j_password').attr('id', '');
 	});
 	
 	$('.jt-header-nav-interestCategory-li').unbind('mouseover mouseout');

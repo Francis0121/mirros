@@ -71,3 +71,6 @@ html{
 	overflow-x: auto;
 	overflow-y: scroll;
 }
+
+input, textarea { color: #000; }
+.placeholder { color: #aaa; }

@@ -9,50 +9,48 @@
 <div id="jt-login-form-wrap">
 	<div id="jt-login-form">
 		<c:url value="/j_spring_security_check" var="loginUrl"/>
-		<form action="${loginUrl }" method="post">
+		<form action="${loginUrl }" method="post" name="jtown-login-form">
 		<table class="jt-login-form-table">
 			<thead>
 				<tr>
 					<th colspan="2"> 
-						J-TOWN
+						<span style="font-weight: normal;">LOG&nbsp;IN&nbsp;TO</span>&nbsp;J&nbsp;TOWN
 					</th>
 				</tr>
 			</thead>
 			<tfoot>
 				<tr>
-					<th colspan="2">
-						<label for="_spring_security_remember_me">자동 로그인</label>
+					<th>
 						<input id="_spring_security_remember_me" name="_spring_security_remember_me" type="checkbox" value="true"/>	
+						<label for="_spring_security_remember_me">자동 로그인</label>
 					</th>
+					<td><a href="#none" class="jt-login-form-find-password">비밀번호를&nbsp;잊으셨나요?</a></td>
 				</tr>
 				<tr>
-					<th colspan="2">
-						<input type="submit" value="LOGIN" class="jt-btn-orange"/>
-						<c:url value="/login/join" var="joinUrl"/>
-						<input type="button" value="JOIN" class="jt-btn-orange" onclick="location.href='${joinUrl}'"/>
+					<th>
+						<a href="#none" class="jt-login-form-login-btn" onclick="document.forms['jtown-login-form'].submit();">LOG&nbsp;IN</a>
 					</th>
+					<td>&nbsp;</td>
 				</tr>
 			</tfoot>
 			<tbody>
 				<tr>
-					<th>
-						<label for="j_username">이메일</label>
-					</th>
-					<td>
-						<input id="j_username" name="j_username" size="20" maxlength="50" type="text" class="createUserInputBox"/>
+					<td colspan="2">
+						<input name="j_username" size="20" maxlength="50" type="text" class="jt-login-form-table-input" placeholder="Email Address"/>
 					</td>
 				</tr>
 				<tr>
-					<th>
-						<label for="j_password">비밀번호</label>
-					</th>
-					<td>
-						<input id="j_password" name="j_password" size="20" maxlength="50" type="password" class="createUserInputBox"/>
+					<td colspan="2">
+						<input name="j_password" size="20" maxlength="50" type="password" class="jt-login-form-table-input"  placeholder="Password"/>
 					</td>
 				</tr>
 			</tbody>
 		</table>
 		</form>
+		<c:url value="/login/join" var="joinUrl"/>
+		<div style="width: 400px; border-top : 1px solid #fff; height: 1px; background: #cbcbca;">
+			<span class="jt-login-form-join-span">아직&nbsp;회원이&nbsp;아니신가요?</span><a href="${joinUrl}" class="jt-login-form-join-btn">J&nbsp;Town&nbsp;가입하기</a>
+		</div>
 	</div>
 </div>
 </sec:authorize>
