@@ -83,7 +83,7 @@
     -moz-border-radius: 5px 5px;
     border-radius: 5px 5px;
 }
-.jt-login-form-find-password{ color: #010101; }
+.jt-login-form-find-password{ color: #010101; padding-top: 8px; display: block;}
 .jt-login-form-find-password:VISITED{ color: #010101; }
 .jt-login-form-find-password:HOVER { text-decoration: underline;  }
 
