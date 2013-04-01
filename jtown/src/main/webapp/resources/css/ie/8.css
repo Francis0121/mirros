@@ -5,3 +5,5 @@
 .jt-home-shop-image-footer{ background: url("../../images/jt-shop-footer.png"); width: 316px; height: 3px; float: left;}
 
 .jt-one-header-title{ background: url("../../images/jt-one-header-bar.png");}
+
+#jt-login-form{border: 1px solid #cccccc;}

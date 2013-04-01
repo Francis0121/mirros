@@ -111,12 +111,12 @@
 					<tbody>
 						<tr>
 							<td colspan="2">
-								<input name="j_username" size="20" maxlength="50" type="text" class="jt-login-form-table-input" placeholder="Email Address"/>
+								<input id="j_username_page" name="j_username" size="20" maxlength="50" type="text" class="jt-login-form-table-input" placeholder="Email Address"/>
 							</td>
 						</tr>
 						<tr>
 							<td colspan="2">
-								<input name="j_password" size="20" maxlength="50" type="password" class="jt-login-form-table-input"  placeholder="Password"/>
+								<input id="j_password_page" name="j_password" size="20" maxlength="50" type="password" class="jt-login-form-table-input"  placeholder="Password"/>
 							</td>
 						</tr>
 					</tbody>
@@ -136,5 +136,10 @@
 	</sec:authorize>	
 	<%@ include file="../../layout/login.jspf" %>
 	<%@ include file="../../layout/script.jspf" %>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('#j_username_page, #j_password_page').placeholder();
+		});
+	</script>
 </body>
 </html>
