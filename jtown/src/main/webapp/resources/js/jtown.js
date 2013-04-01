@@ -241,9 +241,13 @@ jtown.home.clickLove = function(spn){
 			if(crudType == 'insert'){
 				$('#love-image-'+spn).addClass('jt-home-shop-love-click');
 				$('#love-'+spn).addClass('jt-home-shop-love-text-click');
+				$('#love-expand-image-'+spn).addClass('jt-home-shop-love-click');
+				$('#love-expand-'+spn).addClass('jt-home-shop-love-text-click');
 			}else if(crudType == 'delete'){
 				$('#love-image-'+spn).removeClass('jt-home-shop-love-click');
 				$('#love-'+spn).removeClass('jt-home-shop-love-text-click');
+				$('#love-expand-image-'+spn).removeClass('jt-home-shop-love-click');
+				$('#love-expand-'+spn).removeClass('jt-home-shop-love-text-click');
 			}
 		}
 	});

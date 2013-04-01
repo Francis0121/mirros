@@ -190,7 +190,7 @@ jtown.expand.makeInnerHtml = function(spn){
 		html += '			<div class="jt-home-expand-shop-border-hide"></div>';
 		html +=	'		</li>';
 		html +=	'		<li class="jt-home-expand-shop-content-love-wrap">';
-		html +=	'			<a href="#none" onclick="jtown.home.clickLove(\''+spn+'\');"><span class="jt-home-expand-shop-content-love">Love</span>&nbsp;<span id="love-expand-'+spn+'">'+jtownUser.loveCount+'</span></a>';
+		html +=	'			<a href="#none" onclick="jtown.home.clickLove(\''+spn+'\');"><span class="jt-home-expand-shop-content-love" id="love-expand-image-'+spn+'">Love</span></a>&nbsp;<span id="love-expand-'+spn+'">'+jtownUser.loveCount+'</span>';
 		html +=	'		</li>';
 		html +=	'	</ul>';
 		html +=	'	<div class="jt-home-expand-shop-comment-wrap">';
