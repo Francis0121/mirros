@@ -138,7 +138,7 @@
 	-webkit-box-shadow :  inset 4px 4px 10px -5px #000, 4px 4px 6px -4px #000;;
 }
 .jt-modify-content>hgroup>h2{ font-size: 20px; color: #524d4d; width: 100%; float: left;}
-.jt-modify-content>hgroup>h1{ font-size: 15px; color: #303030; width: 100%; float: left; margin-top: 30px;}
+.jt-modify-content>hgroup>h1{ font-size: 15px; color: #303030; width: 100%; float: left; margin-top: 30px; font-weight: normal;}
 .jt-modify-content-table{float: left; margin-top: 30px;}
 .jt-modify-content-table { border-collapse: collapse; width: 700px; font-size: 12px;}
 .jt-modify-content-table th, .jt-modify-content-table td{ padding: 3px 2px; height: 55px;}
