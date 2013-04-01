@@ -87,10 +87,15 @@
 			LEFT OUTER JOIN count_view_seller_pn cvsp
 			ON us.pn = cvsp.seller_pn,
 			user_seller_interest usi,
+			user_seller_contract_info usci,
 			interest_section ise,
 			interest_category ic
 		WHERE
 			us.pn = usi.seller_pn
+		AND
+			us.pn = usci.seller_pn
+		AND
+			SYSDATE() BETWEEN usci.start_date AND usci.end_date
 		AND
 			usi.section_pn = ise.pn
 		AND
@@ -142,10 +147,15 @@
 			LEFT OUTER JOIN count_view_seller_pn cvsp
 			ON us.pn = cvsp.seller_pn,
 			user_seller_interest usi,
+			user_seller_contract_info usci,
 			interest_section ise,
 			interest_category ic
 		WHERE
 			us.pn = usi.seller_pn
+		AND
+			us.pn = usci.seller_pn
+		AND
+			SYSDATE() BETWEEN usci.start_date AND usci.end_date
 		AND
 			usi.section_pn = ise.pn
 		AND

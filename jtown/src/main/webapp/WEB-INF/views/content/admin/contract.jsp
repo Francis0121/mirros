@@ -65,7 +65,7 @@ ul{list-style: none; margin: 0; padding: 0;}
 						<ul>
 							<li>
 								<form:label path="startDate">시작날짜</form:label>
-								<form:input path="startDate" cssClass="jt-input" cssErrorClass="jt-input-error"/>	
+								<form:input path="startDate" cssClass="jt-input" cssErrorClass="jt-input-error" readonly="true"/>	
 								<form:errors path="startDate"/>
 							</li>
 				</c:when>
