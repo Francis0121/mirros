@@ -204,8 +204,10 @@ public class HomeServiceImpl extends SqlSessionDaoSupport implements
 	public void insertLoveCount(Count count) {
 		Integer loveCount = selectLoveCount(count);
 		if (loveCount == 0) {
+			count.setCrudType("insert");
 			getSqlSession().insert("homeMapper.insertLoveCount", count);
 		} else {
+			count.setCrudType("delete");
 			getSqlSession().delete("homeMapper.deleteLoveCount", count);
 		}
 		count.setCount(sellerService.selectLoveCount(count.getSellerPn()));

@@ -21,6 +21,11 @@ public class HomeFilter extends AbstractListFilter {
 	private Integer currentPage;
 
 	/**
+	 * 고객 고유번호
+	 */
+	private Integer customerPn;
+
+	/**
 	 * 관심사 고유번호
 	 */
 	private Integer sectionPn;
@@ -44,6 +49,10 @@ public class HomeFilter extends AbstractListFilter {
 		return currentPage;
 	}
 
+	public Integer getCustomerPn() {
+		return customerPn;
+	}
+
 	public Integer getSectionPn() {
 		return sectionPn;
 	}
@@ -54,6 +63,10 @@ public class HomeFilter extends AbstractListFilter {
 
 	public void setCurrentPage(Integer currentPage) {
 		this.currentPage = currentPage;
+	}
+
+	public void setCustomerPn(Integer customerPn) {
+		this.customerPn = customerPn;
 	}
 
 	public void setSectionPn(Integer sectionPn) {

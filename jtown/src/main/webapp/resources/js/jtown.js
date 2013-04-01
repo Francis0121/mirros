@@ -235,6 +235,16 @@ jtown.home.clickLove = function(spn){
 	$.postJSON(url, json, function(count){
 		if(!nullValueCheck(count.message)){
 			alert(count.message);
+		}else{
+			var crudType = count.crudType;
+			
+			if(crudType == 'insert'){
+				$('#love-image-'+spn).addClass('jt-home-shop-love-click');
+				$('#love-'+spn).addClass('jt-home-shop-love-text-click');
+			}else if(crudType == 'delete'){
+				$('#love-image-'+spn).removeClass('jt-home-shop-love-click');
+				$('#love-'+spn).removeClass('jt-home-shop-love-text-click');
+			}
 		}
 	});
 };
@@ -255,6 +265,9 @@ jtown.home.html = function(data){
 			var imageSrc = contextPath + 'resources/uploadImage/'+ ( (mainImage == null )? '8.jpg' : mainImage );
 			imageHtml+='<img alt="" src="'+imageSrc+'" title="'+htmlChars(seller.name)+'"/>	';
 		}
+		
+		var loveClick = !nullValueCheck(seller.customerPn) ? 'jt-home-shop-love-click' : '';
+		var loveTextClick =  !nullValueCheck(seller.customerPn) ? 'jt-home-shop-love-text-click' : '';
 		
 		html+='	<div class="jt-home-shop" id="jt-home-shop-'+spn+'">';
 		html+='		<header>';
@@ -280,7 +293,7 @@ jtown.home.html = function(data){
 		html+='				<span class="jt-home-shop-comment">COMMENT</span>&nbsp;<span id="comment-'+spn+'">'+ ( nullValueCheck(seller.commentCount) ? 0 : seller.commentCount )+ '</span>';
 		html+='			</li>';
 		html+='			<li>';
-		html+='				<a href="#none" onclick="jtown.home.clickLove(\''+spn+'\');" class="jt-home-shop-love">♥</a>&nbsp;<span id="love-'+spn+'">'+ ( nullValueCheck(seller.loveCount) ? 0 : seller.loveCount) + '</span>';
+		html+='				<a href="#none" onclick="jtown.home.clickLove(\''+spn+'\');"id="love-image-'+spn+'" class="jt-home-shop-love '+loveClick+'">♥</a>&nbsp;<span id="love-'+spn+'" class="'+loveTextClick+'">'+ ( nullValueCheck(seller.loveCount) ? 0 : seller.loveCount) + '</span>';
 		html+='				<span id="new-'+spn+'">';
 		html+='					'+ ( ( seller.bannerDate != null && Number(seller.bannerDate) < 8 ) ? 'new' : '' ) ;
 		html+='				</span>';

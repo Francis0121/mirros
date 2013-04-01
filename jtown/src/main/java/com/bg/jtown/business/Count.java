@@ -12,6 +12,12 @@ public class Count {
 	private Integer count;
 
 	/**
+	 * 입력 삭제 타입
+	 * 
+	 */
+	private String crudType;
+
+	/**
 	 * 고객 고유번호
 	 */
 	private Integer customerPn;
@@ -55,6 +61,10 @@ public class Count {
 		return count;
 	}
 
+	public String getCrudType() {
+		return crudType;
+	}
+
 	public Integer getCustomerPn() {
 		return customerPn;
 	}
@@ -77,6 +87,10 @@ public class Count {
 
 	public void setCount(Integer count) {
 		this.count = count;
+	}
+
+	public void setCrudType(String crudType) {
+		this.crudType = crudType;
 	}
 
 	public void setCustomerPn(Integer customerPn) {
@@ -103,7 +117,8 @@ public class Count {
 	public String toString() {
 		return "Count [count=" + count + ", customerPn=" + customerPn
 				+ ", inputDate=" + inputDate + ", message=" + message
-				+ ", sellerPn=" + sellerPn + ", redisType=" + redisType + "]";
+				+ ", redisType=" + redisType + ", sellerPn=" + sellerPn
+				+ ", crudType=" + crudType + "]";
 	}
 
 }

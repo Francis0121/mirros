@@ -62,6 +62,15 @@ public class HomeController {
 		session.setAttribute("randomPage", randomPage);
 		logger.debug("RandomPage Controller" + randomPage.get(0));
 
+		try {
+			JtownUser user = (JtownUser) SecurityContextHolder.getContext()
+					.getAuthentication().getPrincipal();
+			logger.debug(user.toString());
+			homeFilter.setCustomerPn(user.getPn());
+		} catch (ClassCastException e) {
+			logger.debug("로그인하지않은 사용자");
+		}
+
 		homeFilter.setPage(randomPage.get(0));
 		Map<String, Object> one = homeService.selectHome(homeFilter);
 		mav.addObject("one", one);
@@ -91,6 +100,14 @@ public class HomeController {
 		session.setAttribute("randomPage", randomPage);
 		logger.debug("RandomPage Controller" + randomPage.get(0));
 
+		try {
+			JtownUser user = (JtownUser) SecurityContextHolder.getContext()
+					.getAuthentication().getPrincipal();
+			logger.debug(user.toString());
+			homeFilter.setCustomerPn(user.getPn());
+		} catch (ClassCastException e) {
+			logger.debug("로그인하지않은 사용자");
+		}
 		homeFilter.setPage(randomPage.get(0));
 		Map<String, Object> one = homeService.selectHome(homeFilter);
 		mav.addObject("one", one);
@@ -314,7 +331,15 @@ public class HomeController {
 		HttpSession session = request.getSession();
 		List<Integer> randomPage = (List<Integer>) session
 				.getAttribute("randomPage");
-
+		try {
+			JtownUser user = (JtownUser) SecurityContextHolder.getContext()
+					.getAuthentication().getPrincipal();
+			logger.debug(user.toString());
+			homeFilter.setCustomerPn(user.getPn());
+		} catch (ClassCastException e) {
+			logger.debug("로그인하지않은 사용자");
+		}
+		
 		Integer page = homeFilter.getCurrentPage();
 		if (randomPage.size() > page - 1) {
 			homeFilter.setPage(randomPage.get(page - 1));

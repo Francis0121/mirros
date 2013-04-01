@@ -99,6 +99,7 @@ public class JtownUser implements JtownDetails, CredentialsContainer {
 	private List<String> images;
 	private Integer contractCount;
 	private String contractEndDate;
+	private Integer customerPn;
 
 	private String interestCategory;
 	private String interestSectionList;
@@ -508,6 +509,14 @@ public class JtownUser implements JtownDetails, CredentialsContainer {
 		return DateUtil.getYear();
 	}
 
+	public Integer getCustomerPn() {
+		return customerPn;
+	}
+
+	public void setCustomerPn(Integer customerPn) {
+		this.customerPn = customerPn;
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
@@ -546,7 +555,8 @@ public class JtownUser implements JtownDetails, CredentialsContainer {
 		sb.append("ContractCount :").append(this.contractCount).append("; ");
 		sb.append("ContractEndDate :").append(this.contractEndDate)
 				.append("; ");
-		
+		sb.append("CustomerPn : ").append(this.customerPn).append(";");
+
 		if (!authorities.isEmpty()) {
 			sb.append("Granted Authorities: ");
 
