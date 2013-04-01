@@ -28,7 +28,7 @@
 				</tr>
 				<tr>
 					<th>
-						<a href="#none" class="jt-login-form-login-btn" onclick="document.forms['jtown-login-form'].submit();">LOG&nbsp;IN</a>
+						<input type="submit" class="jt-btn-orange" value="LOG&nbsp;IN"/>
 					</th>
 					<td>&nbsp;</td>
 				</tr>

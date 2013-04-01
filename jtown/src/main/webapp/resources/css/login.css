@@ -108,3 +108,18 @@
 	font-family: Arial;
 }
 .jt-login-form-login-btn:HOVER { background: #ff3c00;}
+/****************
+****************/
+#jt-login-form-page { width: 500px; margin: 80px auto 0 auto; }
+.jt-login-form-table-page { border-collapse: collapse; width: 340px; margin: auto auto; margin: 0 30px 10px 30px; }
+.jt-login-form-table-page td, .jt-login-form-table-page th{font-size: 12px; vertical-align: middle; padding: 10px 2px; min-height: 40px; text-align: center;}
+.jt-login-form-table-page thead th{ font-family: Arial; font-size: 20px; width: 336px; text-align: left; color: #333333;}
+.jt-login-form-table-page tfoot th{ width: 168px; text-align: left; color: #010101; font-weight: normal;}
+.jt-login-form-table-page tfoot td{ width: 168px; text-align: right; color: #010101; }
+.jt-login-form-table-page tbody td{ width: 336px; }
+
+.jt-login-error-box{font-size: 13px; color: #e95800; width: 340px; margin-left: 35px; margin-bottom: 10px; line-height : 1.5; }
+.jt-login-form-join-span-page{float: left; margin: 0 0 0 35px; font-size: 13px; }
+.jt-login-form-join-btn-page{ float: left; margin: 0 0 0 40px; font-size: 13px; color: #e75200;}
+.jt-login-form-join-btn-page:VISITED{color: #e75200; }
+.jt-login-form-join-btn-page:HOVER { text-decoration: underline; color: #e75200;}
