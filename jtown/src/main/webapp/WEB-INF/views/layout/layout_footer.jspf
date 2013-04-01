@@ -6,6 +6,9 @@
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 		</section>
 	</section>
+	<footer class="jt-footer">
+		<div class="jt-scroll-top" onclick="window.scrollTo(0,0);">TOP</div>
+	</footer>
 	<%@ include file="login.jspf" %>
 	<%@ include file="script.jspf" %>
 </body>

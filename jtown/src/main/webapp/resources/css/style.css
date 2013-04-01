@@ -89,3 +89,5 @@
 /*************************
 *	꼬리말
 **************************/
+.jt-footer{position: fixed; bottom: 0; right: 20px; display: block; width: 100px; height: 27px; z-index: 10; display: none;}
+.jt-scroll-top{cursor:pointer; width: 100px; height: 27px; background: url("../images/jt-scroll-top.png") no-repeat; text-indent: -9999999px;}
