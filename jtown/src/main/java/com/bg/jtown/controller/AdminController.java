@@ -18,14 +18,18 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bg.jtown.business.AdminService;
+import com.bg.jtown.business.Contract;
 import com.bg.jtown.business.Interest;
 import com.bg.jtown.business.Partnership;
 import com.bg.jtown.business.help.HelpService;
+import com.bg.jtown.business.search.ContractFilter;
 import com.bg.jtown.business.search.PartnershipFilter;
 import com.bg.jtown.business.search.UserFilter;
+import com.bg.jtown.business.seller.ContractService;
 import com.bg.jtown.business.seller.SellerService;
 import com.bg.jtown.security.CustomJdbcUserDetailManager;
 import com.bg.jtown.security.JtownUser;
@@ -46,6 +50,8 @@ public class AdminController {
 	private HelpService helpService;
 	@Resource
 	private SellerService sellerService;
+	@Resource
+	private ContractService contractService;
 
 	@Resource
 	private CustomJdbcUserDetailManager customJdbcUserDetailManager;
@@ -192,4 +198,17 @@ public class AdminController {
 		helpService.updatePatnership(partnership);
 	}
 
+	// ~ Contract
+
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@RequestMapping(value = "/admin/contractList", method = RequestMethod.GET)
+	public String showContractListPopup(Model model,
+			@ModelAttribute ContractFilter contractFilter) {
+
+		List<Contract> contracts = contractService
+				.selectContractList(contractFilter);
+		model.addAttribute("contracts", contracts);
+
+		return "admin/contractList";
+	}
 }

@@ -113,7 +113,7 @@ function goToPreviousPages() {
 					</select>
 				</td>
 				<td>
-					계약&nbsp;횟수&nbsp;:&nbsp;<a href="#none" id="contract-count-${sellerPn }"><c:out value="${seller.contractCount eq null ? 0 : seller.contractCount}"/>&nbsp;조회</a><br/>
+					계약&nbsp;횟수&nbsp;:&nbsp;<span id="contract-count-${sellerPn }"><c:out value="${seller.contractCount eq null ? 0 : seller.contractCount}"/></span><a href="#none" class="jt-admin-contract-list">조회</a><br/>
 					계약&nbsp;만료&nbsp;:&nbsp;<span id="contract-end-date-${sellerPn }"><c:out value="${seller.contractEndDate}"/></span>
 				</td>
 				<td>

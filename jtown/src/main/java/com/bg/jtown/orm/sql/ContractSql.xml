@@ -39,6 +39,8 @@
 			user_seller_contract_info
 		WHERE
 			seller_pn = #{sellerPn}
+		ORDER BY
+			input_date DESC
 		<include refid="paginationAfter"/>	
 	</select>
 	
