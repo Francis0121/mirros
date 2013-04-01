@@ -12,6 +12,8 @@ $(document).ready(function() {
 	jtown.admin.showPartnershipContent();
 	
 	jtown.admin.openContractList();
+	
+	jtown.admin.openContract();
 });
 
 jtown.admin.createSubmit = function(){
@@ -237,6 +239,20 @@ jtown.admin.openContractList = function(){
 		var spn = parent.attr('data-pn');
 		
 		var url = contextPath + 'admin/contractList/?sellerPn='+spn;
+		var option = 'width=400, height=300, resizable=no, scrollbars=no, status=no';
+		
+		window.open(url, '', option);
+	});
+};
+
+jtown.admin.openContract = function(){
+	
+	$('.jt-admin-contract').unbind('click');
+	$('.jt-admin-contract').bind('click', function(){
+		var parent = $(this).parents('.jt-admin-seller-table-tr');
+		var spn = parent.attr('data-pn');
+		
+		var url = contextPath + 'admin/contract/?sellerPn='+spn;
 		var option = 'width=400, height=300, resizable=no, scrollbars=no, status=no';
 		
 		window.open(url, '', option);

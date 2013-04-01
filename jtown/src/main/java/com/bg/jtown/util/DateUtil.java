@@ -1,7 +1,11 @@
 package com.bg.jtown.util;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Locale;
 import java.util.TimeZone;
 
 import org.slf4j.Logger;
@@ -146,5 +150,153 @@ public class DateUtil {
 	public static int getYear() {
 		Calendar cal = getCalendar();
 		return cal.get(1);
+	}
+
+	/**
+	 * <p>
+	 * yyyyMMdd 혹은 yyyy-MM-dd 형식의 날짜 문자열을 입력 받아 년, 월, 일을 증감한다. 년, 월, 일은 가감할 수를
+	 * 의미하며, 음수를 입력할 경우 감한다.
+	 * </p>
+	 * 
+	 * <pre>
+	 * DateUtil.addYearMonthDay("19810828", 0, 0, 19)  = "19810916"
+	 * DateUtil.addYearMonthDay("20060228", 0, 0, -10) = "20060218"
+	 * DateUtil.addYearMonthDay("20060228", 0, 0, 10)  = "20060310"
+	 * DateUtil.addYearMonthDay("20060228", 0, 0, 32)  = "20060401"
+	 * DateUtil.addYearMonthDay("20050331", 0, -1, 0)  = "20050228"
+	 * DateUtil.addYearMonthDay("20050301", 0, 2, 30)  = "20050531"
+	 * DateUtil.addYearMonthDay("20050301", 1, 2, 30)  = "20060531"
+	 * DateUtil.addYearMonthDay("20040301", 2, 0, 0)   = "20060301"
+	 * DateUtil.addYearMonthDay("20040229", 2, 0, 0)   = "20060228"
+	 * DateUtil.addYearMonthDay("20040229", 2, 0, 1)   = "20060301"
+	 * </pre>
+	 * 
+	 * @param dateStr
+	 *            날짜 문자열(yyyyMMdd, yyyy-MM-dd의 형식)
+	 * @param year
+	 *            가감할 년. 0이 입력될 경우 가감이 없다
+	 * @param month
+	 *            가감할 월. 0이 입력될 경우 가감이 없다
+	 * @param day
+	 *            가감할 일. 0이 입력될 경우 가감이 없다
+	 * @return yyyyMMdd 형식의 날짜 문자열
+	 * @throws IllegalArgumentException
+	 *             날짜 포맷이 정해진 바와 다를 경우. 입력 값이 <code>null</code>인 경우.
+	 */
+	public static String addYearMonthDay(String sDate, int year, int month,
+			int day) {
+
+		String dateStr = validChkDate(sDate);
+
+		Calendar cal = Calendar.getInstance();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd",
+				Locale.getDefault());
+		try {
+			cal.setTime(sdf.parse(dateStr));
+		} catch (ParseException e) {
+			throw new IllegalArgumentException("Invalid date format: "
+					+ dateStr);
+		}
+
+		if (year != 0)
+			cal.add(Calendar.YEAR, year);
+		if (month != 0)
+			cal.add(Calendar.MONTH, month);
+		if (day != 0)
+			cal.add(Calendar.DATE, day);
+		
+		return sdf.format(cal.getTime());
+	}
+
+	/**
+	 * 입력된 일자 문자열을 확인하고 8자리로 리턴
+	 * 
+	 * @param sDate
+	 * @return
+	 */
+	public static String validChkDate(String dateStr) {
+		String _dateStr = dateStr;
+
+		if (dateStr == null
+				|| !(dateStr.trim().length() == 8 || dateStr.trim().length() == 10)) {
+			throw new IllegalArgumentException("Invalid date format: "
+					+ dateStr);
+		}
+		if (dateStr.length() == 10) {
+			_dateStr = removeMinusChar(dateStr);
+		}
+		return _dateStr;
+	}
+
+	/**
+	 * <p>
+	 * String이 비었거나("") 혹은 null 인지 검증한다.
+	 * </p>
+	 * 
+	 * <pre>
+	 *  StringUtil.isEmpty(null)      = true
+	 *  StringUtil.isEmpty("")        = true
+	 *  StringUtil.isEmpty(" ")       = false
+	 *  StringUtil.isEmpty("bob")     = false
+	 *  StringUtil.isEmpty("  bob  ") = false
+	 * </pre>
+	 * 
+	 * @param str
+	 *            - 체크 대상 스트링오브젝트이며 null을 허용함
+	 * @return <code>true</code> - 입력받은 String 이 빈 문자열 또는 null인 경우
+	 */
+	public static boolean isEmpty(String str) {
+		return str == null || str.length() == 0;
+	}
+
+	/**
+	 * <p>
+	 * 기준 문자열에 포함된 모든 대상 문자(char)를 제거한다.
+	 * </p>
+	 * 
+	 * <pre>
+	 * StringUtil.remove(null, *)       = null
+	 * StringUtil.remove("", *)         = ""
+	 * StringUtil.remove("queued", 'u') = "qeed"
+	 * StringUtil.remove("queued", 'z') = "queued"
+	 * </pre>
+	 * 
+	 * @param str
+	 *            입력받는 기준 문자열
+	 * @param remove
+	 *            입력받는 문자열에서 제거할 대상 문자열
+	 * @return 제거대상 문자열이 제거된 입력문자열. 입력문자열이 null인 경우 출력문자열은 null
+	 */
+	public static String remove(String str, char remove) {
+		if (isEmpty(str) || str.indexOf(remove) == -1) {
+			return str;
+		}
+		char[] chars = str.toCharArray();
+		int pos = 0;
+		for (int i = 0; i < chars.length; i++) {
+			if (chars[i] != remove) {
+				chars[pos++] = chars[i];
+			}
+		}
+		return new String(chars, 0, pos);
+	}
+
+	/**
+	 * <p>
+	 * 문자열 내부의 마이너스 character(-)를 모두 제거한다.
+	 * </p>
+	 * 
+	 * <pre>
+	 * StringUtil.removeMinusChar(null)       = null
+	 * StringUtil.removeMinusChar("")         = ""
+	 * StringUtil.removeMinusChar("a-sdfg-qweqe") = "asdfgqweqe"
+	 * </pre>
+	 * 
+	 * @param str
+	 *            입력받는 기준 문자열
+	 * @return " - "가 제거된 입력문자열 입력문자열이 null인 경우 출력문자열은 null
+	 */
+	public static String removeMinusChar(String str) {
+		return remove(str, '-');
 	}
 }

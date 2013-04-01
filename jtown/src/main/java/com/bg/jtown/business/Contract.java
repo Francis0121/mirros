@@ -9,6 +9,21 @@ package com.bg.jtown.business;
 public class Contract {
 
 	/**
+	 * 계약 횟수
+	 */
+	private Integer contractCount;
+
+	/**
+	 * 계약 만료 날짜
+	 */
+	private String contractEndDate;
+
+	/**
+	 * 계약기간
+	 */
+	private Integer contractPeroid;
+
+	/**
 	 * 끝날짜
 	 */
 	private String endDate;
@@ -38,14 +53,30 @@ public class Contract {
 
 	}
 
-	public Contract(String endDate, String inputDate, Integer pn,
-			Integer sellerPn, String startDate) {
+	public Contract(Integer contractCount, String contractEndDate,
+			Integer contractPeroid, String endDate, String inputDate,
+			Integer pn, Integer sellerPn, String startDate) {
 		super();
+		this.contractCount = contractCount;
+		this.contractEndDate = contractEndDate;
+		this.contractPeroid = contractPeroid;
 		this.endDate = endDate;
 		this.inputDate = inputDate;
 		this.pn = pn;
 		this.sellerPn = sellerPn;
 		this.startDate = startDate;
+	}
+
+	public Integer getContractCount() {
+		return contractCount;
+	}
+
+	public String getContractEndDate() {
+		return contractEndDate;
+	}
+
+	public Integer getContractPeroid() {
+		return contractPeroid;
 	}
 
 	public String getEndDate() {
@@ -66,6 +97,18 @@ public class Contract {
 
 	public String getStartDate() {
 		return startDate;
+	}
+
+	public void setContractCount(Integer contractCount) {
+		this.contractCount = contractCount;
+	}
+
+	public void setContractEndDate(String contractEndDate) {
+		this.contractEndDate = contractEndDate;
+	}
+
+	public void setContractPeroid(Integer contractPeroid) {
+		this.contractPeroid = contractPeroid;
 	}
 
 	public void setEndDate(String endDate) {
@@ -90,9 +133,11 @@ public class Contract {
 
 	@Override
 	public String toString() {
-		return "Contract [endDate=" + endDate + ", inputDate=" + inputDate
-				+ ", pn=" + pn + ", sellerPn=" + sellerPn + ", startDate="
-				+ startDate + "]";
+		return "Contract [contractCount=" + contractCount
+				+ ", contractEndDate=" + contractEndDate + ", contractPeroid="
+				+ contractPeroid + ", endDate=" + endDate + ", inputDate="
+				+ inputDate + ", pn=" + pn + ", sellerPn=" + sellerPn
+				+ ", startDate=" + startDate + "]";
 	}
 
 }

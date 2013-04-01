@@ -29,6 +29,8 @@
 		<result column="start_date" property="startDate"/>
 		<result column="end_date" property="endDate"/>
 		<result column="input_date" property="inputDate"/>
+		<result column="contract_count" property="contractCount"/>
+		<result column="contract_end_date" property="contractEndDate"/>
 	</resultMap>
 	
 	<select id="selectContractList" parameterType="com.bg.jtown.business.search.ContractFilter" resultMap="jt-contract-map">
@@ -62,12 +64,32 @@
 			seller_pn = #{sellerPn}
 	</select>
 	
+	<select id="selctContractPeroid" parameterType="com.bg.jtown.business.Contract" resultMap="jt-contract-map">
+		SELECT
+			usci.seller_pn, COUNT(usci.seller_pn) AS contract_count, now.contract_end_date 
+		FROM
+			user_seller_contract_info usci
+			LEFT OUTER JOIN(
+				SELECT
+					seller_pn, end_date AS contract_end_date
+				FROM
+					user_seller_contract_info
+				WHERE
+					SYSDATE() BETWEEN start_date AND end_date
+			) now
+			ON usci.seller_pn = now.seller_pn
+		WHERE
+			usci.seller_pn = #{sellerPn}
+		GROUP BY
+			usci.seller_pn
+	</select>
+	
 	<insert id="insertContract" parameterType="com.bg.jtown.business.Contract">
 		INSERT INTO
 			user_seller_contract_info
 			( seller_pn, start_date, end_date, input_date )
 		VALUES
-			( #{sellerPn}, #{startDate}, #{endDate}, #{inputDate} )
+			( #{sellerPn}, #{startDate}, #{endDate}, SYSDATE() )
 	</insert>	
 	
 	<delete id="deleteContract" parameterType="com.bg.jtown.business.Contract">

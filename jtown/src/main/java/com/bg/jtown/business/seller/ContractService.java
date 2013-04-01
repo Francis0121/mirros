@@ -17,10 +17,15 @@ public interface ContractService {
 
 	Integer selectContractCount(ContractFilter contractFilter);
 
+	Contract selectContractPeroid(Contract contract);
+
+	Integer insertCaculatePeroidContract(Contract contract);
+
 	void insertContract(Contract contract);
 
 	void deleteContract(Contract contract);
 
 	void updateContract(Contract contract);
+
 
 }

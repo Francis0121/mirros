@@ -204,11 +204,53 @@ public class AdminController {
 	@RequestMapping(value = "/admin/contractList", method = RequestMethod.GET)
 	public String showContractListPopup(Model model,
 			@ModelAttribute ContractFilter contractFilter) {
-
 		List<Contract> contracts = contractService
 				.selectContractList(contractFilter);
 		model.addAttribute("contracts", contracts);
-
 		return "admin/contractList";
 	}
+
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@RequestMapping(value = "/admin/contract", method = RequestMethod.GET)
+	public String showContractListPopup(Model model,
+			@RequestParam Integer sellerPn) {
+		Contract contract = new Contract();
+		contract.setSellerPn(sellerPn);
+
+		Contract loadContract = contractService.selectContractPeroid(contract);
+		loadContract.setSellerPn(sellerPn);
+		model.addAttribute("contract", loadContract);
+		return "admin/contract";
+	}
+
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@RequestMapping(value = "/admin/contract.jt", method = RequestMethod.POST)
+	public String formContract(Model model, @ModelAttribute Contract contract,
+			BindingResult result) {
+		new Validator() {
+
+			@Override
+			public void validate(Object object, Errors errors) {
+				Contract contract = (Contract) object;
+				if (contract.getContractEndDate() == null) {
+					ValidationUtils.rejectIfEmptyOrWhitespace(errors,
+							"startDate", "contract.startDate.empty");
+				}
+				ValidationUtils.rejectIfEmptyOrWhitespace(errors,
+						"contractPeroid", "contract.contractPeroid.empty");
+			}
+
+			@Override
+			public boolean supports(Class<?> clazz) {
+				return Contract.class.isAssignableFrom(clazz);
+			}
+		}.validate(contract, result);
+		if (result.hasErrors()) {
+		} else {
+			model.addAttribute("result",
+					contractService.insertCaculatePeroidContract(contract));
+		}
+		return "admin/contract";
+	}
+
 }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.bg.jtown.business.Contract;
 import com.bg.jtown.business.search.ContractFilter;
+import com.bg.jtown.util.DateUtil;
 import com.bg.jtown.util.Pagination;
 
 /**
@@ -39,9 +40,38 @@ public class ContractServiceImpl extends SqlSessionDaoSupport implements
 	}
 
 	@Override
+	public Contract selectContractPeroid(Contract contract) {
+		Contract loadContract = getSqlSession().selectOne(
+				"contractMapper.selctContractPeroid", contract);
+		if (loadContract == null || loadContract.getSellerPn() == null) {
+			return new Contract();
+		}
+		return loadContract;
+	}
+
+	@Override
 	public Integer selectContractCount(ContractFilter contractFilter) {
 		return getSqlSession().selectOne("contractMapper.selectContractCount",
 				contractFilter);
+	}
+
+	@Override
+	public Integer insertCaculatePeroidContract(Contract contract) {
+		String contractEndDate = contract.getContractEndDate();
+		Integer peroid = contract.getContractPeroid();
+		if (contractEndDate == null) {
+			String startDate = contract.getStartDate();
+			String endDate = DateUtil.addYearMonthDay(startDate, 0, 0, peroid);
+			contract.setEndDate(endDate);
+		} else {
+			String startDate = DateUtil.addYearMonthDay(contractEndDate, 0, 0,
+					1);
+			String endDate = DateUtil.addYearMonthDay(startDate, 0, 0, peroid);
+			contract.setStartDate(startDate);
+			contract.setEndDate(endDate);
+		}
+		insertContract(contract);
+		return 1;
 	}
 
 	@Override

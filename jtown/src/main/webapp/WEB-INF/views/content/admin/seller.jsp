@@ -117,7 +117,7 @@ function goToPreviousPages() {
 					계약&nbsp;만료&nbsp;:&nbsp;<span id="contract-end-date-${sellerPn }"><c:out value="${seller.contractEndDate}"/></span>
 				</td>
 				<td>
-					<a href="#none">계약</a>
+					<a href="#none" class="jt-admin-contract">계약</a>
 				</td>
 			</tr>
 		</c:forEach>
