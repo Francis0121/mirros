@@ -53,7 +53,7 @@ public class CommentServiceImpl extends SqlSessionDaoSupport implements
 		}
 		pagination.setNumItems(count);
 		pagination.setNumItemsPerPage(COMMENT_NUM_PER_PAGE);
-		
+
 		List<Comment> comments = getSqlSession().selectList(
 				"commentMapper.selectCommentTop", commentFilter);
 		return comments;
@@ -142,8 +142,10 @@ public class CommentServiceImpl extends SqlSessionDaoSupport implements
 	@Override
 	public void toggleCommentLove(Comment comment) {
 		if (selectCommentLoveCount(comment) == 0) {
+			comment.setCrudType("insert");
 			insertCommentLove(comment);
 		} else {
+			comment.setCrudType("delete");
 			deleteCommentLove(comment);
 		}
 		comment.setRedisType("love_comment");

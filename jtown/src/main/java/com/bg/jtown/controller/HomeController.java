@@ -23,9 +23,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.bg.jtown.business.Comment;
 import com.bg.jtown.business.Count;
 import com.bg.jtown.business.HomeService;
 import com.bg.jtown.business.Interest;
+import com.bg.jtown.business.comment.CommentService;
+import com.bg.jtown.business.search.CommentFilter;
 import com.bg.jtown.business.search.HomeFilter;
 import com.bg.jtown.security.JtownUser;
 
@@ -41,6 +44,8 @@ public class HomeController {
 
 	@Resource
 	private HomeService homeService;
+	@Resource
+	private CommentService commentService;
 
 	// ~ FORM
 
@@ -173,7 +178,12 @@ public class HomeController {
 			logger.debug(user.toString());
 
 			Integer customerPn = user.getPn();
+
+			CommentFilter commentFilter = new CommentFilter();
+			commentFilter.setSellerPn(sellerPn);
 			if (user.getGroupName().equals("Customer")) {
+				commentFilter.setCustomerPn(customerPn);
+				
 				selectMap.put("cpn", customerPn);
 
 				if (customerPn != null && customerPn != 0) {
@@ -184,6 +194,15 @@ public class HomeController {
 			} else {
 				selectMap.put("cpn", 0);
 			}
+
+			List<Comment> commentTops = commentService
+					.selectCommentTop(commentFilter);
+			if (commentTops.size() == 0) {
+				selectMap.put("comments",
+						commentService.selectComment(commentFilter));
+			}
+			selectMap.put("commentTops", commentTops);
+			selectMap.put("commentFilter", commentFilter);
 		} catch (ClassCastException e) {
 			logger.debug("로그인하지않은 사용자");
 		}

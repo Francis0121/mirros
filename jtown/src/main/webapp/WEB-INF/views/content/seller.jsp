@@ -341,13 +341,16 @@
 										<li data-copn="<c:out value="${comment.commentPn }"/>" class="jt-home-expand-shop-comment-li">
 											<ul class="jt-home-expand-shop-text-wrap">
 												<li class="jt-home-expand-shop-comment-header">
-													<span class="jt-home-expand-shop-comment-name"><c:out value="${comment.customerName }"/></span>
-													<span class="jt-home-expand-shop-comment-progress-date">${comment.inputDate}</span>
-													<a href="#none" class="jt-home-expand-shop-comment-loveIt">Love&nbsp;It</a>
-													<span id="copnLoveIt-<c:out value="${comment.commentPn }"/>" class="jt-home-expand-shop-comment-loveIt-count"><c:out value="${comment.commentLoveCount eq null ? '' : comment.commentLoveCount }"/></span>
+													<span class="jt-home-expand-shop-comment-best">BEST</span>
 												</li>
-												<li class="jt-home-expand-shop-comment-text">
-													<c:out value="${comment.comment }"/>
+												<li class="jt-home-expand-shop-comment-content">
+													<span class="jt-home-expand-shop-comment-name"><c:out value="${comment.customerName }"/></span>
+													<span class="jt-home-expand-shop-comment-text"><c:out value="${comment.comment }"/></span>
+												</li>
+												<li class="copnLoveIt-<c:out value="${comment.commentPn }"/> jt-home-expand-shop-comment-footer">
+													<span class="jt-home-expand-shop-comment-progress-date">${comment.inputDate}</span>
+													<a href="#none" class="jt-home-expand-shop-comment-loveIt">LOVE</a>
+													<span class="jt-home-expand-shop-comment-loveIt-count"><c:out value="${comment.commentLoveCount eq null ? '' : comment.commentLoveCount }"/></span>
 												</li>
 											</ul>
 											<c:choose>
@@ -397,7 +400,7 @@
 									</li>
 								</ul>
 								<div class="jt-home-expand-shop-comment-insert">
-									<input type="text" id="jt-comment-insert" readonly="readonly" placeholder="판매자 아이디로는 이용하실 수 없습니다."/>
+									<input type="text" id="jt-comment-insert" readonly="readonly" placeholder="판매자 아이디로는 이용하실 수 없습니다." maxlength="100"/>
 								</div>
 							</div>
 						</div>
@@ -408,6 +411,11 @@
 	</section>
 	<%@ include file="../layout/login.jspf" %>
 	<%@ include file="../layout/script.jspf" %>
+	<script type="text/javascript">
+		$(function(){
+			$('#jt-comment-insert').placeholder();
+		});
+	</script>
 	<c:if test="${error eq 1 }">
 		<%--F5, CTRL + N, CTRL + R 시에는 error 메시지 안뜨도록 설정 --%>
 		<c:url value="/seller/${jtownUser.pn}" var="sellerUrl"/>

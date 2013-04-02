@@ -14,7 +14,9 @@ jtown.comment.syncComment = function(){
 	
 	$('.jt-comment-delete').unbind('click');
 	$('.jt-comment-delete').bind('click', function(){
-		jtown.comment.deleteComment($(this));
+		if(confirm('댓글을 삭제하시겠습니까?')){
+			jtown.comment.deleteComment($(this));			
+		}
 	});
 	
 	$('.jt-comment-update').unbind('click');
@@ -85,7 +87,7 @@ jtown.comment.syncComment = function(){
 				jtown.comment.commentHtml(comment, 'last', false);
 			}
 			
-			setTimeout('jtown.expand.changeContainerHeight(\''+comments.length+'\')', 0);
+			setTimeout('jtown.expand.changeContainerHeight()', 0);
 			setTimeout('jtown.comment.syncComment()',0);
 			if(nextPage * numItemsPerPage < numItems ||
 					(page * numItemsPerPage < numItems && nextPage * numItemsPerPage >= numItems )){
@@ -103,30 +105,85 @@ jtown.comment.syncComment = function(){
 			parents = me.parents('.jt-home-expand-shop-comment-li'),
 			$shop = me.parents('#jt-home-expand-shop');
 		
+		if(nullValueCheck(parents.html())){
+			parents = me.parents('.jt-home-expand-shop-comment-li-best');
+		}
+		var commentPn = parents.attr('data-copn');
+		
 		var url = contextPath + 'ajax/home/toggleCommentLove.jt';
-		var json = {	commentPn	:	parents.attr('data-copn'),
+		var json = {	commentPn	:	commentPn,
 						sellerPn	:	$shop.attr('data-spn') 		};
 		
-		$.postJSON(url, json, function(){
+		$.postJSON(url, json, function(comment){
+			if(!nullValueCheck(comment.message)){
+				alert(comment.message);
+			}else{
+				var crudType = comment.crudType;
+				if(crudType == 'insert'){
+					$('.copnLoveIt-'+commentPn).append('<a href="#none" class="jt-home-expand-shop-comment-loveIt-cancle">취소</a>');
+					jtown.comment.loveCancle();
+				}else if(crudType == 'delete'){
+					$('.copnLoveIt-'+commentPn).find('.jt-home-expand-shop-comment-loveIt-cancle').remove();
+				}
+			}
+		});
+	});
+	
+	jtown.comment.loveCancle();
+	
+};
+
+jtown.comment.loveCancle = function(){
+	$('.jt-home-expand-shop-comment-loveIt-cancle').unbind('click');
+	$('.jt-home-expand-shop-comment-loveIt-cancle').bind('click', function(){
+		var me = $(this),
+			parents = me.parents('.jt-home-expand-shop-comment-li'),
+			$shop = me.parents('#jt-home-expand-shop');
+		
+		if(nullValueCheck(parents.html())){
+			parents = me.parents('.jt-home-expand-shop-comment-li-best');
+		}
+		var commentPn = parents.attr('data-copn');
+		
+		var url = contextPath + 'ajax/home/toggleCommentLove.jt';
+		var json = {	commentPn	:	commentPn,
+						sellerPn	:	$shop.attr('data-spn') 		};
+		
+		$.postJSON(url, json, function(comment){
+			if(!nullValueCheck(comment.message)){
+				alert(comment.message);
+			}else{
+				var crudType = comment.crudType;
+				if(crudType == 'delete'){
+					$('.copnLoveIt-'+commentPn).find('.jt-home-expand-shop-comment-loveIt-cancle').remove();
+				}
+			}
 		});
 	});
 };
 
 jtown.comment.commentHtml = function(comment, position, best){
 	var cpn = $('#jt-logout').attr('data-cpn');
+	var cancleHtml = '&nbsp;<a href="#none" class="jt-home-expand-shop-comment-loveIt-cancle">취소</a>';
+	var cancleComment = nullValueCheck(comment.commentCustomerPn) ? '' : cancleHtml;
+	
 	var commentHtml ='';
-	commentHtml += 	'<li data-copn="'+comment.commentPn+'" class="'+ (best ? 'jt-home-expand-shop-comment-li-best' : 'jt-home-expand-shop-comment-li')+'">';
+	commentHtml += 	'<li data-copn="'+comment.commentPn+'" class="' + (best ? 'jt-home-expand-shop-comment-li-best' : 'jt-home-expand-shop-comment-li') + '">';
 	commentHtml +=	'	<ul class="jt-home-expand-shop-text-wrap">';
-	commentHtml += 	'		<li class="jt-home-expand-shop-comment-header">';
 	if(best){
+	commentHtml += 	'		<li class="jt-home-expand-shop-comment-header">';
 	commentHtml += 	'			<span class="jt-home-expand-shop-comment-best">BEST</span>';	
-	}
-	commentHtml += 	'			<span class="jt-home-expand-shop-comment-name">'+htmlChars(comment.customerName)+'</span>';
-	commentHtml += 	'			<span class="jt-home-expand-shop-comment-progress-date">'+comment.inputDate+'</span>';
-	commentHtml +=	' 			<a href="#none" class="jt-home-expand-shop-comment-loveIt">Love&nbsp;It</a>';	
-	commentHtml +=	'			<span id="copnLoveIt-'+comment.commentPn+'" class="jt-home-expand-shop-comment-loveIt-count">'+ ( nullValueCheck(comment.commentLoveCount) ? '' : comment.commentLoveCount )+'</span>';	
 	commentHtml += 	'		</li>';
-	commentHtml +=	'		<li class="jt-home-expand-shop-comment-text">'+htmlChars(comment.comment)+'</li>';
+	}
+	commentHtml += 	'		<li class="jt-home-expand-shop-comment-content">';
+	commentHtml += 	'			<span class="jt-home-expand-shop-comment-name">'+htmlChars(comment.customerName)+'</span>';
+	commentHtml +=	' 			<span class="jt-home-expand-shop-comment-text">'+htmlChars(comment.comment)+'</span>';
+	commentHtml += 	'		</li>';
+	commentHtml +=	'		<li class="copnLoveIt-'+comment.commentPn+' jt-home-expand-shop-comment-footer">';
+	commentHtml += 	'			<span class="jt-home-expand-shop-comment-progress-date">'+comment.inputDate+'</span>';
+	commentHtml +=	' 			<a href="#none" class="jt-home-expand-shop-comment-loveIt">LOVE</a>';	
+	commentHtml +=	'			<span class="jt-home-expand-shop-comment-loveIt-count">'+ ( nullValueCheck(comment.commentLoveCount) ? '' : comment.commentLoveCount )+'</span>'+cancleComment;	
+	commentHtml += 	'		</li>';
 	commentHtml	+= 	'	</ul>';
 	if(comment.customerPn == cpn){
 	commentHtml +=	'	<div class="jt-home-expand-shop-update-wrap">';

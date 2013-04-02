@@ -14,8 +14,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import com.bg.jtown.business.comment.CommentService;
-import com.bg.jtown.business.search.CommentFilter;
 import com.bg.jtown.business.search.HomeFilter;
 import com.bg.jtown.business.seller.SellerService;
 import com.bg.jtown.redis.Publisher;
@@ -37,10 +35,6 @@ public class HomeServiceImpl extends SqlSessionDaoSupport implements
 
 	@Resource
 	private SellerService sellerService;
-
-	@Resource
-	private CommentService commentService;
-
 	@Resource
 	private Publisher publisher;
 
@@ -95,22 +89,12 @@ public class HomeServiceImpl extends SqlSessionDaoSupport implements
 
 	@Override
 	public Map<String, Object> selectExpandShop(Integer properNumber) {
-		CommentFilter commentFilter = new CommentFilter(properNumber);
 		Map<String, Object> selectMap = new HashMap<String, Object>();
 		selectMap.put("jtownUser",
 				sellerService.selectSellerInformation(properNumber));
 		selectMap.putAll(sellerService.selectSellerEvent(properNumber));
 		selectMap.put("products",
 				sellerService.selectSellerProduct(properNumber));
-
-		List<Comment> commentTops = commentService
-				.selectCommentTop(commentFilter);
-		if (commentTops.size() == 0) {
-			selectMap.put("comments",
-					commentService.selectComment(commentFilter));
-		}
-		selectMap.put("commentTops", commentTops);
-		selectMap.put("commentFilter", commentFilter);
 
 		logger.debug(selectMap.toString());
 

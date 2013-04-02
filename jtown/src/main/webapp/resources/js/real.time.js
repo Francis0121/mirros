@@ -34,7 +34,7 @@ jtown.real.time = function(obj) {
 				$('#comment-expand-' + spn).html(count);
 				jtown.comment.commentHtml(obj, 'first', false);
 				setTimeout('jtown.comment.syncComment()', 0);
-				setTimeout('jtown.expand.changeContainerHeight(\'1\')', 0);
+				setTimeout('jtown.expand.changeContainerHeight()', 0);
 			}
 		}
 	} else if (obj.redisType == 'delete_comment') {
@@ -46,7 +46,7 @@ jtown.real.time = function(obj) {
 			if (spn == expandSpn) {
 				$('#comment-expand-' + spn).html(count);
 				$('.jt-home-expand-shop-comment>li[data-copn='+obj.commentPn+']').remove();
-				setTimeout('jtown.expand.changeContainerHeight(\'-1\')', 0);
+				setTimeout('jtown.expand.changeContainerHeight()', 0);
 			}
 		}
 	} else if (obj.redisType == 'update_comment') {
@@ -66,7 +66,7 @@ jtown.real.time = function(obj) {
 		if (!nullValueCheck(expandShop.html())) {
 			var expandSpn = expandShop.attr('data-spn');
 			if (spn == expandSpn) {			
-				$('#copnLoveIt-'+copn).html(count == 0 ? '': count);
+				$('.copnLoveIt-'+copn).find('.jt-home-expand-shop-comment-loveIt-count').html(count == 0 ? '': count);
 			}
 		}
 	}

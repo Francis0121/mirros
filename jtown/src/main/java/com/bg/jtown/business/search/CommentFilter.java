@@ -11,6 +11,11 @@ import com.bg.jtown.util.AbstractListFilter;
 public class CommentFilter extends AbstractListFilter {
 
 	/**
+	 * 고객 고유번호
+	 */
+	private Integer customerPn;
+
+	/**
 	 * 날짜기간
 	 */
 	private Integer peroid = 7;
@@ -33,6 +38,10 @@ public class CommentFilter extends AbstractListFilter {
 		this.sellerPn = sellerPn;
 	}
 
+	public Integer getCustomerPn() {
+		return customerPn;
+	}
+
 	public Integer getPeroid() {
 		return peroid;
 	}
@@ -45,14 +54,18 @@ public class CommentFilter extends AbstractListFilter {
 		return topItemNum;
 	}
 
+	public void setCustomerPn(Integer customerPn) {
+		this.customerPn = customerPn;
+	}
+
 	public void setSellerPn(Integer sellerPn) {
 		this.sellerPn = sellerPn;
 	}
 
 	@Override
 	public String toString() {
-		return "CommentFilter [peroid=" + peroid + ", sellerPn=" + sellerPn
-				+ ", topItemNum=" + topItemNum + "]";
+		return "CommentFilter [customerPn=" + customerPn + ", peroid=" + peroid
+				+ ", sellerPn=" + sellerPn + ", topItemNum=" + topItemNum + "]";
 	}
 
 }

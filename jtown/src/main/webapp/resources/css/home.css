@@ -122,18 +122,20 @@ word-wrap: break-word; /* Internet Explorer 5.5+ */}
 }
 .jt-home-expand-shop-comment{float: left; width: 580px; }
 .jt-home-expand-shop-comment>li{float: left; min-height: 20px;  width: 580px; padding: 0 0;  }
-.jt-home-expand-shop-comment-li-best{}
 .jt-home-expand-shop-comment-insert{margin: 10px 0; float: left;}
 .jt-home-expand-shop-comment-insert>input{width: 540px; border: 1px solid #d1cdcd; padding: 4px; float: left; margin: 0 15px;}
 .jt-home-expand-shop-text-wrap{ float: left; width: 580px;}
 .jt-home-expand-shop-text-wrap>li{float: left;}
-.jt-home-expand-shop-comment-best{ color: #ff0000; font-weight: bold;}
-.jt-home-expand-shop-comment-header{width: 550px; padding: 4px 0; margin: 0 15px;}
+.jt-home-expand-shop-comment-header{width: 550px; margin: 0 15px; padding-top: 3px;}
+.jt-home-expand-shop-comment-best{ color: #ff0000; font-weight: bold; text-indent: -99999px; display: block;  width : 40px;height : 12px;  background: url("../images/jt-home-icon.png") -45px -45px no-repeat;}
+.jt-home-expand-shop-comment-content{width: 500px; padding: 2px 50px 4px 0; margin: 0 15px; line-height: 1.5;}
+.jt-home-expand-shop-comment-footer{width: 550px; margin: 0 15px; padding-bottom: 3px; color: #4d4d4d; border-bottom: 1px solid #cfcfcf;}
 .jt-home-expand-shop-comment-name{ color: #010101; font-weight: bold; font-size: 13px;}
 .jt-home-expand-shop-comment-progress-date{ color: #999999; font-size: 11px;}
-.jt-home-expand-shop-comment-loveIt{color: #ef912a;}
-.jt-home-expand-shop-comment-loveIt-count{color: #ef912a;}
-.jt-home-expand-shop-comment-text{width: 550px; margin: 0 15px; padding: 5px 0; color: #4d4d4d; border-bottom: 1px solid #cfcfcf;}
+.jt-home-expand-shop-comment-loveIt{color: #ef912a; font-size: 11px;}
+.jt-home-expand-shop-comment-loveIt-count{color: #ff7f38; font-size: 11px;}
+.jt-home-expand-shop-comment-loveIt-cancle{color: #ff7f38; font-size: 11px;}
+.jt-home-expand-shop-comment-text{}
 .jt-home-expand-shop-comment-add{width: 550px; margin: 5px 15px;}
 .jt-home-expand-shop-comment-add>a{width: 530px; padding: 7px 10px; display: block;}
 

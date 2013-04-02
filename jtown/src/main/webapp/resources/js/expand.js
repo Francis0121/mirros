@@ -76,20 +76,27 @@ jtown.expand.makeInnerHtml = function(spn){
 			best = true;
 		}
 		
+		var cancleHtml = '&nbsp;<a href="#none" class="jt-home-expand-shop-comment-loveIt-cancle">취소</a>';
 		for(var i=0; i<comments.length; i++){
 			var comment = comments[i];
-			commentHtml += 	'<li data-copn="'+comment.commentPn+'" class="'+ (best ? 'jt-home-expand-shop-comment-li-best' : 'jt-home-expand-shop-comment-li')+'">';
+			var cancleComment = nullValueCheck(comment.commentCustomerPn) ? '' : cancleHtml;
+			
+			commentHtml += 	'<li data-copn="'+comment.commentPn+'" class="'+(best ? 'jt-home-expand-shop-comment-li-best' : 'jt-home-expand-shop-comment-li')+'">';
 			commentHtml +=	'	<ul class="jt-home-expand-shop-text-wrap">';
-			commentHtml += 	'		<li class="jt-home-expand-shop-comment-header">';
 			if(best){
+			commentHtml += 	'		<li class="jt-home-expand-shop-comment-header">';
 			commentHtml += 	'			<span class="jt-home-expand-shop-comment-best">BEST</span>';	
+			commentHtml += 	'		</li>';	
 			}
+			commentHtml += 	'		<li class="jt-home-expand-shop-comment-content">';
 			commentHtml += 	'			<span class="jt-home-expand-shop-comment-name">'+htmlChars(comment.customerName)+'</span>';
-			commentHtml += 	'		 	<span class="jt-home-expand-shop-comment-progress-date">'+comment.inputDate+'</span>';
-			commentHtml +=	' 			<a href="#none" class="jt-home-expand-shop-comment-loveIt">Love&nbsp;It</a>';	
-			commentHtml +=	'			<span id="copnLoveIt-'+comment.commentPn+'" class="jt-home-expand-shop-comment-loveIt-count">'+ ( nullValueCheck(comment.commentLoveCount) ? '' : comment.commentLoveCount )+'</span>';
+			commentHtml +=	' 			<span class="jt-home-expand-shop-comment-text">'+htmlChars(comment.comment)+'</span>';
 			commentHtml += 	'		</li>';
-			commentHtml +=	'		<li class="jt-home-expand-shop-comment-text">'+htmlChars(comment.comment)+'</li>';
+			commentHtml +=	'		<li class="copnLoveIt-'+comment.commentPn+' jt-home-expand-shop-comment-footer">';
+			commentHtml += 	'			<span class="jt-home-expand-shop-comment-progress-date">'+comment.inputDate+'</span>';
+			commentHtml +=	' 			<a href="#none" class="jt-home-expand-shop-comment-loveIt">LOVE</a>';	
+			commentHtml +=	'			<span class="jt-home-expand-shop-comment-loveIt-count">'+ ( nullValueCheck(comment.commentLoveCount) ? '' : comment.commentLoveCount )+'</span>'+cancleComment;	
+			commentHtml += 	'		</li>';
 			commentHtml	+= 	'	</ul>';
 			if(comment.customerPn == cpn){
 				commentHtml +=	'<div class="jt-home-expand-shop-update-wrap">';
@@ -135,7 +142,7 @@ jtown.expand.makeInnerHtml = function(spn){
 		if(cpn == 0){
 			commentInputHtml += '<input type="text" id="jt-comment-insert" readonly="readonly" placeholder="판매자 아이디로는 이용하실 수 없습니다."/>';	
 		}else if(!nullValueCheck(cpn)){			
-			commentInputHtml += '<input type="text" id="jt-comment-insert" placeholder="회사를 평가해 주세요."/>';
+			commentInputHtml += '<input type="text" id="jt-comment-insert" placeholder="회사를 평가해 주세요." maxlength="100"/>';
 		}else{
 			commentInputHtml += '<input type="text" id="jt-comment-insert" readonly="readonly" placeholder="로그인한 사용자만 사용할 수 있습니다."/>';
 		}
@@ -209,19 +216,22 @@ jtown.expand.makeInnerHtml = function(spn){
 		$.smartPop.open({width : 640,height : 650,html : html ,effect : 'transfer', target : '#jt-home-shop-'+spn });
 		setTimeout('jtown.expand.syncProductMove()', 0);
 		setTimeout('jtown.comment.syncComment()', 0);
-		setTimeout('jtown.expand.changeContainerHeight(\''+comments.length+'\')', 0);
+		setTimeout('jtown.expand.changeContainerHeight()', 0);
+		setTimeout('$(function(){ $("#jt-comment-insert").placeholder(); })', 0);
 	});
 };
 
-jtown.expand.changeContainerHeight = function(number){
+jtown.expand.changeContainerHeight = function(){
 	var smartPopContainer = $('#smartPop_container');
-	var smartPopContent = $('#smartPop_content');
-	var height = smartPopContainer.css('height');
-	height = Number(height.replace('px', ''));
-	var changeHeight = height + (48 * Number(number));
-
-	smartPopContainer.css('height', changeHeight+'px');
-	smartPopContent.css('height', changeHeight+'px');
+	if(!nullValueCheck(smartPopContainer.html())){	
+		var smartPopContent = $('#smartPop_content');
+		var height = $('#jt-home-expand-shop').css('height');
+		height = Number(height.replace('px', ''));
+		var changeHeight = height + 50;
+		
+		smartPopContainer.css('height', changeHeight+'px');
+		smartPopContent.css('height', changeHeight+'px');
+	}
 };
 
 jtown.expand.syncProductMove = function(){

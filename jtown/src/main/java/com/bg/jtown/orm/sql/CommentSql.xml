@@ -33,6 +33,7 @@
 		<result column="comment" property="comment"/>
 		<result column="input_date" property="inputDate"/>
 		<result column="comment_love_count" property="commentLoveCount"/>
+		<result column="comment_customer_pn" property="commentCustomerPn"/>
 	</resultMap>
 	
 	<select id="selectCommentCount" parameterType="com.bg.jtown.business.search.CommentFilter" resultType="java.lang.Integer">
@@ -47,7 +48,10 @@
 	<select id="selectCommentTop" parameterType="com.bg.jtown.business.search.CommentFilter" resultMap="jtown-comment-map">	
 		SELECT
 			p.pn, p.customer_pn, p.name, p.seller_pn, p.comment, p.comment_love_count, 
-			DATE_FORMAT(p.input_date, '%Y년도 %c월 %d일 %k시%i분') AS input_date
+			DATE_FORMAT(p.input_date, '%Y년 %c월 %d일') AS input_date
+			<if test="customerPn != null">
+			, uccl.customer_pn AS comment_customer_pn
+			</if>
 		FROM
 		(
 		<![CDATA[
@@ -74,7 +78,11 @@
 		ORDER BY
 			diff DESC, cclcp.comment_love_count DESC, ucc.input_date DESC 
 		) p
-		]]> 
+		]]>
+		<if test="customerPn != null">
+		LEFT OUTER JOIN user_customer_comment_love uccl
+		ON p.pn = uccl.comment_pn AND uccl.customer_pn = #{customerPn}
+		</if>
 		WHERE
 			diff = 1
 		LIMIT #{topItemNum}
@@ -84,11 +92,19 @@
 		<include refid="paginationBefore"/>
 		SELECT
 			ucc.pn, ucc.customer_pn, u.name, ucc.seller_pn, ucc.comment, cclcp.comment_love_count, 
-			DATE_FORMAT(ucc.input_date, '%Y년도 %c월 %d일 %k시%i분') AS input_date
+			DATE_FORMAT(ucc.input_date, '%Y년 %c월 %d일') AS input_date
+			<if test="customerPn != null">
+			, uccl.customer_pn AS comment_customer_pn
+			</if>
 		FROM
 			user_customer_comment ucc
 			LEFT OUTER JOIN count_comment_love_comment_pn cclcp
-			ON ucc.pn = cclcp.comment_pn,
+			ON ucc.pn = cclcp.comment_pn
+			<if test="customerPn != null">
+			LEFT OUTER JOIN user_customer_comment_love uccl
+			ON ucc.pn = uccl.comment_pn AND uccl.customer_pn = #{customerPn}
+			</if>
+			,
 			user_customer uc
 			LEFT OUTER JOIN users u
 			ON uc.pn = u.pn
@@ -104,7 +120,7 @@
 	<select id="selectCommentOne" parameterType="java.lang.Integer" resultMap="jtown-comment-map">
 		SELECT
 			ucc.pn, ucc.customer_pn, u.name, ucc.seller_pn, ucc.comment, cclcp.comment_love_count, 
-			DATE_FORMAT(ucc.input_date, '%Y년도 %c월 %d일 %k시%i분') AS input_date
+			DATE_FORMAT(ucc.input_date, '%Y년 %c월 %d일') AS input_date
 		FROM
 			user_customer_comment ucc
 			LEFT OUTER JOIN count_comment_love_comment_pn cclcp

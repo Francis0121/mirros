@@ -28,6 +28,14 @@ public class CommentController {
 	@ResponseBody
 	public List<Comment> ajaxSelectCommentTop(
 			@RequestBody CommentFilter commentFilter) {
+		try {
+			JtownUser user = (JtownUser) SecurityContextHolder.getContext()
+					.getAuthentication().getPrincipal();
+			if (user.getGroupName().equals("Customer")) {
+				commentFilter.setCustomerPn(user.getPn());
+			}
+		} catch (Exception e) {
+		}
 		return commentService.selectCommentTop(commentFilter);
 	}
 
@@ -35,6 +43,14 @@ public class CommentController {
 	@ResponseBody
 	public List<Comment> ajaxSelectComment(
 			@RequestBody CommentFilter commentFilter) {
+		try {
+			JtownUser user = (JtownUser) SecurityContextHolder.getContext()
+					.getAuthentication().getPrincipal();
+			if (user.getGroupName().equals("Customer")) {
+				commentFilter.setCustomerPn(user.getPn());
+			}
+		} catch (Exception e) {
+		}
 		return commentService.selectComment(commentFilter);
 	}
 
@@ -68,11 +84,18 @@ public class CommentController {
 	@RequestMapping(value = "/ajax/home/toggleCommentLove.jt", method = RequestMethod.POST)
 	@ResponseBody
 	public Comment ajaxInsertCommentLove(@RequestBody Comment comment) {
-		JtownUser user = (JtownUser) SecurityContextHolder.getContext()
-				.getAuthentication().getPrincipal();
-		comment.setCustomerPn(user.getPn());
-		commentService.toggleCommentLove(comment);
+		try {
+			JtownUser user = (JtownUser) SecurityContextHolder.getContext()
+					.getAuthentication().getPrincipal();
+			if (user.getGroupName().equals("Customer")) {
+				comment.setCustomerPn(user.getPn());
+				commentService.toggleCommentLove(comment);
+			} else {
+				comment.setMessage("판매자는 불가능 합니다.");
+			}
+		} catch (Exception e) {
+			comment.setMessage("로그인한 사용자만 이용가능합니다.");
+		}
 		return comment;
 	}
-
 }

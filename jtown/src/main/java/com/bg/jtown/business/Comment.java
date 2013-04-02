@@ -12,6 +12,16 @@ public class Comment {
 	private String comment;
 
 	/**
+	 * 댓글 고객 보유 번호
+	 */
+	private Integer commentCustomerPn;
+
+	/**
+	 * comment 좋아요 개수
+	 */
+	private Integer commentLoveCount;
+
+	/**
 	 * 댓글 고유 번호
 	 */
 	private Integer commentPn;
@@ -20,6 +30,11 @@ public class Comment {
 	 * 판매자에 따른 댓글 개수
 	 */
 	private Integer count;
+
+	/**
+	 * 입력삭제 타입
+	 */
+	private String crudType;
 
 	/**
 	 * 소비자 닉네임
@@ -37,6 +52,11 @@ public class Comment {
 	private String inputDate;
 
 	/**
+	 * 오류 메시지
+	 */
+	private String message;
+
+	/**
 	 * redisType
 	 */
 	private String redisType;
@@ -45,19 +65,6 @@ public class Comment {
 	 * 판매자 고유번호
 	 */
 	private Integer sellerPn;
-
-	/**
-	 * comment 좋아요 개수
-	 */
-	private Integer commentLoveCount;
-
-	public Integer getCommentLoveCount() {
-		return commentLoveCount;
-	}
-
-	public void setCommentLoveCount(Integer commentLoveCount) {
-		this.commentLoveCount = commentLoveCount;
-	}
 
 	public Comment() {
 		super();
@@ -81,12 +88,24 @@ public class Comment {
 		return comment;
 	}
 
+	public Integer getCommentCustomerPn() {
+		return commentCustomerPn;
+	}
+
+	public Integer getCommentLoveCount() {
+		return commentLoveCount;
+	}
+
 	public Integer getCommentPn() {
 		return commentPn;
 	}
 
 	public Integer getCount() {
 		return count;
+	}
+
+	public String getCrudType() {
+		return crudType;
 	}
 
 	public String getCustomerName() {
@@ -101,6 +120,10 @@ public class Comment {
 		return inputDate;
 	}
 
+	public String getMessage() {
+		return message;
+	}
+
 	public String getRedisType() {
 		return redisType;
 	}
@@ -113,12 +136,24 @@ public class Comment {
 		this.comment = comment;
 	}
 
+	public void setCommentCustomerPn(Integer commentCustomerPn) {
+		this.commentCustomerPn = commentCustomerPn;
+	}
+
+	public void setCommentLoveCount(Integer commentLoveCount) {
+		this.commentLoveCount = commentLoveCount;
+	}
+
 	public void setCommentPn(Integer commentPn) {
 		this.commentPn = commentPn;
 	}
 
 	public void setCount(Integer count) {
 		this.count = count;
+	}
+
+	public void setCrudType(String crudType) {
+		this.crudType = crudType;
 	}
 
 	public void setCustomerName(String customerName) {
@@ -133,6 +168,10 @@ public class Comment {
 		this.inputDate = inputDate;
 	}
 
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
 	public void setRedisType(String redisType) {
 		this.redisType = redisType;
 	}
@@ -143,11 +182,13 @@ public class Comment {
 
 	@Override
 	public String toString() {
-		return "Comment [comment=" + comment + ", commentPn=" + commentPn
-				+ ", count=" + count + ", customerName=" + customerName
+		return "Comment [comment=" + comment + ", commentCustomerPn="
+				+ commentCustomerPn + ", commentLoveCount=" + commentLoveCount
+				+ ", commentPn=" + commentPn + ", count=" + count
+				+ ", crudType=" + crudType + ", customerName=" + customerName
 				+ ", customerPn=" + customerPn + ", inputDate=" + inputDate
-				+ ", redisType=" + redisType + ", sellerPn=" + sellerPn
-				+ ", commentLoveCount=" + commentLoveCount + "]";
+				+ ", message=" + message + ", redisType=" + redisType
+				+ ", sellerPn=" + sellerPn + "]";
 	}
 
 }
