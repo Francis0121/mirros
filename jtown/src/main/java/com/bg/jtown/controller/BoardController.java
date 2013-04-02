@@ -14,8 +14,8 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.bg.jtown.business.board.Board;
-import com.bg.jtown.business.board.BoardFilter;
 import com.bg.jtown.business.board.BoardService;
+import com.bg.jtown.business.search.BoardFilter;
 
 @Controller
 public class BoardController {
@@ -81,9 +81,9 @@ public class BoardController {
 	@RequestMapping(value = "/admin/noticeModify", method = RequestMethod.POST)
 	public ModelAndView showNoticeModifyPost(@ModelAttribute Board board) {
 		ModelAndView mav = new ModelAndView();
-		
+
 		boardService.updateNotice(board);
-		
+
 		mav.addObject("notice", boardService.selectNoticeContent(board));
 		mav.setView(new RedirectView("noticeContent?pn=" + board.getPn()));
 		return mav;

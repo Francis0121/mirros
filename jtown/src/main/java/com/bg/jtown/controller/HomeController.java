@@ -172,6 +172,9 @@ public class HomeController {
 	public Map<String, Object> ajaxExpandShop(@RequestBody JtownUser jtownUser) {
 		Integer sellerPn = jtownUser.getPn();
 		Map<String, Object> selectMap = homeService.selectExpandShop(sellerPn);
+
+		CommentFilter commentFilter = new CommentFilter();
+		commentFilter.setSellerPn(sellerPn);
 		try {
 			JtownUser user = (JtownUser) SecurityContextHolder.getContext()
 					.getAuthentication().getPrincipal();
@@ -179,13 +182,9 @@ public class HomeController {
 
 			Integer customerPn = user.getPn();
 
-			CommentFilter commentFilter = new CommentFilter();
-			commentFilter.setSellerPn(sellerPn);
 			if (user.getGroupName().equals("Customer")) {
 				commentFilter.setCustomerPn(customerPn);
-				
 				selectMap.put("cpn", customerPn);
-
 				if (customerPn != null && customerPn != 0) {
 					int count = homeService.selectLoveCount(new Count(null,
 							customerPn, null, null, sellerPn, null));
@@ -194,18 +193,18 @@ public class HomeController {
 			} else {
 				selectMap.put("cpn", 0);
 			}
-
-			List<Comment> commentTops = commentService
-					.selectCommentTop(commentFilter);
-			if (commentTops.size() == 0) {
-				selectMap.put("comments",
-						commentService.selectComment(commentFilter));
-			}
-			selectMap.put("commentTops", commentTops);
-			selectMap.put("commentFilter", commentFilter);
 		} catch (ClassCastException e) {
 			logger.debug("로그인하지않은 사용자");
 		}
+
+		List<Comment> commentTops = commentService
+				.selectCommentTop(commentFilter);
+		if (commentTops.size() == 0) {
+			selectMap.put("comments",
+					commentService.selectComment(commentFilter));
+		}
+		selectMap.put("commentTops", commentTops);
+		selectMap.put("commentFilter", commentFilter);
 
 		return selectMap;
 	}

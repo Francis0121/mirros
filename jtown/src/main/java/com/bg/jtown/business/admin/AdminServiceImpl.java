@@ -1,4 +1,4 @@
-package com.bg.jtown.business;
+package com.bg.jtown.business.admin;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,6 +9,7 @@ import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bg.jtown.business.Interest;
 import com.bg.jtown.business.search.UserFilter;
 import com.bg.jtown.security.CustomJdbcUserDetailManager;
 import com.bg.jtown.security.JtownUser;

@@ -21,10 +21,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.bg.jtown.business.AdminService;
 import com.bg.jtown.business.Contract;
 import com.bg.jtown.business.Interest;
 import com.bg.jtown.business.Partnership;
+import com.bg.jtown.business.admin.AdminService;
 import com.bg.jtown.business.help.HelpService;
 import com.bg.jtown.business.search.ContractFilter;
 import com.bg.jtown.business.search.PartnershipFilter;
@@ -251,6 +251,15 @@ public class AdminController {
 					contractService.insertCaculatePeroidContract(contract));
 		}
 		return "admin/contract";
+	}
+
+	// ~ Comment
+
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@RequestMapping(value = "/admin/comment", method = RequestMethod.GET)
+	public String showContractListPopup(Model model) {
+
+		return "admin/comment";
 	}
 
 }

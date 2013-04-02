@@ -7,6 +7,6 @@
 		<typeAlias alias="JtownUser" type="com.bg.jtown.security.JtownUser"/>
 		<typeAlias alias="Interest" type="com.bg.jtown.business.Interest"/>
 		<typeAlias alias="Board" type="com.bg.jtown.business.board.Board" />
-		<typeAlias alias="BoardFilter" type="com.bg.jtown.business.board.BoardFilter" />
+		<typeAlias alias="BoardFilter" type="com.bg.jtown.business.search.BoardFilter" />
 	</typeAliases>
 </configuration>
