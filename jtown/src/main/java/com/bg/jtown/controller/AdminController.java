@@ -26,6 +26,7 @@ import com.bg.jtown.business.Interest;
 import com.bg.jtown.business.Partnership;
 import com.bg.jtown.business.admin.AdminService;
 import com.bg.jtown.business.help.HelpService;
+import com.bg.jtown.business.search.AdminCommentFilter;
 import com.bg.jtown.business.search.ContractFilter;
 import com.bg.jtown.business.search.PartnershipFilter;
 import com.bg.jtown.business.search.UserFilter;
@@ -257,9 +258,10 @@ public class AdminController {
 
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/admin/comment", method = RequestMethod.GET)
-	public String showContractListPopup(Model model) {
-
+	public String showContractListPopup(Model model,
+			@ModelAttribute AdminCommentFilter adminCommentFilter) {
+		model.addAttribute("comments",
+				adminService.selectAllCommentList(adminCommentFilter));
 		return "admin/comment";
 	}
-
 }

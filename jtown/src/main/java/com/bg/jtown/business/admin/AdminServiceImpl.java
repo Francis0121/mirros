@@ -9,7 +9,9 @@ import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bg.jtown.business.Comment;
 import com.bg.jtown.business.Interest;
+import com.bg.jtown.business.search.AdminCommentFilter;
 import com.bg.jtown.business.search.UserFilter;
 import com.bg.jtown.security.CustomJdbcUserDetailManager;
 import com.bg.jtown.security.JtownUser;
@@ -194,5 +196,23 @@ public class AdminServiceImpl extends SqlSessionDaoSupport implements
 		}
 		return getSqlSession().selectList(
 				"adminMapper.selectCustomerInterestList", pnList);
+	}
+
+	@Override
+	public List<Comment> selectAllCommentList(
+			AdminCommentFilter adminCommentFilter) {
+		Pagination pagination = adminCommentFilter.getPagination();
+		int count = selectAllCommentCount(adminCommentFilter);
+		pagination.setNumItems(count);
+		if (count == 0) {
+			return new ArrayList<Comment>();
+		}
+		return getSqlSession().selectList("adminMapper.selectAllCommentList",
+				adminCommentFilter);
+	}
+
+	private Integer selectAllCommentCount(AdminCommentFilter adminCommentFilter) {
+		return getSqlSession().selectOne("adminMapper.selectAllCommentCount",
+				adminCommentFilter);
 	}
 }

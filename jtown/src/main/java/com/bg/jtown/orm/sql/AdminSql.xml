@@ -264,4 +264,36 @@
 		</foreach>		
 	</select>
 	
+	<resultMap type="com.bg.jtown.business.Comment" id="jt-admin-comment-map">
+		<result column="pn" property="commentPn"/>
+		<result column="customer_pn" property="customerPn"/>
+		<result column="id" property="customerName"/>
+		<result column="seller_pn" property="sellerPn"/>
+		<result column="comment" property="comment"/>
+		<result column="input_date" property="inputDate"/>
+	</resultMap>
+	
+	<select id="selectAllCommentCount" parameterType="com.bg.jtown.business.search.AdminCommentFilter" resultType="java.lang.Integer">
+		SELECT
+			COUNT(*)
+		FROM
+			user_customer_comment	
+	</select>
+	
+	<select id="selectAllCommentList" parameterType="com.bg.jtown.business.search.AdminCommentFilter" resultMap="jt-admin-comment-map">
+		<include refid="paginationBefore"/>
+			SELECT
+				ucc.pn, ucc.customer_pn, u.id, ucc.seller_pn, ucc.comment, input_date
+			FROM
+				user_customer_comment ucc,
+				user_customer uc
+				LEFT OUTER JOIN users u
+				ON uc.pn = u.pn
+			WHERE
+				ucc.customer_pn = uc.pn	
+			ORDER BY
+				input_date DESC
+		<include refid="paginationAfter"/>
+	</select>
+	
 </mapper>

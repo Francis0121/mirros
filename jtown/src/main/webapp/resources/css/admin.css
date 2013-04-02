@@ -203,3 +203,24 @@
 **********************/
 .jt-admin-sellerInformation-id{font-size: 12px; margin-left: 25px; float: left;}
 #folderBar { padding-top: 0;}
+/*********************
+*	댓글 관리
+********************/
+.jt-admin-comment-table { border-bottom: 1px solid #ffd5a6; border-right: 1px solid #ffd5a6; border-collapse: collapse; font-size: 12px; width: 1200px;}
+.jt-admin-comment-table th, .jt-admin-comment-table td{ padding: 8px 3px; border-top: 1px solid #ffd5a6; border-left: 1px solid #ffd5a6; min-height: 20px;}
+.jt-admin-comment-table>thead>tr{background: #ff9921; color: #fff;}
+.jt-admin-comment-table>tfoot>tr>td{text-align: center;}
+.jt-admin-comment-table>thead>tr>th:nth-child(1){ width: 93px; }
+.jt-admin-comment-table>thead>tr>th:nth-child(2){ width: 93px; }
+.jt-admin-comment-table>thead>tr>th:nth-child(3){ width: 143px; }
+.jt-admin-comment-table>thead>tr>th:nth-child(4){ width: 443x; }
+.jt-admin-comment-table>thead>tr>th:nth-child(5){ width: 193px; }
+.jt-admin-comment-table>thead>tr>th:nth-child(6){ width: 93px; }
+.jt-admin-comment-table>thead>tr>th:nth-child(7){ width: 92px; }
+.jt-admin-comment-table>tbody>tr>td:nth-child(1){ text-align: center; }
+.jt-admin-comment-table>tbody>tr>td:nth-child(2){ text-align: center; }
+.jt-admin-comment-table>tbody>tr>td:nth-child(3){ text-align: center; }
+.jt-admin-comment-table>tbody>tr>td:nth-child(4){ text-align: left; }
+.jt-admin-comment-table>tbody>tr>td:nth-child(5){ text-align: center; }
+.jt-admin-comment-table>tbody>tr>td:nth-child(6){ text-align: center; }
+.jt-admin-comment-table>tbody>tr>td:nth-child(7){ text-align: center; }
