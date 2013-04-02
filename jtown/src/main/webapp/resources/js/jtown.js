@@ -176,13 +176,6 @@ jtown.header.syncNavMove = function(){
 		}
 	});
 	
-//	$('.jt-header-nav-all').children('li').unbind('click');
-//	$('.jt-header-nav-all').children('li').bind('click', function(){
-//		var left = Number($(this).position().left) - 1;
-//		$('.jt-header-nav-all').animate({
-//			left : '-'+left+'px'
-//		}, 500);	
-//	});
 };
 
 jtown.header.syncNavInterest = function(){
@@ -219,12 +212,12 @@ if (typeof jtown.home == 'undefined') {
 	jtown.home = {};
 }
 
-jtown.home.clickShop = function(spn, href){
+jtown.home.clickShop = function(spn){
 	var url = contextPath + 'ajax/clickShop.jt',
 		json = {	'sellerPn' :	spn	};
 	
 	$.postJSON(url, json, function(){
-		window.open('http://'+href);			
+		
 	});
 };
 
@@ -275,7 +268,7 @@ jtown.home.html = function(data){
 		
 		html+='	<div class="jt-home-shop" id="jt-home-shop-'+spn+'">';
 		html+='		<header>';
-		html+='			<a href="#none" onclick="jtown.home.clickShop(\''+spn+'\', \''+htmlChars(seller.shopUrl)+'\')">'+htmlChars(seller.name)+'</a>';
+		html+='			<a href="http://'+seller.shopUrl+'" target="_blank" onclick="jtown.home.clickShop(\''+spn+'\')">'+htmlChars(seller.name)+'</a>';
 		html+='		</header>';
 		html+='		<div class="jt-home-shop-content">';
 		html+='			<ul class="jt-home-shop-content-image" data-spn="'+spn+'">';

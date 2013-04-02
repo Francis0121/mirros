@@ -37,6 +37,7 @@ word-wrap: break-word; /* Internet Explorer 5.5+ */}
 .jt-home-shop-content-fn>li>a,.jt-home-shop-content-fn>li>span{float: left; margin-right: 5px; font-weight: bold; color: #b2b2b2;}
 .jt-home-shop-view{ float: left; margin-left: 45px; width: 15px; height: 15px; background: url("../images/jt-home-icon.png") 0 -45px no-repeat; text-indent: -99999px;}
 .jt-home-shop-love{ float: left; margin-left: 15px; width: 15px; height: 15px; background: url("../images/jt-home-icon.png") 0 -30px no-repeat; text-indent: -99999px; }
+.jt-home-shop-love:HOVER{ background-position: -15px -30px;}
 .jt-home-shop-comment{ float: left; margin-left: 34px; width: 15px; height: 15px; background: url("../images/jt-home-icon.png") 0 -60px no-repeat; text-indent: -99999px;}
 
 .jt-home-shop-love-click{background: url("../images/jt-home-icon.png") -15px -30px no-repeat !important;}
@@ -91,8 +92,8 @@ word-wrap: break-word; /* Internet Explorer 5.5+ */}
 
 .jt-home-expand-shop-content-fn{ width: 100%; float:left; font-size: 12px; border-top: 1px solid #d1cdcd; height: 40px;}
 .jt-home-expand-shop-content-fn>li{ float: left; width: 33%; font-weight: bold; }
-.jt-home-expand-shop-content-view-wrap{ font-size: 13px; color: #cdcdcd; padding-top: 14px;}
-.jt-home-expand-shop-content-comment-wrap{ font-size: 16px; color: #cdcdcd; margin-top: 5px; padding: 7px 0 11px 0; border-top: 1px solid #d6d2d2; border-left: 1px solid #d6d2d2; border-right: 1px solid #d6d2d2;
+.jt-home-expand-shop-content-view-wrap{ font-size: 13px; color: #6a6a6a; padding-top: 14px;}
+.jt-home-expand-shop-content-comment-wrap{ font-size: 16px; color: #ff7f38; margin-top: 5px; padding: 7px 0 11px 0; border-top: 1px solid #d6d2d2; border-left: 1px solid #d6d2d2; border-right: 1px solid #d6d2d2;
 	background: #fff;
  	-webkit-border-radius: 3px 3px 0 0;
     -moz-border-radius: 3px 3px 0 0;
@@ -101,13 +102,12 @@ word-wrap: break-word; /* Internet Explorer 5.5+ */}
 	-moz-box-shadow : 0 1px 3px rgba(34,25,25,0.4);
 	-webkit-box-shadow : 0 1px 3px rgba(34,25,25,0.4);
 }
+.jt-home-expand-shop-content-love-wrap{ font-size: 13px; color: #6a6a6a; padding-top: 14px;}
 .jt-home-expand-shop-border-hide{width: 205px;height: 3px;position: absolute;margin-top: 9px;background: #fff; }
-.jt-home-expand-shop-content-love-wrap{ font-size: 13px; color: #cdcdcd; padding-top: 14px;}
 .jt-home-expand-shop-content-view{ float: left; margin-left: 105px; width: 15px; height: 15px; background: url("../images/jt-home-icon.png") -15px -45px no-repeat; text-indent: -99999px;}
 .jt-home-expand-shop-content-comment{ float: left; margin: 0 10px 0 30px; width: 25px; height: 18px; background: url("../images/jt-home-icon.png") -15px 0px no-repeat; text-indent: -99999px;}
 .jt-home-expand-shop-content-love{ float: left;  margin-left: 65px; width: 15px; height: 15px; background: url("../images/jt-home-icon.png") -30px -30px no-repeat; text-indent: -99999px;}
-.jt-home-expand-shop-content-love-wrap>a, .jt-home-expand-shop-content-love-wrap:VISITED{color: #696969;}
-.jt-home-expand-shop-content-love-wrap>a:HOVER{ color: #ff5b00; }
+.jt-home-expand-shop-content-love:HOVER{background-position: -15px -30px;}
 .jt-home-expand-shop-content-love-hover{ float: left;  width: 15px; height: 15px; background: url("../images/jt-home-icon.png") -15px -30px no-repeat; text-indent: -99999px;}
 
 .jt-home-expand-shop-comment-wrap{float: left; font-size: 12px; font-family: Dotum;  border: 1px solid #cdcdcd;

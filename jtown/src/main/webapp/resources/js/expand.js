@@ -37,7 +37,8 @@ jtown.expand.makeInnerHtml = function(spn){
 			commentTops = selectMap.commentTops,
 			commentFilter = selectMap.commentFilter,
 			cpn = selectMap.cpn,
-			best = false;
+			best = false,
+			loveHave = selectMap.loveHave;
 		
 		var productSize = Number(products.length);
 		var bigProductHtml = '';
@@ -154,12 +155,12 @@ jtown.expand.makeInnerHtml = function(spn){
 		newEventHtml += '			</div>';
 		newEventHtml += '		</div>';
 		
-		var loveClick = selectMap.loveHave != 0 ? 'jt-home-shop-love-click' : '';
-		var loveTextClick =  selectMap.loveHave != 0 ? 'jt-home-shop-love-text-click' : '';
+		var loveClick = (!nullValueCheck(loveHave) && loveHave != 0 ) ? 'jt-home-shop-love-click' : '';
+		var loveTextClick =   (!nullValueCheck(loveHave) && loveHave != 0) ? 'jt-home-shop-love-text-click' : '';
 		
 		html += '<header class="jt-home-expand-click-shop-header">';
 		html += '	<div>';
-		html += '		<a href="#none" onclick="window.open(\'http://'+htmlChars(jtownUser.shopUrl)+'\');">'+htmlChars(jtownUser.name)+'</a>';
+		html += '		<a href="http://'+jtownUser.shopUrl+'" target="_blank" onclick="jtown.home.clickShop(\''+spn+'\');">'+htmlChars(jtownUser.name)+'</a>';
 		html += '	</div>';	
 		html += '</header>';
 		html += '<div class="jt-home-expand-shop jt-home-expand-click-shop" id="jt-home-expand-shop" data-size="'+productSize+'" data-nowPosition="'+(Number(productSize) - 1)+'" data-spn="'+jtownUser.pn+'" >';
@@ -193,7 +194,7 @@ jtown.expand.makeInnerHtml = function(spn){
 		html +=	'	</div>';	
 		html += '	<ul class="jt-home-expand-shop-content-fn">';
 		html +=	'		<li class="jt-home-expand-shop-content-view-wrap">';
-		html +=	'			<span class="jt-home-expand-shop-content-view">Look</span>&nbsp;<span id="view-expand-'+spn+'"/>'+jtownUser.viewCount+'</span>';	
+		html +=	'			<span class="jt-home-expand-shop-content-view">Look</span>&nbsp;<span id="view-expand-'+spn+'">'+jtownUser.viewCount+'</span>';	
 		html +=	'		</li>';
 		html +=	'		<li class="jt-home-expand-shop-content-comment-wrap">';
 		html +=	'			<span class="jt-home-expand-shop-content-comment"></span>&nbsp;Comment&nbsp;&nbsp;<span id="comment-expand-'+spn+'">' + jtownUser.commentCount+'</span>';
