@@ -82,11 +82,11 @@
 			if(scrollY == 0){
 				$('.jt-header-title').slideDown('fast');
 				setTimeout('$(\'.jt-header-nav-interestCategory\').css(\'top\', \'59px\')');
-				setTimeout('$(".jt-footer").hide()',0);
+				setTimeout('$(".jt-footer").slideUp()',0);
 			}else{
 				$('.jt-header-title').slideUp('fast', function(){
 					$('.jt-header-nav-interestCategory').css('top', '14px');
-					setTimeout('$(".jt-footer").show()',0);
+					setTimeout('$(".jt-footer").slideDown()',0);
 				});
 			}
 		});
