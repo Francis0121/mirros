@@ -34,6 +34,8 @@ public interface HomeService {
 
 	void insertLoveCount(Count count);
 
+	Integer selectLoveCount(Count count);
+
 	// ~ Navigation Interest
 
 	List<Interest> selecInterestCategory();

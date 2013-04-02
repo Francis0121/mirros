@@ -147,6 +147,9 @@ jtown.expand.makeInnerHtml = function(spn){
 		newEventHtml += '			</div>';
 		newEventHtml += '		</div>';
 		
+		var loveClick = selectMap.loveHave != 0 ? 'jt-home-shop-love-click' : '';
+		var loveTextClick =  selectMap.loveHave != 0 ? 'jt-home-shop-love-text-click' : '';
+		
 		html += '<header class="jt-home-expand-click-shop-header">';
 		html += '	<div>';
 		html += '		<a href="#none" onclick="window.open(\'http://'+htmlChars(jtownUser.shopUrl)+'\');">'+htmlChars(jtownUser.name)+'</a>';
@@ -190,7 +193,7 @@ jtown.expand.makeInnerHtml = function(spn){
 		html += '			<div class="jt-home-expand-shop-border-hide"></div>';
 		html +=	'		</li>';
 		html +=	'		<li class="jt-home-expand-shop-content-love-wrap">';
-		html +=	'			<a href="#none" onclick="jtown.home.clickLove(\''+spn+'\');"><span class="jt-home-expand-shop-content-love" id="love-expand-image-'+spn+'">Love</span></a>&nbsp;<span id="love-expand-'+spn+'">'+jtownUser.loveCount+'</span>';
+		html +=	'			<a href="#none" onclick="jtown.home.clickLove(\''+spn+'\');"><span class="jt-home-expand-shop-content-love '+loveClick+'" id="love-expand-image-'+spn+'">Love</span></a>&nbsp;<span id="love-expand-'+spn+'" class="'+loveTextClick+'">'+jtownUser.loveCount+'</span>';
 		html +=	'		</li>';
 		html +=	'	</ul>';
 		html +=	'	<div class="jt-home-expand-shop-comment-wrap">';

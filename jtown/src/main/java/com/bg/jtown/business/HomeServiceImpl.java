@@ -96,13 +96,13 @@ public class HomeServiceImpl extends SqlSessionDaoSupport implements
 	@Override
 	public Map<String, Object> selectExpandShop(Integer properNumber) {
 		CommentFilter commentFilter = new CommentFilter(properNumber);
-
 		Map<String, Object> selectMap = new HashMap<String, Object>();
 		selectMap.put("jtownUser",
 				sellerService.selectSellerInformation(properNumber));
 		selectMap.putAll(sellerService.selectSellerEvent(properNumber));
 		selectMap.put("products",
 				sellerService.selectSellerProduct(properNumber));
+
 		List<Comment> commentTops = commentService
 				.selectCommentTop(commentFilter);
 		if (commentTops.size() == 0) {
@@ -110,7 +110,6 @@ public class HomeServiceImpl extends SqlSessionDaoSupport implements
 					commentService.selectComment(commentFilter));
 		}
 		selectMap.put("commentTops", commentTops);
-
 		selectMap.put("commentFilter", commentFilter);
 
 		logger.debug(selectMap.toString());
@@ -214,7 +213,7 @@ public class HomeServiceImpl extends SqlSessionDaoSupport implements
 		publisher.lovePublish(count);
 	}
 
-	private Integer selectLoveCount(Count count) {
+	public Integer selectLoveCount(Count count) {
 		return getSqlSession().selectOne("homeMapper.selectLoveCount", count);
 	}
 

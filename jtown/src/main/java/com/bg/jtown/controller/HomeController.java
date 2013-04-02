@@ -165,15 +165,22 @@ public class HomeController {
 	@RequestMapping(value = "/ajax/home/expandShop.jt", method = RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> ajaxExpandShop(@RequestBody JtownUser jtownUser) {
-		Map<String, Object> selectMap = homeService.selectExpandShop(jtownUser
-				.getPn());
-
+		Integer sellerPn = jtownUser.getPn();
+		Map<String, Object> selectMap = homeService.selectExpandShop(sellerPn);
 		try {
 			JtownUser user = (JtownUser) SecurityContextHolder.getContext()
 					.getAuthentication().getPrincipal();
 			logger.debug(user.toString());
+
+			Integer customerPn = user.getPn();
 			if (user.getGroupName().equals("Customer")) {
-				selectMap.put("cpn", user.getPn());
+				selectMap.put("cpn", customerPn);
+
+				if (customerPn != null && customerPn != 0) {
+					int count = homeService.selectLoveCount(new Count(null,
+							customerPn, null, null, sellerPn, null));
+					selectMap.put("loveHave", count);
+				}
 			} else {
 				selectMap.put("cpn", 0);
 			}
@@ -339,7 +346,7 @@ public class HomeController {
 		} catch (ClassCastException e) {
 			logger.debug("로그인하지않은 사용자");
 		}
-		
+
 		Integer page = homeFilter.getCurrentPage();
 		if (randomPage.size() > page - 1) {
 			homeFilter.setPage(randomPage.get(page - 1));
