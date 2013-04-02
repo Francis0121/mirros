@@ -116,7 +116,7 @@
 					</ul>
 					<div class="jt-home-shop">
 						<header>
-							<a href="#none" onclick="window.open('${jtownUser.shopUrl }');"><c:out value="${jtownUser.name }"/></a>
+							<a href="http://${jtownUser.shopUrl }"target="_blank"><c:out value="${jtownUser.name }"/></a>
 						</header>
 						<div class="jt-home-shop-content">
 							<ul class="jt-home-shop-content-image" id="jt-seller-main-image">
