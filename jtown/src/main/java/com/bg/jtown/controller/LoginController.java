@@ -182,30 +182,31 @@ public class LoginController {
 		}
 	}
 
-	@RequestMapping(value = "/confirmEmailAddress/", method = RequestMethod.GET)
+	@RequestMapping(value = "/resultEmailAddress", method = RequestMethod.GET)
 	public String formConfirmEmailAddress(Model model,
 			@RequestParam(required = false) Integer confirm) {
 		model.addAttribute("confirm", confirm);
 		return "confirmEmaillAddress";
 	}
 
-	@RequestMapping(value = "/confirmEmailAddress/i/${key}/s/${series}", method = RequestMethod.GET)
+	@RequestMapping(value = "/confirmEmailAddress", method = RequestMethod.GET)
 	public ModelAndView formConfirmEmailAddress(@ModelAttribute Confirm confirm) {
-		ModelAndView mav = new ModelAndView(new RedirectView("/"));
+		ModelAndView mav = new ModelAndView(new RedirectView(
+				"resultEmailAddress"));
 
 		String id = confirm.getId();
 		byte[] encryptbytes = Base64.decode(confirm.getSeries());
-		String series = "";
+		String decryptText = "";
 		try {
-			series = seedCipher.decryptAsString(encryptbytes, id.getBytes(),
-					"UTF-8");
+			decryptText = seedCipher.decryptAsString(encryptbytes,
+					id.getBytes(), "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			logger.error("Error in Confimr Email Address Encoding");
 			return mav;
 		}
 		Confirm loadConfirm = loginService.selectEmailConfirm(new Confirm(id));
 		String loadSeries = loadConfirm.getSeries();
-		if (loadSeries.equals(series)) {
+		if (loadSeries.equals(decryptText)) {
 			JtownUser jtownUser = new JtownUser();
 			jtownUser.setUsername(id);
 			jtownUser.setConfirmEmail(true);

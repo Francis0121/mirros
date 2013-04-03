@@ -96,7 +96,7 @@
 	<!-- Confirm Email Address -->
 	<select id="selectEmailConfirm" parameterType="com.bg.jtown.security.Confirm" resultType="com.bg.jtown.security.Confirm">
 		SELECT
-			id, email_series
+			id, email_series AS series
 		FROM
 			user_email_confirm
 		WHERE
