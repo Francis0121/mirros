@@ -84,4 +84,18 @@
         </property>
     </bean>
     
+    <!-- 암호화 alogrithm 빈 -->		
+	<bean id="seedCipher" class="com.bg.jtown.security.algorithm.SeedCipher" />	
+		
+    <!-- emailSender 빈 생성 Properties -->
+    <bean id="jamesProperty" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+    	<property name="location">
+    		<value>classpath:/com/bg/jtown/security/email.properties</value>
+    	</property>
+    </bean>
+    
+    <bean id="emailSender" class="com.bg.jtown.security.EmailSender">
+    	<property name="props" ref="jamesProperty"/>
+    </bean>
+    
 </beans>

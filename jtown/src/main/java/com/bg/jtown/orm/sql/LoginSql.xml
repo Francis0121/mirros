@@ -86,4 +86,25 @@
 		SELECT COUNT(*) FROM users
 	</select>
 	
+	<!-- Confirm Email Address -->
+	<select id="selectEmailConfirm" parameterType="com.bg.jtown.security.Confirm" resultType="com.bg.jtown.security.Confirm">
+		SELECT
+			id, email_series
+		FROM
+			user_email_confirm
+		WHERE
+			id = #{id}	
+	</select>
+	
+	<insert id="insertEmailConfirm" parameterType="com.bg.jtown.security.Confirm">
+		INSERT INTO user_email_confirm ( id, email_series ) VALUES (#{id}, #{series})
+	</insert>
+	
+	<delete id="deleteEmailConfirm" parameterType="com.bg.jtown.security.Confirm">
+		DELETE FROM
+			user_email_confirm
+		WHERE
+			id = #{id}
+	</delete>
+	
 </mapper>

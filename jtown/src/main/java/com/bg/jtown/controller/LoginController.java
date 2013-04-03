@@ -1,11 +1,11 @@
 package com.bg.jtown.controller;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,18 +35,14 @@ public class LoginController {
 	private static final Logger logger = LoggerFactory
 			.getLogger(LoginController.class);
 
+	@Resource
 	private LoginValidator loginValidator;
+	@Resource
 	private UserAuthenticator userAuthenticator;
+	@Resource
 	private CustomJdbcUserDetailManager customJdbcUserDetailManager;
-
-	@Autowired
-	private void config(LoginValidator loginValidator,
-			UserAuthenticator userAuthenticator,
-			CustomJdbcUserDetailManager customJdbcUserDetailManager) {
-		this.loginValidator = loginValidator;
-		this.userAuthenticator = userAuthenticator;
-		this.customJdbcUserDetailManager = customJdbcUserDetailManager;
-	}
+	@Resource
+	private EmailSend emailSend;
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String showLoginPage(Model model) {
@@ -101,6 +97,8 @@ public class LoginController {
 			String beforeAddress = (String) request.getSession().getAttribute(
 					"beforJoinUrl");
 			logger.debug(beforeAddress);
+			emailSend.sendConfirmEmail(jtownUser.getUsername());
+			
 			mav.setView(new RedirectView(beforeAddress));
 		} else {
 			mav.setViewName("login/join");

@@ -13,7 +13,7 @@ public interface LoginService {
 	void insertCreatUserCustomer(JtownUser jtownUser);
 
 	void insertCreateUserSeller(JtownUser jtownUser);
-	
+
 	void insertCreatUserAdmin(JtownUser jtownUser);
 
 	void addUserToGroup(Map<String, Integer> groupMap);
@@ -34,5 +34,14 @@ public interface LoginService {
 
 	Integer selectUsersCount();
 
+	// ~ Confirm Email Address
+
+	Confirm selectEmailConfirm(Confirm confirm);
+
+	void confirmingEmailAddress(JtownUser jtownUser);
+
+	void insertEmailConfirm(Confirm confirm);
+
+	void deleteEmailConfirm(Confirm confirm);
 
 }

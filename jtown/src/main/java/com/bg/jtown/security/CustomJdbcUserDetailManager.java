@@ -205,6 +205,7 @@ public class CustomJdbcUserDetailManager extends JdbcUserDetailsManager {
 	public void createUserCustomAndAuthority(JtownUser jtownUser) {
 		creatUserCustomer(jtownUser);
 		addUserToGroup(jtownUser.getPn(), "Customer");
+		loginService.confirmingEmailAddress(jtownUser);
 	}
 
 	public void createUserAdminAndAuthority(JtownUser jtownUser) {
@@ -309,7 +310,7 @@ public class CustomJdbcUserDetailManager extends JdbcUserDetailsManager {
 	}
 
 	private void createUserAdmin(JtownUser jtownUser) {
-		//validateUserDetails(jtownUser);
+		// validateUserDetails(jtownUser);
 
 		// PasswordEncoder SaltSource
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",

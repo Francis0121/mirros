@@ -81,4 +81,31 @@ public class LoginServiceImpl extends SqlSessionDaoSupport implements
 	public Integer selectUsersCount() {
 		return getSqlSession().selectOne("loginMapper.selectUsersCount");
 	}
+
+	// ~ Confirm Email Address
+
+	@Override
+	public Confirm selectEmailConfirm(Confirm confirm) {
+		return getSqlSession().selectOne("loginMapper.selectEmailConfirm",
+				confirm);
+	}
+
+	@Override
+	public void confirmingEmailAddress(JtownUser jtownUser) {
+		String series = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+		Confirm confirm = new Confirm(jtownUser.getUsername(), series);
+
+		deleteEmailConfirm(confirm);
+		insertEmailConfirm(confirm);
+	}
+
+	@Override
+	public void insertEmailConfirm(Confirm confirm) {
+		getSqlSession().insert("loginMapper.insertEmailConfirm", confirm);
+	}
+
+	@Override
+	public void deleteEmailConfirm(Confirm confirm) {
+		getSqlSession().delete("loginMapper.deleteEmailConfirm", confirm);
+	}
 }
