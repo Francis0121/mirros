@@ -15,7 +15,16 @@
 <body>
 	<section class="jt-body">
 		<header class="jt-header">
-			<div class="jt-header-title">
+			<sec:authorize access="hasRole('ROLE_USER') and !principal.confirmEmail">
+			<div class="jt-header-warning-confirmEmail" >
+				이메일을 인증해 주시기 바랍니다. 이메일을 받지 못하셨다면, <a href="#none" id="changeEmailAddress">이메일을 바꾸</a> 거나 <a href="#none" id="resendConfirmMail">재전송</a> 하시기 바랍니다.(스팸메일을 확인해 보시기 바랍니다.)
+			</div>
+			<style type="text/css">
+				.jt-header-banner{top: 30px;}
+				.jt-header-nav-interestCategory{top:89px;}
+			</style>
+			</sec:authorize>
+			<div class="jt-header-title">	
 				<div class="jt-header-search">
 					<input type="text" class="jt-header-search-input"/>
 				</div>

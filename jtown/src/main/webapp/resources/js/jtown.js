@@ -61,7 +61,29 @@ $(document).ready(function(){
 	jtown.header.syncNavMove();
 	
 	jtown.header.syncNavInterest();
+	
+	jtown.header.moveChangeEmailPage();
+	
+	jtown.header.reshendEmailAddress();
 });
+
+jtown.header.moveChangeEmailPage = function(){
+	$('#changeEmailAddress').unbind('click');
+	$('#changeEmailAddress').bind('click', function(){
+		location.href= contextPath + '';
+	});
+};
+
+jtown.header.reshendEmailAddress = function(){
+	$('#resendConfirmMail').unbind('click');
+	$('#resendConfirmMail').bind('click', function(){
+		var url = contextPath +	'ajax/resendConfirmEmail.jt';
+		var json = {};
+		$.postJSON(url, json, function(){
+			alert('재전송 하였습니다.');
+		});
+	});
+};
 
 jtown.header.addInterest = function(pn){
 	
