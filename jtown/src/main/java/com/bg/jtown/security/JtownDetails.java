@@ -81,4 +81,9 @@ public interface JtownDetails extends UserDetails {
 	 * @return Get ShopName OR UserSubName
 	 */
 	String getName();
+	
+	/**
+	 * @return GET Confirm Email Addres
+	 */
+	Boolean getConfirmEmail();
 }

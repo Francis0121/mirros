@@ -1,5 +1,7 @@
 package com.bg.jtown.controller;
 
+import java.io.UnsupportedEncodingException;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,10 +22,14 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.bg.jtown.controller.validator.LoginValidator;
+import com.bg.jtown.security.Confirm;
 import com.bg.jtown.security.CustomJdbcUserDetailManager;
 import com.bg.jtown.security.JtownUser;
+import com.bg.jtown.security.LoginService;
 import com.bg.jtown.security.UserAuthenticator;
+import com.bg.jtown.security.algorithm.SeedCipher;
 import com.bg.jtown.util.VaildationUtil;
+import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 
 /**
  * @author Francis, 박광열
@@ -43,6 +49,10 @@ public class LoginController {
 	private CustomJdbcUserDetailManager customJdbcUserDetailManager;
 	@Resource
 	private EmailSend emailSend;
+	@Resource
+	private SeedCipher seedCipher;
+	@Resource
+	private LoginService loginService;
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String showLoginPage(Model model) {
@@ -98,7 +108,7 @@ public class LoginController {
 					"beforJoinUrl");
 			logger.debug(beforeAddress);
 			emailSend.sendConfirmEmail(jtownUser.getUsername());
-			
+
 			mav.setView(new RedirectView(beforeAddress));
 		} else {
 			mav.setViewName("login/join");
@@ -156,4 +166,39 @@ public class LoginController {
 		}
 	}
 
+	@RequestMapping(value = "/confirmEmailAddress/", method = RequestMethod.GET)
+	public String formConfirmEmailAddress(Model model,
+			@RequestParam(required = false) Integer confirm) {
+		model.addAttribute("confirm", confirm);
+		return "confirmEmaillAddress";
+	}
+
+	@RequestMapping(value = "/confirmEmailAddress/i/${key}/s/${series}", method = RequestMethod.GET)
+	public ModelAndView formConfirmEmailAddress(@ModelAttribute Confirm confirm) {
+		ModelAndView mav = new ModelAndView(new RedirectView("/"));
+
+		String id = confirm.getId();
+		byte[] encryptbytes = Base64.decode(confirm.getSeries());
+		String series = "";
+		try {
+			series = seedCipher.decryptAsString(encryptbytes, id.getBytes(),
+					"UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			logger.error("Error in Confimr Email Address Encoding");
+			return mav;
+		}
+		Confirm loadConfirm = loginService.selectEmailConfirm(new Confirm(id));
+		String loadSeries = loadConfirm.getSeries();
+		if (loadSeries.equals(series)) {
+			JtownUser jtownUser = new JtownUser();
+			jtownUser.setUsername(id);
+			jtownUser.setConfirmEmail(true);
+			loginService.updateUserCustomer(jtownUser);
+			mav.addObject("confirm", 1);
+		} else {
+			mav.addObject("confirm", 2);
+		}
+
+		return mav;
+	}
 }

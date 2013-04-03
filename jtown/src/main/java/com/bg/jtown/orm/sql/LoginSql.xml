@@ -26,9 +26,9 @@
 	<insert id="insertUsers" parameterType="JtownUser">
 		INSERT INTO
 			users
-			( id, password, enable, salt, name )
+			( id, password, enable, salt, name, confirm_email )
 		VALUES
-			( #{username}, #{password}, #{enabled}, #{salt}, #{name} )
+			( #{username}, #{password}, #{enabled}, #{salt}, #{name}, #{confirmEmail} )
 		<selectKey keyProperty="pn" resultType="Integer">
 			SELECT LAST_INSERT_ID()
 		</selectKey>
@@ -72,9 +72,16 @@
 		UPDATE 
 			users
 		SET	
+		<if test="name != null">
 			name = #{name}
 		WHERE 
-			pn = #{pn}
+			pn = #{pn}	
+		</if>
+		<if test="confirmEmail != null">
+			confirm_email = #{confirmEmail}
+		WHERE
+			id = #{username}
+		</if>
 	</update>
 		
 	<!-- Use Only TestCase -->

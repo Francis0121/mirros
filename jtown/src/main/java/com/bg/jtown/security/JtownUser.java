@@ -78,6 +78,7 @@ public class JtownUser implements JtownDetails, CredentialsContainer {
 	private String newPassword;
 	private String salt;
 	private Integer pn;
+	private Boolean confirmEmail = true;
 
 	// user_customer
 	private String name;
@@ -132,7 +133,7 @@ public class JtownUser implements JtownDetails, CredentialsContainer {
 			boolean enabled, boolean accountNonExpired,
 			boolean credentialsNonExpired, boolean accountNonLocked,
 			Collection<? extends GrantedAuthority> authorities, String salt,
-			String groupName, String name) {
+			String groupName, String name, Boolean confirmEmail) {
 
 		if (((username == null) || "".equals(username)) || (password == null)) {
 			throw new IllegalArgumentException(
@@ -151,6 +152,7 @@ public class JtownUser implements JtownDetails, CredentialsContainer {
 		this.salt = salt;
 		this.groupName = groupName;
 		this.name = name;
+		this.confirmEmail = confirmEmail;
 	}
 
 	/**
@@ -517,6 +519,14 @@ public class JtownUser implements JtownDetails, CredentialsContainer {
 		this.customerPn = customerPn;
 	}
 
+	public Boolean getConfirmEmail() {
+		return confirmEmail;
+	}
+
+	public void setConfirmEmail(Boolean confirmEmail) {
+		this.confirmEmail = confirmEmail;
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
@@ -556,6 +566,7 @@ public class JtownUser implements JtownDetails, CredentialsContainer {
 		sb.append("ContractEndDate :").append(this.contractEndDate)
 				.append("; ");
 		sb.append("CustomerPn : ").append(this.customerPn).append(";");
+		sb.append("ConfirmEmail : ").append(this.confirmEmail).append(";");
 
 		if (!authorities.isEmpty()) {
 			sb.append("Granted Authorities: ");

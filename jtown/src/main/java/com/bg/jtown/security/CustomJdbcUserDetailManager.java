@@ -101,7 +101,8 @@ public class CustomJdbcUserDetailManager extends JdbcUserDetailsManager {
 				userFromUserQuery.getPassword(), userFromUserQuery.isEnabled(),
 				true, true, true, combinedAuthorities,
 				((JtownUser) userFromUserQuery).getSalt(),
-				userFromUserQuery.getGroupName(), userFromUserQuery.getName());
+				userFromUserQuery.getGroupName(), userFromUserQuery.getName(),
+				userFromUserQuery.getConfirmEmail());
 	}
 
 	@SuppressWarnings("deprecation")
@@ -151,7 +152,7 @@ public class CustomJdbcUserDetailManager extends JdbcUserDetailsManager {
 	@Override
 	protected List<UserDetails> loadUsersByUsername(String id) {
 		return getJdbcTemplate()
-				.query("SELECT u.id, u.password, u.enable, DATE_FORMAT(u.salt, '%Y-%m-%d %H:%i:%s') AS salt, u.pn, gmn.group_name, u.name "
+				.query("SELECT u.id, u.password, u.enable, DATE_FORMAT(u.salt, '%Y-%m-%d %H:%i:%s') AS salt, u.pn, gmn.group_name, u.name, u.confirm_email "
 						+ "FROM users u, group_members_name gmn "
 						+ "WHERE u.id = ? AND u.pn = gmn.user_pn",
 						new String[] { id }, new RowMapper<UserDetails>() {
@@ -165,11 +166,12 @@ public class CustomJdbcUserDetailManager extends JdbcUserDetailsManager {
 								Integer pn = rs.getInt(5);
 								String groupName = rs.getString(6);
 								String name = rs.getString(7);
+								boolean confirmEmail = rs.getBoolean(8);
 
 								return new JtownUser(pn, id, password, enable,
 										true, true, true,
 										AuthorityUtils.NO_AUTHORITIES, salt,
-										groupName, name);
+										groupName, name, confirmEmail);
 							}
 						});
 	}
@@ -203,6 +205,7 @@ public class CustomJdbcUserDetailManager extends JdbcUserDetailsManager {
 	}
 
 	public void createUserCustomAndAuthority(JtownUser jtownUser) {
+		jtownUser.setConfirmEmail(false);
 		creatUserCustomer(jtownUser);
 		addUserToGroup(jtownUser.getPn(), "Customer");
 		loginService.confirmingEmailAddress(jtownUser);
