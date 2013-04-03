@@ -7,12 +7,12 @@
 		http://www.springframework.org/schema/security 
 		http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 
-	<!-- 	입력된 Password를 encode하는 빈 -->
+<!-- 	입력된 Password를 encode하는 빈 -->
 <!-- 	<beans:bean class="com.bg.jtown.security.TempDatabasePasswordSecurerBean" init-method="secureDatabase" depends-on="dataSource"> -->
 <!-- 		<beans:property name="dataSource" ref="dataSource"/> -->
-
 <!-- 	</beans:bean> -->
 
+	<!-- @PreAuthorize 을 사용가능 하도록 해주는 method -->
 	<global-method-security pre-post-annotations="enabled" />
 	
 	<!-- PasswordEncoder -->	
@@ -35,10 +35,24 @@
 			default-target-url="/process"/>
 			
 		<logout logout-url="/login/logout"  />
-			
+		
+		<remember-me key="jtown-rmkey-xq9mKsOCF=Ika#KuDeXGLoPo-CMQJl" services-ref="ipPersistentTokenBasedRememberMeServicesBean"/>	
+	
 		<access-denied-handler error-page="/noPermission" />
 	</http>
+
+	<beans:bean id="ipPersistentTokenBasedRememberMeServicesBean" class="com.bg.jtown.security.IPPersistentTokenBasedRememberMeServices"> 
+		<beans:property name="key">
+			<beans:value>jtown-rmkey-xq9mKsOCF=Ika#KuDeXGLoPo-CMQJl</beans:value>
+		</beans:property>
+		<beans:property name="userDetailsService" ref="jdbcUserDetailsManager"/>
+		<beans:property name="tokenRepository" ref="jdbcTokenRepositoryImpl"/>
+	</beans:bean>
 	
+	<beans:bean class="org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl" id="jdbcTokenRepositoryImpl">
+		<beans:property name="dataSource" ref="dataSource"/>
+	</beans:bean>
+
 	<beans:bean id="jdbcUserDetailsManager" class="com.bg.jtown.security.CustomJdbcUserDetailManager">
 		<beans:property name="dataSource" ref="dataSource" />		
 		<beans:property name="enableGroups" value="true"/>
