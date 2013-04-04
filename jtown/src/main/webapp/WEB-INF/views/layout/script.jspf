@@ -148,9 +148,11 @@
 <%-- Node --%>
 <script src="${cp}/resources/js/real.time.js"></script>
 <script src="http://127.0.0.1:8000/socket.io/socket.io.js"></script>
-<!-- <script src="http://14.63.226.97:8000/socket.io/socket.io.js"></script> -->
+<!--  <script src="http://14.63.226.97:8000/socket.io/socket.io.js"></script> -->
+<!-- <script src="http://14.63.223.63:8000/socket.io/socket.io.js"></script> -->
 <script type="text/javascript">
 	$(document).ready(function(){
+// 		var socket = io.connect('http://14.63.223.63:8000');		
 // 		var socket = io.connect('http://14.63.226.97:8000');
 		var socket = io.connect('http://127.0.0.1:8000');
 		
