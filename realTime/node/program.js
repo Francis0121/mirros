@@ -6,6 +6,7 @@
  **************************/
 //server setting
 //const modulePath = '/root/node_modules/';
+//const modulePath = '/download/node-v0.10.3/node_modules/';
 const modulePath = '';
 const serverPort = 8000;
 
