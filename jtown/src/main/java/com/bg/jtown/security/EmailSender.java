@@ -23,7 +23,7 @@ import org.slf4j.LoggerFactory;
  */
 public class EmailSender {
 
-	private static final String SENDER_EMAIL_ADDRESS = "kims_0121@naver.com";
+	private static final String SENDER_EMAIL_ADDRESS = "tjdrms0121@gmail.com";
 
 	private static final Logger logger = LoggerFactory
 			.getLogger(EmailSender.class);
@@ -64,8 +64,8 @@ public class EmailSender {
 		private String pw;
 
 		public EmailAuthenticator() {
-			this.id = "kims_0121@naver.com";
-			this.pw = "sg3512af@";
+			this.id = "tjdrms0121@gmail.com";
+			this.pw = "sg3512af";
 		}
 
 		public EmailAuthenticator(String id, String pw) {
