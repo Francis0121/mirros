@@ -34,6 +34,8 @@ import org.springframework.security.core.userdetails.cache.NullUserCache;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.util.Assert;
 
+import com.bg.jtown.util.RandomUtil;
+
 /**
  * @author 박광열
  * 
@@ -252,6 +254,25 @@ public class CustomJdbcUserDetailManager extends JdbcUserDetailsManager {
 		userCache.removeUserFromCache(username);
 	}
 
+	public String changeTempPassword(String username) {
+		String tempPassword = RandomUtil.randomPassword(8);
+
+		JtownUser jtownUser = (JtownUser) loadUserByUsername(username);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",
+				Locale.KOREA);
+		Date date = new Date();
+		String salt = sdf.format(date);
+		jtownUser.setSalt(salt);
+
+		String encodedPassword = passwordEncoder.encodePassword(tempPassword,
+				saltSource.getSalt(jtownUser));
+		jtownUser.setNewPassword(encodedPassword);
+
+		loginService.updateChangePassword(jtownUser);
+
+		return tempPassword;
+	}
+
 	public boolean confirmPassword(JtownUser jtownUser) {
 		Authentication currentUser = SecurityContextHolder.getContext()
 				.getAuthentication();
@@ -377,4 +398,5 @@ public class CustomJdbcUserDetailManager extends JdbcUserDetailsManager {
 		getJdbcTemplate().update("DELETE FROM users WHERE pn = ?", pn);
 		userCache.removeUserFromCache(username);
 	}
+
 }

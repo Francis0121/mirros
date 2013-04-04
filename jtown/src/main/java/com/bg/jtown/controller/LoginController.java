@@ -295,4 +295,43 @@ public class LoginController {
 		}
 		return mav;
 	}
+
+	@RequestMapping(value = "/login/findPassword", method = RequestMethod.GET)
+	public String showFindPassword(Model model,
+			@ModelAttribute JtownUser jtownUser,
+			@RequestParam(required = false) Integer result) {
+		model.addAttribute("result", result);
+		return "login/findPassword";
+	}
+
+	@RequestMapping(value = "/login/findPassword.jt", method = RequestMethod.POST)
+	public String formFindPassword(@ModelAttribute JtownUser jtownUser,
+			BindingResult result) {
+		new Validator() {
+			@Override
+			public void validate(Object target, Errors errors) {
+				JtownUser jtownUser = (JtownUser) target;
+				String username = jtownUser.getUsername();
+				ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username",
+						"join.username.empty");
+
+				boolean exist = loginService.selectCheckExistEmail(username);
+				if (!exist) {
+					errors.rejectValue("username", "join.username.notExist");
+				}
+			}
+
+			@Override
+			public boolean supports(Class<?> clazz) {
+				return JtownUser.class.isAssignableFrom(clazz);
+			}
+		}.validate(jtownUser, result);
+
+		if (!result.hasErrors()) {
+			emailSend.sendTempPasswordEmail(jtownUser.getUsername());
+			return "redirect:findPassword/?result=4";
+		} else {
+			return "login/findPassword";
+		}
+	}
 }

@@ -11,6 +11,7 @@ import com.bg.jtown.security.EmailSender;
 import com.bg.jtown.security.JtownUser;
 import com.bg.jtown.security.LoginService;
 import com.bg.jtown.security.algorithm.SeedCipher;
+import com.bg.jtown.util.RandomUtil;
 import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 
 @Component
@@ -57,6 +58,19 @@ public class EmailSend {
 		sb.append("series=").append(encryptText);
 		sb.append("' target='_self'>클릭하면 인증됩니다.");
 		sb.append("</a>");
+
+		emailSender.sendEmail(username, subject, sb.toString());
+	}
+
+	public void sendTempPasswordEmail(String username) {
+
+		String tempPassword = customJdbcUserDetailManager
+				.changeTempPassword(username);
+
+		String subject = "미러스 :: 임시 비밀번호 입니다.";
+		StringBuffer sb = new StringBuffer();
+		sb.append("안녕하세요 미러스 입니다<br/>");
+		sb.append(tempPassword);
 
 		emailSender.sendEmail(username, subject, sb.toString());
 	}

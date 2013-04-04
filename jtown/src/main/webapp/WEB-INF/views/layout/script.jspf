@@ -109,7 +109,11 @@
 	</c:if>
 	<c:if test="${result eq 3 }">
 		<c:set var="alertText" value="이메일이 변경 되었습니다."/>
-		<c:url value="/login/modifyEmailAddress/" var="pageUrl"/>
+		<c:url value="/login/modifyEmailAddress" var="pageUrl"/>
+	</c:if>
+	<c:if test="${result eq 4 }">
+		<c:set var="alertText" value="해당 이메일로 임시비밀번호를 전송하였습니다."/>
+		<c:url value="/login/findPassword" var="pageUrl"/>
 	</c:if>
 	<script type="text/javascript">
 	/* <![CDATA[ */  

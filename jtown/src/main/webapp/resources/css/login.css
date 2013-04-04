@@ -124,6 +124,32 @@
 .jt-login-form-join-btn-page{ float: left; margin: 0 0 0 40px; font-size: 13px; color: #e75200;}
 .jt-login-form-join-btn-page:VISITED{color: #e75200; }
 .jt-login-form-join-btn-page:HOVER { text-decoration: underline; color: #e75200;}
+/************************
+*	비밀번호 찾는 페이지
+************************/
+#jt-findpassword-page { width: 600px; margin: 80px auto 0 auto; }
+#jt-findpassword-page>header{float:left; }
+#jt-findpassword-page>header>hgroup{ float:left;margin-bottom: 30px;}
+#jt-findpassword-page>header>hgroup>h1{ float:left;font-size: 20px;color: #524d4d;}
+#jt-findpassword-page>header>ul{ float:left; font-size: 12px; color:#303030; margin-bottom: 30px; }
+#jt-findpassword-page>header>ul>li{float:left; margin-top: 5px;}
+
+#jt-findpassword-page>section{width: 100%; float: left; margin-bottom: 30px; text-align: center;}
+
+#jt-findpassword-page>footer{ float:left; font-size: 12px; color:#e95800; }
+
+.jt-findpassword-input { width: 220px; padding: 2px 3px; border: 1px solid #ad9c9c; height: 25px;
+ 	-webkit-border-radius: 5px 5px;
+    -moz-border-radius: 5px 5px;
+    border-radius: 5px 5px;
+}
+.jt-findpassword-input:FOCUS{	border: 1px solid #ff8a00; }
+.jt-findpassword-input-error { width: 220px; padding: 2px 3px; border: 1px solid #ff8a00; height: 25px;
+ 	-webkit-border-radius: 5px 5px;
+    -moz-border-radius: 5px 5px;
+    border-radius: 5px 5px;
+}
+.jt-findpassword-error:FOCUS{ border: 1px solid #ff0000;  }
 /***********************
 *	비밀번호 변경 페이지
 ***********************/

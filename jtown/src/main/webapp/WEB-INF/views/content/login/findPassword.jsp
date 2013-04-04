@@ -81,68 +81,39 @@
 					</ul>
 				</div>
 			</header>
-			<section id="jt-login-form-page">
-				<sec:authorize access="anonymous">	
-						<c:url value="/j_spring_security_check" var="loginUrl"/>
-						<form action="${loginUrl }" method="post" name="jtown-login-form">
-						<table class="jt-login-form-table-page">
-							<thead>
-								<tr>
-									<th colspan="2"> 
-										LOG&nbsp;IN&nbsp;
-									</th>
-								</tr>
-							</thead>
-							<tfoot>
-								<tr>
-									<th>
-										<input id="_spring_security_remember_me" name="_spring_security_remember_me" type="checkbox" value="true"/>	
-										<label for="_spring_security_remember_me">자동 로그인</label>
-									</th>
-									<c:url var="findPasswordUrl" value="/login/findPassword"/>
-									<td><a href="${findPasswordUrl}" class="jt-login-form-find-password">비밀번호를&nbsp;잊으셨나요?</a></td>
-								</tr>
-								<tr>
-									<th>
-										<input type="submit" class="jt-btn-orange" value="LOG&nbsp;IN"/>
-									</th>
-									<td>&nbsp;</td>
-								</tr>
-							</tfoot>
-							<tbody>
-								<tr>
-									<td colspan="2">
-										<input id="j_username_page" name="j_username" size="20" maxlength="50" type="text" class="jt-login-form-table-input" placeholder="Email Address"/>
-									</td>
-								</tr>
-								<tr>
-									<td colspan="2">
-										<input id="j_password_page" name="j_password" size="20" maxlength="50" type="password" class="jt-login-form-table-input"  placeholder="Password"/>
-									</td>
-								</tr>
-							</tbody>
-						</table>
-						</form>
-						<c:if test="${not empty param.login_error}">  
-						<div class="jt-login-error-box">
-					        <spring:message code="login.error.message"/>
-					        <br/>
-					        <c:out value="${SPRING_SECURITY_LAST_EXCEPTION.message}"/>
-					    </div>
-						</c:if>	
-						<c:url value="/login/join" var="joinUrl"/>
-						<span class="jt-login-form-join-span-page">아직&nbsp;회원이&nbsp;아니신가요?</span><a href="${joinUrl}" class="jt-login-form-join-btn-page">J&nbsp;Town&nbsp;가입하기</a>
-				</sec:authorize>	
-				<sec:authorize access="hasRole('ROLE_USER')">
-					<span style="font-size: 12px; "><sec:authentication property="principal.name" />님 반갑습니다.</span>
-				</sec:authorize>
+			<section id="jt-findpassword-page">
+				<header>
+					<hgroup>
+						<h1>비밀번호 찾기</h1>
+					</hgroup>
+
+					<ul>
+						<li>J TOWN 회원가입할 때 사용하신 email 을 아래에 입력해 주시기 바랍니다.</li>
+						<li>기존에 사용하신 비밀번호를 초기화하고 해당 email 에 임의로 생성된 비밀번호가 제공됩니다.</li>
+					</ul>
+				</header>
+				<section>
+					<c:url var="findPassword" value="/login/findPassword.jt"/>
+					<form:form commandName="jtownUser" method="post" action="${findPassword }" htmlEscape="true">
+						<form:input id="username_findPassword" path="username" cssClass="jt-findpassword-input" cssErrorClass="jt-findpassword-input-error" placeholder="Email Address"/>
+						<input type="submit" value="보내기" class="jt-btn-orange"/>
+						<div class="jt-join-user-error">
+							<form:errors path="username" cssClass="commonError"></form:errors>
+						</div>
+					</form:form>				
+				</section>
+				<footer>
+					<ul>
+						<li>문제가 있을 경우 고객센터에 연락주시면 적극 도와드리겠습니다</li>
+					</ul>
+				</footer>
 			</section>
 		</section>
 	<%@ include file="../../layout/login.jspf" %>
 	<%@ include file="../../layout/script.jspf" %>
 	<script type="text/javascript">
 		$(document).ready(function(){
-			$('#j_username_page, #j_password_page').placeholder();
+			$('#username_findPassword').placeholder();
 		});
 	</script>
 </body>
