@@ -1,5 +1,6 @@
 package com.bg.jtown.security;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.mybatis.spring.support.SqlSessionDaoSupport;
@@ -69,6 +70,22 @@ public class LoginServiceImpl extends SqlSessionDaoSupport implements
 	@Override
 	public void updateUserCustomer(JtownUser jtownUser) {
 		getSqlSession().update("loginMapper.updateUserCustomer", jtownUser);
+	}
+
+	@Override
+	public void updateUserCustomerEmail(String changeUserName,
+			String nowUserName) {
+
+		Map<String, Object> updateMap = new HashMap<String, Object>();
+		updateMap.put("changeUserName", changeUserName);
+		updateMap.put("nowUserName", nowUserName);
+
+		deleteEmailConfirm(new Confirm(nowUserName));
+		getSqlSession()
+				.update("loginMapper.updateUserCustomerEmail", updateMap);
+		String series = Integer
+				.toString(RandomUtil.randomRange(100000, 999999));
+		insertEmailConfirm(new Confirm(changeUserName, series));
 	}
 
 	// ~ Use Only Test Case

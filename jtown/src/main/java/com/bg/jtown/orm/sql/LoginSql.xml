@@ -83,6 +83,16 @@
 			id = #{username}
 		</if>
 	</update>
+	
+	<update id="updateUserCustomerEmail" parameterType="java.util.HashMap">
+		UPDATE
+			users
+		SET
+			id = #{changeUserName},
+			confirm_email = 0
+		WHERE
+			id = #{nowUserName}
+	</update>
 		
 	<!-- Use Only TestCase -->
 	<delete id="deleteUserAll">

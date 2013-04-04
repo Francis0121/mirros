@@ -61,18 +61,10 @@ $(document).ready(function(){
 	jtown.header.syncNavMove();
 	
 	jtown.header.syncNavInterest();
-	
-	jtown.header.moveChangeEmailPage();
+
 	
 	jtown.header.reshendEmailAddress();
 });
-
-jtown.header.moveChangeEmailPage = function(){
-	$('#changeEmailAddress').unbind('click');
-	$('#changeEmailAddress').bind('click', function(){
-		location.href= contextPath + '';
-	});
-};
 
 jtown.header.reshendEmailAddress = function(){
 	$('#resendConfirmMail').unbind('click');

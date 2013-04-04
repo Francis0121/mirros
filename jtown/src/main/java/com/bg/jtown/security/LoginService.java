@@ -28,6 +28,8 @@ public interface LoginService {
 
 	void updateUserCustomer(JtownUser jtownUser);
 
+	void updateUserCustomerEmail(String changeUserName, String nowUserName);
+
 	// ~ Use Only Test Case
 
 	void deleteUserAll();

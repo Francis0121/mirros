@@ -1,5 +1,6 @@
 package com.bg.jtown.security;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -18,16 +19,19 @@ import org.springframework.stereotype.Component;
 
 /**
  * @author Francis
- *
+ * 
  */
 @Component
 public class UserAuthenticator {
-	
+
 	private final Logger logger = LoggerFactory
 			.getLogger(UserAuthenticator.class);
 
 	@Autowired
 	private AuthenticationManager authenticationManager;
+
+	@Resource
+	private CustomJdbcUserDetailManager customJdbcUserDetailManager;
 
 	public void login(HttpServletRequest request, HttpServletResponse response) {
 		logger.debug("Auto Login");
@@ -50,5 +54,23 @@ public class UserAuthenticator {
 		session.setAttribute(
 				HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY,
 				securityContext);
+	}
+
+	public void onApplicationEvent(String username) {
+		Authentication authentication = SecurityContextHolder.getContext()
+				.getAuthentication();
+		SecurityContextHolder.getContext().setAuthentication(
+				createNewAuthentication(authentication, username));
+	}
+
+	protected Authentication createNewAuthentication(
+			Authentication currentAuth, String username) {
+		JtownDetails newPrincipal = (JtownDetails) customJdbcUserDetailManager
+				.loadUserByUsername(username);
+		UsernamePasswordAuthenticationToken newAuth = new UsernamePasswordAuthenticationToken(
+				newPrincipal, currentAuth.getCredentials(),
+				newPrincipal.getAuthorities());
+		newAuth.setDetails(currentAuth.getDetails());
+		return newAuth;
 	}
 }

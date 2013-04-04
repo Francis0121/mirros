@@ -13,6 +13,8 @@ $(document).ready(function() {
 	jtown.login.changePasswordSubmit();
 	
 	jtown.login.modifyPasswordLength();
+	
+	jtown.login.modifyConfrimEmail();
 });
 
 if (typeof jtown.login == 'undefined') {
@@ -122,5 +124,22 @@ jtown.login.modifyPasswordLength = function() {
 		$('#passwordLength').show();
 	}).blur(function() {
 		$('#passwordLength').hide();
+	});
+};
+
+jtown.login.modifyConfrimEmail = function() {
+	$('input[data-form=modifyAddress]').keyup(
+			function() {
+				var regExp = /^[-A-Za-z0-9_]+[-A-Za-z0-9_.]*[@]{1}[-A-Za-z0-9_]+[-A-Za-z0-9_.]*[.]{1}[A-Za-z]{2,5}$/;
+				var username = $(this).val();
+				if (regExp.test(username)) {
+					$('#confirmEmail>span').removeClass('jt-form-invalid').addClass('jt-form-valid');
+				} else {
+					$('#confirmEmail>span').removeClass('jt-form-valid').addClass('jt-form-invalid');
+				}
+			}).focus(function() {
+		$('#confirmEmail').show();
+	}).blur(function() {
+		$('#confirmEmail').hide();
 	});
 };
