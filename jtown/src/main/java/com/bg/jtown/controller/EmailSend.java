@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.bg.jtown.security.Confirm;
+import com.bg.jtown.security.CustomJdbcUserDetailManager;
 import com.bg.jtown.security.EmailSender;
+import com.bg.jtown.security.JtownUser;
 import com.bg.jtown.security.LoginService;
 import com.bg.jtown.security.algorithm.SeedCipher;
 import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
@@ -17,24 +19,31 @@ public class EmailSend {
 	private LoginService loginService;
 	private SeedCipher seedCipher;
 	private EmailSender emailSender;
+	private CustomJdbcUserDetailManager customJdbcUserDetailManager;
 
 	@Autowired
 	public void config(LoginService loginService, SeedCipher seedCipher,
-			EmailSender emailSender) {
+			EmailSender emailSender,
+			CustomJdbcUserDetailManager customJdbcUserDetailManager) {
 		this.loginService = loginService;
 		this.seedCipher = seedCipher;
 		this.emailSender = emailSender;
+		this.customJdbcUserDetailManager = customJdbcUserDetailManager;
 	}
 
 	public void sendConfirmEmail(String username) {
 		Confirm confirm = loginService
 				.selectEmailConfirm(new Confirm(username));
 
+		JtownUser jtownUser = (JtownUser) customJdbcUserDetailManager
+				.loadUserByUsername(username);
+
 		String series = confirm.getSeries();
+		String key = jtownUser.getSalt();
 		String encryptText = "";
 		try {
 			encryptText = Base64.encode(seedCipher.encrypt(series,
-					username.getBytes(), "UTF-8"));
+					key.getBytes(), "UTF-8"));
 		} catch (UnsupportedEncodingException e) {
 			encryptText = null;
 		}

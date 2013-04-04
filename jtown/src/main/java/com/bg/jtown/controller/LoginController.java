@@ -30,6 +30,7 @@ import com.bg.jtown.security.JtownUser;
 import com.bg.jtown.security.LoginService;
 import com.bg.jtown.security.UserAuthenticator;
 import com.bg.jtown.security.algorithm.SeedCipher;
+import com.bg.jtown.util.StringUtil;
 import com.bg.jtown.util.VaildationUtil;
 import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 
@@ -186,20 +187,27 @@ public class LoginController {
 	public String formConfirmEmailAddress(Model model,
 			@RequestParam(required = false) Integer confirm) {
 		model.addAttribute("confirm", confirm);
-		return "confirmEmaillAddress";
+		return "login/confirmEmaillAddress";
 	}
 
 	@RequestMapping(value = "/confirmEmailAddress", method = RequestMethod.GET)
 	public ModelAndView formConfirmEmailAddress(@ModelAttribute Confirm confirm) {
 		ModelAndView mav = new ModelAndView(new RedirectView(
 				"resultEmailAddress"));
-
+		logger.debug(confirm.toString());
+		
 		String id = confirm.getId();
-		byte[] encryptbytes = Base64.decode(confirm.getSeries());
+		JtownUser jtownUser = (JtownUser) customJdbcUserDetailManager
+				.loadUserByUsername(id);
+		String key = jtownUser.getSalt();
+		String value = confirm.getSeries();
+		value = StringUtil.replace(value, " ", "+");
+		byte[] encryptbytes = Base64.decode(value);
 		String decryptText = "";
+
 		try {
 			decryptText = seedCipher.decryptAsString(encryptbytes,
-					id.getBytes(), "UTF-8");
+					key.getBytes(), "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			logger.error("Error in Confimr Email Address Encoding");
 			return mav;
@@ -207,10 +215,10 @@ public class LoginController {
 		Confirm loadConfirm = loginService.selectEmailConfirm(new Confirm(id));
 		String loadSeries = loadConfirm.getSeries();
 		if (loadSeries.equals(decryptText)) {
-			JtownUser jtownUser = new JtownUser();
-			jtownUser.setUsername(id);
-			jtownUser.setConfirmEmail(true);
-			loginService.updateUserCustomer(jtownUser);
+			JtownUser setJtownUser = new JtownUser();
+			setJtownUser.setUsername(id);
+			setJtownUser.setConfirmEmail(true);
+			loginService.updateUserCustomer(setJtownUser);
 			mav.addObject("confirm", 1);
 		} else {
 			mav.addObject("confirm", 2);

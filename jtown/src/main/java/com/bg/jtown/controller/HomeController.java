@@ -162,7 +162,7 @@ public class HomeController {
 	@RequestMapping(value = "/noPermission", method = RequestMethod.GET)
 	public String showNoPermissionPage() {
 		logger.debug("Show noPermission page");
-		return "noPermission";
+		return "login/noPermission";
 	}
 
 	// ~ AJAX

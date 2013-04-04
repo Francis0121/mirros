@@ -72,7 +72,7 @@
 		UPDATE 
 			users
 		SET	
-		<if test="name != null">
+		<if test="name != null and name != ''">
 			name = #{name}
 		WHERE 
 			pn = #{pn}	

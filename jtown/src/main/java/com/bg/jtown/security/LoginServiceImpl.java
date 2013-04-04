@@ -6,6 +6,7 @@ import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.springframework.stereotype.Service;
 
 import com.bg.jtown.security.JtownUser;
+import com.bg.jtown.util.RandomUtil;
 
 /**
  * @author 박광열
@@ -92,7 +93,8 @@ public class LoginServiceImpl extends SqlSessionDaoSupport implements
 
 	@Override
 	public void confirmingEmailAddress(JtownUser jtownUser) {
-		String series = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+		String series = Integer
+				.toString(RandomUtil.randomRange(100000, 999999));
 		Confirm confirm = new Confirm(jtownUser.getUsername(), series);
 
 		deleteEmailConfirm(confirm);
