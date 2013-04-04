@@ -73,8 +73,12 @@
 </script>
 
 <c:if test="${one.jtownUsers ne null}">
-	<c:set var="topHeight" value="${principal.confirmEmail ? '59px': '89px' }"/>
-	<c:set var="downHeight" value="${principal.confirmEmail ? '14px': '44px' }"/>
+	<c:set var="topHeight" value="59px"/>
+	<c:set var="downHeight" value="14px"/>
+	<sec:authorize access="hasRole('ROLE_USER') and !principal.confirmEmail">
+		<c:set var="topHeight" value="89px"/>
+		<c:set var="downHeight" value="44px"/>
+	</sec:authorize>
 	<script type="text/javascript">
 	/* <![CDATA[ */ 
 		$(window).scroll(function(){

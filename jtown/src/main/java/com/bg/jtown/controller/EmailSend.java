@@ -11,7 +11,6 @@ import com.bg.jtown.security.EmailSender;
 import com.bg.jtown.security.JtownUser;
 import com.bg.jtown.security.LoginService;
 import com.bg.jtown.security.algorithm.SeedCipher;
-import com.bg.jtown.util.RandomUtil;
 import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 
 @Component
@@ -53,7 +52,7 @@ public class EmailSend {
 		StringBuffer sb = new StringBuffer();
 		sb.append("안녕하세요 미러스 입니다<br/>");
 		sb.append("<a href='");
-		sb.append("http://127.0.0.1:8080/jtown/confirmEmailAddress?");
+		sb.append("http://14.63.226.97:8080/jtown/confirmEmailAddress?");
 		sb.append("id=").append(username).append("&");
 		sb.append("series=").append(encryptText);
 		sb.append("' target='_self'>클릭하면 인증됩니다.");
