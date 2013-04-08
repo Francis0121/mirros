@@ -14,11 +14,22 @@ const redisHost = '127.0.0.1';
 const redisPort = 6379;
 
 //open node server
-var http = require('http');
-var server = http.createServer(function(request, response){
+var https = require('https');
+	fs = require('fs');
+var privateKey = fs.readFileSync('C:/nodeJs/privatekey.pem').toString();
+var certificate = fs.readFileSync('C:/nodeJs/certificate.pem').toString();
+
+var options = {
+  key: privateKey,
+  cert: certificate
+};
+
+var server = https.createServer(options, function(request, response){
 //	console.log("Create Server Doing ... ");
 }).listen(serverPort);
 //console.log("Server Listening on port " + serverPort);
+
+
 
 //set SocketIo And Connection Socket
 var socketio = require(modulePath+'socket.io');
