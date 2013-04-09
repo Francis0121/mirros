@@ -147,22 +147,21 @@
 	
 <%-- Node --%>
 <script src="${cp}/resources/js/real.time.js"></script>
-<script src="https://127.0.0.1:8000/socket.io/socket.io.js"></script>
-<!--  <script src="http://14.63.226.97:8000/socket.io/socket.io.js"></script> -->
-<!-- <script src="http://14.63.223.63:8000/socket.io/socket.io.js"></script> -->
+<script src="https://127.0.0.1:8001/socket.io/socket.io.js"></script>
+<!-- <script src="https://14.63.226.97:8000/socket.io/socket.io.js"></script> -->
+<!-- <script src="https://www.mirros.net:8001/socket.io/socket.io.js"></script> -->
 <script type="text/javascript">
 	$(document).ready(function(){
-// 		var socket = io.connect('http://14.63.223.63:8000');		
-// 		var socket = io.connect('http://14.63.226.97:8000');
-		var socket = io.connect('https://127.0.0.1:8000');
+// 		var socket = io.connect('https://www.mirros.net:8001');		
+// 		var socket = io.connect('https://14.63.226.97:8000');
+		var socket = io.connect('https://127.0.0.1:8001');
 		
 		socket.on('real_time', function(data){
-			var obj = eval('('+data+')');
-			jtown.real.time(obj);
+			setTimeout('jtown.real.time(\''+data+'\')');
 		});
 		//You need Authortiy From page 		
 // 		socket.on('authority', function(data) {
-// 			socket.emit('authority_page', '');
+// 			socket.emit('authority_page', 'enter socket');
 // 		});
 	});
 </script>

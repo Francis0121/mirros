@@ -2,8 +2,10 @@ if (typeof jtown.real == 'undefined') {
 	jtown.real = {};
 }
 
-jtown.real.time = function(obj) {
+jtown.real.time = function(data) {
 
+	var obj = eval('('+data+')');
+	
 	var expandShop = $('#jt-home-expand-shop');
 
 	if (obj.redisType == 'love_count') {
