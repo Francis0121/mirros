@@ -1,35 +1,53 @@
 /**************************
  * 	Real Time Node Js Server
  * 
- * 	@author Francis
+ * 	@author Francisapache ssl node
  * 
  **************************/
 //server setting
-//const modulePath = '/root/node_modules/';
-//const modulePath = '/download/node-v0.10.3/node_modules/';
-const modulePath = '';
-const serverPort = 8000;
-
+//const modulePath = '/root/node_modules/'; // 테스트 서버 환경
+//const modulePath = '/download/node-v0.10.3/node_modules/'; // 실 서버
+const modulePath = ''; // 로컬환경
+const serverPort = 8000; 
+const proxyPort = 8001;
 const redisHost = '127.0.0.1';
 const redisPort = 6379;
 
 //open node server
-var https = require('https');
-	fs = require('fs');
-var privateKey = fs.readFileSync('C:/nodeJs/privatekey.pem').toString();
-var certificate = fs.readFileSync('C:/nodeJs/certificate.pem').toString();
+var fs = require('fs'),
+	http = require('http'),
+	https = require('https'),
+	httpProxy = require(modulePath+'http-proxy');
 
 var options = {
-  key: privateKey,
-  cert: certificate
+	https: {
+//		key: fs.readFileSync('/etc/ssl/private/mirros.key').toString(),
+//		cert: fs.readFileSync('/etc/ssl/certs/mirros.crt').toString(),
+//		passphrase : 'q7bjvdqbe83lt0aj'
+		key: fs.readFileSync('C:/nodeJs/real/mirros.key').toString(),
+		cert: fs.readFileSync('C:/nodeJs/real/mirros.crt').toString(),
+		passphrase : 'q7bjvdqbe83lt0aj'
+	}
 };
 
-var server = https.createServer(options, function(request, response){
-//	console.log("Create Server Doing ... ");
+var proxy = new httpProxy.HttpProxy({
+	target: {
+		host: 'www.mirros.net', 		
+//		host: 'localhost', 
+		port: serverPort
+	}
+});
+
+https.createServer(options.https, function (req, res) {
+	  proxy.proxyRequest(req, res);
+}).listen(proxyPort);
+
+// ~ Server
+
+var server = http.createServer(function(request, response){
+	console.log("Create Server Doing ... ");
 }).listen(serverPort);
-//console.log("Server Listening on port " + serverPort);
-
-
+console.log("Server Listening on port " + serverPort);
 
 //set SocketIo And Connection Socket
 var socketio = require(modulePath+'socket.io');
@@ -57,7 +75,7 @@ io.sockets.on('connection', function(socket){
 //	});
 
 	socket.on('disconnect', function() {
-//		console.log('disconnect');
+		console.log('disconnect');
 	});
 });
 
