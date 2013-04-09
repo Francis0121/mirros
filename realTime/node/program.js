@@ -6,8 +6,8 @@
  **************************/
 //server setting
 //const modulePath = '/root/node_modules/'; // 테스트 서버 환경
-//const modulePath = '/download/node-v0.10.3/node_modules/'; // 실 서버
-const modulePath = ''; // 로컬환경
+const modulePath = '/download/node-v0.10.3/node_modules/'; // 실 서버
+//const modulePath = ''; // 로컬환경
 const serverPort = 8000; 
 const proxyPort = 9000;
 const redisHost = '127.0.0.1';
@@ -21,20 +21,19 @@ var fs = require('fs'),
 
 var options = {
 	https: {
-//		key: fs.readFileSync('/etc/ssl/private/mirros.key').toString(),
-//		cert: fs.readFileSync('/etc/ssl/certs/mirros.crt').toString(),
-//		passphrase : 'q7bjvdqbe83lt0aj'
-		key: fs.readFileSync('C:/nodeJs/real/mirros.key').toString(),
-		cert: fs.readFileSync('C:/nodeJs/real/mirros.crt').toString(),
+		key: fs.readFileSync('/etc/ssl/private/mirros.key').toString(),
+		cert: fs.readFileSync('/etc/ssl/certs/mirros.crt').toString(),
 		passphrase : 'q7bjvdqbe83lt0aj'
+//		key: fs.readFileSync('C:/nodeJs/real/mirros.key').toString(),
+//		cert: fs.readFileSync('C:/nodeJs/real/mirros.crt').toString(),
+//		passphrase : 'q7bjvdqbe83lt0aj'
 	}
 };
 
-//httpProxy.createServer(serverPort, 'mirros.net', options).listen(proxyPort);
-httpProxy.createServer(serverPort, 'localhost', options).listen(proxyPort);
+httpProxy.createServer(serverPort, 'www.mirros.net', options).listen(proxyPort);
+//httpProxy.createServer(serverPort, 'localhost', options).listen(proxyPort);
 
 // ~ Server
-
 var server = http.createServer(function(request, response){
 	console.log("Create Server Doing ... ");
 }).listen(serverPort);
@@ -55,15 +54,16 @@ subscriber.on("error", function(err) {
 });
 subscriber.subscribe("real_time");
 
+// Test 할 경우에는 log level 2로 두고 test
 io.set('log level', 1);
 io.sockets.on('connection', function(socket){
 	//You need Authortiy From page 
 	console.log('Connection');
 //	socket.emit('authority');
-	socket.on('authority_page', function(msg) {
-		console.log('Connection Authority: ' + msg);
-		socket.join(msg);
-	});
+//	socket.on('authority_page', function(msg) {
+//		console.log('Connection Authority: ' + msg);
+//		socket.join(msg);
+//	});
 
 	socket.on('disconnect', function() {
 		console.log('disconnect');
@@ -71,7 +71,7 @@ io.sockets.on('connection', function(socket){
 });
 
 subscriber.on('message', function(channel, message) {
-//	console.log('Redis Connection' + message l);
+//	console.log('Redis Connection' + message);
 	//Broadcast
 	io.sockets.emit('real_time', message);
 	
