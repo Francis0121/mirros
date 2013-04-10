@@ -99,51 +99,86 @@ io.sockets.on('connection', function(socket){
 
 //Server
 /*const modulePath = '/download/node-v0.10.3/node_modules/'; 
+const redisHost = '127.0.0.1';
+const proxyDomain = 'www.mirros.net';
 const serverPort = 8000; 
 const proxyPort = 9000;
-const redisHost = '127.0.0.1';
 const redisPort = 6379;
+
 
 var fs = require('fs'),
 	http = require('http'),
 	https = require('https'),
-	httpProxy = require(modulePath+'http-proxy');
+	httpProxy = require(modulePath+'http-proxy'),	
+	redis = require(modulePath+'redis'),
+	socketio = require(modulePath+'socket.io'),
+	mysql = require(modulePath+'mysql');
 
-var options = {
+var ssl_options = {
 	https: {
 		key: fs.readFileSync('/etc/ssl/private/mirros.key').toString(),
 		cert: fs.readFileSync('/etc/ssl/certs/mirros.crt').toString(),
 		passphrase : 'q7bjvdqbe83lt0aj'
 	}
 };
+var mysql_options = {
+	host : 'localhost',
+	user : 'root',
+	password : 'jt0308pk!'
+};
 
-httpProxy.createServer(serverPort, 'www.mirros.net', options).listen(proxyPort);
-
-var server = http.createServer(function(request, response){
-	console.log('Create Server Doing ... ');
-}).listen(serverPort);
-console.log("Server Listening on port " + serverPort);
-
-var socketio = require(modulePath+'socket.io');
-var io = socketio.listen(server);
-
-var redis = require(modulePath+'redis');
-var subscriber = redis.createClient(redisPort, redisHost);
-subscriber.auth('');
-subscriber.on('error', function(err) {
+var socketRedis = redis.createClient(redisPort, redisHost);
+socketRedis.auth('');
+socketRedis.on('error', function(err) {
 	console.log('Error In Redis Server');
 });
-subscriber.subscribe('real_time');
-
-io.set('log level', 1);
-io.sockets.on('connection', function(socket){
-//	console.log('Connection');
-
-	socket.on('disconnect', function() {
-//		console.log('disconnect');
-	});
+socketRedis.subscribe('real_time');
+socketRedis.subscribe('love_rank');
+socketRedis.on('message', function(channel, message) {
+	console.log('Channel : '+ channel + ' Message : ' + message);
+	io.sockets.emit(channel, message);
 });
 
-subscriber.on('message', function(channel, message) {
-	io.sockets.emit('real_time', message);
+setInterval(updateLoveRealCount, 600000);
+var connection = mysql.createConnection(mysql_options);
+var mysqlRedis = redis.createClient(redisPort, redisHost);
+mysqlRedis.auth('');
+mysqlRedis.on('error', function(err) {
+	console.log('Error In Redis Server');
+});
+function updateLoveRealCount(){
+	connection.query('SELECT seller_pn FROM jtown.count_love_interval_1hour WHERE love_count >= 20', function(error, result, fields){
+		if(error){
+			console.log('Error In Mysql');
+		}else{
+			var sellerPnList = '';
+			for(var i=0, len = result.length; i<len;i++){
+				var obj = result[i];
+				var sellerPn = obj.seller_pn;
+				if((i+1) == len){
+					sellerPnList += sellerPn;
+				}else{
+					sellerPnList += sellerPn+',';
+				};
+			};
+			console.log(sellerPnList);
+			mysqlRedis.publish('love_rank', sellerPnList);
+		};
+	});
+};
+updateLoveRealCount();
+
+httpProxy.createServer(serverPort, proxyDomain, ssl_options).listen(proxyPort);
+
+var server = http.createServer().listen(serverPort);
+
+var io = socketio.listen(server);
+io.set('log level', 1);
+io.sockets.on('connection', function(socket){
+	socket.log.info('Connection Socket');
+	
+	socket.on('disconnect', function() {
+		socket.log.info('Disconncet Socket');
+		socket.leave();
+	});
 });*/
