@@ -80,6 +80,16 @@ jtown.real.loveRank = function(data){
 	$('.jt-home-shop-love-hot').remove();
 	var html = '<span class="jt-home-shop-love-hot">HOT</span>';
 	var idStr = '#love-image-';
+	
+	var expandShop = $('#jt-home-expand-shop');
+	
+	if (!nullValueCheck(expandShop.html())) {
+		var expandSpn = expandShop.attr('data-spn');	
+		if(sellerPnList.indexOf(expandSpn) != -1){
+			$('.jt-home-expand-shop-content-love').before(html);
+		}
+	}
+	
 	for(var i=0, len=sellerPnList	.length; i < len; i++){
 		var element = sellerPnList[i];
 		element = idStr + element;
