@@ -101,6 +101,7 @@ public class JtownUser implements JtownDetails, CredentialsContainer {
 	private Integer contractCount;
 	private String contractEndDate;
 	private Integer customerPn;
+	private Integer loveHotCount;
 
 	private String interestCategory;
 	private String interestSectionList;
@@ -527,6 +528,14 @@ public class JtownUser implements JtownDetails, CredentialsContainer {
 		this.confirmEmail = confirmEmail;
 	}
 
+	public Integer getLoveHotCount() {
+		return loveHotCount;
+	}
+
+	public void setLoveHotCount(Integer loveHotCount) {
+		this.loveHotCount = loveHotCount;
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
@@ -567,6 +576,7 @@ public class JtownUser implements JtownDetails, CredentialsContainer {
 				.append("; ");
 		sb.append("CustomerPn : ").append(this.customerPn).append(";");
 		sb.append("ConfirmEmail : ").append(this.confirmEmail).append(";");
+		sb.append("loveHotCount : ").append(this.loveHotCount).append(";");
 
 		if (!authorities.isEmpty()) {
 			sb.append("Granted Authorities: ");

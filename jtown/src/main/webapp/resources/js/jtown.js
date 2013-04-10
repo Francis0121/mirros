@@ -280,6 +280,11 @@ jtown.home.html = function(data){
 		var loveClick = !nullValueCheck(seller.customerPn) ? 'jt-home-shop-love-click' : '';
 		var loveTextClick =  !nullValueCheck(seller.customerPn) ? 'jt-home-shop-love-text-click' : '';
 		
+		var loveHotCount ='<span class="jt-home-shop-love-hot">HOT</span>';
+		if(nullValueCheck(seller.loveHotCount)){
+			loveHotCount = '';
+		}
+		
 		html+='	<div class="jt-home-shop" id="jt-home-shop-'+spn+'">';
 		html+='		<header>';
 		html+='			<a href="http://'+seller.shopUrl+'" target="_blank" onclick="jtown.home.clickShop(\''+spn+'\')">'+htmlChars(seller.name)+'</a>';
@@ -304,6 +309,7 @@ jtown.home.html = function(data){
 		html+='				<span class="jt-home-shop-comment">COMMENT</span>&nbsp;<span id="comment-'+spn+'">'+ ( nullValueCheck(seller.commentCount) ? 0 : seller.commentCount )+ '</span>';
 		html+='			</li>';
 		html+='			<li>';
+		html+='				'+loveHotCount;
 		html+='				<a href="#none" onclick="jtown.home.clickLove(\''+spn+'\');"id="love-image-'+spn+'" class="jt-home-shop-love '+loveClick+'">♥</a>&nbsp;<span id="love-'+spn+'" class="'+loveTextClick+'">'+ ( nullValueCheck(seller.loveCount) ? 0 : seller.loveCount) + '</span>';
 		html+='				<span id="new-'+spn+'">';
 		html+='					'+ ( ( seller.bannerDate != null && Number(seller.bannerDate) < 8 ) ? 'new' : '' ) ;

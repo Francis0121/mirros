@@ -34,6 +34,7 @@
 		<result column="banner_first" property="bannerFirst"/>
 		<result column="banner_second" property="bannerSecond"/>
 		<result column="customer_pn" property="customerPn"/>
+		<result column="love_hot_count" property="loveHotCount"/>
 		<collection property="images" column="pn" javaType="java.util.ArrayList" select="selectSellerImage" ofType="java.lang.String"/>
 	</resultMap>
 	
@@ -74,7 +75,8 @@
 		<include refid="paginationBefore"/>
 		SELECT
 			us.pn , u.name, us.shop_url, us.notice, 
-			cvsp.view_count, clsp.love_count, ccsp.comment_count, bdl.banner_first, bdl.banner_second
+			cvsp.view_count, clsp.love_count, ccsp.comment_count, bdl.banner_first, bdl.banner_second,
+			clih.love_count AS love_hot_count
 			<if test="customerPn != null">
 			, cl.customer_pn
 			</if>
@@ -90,6 +92,8 @@
 			ON us.pn = bdl.seller_pn
 			LEFT OUTER JOIN count_view_seller_pn cvsp
 			ON us.pn = cvsp.seller_pn
+			LEFT OUTER JOIN count_love_interval_1hour clih
+			ON us.pn = clih.seller_pn
 			<if test="customerPn != null">
 			LEFT OUTER JOIN count_love cl
 			ON us.pn = cl.seller_pn AND cl.customer_pn = #{customerPn}
@@ -141,7 +145,8 @@
 		<include refid="paginationBefore"/>
 		SELECT
 			us.pn , u.name, us.shop_url, us.notice, 
-			cvsp.view_count, clsp.love_count, ccsp.comment_count, bdl.banner_first, bdl.banner_second
+			cvsp.view_count, clsp.love_count, ccsp.comment_count, bdl.banner_first, bdl.banner_second, 
+			clih.love_count AS love_hot_count
 			<if test="customerPn != null">	
 			, cl.customer_pn
 			</if>
@@ -157,6 +162,8 @@
 			ON us.pn = bdl.seller_pn
 			LEFT OUTER JOIN count_view_seller_pn cvsp
 			ON us.pn = cvsp.seller_pn
+			LEFT OUTER JOIN count_love_interval_1hour clih
+			ON us.pn = clih.seller_pn
 			<if test="customerPn != null">
 			LEFT OUTER JOIN count_love cl
 			ON us.pn = cl.seller_pn AND cl.customer_pn = #{customerPn}

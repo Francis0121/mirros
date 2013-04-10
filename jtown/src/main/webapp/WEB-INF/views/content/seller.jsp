@@ -332,6 +332,9 @@
 									<div class="jt-home-expand-shop-border-hide"></div>
 								</li>
 								<li class="jt-home-expand-shop-content-love-wrap">
+									<c:if test="${jtownUser.loveHotCount ne null}">
+										<span class="jt-home-shop-love-hot">HOT</span>
+									</c:if>
 									<span class="jt-home-expand-shop-content-love">Love</span>&nbsp;<span id="love-expand-<c:out value="${jtownUser.pn }"/>"><c:out value="${jtownUser.loveCount eq null ? 0 : jtownUser.loveCount}"/></span>
 								</li>
 							</ul>

@@ -158,6 +158,11 @@ jtown.expand.makeInnerHtml = function(spn){
 		var loveClick = (!nullValueCheck(loveHave) && loveHave != 0 ) ? 'jt-home-shop-love-click' : '';
 		var loveTextClick =   (!nullValueCheck(loveHave) && loveHave != 0) ? 'jt-home-shop-love-text-click' : '';
 		
+		var loveHotCount ='<span class="jt-home-shop-love-hot">HOT</span>';
+		if(nullValueCheck(jtownUser.loveHotCount)){
+			loveHotCount = '';
+		}
+		
 		html += '<header class="jt-home-expand-click-shop-header">';
 		html += '	<div>';
 		html += '		<a href="http://'+jtownUser.shopUrl+'" target="_blank" onclick="jtown.home.clickShop(\''+spn+'\');">'+htmlChars(jtownUser.name)+'</a>';
@@ -201,6 +206,7 @@ jtown.expand.makeInnerHtml = function(spn){
 		html += '			<div class="jt-home-expand-shop-border-hide"></div>';
 		html +=	'		</li>';
 		html +=	'		<li class="jt-home-expand-shop-content-love-wrap">';
+		html += '			'+loveHotCount;		
 		html +=	'			<a href="#none" onclick="jtown.home.clickLove(\''+spn+'\');"><span class="jt-home-expand-shop-content-love '+loveClick+'" id="love-expand-image-'+spn+'">Love</span></a>&nbsp;<span id="love-expand-'+spn+'" class="'+loveTextClick+'">'+jtownUser.loveCount+'</span>';
 		html +=	'		</li>';
 		html +=	'	</ul>';
