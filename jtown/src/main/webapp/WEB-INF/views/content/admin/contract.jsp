@@ -8,7 +8,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>J TOWN</title>
+<title>MIRROS</title>
 <link rel="stylesheet" type="text/css" href="${cp}/resources/jquery/jquery-ui-1.10.0.custom.min.css" />
 <link rel="stylesheet" type="text/css" href="${cp}/resources/css/common.css" />
 <style type="text/css">

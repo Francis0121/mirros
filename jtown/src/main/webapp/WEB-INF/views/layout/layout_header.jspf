@@ -8,7 +8,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>J TOWN</title>
+<title>MIRROS</title>
 <%@ include file="header_script.jspf" %>
 <%@ include file="style.jspf"%>
 </head>

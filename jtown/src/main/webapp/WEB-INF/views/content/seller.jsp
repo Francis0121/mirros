@@ -9,7 +9,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>J TOWN</title>
+<title>MIRROS</title>
 <%@ include file="../layout/style.jspf"%>
 <%@ include file="../layout/header_script.jspf" %>
 <style type="text/css">

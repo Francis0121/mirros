@@ -8,7 +8,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>J TOWN</title>
+<title>MIRROS</title>
 <style type="text/css">
 .jt-popup-table { border-bottom: 1px solid #ffd5a6; border-right: 1px solid #ffd5a6; border-collapse: collapse; font-size: 12px; width: 350px;}
 .jt-popup-table th{ background: #ffead1; vertical-align: middle;}

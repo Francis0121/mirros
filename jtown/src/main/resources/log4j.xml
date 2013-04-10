@@ -17,36 +17,36 @@
 	
 	<!-- 3rdparty Loggers -->
 	<logger name="org.springframework.core">
-		<level value="info" />
+		<level value="error" />
 	</logger>
 	
 	<logger name="org.springframework.beans">
-		<level value="info" />
+		<level value="error" />
 	</logger>
 	
 	<logger name="org.springframework.context">
-		<level value="info" />
+		<level value="error" />
 	</logger>
 
 	<logger name="org.springframework.web">
-		<level value="info" />
+		<level value="error" />
 	</logger>
 	
 	<logger name="org.springframework.security">
-		<level value="info" />
+		<level value="error" />
 	</logger>
 	
 	<logger name="org.springframework">
-		<level value="info" />
+		<level value="error" />
 	</logger>
 	
 	<logger name="com.bg.jtown.controller.interceptor">
-		<level value="info"/>
+		<level value="error"/>
 	</logger>	
 
 	<!-- Root Logger -->
 	<root>
-		<priority value="debug" />
+		<priority value="error" />
 		<appender-ref ref="console" />
 	</root>
 	
