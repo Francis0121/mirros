@@ -72,5 +72,17 @@ jtown.real.time = function(data) {
 			}
 		}
 	}
+};
 
+jtown.real.loveRank = function(data){
+	var sellerPnList = data.split(',');
+	
+	$('.jt-home-shop-love-hot').remove();
+	var html = '<span class="jt-home-shop-love-hot">HOT</span>';
+	var idStr = '#love-image-';
+	for(var i=0, len=sellerPnList	.length; i < len; i++){
+		var element = sellerPnList[i];
+		element = idStr + element;
+		$(element).before(html);
+	}
 };

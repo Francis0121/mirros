@@ -167,6 +167,10 @@
 				socket.on('real_time', function(data){
 					jtown.real.time(data);
 				});
+				
+				socket.on('love_rank', function(data){
+					jtown.real.loveRank(data);
+				});
 		});
 	});
 </script>
