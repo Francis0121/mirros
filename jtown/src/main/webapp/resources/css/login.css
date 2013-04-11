@@ -4,8 +4,6 @@
 *	/login/join Page
 */
 .jt-join-user-header{ width: 990px; margin: auto auto; height: 75px; }
-.jt-join-user-banner{ position: absolute; top: 0; left: 50%; width: 150px; font-size: 16px; margin-left: -75px;}
-.jt-join-user-banner>a{ background: url("../images/jt-banner-join.png"); width: 150px; height: 73px; display: block; text-indent: -9999px;}
 .jt-join-user-login, .jt-join-user-login:VISITED{ font-size: 12px; float: right; color: #808080; margin-top: 60px;}
 .jt-join-user-login:HOVER, .jt-join-user-login:ACTIVE{color: #000;}
 .jt-join-user-wrap{ width : 500px; margin: 75px auto 0 auto; min-height: 400px;}
