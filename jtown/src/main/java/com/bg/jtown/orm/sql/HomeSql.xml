@@ -93,7 +93,7 @@
 			LEFT OUTER JOIN count_view_seller_pn cvsp
 			ON us.pn = cvsp.seller_pn
 			LEFT OUTER JOIN count_love_interval_1hour clih
-			ON us.pn = clih.seller_pn
+			ON us.pn = clih.seller_pn AND clih.love_count >= 20
 			<if test="customerPn != null">
 			LEFT OUTER JOIN count_love cl
 			ON us.pn = cl.seller_pn AND cl.customer_pn = #{customerPn}
@@ -163,7 +163,7 @@
 			LEFT OUTER JOIN count_view_seller_pn cvsp
 			ON us.pn = cvsp.seller_pn
 			LEFT OUTER JOIN count_love_interval_1hour clih
-			ON us.pn = clih.seller_pn
+			ON us.pn = clih.seller_pn AND clih.love_count >= 20
 			<if test="customerPn != null">
 			LEFT OUTER JOIN count_love cl
 			ON us.pn = cl.seller_pn AND cl.customer_pn = #{customerPn}

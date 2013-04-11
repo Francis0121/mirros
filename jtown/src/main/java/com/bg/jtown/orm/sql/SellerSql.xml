@@ -33,7 +33,7 @@
 			LEFT OUTER JOIN banner_diff_least bdl
 			ON us.pn = bdl.seller_pn
 			LEFT OUTER JOIN count_love_interval_1hour clih
-			ON us.pn = clih.seller_pn
+			ON us.pn = clih.seller_pn AND clih.love_count >= 20
 		WHERE
 			us.pn = #{properNumber}
 	</select>
