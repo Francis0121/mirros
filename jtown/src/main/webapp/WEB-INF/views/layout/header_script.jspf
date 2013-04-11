@@ -5,7 +5,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <c:set value="<%=request.getContextPath() %>" var="cp"/>
-<link rel="shortcut icon" href="${cp }/resources/images/favicon.gif" />
+<link rel="shortcut icon" href="${cp }/resources/images/favicon.ico" type="image/x-icon"/>
 <%-- <script type="text/javascript">
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-39174480-1']);
