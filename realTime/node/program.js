@@ -56,7 +56,7 @@ mysqlRedis.on('error', function(err) {
 	console.log('Error In Redis Server');
 });
 function updateLoveRealCount(){
-	connection.query('SELECT seller_pn FROM jtown.count_love_interval_1hour WHERE love_count >= 1', function(error, result, fields){
+	connection.query('SELECT seller_pn FROM jtown.count_love_interval_1hour WHERE love_count >= 20', function(error, result, fields){
 		if(error){
 			console.log('Error In Mysql');
 		}else{
@@ -78,7 +78,7 @@ function updateLoveRealCount(){
 /*************************
  * 	9000 Https Proxy Server 
  *************************/
-httpProxy.createServer(serverPort, proxyDomain, ssl_options).listen(proxyPort);
+//httpProxy.createServer(serverPort, proxyDomain, ssl_options).listen(proxyPort);
 /*************************
  * 	8000 Http Server 
  *************************/
