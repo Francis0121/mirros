@@ -144,11 +144,12 @@ public class HomeController {
 				mav.setView(new RedirectView("seller/" + user.getPn()));
 				break;
 			} else if (authority.equals("ROLE_USER")) {
-				Map<Integer, List<Interest>> interestMap = homeService
-						.selectInterest(user.getPn());
-				HttpSession session = request.getSession();
-				session.setAttribute("interestMap", interestMap);
-				logger.debug(interestMap.toString());
+				// TODO 사용자 맞춤형 메뉴 검색시 추가
+//				Map<Integer, List<Interest>> interestMap = homeService
+//						.selectInterest(user.getPn());
+//				HttpSession session = request.getSession();
+//				session.setAttribute("interestMap", interestMap);
+//				logger.debug(interestMap.toString());
 				mav.setView(new RedirectView(""));
 				break;
 			} else {
