@@ -5,7 +5,6 @@ import javax.annotation.Resource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -15,8 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
 
 import com.bg.jtown.business.Product;
 import com.bg.jtown.security.JtownUser;
@@ -62,18 +59,14 @@ public class SellerController {
 
 	@PreAuthorize("hasRole('ROLE_SELLER')")
 	@RequestMapping(value = "/seller/dp.jt", method = RequestMethod.POST)
-	public ModelAndView formDeleteProduct(@ModelAttribute Product product) {
-		JtownUser user = (JtownUser) SecurityContextHolder.getContext()
-				.getAuthentication().getPrincipal();
-
-		product.setSellerPn(user.getPn());
-		logger.debug(product.toString());
+	public String formDeleteProduct(Model model,
+			@ModelAttribute Product product, SummaryUser summaryUser) {
+		product.setSellerPn(summaryUser.getPn());
 		boolean result = sellerService.deleteSellerProduct(product);
-		ModelAndView mav = new ModelAndView(new RedirectView("" + user.getPn()));
 		if (!result) {
-			mav.addObject("error", 1);
+			model.addAttribute("error", 1);
 		}
-		return mav;
+		return "redirect:" + summaryUser.getPn();
 	}
 
 	// ~ Ajax
@@ -81,10 +74,9 @@ public class SellerController {
 	@PreAuthorize("hasRole('ROLE_SELLER')")
 	@RequestMapping(value = "/ajax/seller/insertProduct.jt", method = RequestMethod.POST)
 	@ResponseBody
-	public Product ajaxChangeNotice(@RequestBody Product product) {
-		JtownUser user = (JtownUser) SecurityContextHolder.getContext()
-				.getAuthentication().getPrincipal();
-		product.setSellerPn(user.getPn());
+	public Product ajaxChangeNotice(@RequestBody Product product,
+			SummaryUser summaryUser) {
+		product.setSellerPn(summaryUser.getPn());
 		sellerService.insertSellerProduct(product);
 		return product;
 	}
@@ -92,30 +84,27 @@ public class SellerController {
 	@PreAuthorize("hasRole('ROLE_SELLER')")
 	@RequestMapping(value = "/ajax/seller/changeMainImage.jt", method = RequestMethod.POST)
 	@ResponseBody
-	public void ajaxChangeMainImage(@RequestBody FileVO fileVO) {
-		JtownUser user = (JtownUser) SecurityContextHolder.getContext()
-				.getAuthentication().getPrincipal();
-		fileVO.setOwnerPn(user.getPn());
+	public void ajaxChangeMainImage(@RequestBody FileVO fileVO,
+			SummaryUser summaryUser) {
+		fileVO.setOwnerPn(summaryUser.getPn());
 		sellerService.updateSellerImage(fileVO);
 	}
 
 	@PreAuthorize("hasRole('ROLE_SELLER')")
 	@RequestMapping(value = "/ajax/seller/changeNotice.jt", method = RequestMethod.POST)
 	@ResponseBody
-	public void ajaxChangeNotice(@RequestBody JtownUser jtownUser) {
-		JtownUser user = (JtownUser) SecurityContextHolder.getContext()
-				.getAuthentication().getPrincipal();
-		jtownUser.setPn(user.getPn());
+	public void ajaxChangeNotice(@RequestBody JtownUser jtownUser,
+			SummaryUser summaryUser) {
+		jtownUser.setPn(summaryUser.getPn());
 		sellerService.updateSellerNotice(jtownUser);
 	}
 
 	@PreAuthorize("hasRole('ROLE_SELLER')")
 	@RequestMapping(value = "/ajax/seller/changeEvent.jt", method = RequestMethod.POST)
 	@ResponseBody
-	public void ajaxChangeEvent(@RequestBody Event event) {
-		JtownUser user = (JtownUser) SecurityContextHolder.getContext()
-				.getAuthentication().getPrincipal();
-		event.setSellerPn(user.getPn());
+	public void ajaxChangeEvent(@RequestBody Event event,
+			SummaryUser summaryUser) {
+		event.setSellerPn(summaryUser.getPn());
 		event.setBannerType(1);
 		sellerService.updateAndInsertEvent(event);
 	}
