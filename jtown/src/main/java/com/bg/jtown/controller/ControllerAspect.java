@@ -21,9 +21,10 @@ import com.bg.jtown.security.SummaryUser;
  */
 @Aspect
 @Component
-public class HomeAspect {
+public class ControllerAspect {
 
-	private final Logger logger = LoggerFactory.getLogger(HomeAspect.class);
+	private final Logger logger = LoggerFactory
+			.getLogger(ControllerAspect.class);
 
 	@Resource
 	private HttpServletRequest request;
