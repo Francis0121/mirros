@@ -122,6 +122,9 @@ public class HomeServiceImpl extends SqlSessionDaoSupport implements
 		Pagination pagination = homeFilter.getPagination();
 		int count = selectFromInterestCategoryCount(homeFilter);
 		pagination.setNumItems(count);
+		if (count == 0) {
+			return new ArrayList<JtownUser>();
+		}
 
 		List<JtownUser> list = getSqlSession().selectList(
 				"homeMapper.selectFromInterestCategory", homeFilter);
@@ -139,6 +142,9 @@ public class HomeServiceImpl extends SqlSessionDaoSupport implements
 		Pagination pagination = homeFilter.getPagination();
 		int count = selectFromInterestCount(homeFilter);
 		pagination.setNumItems(count);
+		if (count == 0) {
+			return new ArrayList<JtownUser>();
+		}
 		List<JtownUser> list = getSqlSession().selectList(
 				"homeMapper.selectFromInterest", homeFilter);
 		logger.debug(list.toString());

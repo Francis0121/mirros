@@ -9,7 +9,11 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
+
+import com.bg.jtown.business.search.HomeFilter;
+import com.bg.jtown.security.JtownUser;
 
 /**
  * @author Francis, 박광열
@@ -34,6 +38,16 @@ public class HomeAspect {
 			Object[] param = joinPoint.getArgs();
 
 			HttpSession session = request.getSession();
+			Integer loginUserPn = null;
+
+			try {
+				JtownUser user = (JtownUser) SecurityContextHolder.getContext()
+						.getAuthentication().getPrincipal();
+				logger.debug(user.toString());
+				loginUserPn = user.getPn();
+			} catch (ClassCastException e) {
+				logger.debug("Not Log In user");
+			}
 
 			for (int i = 0; i < param.length; i++) {
 				if (param[i] != null) {
@@ -41,6 +55,9 @@ public class HomeAspect {
 							+ param[i].getClass());
 					if (param[i].getClass() == HttpSession.class) {
 						param[i] = session;
+					} else if (param[i].getClass() == HomeFilter.class) {
+						HomeFilter homeFilter = (HomeFilter) param[i];
+						homeFilter.setCustomerPn(loginUserPn);
 					}
 				}
 			}

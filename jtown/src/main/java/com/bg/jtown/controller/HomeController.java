@@ -15,6 +15,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -44,83 +45,51 @@ public class HomeController {
 
 	@Resource
 	private HomeService homeService;
-
 	@Resource
 	private CommentService commentService;
 
 	// ~ FORM
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public ModelAndView showMainPage(@ModelAttribute HomeFilter homeFilter,
-			HttpSession session) {
-		logger.debug("Show Main page");
-		ModelAndView mav = new ModelAndView("home");
-		mav.addObject("interestCategories", homeService.selecInterestCategory());
-		if (session.getAttribute("interestMap") == null) {
-			Map<Integer, List<Interest>> interestMap = homeService
-					.selectInterest(null);
-			session.setAttribute("interestMap", interestMap);
-		}
-
-		List<Integer> randomPage = homeService.makeRandomCount(homeFilter);
-		logger.debug("RandomPage Controller" + randomPage.toString());
-		session.setAttribute("randomPage", randomPage);
-		logger.debug("RandomPage Controller" + randomPage.get(0));
-
-		try {
-			JtownUser user = (JtownUser) SecurityContextHolder.getContext()
-					.getAuthentication().getPrincipal();
-			logger.debug(user.toString());
-			homeFilter.setCustomerPn(user.getPn());
-		} catch (ClassCastException e) {
-			logger.debug("로그인하지않은 사용자");
-		}
-
-		homeFilter.setPage(randomPage.get(0));
-		Map<String, Object> one = homeService.selectHome(homeFilter);
-		mav.addObject("one", one);
-		if (randomPage.size() > 1) {
-			homeFilter.setPage(randomPage.get(1));
-			Map<String, Object> two = homeService.selectHome(homeFilter);
-			mav.addObject("two", two);
-		}
-		return mav;
+	public String showHome(Model model, HttpSession session,
+			@ModelAttribute HomeFilter homeFilter) {
+		getHomeModel(model, session, homeFilter);
+		return "home";
 	}
 
 	@RequestMapping(value = "/cpn/{categoryPn}/spn/{sectionPn}", method = RequestMethod.GET)
-	public ModelAndView showMainPageSearch(
-			@ModelAttribute HomeFilter homeFilter, HttpSession session) {
-		logger.debug("Show Main page Search");
-		ModelAndView mav = new ModelAndView("home");
-		mav.addObject("interestCategories", homeService.selecInterestCategory());
+	public String showHomeSearch(Model model, Integer loginUserPn,
+			HttpSession session, @ModelAttribute HomeFilter homeFilter) {
+		getHomeModel(model, session, homeFilter);
+		return "home";
+	}
+
+	private void getHomeModel(Model model, HttpSession session,
+			HomeFilter homeFilter) {
+		logger.debug("Show Home");
+		if (session.getAttribute("interestCategories") == null) {
+			session.setAttribute("interestCategories",
+					homeService.selecInterestCategory());
+		}
 		if (session.getAttribute("interestMap") == null) {
-			Map<Integer, List<Interest>> interestMap = homeService
-					.selectInterest(null);
-			session.setAttribute("interestMap", interestMap);
+			session.setAttribute("interestMap",
+					homeService.selectInterest(null));
 		}
 
 		List<Integer> randomPage = homeService.makeRandomCount(homeFilter);
-		logger.debug("RandomPage Controller" + randomPage.toString());
 		session.setAttribute("randomPage", randomPage);
-		logger.debug("RandomPage Controller" + randomPage.get(0));
 
-		try {
-			JtownUser user = (JtownUser) SecurityContextHolder.getContext()
-					.getAuthentication().getPrincipal();
-			logger.debug(user.toString());
-			homeFilter.setCustomerPn(user.getPn());
-		} catch (ClassCastException e) {
-			logger.debug("로그인하지않은 사용자");
-		}
+		logger.debug("RandomPage Controller" + randomPage.toString()
+				+ " RandomFirstPage = " + randomPage.get(0));
+
 		homeFilter.setPage(randomPage.get(0));
 		Map<String, Object> one = homeService.selectHome(homeFilter);
-		mav.addObject("one", one);
+		model.addAttribute("one", one);
 		if (randomPage.size() > 1) {
 			homeFilter.setPage(randomPage.get(1));
 			Map<String, Object> two = homeService.selectHome(homeFilter);
-			mav.addObject("two", two);
+			model.addAttribute("two", two);
 		}
-		return mav;
 	}
 
 	@RequestMapping(value = "/process")
