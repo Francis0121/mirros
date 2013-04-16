@@ -11,8 +11,6 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,7 +27,9 @@ import com.bg.jtown.business.Interest;
 import com.bg.jtown.business.comment.CommentService;
 import com.bg.jtown.business.search.CommentFilter;
 import com.bg.jtown.business.search.HomeFilter;
+import com.bg.jtown.security.Authority;
 import com.bg.jtown.security.JtownUser;
+import com.bg.jtown.security.SummaryUser;
 
 /**
  * @author Francis, 박광열
@@ -50,20 +50,21 @@ public class HomeController {
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String showHome(Model model, HttpSession session,
-			@ModelAttribute HomeFilter homeFilter) {
-		getHomeModel(model, session, homeFilter);
+			@ModelAttribute HomeFilter homeFilter, SummaryUser summaryUser) {
+		getHomeModel(model, session, homeFilter, summaryUser);
 		return "home";
 	}
 
 	@RequestMapping(value = "/cpn/{categoryPn}/spn/{sectionPn}", method = RequestMethod.GET)
 	public String showHomeSearch(Model model, Integer loginUserPn,
-			HttpSession session, @ModelAttribute HomeFilter homeFilter) {
-		getHomeModel(model, session, homeFilter);
+			HttpSession session, @ModelAttribute HomeFilter homeFilter,
+			SummaryUser summaryUser) {
+		getHomeModel(model, session, homeFilter, summaryUser);
 		return "home";
 	}
 
 	private void getHomeModel(Model model, HttpSession session,
-			HomeFilter homeFilter) {
+			HomeFilter homeFilter, SummaryUser summaryUser) {
 		if (session.getAttribute("interestCategories") == null) {
 			session.setAttribute("interestCategories",
 					homeService.selecInterestCategory());
@@ -79,6 +80,7 @@ public class HomeController {
 		logger.debug("RandomPage Controller" + randomPage.toString()
 				+ " RandomFirstPage = " + randomPage.get(0));
 
+		homeFilter.setCustomerPn(summaryUser.getPn());
 		homeFilter.setPage(randomPage.get(0));
 		Map<String, Object> one = homeService.selectHome(homeFilter);
 		model.addAttribute("one", one);
@@ -90,26 +92,23 @@ public class HomeController {
 	}
 
 	@RequestMapping(value = "/process")
-	public String showProcessRedirect(HttpSession session, HomeFilter homeFilter) {
-		Authentication auth = SecurityContextHolder.getContext()
-				.getAuthentication();
+	public String showProcessRedirect(HttpSession session,
+			HomeFilter homeFilter, SummaryUser summaryUser) {
 
-		for (GrantedAuthority grantedAuthority : auth.getAuthorities()) {
-			String authority = grantedAuthority.getAuthority();
-			if (authority.equals("ROLE_ADMIN")) {
-				return "redirect:admin";
-			} else if (authority.equals("ROLE_SELLER")) {
-				return "redirect:seller/" + homeFilter.getCustomerPn();
-			} else if (authority.equals("ROLE_USER")) {
-				// TODO 사용자 맞춤형 메뉴 검색시 추가
-				// session.setAttribute("interestMap",
-				// homeService.selectInterest(homeFilter.getCustomerPn()));
-				return "redirect:";
-			} else {
-				return "redirect:";
-			}
+		Authority authority = summaryUser.getEnumAuthority();
+		System.out.println(authority);
+		if (authority.equals(Authority.ADMIN)) {
+			return "redirect:admin";
+		} else if (authority.equals(Authority.SELLER)) {
+			return "redirect:seller/" + summaryUser.getPn();
+		} else if (authority.equals(Authority.CUSTOMER)) {
+			// TODO 사용자 맞춤형k메뉴 검색시 추가
+			// session.setAttribute("interestMap",
+			// homeService.selectInterest(summaryUser.getPn()));
+			return "redirect:";
+		} else {
+			return "redirect:";
 		}
-		return "redirect:";
 	}
 
 	@RequestMapping(value = "/noPermission", method = RequestMethod.GET)
@@ -123,10 +122,11 @@ public class HomeController {
 	@ResponseBody
 	@SuppressWarnings("unchecked")
 	public Object ajaxHomePagination(@RequestBody HomeFilter homeFilter,
-			HttpSession session) {
+			SummaryUser summaryUser, HttpSession session) {
 		List<Integer> randomPage = (List<Integer>) session
 				.getAttribute("randomPage");
 
+		homeFilter.setCustomerPn(summaryUser.getPn());
 		Integer page = homeFilter.getCurrentPage();
 		if (randomPage.size() > page - 1) {
 			homeFilter.setPage(randomPage.get(page - 1));
@@ -141,31 +141,27 @@ public class HomeController {
 
 	@RequestMapping(value = "/ajax/home/expandShop.jt", method = RequestMethod.POST)
 	@ResponseBody
-	public Map<String, Object> ajaxExpandShop(@RequestBody JtownUser jtownUser) {
+	public Map<String, Object> ajaxExpandShop(@RequestBody JtownUser jtownUser,
+			SummaryUser summaryUser) {
 		Integer sellerPn = jtownUser.getPn();
+		Integer customerPn = summaryUser.getPn();
+
 		Map<String, Object> selectMap = homeService.selectExpandShop(sellerPn);
+
+		if (summaryUser.getEnumAuthority().equals(Authority.CUSTOMER)) {
+			selectMap.put("cpn", customerPn);
+			if (customerPn != null && customerPn != 0) {
+				int count = homeService.selectLoveCount(new Count(null,
+						customerPn, null, null, sellerPn, null));
+				selectMap.put("loveHave", count);
+			}
+		} else {
+			selectMap.put("cpn", 0);
+		}
 
 		CommentFilter commentFilter = new CommentFilter();
 		commentFilter.setSellerPn(sellerPn);
-		try {
-			JtownUser user = (JtownUser) SecurityContextHolder.getContext()
-					.getAuthentication().getPrincipal();
-			Integer customerPn = user.getPn();
-
-			if (user.getGroupName().equals("Customer")) {
-				commentFilter.setCustomerPn(customerPn);
-				selectMap.put("cpn", customerPn);
-				if (customerPn != null && customerPn != 0) {
-					int count = homeService.selectLoveCount(new Count(null,
-							customerPn, null, null, sellerPn, null));
-					selectMap.put("loveHave", count);
-				}
-			} else {
-				selectMap.put("cpn", 0);
-			}
-		} catch (ClassCastException e) {
-			logger.debug("로그인하지않은 사용자");
-		}
+		commentFilter.setCustomerPn(customerPn);
 
 		List<Comment> commentTops = commentService
 				.selectCommentTop(commentFilter);
@@ -181,41 +177,32 @@ public class HomeController {
 
 	@RequestMapping(value = "/ajax/clickShop.jt", method = RequestMethod.POST)
 	@ResponseBody
-	public void ajaxClickShop(@RequestBody Count count,
-			HttpServletRequest request) {
+	public Count ajaxClickShop(@RequestBody Count count,
+			HttpServletRequest request, SummaryUser summaryUser) {
 		homeService.insertViewCount(count, request.getRemoteAddr());
-
-		try {
-			JtownUser user = (JtownUser) SecurityContextHolder.getContext()
-					.getAuthentication().getPrincipal();
-			logger.debug(user.toString());
-			if (user.getGroupName().equals("Customer")) {
-				count.setCustomerPn(user.getPn());
-			}
-		} catch (ClassCastException e) {
-			logger.debug("로그인하지않은 사용자");
-		}
+		return count;
 	}
 
 	@RequestMapping(value = "/ajax/clickLove.jt", method = RequestMethod.POST)
 	@ResponseBody
-	public Count ajaxClickLove(@RequestBody Count count) {
-		try {
-			JtownUser user = (JtownUser) SecurityContextHolder.getContext()
-					.getAuthentication().getPrincipal();
-			logger.debug(user.toString());
-			if (user.getGroupName().equals("Customer")) {
-				count.setCustomerPn(user.getPn());
-				homeService.insertLoveCount(count);
-			} else {
-				count.setMessage("판매자는 불가능합니다");
-			}
-			return count;
-		} catch (ClassCastException e) {
-			logger.debug("로그인하지않은 사용자");
-			count.setMessage("로그인한 사용자만 사용가능합니다");
-			return count;
+	public Count ajaxClickLove(@RequestBody Count count, SummaryUser summaryUser) {
+		if (summaryUser.getEnumAuthority().equals(Authority.CUSTOMER)) {
+			count.setCustomerPn(summaryUser.getPn());
+			homeService.insertLoveCount(count);
+		} else if (summaryUser.getEnumAuthority().equals(Authority.NOT_LOGIN)) {
+			count.setMessage("로그인을 해야만 가능합니다.");
+		} else {
+			count.setMessage("판매자는 불가능합니다..");
 		}
+		return count;
+	}
+
+	// ~ Custom Navigation
+
+	@RequestMapping(value = "/ajax/getNavInterest.jt", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> ajaxGetNavInterest(@RequestBody Interest interest) {
+		return homeService.selectInterestDataMap(interest.getCategoryPn());
 	}
 
 	@RequestMapping(value = "/ajax/navInterestDelete.jt", method = RequestMethod.POST)
@@ -253,16 +240,10 @@ public class HomeController {
 		session.setAttribute("interestMap", interestMap);
 	}
 
-	@RequestMapping(value = "/ajax/getNavInterest.jt", method = RequestMethod.POST)
-	@ResponseBody
-	public Map<String, Object> ajaxGetNavInterest(@RequestBody Interest interest) {
-		return homeService.selectInterestDataMap(interest.getCategoryPn());
-	}
-
 	@RequestMapping(value = "/ajax/navInterestInsert.jt", method = RequestMethod.POST)
 	@ResponseBody
 	public void navInterestInsert(@RequestBody Interest interest,
-			HttpServletRequest request) {
+			HttpSession session) {
 		try {
 			JtownUser user = (JtownUser) SecurityContextHolder.getContext()
 					.getAuthentication().getPrincipal();
@@ -277,7 +258,6 @@ public class HomeController {
 			logger.debug("로그인하지않은 사용자");
 		}
 
-		HttpSession session = request.getSession();
 		@SuppressWarnings("unchecked")
 		Map<Integer, List<Interest>> interestMap = (Map<Integer, List<Interest>>) session
 				.getAttribute("interestMap");
