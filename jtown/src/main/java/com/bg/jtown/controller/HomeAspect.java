@@ -1,5 +1,9 @@
 package com.bg.jtown.controller;
 
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -17,6 +21,9 @@ public class HomeAspect {
 
 	private final Logger logger = LoggerFactory.getLogger(HomeAspect.class);
 
+	@Resource
+	private HttpServletRequest request;
+
 	@Around("bean(*Controller)")
 	public Object trace(ProceedingJoinPoint joinPoint) throws Throwable {
 		String signatureString = joinPoint.getSignature().toShortString();
@@ -24,14 +31,24 @@ public class HomeAspect {
 		long start = System.currentTimeMillis();
 
 		try {
-			Object result = joinPoint.proceed();
+			Object[] param = joinPoint.getArgs();
 
-			return result;
+			HttpSession session = request.getSession();
+
+			for (int i = 0; i < param.length; i++) {
+				if (param[i] != null) {
+					logger.debug("Object = " + param[i].toString()
+							+ param[i].getClass());
+					if (param[i].getClass() == HttpSession.class) {
+						param[i] = session;
+					}
+				}
+			}
+			return joinPoint.proceed(param);
 		} finally {
 			long finish = System.currentTimeMillis();
 			logger.info(signatureString + " 종료");
 			logger.info(signatureString + " 실행 시간 : " + (finish - start) + "ms");
 		}
-
 	}
 }

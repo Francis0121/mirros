@@ -44,6 +44,7 @@ public class HomeController {
 
 	@Resource
 	private HomeService homeService;
+
 	@Resource
 	private CommentService commentService;
 
@@ -51,9 +52,8 @@ public class HomeController {
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView showMainPage(@ModelAttribute HomeFilter homeFilter,
-			HttpServletRequest request) {
+			HttpSession session) {
 		logger.debug("Show Main page");
-		HttpSession session = request.getSession();
 		ModelAndView mav = new ModelAndView("home");
 		mav.addObject("interestCategories", homeService.selecInterestCategory());
 		if (session.getAttribute("interestMap") == null) {
@@ -89,9 +89,8 @@ public class HomeController {
 
 	@RequestMapping(value = "/cpn/{categoryPn}/spn/{sectionPn}", method = RequestMethod.GET)
 	public ModelAndView showMainPageSearch(
-			@ModelAttribute HomeFilter homeFilter, HttpServletRequest request) {
+			@ModelAttribute HomeFilter homeFilter, HttpSession session) {
 		logger.debug("Show Main page Search");
-		HttpSession session = request.getSession();
 		ModelAndView mav = new ModelAndView("home");
 		mav.addObject("interestCategories", homeService.selecInterestCategory());
 		if (session.getAttribute("interestMap") == null) {
@@ -125,7 +124,7 @@ public class HomeController {
 	}
 
 	@RequestMapping(value = "/process")
-	public ModelAndView redirectView(HttpServletRequest request) {
+	public ModelAndView redirectView(HttpSession httpSession) {
 
 		ModelAndView mav = new ModelAndView();
 
@@ -145,11 +144,11 @@ public class HomeController {
 				break;
 			} else if (authority.equals("ROLE_USER")) {
 				// TODO 사용자 맞춤형 메뉴 검색시 추가
-//				Map<Integer, List<Interest>> interestMap = homeService
-//						.selectInterest(user.getPn());
-//				HttpSession session = request.getSession();
-//				session.setAttribute("interestMap", interestMap);
-//				logger.debug(interestMap.toString());
+				// Map<Integer, List<Interest>> interestMap = homeService
+				// .selectInterest(user.getPn());
+				// HttpSession session = request.getSession();
+				// session.setAttribute("interestMap", interestMap);
+				// logger.debug(interestMap.toString());
 				mav.setView(new RedirectView(""));
 				break;
 			} else {
@@ -253,7 +252,7 @@ public class HomeController {
 	@RequestMapping(value = "/ajax/navInterestDelete.jt", method = RequestMethod.POST)
 	@ResponseBody
 	public void ajaxClickLove(@RequestBody Interest interest,
-			HttpServletRequest request) {
+			HttpSession session) {
 		try {
 			JtownUser user = (JtownUser) SecurityContextHolder.getContext()
 					.getAuthentication().getPrincipal();
@@ -267,7 +266,6 @@ public class HomeController {
 		} catch (ClassCastException e) {
 			logger.debug("로그인하지않은 사용자");
 		}
-		HttpSession session = request.getSession();
 		@SuppressWarnings("unchecked")
 		Map<Integer, List<Interest>> interestMap = (Map<Integer, List<Interest>>) session
 				.getAttribute("interestMap");
