@@ -4,7 +4,7 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
-<%@ include file="../../layout/layout_help_header.jspf" %>
+<%@ include file="../../layout/help_header.jspf" %>
 <c:url value="/help/partnership.jt" var="action"/>
 <section class="jt-partnership-section">
 	
@@ -117,4 +117,4 @@
 	</footer>
 
 </section>
-<%@ include file="../../layout/layout_help_footer.jspf" %>
+<%@ include file="../../layout/help_footer.jspf" %>
