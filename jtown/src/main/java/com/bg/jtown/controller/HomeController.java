@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -177,9 +176,8 @@ public class HomeController {
 
 	@RequestMapping(value = "/ajax/clickShop.jt", method = RequestMethod.POST)
 	@ResponseBody
-	public Count ajaxClickShop(@RequestBody Count count,
-			HttpServletRequest request, SummaryUser summaryUser) {
-		homeService.insertViewCount(count, request.getRemoteAddr());
+	public Count ajaxClickShop(@RequestBody Count count, SummaryUser summaryUser) {
+		homeService.insertViewCount(count, summaryUser.getRemoteIp());
 		return count;
 	}
 

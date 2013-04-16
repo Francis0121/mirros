@@ -20,6 +20,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import com.bg.jtown.business.Product;
 import com.bg.jtown.security.JtownUser;
+import com.bg.jtown.security.SummaryUser;
 import com.bg.jtown.util.FileVO;
 import com.bg.jtown.business.Event;
 import com.bg.jtown.business.seller.SellerService;
@@ -29,10 +30,10 @@ import com.bg.jtown.business.seller.SellerService;
  * 
  */
 @Controller
-public class SellerControlller {
+public class SellerController {
 
 	private static final Logger logger = LoggerFactory
-			.getLogger(SellerControlller.class);
+			.getLogger(SellerController.class);
 
 	@Resource
 	private SellerService sellerService;
@@ -41,16 +42,15 @@ public class SellerControlller {
 
 	@PreAuthorize("hasRole('ROLE_SELLER')")
 	@RequestMapping(value = "/seller/{p}", method = RequestMethod.GET)
-	public String showSellerPage(@PathVariable(value = "p") Integer sellerPn,
-			@RequestParam(value = "error", required = false) Integer error,
-			Model model) {
-		JtownUser user = (JtownUser) SecurityContextHolder.getContext()
-				.getAuthentication().getPrincipal();
-		if (!user.getPn().equals(sellerPn)) {
-			logger.debug("Deny Seller page No Permission");
-			return "noPermission";
+	public String showSeller(@PathVariable(value = "p") Integer sellerPn,
+			@RequestParam(required = false) Integer error, Model model,
+			SummaryUser summaryUser) {
+		if (!summaryUser.getPn().equals(sellerPn)) {
+			logger.warn("Deny Seller page No Permission [ Access = "
+					+ summaryUser.getPn() + ", IP = "
+					+ summaryUser.getRemoteIp() + " ] ");
+			return "redirect:../noPermission";
 		}
-		logger.debug("Show seller page");
 		model.addAllAttributes(sellerService.selectAllInformation(sellerPn));
 		if (error != null) {
 			model.addAttribute("error", error);
