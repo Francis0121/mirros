@@ -45,7 +45,7 @@ public class AdminController {
 	private static final Logger logger = LoggerFactory
 			.getLogger(AdminController.class);
 
-	@Resource(name = "adminServiceImpl")
+	@Resource
 	private AdminService adminService;
 	@Resource
 	private HelpService helpService;

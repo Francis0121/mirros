@@ -18,7 +18,7 @@ import com.bg.jtown.util.VaildationUtil;
 @Component
 public class LoginValidator implements Validator {
 
-	@Resource(name = "loginServiceImpl")
+	@Resource
 	private LoginService loginService;
 
 	@Override

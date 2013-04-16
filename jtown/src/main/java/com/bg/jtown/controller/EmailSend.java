@@ -2,7 +2,8 @@ package com.bg.jtown.controller;
 
 import java.io.UnsupportedEncodingException;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.annotation.Resource;
+
 import org.springframework.stereotype.Component;
 
 import com.bg.jtown.security.Confirm;
@@ -16,20 +17,14 @@ import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 @Component
 public class EmailSend {
 
+	@Resource
 	private LoginService loginService;
+	@Resource
 	private SeedCipher seedCipher;
+	@Resource
 	private EmailSender emailSender;
+	@Resource
 	private CustomJdbcUserDetailManager customJdbcUserDetailManager;
-
-	@Autowired
-	public void config(LoginService loginService, SeedCipher seedCipher,
-			EmailSender emailSender,
-			CustomJdbcUserDetailManager customJdbcUserDetailManager) {
-		this.loginService = loginService;
-		this.seedCipher = seedCipher;
-		this.emailSender = emailSender;
-		this.customJdbcUserDetailManager = customJdbcUserDetailManager;
-	}
 
 	public void sendConfirmEmail(String username) {
 		Confirm confirm = loginService

@@ -46,9 +46,5 @@
 			</list>
 		</property>
 	</bean>
-	
-	<mvc:interceptors>
-		<bean id="loginCheckAuthAndForwardingAuthPage" class="com.bg.jtown.controller.interceptor.AuthCheckInterceptor" />
-	</mvc:interceptors>
 
 </beans>
