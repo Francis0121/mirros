@@ -4,7 +4,7 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
-<%@ include file="../../../layout/layout_admin_header.jspf" %>
+<%@ include file="../../../layout/admin_header.jspf" %>
 <form:form commandName="board">
 <table class="jt-notice-write-table">
 	<tfoot>
@@ -28,4 +28,4 @@
 		</tbody>
 </table>
 </form:form>
-<%@ include file="../../../layout/layout_admin_footer.jspf" %>
+<%@ include file="../../../layout/admin_footer.jspf" %>

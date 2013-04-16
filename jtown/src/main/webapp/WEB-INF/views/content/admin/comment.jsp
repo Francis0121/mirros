@@ -4,7 +4,7 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
-<%@ include file="../../layout/layout_admin_header.jspf" %>
+<%@ include file="../../layout/admin_header.jspf" %>
 <c:set var="pagination" value="${adminCommentFilter.pagination }"/>
 <%-- Page 처리 Script --%>
 <script type="text/javascript">
@@ -94,4 +94,4 @@ function goToPreviousPages() {
 	</tbody>
 </table>
 
-<%@ include file="../../layout/layout_admin_footer.jspf" %>
+<%@ include file="../../layout/admin_footer.jspf" %>

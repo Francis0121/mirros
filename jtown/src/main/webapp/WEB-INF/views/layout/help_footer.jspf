@@ -7,6 +7,6 @@
 		</section>
 	</section>
 	<%@ include file="login.jspf" %>
-	<%@ include file="script.jspf" %>
+	<%@ include file="script_foot.jspf" %>
 </body>
 </html>

@@ -10,6 +10,6 @@
 		<div class="jt-scroll-top" onclick=" $('html, body').animate({scrollTop:0}, 'slow');">TOP</div>
 	</footer>
 	<%@ include file="login.jspf" %>
-	<%@ include file="script.jspf" %>
+	<%@ include file="script_foot.jspf" %>
 </body>
 </html>

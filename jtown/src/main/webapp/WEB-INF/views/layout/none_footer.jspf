@@ -6,7 +6,7 @@
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 	</section>
 	<%@ include file="../layout/login.jspf" %>
-	<%@ include file="../layout/script.jspf" %>
+	<%@ include file="../layout/script_foot.jspf" %>
 	<script type="text/javascript">
 		$(function(){
 			$('#jt-comment-insert').placeholder();
