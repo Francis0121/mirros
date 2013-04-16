@@ -1,5 +1,6 @@
 package com.bg.jtown.business.board;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.mybatis.spring.support.SqlSessionDaoSupport;
@@ -43,7 +44,9 @@ public class BoardServiceImpl extends SqlSessionDaoSupport implements
 		Pagination pagination = boardFilter.getPagination();
 		int count = selectNoticeCount(boardFilter);
 		pagination.setNumItems(count);
-
+		if (count == 0) {
+			return new ArrayList<Board>();
+		}
 		List<Board> boards = getSqlSession().selectList(
 				"boardMapper.selectNoticeList", boardFilter);
 		logger.debug(boards.toString());

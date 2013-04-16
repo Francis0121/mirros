@@ -59,29 +59,25 @@ public class AdminController {
 
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/admin", method = RequestMethod.GET)
-	public String showAdminPage(Model model) {
-		logger.debug("Show Admin Page");
+	public String showAdmin(Model model) {
 		return "admin/main";
 	}
 
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/admin/qna", method = RequestMethod.GET)
-	public String showQnaPage(Model model) {
-		logger.debug("Show Qna Page");
+	public String showQna(Model model) {
 		return "admin/qna";
 	}
 
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/admin/qnaSeller", method = RequestMethod.GET)
-	public String showQnaSellerPage(Model model) {
-		logger.debug("Show QnaSeller Page");
+	public String showQnaSeller(Model model) {
 		return "admin/qnaSeller";
 	}
 
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/admin/qnaCustomer", method = RequestMethod.GET)
 	public String showQnaCustomerPage(Model model) {
-		logger.debug("Show QnaCustomer Page");
 		return "admin/qnaCustomer";
 	}
 

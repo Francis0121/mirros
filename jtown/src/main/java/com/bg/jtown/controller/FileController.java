@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
@@ -23,10 +22,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.bg.jtown.business.FileService;
-import com.bg.jtown.security.JtownUser;
+import com.bg.jtown.security.SummaryUser;
 import com.bg.jtown.util.FileUtil;
 import com.bg.jtown.util.FileVO;
 import com.bg.jtown.util.MultipartFile;
+import com.google.gson.Gson;
 
 /**
  * @author Francis
@@ -45,7 +45,8 @@ public class FileController {
 	@ResponseBody
 	public void ajaxUpload(@ModelAttribute MultipartFile multipartFile,
 			BindingResult result, HttpServletRequest request,
-			HttpServletResponse response) throws IOException {
+			HttpServletResponse response, SummaryUser summaryUser)
+			throws IOException {
 
 		@SuppressWarnings("deprecation")
 		String saveDirectory = request.getRealPath("resources/uploadImage");
@@ -70,35 +71,19 @@ public class FileController {
 
 				if (commonsMultipartFile.getSize() > 0) {
 					try {
-
 						IOUtils.copy(commonsMultipartFile.getInputStream(),
 								new FileOutputStream(new File(saveDirectory,
 										saveName)));
-						FileVO fileVO = new FileVO();
-
-						fileVO.setOriginalName(orginalName);
-						fileVO.setSaveName(saveName);
-						fileVO.setMemorySize((int) commonsMultipartFile
-								.getSize());
-
-						JtownUser jtownUser = (JtownUser) SecurityContextHolder
-								.getContext().getAuthentication()
-								.getPrincipal();
-						fileVO.setOwnerPn(jtownUser.getPn());
-
+						FileVO fileVO = new FileVO(null, orginalName, saveName,
+								summaryUser.getPn(),
+								(int) commonsMultipartFile.getSize());
 						fileService.insertFileVO(fileVO);
 
-						logger.debug("fileVO" + fileVO);
+						Gson gson = new Gson();
+						String json = gson.toJson(fileVO);
 
-						StringBuffer param = new StringBuffer();
-						param.append("{");
-						param.append("saveName : '")
-								.append(fileVO.getSaveName()).append("'");
-						param.append(",");
-						param.append("imagePn : '").append(fileVO.getImagePn())
-								.append("'");
-						param.append("}");
-						writer.print(param.toString());
+						logger.debug(json);
+						writer.print(json);
 					} catch (FileNotFoundException e) {
 						e.printStackTrace();
 						writer.print("{ 'result' : 'error' }");

@@ -37,13 +37,10 @@ public class HelpController {
 
 	@Resource
 	private HelpService helpService;
-
 	@Resource
 	private BoardService boardService;
-
 	@Resource
 	private HomeService homeService;
-
 	@Resource
 	private PartnershipValidator partnershipValidator;
 
