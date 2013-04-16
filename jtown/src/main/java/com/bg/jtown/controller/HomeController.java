@@ -21,8 +21,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
 
 import com.bg.jtown.business.Comment;
 import com.bg.jtown.business.Count;
@@ -66,7 +64,6 @@ public class HomeController {
 
 	private void getHomeModel(Model model, HttpSession session,
 			HomeFilter homeFilter) {
-		logger.debug("Show Home");
 		if (session.getAttribute("interestCategories") == null) {
 			session.setAttribute("interestCategories",
 					homeService.selecInterestCategory());
@@ -93,48 +90,54 @@ public class HomeController {
 	}
 
 	@RequestMapping(value = "/process")
-	public ModelAndView redirectView(HttpSession httpSession) {
-
-		ModelAndView mav = new ModelAndView();
-
+	public String showProcessRedirect(HttpSession session, HomeFilter homeFilter) {
 		Authentication auth = SecurityContextHolder.getContext()
 				.getAuthentication();
-
-		JtownUser user = (JtownUser) SecurityContextHolder.getContext()
-				.getAuthentication().getPrincipal();
 
 		for (GrantedAuthority grantedAuthority : auth.getAuthorities()) {
 			String authority = grantedAuthority.getAuthority();
 			if (authority.equals("ROLE_ADMIN")) {
-				mav.setView(new RedirectView("admin"));
-				break;
+				return "redirect:admin";
 			} else if (authority.equals("ROLE_SELLER")) {
-				mav.setView(new RedirectView("seller/" + user.getPn()));
-				break;
+				return "redirect:seller/" + homeFilter.getCustomerPn();
 			} else if (authority.equals("ROLE_USER")) {
 				// TODO 사용자 맞춤형 메뉴 검색시 추가
-				// Map<Integer, List<Interest>> interestMap = homeService
-				// .selectInterest(user.getPn());
-				// HttpSession session = request.getSession();
-				// session.setAttribute("interestMap", interestMap);
-				// logger.debug(interestMap.toString());
-				mav.setView(new RedirectView(""));
-				break;
+				// session.setAttribute("interestMap",
+				// homeService.selectInterest(homeFilter.getCustomerPn()));
+				return "redirect:";
 			} else {
-				mav.setView(new RedirectView(""));
-				break;
+				return "redirect:";
 			}
 		}
-		return mav;
+		return "redirect:";
 	}
 
 	@RequestMapping(value = "/noPermission", method = RequestMethod.GET)
 	public String showNoPermissionPage() {
-		logger.debug("Show noPermission page");
 		return "login/noPermission";
 	}
 
 	// ~ AJAX
+
+	@RequestMapping(value = "/ajax/homePagination.jt", method = RequestMethod.POST)
+	@ResponseBody
+	@SuppressWarnings("unchecked")
+	public Object ajaxHomePagination(@RequestBody HomeFilter homeFilter,
+			HttpSession session) {
+		List<Integer> randomPage = (List<Integer>) session
+				.getAttribute("randomPage");
+
+		Integer page = homeFilter.getCurrentPage();
+		if (randomPage.size() > page - 1) {
+			homeFilter.setPage(randomPage.get(page - 1));
+			Map<String, Object> object = homeService.selectHome(homeFilter);
+			logger.debug("Home Pagination  = " + object + " HomeFilter = "
+					+ homeFilter.toString());
+			return object;
+		} else {
+			return null;
+		}
+	}
 
 	@RequestMapping(value = "/ajax/home/expandShop.jt", method = RequestMethod.POST)
 	@ResponseBody
@@ -147,8 +150,6 @@ public class HomeController {
 		try {
 			JtownUser user = (JtownUser) SecurityContextHolder.getContext()
 					.getAuthentication().getPrincipal();
-			logger.debug(user.toString());
-
 			Integer customerPn = user.getPn();
 
 			if (user.getGroupName().equals("Customer")) {
@@ -194,7 +195,6 @@ public class HomeController {
 		} catch (ClassCastException e) {
 			logger.debug("로그인하지않은 사용자");
 		}
-
 	}
 
 	@RequestMapping(value = "/ajax/clickLove.jt", method = RequestMethod.POST)
@@ -313,34 +313,4 @@ public class HomeController {
 		}
 	}
 
-	@RequestMapping(value = "/ajax/homePagination.jt", method = RequestMethod.POST)
-	@ResponseBody
-	@SuppressWarnings("unchecked")
-	public Object ajaxHomePagination(@RequestBody HomeFilter homeFilter,
-			HttpServletRequest request) {
-		logger.debug("Ajax Pagination page" + homeFilter.toString()
-				+ ", Page [ " + homeFilter.getPage() + " ] ");
-
-		HttpSession session = request.getSession();
-		List<Integer> randomPage = (List<Integer>) session
-				.getAttribute("randomPage");
-		try {
-			JtownUser user = (JtownUser) SecurityContextHolder.getContext()
-					.getAuthentication().getPrincipal();
-			logger.debug(user.toString());
-			homeFilter.setCustomerPn(user.getPn());
-		} catch (ClassCastException e) {
-			logger.debug("로그인하지않은 사용자");
-		}
-
-		Integer page = homeFilter.getCurrentPage();
-		if (randomPage.size() > page - 1) {
-			homeFilter.setPage(randomPage.get(page - 1));
-			Map<String, Object> object = homeService.selectHome(homeFilter);
-			logger.debug("Home Pagination " + object);
-			return object;
-		} else {
-			return null;
-		}
-	}
 }
