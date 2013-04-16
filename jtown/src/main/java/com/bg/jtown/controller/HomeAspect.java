@@ -44,10 +44,10 @@ public class HomeAspect {
 						.getAuthentication().getPrincipal();
 				logger.debug(user.toString());
 				summaryUser = new SummaryUser(user.getGroupName(), true,
-						user.getPn());
+						user.getPn(), user.getUsername());
 			} catch (ClassCastException e) {
 				logger.debug("Not Log In user");
-				summaryUser = new SummaryUser(null, false, null);
+				summaryUser = new SummaryUser(null, false, null, null);
 			}
 
 			for (int i = 0; i < param.length; i++) {

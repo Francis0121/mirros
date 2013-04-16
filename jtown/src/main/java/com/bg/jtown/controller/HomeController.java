@@ -197,7 +197,7 @@ public class HomeController {
 		return count;
 	}
 
-	// ~ Custom Navigation
+	// ~ Custom Navigation - 2013.04.16 사용 X
 
 	@RequestMapping(value = "/ajax/getNavInterest.jt", method = RequestMethod.POST)
 	@ResponseBody

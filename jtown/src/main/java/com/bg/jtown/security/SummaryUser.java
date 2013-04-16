@@ -23,6 +23,28 @@ public class SummaryUser {
 	 */
 	private Integer pn;
 
+	/**
+	 * 사용자 아이디
+	 */
+	private String username;
+
+	public SummaryUser() {
+		super();
+	}
+
+	public SummaryUser(String authoirty, Boolean isLogin, Integer pn,
+			String username) {
+		super();
+		this.authoirty = authoirty;
+		this.isLogin = isLogin;
+		this.pn = pn;
+		this.username = username;
+	}
+
+	public String getAuthoirty() {
+		return authoirty;
+	}
+
 	public Authority getEnumAuthority() {
 		if (this.authoirty == null) {
 			return Authority.NOT_LOGIN;
@@ -39,27 +61,16 @@ public class SummaryUser {
 		}
 	}
 
-	public SummaryUser() {
-		super();
-	}
-
-	public SummaryUser(String authoirty, Boolean isLogin, Integer pn) {
-		super();
-		this.authoirty = authoirty;
-		this.isLogin = isLogin;
-		this.pn = pn;
-	}
-
-	public String getAuthoirty() {
-		return authoirty;
-	}
-
 	public Boolean getIsLogin() {
 		return isLogin;
 	}
 
 	public Integer getPn() {
 		return pn;
+	}
+
+	public String getUsername() {
+		return username;
 	}
 
 	public void setAuthoirty(String authoirty) {
@@ -74,10 +85,14 @@ public class SummaryUser {
 		this.pn = pn;
 	}
 
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
 	@Override
 	public String toString() {
 		return "SummaryUser [authoirty=" + authoirty + ", isLogin=" + isLogin
-				+ ", pn=" + pn + "]";
+				+ ", pn=" + pn + ", username=" + username + "]";
 	}
 
 }

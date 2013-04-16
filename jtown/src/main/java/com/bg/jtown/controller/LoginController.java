@@ -5,11 +5,11 @@ import java.io.UnsupportedEncodingException;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -29,6 +29,7 @@ import com.bg.jtown.security.Confirm;
 import com.bg.jtown.security.CustomJdbcUserDetailManager;
 import com.bg.jtown.security.JtownUser;
 import com.bg.jtown.security.LoginService;
+import com.bg.jtown.security.SummaryUser;
 import com.bg.jtown.security.UserAuthenticator;
 import com.bg.jtown.security.algorithm.SeedCipher;
 import com.bg.jtown.util.StringUtil;
@@ -59,27 +60,22 @@ public class LoginController {
 	private LoginService loginService;
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String showLoginPage(Model model) {
-		logger.debug("Show Login page");
+	public String showLogin(Model model) {
 		return "login/login";
 	}
 
 	@RequestMapping(value = "/login/join", method = RequestMethod.GET)
-	public String showJoinPage(Model model,
-			@ModelAttribute JtownUser jtownUser, HttpServletRequest request) {
-		logger.debug("Show Join page");
-
-		request.getSession().setAttribute("beforJoinUrl",
-				request.getHeader("referer"));
-
+	public String showJoin(Model model, @ModelAttribute JtownUser jtownUser,
+			HttpSession session, HttpServletRequest request) {
+		session.setAttribute("beforJoinUrl", request.getHeader("referer"));
 		return "login/join";
 	}
 
 	@RequestMapping(value = "/login/joinSubmit.jt", method = RequestMethod.POST)
-	public ModelAndView formJoinSubmit(@ModelAttribute JtownUser jtownUser,
+	public String formJoin(Model model, @ModelAttribute JtownUser jtownUser,
 			@RequestParam("confirmPassword") final String confirmPassword,
 			BindingResult result, HttpServletRequest request,
-			HttpServletResponse response) {
+			HttpServletResponse response, HttpSession session) {
 		loginValidator.validate(jtownUser, result);
 		new Validator() {
 			@Override
@@ -92,7 +88,6 @@ public class LoginController {
 						jtownUser.getPassword(), confirmPassword)) {
 					errors.rejectValue("password", "join.password.isNotEqual");
 				}
-
 			}
 
 			@Override
@@ -100,30 +95,26 @@ public class LoginController {
 				return JtownUser.class.isAssignableFrom(clazz);
 			}
 		}.validate(jtownUser, result);
-		ModelAndView mav = new ModelAndView();
+
 		if (!result.hasErrors()) {
 			request.setAttribute("username", jtownUser.getUsername());
 			request.setAttribute("password", jtownUser.getPassword());
 
 			customJdbcUserDetailManager.createUserCustomAndAuthority(jtownUser);
+			emailSend.sendConfirmEmail(jtownUser.getUsername());
 			userAuthenticator.login(request, response);
 
-			String beforeAddress = (String) request.getSession().getAttribute(
-					"beforJoinUrl");
-			logger.debug(beforeAddress);
-			emailSend.sendConfirmEmail(jtownUser.getUsername());
-
-			mav.setView(new RedirectView(beforeAddress));
+			String beforeAddress = (String) session
+					.getAttribute("beforJoinUrl");
+			return "redirect:" + beforeAddress;
 		} else {
-			mav.setViewName("login/join");
+			return "login/join";
 		}
-		return mav;
 	}
 
 	@PreAuthorize("hasRole('ROLE_USER')")
 	@RequestMapping(value = "/login/modify", method = RequestMethod.GET)
-	public String showModifyPage(Model model,
-			@ModelAttribute JtownUser jtownUser,
+	public String showModify(Model model, @ModelAttribute JtownUser jtownUser,
 			@RequestParam(required = false) Integer result) {
 		model.addAttribute("result", result);
 		return "login/modify";
@@ -161,7 +152,6 @@ public class LoginController {
 		if (!result.hasErrors()) {
 			customJdbcUserDetailManager.changePassword(jtownUser.getPassword(),
 					jtownUser.getNewPassword());
-
 			return "redirect:modify/?result=2";
 		} else {
 			return "login/modify";
@@ -170,7 +160,7 @@ public class LoginController {
 
 	@PreAuthorize("hasRole('ROLE_USER')")
 	@RequestMapping(value = "/login/modifyEmailAddress", method = RequestMethod.GET)
-	public String showModifyEmailAddressPage(Model model,
+	public String showModifyEmailAddress(Model model,
 			@ModelAttribute JtownUser jtownUser,
 			@RequestParam(required = false) Integer result) {
 		model.addAttribute("result", result);
@@ -179,9 +169,9 @@ public class LoginController {
 
 	@PreAuthorize("hasRole('ROLE_USER')")
 	@RequestMapping(value = "/login/modifyEmailAddress.jt", method = RequestMethod.POST)
-	public String formModifyEmailAddressPage(
-			@ModelAttribute JtownUser jtownUser, BindingResult result,
-			HttpServletRequest request, HttpServletResponse response) {
+	public String formModifyEmailAddress(@ModelAttribute JtownUser jtownUser,
+			BindingResult result, HttpServletRequest request,
+			HttpServletResponse response, SummaryUser summaryUser) {
 		new Validator() {
 			@Override
 			public void validate(Object target, Errors errors) {
@@ -211,24 +201,14 @@ public class LoginController {
 				return JtownUser.class.isAssignableFrom(clazz);
 			}
 		}.validate(jtownUser, result);
-		JtownUser nowUser;
-		try {
-			nowUser = (JtownUser) SecurityContextHolder.getContext()
-					.getAuthentication().getPrincipal();
-		} catch (ClassCastException e) {
-			logger.debug("로그인하지않은 사용자");
-			return "redirect:/";
-		}
 		if (!result.hasErrors()) {
-			loginService.updateUserCustomerEmail(jtownUser.getUsername(),
-					nowUser.getUsername());
-
 			request.setAttribute("username", jtownUser.getUsername());
 			request.setAttribute("password", jtownUser.getPassword());
 
-			userAuthenticator.login(request, response);
-
+			loginService.updateUserCustomerEmail(jtownUser.getUsername(),
+					summaryUser.getUsername());
 			emailSend.sendConfirmEmail(jtownUser.getUsername());
+			userAuthenticator.login(request, response);
 			return "redirect:modifyEmailAddress/?result=3";
 		} else {
 			return "login/modifyEmailAddress";
@@ -238,15 +218,10 @@ public class LoginController {
 	@PreAuthorize("hasRole('ROLE_USER')")
 	@RequestMapping(value = "/ajax/resendConfirmEmail.jt", method = RequestMethod.POST)
 	@ResponseBody
-	public void ajaxResendConfirmEmail() {
-		try {
-			JtownUser user = (JtownUser) SecurityContextHolder.getContext()
-					.getAuthentication().getPrincipal();
-			logger.debug(user.toString());
-
-			emailSend.sendConfirmEmail(user.getUsername());
-		} catch (ClassCastException e) {
-			logger.debug("로그인하지않은 사용자");
+	public void ajaxResendConfirmEmail(SummaryUser summaryUser) {
+		String username = summaryUser.getUsername();
+		if (username != null) {
+			emailSend.sendConfirmEmail(summaryUser.getUsername());
 		}
 	}
 
