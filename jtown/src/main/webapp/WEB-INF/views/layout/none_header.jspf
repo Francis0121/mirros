@@ -8,8 +8,8 @@
 <html>
 <head>
 <title>MIRROS</title>
-<%@ include file="../layout/style.jspf"%>
-<%@ include file="../layout/header_script.jspf" %>
+<%@ include file="style.jspf"%>
+<%@ include file="script_head.jspf" %>
 <style type="text/css">
 	.jt-home-shop-content-image{cursor: default;}
 </style>

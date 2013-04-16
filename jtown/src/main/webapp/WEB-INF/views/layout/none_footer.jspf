@@ -10,6 +10,8 @@
 	<script type="text/javascript">
 		$(function(){
 			$('#jt-comment-insert').placeholder();
+			$('#username_findPassword').placeholder();
+			$('#j_username_page, #j_password_page').placeholder();
 		});
 	</script>
 	<c:if test="${error eq 1 }">

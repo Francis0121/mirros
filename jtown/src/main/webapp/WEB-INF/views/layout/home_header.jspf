@@ -9,7 +9,7 @@
 <html>
 <head>
 <title>MIRROS</title>
-<%@ include file="header_script.jspf" %>
+<%@ include file="script_head.jspf" %>
 <%@ include file="style.jspf"%>
 <sec:authorize access="hasRole('ROLE_USER') and !principal.confirmEmail">
 <style type="text/css">
