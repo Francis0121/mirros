@@ -30,75 +30,37 @@
 <script src="${cp}/resources/js/comment.js"></script>
 <script src="${cp}/resources/js/board.js"></script>
 <script src="${cp}/resources/js/help.js"></script>
-
-<c:set var="maxPage" value="${homeFilter.pagination.numPages eq null ? 0 : homeFilter.pagination.numPages }"/>
+	
+<%-- Node --%>
+<script src="${cp}/resources/js/real.time.js"></script>
+<script src="https://127.0.0.1:8000/socket.io/socket.io.js"></script>
+<!-- <script src="https://14.63.226.97:8000/socket.io/socket.io.js"></script> -->
+<!-- <script src="https://www.mirros.net:8000/socket.io/socket.io.js"></script> -->
 <script type="text/javascript">
-/* <![CDATA[ */   
-	var $container = $('#jt-home-container');
-	
-	$container.imagesLoaded(function(){
-		$container.masonry({
-			itemSelector : '.jt-home-shop',
-			columnWidth : 330
-		});
-	});
-	
-	$('#jt-home-container').scrollPagination({
-		'contentPage'	: '<c:url value="/ajax/homePagination.jt"/>',
-		'contentData'	: { 	'categoryPn'	: 	Number('<c:out value="${homeFilter.categoryPn eq null ? 0 : homeFilter.categoryPn}"/>'),
-								'sectionPn'		: 	Number('<c:out value="${homeFilter.sectionPn eq null ? 0 : homeFilter.sectionPn}"/>')	},
-		'scrollTarget'	: $(window),
-		'successCallback' : function(data){
-			var html = jtown.home.html(data);
-			var $boxes = $(html);
-			$('#jt-home-container').append($boxes).masonry('appended', $boxes);
-			setTimeout('jtown.expand.loadExpandShop()', 0);
-		},
-		'maxPage'		: <c:out value='${maxPage}'/>
-	});
-	
-	onResize = function(){
-		var clientWidth = Number(window.document.body.clientWidth),
-			widthItem = Math.floor(clientWidth/330);
-		
-		if(widthItem < 3 ) widthItem = 3;
-		
-		$('#jt-home-container').css({width : (widthItem*330), margin : 'auto'});	
-	};
-	
-	onResize();
-	
-	$(window).resize(onResize);
-/* ]]> */	
-</script>
+	$(document).ready(function(){
+		var options = {
+				secure : true,
+				'reconnect': true,
+				'reopen delay': 500,
+				'max reconnection attempts': 10,
+				'reconnection delay' : 500,
+				'connect timeout': 500
+			};
+// 		var socket = io.connect('https://www.mirros.net:8000', options);		
+// 		var socket = io.connect('https://14.63.226.97:8000',options);
+		var socket = io.connect('https://127.0.0.1:8000', options);
 
-<c:if test="${one.jtownUsers ne null}">
-	<c:set var="topHeight" value="59px"/>
-	<c:set var="downHeight" value="14px"/>
-	<sec:authorize access="hasRole('ROLE_USER') and !principal.confirmEmail">
-		<c:set var="topHeight" value="89px"/>
-		<c:set var="downHeight" value="44px"/>
-	</sec:authorize>
-	<script type="text/javascript">
-	/* <![CDATA[ */ 
-		$(window).scroll(function(){
-			var de = document.documentElement;
-			var b = document.body;
-			var scrollY = document.all ? (!de.scrollTop ? b.scrollTop : de.scrollTop) : (window.pageYOffset ? window.pageYOffset : window.scrollY);
-			if(scrollY == 0){
-				$('.jt-header-title').slideDown('fast');
-				setTimeout('$(\'.jt-header-nav-interestCategory\').css(\'top\', \'<c:out value="${topHeight}"/>\')');
-				setTimeout('$(".jt-footer").slideUp()',0);
-			}else{
-				$('.jt-header-title').slideUp('fast', function(){
-					$('.jt-header-nav-interestCategory').css('top', '<c:out value="${downHeight}"/>');
-					setTimeout('$(".jt-footer").slideDown()',0);
+		socket.on('connect', function() {
+				socket.on('real_time', function(data){
+					jtown.real.time(data);
 				});
-			}
+				
+				socket.on('love_rank', function(data){
+					jtown.real.loveRank(data);
+				});
 		});
-	/* ]]> */	
-	</script>
-</c:if>
+	});
+</script>
 
 <%--TODO partnership 페이지에서만 이용되고 있음 --%>
 <c:if test="${result ne null }">
@@ -144,34 +106,3 @@
 	/* ]]> */	            
 	</script>
 </c:if>
-	
-<%-- Node --%>
-<script src="${cp}/resources/js/real.time.js"></script>
-<script src="https://127.0.0.1:8000/socket.io/socket.io.js"></script>
-<!-- <script src="https://14.63.226.97:8000/socket.io/socket.io.js"></script> -->
-<!-- <script src="https://www.mirros.net:8000/socket.io/socket.io.js"></script> -->
-<script type="text/javascript">
-	$(document).ready(function(){
-		var options = {
-				secure : true,
-				'reconnect': true,
-				'reopen delay': 500,
-				'max reconnection attempts': 10,
-				'reconnection delay' : 500,
-				'connect timeout': 500
-			};
-// 		var socket = io.connect('https://www.mirros.net:8000', options);		
-// 		var socket = io.connect('https://14.63.226.97:8000',options);
-		var socket = io.connect('https://127.0.0.1:8000', options);
-
-		socket.on('connect', function() {
-				socket.on('real_time', function(data){
-					jtown.real.time(data);
-				});
-				
-				socket.on('love_rank', function(data){
-					jtown.real.loveRank(data);
-				});
-		});
-	});
-</script>
