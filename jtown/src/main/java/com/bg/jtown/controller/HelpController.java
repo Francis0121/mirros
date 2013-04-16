@@ -13,9 +13,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
-
 import com.bg.jtown.business.HomeService;
 import com.bg.jtown.business.Interest;
 import com.bg.jtown.business.Partnership;
@@ -78,21 +75,19 @@ public class HelpController {
 	// ~ Form
 
 	@RequestMapping(value = "/help/partnership.jt", method = RequestMethod.POST)
-	public ModelAndView formSumbitPartnership(
+	public String formSumbitPartnership(Model model,
 			@ModelAttribute Partnership partnership, BindingResult result) {
 		this.partnershipValidator.validate(partnership, result);
 
-		ModelAndView mav;
 		if (!result.hasErrors()) {
-			mav = new ModelAndView(new RedirectView("partnership"));
 			partnership.setProcess(PROCESS_RECEIPT);
 			helpService.insertPartnership(partnership);
-			mav.addObject("result", 1);
+			model.addAttribute("result", 1);
+			return "redirect:partnership";
 		} else {
-			mav = new ModelAndView("help/partnership");
 			List<Interest> interests = homeService.selecInterestCategory();
-			mav.addObject("interest", interests);
+			model.addAttribute("interest", interests);
+			return "help/partnership";
 		}
-		return mav;
 	}
 }
