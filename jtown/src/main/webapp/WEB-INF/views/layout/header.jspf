@@ -17,7 +17,7 @@
 			<ul class="jt-under-wrap" id="jt-mypage-wrap">
 				<li>
 					<c:url value="/login/modify" var="modifyUrl"/>
-					<a href="${modifyUrl }" class="jt-common-a-base" id="jt-modify">비밀번호 변경</a>
+					<a href="${modifyUrl }" class="jt-common-a-base" id="jt-modify">계정 설정</a>
 				</li>
 				<li>
 					<c:url value="/login/logout" var="logoutUrl"/>

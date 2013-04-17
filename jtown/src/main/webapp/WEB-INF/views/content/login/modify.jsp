@@ -22,7 +22,7 @@
 				<tfoot>
 					<tr>
 						<td colspan="2">
-							<input type="button" value="완료" class="jt-change-password-btn jt-btn-orange" />	
+							<input type="button" value="비밀번호 변경" class="jt-change-password-btn jt-btn-orange" />	
 						</td>
 					</tr>
 				</tfoot>
