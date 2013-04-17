@@ -8,6 +8,10 @@
 <script type="text/javascript">
 /* <![CDATA[ */
 	var contextPath = '<c:out value="${cp}"/>/';
+	
+	if (typeof jtown == 'undefined') {
+		jtown = {};
+	}
 /* ]]> */
 </script>
 <%-- Jquery --%>
@@ -33,13 +37,13 @@
 	
 <%-- Node --%>
 <script src="${cp}/resources/js/real.time.js"></script>
-<script src="https://127.0.0.1:8000/socket.io/socket.io.js"></script>
+<script src="http://127.0.0.1:8000/socket.io/socket.io.js"></script>
 <!-- <script src="https://14.63.226.97:8000/socket.io/socket.io.js"></script> -->
 <!-- <script src="https://www.mirros.net:8000/socket.io/socket.io.js"></script> -->
 <script type="text/javascript">
 	$(document).ready(function(){
 		var options = {
-				secure : true,
+				secure : false,
 				'reconnect': true,
 				'reopen delay': 500,
 				'max reconnection attempts': 10,
@@ -48,7 +52,7 @@
 			};
 // 		var socket = io.connect('https://www.mirros.net:8000', options);		
 // 		var socket = io.connect('https://14.63.226.97:8000',options);
-		var socket = io.connect('https://127.0.0.1:8000', options);
+		var socket = io.connect('http://127.0.0.1:8000', options);
 
 		socket.on('connect', function() {
 				socket.on('real_time', function(data){
