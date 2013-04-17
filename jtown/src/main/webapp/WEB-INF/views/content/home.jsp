@@ -19,12 +19,12 @@
 			<c:set value="${seller.pn }" var="spn"/>
 			<c:if test="${spn ne 0 and spn ne null }">
 			<c:set value="${images[spn] }" var="mainImages"/>
-			<div class="jt-home-shop" id="jt-home-shop-<c:out value="${spn }"/>">
+			<div class="jt-home-shop" id="jt-home-shop-<c:out value="${spn }"/>" data-spn="<c:out value="${spn }"/>">
 				<header>
 					<a href="http://<c:out value="${seller.shopUrl }"/>" target="_blank" onclick="jtown.home.clickShop('<c:out value="${spn }"/>')"><c:out value="${seller.name }"/></a>
 				</header>
 				<div class="jt-home-shop-content">
-					<ul class="jt-home-shop-content-image" data-spn="<c:out value="${spn }"/>">
+					<ul class="jt-home-shop-content-image">
 						<li>
 							<c:forEach items="${mainImages }" var="mainImage">
 								<c:url value="/resources/uploadImage/${mainImage eq null ? '8.jpg' : mainImage}" var="image"/>

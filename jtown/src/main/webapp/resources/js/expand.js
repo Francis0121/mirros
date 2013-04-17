@@ -16,7 +16,17 @@ jtown.expand.loadExpandShop = function(){
 		var $parent = $(this).parents('.jt-seller-main');
 		
 		if(nullValueCheck($parent.html())){
-			jtown.expand.makeInnerHtml($(this).attr('data-spn'));	
+			var jtHomeShop = $(this).parents('.jt-home-shop');
+			jtown.expand.makeInnerHtml(jtHomeShop.attr('data-spn'));	
+		}
+	});
+	
+	$('.jt-home-shop-comment').unbind('click').bind('click', function(){
+		var $parent = $(this).parents('.jt-seller-main');
+		
+		if(nullValueCheck($parent.html())){
+			var jtHomeShop = $(this).parents('.jt-home-shop');
+			jtown.expand.makeInnerHtml(jtHomeShop.attr('data-spn'));
 		}
 	});
 };

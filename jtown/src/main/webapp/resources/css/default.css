@@ -74,3 +74,5 @@ html{
 
 input, textarea { color: #000; }
 .placeholder { color: #aaa; }
+
+#jtown-loading{ margin: 0 10px; float: left;}
