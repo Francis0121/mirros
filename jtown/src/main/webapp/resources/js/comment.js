@@ -13,9 +13,10 @@ jtown.comment.syncComment = function(){
 	});
 	
 	$('.jt-comment-delete').unbind('click').bind('click', function(){
-		if(confirm('댓글을 삭제하시겠습니까?')){
-			jtown.comment.deleteComment($(this));			
-		}
+		var me = $(this);
+		jtown.confirm('댓글을 삭제하시겠습니까?', function(){ 
+			jtown.comment.deleteComment(me);
+		});
 	});
 	
 	$('.jt-comment-update').unbind('click').bind('click', function(){
@@ -129,11 +130,10 @@ jtown.comment.syncComment = function(){
 };
 
 jtown.comment.loveCancle = function(){
-	$('.jt-home-expand-shop-comment-loveIt-cancle').unbind('click');
-	$('.jt-home-expand-shop-comment-loveIt-cancle').bind('click', function(){
+	$('.jt-home-expand-shop-comment-loveIt-cancle').unbind('click').bind('click', function(){
 		var me = $(this),
 			parents = me.parents('.jt-home-expand-shop-comment-li'),
-			$shop = me.parents('#jt-home-expand-shop');
+			shop = me.parents('#jt-home-expand-shop');
 		
 		if(nullValueCheck(parents.html())){
 			parents = me.parents('.jt-home-expand-shop-comment-li-best');
@@ -142,7 +142,7 @@ jtown.comment.loveCancle = function(){
 		
 		var url = contextPath + 'ajax/home/toggleCommentLove.jt';
 		var json = {	commentPn	:	commentPn,
-						sellerPn	:	$shop.attr('data-spn') 		};
+						sellerPn	:	shop.attr('data-spn') 		};
 		
 		$.postJSON(url, json, function(comment){
 			if(!nullValueCheck(comment.message)){

@@ -48,6 +48,14 @@ jtown.dialog = function(message){
 	$('.ui-dialog-buttonset').css({'float' : 'none', 'text-align' : 'center'});
 };
 
+jtown.confirm = function(message, callback){
+	var dialog = '<div style="text-align:center; margin-top: 25px; font-weight: bold;">'+message+'</div>';
+	$(dialog).dialog({
+		resizable: false, width: '300px', hegiht : '200px', modal : true, buttons : { '확인' : function(){ callback(); $(this).dialog('close');  }, '취소' : function(){$(this).dialog('close');} }
+	});
+	$('.ui-dialog-titlebar').removeClass('ui-widget-header');
+	$('.ui-dialog-buttonset').css({'float' : 'none', 'text-align' : 'center'});
+};
 
 if (typeof jtown.header == 'undefined') {
 	jtown.header = {};
