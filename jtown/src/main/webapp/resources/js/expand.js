@@ -1,8 +1,4 @@
-if (typeof jtown.expand == 'undefined') {
-	jtown.expand = {};
-}
-
-$(document).ready(function(){
+$(function(){
 	jtown.expand.loadExpandShop();
 	
 	jtown.expand.syncProductMove();
@@ -10,12 +6,15 @@ $(document).ready(function(){
 	jtown.comment.syncComment();
 });
 
+if (typeof jtown.expand == 'undefined') {
+	jtown.expand = {};
+}
+
 jtown.expand.loadExpandShop = function(){
-	$('.jt-home-shop-content-image').unbind('click');
-	$('.jt-home-shop-content-image').bind('click', function(){
-		var $parent = $(this).parents('.jt-seller-main');
+	$('.jt-home-shop-content-image').unbind('click').bind('click', function(){
+		var parent = $(this).parents('.jt-seller-main');
 		
-		if(nullValueCheck($parent.html())){
+		if(nullValueCheck(parent.html())){
 			var jtHomeShop = $(this).parents('.jt-home-shop');
 			jtown.expand.makeInnerHtml(jtHomeShop.attr('data-spn'));	
 		}
