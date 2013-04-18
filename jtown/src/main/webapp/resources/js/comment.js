@@ -5,39 +5,37 @@ if (typeof jtown.comment == 'undefined') {
 jtown.comment.syncComment = function(){
 	
 	var eventString = $.browser.chrome ? 'keydown' : 'keypress';
-	$('#jt-comment-insert').unbind(eventString);
-	$('#jt-comment-insert').bind(eventString, function(event){
+
+	$('#jt-comment-insert').unbind(eventString).bind(eventString, function(event){
 		if(event.keyCode == 13){
 			jtown.comment.insertComment($(this));
 		}
 	});
 	
-	$('.jt-comment-delete').unbind('click');
-	$('.jt-comment-delete').bind('click', function(){
+	$('.jt-comment-delete').unbind('click').bind('click', function(){
 		if(confirm('댓글을 삭제하시겠습니까?')){
 			jtown.comment.deleteComment($(this));			
 		}
 	});
 	
-	$('.jt-comment-update').unbind('click');
-	$('.jt-comment-update').bind('click', function(){
+	$('.jt-comment-update').unbind('click').bind('click', function(){
 		var $parents = $(this).parents('li');
 		$parents.find('.jt-home-expand-shop-tool-wrap').hide();
 		$parents.find('.jt-home-expand-shop-text-wrap').hide();
 		$parents.find('.jt-home-expand-shop-update-wrap').show();
+		setTimeout('jtown.expand.changeContainerHeight()', 0);
 	});
 	
-	$('.jt-comment-update-input').unbind(eventString);
-	$('.jt-comment-update-input').bind(eventString, function(event){
+	$('.jt-comment-update-input').unbind(eventString).bind(eventString, function(event){
 		if(event.keyCode == 13){
 			jtown.comment.updateComment($(this));
 		}else if(event.keyCode == 27){
 			jtown.comment.cancleComment($(this));
 		}
+		setTimeout('jtown.expand.changeContainerHeight()', 0);
 	});
 	
-	$('.jt-home-expand-shop-comment li').unbind('mouseover mouseout');
-	$('.jt-home-expand-shop-comment li').bind('mouseover mouseout',function(event){
+	$('.jt-home-expand-shop-comment li').unbind('mouseover mouseout').bind('mouseover mouseout',function(event){
 		var display = $(this).find('.jt-home-expand-shop-update-wrap').css('display');
 		if(display != 'block'){
 			if(event.type == 'mouseover'){
@@ -48,8 +46,7 @@ jtown.comment.syncComment = function(){
 		}
 	});
 	
-	$('#comment-add-btn-best').unbind('click');
-	$('#comment-add-btn-best').bind('click', function(event){
+	$('#comment-add-btn-best').unbind('click').bind('click', function(event){
 		
 		var me = $(this);
 
@@ -69,8 +66,7 @@ jtown.comment.syncComment = function(){
 		});
 	});
 	
-	$('#comment-add-btn').unbind('click');
-	$('#comment-add-btn').bind('click', function(event){
+	$('#comment-add-btn').unbind('click').bind('click', function(event){
 		var me = $(this), 
 			page = ( Number(me.attr('data-page'))  + 1 ),
 			nextPage = ( page + 1 ),
@@ -99,8 +95,7 @@ jtown.comment.syncComment = function(){
 		});
 	});
 	
-	$('.jt-home-expand-shop-comment-loveIt').unbind('click');
-	$('.jt-home-expand-shop-comment-loveIt').bind('click', function(){
+	$('.jt-home-expand-shop-comment-loveIt').unbind('click').bind('click', function(){
 		var me = $(this),
 			parents = me.parents('.jt-home-expand-shop-comment-li'),
 			$shop = me.parents('#jt-home-expand-shop');
