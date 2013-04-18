@@ -190,9 +190,9 @@ public class HomeController {
 			count.setCustomerPn(summaryUser.getPn());
 			homeService.insertLoveCount(count);
 		} else if (summaryUser.getEnumAuthority().equals(Authority.NOT_LOGIN)) {
-			count.setMessage("로그인을 해야만 가능합니다.");
+			count.setMessage("1");
 		} else {
-			count.setMessage("판매자는 불가능합니다..");
+			count.setMessage("2");
 		}
 		return count;
 	}

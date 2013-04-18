@@ -65,9 +65,13 @@ jtown.header.resendEmailAddress = function() {
 		json = {},
 		option = { 	position : '.jt-header-warning-confirmEmail',
 					img	: contextPath+'/resources/images/jt-loading-02.gif' };
-	
+	$('#resendConfirmMail').unbind('click');
 	jtown.postJSON(url, json, option, function(){
 		jtown.dialog('E-mail을 재전송 하였습니다.');
+		
+		$('#resendConfirmMail').bind('click', function(){
+			jtown.header.resendEmailAddress();
+		});
 	});
 };
 
@@ -107,7 +111,11 @@ jtown.home.clickLove = function(spn) {
 
 	$.postJSON(url, json, function(count) {
 		if (!nullValueCheck(count.message)) {
-			jtown.header.showLoginForm();
+			if(count.message == '1'){				
+				jtown.header.showLoginForm();
+			}else{
+				jtown.dialog('판매자는 불가능합니다');
+			}
 		} else {
 			var crudType = count.crudType;
 
