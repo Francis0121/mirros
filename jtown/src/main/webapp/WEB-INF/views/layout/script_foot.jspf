@@ -82,12 +82,12 @@
 		<c:url value="/login/modifyEmailAddress" var="pageUrl"/>
 	</c:if>
 	<c:if test="${result eq 4 }">
-		<c:set var="alertText" value="해당 이메일로 임시비밀번호를 전송하였습니다."/>
+		<c:set var="alertText" value="임시 비밀번호를 전송 하였습니다."/>
 		<c:url value="/login/findPassword" var="pageUrl"/>
 	</c:if>
 	<script type="text/javascript">
 	/* <![CDATA[ */  
-	    alert('${alertText}');
+	    jtown.dialog('${alertText}');
 	
 	    document.onkeydown = checkKeycode;
 		

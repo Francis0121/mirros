@@ -116,7 +116,7 @@ jtown.comment.syncComment = function(){
 		
 		$.postJSON(url, json, function(comment){
 			if(!nullValueCheck(comment.message)){
-				alert(comment.message);
+				jtown.header.showLoginForm();
 			}else{
 				var crudType = comment.crudType;
 				if(crudType == 'insert'){
@@ -151,7 +151,7 @@ jtown.comment.loveCancle = function(){
 		
 		$.postJSON(url, json, function(comment){
 			if(!nullValueCheck(comment.message)){
-				alert(comment.message);
+				jtown.header.showLoginForm();
 			}else{
 				var crudType = comment.crudType;
 				if(crudType == 'delete'){

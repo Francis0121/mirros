@@ -154,6 +154,8 @@ public class HomeController {
 						customerPn, null, null, sellerPn, null));
 				selectMap.put("loveHave", count);
 			}
+		} else if (summaryUser.getEnumAuthority().equals(Authority.NOT_LOGIN)) {
+			selectMap.put("cpn", null);
 		} else {
 			selectMap.put("cpn", 0);
 		}

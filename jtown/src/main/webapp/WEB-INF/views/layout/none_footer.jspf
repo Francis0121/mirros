@@ -19,7 +19,7 @@
 		<c:url value="/seller/${jtownUser.pn}" var="sellerUrl"/>
 		<script type="text/javascript">
 		/* <![CDATA[ */  
-		    alert('상품을 3개 이하로 삭제할 수 없습니다.');
+		    jtown.dialog('상품을 3개 이하로 삭제할 수 없습니다.');
 		
 		    document.onkeydown = checkKeycode;
 			
@@ -42,5 +42,6 @@
 		/* ]]> */	            
 		</script>
 	</c:if>
+	
 </body>
 </html>

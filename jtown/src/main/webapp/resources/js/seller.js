@@ -104,7 +104,7 @@ jtown.seller.syncMainNotice = function() {
 				'error' : function(){
 					$('#jt-seller-main-textarea').hide();
 					$('#jt-seller-main-footer-text').show();
-					alert('오류발생');
+					jtown.dialog('오류발생');
 				}
 			});
 		});
@@ -170,7 +170,7 @@ jtown.seller.mainImageUpdate = function(){
 				$('#jt-seller-main-image-area').attr('data-oldSrc', '').attr('data-imagePn', '');
 			},
 			'error' : function(){
-				alert("오류 발생!");
+				jtown.dialog("오류 발생!");
 			}
 		});
 	});
@@ -188,16 +188,16 @@ jtown.seller.productImage = function(file){
 	
 	$.postJSON(url, json, function(product){
 		if(!nullValueCheck(product.pn)){
-			var $parent = $('#jt-home-expand-shop'),
-				size = Number($parent.attr('data-size'))+1,
+			var parent = $('#jt-home-expand-shop'),
+				size = Number(parent.attr('data-size')),
+				nowSize = size + 1,
+				np = Number(parent.attr('data-nowPosition')),
 				image = contextPath + 'resources/uploadImage/'+file.saveName;
 			
-			var display = 'style="display: none;"';
-			
-			var bigHtml = 	'<div class="jt-home-expand-shop-expandProduct" id="jt-product-'+size+'" '+display+'>'+
+			var bigHtml = 	'<div class="jt-home-expand-shop-expandProduct" id="jt-product-'+nowSize+'">'+
 							'	<img alt="상품" src="'+image+'"/>'+
 							'</div>';
-				smallHtml = '<li data-count="'+size+'" data-ppn="'+product.pn+'">'+
+				smallHtml = '<li data-count="'+nowSize+'" data-ppn="'+product.pn+'">'+
 							'	<div class="jt-seller-expand-product-delete-tool">'+
 							'		<div>'+
 							'			<a href="#none" class="jt-seller-product-delete jt-btn-white-small">'+
@@ -207,19 +207,22 @@ jtown.seller.productImage = function(file){
 							'	</div>'+
 							'	<a href="#none"class="jt-product-list"><img alt="상품" src="'+image+'"/></a>'+
 							'</li>';
-			if(size == 1){
-				$('#jt-seller-slide-big').html(bigHtml);
+			if(nowSize == 1){
+				$('#jt-seller-slide-content-dan').html(bigHtml);
 				$('#jt-seller-slide-small').html(smallHtml);				
 			}else{
-				$('#jt-seller-slide-big div:nth-child(1)').before(bigHtml);
-				$('#jt-seller-slide-small li:nth-child(1)').before(smallHtml);				
+				$('#jt-product-'+size).before(bigHtml);
+				$('#jt-seller-slide-small').prepend(smallHtml);				
 			}
-			$parent.attr('data-size', size);
+			parent.attr('data-size', nowSize);
+			if(size == np){
+				parent.attr('data-nowPosition', nowSize);
+			}	
 			
 			jtown.seller.syncProductList();
 			jtown.expand.syncProductMove();
 		}else{
-			alert('상품은 10개 이하로 등록 가능합니다.');
+			jtown.dialog('상품은 10개 이하로 등록 가능합니다.');
 		}
 	});
 };
@@ -318,7 +321,7 @@ jtown.seller.syncEvent = function() {
 					$parent.children('.jt-home-expand-shop-event-update-wrap').hide();
 				},
 				'error' : function(){
-					alert("오류 발생!");
+					jtown.dialog("오류 발생!");
 				}
 			});
 		});

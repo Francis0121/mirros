@@ -5,7 +5,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <%@ include file="../../layout/admin_header.jspf" %>
-
+<c:set value="${fn:length(products) }" var="productSize"/>
 <h1 class="jt-admin-sellerInformation-id">ID : <c:out value="${jtownUser.username }"/></h1>
 
 <article class="jt-seller-content-wrap">
@@ -128,25 +128,21 @@
 			</div>
 		</section>
 		<section class="jt-seller-expand">
-			<div class="jt-home-expand-shop" id="jt-home-expand-shop" data-spn="${jtownUser.pn }" data-size="${productSize }" data-nowPosition="${productSize -1 }">
+			<div class="jt-home-expand-shop" id="jt-home-expand-shop" data-spn="${jtownUser.pn }" data-size="${productSize }" data-nowPosition="${productSize }">
 				<ul class="jt-home-expand-shop-expandProducts">
 					<li class="jt-home-expand-shop-leftArrow jt-home-expand-shop-arrow">
 						<a href="#none" id="jt-home-expand-shop-leftArrow">&lt;</a>
 					</li>
 					<li class="jt-home-expand-shop-expandProduct-slide" id="jt-seller-slide-big">
-						<c:forEach items="${products }" var="product" varStatus="loop">
-							<c:choose>
-								<c:when test="${loop.count < 4 }">
-									<div class="jt-home-expand-shop-expandProduct" id="jt-product-${productSize - loop.index }">
-								</c:when>
-								<c:otherwise>
-									<div class="jt-home-expand-shop-expandProduct" id="jt-product-${productSize - loop.index }" style="display: none;">
-								</c:otherwise>
-							</c:choose>
-								<c:url value="/resources/uploadImage/${product.saveName }" var="image"/>
-								<img alt="상품" src="${image }"/>
+						<div id="jt-seller-slide-fake-dan">
+							<div style="width :${fn:length(products) * 170}px;" id="jt-seller-slide-content-dan">
+							<c:forEach items="${products }" var="product" varStatus="loop">
+								<div class="jt-home-expand-shop-expandProduct" id="jt-product-${productSize - loop.index }">
+									<img alt="상품" src="<c:url value="/resources/uploadImage/${product.saveName }"/>"/>
+								</div>
+							</c:forEach>
 							</div>
-						</c:forEach>
+						</div>
 					</li>
 					<li class="jt-home-expand-shop-rigthArrow jt-home-expand-shop-arrow">
 						<a href="#none" id="jt-home-expand-shop-rigthArrow">&gt;</a>
