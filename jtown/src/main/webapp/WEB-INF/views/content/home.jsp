@@ -30,6 +30,16 @@
 								<c:url value="/resources/uploadImage/${mainImage eq null ? '8.jpg' : mainImage}" var="image"/>
 								<img alt="" src="${image }" title="${jtownUser.name}"/>	
 							</c:forEach>
+							<div class="jt-home-shop-new-event">
+							<c:choose>
+								<c:when test="${seller.bannerDate ne null and seller.bannerDate < 8  }">
+									<span id="new-<c:out value="${seller.pn }"/>" class="jt-home-expand-shop-event-new-image"  style="display: block;">event</span>
+								</c:when>
+								<c:otherwise>
+									<span id="new-<c:out value="${seller.pn }"/>" class="jt-home-expand-shop-event-new-image" style="display: none;">event</span>
+								</c:otherwise>
+							</c:choose>
+							</div>
 						</li>
 					</ul>
 				</div>
@@ -52,11 +62,6 @@
 						<c:set var="loveClick" value="${seller.customerPn ne null ? 'jt-home-shop-love-click' : '' }"/>
 						<c:set var="loveTextClick" value="${seller.customerPn ne null ? 'jt-home-shop-love-text-click' : '' }"/>
 						<a href="#none" onclick="jtown.home.clickLove('<c:out value="${spn }"/>');" id="love-image-<c:out value="${spn }"/>" class="jt-home-shop-love ${loveClick }">♥</a>&nbsp;<span id="love-<c:out value="${spn }"/>" class="${loveTextClick}"><c:out value="${seller.loveCount eq null ? 0 : seller.loveCount}"/></span>
-						<span id="new-<c:out value="${spn }"/>">
-						<c:if test="${seller.bannerDate ne null and seller.bannerDate < 8 }">
-							new
-						</c:if>
-						</span>
 					</li>
 				</ul>
 				<!--[if IE 7]>

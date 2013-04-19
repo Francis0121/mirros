@@ -175,6 +175,9 @@ jtown.home.html = function(data) {
 		html += '			<ul class="jt-home-shop-content-image">';
 		html += '				<li>';
 		html += '					' + imageHtml;
+		html += '					<div class="jt-home-shop-new-event">';
+		html += ' 					<span id="new-' + spn + '" class="jt-home-expand-shop-event-new-image"  style="'+((seller.bannerDate != null && Number(seller.bannerDate) < 8) ? "": "display:none;") +'">event</span>';	
+		html += '					</div>';
 		html += '				</li>';
 		html += '			</ul>';
 		html += '		</div>';

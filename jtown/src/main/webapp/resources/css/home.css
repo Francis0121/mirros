@@ -44,6 +44,8 @@ word-wrap: break-word; /* Internet Explorer 5.5+ */}
 
 .jt-home-shop-love-click{background: url("../images/jt-home-icon.png") -15px -30px no-repeat !important;}
 .jt-home-shop-love-text-click{color: #f34942 !important;}
+
+.jt-home-shop-new-event{position: absolute; width: 313px; padding-top: 3px;}
 /**
 *
 *	@author Francis
@@ -90,7 +92,7 @@ word-wrap: break-word; /* Internet Explorer 5.5+ */}
 .jt-home-expand-shop-event>img{width: 305px; height: 150px; margin: 2px;}
 .jt-home-expand-shop-event-new{float : left; position: absolute;  font-size: 13px; color: #fe6009; font-weight: bold; margin: 5px; width: 305px;}
 .jt-home-expand-shop-event-new>div{float: right; width: 305px; text-indent: -999999px;}
-.jt-home-expand-shop-event-new-image{ margin: -3px 3px 0 0; background: url("../images/jt-home-icon.png") no-repeat; background-position: -45px 0px; float:right; width: 43px; height: 43px;}
+.jt-home-expand-shop-event-new-image{ text-indent: -99999px; margin: -3px 3px 0 0; background: url("../images/jt-home-icon.png") no-repeat; background-position: -45px 0px; float:right; width: 43px; height: 43px;}
 
 .jt-home-expand-shop-content-wrpa{float: left; width: 100%; background: #f9f9f9;}
 

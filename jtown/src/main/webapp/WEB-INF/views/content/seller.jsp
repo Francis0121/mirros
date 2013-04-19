@@ -62,6 +62,16 @@
 									</c:forEach>
 								</c:otherwise>
 							</c:choose>
+							<div class="jt-home-shop-new-event">
+							<c:choose>
+								<c:when test="${jtownUser.bannerDate ne null and jtownUser.bannerDate < 8 }">
+									<span id="new-<c:out value="${jtownUser.pn }"/>" class="jt-home-expand-shop-event-new-image"  style="display: block;">event</span>
+								</c:when>
+								<c:otherwise>
+									<span id="new-<c:out value="${jtownUser.pn }"/>" class="jt-home-expand-shop-event-new-image" style="display: none;">event</span>
+								</c:otherwise>
+							</c:choose>
+							</div>
 						</li>
 						<li id="jt-seller-main-image-update-tool" class="jt-seller-main-image-update-tool">
 							<input type="file" id="jt-represent-image" name="jt-represent-image"/>
@@ -110,11 +120,6 @@
 					</li>
 					<li>
 						<span class="jt-home-shop-love">♥</span>&nbsp;<span id="love-<c:out value="${jtownUser.pn}"/>"><c:out value="${jtownUser.loveCount eq null ? 0 : jtownUser.loveCount}"/></span>
-						<span id="new-<c:out value="${jtownUser.pn }"/>">
-						<c:if test="${jtownUser.bannerDate ne null and jtownUser.bannerDate < 8 }">
-							new
-						</c:if>
-						</span>
 					</li>
 				</ul>
 				<!--[if IE 7]>

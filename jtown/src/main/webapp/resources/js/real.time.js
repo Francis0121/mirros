@@ -59,7 +59,7 @@ jtown.real.time = function(data) {
 		}
 	} else if (obj.redisType == 'event') {
 		var spn = obj.sellerPn;
-		$('#new-' + spn).html('new');
+		$('#new-' + spn).css('display', 'block');
 	} else if(obj.redisType == 'love_comment'){
 		var spn = obj.sellerPn;
 		var copn = obj.commentPn;
