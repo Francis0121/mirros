@@ -84,9 +84,53 @@
     -o-transition: all 0.7s ease 0s;
     transition: all 0.7s ease 0s;
 }
+/***************************
+*	NaturalLanguage Search
+****************************/
+.ui-autocomplete-category {
+    font-weight: bold;
+    line-height: 1.5;
+}
+
+.ui-autocomplete-category-span{
+	display: block;
+	padding: 6px 10px;
+	background: #fcfcfc;
+	min-height: 0;
+	line-height: 1.5;
+}
+
+.ui-catcomplete-input{
+	-webkit-border-radius: 4px 4px 0 0;
+    -moz-border-radius: 4px 4px 0 0;
+    border-radius: 4px 4px 0 0;	
+}
+
+.ui-catcomplete-content{
+	border: 1px solid #ad9c9c;
+	cursor: default;
+	background: #fff;
+	-webkit-box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+    -moz-box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+    box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+     -webkit-border-radius: 0 0 4px 4px;
+    -moz-border-radius: 0 0 4px 4px;
+    border-radius: 0 0 4px 4px;	
+}
+
+.ui-catcomplete-menu-item{
+	padding: 4px 8px !important;
+	margin : 2px 2px;
+}
+
+.ui-catcomplete-menu-item:HOVER{
+	background : #f7a300;
+	color: #fff;
+	border : 0;
+}
 
 /*************************
-*	내용
+*	내용 f78200
 **************************/
 .jt-content{ width: 100%; min-height: 1000px; float: left; min-width: 990px; padding: 98px 0 30px 0; z-index: 1; background: #f6f4f5;}
 .jt-content-help{ width: 100%; float: left; min-width: 990px; padding: 98px 0 30px 0; z-index: 1; background: #f6f4f5;}

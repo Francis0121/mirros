@@ -150,6 +150,9 @@
 			var options = {};
 
 			if (this.opts.effect === "transfer") {
+				if(nullValueCheck($(this.opts.target).html()))
+					this.opts.effect = null;
+				
 				if (this.opts.target)
 					options = {
 						to : this.opts.target,
@@ -162,6 +165,7 @@
 				$('#smartPop').hide();
 				$('#smartPop_overlay').fadeOut(500);
 			} else {
+				
 				$('#smartPop').effect(this.opts.effect, options, 250);
 				$('#smartPop_overlay').fadeOut(500);
 			}

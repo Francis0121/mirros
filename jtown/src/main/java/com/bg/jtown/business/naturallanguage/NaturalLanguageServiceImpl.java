@@ -51,9 +51,11 @@ public class NaturalLanguageServiceImpl extends SqlSessionDaoSupport implements
 		if (count == 0) {
 			return new ArrayList<Interest>();
 		}
-		return getSqlSession().selectList(
+		List<Interest> interests = getSqlSession().selectList(
 				"naturalLanguageMapper.selectSearchInterestSection",
 				naturalLanguageFilter);
+		System.out.println(interests);
+		return interests;
 	}
 
 	private int selectSearchInterestSectionCount(
