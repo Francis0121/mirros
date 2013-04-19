@@ -36,7 +36,7 @@ word-wrap: break-word; /* Internet Explorer 5.5+ */}
 .jt-home-shop-content-fn>li{ float: left; width: 33.3%; text-align: center; height: 15px; padding: 12px 0 9px 0;}
 .jt-home-shop-content-fn>li>a,.jt-home-shop-content-fn>li>span{float: left; margin-right: 5px; font-weight: bold; color: #b2b2b2;}
 .jt-home-shop-view{ float: left; margin-left: 45px; width: 15px; height: 15px; background: url("../images/jt-home-icon.png") 0 -45px no-repeat; text-indent: -99999px;}
-.jt-home-shop-love-hot{float: left; margin-left: 5px;}
+.jt-home-shop-love-hot{float: left; margin-left: 5px; color: #e92f25 !important;}
 .jt-home-shop-love{ float: left; margin-left: 15px; width: 15px; height: 15px; background: url("../images/jt-home-icon.png") 0 -30px no-repeat; text-indent: -99999px; }
 .jt-home-shop-love:HOVER{ background-position: -15px -30px;}
 .jt-home-shop-comment{ float: left; margin-left: 34px; width: 15px; height: 15px; background: url("../images/jt-home-icon.png") 0 -60px no-repeat; text-indent: -99999px; cursor: pointer;}
@@ -109,10 +109,11 @@ word-wrap: break-word; /* Internet Explorer 5.5+ */}
 	-webkit-box-shadow : 0 1px 3px rgba(34,25,25,0.4);
 }
 .jt-home-expand-shop-content-love-wrap{ font-size: 13px; color: #6a6a6a; padding-top: 14px;}
+.jt-home-expand-shop-content-love-wrap>span{float: left;}
 .jt-home-expand-shop-border-hide{width: 205px;height: 3px;position: absolute;margin-top: 9px;background: #fff; }
 .jt-home-expand-shop-content-view{ float: left; margin-left: 105px; width: 15px; height: 15px; background: url("../images/jt-home-icon.png") -15px -45px no-repeat; text-indent: -99999px;}
 .jt-home-expand-shop-content-comment{ float: left; margin: 0 10px 0 30px; width: 25px; height: 18px; background: url("../images/jt-home-icon.png") -15px 0px no-repeat; text-indent: -99999px;}
-.jt-home-expand-shop-content-love{ float: left;  margin-left: 65px; width: 15px; height: 15px; background: url("../images/jt-home-icon.png") -30px -30px no-repeat; text-indent: -99999px;}
+.jt-home-expand-shop-content-love{ float: left;  margin-left: 65px; margin-right:5px; width: 15px; height: 15px; background: url("../images/jt-home-icon.png") -30px -30px no-repeat; text-indent: -99999px;}
 .jt-home-expand-shop-content-love:HOVER{background-position: -15px -30px;}
 .jt-home-expand-shop-content-love-hover{ float: left;  width: 15px; height: 15px; background: url("../images/jt-home-icon.png") -15px -30px no-repeat; text-indent: -99999px;}
 

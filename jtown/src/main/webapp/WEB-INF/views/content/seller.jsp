@@ -120,6 +120,9 @@
 					</li>
 					<li>
 						<span class="jt-home-shop-love">♥</span>&nbsp;<span id="love-<c:out value="${jtownUser.pn}"/>"><c:out value="${jtownUser.loveCount eq null ? 0 : jtownUser.loveCount}"/></span>
+						<c:if test="${jtownUser.loveHotCount ne null}">
+							<span class="jt-home-shop-love-hot">HOT</span>
+						</c:if>
 					</li>
 				</ul>
 				<!--[if IE 7]>
@@ -254,10 +257,10 @@
 							<div class="jt-home-expand-shop-border-hide"></div>
 						</li>
 						<li class="jt-home-expand-shop-content-love-wrap">
+							<span class="jt-home-expand-shop-content-love">Love</span>&nbsp;<span id="love-expand-<c:out value="${jtownUser.pn }"/>"><c:out value="${jtownUser.loveCount eq null ? 0 : jtownUser.loveCount}"/></span>
 							<c:if test="${jtownUser.loveHotCount ne null}">
 								<span class="jt-home-shop-love-hot">HOT</span>
 							</c:if>
-							<span class="jt-home-expand-shop-content-love">Love</span>&nbsp;<span id="love-expand-<c:out value="${jtownUser.pn }"/>"><c:out value="${jtownUser.loveCount eq null ? 0 : jtownUser.loveCount}"/></span>
 						</li>
 					</ul>
 					<div class="jt-home-expand-shop-comment-wrap">

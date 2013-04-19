@@ -79,20 +79,20 @@ jtown.real.loveRank = function(data){
 	
 	$('.jt-home-shop-love-hot').remove();
 	var html = '<span class="jt-home-shop-love-hot">HOT</span>';
-	var idStr = '#love-image-';
+	var idStr = '#love-';
 	
 	var expandShop = $('#jt-home-expand-shop');
 	
 	if (!nullValueCheck(expandShop.html())) {
 		var expandSpn = expandShop.attr('data-spn');	
 		if(sellerPnList.indexOf(expandSpn) != -1){
-			$('.jt-home-expand-shop-content-love').before(html);
+			$('.jt-home-expand-shop-content-love-wrap').append(html);
 		}
 	}
 	
-	for(var i=0, len=sellerPnList	.length; i < len; i++){
+	for(var i=0, len=sellerPnList.length; i < len; i++){
 		var element = sellerPnList[i];
 		element = idStr + element;
-		$(element).before(html);
+		$(element).after(html);
 	}
 };

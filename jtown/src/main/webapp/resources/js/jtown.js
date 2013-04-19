@@ -194,11 +194,8 @@ jtown.home.html = function(data) {
 		html += '				<span class="jt-home-shop-comment">COMMENT</span>&nbsp;<span id="comment-'+ spn+ '">'+ (nullValueCheck(seller.commentCount) ? 0 : seller.commentCount) + '</span>';
 		html += '			</li>';
 		html += '			<li>';
-		html += '				' + loveHotCount;
 		html += '				<a href="#none" onclick="jtown.home.clickLove(\'' + spn + '\');"id="love-image-' + spn + '" class="jt-home-shop-love ' + loveClick + '">♥</a>&nbsp;<span id="love-' + spn + '" class="' + loveTextClick + '">' + (nullValueCheck(seller.loveCount) ? 0 : seller.loveCount) + '</span>';
-		html += '				<span id="new-' + spn + '">';
-		html += '					'+ ((seller.bannerDate != null && Number(seller.bannerDate) < 8) ? 'new': '');
-		html += '				</span>';
+		html += '				' + loveHotCount;
 		html += '			</li>';
 		html += '		</ul>';
 		html += '	</div>';

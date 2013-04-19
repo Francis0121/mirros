@@ -56,12 +56,12 @@
 						<span class="jt-home-shop-comment">COMMENT</span>&nbsp;<span id="comment-<c:out value="${spn }"/>"><c:out value="${seller.commentCount eq null ? 0 : seller.commentCount}"/></span>
 					</li>
 					<li>
-						<c:if test="${seller.loveHotCount ne null}">
-						<span class="jt-home-shop-love-hot">HOT</span>
-						</c:if>
 						<c:set var="loveClick" value="${seller.customerPn ne null ? 'jt-home-shop-love-click' : '' }"/>
 						<c:set var="loveTextClick" value="${seller.customerPn ne null ? 'jt-home-shop-love-text-click' : '' }"/>
 						<a href="#none" onclick="jtown.home.clickLove('<c:out value="${spn }"/>');" id="love-image-<c:out value="${spn }"/>" class="jt-home-shop-love ${loveClick }">♥</a>&nbsp;<span id="love-<c:out value="${spn }"/>" class="${loveTextClick}"><c:out value="${seller.loveCount eq null ? 0 : seller.loveCount}"/></span>
+						<c:if test="${seller.loveHotCount ne null}">
+						<span class="jt-home-shop-love-hot">HOT</span>
+						</c:if>
 					</li>
 				</ul>
 				<!--[if IE 7]>

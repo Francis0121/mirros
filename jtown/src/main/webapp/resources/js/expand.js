@@ -215,8 +215,8 @@ jtown.expand.makeInnerHtml = function(spn){
 		html += '			<div class="jt-home-expand-shop-border-hide"></div>';
 		html +=	'		</li>';
 		html +=	'		<li class="jt-home-expand-shop-content-love-wrap">';
-		html += '			'+loveHotCount;		
 		html +=	'			<a href="#none" onclick="jtown.home.clickLove(\''+spn+'\');"><span class="jt-home-expand-shop-content-love '+loveClick+'" id="love-expand-image-'+spn+'">Love</span></a>&nbsp;<span id="love-expand-'+spn+'" class="'+loveTextClick+'">'+jtownUser.loveCount+'</span>';
+		html += '			'+loveHotCount;		
 		html +=	'		</li>';
 		html +=	'	</ul>';
 		html +=	'	<div class="jt-home-expand-shop-comment-wrap">';
