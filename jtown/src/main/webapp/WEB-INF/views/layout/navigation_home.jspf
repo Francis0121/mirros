@@ -4,13 +4,13 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
+<c:url var="check" value="/cpn/${homeFilter.categoryPn }/spn/0"/>
 <ul class="jt-header-nav-interestCategory">
 	<c:forEach var="interestCategory" items="${interestCategories }">
 		<c:set var="cpn" value="${interestCategory.categoryPn }"/>
 		<c:set var="interests" value="${interestMap[cpn] }"/>
 		<li class="jt-header-nav-interestCategory-li">
 			<c:url var="search" value="/cpn/${cpn }/spn/0"/>
-			<c:url var="check" value="/cpn/${homeFilter.categoryPn }/spn/0"/>
 			<c:choose>
 				<c:when test="${search eq check }">
 					<a href="${search }" class="jt-header-nav-interestCategory-realPath">
@@ -34,11 +34,29 @@
 				</c:otherwise>
 			</c:choose>
 			<ul class="jt-header-nav-interest">
+				<li class="jt-header-nav-interest-li">
+				<c:url var="check" value="/cpn/${homeFilter.categoryPn }/spn/${homeFilter.sectionPn }"/>
+				<c:choose>
+					<c:when test="${search eq check }">
+						<a href="${search }" class="jt-header-nav-interest-normal-realPath">ALL</a>
+					</c:when>
+					<c:otherwise>
+						<a href="${search }" class="jt-header-nav-interest-normal">ALL</a>
+					</c:otherwise>
+				</c:choose>
+				</li>
 			<c:forEach var="interest" items="${interests }">
 				<c:set var="spn" value="${interest.sectionPn }"/>
 				<li class="jt-header-nav-interest-li">
 					<c:url var="search" value="/cpn/${cpn }/spn/${spn }"/>
-					<a class="jt-header-nav-interest-normal" href="${search }"><c:out value="${interest.name }"/></a>
+					<c:choose>
+						<c:when test="${search eq check }">
+							<a class="jt-header-nav-interest-normal-realPath" href="${search }"><c:out value="${interest.name }"/></a>
+						</c:when>
+						<c:otherwise>
+							<a class="jt-header-nav-interest-normal" href="${search }"><c:out value="${interest.name }"/></a>
+						</c:otherwise>
+					</c:choose>
 				</li>
 			</c:forEach>
 			</ul>
