@@ -19,7 +19,8 @@ $(function() {
 	$('#resendConfirmMail').unbind('click').bind('click', function(){
 		jtown.header.resendEmailAddress();
 	});
-
+	
+	jtown.naturalLanguage.autocomplete();
 });
 
 jtown.postJSON = function(url, json, option, callback){
@@ -200,4 +201,37 @@ jtown.home.html = function(data) {
 		html += '	</div>';
 	}
 	return html;
+};
+
+if (typeof jtown.naturalLanguage == 'undefined') {
+	jtown.naturalLanguage = {};
+}
+
+jtown.naturalLanguage.autocomplete = function(){
+	$('#jt-naturalLanguage-search').autocomplete({
+		source : function(request, response){
+			var url = contextPath + 'ajax/natural/autocomplete.jt',
+				json = {	searchName : request.term  };
+			
+			$.postJSON(url, json, function(data){
+				response( [{
+	                label: 'A',
+	                value: 'A'
+	              }, {
+	            	  label: 'N',
+		                value: 'N' 
+	             }]);
+			});
+		},
+		minLength : 1,
+		select : function(event, ui){
+			
+		},
+		open :function(){
+			
+		},
+		close : function(){
+			
+		}
+	});
 };
