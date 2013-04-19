@@ -8,5 +8,7 @@
 		<typeAlias alias="Interest" type="com.bg.jtown.business.Interest"/>
 		<typeAlias alias="Board" type="com.bg.jtown.business.board.Board" />
 		<typeAlias alias="BoardFilter" type="com.bg.jtown.business.search.BoardFilter" />
+		
+		<typeAlias alias="NaturalLanguageFilter" type="com.bg.jtown.business.search.NaturalLanguageFilter"/>
 	</typeAliases>
 </configuration>

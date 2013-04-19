@@ -65,6 +65,10 @@ public class Interest {
 		return name;
 	}
 
+	public String getUpperName() {
+		return name.toUpperCase();
+	}
+
 	public Integer getSectionPn() {
 		return sectionPn;
 	}

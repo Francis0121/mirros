@@ -213,14 +213,18 @@ jtown.naturalLanguage.autocomplete = function(){
 			var url = contextPath + 'ajax/natural/autocomplete.jt',
 				json = {	searchName : request.term  };
 			
-			$.postJSON(url, json, function(data){
-				response( [{
-	                label: 'A',
-	                value: 'A'
-	              }, {
-	            	  label: 'N',
-		                value: 'N' 
-	             }]);
+			$.postJSON(url, json, function(map){
+				var jtownUsers = map.jtownUsers, interests = map.interests, data = [];
+				
+				for(var i=0, len = jtownUsers.length ; i< len; i++){
+					var jtownUser = jtownUsers[i];
+					data[i] = { label : jtownUser.name , value : jtownUser.name, category : 'Shop'};
+				}
+				for(var i=0, len = interests.length, size = jtownUsers.length ; i< len; i++){
+					var interest = interests[i];
+					data[i+size] = { label : interest.name , value : interest.name, category : 'Category'};
+				}
+				response( data );
 			});
 		},
 		minLength : 1,

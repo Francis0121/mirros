@@ -312,6 +312,10 @@ public class JtownUser implements JtownDetails, CredentialsContainer {
 		return name;
 	}
 
+	public String getUpperName() {
+		return name.toUpperCase();
+	}
+
 	public String getNewPassword() {
 		return newPassword;
 	}

@@ -56,11 +56,11 @@
 		INSERT INTO
 			interest_section
 			(
-				category_pn, name
+				category_pn, name, upper_name
 			)
 		VALUES
 			(
-				#{categoryPn}, #{name}
+				#{categoryPn}, #{name}, #{upperName}
 			)
 		<selectKey keyProperty="sectionPn" resultType="Integer">
 			SELECT LAST_INSERT_ID()
