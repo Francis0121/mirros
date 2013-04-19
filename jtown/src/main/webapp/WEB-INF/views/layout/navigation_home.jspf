@@ -35,7 +35,7 @@
 			</c:choose>
 			<ul class="jt-header-nav-interest">
 				<li class="jt-header-nav-interest-li">
-				<c:url var="check" value="/cpn/${homeFilter.categoryPn }/spn/${homeFilter.sectionPn }"/>
+				<c:url var="check" value="/cpn/${homeFilter.categoryPn }/spn/${homeFilter.sectionPn eq null ? 0 : homeFilter.sectionPn}"/>
 				<c:choose>
 					<c:when test="${search eq check }">
 						<a href="${search }" class="jt-header-nav-interest-normal-realPath">ALL</a>
