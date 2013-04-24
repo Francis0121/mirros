@@ -11,6 +11,8 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.social.facebook.api.Facebook;
+import org.springframework.social.twitter.api.Twitter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -44,6 +46,10 @@ public class HomeController {
 	private HomeService homeService;
 	@Resource
 	private CommentService commentService;
+	@Resource
+	private Facebook facebook;
+	@Resource
+	private Twitter twitter;
 
 	// ~ FORM
 
@@ -51,6 +57,10 @@ public class HomeController {
 	public String showHome(Model model, HttpSession session,
 			@ModelAttribute HomeFilter homeFilter, SummaryUser summaryUser) {
 		getHomeModel(model, session, homeFilter, summaryUser);
+		
+		logger.debug(facebook.toString());
+		logger.debug(twitter.toString());
+		
 		return "home";
 	}
 

@@ -47,4 +47,15 @@
 		</property>
 	</bean>
 
+	<bean id="connectSocial" class="org.springframework.social.connect.web.ConnectController">
+		<constructor-arg name="connectionFactoryLocator" ref="connectionFactoryLocator"/>
+		<constructor-arg name="usersConnectionRepository" ref="usersConnectionRepository"/>
+		<property name="interceptors">
+			<list>
+				<bean class="com.bg.jtown.social.facebook.PostToWallAfterConnectInterceptor" />
+				<bean class="com.bg.jtown.social.twitter.TweetAfterConnectInterceptor" />
+			</list>
+		</property>
+	</bean>
+
 </beans>

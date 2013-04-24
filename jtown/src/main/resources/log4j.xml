@@ -50,4 +50,8 @@
 		<appender-ref ref="console" />
 	</root>
 	
+	<logger name="org.springframework.social">
+		<level value="info" />
+	</logger>
+	
 </log4j:configuration>
