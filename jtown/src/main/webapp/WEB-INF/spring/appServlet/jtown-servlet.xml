@@ -58,4 +58,10 @@
 		</property>
 	</bean>
 
+	<bean id="prodierSignInSocial" class="org.springframework.social.connect.web.ProviderSignInController">
+		<constructor-arg name="usersConnectionRepository" ref="usersConnectionRepository"/>
+		<constructor-arg name="connectionFactoryLocator" ref="connectionFactoryLocator"/>
+		<constructor-arg name="signInAdapter" ref="socialSignInAdapter"/>
+	</bean>
+
 </beans>

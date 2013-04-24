@@ -31,6 +31,12 @@ import com.bg.jtown.security.JtownUser;
 @PropertySource("classpath:com/bg/jtown/social/SocialSetting.properties")
 public class SocialConfig {
 
+	@Inject
+	private Environment environment;
+	
+	@Inject
+	private DataSource dataSource;
+
 	@Bean
 	public ConnectionFactoryLocator connectionFactoryLocator() {
 		ConnectionFactoryRegistry registry = new ConnectionFactoryRegistry();
@@ -46,9 +52,6 @@ public class SocialConfig {
 		return registry;
 	}
 
-	@Inject
-	private Environment environment;
-
 	@Bean
 	public UsersConnectionRepository usersConnectionRepository() {
 		JdbcUsersConnectionRepository repository = new JdbcUsersConnectionRepository(
@@ -56,9 +59,6 @@ public class SocialConfig {
 		repository.setConnectionSignUp(new SocialConnectionSignUp());
 		return repository;
 	}
-
-	@Inject
-	private DataSource dataSource;
 
 	@Bean
 	@Scope(value = "request", proxyMode = ScopedProxyMode.INTERFACES)
