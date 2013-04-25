@@ -74,16 +74,12 @@ public class UserAuthenticator {
 		return newAuth;
 	}
 
-	public void onApplicationSocial(String username) {
-		SecurityContextHolder.getContext().setAuthentication(
-				createNewAuthenticationNoPassword(username));
-	}
-
-	protected Authentication createNewAuthenticationNoPassword(String username) {
+	public Authentication signInUser(String username) {
 		JtownDetails newPrincipal = (JtownDetails) customJdbcUserDetailManager
 				.loadUserByUsername(username);
-		UsernamePasswordAuthenticationToken newAuth = new UsernamePasswordAuthenticationToken(
+		Authentication authentication = new UsernamePasswordAuthenticationToken(
 				newPrincipal, null, newPrincipal.getAuthorities());
-		return newAuth;
+		SecurityContextHolder.getContext().setAuthentication(authentication);
+		return authentication;
 	}
 }
