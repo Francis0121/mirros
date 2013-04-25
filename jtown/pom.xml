@@ -7,6 +7,12 @@
 	<name>jtown</name>
 	<packaging>war</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
+	<repositories>
+		 <repository>
+			 <id>opensourceagility-releases</id>
+			 <url>http://repo.opensourceagility.com/releases</url>
+		 </repository>
+	</repositories>
 	<properties>
 		<java-version>1.6</java-version>
 		<org.springframework-version>3.1.1.RELEASE</org.springframework-version>
@@ -85,7 +91,12 @@
 			<artifactId>spring-social-web</artifactId>
 			<version>${spring-social.version}</version>
 		</dependency>
-	
+		
+		<dependency>
+            <groupId>org.socialsignin</groupId>
+            <artifactId>spring-social-security</artifactId>
+            <version>${spring-social.version}</version>
+    	</dependency>
 	    
 		<!--  Spring Social Twitter -->
 		<dependency>
@@ -282,4 +293,5 @@
             </plugin>
         </plugins>
     </build>
+    <url>org.spring.social</url>
 </project>

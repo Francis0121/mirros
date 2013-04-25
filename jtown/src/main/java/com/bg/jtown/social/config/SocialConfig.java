@@ -1,8 +1,10 @@
-package com.bg.jtown.social;
+package com.bg.jtown.social.config;
 
 import javax.inject.Inject;
 import javax.sql.DataSource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
@@ -31,9 +33,12 @@ import com.bg.jtown.security.JtownUser;
 @PropertySource("classpath:com/bg/jtown/social/SocialSetting.properties")
 public class SocialConfig {
 
+	private static final Logger logger = LoggerFactory
+			.getLogger(SocialConfig.class);
+
 	@Inject
 	private Environment environment;
-	
+
 	@Inject
 	private DataSource dataSource;
 
@@ -65,15 +70,19 @@ public class SocialConfig {
 	public ConnectionRepository connectionRepository() {
 		Authentication authentication = SecurityContextHolder.getContext()
 				.getAuthentication();
+		logger.debug("ConnectionRepository : Authentication [ "+ authentication + " ] ");
 		if (authentication == null) {
 			throw new IllegalStateException(
 					"Unable to get a ConnectionRepository: no user signed in");
 		}
+		logger.debug("ConnectionRepository : authentication.getPrincipal [ "+ authentication.getPrincipal()  + " ] ");
 		if (authentication.getPrincipal() instanceof JtownUser) {
 			JtownUser jtwonUser = (JtownUser) authentication.getPrincipal();
+			logger.debug("ConnectionRepository : jtwonUser [ "+ jtwonUser.toString() + " ] ");
 			return usersConnectionRepository().createConnectionRepository(
 					jtwonUser.getPn().toString());
 		} else {
+			logger.debug("ConnectionRepository : name [ "+ authentication.getName() + " ] ");
 			return usersConnectionRepository().createConnectionRepository(
 					authentication.getName());
 		}
