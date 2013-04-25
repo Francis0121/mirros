@@ -4,6 +4,8 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.web.SignInAdapter;
@@ -17,10 +19,11 @@ import com.bg.jtown.security.UserAuthenticator;
 @Component(value = "socialSignInAdapter")
 public class SocialSignInAdapter implements SignInAdapter {
 
+	private static Logger logger = LoggerFactory
+			.getLogger(SocialSignInAdapter.class);
+
 	private UserAuthenticator userAuthenticator;
-
 	private LoginService loginService;
-
 	private IPPersistentTokenBasedRememberMeServices ipPersistentTokenBasedRememberMeServices;
 
 	@Inject
@@ -36,10 +39,11 @@ public class SocialSignInAdapter implements SignInAdapter {
 	@Override
 	public String signIn(String localUserId, Connection<?> connection,
 			NativeWebRequest request) {
-		String username = loginService.selectUsername(Integer
-				.parseInt(localUserId));
+		String username = loginService.selectUsername(Integer.parseInt(localUserId));
 		Authentication authentication = userAuthenticator.signInUser(username);
+		logger.debug("Signin : username [ " + username + " ] , Authentication [ " + authentication.getPrincipal() + " ] ");
 
+		ipPersistentTokenBasedRememberMeServices.setAlwaysRemember(true);		
 		ipPersistentTokenBasedRememberMeServices.loginSuccess(
 				(HttpServletRequest) request.getNativeRequest(),
 				(HttpServletResponse) request.getNativeResponse(),
