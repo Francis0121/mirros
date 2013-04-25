@@ -60,6 +60,20 @@
 				</tbody>
 			</table>
 		</form:form>
+		
+		<div style="float: left; width: 500px;">
+			<form action="<c:url value="/connect/facebook" />" method="POST">
+				<input type="hidden" name="scope" value="publish_stream,offline_access,email,user_birthday,user_likes" />
+				<p><button type="submit"><img src="<c:url value="/resources/images/connect_light_medium_short.gif" />"/></button></p>
+				<label for="postToWall"><input id="postToWall" type="checkbox" name="postToWall" /></label>
+			</form>
+			
+			<form action="<c:url value="/connect/twitter" />" method="POST">
+				<p><button type="submit"><img src="<c:url value="/resources/images/connect-with-twitter.png" />"/></button></p>
+				<label for="postTweet"><input id="postTweet" type="checkbox" name="postTweet" /></label>
+			</form>
+		</div>	
+		
 	</section>
 </section>
 <%@ include file="../../layout/none_footer.jspf" %>

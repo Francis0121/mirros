@@ -19,8 +19,6 @@
 </style>
 </sec:authorize>
 </head>
-<body>
-	<%@ include file="social.jspf" %>
 	<section class="jt-body">
 		<header class="jt-header">
 			<sec:authorize access="hasRole('ROLE_USER') and !principal.confirmEmail">
