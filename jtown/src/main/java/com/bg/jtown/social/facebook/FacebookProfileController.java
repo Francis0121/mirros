@@ -25,7 +25,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-@Controller(value="facebookProfileSocial")
+@Controller(value = "facebookProfileSocial")
 public class FacebookProfileController {
 
 	@Inject
@@ -35,6 +35,7 @@ public class FacebookProfileController {
 	public String home(Model model) {
 		Connection<Facebook> connection = connectionRepository
 				.findPrimaryConnection(Facebook.class);
+
 		if (connection == null) {
 			return "redirect:/connect/facebook";
 		}
@@ -42,5 +43,4 @@ public class FacebookProfileController {
 				.getUserProfile());
 		return "facebook/profile";
 	}
-
 }
