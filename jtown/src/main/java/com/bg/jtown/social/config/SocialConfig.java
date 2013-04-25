@@ -1,5 +1,6 @@
 package com.bg.jtown.social.config;
 
+import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.sql.DataSource;
 
@@ -27,6 +28,7 @@ import org.springframework.social.twitter.api.Twitter;
 import org.springframework.social.twitter.api.impl.TwitterTemplate;
 import org.springframework.social.twitter.connect.TwitterConnectionFactory;
 
+import com.bg.jtown.security.CustomJdbcUserDetailManager;
 import com.bg.jtown.security.JtownUser;
 
 @Configuration
@@ -57,12 +59,23 @@ public class SocialConfig {
 		return registry;
 	}
 
+	@Resource(name = "jdbcUserDetailsManager")
+	private CustomJdbcUserDetailManager customJdbcUserDetailManager;
+
 	@Bean
 	public UsersConnectionRepository usersConnectionRepository() {
 		JdbcUsersConnectionRepository repository = new JdbcUsersConnectionRepository(
 				dataSource, connectionFactoryLocator(), Encryptors.noOpText());
-		repository.setConnectionSignUp(new SocialConnectionSignUp());
+		repository.setConnectionSignUp(socialConnectionSignUp());
 		return repository;
+	}
+
+	@Bean
+	public SocialConnectionSignUp socialConnectionSignUp() {
+		SocialConnectionSignUp socialConnectionSignUp = new SocialConnectionSignUp();
+		socialConnectionSignUp
+				.setCustomJdbcUserDetailManager(customJdbcUserDetailManager);
+		return socialConnectionSignUp;
 	}
 
 	@Bean
@@ -70,19 +83,23 @@ public class SocialConfig {
 	public ConnectionRepository connectionRepository() {
 		Authentication authentication = SecurityContextHolder.getContext()
 				.getAuthentication();
-		logger.debug("ConnectionRepository : Authentication [ "+ authentication + " ] ");
+		logger.debug("ConnectionRepository : Authentication [ "
+				+ authentication + " ] ");
 		if (authentication == null) {
 			throw new IllegalStateException(
 					"Unable to get a ConnectionRepository: no user signed in");
 		}
-		logger.debug("ConnectionRepository : authentication.getPrincipal [ "+ authentication.getPrincipal()  + " ] ");
+		logger.debug("ConnectionRepository : authentication.getPrincipal [ "
+				+ authentication.getPrincipal() + " ] ");
 		if (authentication.getPrincipal() instanceof JtownUser) {
 			JtownUser jtwonUser = (JtownUser) authentication.getPrincipal();
-			logger.debug("ConnectionRepository : jtwonUser [ "+ jtwonUser.toString() + " ] ");
+			logger.debug("ConnectionRepository : jtwonUser [ "
+					+ jtwonUser.toString() + " ] ");
 			return usersConnectionRepository().createConnectionRepository(
 					jtwonUser.getPn().toString());
 		} else {
-			logger.debug("ConnectionRepository : name [ "+ authentication.getName() + " ] ");
+			logger.debug("ConnectionRepository : name [ "
+					+ authentication.getName() + " ] ");
 			return usersConnectionRepository().createConnectionRepository(
 					authentication.getName());
 		}

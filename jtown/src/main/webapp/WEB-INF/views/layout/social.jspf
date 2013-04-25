@@ -7,21 +7,13 @@
 <div style="position: absolute; z-index: 9999; ">
 	<form action="<c:url value="/connect/facebook" />" method="POST">
 		<input type="hidden" name="scope" value="publish_stream,offline_access,email,user_birthday,user_likes" />
-		<div class="formInfo">
-			<p>You aren't connected to Facebook yet. Click the button to connect Spring Social Showcase with your Facebook account.</p>
-		</div>
 		<p><button type="submit"><img src="<c:url value="/resources/images/connect_light_medium_short.gif" />"/></button></p>
-		<label for="postToWall"><input id="postToWall" type="checkbox" name="postToWall" /> Tell your friends about Spring Social Showcase on your Facebook wall</label>
+		<label for="postToWall"><input id="postToWall" type="checkbox" name="postToWall" /></label>
 	</form>
 	
 	<form action="<c:url value="/connect/twitter" />" method="POST">
-		<div class="formInfo">
-			<p>
-				You haven't created any connections with Twitter yet. Click the button to connect Spring Social Showcase with your Twitter account. 
-				(You'll be redirected to Twitter where you'll be asked to authorize the connection.)
-			</p>
-		</div>
 		<p><button type="submit"><img src="<c:url value="/resources/images/connect-with-twitter.png" />"/></button></p>
-		<label for="postTweet"><input id="postTweet" type="checkbox" name="postTweet" /> Post a tweet about connecting with Spring Social Showcase</label>
+		<label for="postTweet"><input id="postTweet" type="checkbox" name="postTweet" /></label>
 	</form>
+
 </div>

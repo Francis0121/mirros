@@ -26,6 +26,8 @@ public interface LoginService {
 
 	JtownUser selectCustomer(Integer pn);
 
+	String selectUsername(Integer pn);
+	
 	void updateUserCustomer(JtownUser jtownUser);
 
 	void updateUserCustomerEmail(String changeUserName, String nowUserName);

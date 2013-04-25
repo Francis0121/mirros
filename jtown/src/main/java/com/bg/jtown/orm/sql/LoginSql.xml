@@ -23,6 +23,15 @@
 			pn = #{pn}
 	</select>
 	
+	<select id="selectUsername" parameterType="Integer" resultType="String">
+		SELECT
+			id
+		FROM
+			users
+		WHERE
+			pn = #{pn}
+	</select>
+	
 	<insert id="insertUsers" parameterType="JtownUser">
 		INSERT INTO
 			users

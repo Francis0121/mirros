@@ -29,7 +29,7 @@
 				</tr>
 				<tr>
 					<th>
-						<input type="submit" class="jt-btn-orange" value="LOG&nbsp;IN"/>
+						<input type="submit" class="jt-btn-orange jt-btn-orange-login" value="LOG&nbsp;IN"/>
 					</th>
 					<td>&nbsp;</td>
 				</tr>
@@ -48,6 +48,25 @@
 			</tbody>
 		</table>
 		</form>
+		<table class="jt-login-form-table">
+			<tfoot>
+				<tr>
+					<th>
+						<!-- FACEBOOK login -->
+						<form action="<c:url value="/signin/facebook" />" method="POST">
+							<input type="hidden" name="scope" value="email,user_birthday,user_about_me" />
+					    	<input class="facebook-login-button" type="image" src="<c:url value="/resources/images/sign-in-with-facebook.png" />" style="float:left; ">
+						</form>
+						
+						<!-- TWITTER login -->
+						<form action="<c:url value="/signin/twitter" />" method="POST" >
+							<input class="twitter-login-button" type="image" src="<c:url value="/resources/images/sign-in-with-twitter-d.png" />" style="float:left; margin-left: 10px;">
+						</form>
+					</th>
+				</tr>
+			</tfoot>
+		</table>
+		
 		<c:url value="/login/join" var="joinUrl"/>
 		<div style="width: 400px; border-top : 1px solid #fff; height: 1px; background: #cbcbca;">
 			<span class="jt-login-form-join-span">아직&nbsp;회원이&nbsp;아니신가요?</span><a href="${joinUrl}" class="jt-login-form-join-btn">J&nbsp;Town&nbsp;가입하기</a>

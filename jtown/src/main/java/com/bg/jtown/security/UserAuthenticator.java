@@ -73,4 +73,17 @@ public class UserAuthenticator {
 		newAuth.setDetails(currentAuth.getDetails());
 		return newAuth;
 	}
+
+	public void onApplicationSocial(String username) {
+		SecurityContextHolder.getContext().setAuthentication(
+				createNewAuthenticationNoPassword(username));
+	}
+
+	protected Authentication createNewAuthenticationNoPassword(String username) {
+		JtownDetails newPrincipal = (JtownDetails) customJdbcUserDetailManager
+				.loadUserByUsername(username);
+		UsernamePasswordAuthenticationToken newAuth = new UsernamePasswordAuthenticationToken(
+				newPrincipal, null, newPrincipal.getAuthorities());
+		return newAuth;
+	}
 }

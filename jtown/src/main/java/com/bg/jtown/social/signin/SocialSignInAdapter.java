@@ -13,20 +13,32 @@ import org.springframework.social.connect.web.SignInAdapter;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.NativeWebRequest;
 
+import com.bg.jtown.security.LoginService;
+import com.bg.jtown.security.UserAuthenticator;
+
 @Component(value = "socialSignInAdapter")
 public class SocialSignInAdapter implements SignInAdapter {
 
 	private final RequestCache requestCache;
 
+	private UserAuthenticator userAuthenticator;
+
+	private LoginService loginService;
+
 	@Inject
-	public SocialSignInAdapter(RequestCache requestCache) {
+	public SocialSignInAdapter(RequestCache requestCache,
+			UserAuthenticator userAuthenticator, LoginService loginService) {
 		this.requestCache = requestCache;
+		this.userAuthenticator = userAuthenticator;
+		this.loginService = loginService;
 	}
 
 	@Override
 	public String signIn(String localUserId, Connection<?> connection,
 			NativeWebRequest request) {
-		SignInUtils.signin(localUserId);
+		String username = loginService.selectUsername(Integer
+				.parseInt(localUserId));
+		userAuthenticator.onApplicationSocial(username);
 		return extractOriginalUrl(request);
 	}
 

@@ -28,7 +28,7 @@
 					</tr>
 					<tr>
 						<th>
-							<input type="submit" class="jt-btn-orange" value="LOG&nbsp;IN"/>
+							<input type="submit" class="jt-btn-orange jt-btn-orange-login" value="LOG&nbsp;IN"/>
 						</th>
 						<td>&nbsp;</td>
 					</tr>
@@ -47,6 +47,24 @@
 				</tbody>
 			</table>
 			</form>
+			<table class="jt-login-form-table-page">
+				<tfoot>
+					<tr>
+						<th style="padding: 0 2px 10px 2px;">
+							<!-- FACEBOOK login -->
+							<form action="<c:url value="/signin/facebook" />" method="POST">
+								<input type="hidden" name="scope" value="email,user_birthday,user_about_me" />
+						    	<input class="facebook-login-button" type="image" src="<c:url value="/resources/images/sign-in-with-facebook.png" />" style="float:left; >
+							</form>
+							
+							<!-- TWITTER login -->
+							<form action="<c:url value="/signin/twitter" />" method="POST" >
+								<input class="twitter-login-button" type="image" src="<c:url value="/resources/images/sign-in-with-twitter-d.png" />" style="float:left; margin-left: 10px;">
+							</form>
+						</th>
+					</tr>
+				</tfoot>
+			</table>
 			<c:if test="${not empty param.login_error}">  
 			<div class="jt-login-error-box">
 		        <spring:message code="login.error.message"/>

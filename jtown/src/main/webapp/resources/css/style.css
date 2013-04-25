@@ -17,6 +17,8 @@
 .jt-header-login-menu{ font-size: 12px; position: absolute; right: 15px;}
 .jt-header-login-menu>li{ float: left; width: 80px;}
 .jt-header-login-menu>li>a{font-family: arial, sans-serif; width: 70px; padding: 18px 5px 12px 5px; display: block; text-align: center;}
+#jt-mypage{width: 110px;}
+#jt-mypage>a{width: 100px;}
 .jt-under-wrap{
 	display: none;
 	border-top: 1px solid #cccaca;

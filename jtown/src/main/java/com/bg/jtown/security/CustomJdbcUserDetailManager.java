@@ -218,6 +218,20 @@ public class CustomJdbcUserDetailManager extends JdbcUserDetailsManager {
 		addUserToGroup(jtownUser.getPn(), "Administartor");
 	}
 
+	public void createUserSocialAndAuthority(JtownUser jtownUser) {
+		String username = jtownUser.getUsername();
+		boolean exist = loginService.selectCheckExistEmail(username);
+		if (!exist) {
+			jtownUser.setPassword(RandomUtil.randomPassword(12));
+			jtownUser.setConfirmEmail(true);
+			creatUserCustomer(jtownUser);
+			addUserToGroup(jtownUser.getPn(), "Customer");
+		} else {
+			JtownUser getJtownUser = (JtownUser) loadUserByUsername(username);
+			jtownUser.setPn(getJtownUser.getPn());
+		}
+	}
+
 	@Override
 	public void changePassword(String oldPassword, String newPassword)
 			throws AuthenticationException {

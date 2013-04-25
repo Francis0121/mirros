@@ -47,8 +47,7 @@
 		</property>
 	</bean>
 
-<!-- 	<bean id="connectSocial" class="org.springframework.social.connect.web.ConnectController"> -->
-	<bean id="connectSocial" class="com.bg.jtown.social.ConnectSocial">
+	<bean id="connectSocial" class="org.springframework.social.connect.web.ConnectController">
 		<constructor-arg name="connectionFactoryLocator" ref="connectionFactoryLocator"/>
 		<constructor-arg name="usersConnectionRepository" ref="usersConnectionRepository"/>
 		<property name="interceptors">
@@ -58,7 +57,7 @@
 			</list>
 		</property>
 	</bean>
-
+	
 	<bean id="prodierSignInSocial" class="org.springframework.social.connect.web.ProviderSignInController">
 		<constructor-arg name="usersConnectionRepository" ref="usersConnectionRepository"/>
 		<constructor-arg name="connectionFactoryLocator" ref="connectionFactoryLocator"/>

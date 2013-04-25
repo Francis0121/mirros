@@ -3,6 +3,7 @@
 *	@author Francis
 *	/login/join Page
 */
+.jt-btn-orange-login{padding: 5px 10px;}
 .jt-join-user-header{ width: 990px; margin: auto auto; height: 75px; }
 .jt-join-user-login, .jt-join-user-login:VISITED{ font-size: 12px; float: right; color: #808080; margin-top: 60px;}
 .jt-join-user-login:HOVER, .jt-join-user-login:ACTIVE{color: #000;}
@@ -62,12 +63,12 @@
 *	login.jspf → smartPopup loginForm
 */
 #jt-login-form-wrap { display: none; }
-#jt-login-form { padding: 10px 0; width: 400px; height: 290px; background: #f5f5f7;
+#jt-login-form { padding: 10px 0; width: 400px; height: 310px; background: #f5f5f7;
 	box-shadow : 1px 3px 5px rgba(193, 193, 193, 1);
 	-moz-box-shadow : 1px 3px 5px rgba(193, 193, 193, 1);
 	-webkit-box-shadow : 1px 3px 5px rgba(193, 193, 193, 1);
 }
-.jt-login-form-table { border-collapse: collapse; width: 340px; margin: auto auto; margin: 0 30px 10px 30px;}
+.jt-login-form-table { border-collapse: collapse; width: 340px; margin: auto auto; margin: 0 30px 5px 30px;}
 .jt-login-form-table td, .jt-login-form-table th{font-size: 12px; vertical-align: middle; padding: 3px 2px; height: 40px; text-align: center;}
 .jt-login-form-table thead th{ font-family: Arial; font-size: 15px; width: 336px; text-align: left; color: #333333;}
 .jt-login-form-table tfoot th{ width: 168px; text-align: left; color: #010101; font-weight: normal;}
@@ -75,7 +76,7 @@
 .jt-login-form-table tbody td{ width: 336px; }
 .jt-login-form-table tbody th, .jt-login-form-table tbody td { }
 .jt-login-form-table thead th, .jt-login-form-table thead td { }
-.jt-login-form-table tfoot th, .jt-login-form-table tfoot td { }
+.jt-login-form-table tfoot th, .jt-login-form-table tfoot td { height: 25px; }
 .jt-login-form-table-input{ width: 328px; padding: 2px 3px; border: 1px solid #ad9c9c; height: 25px;
  	-webkit-border-radius: 5px 5px;
     -moz-border-radius: 5px 5px;
@@ -110,7 +111,7 @@
 *	로그인 페이지
 ****************/
 #jt-login-form-page { width: 500px; margin: 80px auto 0 auto; }
-.jt-login-form-table-page { border-collapse: collapse; width: 340px; margin: auto auto; margin: 0 30px 10px 30px; }
+.jt-login-form-table-page { border-collapse: collapse; width: 340px; margin: auto auto; margin: 0 30px 0 30px; }
 .jt-login-form-table-page td, .jt-login-form-table-page th{font-size: 12px; vertical-align: middle; padding: 10px 2px; min-height: 40px; text-align: center;}
 .jt-login-form-table-page thead th{ font-family: Arial; font-size: 20px; width: 336px; text-align: left; color: #333333;}
 .jt-login-form-table-page tfoot th{ width: 168px; text-align: left; color: #010101; font-weight: normal;}

@@ -68,6 +68,11 @@ public class LoginServiceImpl extends SqlSessionDaoSupport implements
 	}
 
 	@Override
+	public String selectUsername(Integer pn) {
+		return getSqlSession().selectOne("loginMapper.selectUsername", pn);
+	}
+
+	@Override
 	public void updateUserCustomer(JtownUser jtownUser) {
 		getSqlSession().update("loginMapper.updateUserCustomer", jtownUser);
 	}
