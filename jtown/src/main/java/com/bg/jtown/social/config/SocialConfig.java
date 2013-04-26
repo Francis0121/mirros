@@ -85,7 +85,7 @@ public class SocialConfig {
 		if (authentication.getPrincipal() instanceof JtownUser) {
 			JtownUser jtwonUser = (JtownUser) authentication.getPrincipal();
 			return usersConnectionRepository().createConnectionRepository(
-					jtwonUser.getUsername().toString());
+					jtwonUser.getPn().toString());
 		} else {
 			return usersConnectionRepository().createConnectionRepository(
 					authentication.getName());

@@ -42,12 +42,13 @@ import org.springframework.web.context.request.WebRequest;
  */
 public class PostToWallAfterConnectInterceptor implements
 		ConnectInterceptor<Facebook> {
-
+	
 	private static final Logger logger = LoggerFactory
 			.getLogger(PostToWallAfterConnectInterceptor.class);
 
 	public void preConnect(ConnectionFactory<Facebook> connectionFactory,
 			MultiValueMap<String, String> parameters, WebRequest request) {
+		logger.debug(connectionFactory.toString());
 		if (StringUtils.hasText(request.getParameter(POST_TO_WALL_PARAMETER))) {
 			request.setAttribute(POST_TO_WALL_ATTRIBUTE, Boolean.TRUE, WebRequest.SCOPE_SESSION);
 		}
