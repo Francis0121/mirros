@@ -23,16 +23,16 @@ public class SocialSignInAdapter implements SignInAdapter {
 			.getLogger(SocialSignInAdapter.class);
 
 	private UserAuthenticator userAuthenticator;
-	private LoginService loginService;
 	private IPPersistentTokenBasedRememberMeServices ipPersistentTokenBasedRememberMeServices;
+	private LoginService loginService;
 
 	@Inject
 	public SocialSignInAdapter(
 			UserAuthenticator userAuthenticator,
 			LoginService loginService,
 			IPPersistentTokenBasedRememberMeServices ipPersistentTokenBasedRememberMeServices) {
-		this.userAuthenticator = userAuthenticator;
 		this.loginService = loginService;
+		this.userAuthenticator = userAuthenticator;
 		this.ipPersistentTokenBasedRememberMeServices = ipPersistentTokenBasedRememberMeServices;
 	}
 
@@ -41,7 +41,7 @@ public class SocialSignInAdapter implements SignInAdapter {
 			NativeWebRequest request) {
 		String username = loginService.selectUsername(Integer.parseInt(localUserId));
 		Authentication authentication = userAuthenticator.signInUser(username);
-		logger.debug("Signin : username [ " + username + " ] , Authentication [ " + authentication.getPrincipal() + " ] ");
+		logger.debug("Signin : username [ " + localUserId + " ] , Authentication [ " + authentication.getPrincipal() + " ] ");
 
 		ipPersistentTokenBasedRememberMeServices.setAlwaysRemember(true);		
 		ipPersistentTokenBasedRememberMeServices.loginSuccess(

@@ -49,20 +49,23 @@ public final class SocialConnectionSignUp implements ConnectionSignUp {
 			jtownUser.setMonth(Integer.parseInt(month.replace("0", "")));
 			jtownUser.setDay(Integer.parseInt(day.replace("0", "")));
 
+			customJdbcUserDetailManager.createUserSocialAndAuthority(jtownUser);
+			
+			logger.debug("Executer :  Facebook [ " + jtownUser + " ]");
+			
+			return jtownUser.getPn().toString();
 		} else if (connection.getApi() instanceof Twitter) {
 			Twitter twitter = (Twitter) connection.getApi();
 			TwitterProfile tp = twitter.userOperations().getUserProfile();
 
 			jtownUser.setUsername(tp.getName());
-
+			jtownUser.setPn(0);
+			
+			logger.debug("Executer :  Twitter [ " + jtownUser + " ]");
+			
+			return null;
 		} else {
-
+			return null;
 		}
-
-		customJdbcUserDetailManager.createUserSocialAndAuthority(jtownUser);
-
-		logger.debug("Executer :  jtownUser last [ " + jtownUser + " ]");
-
-		return jtownUser.getPn().toString();
 	}
 }

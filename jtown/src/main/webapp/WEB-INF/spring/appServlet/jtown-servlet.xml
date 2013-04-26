@@ -62,6 +62,7 @@
 		<constructor-arg name="usersConnectionRepository" ref="usersConnectionRepository"/>
 		<constructor-arg name="connectionFactoryLocator" ref="connectionFactoryLocator"/>
 		<constructor-arg name="signInAdapter" ref="socialSignInAdapter"/>
+		<property name="signUpUrl" value="/login/join"/>
 	</bean>
 
 </beans>
