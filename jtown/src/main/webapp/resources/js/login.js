@@ -19,6 +19,8 @@ $(function() {
 	jtown.login.findPasswordSubmit();
 	
 	jtown.login.nameChangeSubmit();
+	
+	jtown.login.disactiveUser();
 });
 
 if (typeof jtown.login == 'undefined') {
@@ -129,6 +131,16 @@ jtown.login.nameChangeSubmit = function(){
 		var form = document.forms['jtownUser'];
 		form.action = contextPath + 'login/nameChange.jt';
 		form.submit();
+	});
+};
+
+jtown.login.disactiveUser = function(){
+	
+	$('.jt-disactive-btn').unbind('click').bind('click', function(){
+		jtown.confirm('계정을 정말로 삭제하시겠습니까?', function(){
+			var form = document.forms['jtownUser'];
+			form.submit();
+		});
 	});
 };
 

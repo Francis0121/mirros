@@ -7,10 +7,13 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.ConnectionFactoryLocator;
 import org.springframework.social.connect.ConnectionRepository;
@@ -76,6 +79,52 @@ public class LoginController {
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String showLogin(Model model) {
 		return "login/login";
+	}
+
+	@RequestMapping(value = "/login/disactive", method = RequestMethod.GET)
+	public String showDisactive(@ModelAttribute JtownUser jtownUser) {
+		return "login/disactive";
+	}
+
+	@RequestMapping(value = "/login/disactive.jt", method = RequestMethod.POST)
+	public String formDisactive(@ModelAttribute JtownUser jtownUser,
+			BindingResult result, HttpSession session) {
+		new Validator() {
+			@Override
+			public void validate(Object target, Errors errors) {
+				JtownUser jtownUser = (JtownUser) target;
+
+				if (jtownUser.getPassword() == null) {
+					errors.rejectValue("password", "join.password.empty");
+				}else{
+					if (customJdbcUserDetailManager.confirmPassword(jtownUser)) {
+						errors.rejectValue("password",
+								"change.password.notEqualPassword");
+					}
+				}
+			}
+
+			@Override
+			public boolean supports(Class<?> clazz) {
+				return JtownUser.class.isAssignableFrom(clazz);
+			}
+		}.validate(jtownUser, result);
+
+		if (!result.hasErrors()) {
+			customJdbcUserDetailManager.deleteUserCustomer(jtownUser);
+            if (session != null) {
+                logger.debug("Invalidating session: " + session.getId());
+                session.invalidate();
+            }
+
+            SecurityContext context = SecurityContextHolder.getContext();
+            context.setAuthentication(null);
+	        SecurityContextHolder.clearContext();
+	        
+			return "redirect:../";
+		} else {
+			return "login/disactive";
+		}
 	}
 
 	@RequestMapping(value = "/login/join", method = RequestMethod.GET)
