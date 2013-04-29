@@ -16,8 +16,11 @@
 			<h2>비밀번호&nbsp;변경</h1>
 			<h1>본인확인을&nbsp;위해&nbsp;본&nbsp;계정의&nbsp;비밀번호를&nbsp;입력해&nbsp;주신&nbsp;후에&nbsp;변경하실&nbsp;비밀번호를&nbsp;입력해&nbsp;주세요.</h1>
 		</hgroup>
-		<c:url value="/login/modify.jt" var="modifyUrl"/>
+		
+		<c:url var="findPassword" value="/login/findPassword.jt"/>
+		<c:url var="modifyUrl" value="/login/modify.jt"/>
 		<form:form commandName="jtownUser" method="post" action="${modifyUrl }" htmlEscape="true">
+			<sec:authentication property="principal.username" var="username"/>
 			<table class="jt-modify-content-table">
 				<tfoot>
 					<tr>
@@ -28,12 +31,17 @@
 				</tfoot>
 				<tbody>
 					<tr>
+						<th>이메일</th>
+						<td><c:out value="${username }"/><form:hidden path="username" value="${username }"/>&nbsp;<a href="<c:url value="/login/modifyEmailAddress"/>">이메일 변경</a></td>
+					</tr>
+					<tr>
 						<th>현재&nbsp;비밀번호</th>
 						<td>
 							<form:password path="password" cssClass="jt-modify-content-input" cssErrorClass="jt-modify-content-input-error"/>
 							<div class="jt-modify-content-error">	
 								<form:errors path="password" cssClass="commonError"/>
 							</div>
+							새로운 비밀번호를 현재 이메일로 전송됩니다.<input type="button" value="보내기" class="jt-findPassword-btn jt-btn-orange"/>
 						</td>
 					</tr>
 					<tr>

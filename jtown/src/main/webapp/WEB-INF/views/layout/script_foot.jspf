@@ -68,6 +68,7 @@
 
 <%--TODO partnership 페이지에서만 이용되고 있음 --%>
 <c:if test="${result ne null }">
+	<c:set var="realPath" value='<%=request.getAttribute("javax.servlet.forward.request_uri")%>'/>
 	<%--F5, CTRL + N, CTRL + R 시에는 result 메시지 안뜨도록 설정 --%>
 	<c:if test="${result eq 1 }">
 		<c:set var="alertText" value="접수 되었습니다."/>
@@ -83,7 +84,7 @@
 	</c:if>
 	<c:if test="${result eq 4 }">
 		<c:set var="alertText" value="임시 비밀번호를 전송 하였습니다."/>
-		<c:url value="/login/findPassword" var="pageUrl"/>
+		<c:set value="${realPath }" var="pageUrl"/>
 	</c:if>
 	<script type="text/javascript">
 	/* <![CDATA[ */  

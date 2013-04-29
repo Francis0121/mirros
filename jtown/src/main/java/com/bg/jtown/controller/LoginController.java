@@ -93,7 +93,6 @@ public class LoginController {
 		}
 		String referer = request.getHeader("referer") == null ? "../" : request
 				.getHeader("referer");
-		logger.debug(referer);
 		request.setAttribute("beforJoinUrl", referer, WebRequest.SCOPE_SESSION);
 		return "login/join";
 	}
@@ -323,7 +322,7 @@ public class LoginController {
 
 	@RequestMapping(value = "/login/findPassword.jt", method = RequestMethod.POST)
 	public String formFindPassword(@ModelAttribute JtownUser jtownUser,
-			BindingResult result) {
+			BindingResult result, WebRequest request) {
 		new Validator() {
 			@Override
 			public void validate(Object target, Errors errors) {
@@ -345,8 +344,10 @@ public class LoginController {
 		}.validate(jtownUser, result);
 
 		if (!result.hasErrors()) {
+			String referer = request.getHeader("referer") == null ? "../" : request
+					.getHeader("referer");
 			emailSend.sendTempPasswordEmail(jtownUser.getUsername());
-			return "redirect:findPassword/?result=4";
+			return "redirect:"+referer+"/?result=4";
 		} else {
 			return "login/findPassword";
 		}

@@ -49,7 +49,7 @@ public class TweetAfterConnectInterceptor implements ConnectInterceptor<Twitter>
 		if (request.getAttribute(POST_TWEET_ATTRIBUTE, WebRequest.SCOPE_SESSION) != null) {
 			try {
 				//TODO updateStatus 트윗시 글귀
-				connection.updateStatus("I've connected with the Spring Social Showcase!");
+				connection.updateStatus("I've connected with the Mirros!");
 			} catch (DuplicateStatusException e) {
 			}
 			request.removeAttribute(POST_TWEET_ATTRIBUTE, WebRequest.SCOPE_SESSION);

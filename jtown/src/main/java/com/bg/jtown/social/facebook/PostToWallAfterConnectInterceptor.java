@@ -58,7 +58,7 @@ public class PostToWallAfterConnectInterceptor implements
 		if (request.getAttribute(POST_TO_WALL_ATTRIBUTE, WebRequest.SCOPE_SESSION) != null) {
 			try {
 				//TODO updateStatus Facebook 글귀
-				connection.updateStatus("I've connected with the Spring Social Showcase!");
+				connection.updateStatus("I've connected with the Mirros!");
 			} catch (ApiException e) {
 				logger.debug("PostConnect Catch");
 				// Do nothing: No need to break down if the post-connect post

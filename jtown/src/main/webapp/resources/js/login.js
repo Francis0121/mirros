@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(function() {
 
 	jtown.login.confirmEmail();
 
@@ -15,6 +15,8 @@ $(document).ready(function() {
 	jtown.login.modifyPasswordLength();
 	
 	jtown.login.modifyConfrimEmail();
+	
+	jtown.login.findPasswordSubmit();
 });
 
 if (typeof jtown.login == 'undefined') {
@@ -107,6 +109,15 @@ jtown.login.changePasswordSubmit = function(){
 	$('.jt-change-password-btn').unbind('click');
 	$('.jt-change-password-btn').bind('click', function(){
 		var form = document.forms['jtownUser'];
+		form.action = contextPath + 'login/modify.jt';
+		form.submit();
+	});
+};
+
+jtown.login.findPasswordSubmit = function(){
+	$('.jt-findPassword-btn').unbind('click').bind('click', function(){
+		var form = document.forms['jtownUser'];
+		form.action = contextPath + 'login/findPassword.jt';
 		form.submit();
 	});
 };
