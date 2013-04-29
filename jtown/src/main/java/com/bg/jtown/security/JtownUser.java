@@ -25,48 +25,7 @@ import com.bg.jtown.util.DateUtil;
 @SuppressWarnings("serial")
 public class JtownUser implements JtownDetails, CredentialsContainer {
 
-	private static class AuthorityComparator implements
-			Comparator<GrantedAuthority>, Serializable {
-		private static final long serialVersionUID = SpringSecurityCoreVersion.SERIAL_VERSION_UID;
-
-		public int compare(GrantedAuthority g1, GrantedAuthority g2) {
-			// Neither should ever be null as each entry is checked before
-			// adding it to the set.
-			// If the authority is null, it is a custom authority and should
-			// precede others.
-			if (g2.getAuthority() == null) {
-				return -1;
-			}
-
-			if (g1.getAuthority() == null) {
-				return 1;
-			}
-
-			return g1.getAuthority().compareTo(g2.getAuthority());
-		}
-	}
-
-	private static SortedSet<GrantedAuthority> sortAuthorities(
-			Collection<? extends GrantedAuthority> authorities) {
-		Assert.notNull(authorities,
-				"Cannot pass a null GrantedAuthority collection");
-		// Ensure array iteration order is predictable (as per
-		// UserDetails.getAuthorities() contract and SEC-717)
-		SortedSet<GrantedAuthority> sortedAuthorities = new TreeSet<GrantedAuthority>(
-				new AuthorityComparator());
-
-		for (GrantedAuthority grantedAuthority : authorities) {
-			Assert.notNull(grantedAuthority,
-					"GrantedAuthority list cannot contain any null elements");
-			sortedAuthorities.add(grantedAuthority);
-		}
-
-		return sortedAuthorities;
-	}
-
-	// base Variable
-
-	// users
+	// Users
 	private final boolean accountNonExpired;
 	private final boolean accountNonLocked;
 	private final boolean credentialsNonExpired;
@@ -80,7 +39,7 @@ public class JtownUser implements JtownDetails, CredentialsContainer {
 	private Integer pn;
 	private Boolean confirmEmail = true;
 
-	// user_customer
+	// User_customer
 	private String name;
 	private String joinDate;
 	private Integer year;
@@ -88,7 +47,10 @@ public class JtownUser implements JtownDetails, CredentialsContainer {
 	private Integer day;
 	private Boolean sex;
 
-	// user_seller
+	private String social;
+	private Boolean followSocial;
+
+	// User_seller
 	private String notice;
 	private String shopUrl;
 	private Integer loveCount;
@@ -126,7 +88,6 @@ public class JtownUser implements JtownDetails, CredentialsContainer {
 		this.shopUrl = "";
 		this.notice = "";
 
-		// TODO 권한작업
 		this.authorities = new TreeSet<GrantedAuthority>();
 	}
 
@@ -205,9 +166,6 @@ public class JtownUser implements JtownDetails, CredentialsContainer {
 				.unmodifiableSet(sortAuthorities(authorities));
 	}
 
-	// ~ Methods
-	// ========================================================================================================
-
 	public JtownUser(String username, String password, boolean enabled,
 			boolean accountNonExpired, boolean credentialsNonExpired,
 			boolean accountNonLocked,
@@ -237,6 +195,9 @@ public class JtownUser implements JtownDetails, CredentialsContainer {
 			Collection<? extends GrantedAuthority> authorities) {
 		this(username, password, true, true, true, true, authorities);
 	}
+
+	// ~ Methods
+	// ========================================================================================================
 
 	/**
 	 * Returns {@code true} if the supplied object is a {@code User} instance
@@ -540,6 +501,61 @@ public class JtownUser implements JtownDetails, CredentialsContainer {
 		this.loveHotCount = loveHotCount;
 	}
 
+	public String getSocial() {
+		return social;
+	}
+
+	public void setSocial(String social) {
+		this.social = social;
+	}
+
+	public Boolean getFollowSocial() {
+		return followSocial;
+	}
+
+	public void setFollowSocial(Boolean followSocial) {
+		this.followSocial = followSocial;
+	}
+
+	private static class AuthorityComparator implements
+			Comparator<GrantedAuthority>, Serializable {
+		private static final long serialVersionUID = SpringSecurityCoreVersion.SERIAL_VERSION_UID;
+
+		public int compare(GrantedAuthority g1, GrantedAuthority g2) {
+			// Neither should ever be null as each entry is checked before
+			// adding it to the set.
+			// If the authority is null, it is a custom authority and should
+			// precede others.
+			if (g2.getAuthority() == null) {
+				return -1;
+			}
+
+			if (g1.getAuthority() == null) {
+				return 1;
+			}
+
+			return g1.getAuthority().compareTo(g2.getAuthority());
+		}
+	}
+
+	private static SortedSet<GrantedAuthority> sortAuthorities(
+			Collection<? extends GrantedAuthority> authorities) {
+		Assert.notNull(authorities,
+				"Cannot pass a null GrantedAuthority collection");
+		// Ensure array iteration order is predictable (as per
+		// UserDetails.getAuthorities() contract and SEC-717)
+		SortedSet<GrantedAuthority> sortedAuthorities = new TreeSet<GrantedAuthority>(
+				new AuthorityComparator());
+
+		for (GrantedAuthority grantedAuthority : authorities) {
+			Assert.notNull(grantedAuthority,
+					"GrantedAuthority list cannot contain any null elements");
+			sortedAuthorities.add(grantedAuthority);
+		}
+
+		return sortedAuthorities;
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
@@ -581,6 +597,8 @@ public class JtownUser implements JtownDetails, CredentialsContainer {
 		sb.append("CustomerPn : ").append(this.customerPn).append(";");
 		sb.append("ConfirmEmail : ").append(this.confirmEmail).append(";");
 		sb.append("loveHotCount : ").append(this.loveHotCount).append(";");
+		sb.append("Social : ").append(this.social).append(";");
+		sb.append("FollowSocial : ").append(this.followSocial).append(";");
 
 		if (!authorities.isEmpty()) {
 			sb.append("Granted Authorities: ");

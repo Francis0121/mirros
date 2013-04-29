@@ -4,12 +4,14 @@ import java.io.UnsupportedEncodingException;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.social.connect.Connection;
+import org.springframework.social.connect.web.ProviderSignInUtils;
+import org.springframework.social.twitter.api.Twitter;
+import org.springframework.social.twitter.api.TwitterProfile;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -66,16 +69,27 @@ public class LoginController {
 
 	@RequestMapping(value = "/login/join", method = RequestMethod.GET)
 	public String showJoin(Model model, @ModelAttribute JtownUser jtownUser,
-			HttpSession session, HttpServletRequest request) {
-		session.setAttribute("beforJoinUrl", request.getHeader("referer"));
+			WebRequest request) {
+		Connection<?> connection = ProviderSignInUtils.getConnection(request);
+		if (connection != null) {
+			if (connection.getApi() instanceof Twitter) {
+				Twitter twitter = (Twitter) connection.getApi();
+				TwitterProfile tp = twitter.userOperations().getUserProfile();
+
+				jtownUser.setName(tp.getName());
+				jtownUser.setSocial("twitter");
+			}
+		}
+		String referer = request.getHeader("referer") == null ? "../" : request.getHeader("referer");
+		logger.debug(referer);
+		request.setAttribute("beforJoinUrl", referer, WebRequest.SCOPE_SESSION);
 		return "login/join";
 	}
 
 	@RequestMapping(value = "/login/joinSubmit.jt", method = RequestMethod.POST)
 	public String formJoin(Model model, @ModelAttribute JtownUser jtownUser,
 			@RequestParam("confirmPassword") final String confirmPassword,
-			BindingResult result, HttpServletRequest request,
-			HttpServletResponse response, HttpSession session) {
+			BindingResult result, WebRequest request) {
 		loginValidator.validate(jtownUser, result);
 		new Validator() {
 			@Override
@@ -97,15 +111,20 @@ public class LoginController {
 		}.validate(jtownUser, result);
 
 		if (!result.hasErrors()) {
-			request.setAttribute("username", jtownUser.getUsername());
-			request.setAttribute("password", jtownUser.getPassword());
+			String username = jtownUser.getUsername();
+			String password = jtownUser.getPassword();
 
 			customJdbcUserDetailManager.createUserCustomAndAuthority(jtownUser);
 			emailSend.sendConfirmEmail(jtownUser.getUsername());
-			userAuthenticator.login(request, response);
+			userAuthenticator.login(username, password);
 
-			String beforeAddress = (String) session
-					.getAttribute("beforJoinUrl");
+			if ("twitter".equals(jtownUser.getSocial())) {
+				ProviderSignInUtils.handlePostSignUp(jtownUser.getPn()
+						.toString(), request);
+			}
+
+			String beforeAddress = (String) request.getAttribute(
+					"beforJoinUrl", WebRequest.SCOPE_SESSION);
 			return "redirect:" + beforeAddress;
 		} else {
 			return "login/join";
@@ -171,7 +190,7 @@ public class LoginController {
 	@RequestMapping(value = "/login/modifyEmailAddress.jt", method = RequestMethod.POST)
 	public String formModifyEmailAddress(@ModelAttribute JtownUser jtownUser,
 			BindingResult result, HttpServletRequest request,
-			HttpServletResponse response, SummaryUser summaryUser) {
+			SummaryUser summaryUser) {
 		new Validator() {
 			@Override
 			public void validate(Object target, Errors errors) {
@@ -202,13 +221,13 @@ public class LoginController {
 			}
 		}.validate(jtownUser, result);
 		if (!result.hasErrors()) {
-			request.setAttribute("username", jtownUser.getUsername());
-			request.setAttribute("password", jtownUser.getPassword());
+			String username = jtownUser.getUsername();
+			String password = jtownUser.getPassword();
 
 			loginService.updateUserCustomerEmail(jtownUser.getUsername(),
 					summaryUser.getUsername());
 			emailSend.sendConfirmEmail(jtownUser.getUsername());
-			userAuthenticator.login(request, response);
+			userAuthenticator.login(username, password);
 			return "redirect:modifyEmailAddress/?result=3";
 		} else {
 			return "login/modifyEmailAddress";
