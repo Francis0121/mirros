@@ -1,6 +1,8 @@
 package com.bg.jtown.controller;
 
 import java.io.UnsupportedEncodingException;
+import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -9,6 +11,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.social.connect.Connection;
+import org.springframework.social.connect.ConnectionFactoryLocator;
+import org.springframework.social.connect.ConnectionRepository;
 import org.springframework.social.connect.web.ProviderSignInUtils;
 import org.springframework.social.twitter.api.Twitter;
 import org.springframework.social.twitter.api.TwitterProfile;
@@ -61,6 +65,10 @@ public class LoginController {
 	private SeedCipher seedCipher;
 	@Resource
 	private LoginService loginService;
+	@Resource
+	private ConnectionFactoryLocator connectionFactoryLocator;
+	@Resource
+	private ConnectionRepository connectionRepository;
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String showLogin(Model model) {
@@ -136,6 +144,9 @@ public class LoginController {
 	public String showModify(Model model, @ModelAttribute JtownUser jtownUser,
 			@RequestParam(required = false) Integer result) {
 		model.addAttribute("result", result);
+		Map<String, List<Connection<?>>> connections = connectionRepository.findAllConnections();
+		model.addAttribute("providerIds", connectionFactoryLocator.registeredProviderIds());		
+		model.addAttribute("connectionMap", connections);
 		return "login/modify";
 	}
 

@@ -62,16 +62,42 @@
 		</form:form>
 		
 		<div style="float: left; width: 500px;">
-			<form action="<c:url value="/connect/facebook" />" method="POST">
-				<input type="hidden" name="scope" value="publish_stream,offline_access,email,user_birthday,user_likes" />
-				<p><button type="submit"><img src="<c:url value="/resources/images/connect_light_medium_short.gif" />"/></button></p>
-				<label for="postToWall"><input id="postToWall" type="checkbox" name="postToWall" /></label>
-			</form>
+		
+			<c:forEach var="providerId" items="${providerIds}">
+				<c:set var="connections" value="${connectionMap[providerId]}" />
+				<spring:message code="${providerId}.displayName" var="providerDisplayName" />
+				<div class="accountConnection">
+					<spring:message code="${providerId}.icon" var="iconUrl"/>
+					<h4><img src="<c:url value="${iconUrl}" />" width="36" height="36" />${providerDisplayName}</h4>
+					
+					<p>
+					<c:if test="${not empty connections}">
+						You are connected to ${providerDisplayName} as ${connections[0].displayName}.
+						<form id="disconnect" action="<c:url value="/connect/facebook" />" method="post">
+							<button type="submit">Disconnect</button>	
+							<input type="hidden" name="_method" value="delete" />
+						</form>
+					</c:if>
+					<c:if test="${empty connections}">
+						<c:if test="${providerId eq 'twitter' }">
+							<form action="<c:url value="/connect/twitter" />" method="POST">
+								<p><button type="submit"><img src="<c:url value="/resources/images/connect-with-twitter.png" />"/></button></p>
+								<label for="postTweet"><input id="postTweet" type="checkbox" name="postTweet" /></label>
+							</form>
+						</c:if>
+						
+						<c:if test="${providerId eq 'facebook' }">
+							<form action="<c:url value="/connect/facebook" />" method="POST">
+								<input type="hidden" name="scope" value="publish_stream,offline_access,email,user_birthday,user_likes" />
+								<p><button type="submit"><img src="<c:url value="/resources/images/connect_light_medium_short.gif" />"/></button></p>
+								<label for="postToWall"><input id="postToWall" type="checkbox" name="postToWall" /></label>
+							</form>
+						</c:if>
+					</c:if>
+					</p>
+				</div>
+			</c:forEach>
 			
-			<form action="<c:url value="/connect/twitter" />" method="POST">
-				<p><button type="submit"><img src="<c:url value="/resources/images/connect-with-twitter.png" />"/></button></p>
-				<label for="postTweet"><input id="postTweet" type="checkbox" name="postTweet" /></label>
-			</form>
 		</div>	
 		
 	</section>
