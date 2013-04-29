@@ -105,7 +105,10 @@
 					</p>
 				</div>
 			</c:forEach>
-			
+		
+			<c:if test="${socialDuplicate eq true}">
+				${socialErrorProviderId }에서 이미 동기화된 아이디 입니다.
+			</c:if>
 		</div>	
 		
 	</section>

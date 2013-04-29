@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,6 +28,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.request.NativeWebRequest;
+import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
@@ -88,7 +91,8 @@ public class LoginController {
 				jtownUser.setSocial("twitter");
 			}
 		}
-		String referer = request.getHeader("referer") == null ? "../" : request.getHeader("referer");
+		String referer = request.getHeader("referer") == null ? "../" : request
+				.getHeader("referer");
 		logger.debug(referer);
 		request.setAttribute("beforJoinUrl", referer, WebRequest.SCOPE_SESSION);
 		return "login/join";
@@ -142,11 +146,19 @@ public class LoginController {
 	@PreAuthorize("hasRole('ROLE_USER')")
 	@RequestMapping(value = "/login/modify", method = RequestMethod.GET)
 	public String showModify(Model model, @ModelAttribute JtownUser jtownUser,
-			@RequestParam(required = false) Integer result) {
+			@RequestParam(required = false) Integer result,
+			NativeWebRequest request) {
+		setNoCache(request);
+		processFlash(request, model);
+
 		model.addAttribute("result", result);
-		Map<String, List<Connection<?>>> connections = connectionRepository.findAllConnections();
-		model.addAttribute("providerIds", connectionFactoryLocator.registeredProviderIds());		
+		Map<String, List<Connection<?>>> connections = connectionRepository
+				.findAllConnections();
+		model.addAttribute("providerIds",
+				connectionFactoryLocator.registeredProviderIds());
 		model.addAttribute("connectionMap", connections);
+
+		logger.debug(model.toString());
 		return "login/modify";
 	}
 
@@ -339,4 +351,46 @@ public class LoginController {
 			return "login/findPassword";
 		}
 	}
+
+	private void setNoCache(NativeWebRequest request) {
+		HttpServletResponse response = request
+				.getNativeResponse(HttpServletResponse.class);
+		if (response != null) {
+			response.setHeader("Pragma", "no-cache");
+			response.setDateHeader("Expires", 1L);
+			response.setHeader("Cache-Control", "no-cache");
+			response.addHeader("Cache-Control", "no-store");
+		}
+	}
+
+	private void processFlash(WebRequest request, Model model) {
+		convertSessionAttributeToModelAttribute(DUPLICATE_CONNECTION_ATTRIBUTE,
+				request, model);
+		convertSessionAttributeToModelAttribute(PROVIDER_ERROR_ATTRIBUTE,
+				request, model);
+		convertSessionAttributeToModelAttribute("providerId", request, model);
+	}
+
+	private void convertSessionAttributeToModelAttribute(String attributeName,
+			WebRequest request, Model model) {
+		if (request
+				.getAttribute(attributeName, RequestAttributes.SCOPE_SESSION) != null) {
+			if ("social.addConnection.duplicate".equals(attributeName)) {
+				model.addAttribute("socialDuplicate", true);
+			} else if ("social.provider.error".equals(attributeName)) {
+				model.addAttribute("socialError", true);
+			} else if ("providerId".equals(attributeName)) {
+				model.addAttribute("socialErrorProviderId", request
+						.getAttribute("providerId",
+								RequestAttributes.SCOPE_SESSION));
+			}
+			request.removeAttribute(attributeName,
+					RequestAttributes.SCOPE_SESSION);
+		}
+	}
+
+	private static final String DUPLICATE_CONNECTION_ATTRIBUTE = "social.addConnection.duplicate";
+
+	private static final String PROVIDER_ERROR_ATTRIBUTE = "social.provider.error";
+
 }

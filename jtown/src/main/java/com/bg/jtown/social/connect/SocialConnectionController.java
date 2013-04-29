@@ -9,6 +9,7 @@ import org.springframework.social.connect.ConnectionFactoryLocator;
 import org.springframework.social.connect.ConnectionRepository;
 import org.springframework.social.connect.web.ConnectController;
 import org.springframework.web.context.request.NativeWebRequest;
+import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.web.util.UrlPathHelper;
 
@@ -29,6 +30,7 @@ public class SocialConnectionController extends ConnectController {
 	protected RedirectView connectionStatusRedirect(String providerId,
 			NativeWebRequest request) {
 		HttpServletRequest servletRequest = request.getNativeRequest(HttpServletRequest.class);
+		request.setAttribute("providerId", providerId, WebRequest.SCOPE_SESSION);
 		String path = "/login/modify";
 		if (prependServletPath(servletRequest)) {
 			path = servletRequest.getServletPath() + path;
