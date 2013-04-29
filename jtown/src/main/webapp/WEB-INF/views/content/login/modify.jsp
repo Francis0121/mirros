@@ -73,10 +73,18 @@
 					<p>
 					<c:if test="${not empty connections}">
 						You are connected to ${providerDisplayName} as ${connections[0].displayName}.
-						<form id="disconnect" action="<c:url value="/connect/facebook" />" method="post">
-							<button type="submit">Disconnect</button>	
-							<input type="hidden" name="_method" value="delete" />
-						</form>
+						<c:if test="${providerId eq 'twitter' }">
+							<form id="disconnect" action="<c:url value="/connect/twitter" />" method="post">
+								<button type="submit">Disconnect</button>	
+								<input type="hidden" name="_method" value="delete" />
+							</form>
+						</c:if>
+						<c:if test="${providerId eq 'facebook' }">
+							<form id="disconnect" action="<c:url value="/connect/facebook" />" method="post">
+								<button type="submit">Disconnect</button>	
+								<input type="hidden" name="_method" value="delete" />
+							</form>
+						</c:if>
 					</c:if>
 					<c:if test="${empty connections}">
 						<c:if test="${providerId eq 'twitter' }">
