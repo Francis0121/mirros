@@ -90,7 +90,7 @@
 						<c:if test="${providerId eq 'twitter' }">
 							<form action="<c:url value="/connect/twitter" />" method="POST">
 								<p><button type="submit"><img src="<c:url value="/resources/images/connect-with-twitter.png" />"/></button></p>
-								<label for="postTweet"><input id="postTweet" type="checkbox" name="postTweet" /></label>
+								<label for="postTweet"><input id="postTweet" type="checkbox" name="postTweet" checked="checked"/> 친구들에게 Mirros 정보를 Follow 해보세요.</label>
 							</form>
 						</c:if>
 						
@@ -98,7 +98,7 @@
 							<form action="<c:url value="/connect/facebook" />" method="POST">
 								<input type="hidden" name="scope" value="publish_stream,offline_access,email,user_birthday,user_likes" />
 								<p><button type="submit"><img src="<c:url value="/resources/images/connect_light_medium_short.gif" />"/></button></p>
-								<label for="postToWall"><input id="postToWall" type="checkbox" name="postToWall" /></label>
+								<label for="postToWall"><input id="postToWall" type="checkbox" name="postToWall" checked="checked"/> 담벼락에 Mirros 정보를 게시해보세요.</label>
 							</form>
 						</c:if>
 					</c:if>
