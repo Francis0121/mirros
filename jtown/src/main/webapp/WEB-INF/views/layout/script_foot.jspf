@@ -86,6 +86,10 @@
 		<c:set var="alertText" value="임시 비밀번호를 전송 하였습니다."/>
 		<c:set value="${realPath }" var="pageUrl"/>
 	</c:if>
+	<c:if test="${result eq 5 }">
+		<c:set var="alertText" value="이름이 변경되었습니다."/>
+		<c:set value="${realPath }" var="pageUrl"/>
+	</c:if>
 	<script type="text/javascript">
 	/* <![CDATA[ */  
 	    jtown.dialog('${alertText}');

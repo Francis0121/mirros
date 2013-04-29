@@ -55,7 +55,7 @@ public class VaildationUtil {
 					return false;
 				}
 			} else if (flag.equals("nickName")) {
-				if (length > 0 && length <= 10) {
+				if (length > 0 && length <= 20) {
 					return true;
 				} else {
 					return false;

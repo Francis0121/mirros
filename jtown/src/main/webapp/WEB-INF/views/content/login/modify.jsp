@@ -20,7 +20,6 @@
 		<c:url var="findPassword" value="/login/findPassword.jt"/>
 		<c:url var="modifyUrl" value="/login/modify.jt"/>
 		<form:form commandName="jtownUser" method="post" action="${modifyUrl }" htmlEscape="true">
-			<sec:authentication property="principal.username" var="username"/>
 			<table class="jt-modify-content-table">
 				<tfoot>
 					<tr>
@@ -31,8 +30,22 @@
 				</tfoot>
 				<tbody>
 					<tr>
+						<sec:authentication property="principal.username" var="username"/>
 						<th>이메일</th>
 						<td><c:out value="${username }"/><form:hidden path="username" value="${username }"/>&nbsp;<a href="<c:url value="/login/modifyEmailAddress"/>">이메일 변경</a></td>
+					</tr>
+					<tr>
+						<sec:authentication property="principal.pn" var="pn"/>
+						<form:hidden path="pn" value="${pn }"/>
+						<sec:authentication property="principal.name" var="name"/>
+						<th>이름</th>
+						<td>
+							<form:input path="name" value="${name }" cssClass="jt-modify-content-input" maxlength="20" cssErrorClass="jt-modify-content-input-error"/>
+							<input type="button" class="jt-nameChange-btn jt-btn-orange" value="이름 변경"/>
+							<div class="jt-modify-content-error">	
+								<form:errors path="name" cssClass="commonError"/>
+							</div>
+						</td>
 					</tr>
 					<tr>
 						<th>현재&nbsp;비밀번호</th>

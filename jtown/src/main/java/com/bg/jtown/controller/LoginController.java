@@ -156,15 +156,14 @@ public class LoginController {
 		model.addAttribute("providerIds",
 				connectionFactoryLocator.registeredProviderIds());
 		model.addAttribute("connectionMap", connections);
-
-		logger.debug(model.toString());
 		return "login/modify";
 	}
 
 	@PreAuthorize("hasRole('ROLE_USER')")
 	@RequestMapping(value = "/login/modify.jt", method = RequestMethod.POST)
 	public String formPassword(@ModelAttribute JtownUser jtownUser,
-			@RequestParam final String confirmPassword, BindingResult result) {
+			@RequestParam final String confirmPassword, BindingResult result,
+			Model model) {
 		new Validator() {
 			@Override
 			public void validate(Object target, Errors errors) {
@@ -195,6 +194,53 @@ public class LoginController {
 					jtownUser.getNewPassword());
 			return "redirect:modify/?result=2";
 		} else {
+			Map<String, List<Connection<?>>> connections = connectionRepository
+					.findAllConnections();
+			model.addAttribute("providerIds",
+					connectionFactoryLocator.registeredProviderIds());
+			model.addAttribute("connectionMap", connections);
+			return "login/modify";
+		}
+	}
+
+	@PreAuthorize("hasRole('ROLE_USER')")
+	@RequestMapping(value = "/login/nameChange.jt", method = RequestMethod.POST)
+	public String formNameChange(@ModelAttribute JtownUser jtownUser,
+			BindingResult result, Model model) {
+		new Validator() {
+			@Override
+			public void validate(Object target, Errors errors) {
+				JtownUser jtownUser = (JtownUser) target;
+
+				String name = jtownUser.getName();
+
+				ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name",
+						"join.nickName.empty");
+
+				if (!VaildationUtil.checkNullAndBlank(name)) {
+					if (!VaildationUtil.lengthCheck(name, "nickName")) {
+						errors.rejectValue("name", "join.nickName.notAllow");
+					}
+				}
+			}
+
+			@Override
+			public boolean supports(Class<?> clazz) {
+				return JtownUser.class.isAssignableFrom(clazz);
+			}
+		}.validate(jtownUser, result);
+
+		if (!result.hasErrors()) {
+			jtownUser.setConfirmEmail(null);
+			loginService.updateUserCustomer(jtownUser);
+			userAuthenticator.onApplicationEvent(jtownUser.getUsername());
+			return "redirect:modify/?result=5";
+		} else {
+			Map<String, List<Connection<?>>> connections = connectionRepository
+					.findAllConnections();
+			model.addAttribute("providerIds",
+					connectionFactoryLocator.registeredProviderIds());
+			model.addAttribute("connectionMap", connections);
 			return "login/modify";
 		}
 	}
@@ -344,10 +390,10 @@ public class LoginController {
 		}.validate(jtownUser, result);
 
 		if (!result.hasErrors()) {
-			String referer = request.getHeader("referer") == null ? "../" : request
-					.getHeader("referer");
+			String referer = request.getHeader("referer") == null ? "../"
+					: request.getHeader("referer");
 			emailSend.sendTempPasswordEmail(jtownUser.getUsername());
-			return "redirect:"+referer+"/?result=4";
+			return "redirect:" + referer + "/?result=4";
 		} else {
 			return "login/findPassword";
 		}
