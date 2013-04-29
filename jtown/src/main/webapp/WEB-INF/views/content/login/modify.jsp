@@ -16,8 +16,9 @@
 			<h2>계정&nbsp;설정</h1>
 			<h1>본인확인을&nbsp;위해&nbsp;본&nbsp;계정의&nbsp;비밀번호를&nbsp;입력해&nbsp;주신&nbsp;후에&nbsp;변경하실&nbsp;비밀번호를&nbsp;입력해&nbsp;주세요.</h1>
 		</hgroup>
-		
-		<a href="<c:url value='/login/disactive'/>">계정삭제</a>
+		<sec:authorize access="principal.groupName eq 'Customer'">
+			<a href="<c:url value='/login/disactive'/>">계정삭제</a>
+		</sec:authorize>
 		
 		<c:url var="findPassword" value="/login/findPassword.jt"/>
 		<c:url var="modifyUrl" value="/login/modify.jt"/>
@@ -31,6 +32,7 @@
 					</tr>
 				</tfoot>
 				<tbody>
+					<sec:authorize access="principal.groupName eq 'Customer'">
 					<tr>
 						<sec:authentication property="principal.username" var="username"/>
 						<th>이메일</th>
@@ -49,6 +51,7 @@
 							</div>
 						</td>
 					</tr>
+					</sec:authorize>
 					<tr>
 						<th>현재&nbsp;비밀번호</th>
 						<td>
@@ -84,6 +87,7 @@
 			</table>
 		</form:form>
 		
+		<sec:authorize access="principal.groupName eq 'Customer'">
 		<div style="float: left; width: 500px;">
 		
 			<c:forEach var="providerId" items="${providerIds}">
@@ -133,6 +137,7 @@
 				${socialErrorProviderId }에서 이미 동기화된 아이디 입니다.
 			</c:if>
 		</div>	
+		</sec:authorize>
 		
 	</section>
 </section>

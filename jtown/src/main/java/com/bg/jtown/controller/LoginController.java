@@ -38,6 +38,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.bg.jtown.controller.validator.LoginValidator;
+import com.bg.jtown.security.Authority;
 import com.bg.jtown.security.Confirm;
 import com.bg.jtown.security.CustomJdbcUserDetailManager;
 import com.bg.jtown.security.JtownUser;
@@ -81,14 +82,30 @@ public class LoginController {
 		return "login/login";
 	}
 
+	@PreAuthorize("hasRole('ROLE_USER')")
 	@RequestMapping(value = "/login/disactive", method = RequestMethod.GET)
-	public String showDisactive(@ModelAttribute JtownUser jtownUser) {
+	public String showDisactive(@ModelAttribute JtownUser jtownUser,
+			SummaryUser summaryUser) {
+
+		Authority authority = summaryUser.getEnumAuthority();
+		if (authority.equals(Authority.SELLER)
+				|| authority.equals(Authority.ADMIN)) {
+			return "redirect:/noPermission";
+		}
+
 		return "login/disactive";
 	}
 
+	@PreAuthorize("hasRole('ROLE_USER')")
 	@RequestMapping(value = "/login/disactive.jt", method = RequestMethod.POST)
 	public String formDisactive(@ModelAttribute JtownUser jtownUser,
-			BindingResult result, HttpSession session) {
+			BindingResult result, HttpSession session, SummaryUser summaryUser) {
+		Authority authority = summaryUser.getEnumAuthority();
+		if (authority.equals(Authority.SELLER)
+				|| authority.equals(Authority.ADMIN)) {
+			return "redirect:/noPermission";
+		}
+
 		new Validator() {
 			@Override
 			public void validate(Object target, Errors errors) {
@@ -96,7 +113,7 @@ public class LoginController {
 
 				if (jtownUser.getPassword() == null) {
 					errors.rejectValue("password", "join.password.empty");
-				}else{
+				} else {
 					if (customJdbcUserDetailManager.confirmPassword(jtownUser)) {
 						errors.rejectValue("password",
 								"change.password.notEqualPassword");
@@ -112,15 +129,15 @@ public class LoginController {
 
 		if (!result.hasErrors()) {
 			customJdbcUserDetailManager.deleteUserCustomer(jtownUser);
-            if (session != null) {
-                logger.debug("Invalidating session: " + session.getId());
-                session.invalidate();
-            }
+			if (session != null) {
+				logger.debug("Invalidating session: " + session.getId());
+				session.invalidate();
+			}
 
-            SecurityContext context = SecurityContextHolder.getContext();
-            context.setAuthentication(null);
-	        SecurityContextHolder.clearContext();
-	        
+			SecurityContext context = SecurityContextHolder.getContext();
+			context.setAuthentication(null);
+			SecurityContextHolder.clearContext();
+
 			return "redirect:../";
 		} else {
 			return "login/disactive";
