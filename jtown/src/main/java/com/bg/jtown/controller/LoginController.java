@@ -12,8 +12,6 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.ConnectionFactoryLocator;
 import org.springframework.social.connect.ConnectionRepository;
@@ -85,21 +83,24 @@ public class LoginController {
 	@PreAuthorize("hasRole('ROLE_USER')")
 	@RequestMapping(value = "/login/disactive", method = RequestMethod.GET)
 	public String showDisactive(@ModelAttribute JtownUser jtownUser,
-			SummaryUser summaryUser) {
+			SummaryUser summaryUser, Model model) {
 
 		Authority authority = summaryUser.getEnumAuthority();
 		if (authority.equals(Authority.SELLER)
 				|| authority.equals(Authority.ADMIN)) {
 			return "redirect:/noPermission";
 		}
-
+		String registerDate = loginService
+				.selectDeleteUser(summaryUser.getPn());
+		model.addAttribute("registerDate", registerDate);
 		return "login/disactive";
 	}
 
 	@PreAuthorize("hasRole('ROLE_USER')")
 	@RequestMapping(value = "/login/disactive.jt", method = RequestMethod.POST)
 	public String formDisactive(@ModelAttribute JtownUser jtownUser,
-			BindingResult result, HttpSession session, SummaryUser summaryUser) {
+			BindingResult result, HttpSession session, SummaryUser summaryUser,
+			Model model) {
 		Authority authority = summaryUser.getEnumAuthority();
 		if (authority.equals(Authority.SELLER)
 				|| authority.equals(Authority.ADMIN)) {
@@ -128,18 +129,55 @@ public class LoginController {
 		}.validate(jtownUser, result);
 
 		if (!result.hasErrors()) {
-			customJdbcUserDetailManager.deleteUserCustomer(jtownUser);
-			if (session != null) {
-				logger.debug("Invalidating session: " + session.getId());
-				session.invalidate();
+			Integer pn = summaryUser.getPn();
+			loginService.insertDeleteUser(pn);
+			String registerDate = loginService.selectDeleteUser(pn);
+			model.addAttribute("registerDate", registerDate);
+			return "login/disactive";
+		} else {
+			return "login/disactive";
+		}
+	}
+
+	@PreAuthorize("hasRole('ROLE_USER')")
+	@RequestMapping(value = "/login/disactive.jt", method = RequestMethod.DELETE)
+	public String formDisactiveDelete(@ModelAttribute JtownUser jtownUser,
+			BindingResult result, HttpSession session, SummaryUser summaryUser,
+			Model model) {
+		Authority authority = summaryUser.getEnumAuthority();
+		if (authority.equals(Authority.SELLER)
+				|| authority.equals(Authority.ADMIN)) {
+			return "redirect:/noPermission";
+		}
+
+		new Validator() {
+			@Override
+			public void validate(Object target, Errors errors) {
+				JtownUser jtownUser = (JtownUser) target;
+
+				if (jtownUser.getPassword() == null) {
+					errors.rejectValue("password", "join.password.empty");
+				} else {
+					if (customJdbcUserDetailManager.confirmPassword(jtownUser)) {
+						errors.rejectValue("password",
+								"change.password.notEqualPassword");
+					}
+				}
 			}
 
-			SecurityContext context = SecurityContextHolder.getContext();
-			context.setAuthentication(null);
-			SecurityContextHolder.clearContext();
+			@Override
+			public boolean supports(Class<?> clazz) {
+				return JtownUser.class.isAssignableFrom(clazz);
+			}
+		}.validate(jtownUser, result);
 
-			return "redirect:../";
+		Integer pn = summaryUser.getPn();
+		if (!result.hasErrors()) {
+			loginService.deleteDeleteUser(pn);
+			return "login/disactive";
 		} else {
+			String registerDate = loginService.selectDeleteUser(pn);
+			model.addAttribute("registerDate", registerDate);
 			return "login/disactive";
 		}
 	}

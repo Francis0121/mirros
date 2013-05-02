@@ -163,7 +163,7 @@ jtown.home.html = function(data) {
 		var loveTextClick = !nullValueCheck(seller.customerPn) ? 'jt-home-shop-love-text-click' : '';
 
 		var loveHotCount = '<span class="jt-home-shop-love-hot">HOT</span>';
-		if (nullValueCheck(seller.loveHotCount)) {
+		if (nullValueCheck(seller.loveHotCount)  || seller.loveHotCount == 0 ) {
 			loveHotCount = '';
 		}
 

@@ -93,6 +93,21 @@ public class LoginServiceImpl extends SqlSessionDaoSupport implements
 		insertEmailConfirm(new Confirm(changeUserName, series));
 	}
 
+	@Override
+	public String selectDeleteUser(Integer pn) {
+		return getSqlSession().selectOne("loginMapper.selectDeleteUser", pn);
+	}
+
+	@Override
+	public void insertDeleteUser(Integer pn) {
+		getSqlSession().insert("loginMapper.insertDeleteUser", pn);
+	}
+
+	@Override
+	public void deleteDeleteUser(Integer pn) {
+		getSqlSession().delete("loginMapper.deleteDeleteUser", pn);
+	}
+
 	// ~ Use Only Test Case
 
 	@Override

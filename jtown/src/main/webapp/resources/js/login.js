@@ -142,6 +142,13 @@ jtown.login.disactiveUser = function(){
 			form.submit();
 		});
 	});
+	
+	$('.jt-disactive-cancle-btn').unbind('click').bind('click', function(){
+		jtown.confirm('삭제를 취소하시겠습니까?', function(){
+			var form = document.forms['jtownUser'];
+			form.submit();
+		});
+	});
 };
 
 jtown.login.modifyPasswordLength = function() {

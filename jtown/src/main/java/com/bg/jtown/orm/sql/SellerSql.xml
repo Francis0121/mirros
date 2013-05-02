@@ -19,7 +19,7 @@
 	<select id="selectSellerInformation" parameterType="java.lang.Integer" resultMap="jtown-seller-map">
 		SELECT
 			us.pn, u.id, u.name, us.shop_url, us.notice, cvsp.view_count, clsp.love_count, ccsp.comment_count, bdl.banner_first, bdl.banner_second,
-			clih.love_count AS love_hot_count
+			us.hot AS love_hot_count
 		FROM
 			user_seller us
 			LEFT OUTER JOIN users u
@@ -32,8 +32,6 @@
 			ON us.pn = cvsp.seller_pn
 			LEFT OUTER JOIN banner_diff_least bdl
 			ON us.pn = bdl.seller_pn
-			LEFT OUTER JOIN count_love_interval_1hour clih
-			ON us.pn = clih.seller_pn AND clih.love_count >= 20
 		WHERE
 			us.pn = #{properNumber}
 	</select>

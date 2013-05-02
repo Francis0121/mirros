@@ -54,9 +54,9 @@
 	<insert id="insertUserSeller" parameterType="JtownUser">
 		INSERT
 			user_seller
-			( pn, shop_url )		
+			( pn, shop_url, hot )		
 		VALUES
-			( #{pn}, #{shopUrl} )
+			( #{pn}, #{shopUrl}, 0 )
 	</insert>	
 		
 	<insert id="addUserToGroup" parameterType="Map">
@@ -102,6 +102,27 @@
 		WHERE
 			id = #{nowUserName}
 	</update>
+	
+	<select id="selectDeleteUser" parameterType="Integer" resultType="String">
+		SELECT
+			register_date
+		FROM
+			user_delete
+		WHERE
+			pn = #{pn}
+	</select>
+	
+	<insert id="insertDeleteUser" parameterType="Integer">
+		INSERT INTO
+			user_delete
+			(pn, register_date)
+		VALUES
+			(#{pn}, SYSDATE());
+	</insert>
+	
+	<delete id="deleteDeleteUser" parameterType="Integer">
+		DELETE FROM user_delete WHERE pn = #{pn}	
+	</delete>
 		
 	<!-- Use Only TestCase -->
 	<delete id="deleteUserAll">

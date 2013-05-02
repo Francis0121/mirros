@@ -59,7 +59,7 @@
 						<c:set var="loveClick" value="${seller.customerPn ne null ? 'jt-home-shop-love-click' : '' }"/>
 						<c:set var="loveTextClick" value="${seller.customerPn ne null ? 'jt-home-shop-love-text-click' : '' }"/>
 						<a href="#none" onclick="jtown.home.clickLove('<c:out value="${spn }"/>');" id="love-image-<c:out value="${spn }"/>" class="jt-home-shop-love ${loveClick }">♥</a>&nbsp;<span id="love-<c:out value="${spn }"/>" class="${loveTextClick}"><c:out value="${seller.loveCount eq null ? 0 : seller.loveCount}"/></span>
-						<c:if test="${seller.loveHotCount ne null}">
+						<c:if test="${seller.loveHotCount ne null and seller.loveHotCount ne 0}">
 						<span class="jt-home-shop-love-hot">HOT</span>
 						</c:if>
 					</li>

@@ -164,7 +164,7 @@ jtown.expand.makeInnerHtml = function(spn){
 		var loveTextClick =   (!nullValueCheck(loveHave) && loveHave != 0) ? 'jt-home-shop-love-text-click' : '';
 		
 		var loveHotCount ='<span class="jt-home-shop-love-hot">HOT</span>';
-		if(nullValueCheck(jtownUser.loveHotCount)){
+		if(nullValueCheck(jtownUser.loveHotCount) || jtownUser.loveHotCount == 0 ){
 			loveHotCount = '';
 		}
 		

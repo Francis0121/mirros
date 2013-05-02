@@ -14,15 +14,23 @@
 	<section class="jt-modify-content">
 		계정삭제
 		<c:url value="/login/disactive.jt" var="disactiveUrl"/>
-		<form:form commandName="jtownUser" action="${disactiveUrl }" htmlEscape="true">
-			<sec:authentication property="principal.pn" var="pn"/>
-			<sec:authentication property="principal.username" var="username"/>
-			<form:hidden path="username" value="${username }"/>
-			<form:hidden path="pn" value="${pn }"/>
-			<form:password path="password"/>
-			<input type="button" value="삭제" class="jt-disactive-btn jt-btn-orange"/>
-			<form:errors path="password"></form:errors>
-		</form:form>
+		<c:choose>
+			<c:when test="${registerDate ne null }">
+				${registerDate }
+				<form:form commandName="jtownUser" action="${disactiveUrl }" htmlEscape="true" method="delete">
+					<form:password path="password"/>
+					<input type="button" value="취소" class="jt-disactive-cancle-btn jt-btn-orange"/>
+					<form:errors path="password"></form:errors>
+				</form:form>
+			</c:when>
+			<c:otherwise>
+				<form:form commandName="jtownUser" action="${disactiveUrl }" htmlEscape="true">
+					<form:password path="password"/>
+					<input type="button" value="삭제" class="jt-disactive-btn jt-btn-orange"/>
+					<form:errors path="password"></form:errors>
+				</form:form>
+			</c:otherwise>
+		</c:choose>
 	</section>
 </section>
 <%@ include file="../../layout/none_footer.jspf" %>

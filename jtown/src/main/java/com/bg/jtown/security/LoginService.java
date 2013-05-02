@@ -32,6 +32,12 @@ public interface LoginService {
 
 	void updateUserCustomerEmail(String changeUserName, String nowUserName);
 
+	String selectDeleteUser(Integer pn);
+
+	void insertDeleteUser(Integer pn);
+
+	void deleteDeleteUser(Integer pn);
+	
 	// ~ Use Only Test Case
 
 	void deleteUserAll();
@@ -47,5 +53,7 @@ public interface LoginService {
 	void insertEmailConfirm(Confirm confirm);
 
 	void deleteEmailConfirm(Confirm confirm);
+
+
 
 }
