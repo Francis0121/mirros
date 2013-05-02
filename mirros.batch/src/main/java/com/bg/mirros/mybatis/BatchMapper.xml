@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="batchMapper">
+	
+	<select id="selectHotPlus" resultType="Integer">
+		SELECT seller_pn  FROM count_love_interval_1hour WHERE love_count >= 50 ORDER BY seller_pn
+	</select>
+	
+	<update id="updateHotPlus" parameterType="Integer">
+		UPDATE user_seller SET hot = 3 WHERE pn = #{value}
+	</update>
+	
+	<select id="selectHotMinus" resultType="Integer">
+	<![CDATA[
+		SELECT pn FROM user_seller WHERE HOT > 0
+	]]>
+	</select>
+	
+	<update id="updateHotMinus" parameterType="Integer">
+		UPDATE user_seller SET hot = ( SELECT p.hot - 1 FROM ( SELECT hot FROM user_seller WHERE pn = #{value} ) p ) WHERE pn = #{value}
+	</update>
+	
+	<select id="selectDeleteUser" resultType="Integer">
+	<![CDATA[
+		SELECT pn FROM user_delete WHERE register_date <= SUBDATE(NOW(),INTERVAL 14 DAY)
+	]]>
+	</select>
+	
+	<delete id="deleteUser" parameterType="Integer">
+		DELETE FROM users WHERE pn = #{value}
+	</delete>	
+	
+</mapper>
