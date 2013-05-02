@@ -29,14 +29,14 @@
 	<!-- 2. Cron 시간 설정 -->
 	<bean id="hotTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
 	    <property name="jobDetail" ref="hotQuartz"/>
-<!-- 	    <property name="cronExpression" value="0 0 2 * * ?"/> -->
-	    <property name="cronExpression" value="0 21 14 * * ?"/>
+	    <property name="cronExpression" value="0 0 2 * * ?"/>
+<!-- 	    <property name="cronExpression" value="0 21 14 * * ?"/> -->
 	</bean>
 	
 	<bean id="userTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
 	    <property name="jobDetail" ref="userQuartz"/>
-<!-- 	    <property name="cronExpression" value="0 0 3 * * ?"/> -->
-	    <property name="cronExpression" value="0 22 14 * * ?"/>
+	    <property name="cronExpression" value="0 0 3 * * ?"/>
+<!-- 	    <property name="cronExpression" value="0 22 14 * * ?"/> -->
 	</bean>
 	
 	<!-- 3. Cron 실행 -->
