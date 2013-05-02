@@ -13,7 +13,7 @@ const redisPort = 6379;
 
 var fs = require('fs'),
 	http = require('http'),
-	https = require('https'),
+	//https = require('https'),
 	httpProxy = require(modulePath+'http-proxy'),	
 	redis = require(modulePath+'redis'),
 	socketio = require(modulePath+'socket.io'),
@@ -48,7 +48,7 @@ socketRedis.on('message', function(channel, message) {
 /************************
  * 	mysql
  ************************/
-setInterval(updateLoveRealCount, 600000);
+setInterval(updateLoveRealCount, 864000000);
 var connection = mysql.createConnection(mysql_options);
 var mysqlRedis = redis.createClient(redisPort, redisHost);
 mysqlRedis.auth('');
@@ -56,7 +56,7 @@ mysqlRedis.on('error', function(err) {
 	console.log('Error In Redis Server');
 });
 function updateLoveRealCount(){
-	connection.query('SELECT seller_pn FROM jtown.count_love_interval_1hour WHERE love_count >= 20', function(error, result, fields){
+	connection.query('SELECT seller_pn FROM jtown.count_love_interval_1hour WHERE love_count >= 50', function(error, result, fields){
 		if(error){
 			console.log('Error In Mysql');
 		}else{
@@ -82,7 +82,8 @@ function updateLoveRealCount(){
 /*************************
  * 	8000 Http Server 
  *************************/
-var server = https.createServer(ssl_options.https).listen(serverPort);
+//var server = https.createServer(ssl_options.https).listen(serverPort);
+var server = http.createServer().listen(serverPort);
 /*************************
  * 	8000 Socket.io 
  *************************/
