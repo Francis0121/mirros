@@ -71,7 +71,7 @@
 /*******************
 *	Notice
 *********************/
-.jt-help-notice-wrap{width: 700px; margin: auto;}
+.jt-help-notice-wrap{width: 700px; margin: auto; padding-top : 15px;}
 .jt-help-notice-table { border-collapse: collapse; width: 600px; margin: auto auto; }
 .jt-help-notice-table td, .jt-help-notice-table th{font-size: 12px; vertical-align: middle; padding: 3px 2px 3px 2px;  height: 25px; }
 .jt-help-notice-table tfoot td{ text-align: center; }
