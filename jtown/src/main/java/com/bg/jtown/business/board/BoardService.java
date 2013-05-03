@@ -23,4 +23,6 @@ public interface BoardService {
 	Integer selectNoticeCount(BoardFilter boardFilter);
 	
 	void updateReadCount(Integer pn);
+
+	List<Board> selectBeforeAfterNotice(Board board);
 }

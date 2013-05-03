@@ -12,7 +12,7 @@
 	</li>
 	<li class="jt-header-nav-interestCategory-li">
 		<c:url var="notice" value="/help/notice"/>
-		<a href="${notice }" class="<c:out value="${realPath eq notice ? 'jt-header-nav-interestCategory-realPath' : 'jt-header-nav-interestCategory-normal'}"/>">News</a>
+		<a href="${notice }" class="<c:out value="${realPath eq notice ? 'jt-header-nav-interestCategory-realPath' : 'jt-header-nav-interestCategory-normal'}"/>">Notice</a>
 	</li>
 	<li class="jt-header-nav-interestCategory-li">
 		<c:url var="question" value="/help/question"/>

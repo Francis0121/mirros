@@ -72,6 +72,11 @@ public class BoardServiceImpl extends SqlSessionDaoSupport implements
 	@Override
 	public void updateReadCount(Integer pn) {
 		getSqlSession().update("boardMapper.increaseReadCount", pn);
+	}
 
+	@Override
+	public List<Board> selectBeforeAfterNotice(Board board) {
+		return getSqlSession().selectList(
+				"boardMapper.selectBeforeAfterNotice", board);
 	}
 }

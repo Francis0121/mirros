@@ -4,8 +4,6 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.bg.jtown.business.HomeService;
 import com.bg.jtown.business.Interest;
 import com.bg.jtown.business.Partnership;
+import com.bg.jtown.business.board.Board;
 import com.bg.jtown.business.board.BoardService;
 import com.bg.jtown.business.help.HelpService;
+import com.bg.jtown.business.search.BoardFilter;
 import com.bg.jtown.controller.validator.PartnershipValidator;
 
 /**
@@ -26,9 +26,6 @@ import com.bg.jtown.controller.validator.PartnershipValidator;
  */
 @Controller
 public class HelpController {
-
-	private static Logger logger = LoggerFactory
-			.getLogger(HelpController.class);
 
 	private static final Integer PROCESS_RECEIPT = 1;
 
@@ -44,27 +41,35 @@ public class HelpController {
 	// ~ Show
 
 	@RequestMapping(value = "/help/notice", method = RequestMethod.GET)
-	public String showNoticePage(Model model) {
-		logger.debug("Show Notice Main Page");
+	public String showNotice(Model model,
+			@ModelAttribute BoardFilter boardFilter) {
+		model.addAttribute("noticeList",
+				boardService.selectNoticeList(boardFilter));
 		return "help/notice";
 	}
 
+	@RequestMapping(value = "/help/notice/content", method = RequestMethod.GET)
+	public String showNoticeContent(Model model, @ModelAttribute Board board) {
+		model.addAttribute("noticeContent",
+				boardService.selectNoticeContent(board));
+		model.addAttribute("noticeList",
+				boardService.selectBeforeAfterNotice(board));
+		return "help/noticeContent";
+	}
+
 	@RequestMapping(value = "/help/question", method = RequestMethod.GET)
-	public String showQuestionPage(Model model) {
-		logger.debug("Show Question Main Page");
+	public String showQuestion(Model model) {
 		return "help/question";
 	}
 
 	@RequestMapping(value = "/help/serviceGuide", method = RequestMethod.GET)
-	public String showServiceGuidePage(Model model) {
-		logger.debug("Show ServiceGuide Main Page");
+	public String showServiceGuide(Model model) {
 		return "help/serviceGuide";
 	}
 
 	@RequestMapping(value = "/help/partnership", method = RequestMethod.GET)
-	public String showRulePage(Model model,
+	public String showRule(Model model,
 			@RequestParam(required = false) Integer result) {
-		logger.debug("Show Rule Main Page");
 		List<Interest> interests = homeService.selecInterestCategory();
 		model.addAttribute("interest", interests);
 		model.addAttribute("partnership", new Partnership());

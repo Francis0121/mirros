@@ -57,7 +57,7 @@
 			</li>
 			<li>
 				<c:url var="noticeUrl" value="/help/notice"/>
-				<a href="${noticeUrl }" class="jt-common-a-base">News</a>
+				<a href="${noticeUrl }" class="jt-common-a-base">Notice</a>
 			</li>
 			<li>
 				<a href="${questionUrl }" class="jt-common-a-base">FAQ</a>

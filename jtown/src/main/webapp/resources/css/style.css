@@ -68,7 +68,8 @@
 .jt-header-nav-interest-li:nth-child(2n){ margin: 0 1px 0 0;}
 .jt-header-nav-interest-normal{ color: #000; display: block; width: 90px; height: 17px; padding: 8px 5px 4px 5px; font-size: 12px;}
 .jt-header-nav-interest-normal:HOVER{ background: #f7a300; color: #fff; }
-.jt-header-nav-interest-normal-realPath{ background: #f7a300; color: #fff; display: block; width: 90px; height: 17px; padding: 8px 5px 4px 5px; font-size: 12px;  }
+.jt-header-nav-interest-normal-realPath{ color: #f7a300; display: block; width: 90px; height: 17px; padding: 8px 5px 4px 5px; font-size: 12px;  }
+.jt-header-nav-interest-normal-realPath:HOVER{ background: #f7a300; color: #fff; }
 
 .jt-header-search{float: left; width: 200px; margin: 0 0 0 10px; display: block;}
 .jt-header-search-input{

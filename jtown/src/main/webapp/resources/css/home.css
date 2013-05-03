@@ -35,11 +35,11 @@ word-wrap: break-word; /* Internet Explorer 5.5+ */}
 .jt-home-shop-content-fn{ width: 100%; float:left; font-size: 12px; font-family: Arial; border-top: 1px solid #dbd9ca;}
 .jt-home-shop-content-fn>li{ float: left; width: 33.3%; text-align: center; height: 15px; padding: 12px 0 9px 0;}
 .jt-home-shop-content-fn>li>a,.jt-home-shop-content-fn>li>span{float: left; margin-right: 5px; font-weight: bold; color: #b2b2b2;}
-.jt-home-shop-view{ float: left; margin-left: 45px; width: 15px; height: 15px; background: url("../images/jt-home-icon.png") 0 -45px no-repeat; text-indent: -99999px;}
-.jt-home-shop-love-hot{float: left; margin-left: 5px; color: #e92f25 !important;}
-.jt-home-shop-love{ float: left; margin-left: 15px; width: 15px; height: 15px; background: url("../images/jt-home-icon.png") 0 -30px no-repeat; text-indent: -99999px; }
+.jt-home-shop-view{ float: left; margin-left: 50px; margin-top:-2px; width: 15px; height: 15px; background: url("../images/jt-home-icon.png") 0 -45px no-repeat; text-indent: -99999px;}
+.jt-home-shop-love-hot{float: left; margin-left: 3px; color: #e92f25 !important;}
+.jt-home-shop-love{ float: left; margin-left: 12px;  margin-top:-2px; width: 15px; height: 15px; background: url("../images/jt-home-icon.png") 0 -30px no-repeat; text-indent: -99999px; }
 .jt-home-shop-love:HOVER{ background-position: -15px -30px;}
-.jt-home-shop-comment{ float: left; margin-left: 34px; width: 15px; height: 15px; background: url("../images/jt-home-icon.png") 0 -60px no-repeat; text-indent: -99999px; cursor: pointer;}
+.jt-home-shop-comment{ float: left; margin-left: 36px; margin-top:-1px; width: 15px; height: 15px; background: url("../images/jt-home-icon.png") 0 -60px no-repeat; text-indent: -99999px; cursor: pointer;}
 .jt-home-shop-comment:HOVER{ background-position: -15px -60px;}
 
 .jt-home-shop-love-click{background: url("../images/jt-home-icon.png") -15px -30px no-repeat !important;}
