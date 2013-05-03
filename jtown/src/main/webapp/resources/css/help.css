@@ -90,6 +90,10 @@
 .jt-help-notice-table tbody tr td:nth-child(2){ text-align: left;}
 .jt-help-notice-table tbody a, .jt-help-notice-table tbody a:VISITED{color: #000;}
 .jt-help-notice-table tbody a:HOVER{color: #000; font-weight: bold; text-decoration: underline;}
+.jt-help-notice-table tfoot{word-spacing: 10px;}
+.jt-help-notice-table tfoot td{ padding: 8px 0;}
+.jt-help-notice-table .pageLink, .jt-help-notice-table .pageLink:VISITED{color: #000;}
+.jt-help-notice-table .pageLink:HOVER{color: #000; text-decoration: underline;}
 
 .jt-help-notice-content-table{border-collapse: collapse; width: 600px; margin: auto auto;}
 .jt-help-notice-content-table td, .jt-help-notice-content-table th{font-size: 12px; vertical-align: middle; padding: 3px 2px 3px 2px;  height: 25px; }

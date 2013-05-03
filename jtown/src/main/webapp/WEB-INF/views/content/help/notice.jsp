@@ -49,12 +49,12 @@ function goToPreviousPages() {
 		<tr>
 			<td colspan="4">
 				<a href="javascript:void(goToPage(1))" onfocus="blur();">
-						처음
-<%-- 					<img src="<c:url value='/images/mims_pageFirst_btn.gif'/>" alt="처음" style="vertical-align: middle; border: none" /> --%>
+<!-- 						처음 -->
+					<img src="<c:url value='/resources/images/arrow/pageFirst_btn.png'/>" alt="처음" style="vertical-align: middle; border: none" />
 				</a>
 				<a href="javascript:void(goToPreviousPages())" onfocus="blur();">
-						다음
-<%-- 					<img src="<c:url value='/images/button/mims_prev_btn.gif'/>" alt="다음" style="vertical-align: middle; border: none" /> --%>
+<!-- 						다음 -->
+					<img src="<c:url value='/resources/images/arrow/prev_btn.png'/>" alt="다음" style="vertical-align: middle; border: none" />
 				</a>
 				<c:forEach var="i" begin="${pagination.pageBegin}" end="${pagination.pageEnd}">
 					<c:if test="${i == pagination.currentPage}">
@@ -65,12 +65,12 @@ function goToPreviousPages() {
 					</c:if>
 				</c:forEach>
 				<a href="javascript:void(goToNextPages())" onfocus="blur();">
-						다음
-<%-- 					<img src="<c:url value='/images/button/mims_next_btn.gif'/>" alt="다음" style="vertical-align: middle; border: none" /> --%>
+<!-- 						다음 -->
+					<img src="<c:url value='/resources/images/arrow/next_btn.png'/>" alt="다음" style="vertical-align: middle; border: none" />
 				</a>
 				<a href="javascript:void(goToPage(${pagination.numPages}))" onfocus="blur();">
-						끝
-<%-- 					<img src="<c:url value='/images/mims_pageLast_btn.gif'/>" alt="끝" style="vertical-align: middle; border: none" /> --%>
+<!-- 						끝 -->
+					<img src="<c:url value='/resources/images/arrow/pageLast_btn.png'/>" alt="끝" style="vertical-align: middle; border: none" />
 				</a>			
 			</td>
 		</tr>
