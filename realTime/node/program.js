@@ -35,6 +35,7 @@ var mysql_options = {
  * 	6379 Redis Client 
  *************************/
 var socketRedis = redis.createClient(redisPort, redisHost);
+//socketRedis.auth('jt0308pk!');
 socketRedis.auth('');
 socketRedis.on('error', function(err) {
 	console.log('Error In Redis Server');
