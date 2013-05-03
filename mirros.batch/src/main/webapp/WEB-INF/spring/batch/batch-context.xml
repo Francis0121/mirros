@@ -13,7 +13,7 @@
 	<!--  Initialise the database before every test case: -->
 	<bean id="dataSourceInitializer"
 		class="com.bg.mirros.batch.DataSourceInitializer">
-		<property name="initialize" value="true" />
+		<property name="initialize" value="${batch.data.source.init}" />
 		<property name="dataSource" ref="dataSource" />
 		<property name="destroyScript" value="${batch.drop.script}" />
 		<property name="initScripts">
