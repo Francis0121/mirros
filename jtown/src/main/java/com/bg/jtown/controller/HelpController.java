@@ -50,6 +50,7 @@ public class HelpController {
 
 	@RequestMapping(value = "/help/notice/content", method = RequestMethod.GET)
 	public String showNoticeContent(Model model, @ModelAttribute Board board) {
+		boardService.updateReadCount(board.getPn());
 		model.addAttribute("noticeContent",
 				boardService.selectNoticeContent(board));
 		model.addAttribute("noticeList",
