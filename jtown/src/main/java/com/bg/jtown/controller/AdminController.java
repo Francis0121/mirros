@@ -4,8 +4,6 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -41,9 +39,6 @@ import com.bg.jtown.security.JtownUser;
  */
 @Controller
 public class AdminController {
-
-	private static final Logger logger = LoggerFactory
-			.getLogger(AdminController.class);
 
 	@Resource
 	private AdminService adminService;
