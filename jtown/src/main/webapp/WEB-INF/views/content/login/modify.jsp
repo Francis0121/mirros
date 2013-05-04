@@ -6,15 +6,9 @@
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
 <%@ include file="../../layout/none_header.jspf" %>
 <section class="jt-modify-content-wrap">
-	<div id="folderBar">
-		<div id="folderTabName">
-			<span id="digonalFolderImage">My Page</span>
-		</div>
-	</div>
 	<section class="jt-modify-content">
 		<hgroup>
 			<h2>계정&nbsp;설정</h1>
-			<h1>본인확인을&nbsp;위해&nbsp;본&nbsp;계정의&nbsp;비밀번호를&nbsp;입력해&nbsp;주신&nbsp;후에&nbsp;변경하실&nbsp;비밀번호를&nbsp;입력해&nbsp;주세요.</h1>
 		</hgroup>
 		<sec:authorize access="principal.groupName eq 'Customer'">
 			<a href="<c:url value='/login/disactive'/>">계정삭제</a>
@@ -36,7 +30,7 @@
 					<tr>
 						<sec:authentication property="principal.username" var="username"/>
 						<th>이메일</th>
-						<td><c:out value="${username }"/><form:hidden path="username" value="${username }"/>&nbsp;<a href="<c:url value="/login/modifyEmailAddress"/>">이메일 변경</a></td>
+						<td><form:input path="username" value="${username }" cssClass="jt-modify-content-input"/>&nbsp;<a href="<c:url value="/login/modifyEmailAddress"/>">이메일 변경</a></td>
 					</tr>
 					<tr>
 						<sec:authentication property="principal.pn" var="pn"/>

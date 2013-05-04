@@ -6,11 +6,6 @@
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
 <%@ include file="../../layout/none_header.jspf" %>
 <section class="jt-modify-content-wrap">
-	<div id="folderBar">
-		<div id="folderTabName">
-			<span id="digonalFolderImage">My Page</span>
-		</div>
-	</div>
 	<section class="jt-modify-content">
 		<hgroup>
 			<h2>이메일&nbsp;변경</h1>

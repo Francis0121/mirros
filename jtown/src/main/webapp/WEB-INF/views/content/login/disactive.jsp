@@ -6,11 +6,6 @@
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <%@ include file="../../layout/none_header.jspf" %>
 <section class="jt-modify-content-wrap">
-	<div id="folderBar">
-		<div id="folderTabName">
-			<span id="digonalFolderImage">My Page</span>
-		</div>
-	</div>
 	<section class="jt-modify-content">
 		계정삭제
 		<c:url value="/login/disactive.jt" var="disactiveUrl"/>
