@@ -296,4 +296,18 @@
 		<include refid="paginationAfter"/>
 	</select>
 	
+	<resultMap type="Interest" id="auto_interest_section_map">
+		<result property="sectionPn" column="pn"/>
+		<result property="name" column="name"/>
+	</resultMap>
+	
+	<select id="selectInterestSection" parameterType="Interest" resultMap="auto_interest_section_map">
+		SELECT
+			pn, name
+		FROM
+			interest_section
+		WHERE
+			category_pn = #{categoryPn}
+	</select>
+	
 </mapper>

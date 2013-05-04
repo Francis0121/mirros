@@ -215,4 +215,10 @@ public class AdminServiceImpl extends SqlSessionDaoSupport implements
 		return getSqlSession().selectOne("adminMapper.selectAllCommentCount",
 				adminCommentFilter);
 	}
+
+	@Override
+	public List<Interest> selectInterestSection(Interest interest) {
+		return getSqlSession().selectList("adminMapper.selectInterestSection",
+				interest);
+	}
 }

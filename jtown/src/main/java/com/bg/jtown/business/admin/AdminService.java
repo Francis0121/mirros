@@ -30,4 +30,6 @@ public interface AdminService {
 	Map<String, Object> selectCustomerModelMap(UserFilter userFilter);
 
 	List<Comment> selectAllCommentList(AdminCommentFilter adminCommentFilter);
+
+	List<Interest> selectInterestSection(Interest interest);
 }

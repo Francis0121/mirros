@@ -2,7 +2,7 @@ if (typeof jtown.admin == 'undefined') {
 	jtown.admin = {};
 }
 
-$(document).ready(function() {
+$(function() {
 	jtown.admin.createSubmit();
 	
 	jtown.admin.syncAdminPage();
@@ -14,80 +14,105 @@ $(document).ready(function() {
 	jtown.admin.openContractList();
 	
 	jtown.admin.openContract();
+	
+	jtown.admin.autoInterestSection();
 });
 
+jtown.admin.syncAdminPage = function(){
+	
+	$('.jt-admin-seller-table-shopUrl').unbind('mouseup').bind('mouseup', function(){
+		jtown.admin.insertInputBox($(this), 'jt-admin-seller-table-shopUrl');
+	});
+	
+	$('.jt-admin-seller-table-shopUrl-input').unbind('focusout').bind('focusout', function(){
+		jtown.admin.deleteInputBox($(this), 'jt-admin-seller-table-shopUrl');
+	});
+	
+	jtown.admin.changeShopUrl();
+	
+	$('.jt-admin-seller-table-interestList').unbind('mouseup').bind('mouseup', function(){
+		jtown.admin.insertInputBox($(this), 'jt-admin-seller-table-interestList');
+	});
+	
+	$('.jt-admin-seller-table-interestList-input').unbind('focusout').bind('focusout', function(){
+		jtown.admin.deleteInputBox($(this), 'jt-admin-seller-table-interestList');
+	});
+	
+	$('.jt-admin-seller-table-interestList-input').unbind('change').bind('change', function(){
+		jtown.admin.changeInterest($(this));
+	});
+	
+	$('.jt-admin-seller-enable').unbind('change').bind('change', function(){
+		jtown.admin.changeEnable($(this));
+	});
+	
+	$('.jt-admin-customer-enable').unbind('change').bind('change', function(){
+		jtown.admin.changeCustomerEnable($(this));
+	});
+};
+
+jtown.admin.autoInterestSection = function(){
+	$( "#interestSectionList" ).bind( "keydown", function( event ) {
+		if ( event.keyCode === $.ui.keyCode.TAB && $( this ).data( "ui-autocomplete" ).menu.active ) {
+			event.preventDefault();
+		}
+    }).autocomplete({
+		minLength: 0,
+		source: function( request, response ) {
+			var url = contextPath + 'ajax/admin/autoInterestSection.jt',
+			json = {	'categoryPn' : $('#interestCategory').val() };
+		
+			$.postJSON(url, json, function(interestes){
+				var data = [];
+				
+				for(var i=0, len = interestes.length ; i< len; i++){
+					var interest = interestes[i];
+					data[i] = { label : interest.name , value : interest.name };
+				}
+				response( data );
+			});
+		},
+		focus: function() {
+			return false;
+		},
+		select: function(event, ui) {
+			var terms = split( this.value );
+			terms.pop();
+			terms.push(ui.item.value);
+			terms.push('');
+			this.value = terms.join(',');
+			return false;
+		}
+	});	
+};
+
+function split( val ) {
+	return val.split( /,\s*/ );
+}
+
 jtown.admin.createSubmit = function(){
-	$('.jt-create-seller-submit').unbind('click');
-	$('.jt-create-seller-submit').bind('click', function() {
+	$('.jt-create-seller-submit').unbind('click').bind('click', function() {
 		var form = document.forms['jtownUser'];
 		form.submit();
 	});
 };
 
-jtown.admin.syncAdminPage = function(){
+jtown.admin.changeShopUrl = function(){
+	$('.jt-admin-seller-table-shopUrl-input').unbind('change').bind('change', function(){
+		var parents = $(this).parents('.jt-admin-seller-table-tr'),
+		url = contextPath + 'admin/changeShopUrl',
+		json = {	'pn' 		: parents.attr('data-pn'), 
+					'shopUrl' 	: $(this).val()			 		};
 	
-	$('.jt-admin-seller-table-shopUrl').unbind('mouseup');
-	$('.jt-admin-seller-table-shopUrl').bind('mouseup', function(){
-		jtown.admin.insertInputBox($(this), 'jt-admin-seller-table-shopUrl');
-	});
-	
-	$('.jt-admin-seller-table-shopUrl-input').unbind('focusout');
-	$('.jt-admin-seller-table-shopUrl-input').bind('focusout', function(){
-		jtown.admin.deleteInputBox($(this), 'jt-admin-seller-table-shopUrl');
-	});
-	
-	$('.jt-admin-seller-table-shopUrl-input').unbind('change');
-	$('.jt-admin-seller-table-shopUrl-input').bind('change', function(){
-		jtown.admin.changeShopUrl($(this));
-	});
-	
-	$('.jt-admin-seller-table-interestList').unbind('mouseup');
-	$('.jt-admin-seller-table-interestList').bind('mouseup', function(){
-		jtown.admin.insertInputBox($(this), 'jt-admin-seller-table-interestList');
-	});
-	
-	$('.jt-admin-seller-table-interestList-input').unbind('focusout');
-	$('.jt-admin-seller-table-interestList-input').bind('focusout', function(){
-		jtown.admin.deleteInputBox($(this), 'jt-admin-seller-table-interestList');
-	});
-	
-	$('.jt-admin-seller-table-interestList-input').unbind('change');
-	$('.jt-admin-seller-table-interestList-input').bind('change', function(){
-		jtown.admin.changeInterest($(this));
-	});
-	
-	$('.jt-admin-seller-enable').unbind('change');
-	$('.jt-admin-seller-enable').bind('change', function(){
-		jtown.admin.changeEnable($(this));
-	});
-	
-	$('.jt-admin-customer-enable').unbind('change');
-	$('.jt-admin-customer-enable').bind('change', function(){
-		jtown.admin.changeCustomerEnable($(this));
-	});
-};
-
-jtown.admin.changeShopUrl = function(me){
-	var parents = me.parents('.jt-admin-seller-table-tr');
-	
-	var sellerPn = parents.attr('data-pn');
-	var shopUrl = me.val();
-	
-	var json = {
-			'pn' : sellerPn,
-			'shopUrl' : shopUrl
-	};
-	
-	var url = contextPath + 'admin/changeShopUrl';
-	
-	$.postJSON(url, json, function(){
-		return jQuery.ajax({
-			'success' : function(){
-				alert('주소 변경 성공');
-			},
-			'error' : function(){
-				alert('에러 발생!');
-			}
+		$.postJSON(url, json, function(){
+			return jQuery.ajax({
+				'success' : function(){
+					alert('주소 변경 성공');
+				},
+				'error' : function(){
+					alert('에러 발생!');
+				}
+			});
 		});
 	});
 };

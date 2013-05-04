@@ -53,9 +53,10 @@ public class AdminController {
 	private SellerService sellerService;
 	@Resource
 	private ContractService contractService;
-
 	@Resource
 	private CustomJdbcUserDetailManager customJdbcUserDetailManager;
+
+	// ~ SHOW
 
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/admin", method = RequestMethod.GET)
@@ -99,7 +100,7 @@ public class AdminController {
 
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/admin/cs", method = RequestMethod.GET)
-	public String showCreatSellerPage(Model model,
+	public String showCreatSeller(Model model,
 			@ModelAttribute JtownUser jtownUser) {
 		List<Interest> interestCategoryList = adminService
 				.selectInterestCategoryList();
@@ -107,11 +108,12 @@ public class AdminController {
 		return "admin/createSeller";
 	}
 
+	// ~ FORM
+
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	@RequestMapping(value = "/admin/cs", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/cs.jt", method = RequestMethod.POST)
 	public String formCreateSeller(Model model,
 			@ModelAttribute JtownUser jtownUser, BindingResult result) {
-		logger.debug(jtownUser.toString());
 		new Validator() {
 			@Override
 			public void validate(Object target, Errors errors) {
@@ -260,4 +262,14 @@ public class AdminController {
 				adminService.selectAllCommentList(adminCommentFilter));
 		return "admin/comment";
 	}
+
+	// ~ Ajax
+
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@RequestMapping(value = "/ajax/admin/autoInterestSection.jt", method = RequestMethod.POST)
+	@ResponseBody
+	public List<Interest> ajaxAutoInterestSection(@RequestBody Interest interest) {
+		return adminService.selectInterestSection(interest);
+	}
+
 }

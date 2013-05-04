@@ -5,7 +5,8 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <%@ include file="../../layout/admin_header.jspf" %>
-<form:form commandName="jtownUser" method="post">
+<c:url var="createSellerUrl" value="/admin/cs.jt"/>
+<form:form commandName="jtownUser" method="post" htmlEscape="true" action="${createSellerUrl }">
 <table class="jt-create-table">
 	<tfoot>
 		<tr>
