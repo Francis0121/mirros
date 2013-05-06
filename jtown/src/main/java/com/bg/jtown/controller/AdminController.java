@@ -149,9 +149,16 @@ public class AdminController {
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/admin/administrator", method = RequestMethod.GET)
 	public String showAdministratorPage(Model model) {
-		customJdbcUserDetailManager
-				.createUserAdminAndAuthority(new JtownUser());
-		return "admin/main";
+		return "admin/administrator";
+	}
+
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@RequestMapping(value = "/admin/createAdministrator.jt", method = RequestMethod.GET)
+	public String formCreateAdministrator(Model model) {
+		JtownUser jtownUser = new JtownUser();
+		customJdbcUserDetailManager.createUserAdminAndAuthority(jtownUser);
+		model.addAttribute("jtownUser", jtownUser);
+		return "admin/administrator";
 	}
 
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
