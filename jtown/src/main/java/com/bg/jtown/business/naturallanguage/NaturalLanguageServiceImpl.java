@@ -54,7 +54,6 @@ public class NaturalLanguageServiceImpl extends SqlSessionDaoSupport implements
 		List<Interest> interests = getSqlSession().selectList(
 				"naturalLanguageMapper.selectSearchInterestSection",
 				naturalLanguageFilter);
-		System.out.println(interests);
 		return interests;
 	}
 

@@ -105,7 +105,6 @@ public class HomeController {
 			HomeFilter homeFilter, SummaryUser summaryUser) {
 
 		Authority authority = summaryUser.getEnumAuthority();
-		System.out.println(authority);
 		if (authority.equals(Authority.ADMIN)) {
 			return "redirect:admin";
 		} else if (authority.equals(Authority.SELLER)) {
