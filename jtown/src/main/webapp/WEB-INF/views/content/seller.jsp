@@ -204,7 +204,7 @@
 						</a>
 					</div>
 					<div class="jt-home-expand-shop-event-update-wrap">
-						<span style="color: #fff;">310 X 150 (pixel)</span><br/>
+<!-- 						<span style="color: #fff;">310 X 150 (pixel)</span><br/> -->
 						<input type="file" id="jt-event-first-image" name="jt-event-first-image"/><br/>
 						<a href="#none" class="jt-home-expand-shop-event-update-done jt-btn-white-small">
 							<span class="btnImage"></span>
@@ -233,7 +233,7 @@
 						</a>
 					</div>
 					<div class="jt-home-expand-shop-event-update-wrap">
-						<span style="color: #fff;">310 X 150 (pixel)</span><br/>
+<!-- 						<span style="color: #fff;">310 X 150 (pixel)</span><br/> -->
 						<input type="file" id="jt-event-second-image" name="jt-event-second-image"/><br/>
 						<a href="#none" class="jt-home-expand-shop-event-update-done jt-btn-white-small">
 							<span class="btnImage"></span>

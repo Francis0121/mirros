@@ -319,6 +319,12 @@ jtown.seller.syncEvent = function() {
 				'success' : function(){
 					$img.attr('data-oldSrc', '').attr('data-imagePn', '');
 					$parent.children('.jt-home-expand-shop-event-update-wrap').hide();
+					var html = 	'<div class="jt-home-expand-shop-event-new">'+
+									'<div>'+
+										'<span class="jt-home-expand-shop-event-new-image">NEW</span>'+
+									'</div>'+
+								'</div>';
+					$parent.prepend(html);
 				},
 				'error' : function(){
 					jtown.dialog("오류 발생!");
