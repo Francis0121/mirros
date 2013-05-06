@@ -15,6 +15,11 @@
 		<property name="url" value="${batch.mybatis.url}" />
 		<property name="username" value="${batch.jdbc.user}" />
 		<property name="password" value="${batch.jdbc.password}" />
+		<property name="maxActive" value="10" />
+		<property name="maxIdle" value="10" />
+		<property name="minIdle" value="2" />
+		<property name="maxWait" value="50000" />
+		<property name="timeBetweenEvictionRunsMillis" value="600000" />
 	</bean>
 
 	<!-- TransactionManager -->
@@ -36,6 +41,11 @@
 		<property name="url" value="${batch.jdbc.url}" />
 		<property name="username" value="${batch.jdbc.user}" />
 		<property name="password" value="${batch.jdbc.password}" />
+		<property name="maxActive" value="10" />
+		<property name="maxIdle" value="10" />
+		<property name="minIdle" value="2" />
+		<property name="maxWait" value="50000" />
+		<property name="timeBetweenEvictionRunsMillis" value="600000" />
 	</bean>
 
 	<bean id="transactionManager"
