@@ -151,11 +151,16 @@
 }
 .jt-findpassword-error:FOCUS{ border: 1px solid #ff0000;  }
 /***********************
-*	비밀번호 변경 페이지
+*	계정 설정 페이지
 ***********************/
 .jt-modify-content-wrap{ width: 990px; margin: 50px auto; }
 .jt-modify-content { width: 864px; float: left; padding: 35px 0 45px 120px; min-height: 500px; }
-.jt-modify-content>hgroup>h2{ font-size: 20px; color: #524d4d; width: 100%; float: left;}
+
+.jt-modify-content-header{width: 600px;}
+.jt-modify-content-header li {float: left; width: 50%;}
+.jt-modify-content-header h2{ font-size: 20px; color: #524d4d; width: 100%; float: left;}
+.jt-modify-content-disactive-btn{font-size: 12px; text-align: right;}
+
 .jt-modify-content-table{float: left; margin-top: 30px;}
 .jt-modify-content-table { border-collapse: collapse; width: 700px; font-size: 12px;}
 .jt-modify-content-table th, .jt-modify-content-table td{ padding: 3px 2px; height: 55px;}
@@ -177,3 +182,15 @@
 }
 .jt-modify-content-input-error:FOCUS{ border: 1px solid #ff0000;  }
 .jt-modify-content-error{font-size: 11px; margin: 5px 0 0 5px; line-height: 1.2; color: #ff3c00;}
+
+.jt-modfiy-connect-social{float: left; width: 600px; font-size: 14px; color: #8c827e;}
+.jt-modfiy-connect-social>li{ width: 100%; float: left; }
+.jt-modify-connect-social-info{ float: left; }
+.jt-modify-connect-social-info>li{float: left; padding: 8px 0; }
+.jt-modify-connect-social-info>li:nth-child(1){ width: 50px; }
+.jt-modify-connect-social-info>li:nth-child(2){ width: 180px; }
+.jt-modify-connect-social-info>li:nth-child(2)>span{float:left; margin-top: 10px;}
+.jt-modify-connect-social-info>li:nth-child(3){ width: 350px; }
+.jt-modify-connect-social-info>li:nth-child(3) button{padding: 5px 10px;}
+
+.jt-modfiy-submit-wrap{float: left; width: 700px; text-align: center;}

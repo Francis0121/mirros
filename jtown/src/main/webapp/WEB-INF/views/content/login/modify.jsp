@@ -7,23 +7,21 @@
 <%@ include file="../../layout/none_header.jspf" %>
 <section class="jt-modify-content-wrap">
 	<section class="jt-modify-content">
-		<hgroup>
-			<h2>계정&nbsp;설정</h1>
-		</hgroup>
-		<sec:authorize access="principal.groupName eq 'Customer'">
-			<a href="<c:url value='/login/disactive'/>">계정삭제</a>
-		</sec:authorize>
+		<ul class="jt-modify-content-header">
+			<li>
+				<h2>계정&nbsp;설정</h1>
+			</li>
+			<sec:authorize access="principal.groupName eq 'Customer'">
+				<li class="jt-modify-content-disactive-btn">
+					<a href="<c:url value='/login/disactive'/>">계정삭제</a>
+				</li>
+			</sec:authorize>
+		</ul>
 		
+		<%--계정설정 --%>
 		<c:url var="modifyUrl" value="/login/modify.jt"/>
 		<form:form commandName="jtownUser" method="post" action="${modifyUrl }" htmlEscape="true">
 			<table class="jt-modify-content-table">
-				<tfoot>
-					<tr>
-						<td colspan="2">
-							<input type="button" value="저장" class="jt-change-user-btn jt-btn-orange" />	
-						</td>
-					</tr>
-				</tfoot>
 				<tbody>
 					<sec:authorize access="principal.groupName eq 'Customer'">
 					<tr>
@@ -115,36 +113,39 @@
 			</table>
 		</form:form>
 		
-		<br/>
-		
 		<%-- Twitter, Facebook 동기화 --%>
 		<sec:authorize access="principal.groupName eq 'Customer'">
-		<div style="float: left; width: 500px;">
-		
+		<ul class="jt-modfiy-connect-social">
 			<c:forEach var="providerId" items="${providerIds}">
+				<li>
 				<c:set var="connections" value="${connectionMap[providerId]}" />
 				<spring:message code="${providerId}.displayName" var="providerDisplayName" />
-				<div class="accountConnection">
 					<spring:message code="${providerId}.icon" var="iconUrl"/>
-					<h4><img src="<c:url value="${iconUrl}" />" width="36" height="36" />${providerDisplayName}</h4>
-					
-					<p>
+					<ul class="jt-modify-connect-social-info">
+						<li>
+							<img src="<c:url value="${iconUrl}" />" width="36" height="36" />
+						</li>
 					<c:if test="${not empty connections}">
-						You are connected to ${providerDisplayName} as ${connections[0].displayName}.
+						<li>
+							<span>Login with ${providerDisplayName}</span>
+						</li>
+						<li>
 						<c:if test="${providerId eq 'twitter' }">
 							<form id="disconnect" action="<c:url value="/connect/twitter" />" method="post">
-								<button type="submit">Disconnect</button>	
 								<input type="hidden" name="_method" value="delete" />
+								<button type="submit" class="jt-btn-silver">Disconnect</button>	
 							</form>
 						</c:if>
 						<c:if test="${providerId eq 'facebook' }">
 							<form id="disconnect" action="<c:url value="/connect/facebook" />" method="post">
-								<button type="submit">Disconnect</button>	
 								<input type="hidden" name="_method" value="delete" />
+								<button type="submit" class="jt-btn-silver">Disconnect</button>	
 							</form>
 						</c:if>
+						</li>
 					</c:if>
 					<c:if test="${empty connections}">
+						<li>
 						<c:if test="${providerId eq 'twitter' }">
 							<form action="<c:url value="/connect/twitter" />" method="POST">
 								<p><button type="submit"><img src="<c:url value="/resources/images/connect-with-twitter.png" />"/></button></p>
@@ -159,17 +160,23 @@
 								<label for="postToWall"><input id="postToWall" type="checkbox" name="postToWall" checked="checked"/> 담벼락에 Mirros 정보를 게시해보세요.</label>
 							</form>
 						</c:if>
+						</li>
 					</c:if>
-					</p>
-				</div>
+					</ul>
+				</li>
 			</c:forEach>
+			<li>
+				<c:if test="${socialDuplicate eq true}">
+					${socialErrorProviderId }에서 이미 동기화된 아이디 입니다.
+				</c:if>
+			</li>
+		</ul>
 		
-			<c:if test="${socialDuplicate eq true}">
-				${socialErrorProviderId }에서 이미 동기화된 아이디 입니다.
-			</c:if>
-		</div>	
+		<div class="jt-modfiy-submit-wrap">
+			<input type="button" value="저장" class="jt-change-user-btn jt-btn-orange" />
+		</div>
+		
 		</sec:authorize>
-		
 	</section>
 </section>
 <%@ include file="../../layout/none_footer.jspf" %>

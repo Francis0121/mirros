@@ -13,6 +13,7 @@
 			<c:when test="${registerDate ne null }">
 				${registerDate }
 				<form:form commandName="jtownUser" action="${disactiveUrl }" htmlEscape="true" method="delete">
+					<form:label path="password">비밀번호</form:label>
 					<form:password path="password"/>
 					<input type="button" value="취소" class="jt-disactive-cancle-btn jt-btn-orange"/>
 					<form:errors path="password"></form:errors>
@@ -20,6 +21,7 @@
 			</c:when>
 			<c:otherwise>
 				<form:form commandName="jtownUser" action="${disactiveUrl }" htmlEscape="true">
+					<form:label path="password">비밀번호</form:label>
 					<form:password path="password"/>
 					<input type="button" value="삭제" class="jt-disactive-btn jt-btn-orange"/>
 					<form:errors path="password"></form:errors>
