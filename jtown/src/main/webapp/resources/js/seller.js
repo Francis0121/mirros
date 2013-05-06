@@ -91,7 +91,7 @@ jtown.seller.syncMainNotice = function() {
 	$('#jt-seller-main-notice-update').unbind('click');
 	$('#jt-seller-main-notice-update').bind('click', function() {
 		$('#jt-seller-main-notice-update-tool').hide();
-		var url = contextPath + '/ajax/seller/changeNotice.jt',
+		var url = contextPath + 'ajax/seller/changeNotice.jt',
 			notice =  $('#jt-seller-main-textarea').val(),
 			json = { 'notice' : notice	};
 		
