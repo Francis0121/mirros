@@ -31,7 +31,7 @@
 				</sec:authorize>
 				<sec:authorize access="hasRole('ROLE_ADMIN')">
 				<li>
-					<c:url value="/admin" var="sellerUrl"/>
+					<c:url value="/admin" var="adminUrl"/>
 					<a href="${adminUrl }" class="jt-common-a-base">관리자 페이지</a>
 				</li>	
 				</sec:authorize>	
