@@ -32,7 +32,7 @@
 							<div class="jt-join-user-vaild-wrap" id="confirmEmail">
 								<span class="jt-form-invalid">정확한&nbsp;이메일&nbsp;주소를&nbsp;입력해&nbsp;주시기&nbsp;바랍니다.(ex&nbsp;abcde@abc.com)</span>
 							</div>
-							<form:input path="username" data-form="modifyAddress" cssClass="jt-modify-content-input" cssErrorClass="jt-modify-content-input-error"/>
+							<form:input path="username" data-type="create" cssClass="jt-modify-content-input" cssErrorClass="jt-modify-content-input-error"/>
 							<div class="jt-modify-content-error">	
 								<form:errors path="username" cssClass="commonError"/>
 							</div>

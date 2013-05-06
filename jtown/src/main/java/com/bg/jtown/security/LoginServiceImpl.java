@@ -75,6 +75,10 @@ public class LoginServiceImpl extends SqlSessionDaoSupport implements
 	@Override
 	public void updateUserCustomer(JtownUser jtownUser) {
 		getSqlSession().update("loginMapper.updateUserCustomer", jtownUser);
+		if (jtownUser.getConfirmEmail() == null) {
+			getSqlSession().update("loginMapper.updateUserCustomerDetail",
+					jtownUser);
+		}
 	}
 
 	@Override

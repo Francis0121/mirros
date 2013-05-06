@@ -248,7 +248,7 @@ public class LoginController {
 
 	@PreAuthorize("hasRole('ROLE_USER')")
 	@RequestMapping(value = "/login/modify", method = RequestMethod.GET)
-	public String showModify(Model model, @ModelAttribute JtownUser jtownUser,
+	public String showModify(Model model, SummaryUser summaryUser,
 			@RequestParam(required = false) Integer result,
 			NativeWebRequest request) {
 		setNoCache(request);
@@ -260,14 +260,23 @@ public class LoginController {
 		model.addAttribute("providerIds",
 				connectionFactoryLocator.registeredProviderIds());
 		model.addAttribute("connectionMap", connections);
+
+		if (summaryUser.getEnumAuthority() == Authority.CUSTOMER) {
+			JtownUser jtownUser = loginService.selectCustomer(summaryUser.getPn());
+			jtownUser.setUsername(summaryUser.getUsername());
+			jtownUser.setName(summaryUser.getName());
+			model.addAttribute("jtownUser", jtownUser);
+		} else {
+			model.addAttribute("jtownUser", new JtownUser());
+		}
 		return "login/modify";
 	}
 
 	@PreAuthorize("hasRole('ROLE_USER')")
 	@RequestMapping(value = "/login/modify.jt", method = RequestMethod.POST)
 	public String formPassword(@ModelAttribute JtownUser jtownUser,
-			@RequestParam final String confirmPassword, BindingResult result,
-			Model model) {
+			BindingResult result, @RequestParam final String confirmPassword,
+			Model model, final SummaryUser summaryUser) {
 		new Validator() {
 			@Override
 			public void validate(Object target, Errors errors) {
@@ -277,55 +286,34 @@ public class LoginController {
 							"change.password.notEqualPassword");
 				}
 
-				if (VaildationUtil
-						.checkNullAndBlank(jtownUser.getNewPassword())) {
-					errors.rejectValue("newPassword", "join.password.empty");
-				} else if (VaildationUtil.confirmPassword(
-						jtownUser.getNewPassword(), confirmPassword)) {
-					errors.rejectValue("newPassword",
-							"join.password.isNotEqual");
-				}
-			}
+				String newPassword = jtownUser.getNewPassword();
 
-			@Override
-			public boolean supports(Class<?> clazz) {
-				return JtownUser.class.isAssignableFrom(clazz);
-			}
-		}.validate(jtownUser, result);
-
-		if (!result.hasErrors()) {
-			customJdbcUserDetailManager.changePassword(jtownUser.getPassword(),
-					jtownUser.getNewPassword());
-			return "redirect:modify/?result=2";
-		} else {
-			Map<String, List<Connection<?>>> connections = connectionRepository
-					.findAllConnections();
-			model.addAttribute("providerIds",
-					connectionFactoryLocator.registeredProviderIds());
-			model.addAttribute("connectionMap", connections);
-			return "login/modify";
-		}
-	}
-
-	@PreAuthorize("hasRole('ROLE_USER')")
-	@RequestMapping(value = "/login/nameChange.jt", method = RequestMethod.POST)
-	public String formNameChange(@ModelAttribute JtownUser jtownUser,
-			BindingResult result, Model model) {
-		new Validator() {
-			@Override
-			public void validate(Object target, Errors errors) {
-				JtownUser jtownUser = (JtownUser) target;
-
-				String name = jtownUser.getName();
-
-				ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name",
-						"join.nickName.empty");
-
-				if (!VaildationUtil.checkNullAndBlank(name)) {
-					if (!VaildationUtil.lengthCheck(name, "nickName")) {
-						errors.rejectValue("name", "join.nickName.notAllow");
+				if (!VaildationUtil.checkNullAndBlank(newPassword)) {
+					if (VaildationUtil.confirmPassword(newPassword,confirmPassword)) {
+						errors.rejectValue("newPassword","join.password.isNotEqual");
+					} else if (!VaildationUtil.lengthCheck(newPassword, "password")) {
+						errors.rejectValue("newPassword", "join.password.notAllow");
 					}
 				}
+				
+				String nowUsername = summaryUser.getUsername();
+				String changeUsername = jtownUser.getUsername();
+				
+				ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username","join.username.empty");
+				
+				if (!VaildationUtil.checkNullAndBlank(changeUsername)) {
+					if(!nowUsername.equals(changeUsername)){
+						if(!VaildationUtil.emailFormCheck(changeUsername)){
+							errors.rejectValue("username", "join.username.notAllow");
+						}
+						boolean exist = loginService.selectCheckExistEmail(changeUsername);
+						if (exist) {
+							errors.rejectValue("username", "join.username.exist");
+						}
+					}
+				}
+				
+				ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "join.nickName.empty");
 			}
 
 			@Override
@@ -335,15 +323,29 @@ public class LoginController {
 		}.validate(jtownUser, result);
 
 		if (!result.hasErrors()) {
+			jtownUser.setPn(summaryUser.getPn());
 			jtownUser.setConfirmEmail(null);
 			loginService.updateUserCustomer(jtownUser);
+
+			String nowUsername = summaryUser.getUsername();
+			String changeUsername = jtownUser.getUsername();
+			if (!VaildationUtil.checkNullAndBlank(changeUsername)) {
+				if(!nowUsername.equals(changeUsername)){
+					loginService.updateUserCustomerEmail(jtownUser.getUsername(), summaryUser.getUsername());
+					emailSend.sendConfirmEmail(jtownUser.getUsername());
+				}
+			}
+			
+			String newPassword = jtownUser.getNewPassword();
+			if (!VaildationUtil.checkNullAndBlank(newPassword)) {
+				customJdbcUserDetailManager.changePassword(jtownUser.getPassword(), jtownUser.getNewPassword());
+			}
+			
 			userAuthenticator.onApplicationEvent(jtownUser.getUsername());
-			return "redirect:modify/?result=5";
+			return "redirect:modify/?result=2";
 		} else {
-			Map<String, List<Connection<?>>> connections = connectionRepository
-					.findAllConnections();
-			model.addAttribute("providerIds",
-					connectionFactoryLocator.registeredProviderIds());
+			Map<String, List<Connection<?>>> connections = connectionRepository.findAllConnections();
+			model.addAttribute("providerIds",connectionFactoryLocator.registeredProviderIds());
 			model.addAttribute("connectionMap", connections);
 			return "login/modify";
 		}

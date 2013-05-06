@@ -11,14 +11,18 @@
 	</select>
 	
 	<resultMap type="com.bg.jtown.security.JtownUser" id="jtown-customer-map">
+		<result column="sex" property="sex"/>
+		<result column="year" property="year"/>
+		<result column="month" property="month"/>
+		<result column="day" property="day"/>
 		<result column="join_date" property="joinDate"/>
 	</resultMap>
 	
 	<select id="selectCustomer" parameterType="Integer" resultMap="jtown-customer-map">
 		SELECT
-			join_date
+			pn, sex, year, month, day
 		FROM
-			user_customer
+			user_customer 
 		WHERE
 			pn = #{pn}
 	</select>
@@ -91,6 +95,18 @@
 		WHERE
 			id = #{username}
 		</if>
+	</update>
+	
+	<update id="updateUserCustomerDetail" parameterType="com.bg.jtown.security.JtownUser">
+		UPDATE
+			user_customer
+		SET
+			sex = #{sex},
+			year = #{year},
+			month = #{month},
+			day = #{day}
+		WHERE
+			pn = #{pn}
 	</update>
 	
 	<update id="updateUserCustomerEmail" parameterType="java.util.HashMap">

@@ -162,7 +162,7 @@
 .jt-modify-content-table th{ width: 200px; vertical-align: middle; color: #8c827e;  text-align: left; font-size: 15px; font-weight: normal;}
 .jt-modify-content-table td{ width: 500px; vertical-align: middle;}
 .jt-modify-content-table tfoot td{text-align: center;}
-.jt-change-password-btn{width: 120px; font-size: 15px;}
+.jt-change-user-btn{width: 120px; font-size: 15px;}
 
 .jt-modify-content-input { width: 220px; padding: 2px 3px; border: 1px solid #ad9c9c; height: 25px;
  	-webkit-border-radius: 5px 5px;

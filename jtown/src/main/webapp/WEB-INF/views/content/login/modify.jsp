@@ -14,46 +14,80 @@
 			<a href="<c:url value='/login/disactive'/>">계정삭제</a>
 		</sec:authorize>
 		
-		<c:url var="findPassword" value="/login/findPassword.jt"/>
 		<c:url var="modifyUrl" value="/login/modify.jt"/>
 		<form:form commandName="jtownUser" method="post" action="${modifyUrl }" htmlEscape="true">
 			<table class="jt-modify-content-table">
 				<tfoot>
 					<tr>
 						<td colspan="2">
-							<input type="button" value="비밀번호 변경" class="jt-change-password-btn jt-btn-orange" />	
+							<input type="button" value="저장" class="jt-change-user-btn jt-btn-orange" />	
 						</td>
 					</tr>
 				</tfoot>
 				<tbody>
 					<sec:authorize access="principal.groupName eq 'Customer'">
 					<tr>
-						<sec:authentication property="principal.username" var="username"/>
 						<th>이메일</th>
-						<td><form:input path="username" value="${username }" cssClass="jt-modify-content-input"/>&nbsp;<a href="<c:url value="/login/modifyEmailAddress"/>">이메일 변경</a></td>
+						<td>
+							<div class="jt-join-user-vaild-wrap" id="confirmEmail">
+								<span class="jt-form-invalid">정확한&nbsp;이메일&nbsp;주소를&nbsp;입력해&nbsp;주시기&nbsp;바랍니다.(ex&nbsp;abcde@abc.com)</span>
+							</div>
+							<form:input path="username" data-type="create" cssClass="jt-modify-content-input" cssErrorClass="jt-modify-content-input-error"/>
+							<div class="jt-modify-content-error">	
+								<form:errors path="username" cssClass="commonError"/>
+							</div>	
+						</td>
 					</tr>
 					<tr>
-						<sec:authentication property="principal.pn" var="pn"/>
-						<form:hidden path="pn" value="${pn }"/>
-						<sec:authentication property="principal.name" var="name"/>
 						<th>이름</th>
 						<td>
-							<form:input path="name" value="${name }" cssClass="jt-modify-content-input" maxlength="20" cssErrorClass="jt-modify-content-input-error"/>
-							<input type="button" class="jt-nameChange-btn jt-btn-orange" value="이름 변경"/>
+							<div class="jt-join-user-vaild-wrap" id="nameLength">
+								<span class="jt-form-invalid">이름은&nbsp;20글자&nbsp;이하&nbsp;이어야&nbsp;합니다.</span>
+							</div>
+							<form:input path="name" data-form="join" cssClass="jt-modify-content-input" maxlength="20" cssErrorClass="jt-modify-content-input-error"/>
 							<div class="jt-modify-content-error">	
 								<form:errors path="name" cssClass="commonError"/>
 							</div>
+						</td>
+					</tr>
+					<tr>
+						<th>성별</th>
+						<td>
+							<form:select path="sex" cssClass="jt-join-user-select" cssErrorClass="jt-join-user-select-error">
+								<form:option value="true">남자</form:option>
+								<form:option value="false">여자</form:option>
+							</form:select>
+						</td>
+					</tr>
+					<tr>
+						<th>생년월일</th>
+						<td>
+							<form:select path="year" cssClass="jt-join-user-select jt-join-user-select-year" cssErrorClass="jt-join-user-select-error jt-join-user-select-year">
+								<c:forEach begin="0" end="100" varStatus="loop">
+									<form:option value="${jtownUser.nowYear - loop.index }">${jtownUser.nowYear - loop.index }</form:option>	
+								</c:forEach>
+							</form:select>
+							<form:select path="month" cssClass="jt-join-user-select jt-join-user-select-month" cssErrorClass="jt-join-user-select-error jt-join-user-select-month">
+								<c:forEach begin="1" end="12" varStatus="loop">
+									<form:option value="${loop.index }">${loop.index }</form:option>
+								</c:forEach>
+							</form:select>
+							<form:select path="day" cssClass="jt-join-user-select jt-join-user-select-day" cssErrorClass="jt-join-user-select-error jt-join-user-select-day">
+								<c:forEach begin="1" end="31" varStatus="loop">
+									<form:option value="${loop.index }">${loop.index }</form:option>
+								</c:forEach>
+							</form:select>
 						</td>
 					</tr>
 					</sec:authorize>
 					<tr>
 						<th>현재&nbsp;비밀번호</th>
 						<td>
-							<form:password path="password" cssClass="jt-modify-content-input" cssErrorClass="jt-modify-content-input-error"/>
+							<c:url value="/login/findPassword" var="findPasswordUrl"/>
+							<form:password path="password" cssClass="jt-modify-content-input" cssErrorClass="jt-modify-content-input-error"/>&nbsp;<a href="${findPasswordUrl }">비밀번호를 모르시나요?</a>
 							<div class="jt-modify-content-error">	
 								<form:errors path="password" cssClass="commonError"/>
 							</div>
-							새로운 비밀번호를 현재 이메일로 전송됩니다.<input type="button" value="보내기" class="jt-findPassword-btn jt-btn-orange"/>
 						</td>
 					</tr>
 					<tr>
@@ -81,6 +115,9 @@
 			</table>
 		</form:form>
 		
+		<br/>
+		
+		<%-- Twitter, Facebook 동기화 --%>
 		<sec:authorize access="principal.groupName eq 'Customer'">
 		<div style="float: left; width: 500px;">
 		

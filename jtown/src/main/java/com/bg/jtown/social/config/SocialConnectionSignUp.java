@@ -42,8 +42,8 @@ public final class SocialConnectionSignUp implements ConnectionSignUp {
 
 			String date = fp.getBirthday();
 			String year = date.substring(6, 10);
-			String month = date.substring(3, 5);
-			String day = date.substring(0, 2);
+			String day = date.substring(3, 5);
+			String month = date.substring(0, 2);
 
 			jtownUser.setYear(Integer.parseInt(year));
 			jtownUser.setMonth(Integer.parseInt(month.replace("0", "")));

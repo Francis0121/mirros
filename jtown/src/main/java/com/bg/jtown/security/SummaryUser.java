@@ -19,6 +19,11 @@ public class SummaryUser {
 	private Boolean isLogin;
 
 	/**
+	 * 사용자 이름
+	 */
+	private String name;
+
+	/**
 	 * 사용자 고유 번호
 	 */
 	private Integer pn;
@@ -37,11 +42,12 @@ public class SummaryUser {
 		super();
 	}
 
-	public SummaryUser(String authoirty, Boolean isLogin, Integer pn,
-			String remoteIp, String username) {
+	public SummaryUser(String authoirty, Boolean isLogin, String name,
+			Integer pn, String remoteIp, String username) {
 		super();
 		this.authoirty = authoirty;
 		this.isLogin = isLogin;
+		this.name = name;
 		this.pn = pn;
 		this.remoteIp = remoteIp;
 		this.username = username;
@@ -71,6 +77,10 @@ public class SummaryUser {
 		return isLogin;
 	}
 
+	public String getName() {
+		return name;
+	}
+
 	public Integer getPn() {
 		return pn;
 	}
@@ -91,6 +101,10 @@ public class SummaryUser {
 		this.isLogin = isLogin;
 	}
 
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	public void setPn(Integer pn) {
 		this.pn = pn;
 	}
@@ -107,7 +121,7 @@ public class SummaryUser {
 	public String toString() {
 		return "SummaryUser [authoirty=" + authoirty + ", isLogin=" + isLogin
 				+ ", pn=" + pn + ", remoteIp=" + remoteIp + ", username="
-				+ username + "]";
+				+ username + ", name=" + name + "]";
 	}
 
 }
