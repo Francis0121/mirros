@@ -57,10 +57,10 @@ public class HomeController {
 	public String showHome(Model model, HttpSession session,
 			@ModelAttribute HomeFilter homeFilter, SummaryUser summaryUser) {
 		getHomeModel(model, session, homeFilter, summaryUser);
-		
+
 		logger.debug(facebook.toString());
 		logger.debug(twitter.toString());
-		
+
 		return "home";
 	}
 
