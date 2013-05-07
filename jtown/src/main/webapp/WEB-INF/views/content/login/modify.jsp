@@ -13,7 +13,7 @@
 			</li>
 			<sec:authorize access="principal.groupName eq 'Customer'">
 				<li class="jt-modify-content-disactive-btn">
-					<a href="<c:url value='/login/disactive'/>">계정삭제</a>
+					<a href="<c:url value='/login/disactive'/>" class="jt-btn-silver">계정삭제</a>
 				</li>
 			</sec:authorize>
 		</ul>
@@ -82,7 +82,7 @@
 						<th>현재&nbsp;비밀번호</th>
 						<td>
 							<c:url value="/login/findPassword" var="findPasswordUrl"/>
-							<form:password path="password" cssClass="jt-modify-content-input" cssErrorClass="jt-modify-content-input-error"/>&nbsp;<a href="${findPasswordUrl }">비밀번호를 모르시나요?</a>
+							<form:password path="password" cssClass="jt-modify-content-input" cssErrorClass="jt-modify-content-input-error"/>&nbsp;<a href="${findPasswordUrl }" class="jt-common-a-black">비밀번호를 모르시나요?</a>
 							<div class="jt-modify-content-error">	
 								<form:errors path="password" cssClass="commonError"/>
 							</div>
@@ -145,18 +145,17 @@
 						</li>
 					</c:if>
 					<c:if test="${empty connections}">
-						<li>
+						<li style="width: 550px;">
 						<c:if test="${providerId eq 'twitter' }">
 							<form action="<c:url value="/connect/twitter" />" method="POST">
-								<p><button type="submit"><img src="<c:url value="/resources/images/connect-with-twitter.png" />"/></button></p>
+								<button type="submit" class="jt-connect-twitter"></button>
 								<label for="postTweet"><input id="postTweet" type="checkbox" name="postTweet" checked="checked"/> 친구들에게 Mirros 정보를 Follow 해보세요.</label>
 							</form>
 						</c:if>
-						
 						<c:if test="${providerId eq 'facebook' }">
 							<form action="<c:url value="/connect/facebook" />" method="POST">
 								<input type="hidden" name="scope" value="publish_stream,offline_access,email,user_birthday,user_likes" />
-								<p><button type="submit"><img src="<c:url value="/resources/images/connect_light_medium_short.gif" />"/></button></p>
+								<button type="submit" class="jt-connect-facebook"></button>
 								<label for="postToWall"><input id="postToWall" type="checkbox" name="postToWall" checked="checked"/> 담벼락에 Mirros 정보를 게시해보세요.</label>
 							</form>
 						</c:if>

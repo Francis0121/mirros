@@ -160,6 +160,7 @@
 .jt-modify-content-header li {float: left; width: 50%;}
 .jt-modify-content-header h2{ font-size: 20px; color: #524d4d; width: 100%; float: left;}
 .jt-modify-content-disactive-btn{font-size: 12px; text-align: right;}
+.jt-modify-content-disactive-btn a{padding: 5px 10px;}
 
 .jt-modify-content-table{float: left; margin-top: 30px;}
 .jt-modify-content-table { border-collapse: collapse; width: 700px; font-size: 12px;}
@@ -183,7 +184,7 @@
 .jt-modify-content-input-error:FOCUS{ border: 1px solid #ff0000;  }
 .jt-modify-content-error{font-size: 11px; margin: 5px 0 0 5px; line-height: 1.2; color: #ff3c00;}
 
-.jt-modfiy-connect-social{float: left; width: 600px; font-size: 14px; color: #8c827e;}
+.jt-modfiy-connect-social{float: left; width: 600px; font-size: 12px; color: #8c827e;}
 .jt-modfiy-connect-social>li{ width: 100%; float: left; }
 .jt-modify-connect-social-info{ float: left; }
 .jt-modify-connect-social-info>li{float: left; padding: 8px 0; }
@@ -194,3 +195,19 @@
 .jt-modify-connect-social-info>li:nth-child(3) button{padding: 5px 10px;}
 
 .jt-modfiy-submit-wrap{float: left; width: 700px; text-align: center;}
+
+.jt-connect-twitter{ background: url("../images/connect-with-twitter.png") no-repeat; width: 146px; height: 22px; border: 0;
+	-webkit-border-radius: 2px 2px;
+    -moz-border-radius: 2px 2px;
+    border-radius: 2px 2px;
+    cursor: pointer;
+}
+.jt-connect-twitter:ACTIVE{background-position: 0px 1px; width: 146px; height: 23px;}
+
+.jt-connect-facebook{ background: url("../images/connect_light_medium_short.gif") no-repeat; width: 89px; height: 21px; border: 0;
+	-webkit-border-radius: 2px 2px;
+    -moz-border-radius: 2px 2px;
+    border-radius: 2px 2px;
+    cursor: pointer;
+}
+.jt-connect-facebook:ACTIVE{background-position: 0px 1px; width: 89px; height: 22px;}

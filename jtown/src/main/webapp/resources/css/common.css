@@ -12,6 +12,9 @@
 .jt-common-a-gray:HOVER{ color: #000; }
 .jt-common-a-gray:ACTIVE{ color: #000; }
 
+.jt-common-a-black, .jt-common-a-black:VISITED{color: #000;}
+.jt-common-a-black:HOVER{color: #000; text-decoration: underline;}
+
 .jt-btn-underArrow{ font-family: dotum, gullim; font-size: 10px; }
 .btnImage{ background: url("../images/jt-btn-image.png") no-repeat; background-position: 0 0; float: left; width: 16px; height: 12px;}
 .btnText{float: left; padding: 1px 0 0 2px;}
