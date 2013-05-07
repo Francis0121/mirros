@@ -30,7 +30,7 @@ import com.bg.jtown.security.CustomJdbcUserDetailManager;
 import com.bg.jtown.security.JtownUser;
 
 @Configuration
-@PropertySource("classpath:com/bg/jtown/social/SocialSetting.properties")
+@PropertySource("classpath:/com/bg/jtown/properties/SocialSetting.properties")
 public class SocialConfig {
 
 	@Inject

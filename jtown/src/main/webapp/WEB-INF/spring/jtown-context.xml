@@ -26,8 +26,8 @@
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="locations">
 			<list>
-				<value>classpath:/com/bg/jtown/orm/DBSetting.properties</value>
-				<value>classpath:/com/bg/jtown/redis/RedisSetting.properties</value>
+				<value>classpath:/com/bg/jtown/properties/DBSetting.properties</value>
+				<value>classpath:/com/bg/jtown/properties/RedisSetting.properties</value>
 			</list>
 		</property>
 	</bean>
@@ -81,8 +81,8 @@
 		class="org.springframework.context.support.ResourceBundleMessageSource">
 		<property name="basenames">
 			<list>
-				<value>/com/bg/jtown/message/messages</value>
-				<value>/com/bg/jtown/message/messages_login</value>
+				<value>/com/bg/jtown/properties/message/messages</value>
+				<value>/com/bg/jtown/properties/message/messages_login</value>
 			</list>
 		</property>
 	</bean>
@@ -94,7 +94,7 @@
 	<bean id="jamesProperty"
 		class="org.springframework.beans.factory.config.PropertiesFactoryBean">
 		<property name="location">
-			<value>classpath:/com/bg/jtown/security/email.properties</value>
+			<value>classpath:/com/bg/jtown/properties/Email.properties</value>
 		</property>
 	</bean>
 
