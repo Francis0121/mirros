@@ -26,25 +26,16 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.util.StringUtils;
 import org.springframework.web.context.request.WebRequest;
 
+
 /**
- * <pre>
- * Facebook 연동시 담벼락에 게시글을 남기는 Interceptor로
- * <b>URL = http://${host}/connect/facebook</b> 시 담벼락에 글을 남긴다. 
- * &lt;input type="checkbox" id="postToWall"/&gt; 이 체크 되있을 경우 실행된다.
- * 
- * ! Facebook 로그인과는 전혀 관계없는 Interceptor
- * 
- * 무조건 하게 할 때에는 form 전송시 checkbox 값을 항생 check되도록 함
- * </pre>
- * 
  * @author Francis
  *
  */
-public class PostToWallAfterConnectInterceptor implements
+public class PostToWallAfterSignInInterceptor implements
 		ConnectInterceptor<Facebook> {
 	
 	private static final Logger logger = LoggerFactory
-			.getLogger(PostToWallAfterConnectInterceptor.class);
+			.getLogger(PostToWallAfterSignInInterceptor.class);
 
 	public void preConnect(ConnectionFactory<Facebook> connectionFactory,
 			MultiValueMap<String, String> parameters, WebRequest request) {
@@ -57,7 +48,7 @@ public class PostToWallAfterConnectInterceptor implements
 		if (request.getAttribute(POST_TO_WALL_ATTRIBUTE, WebRequest.SCOPE_SESSION) != null) {
 			try {
 				//TODO updateStatus Facebook 글귀
-				connection.updateStatus("I've connected with the Mirros!");
+				connection.updateStatus("I've signin with the Mirros!");
 			} catch (ApiException e) {
 				logger.debug("PostConnect Catch");
 				// Do nothing: No need to break down if the post-connect post

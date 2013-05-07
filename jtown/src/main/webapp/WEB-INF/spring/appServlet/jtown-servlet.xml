@@ -15,7 +15,7 @@
   		http://www.springframework.org/schema/aop/spring-aop-3.1.xsd">
 
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
-	<context:component-scan base-package="com.bg.jtown" use-default-filters="false">
+	<context:component-scan base-package="com.bg.jtown.controller" use-default-filters="false">
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
 	</context:component-scan>
 	
@@ -58,11 +58,17 @@
 		</property>
 	</bean>
 	
-	<bean id="prodierSignInSocial" class="org.springframework.social.connect.web.ProviderSignInController">
+	<bean id="prodierSignInSocial" class="com.bg.jtown.social.signin.SocialProviderSignInController">
 		<constructor-arg name="usersConnectionRepository" ref="usersConnectionRepository"/>
 		<constructor-arg name="connectionFactoryLocator" ref="connectionFactoryLocator"/>
 		<constructor-arg name="signInAdapter" ref="socialSignInAdapter"/>
 		<property name="signUpUrl" value="/login/join"/>
+		<property name="interceptors">
+			<list>
+				<bean class="com.bg.jtown.social.facebook.PostToWallAfterSignInInterceptor" />
+				<bean class="com.bg.jtown.social.twitter.TweetAfterSignInInterceptor" />
+			</list>
+		</property>
 	</bean>
 
 </beans>
