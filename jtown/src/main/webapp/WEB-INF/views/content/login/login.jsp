@@ -20,7 +20,7 @@
 				<tfoot>
 					<tr>
 						<th>
-							<input id="_spring_security_remember_me" name="_spring_security_remember_me" type="checkbox" value="true"/>	
+							<input id="_spring_security_remember_me" name="_spring_security_remember_me" type="checkbox" value="true" checked="checked"/>	
 							<label for="_spring_security_remember_me">자동 로그인</label>
 						</th>
 						<c:url var="findPasswordUrl" value="/login/findPassword"/>
