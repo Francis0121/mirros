@@ -173,7 +173,7 @@
 	</update>
 	
 	<resultMap type="JtownUser" id="getCustomerListMap" extends="usersMap">
-		<result column="join_date" property="joinDate" />
+		<result column="salt" property="salt" />
 	</resultMap>
 	
 	<select id="selectCustomerCount" parameterType="com.bg.jtown.business.search.UserFilter" resultType="java.lang.Integer">
@@ -198,7 +198,7 @@
 	<select id="selectCustomerList" parameterType="com.bg.jtown.business.search.UserFilter" resultMap="getCustomerListMap">
 		<include refid="paginationBefore"/>
 			SELECT
-				u.pn, u.id, u.name, u.enable, u.salt AS join_date
+				u.pn, u.id, u.name, u.enable, u.salt
 			FROM
 				user_customer uc,
 				users u 

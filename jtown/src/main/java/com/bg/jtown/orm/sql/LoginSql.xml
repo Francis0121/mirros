@@ -15,7 +15,6 @@
 		<result column="year" property="year"/>
 		<result column="month" property="month"/>
 		<result column="day" property="day"/>
-		<result column="join_date" property="joinDate"/>
 	</resultMap>
 	
 	<select id="selectCustomer" parameterType="Integer" resultMap="jtown-customer-map">
@@ -50,9 +49,9 @@
 	<insert id="insertUserCustomer" parameterType="JtownUser">
 		INSERT INTO
 			user_customer
-			( pn, sex, year, month, day, join_date )
+			( pn, sex, year, month, day )
 		VALUES
-			( #{pn}, #{sex}, #{year}, #{month}, #{day}, SYSDATE() )			
+			( #{pn}, #{sex}, #{year}, #{month}, #{day} )			
 	</insert>
 	
 	<insert id="insertUserSeller" parameterType="JtownUser">

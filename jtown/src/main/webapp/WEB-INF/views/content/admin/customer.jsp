@@ -100,7 +100,7 @@ function goToPreviousPages() {
 				<td class="jt-admin-customer-table-customerId"><c:out value="${customer.username }"/></td>
 				<td><c:out value="${customer.name }"/></td>
 				<td><c:out value="${interestMap[customerPn].interestSectionNameList }"/></td>
-				<td><c:out value="${customer.joinDate }"/></td>
+				<td><c:out value="${customer.salt }"/></td>
 				<td>
 					<select class="jt-admin-customer-enable">
 						<option value="1" ${customer.enabled eq true ? 'selected=selected' : ''}>정상 사용자</option>
