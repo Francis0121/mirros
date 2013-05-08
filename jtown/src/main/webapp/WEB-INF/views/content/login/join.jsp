@@ -88,7 +88,9 @@
 			<c:if test="${social eq 'twitter' }">
 			<tr>
 				<th>&nbsp;</th>
-				<td><form:checkbox path="followSocial" checked="checked"/>&nbsp;<form:label path="followSocial">Follow recommended firends</form:label></td>
+				<td>
+					<input type="checkbox" checked="checked" id="followSocial" name="followSocial"/><label for="followSocial">Follow recommended firends</label>
+				</td>
 			</tr>
 			</c:if>
 			<tr>

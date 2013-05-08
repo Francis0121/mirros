@@ -100,11 +100,11 @@ public class CustomJdbcUserDetailManager extends JdbcUserDetailsManager {
 		}
 
 		return new JtownUser(userFromUserQuery.getPn(), returnUserid,
-				userFromUserQuery.getPassword(), userFromUserQuery.isEnabled(),
-				true, true, true, combinedAuthorities,
+				userFromUserQuery.getPassword(),
 				((JtownUser) userFromUserQuery).getSalt(),
-				userFromUserQuery.getGroupName(), userFromUserQuery.getName(),
-				userFromUserQuery.getConfirmEmail());
+				userFromUserQuery.getName(), userFromUserQuery.getGroupName(),
+				userFromUserQuery.getConfirmEmail(),
+				userFromUserQuery.isEnabled(), combinedAuthorities);
 	}
 
 	@SuppressWarnings("deprecation")
@@ -163,17 +163,16 @@ public class CustomJdbcUserDetailManager extends JdbcUserDetailsManager {
 									throws SQLException {
 								String id = rs.getString(1);
 								String password = rs.getString(2);
-								boolean enable = rs.getBoolean(3);
+								boolean enabled = rs.getBoolean(3);
 								String salt = rs.getString(4);
 								Integer pn = rs.getInt(5);
 								String groupName = rs.getString(6);
 								String name = rs.getString(7);
 								boolean confirmEmail = rs.getBoolean(8);
 
-								return new JtownUser(pn, id, password, enable,
-										true, true, true,
-										AuthorityUtils.NO_AUTHORITIES, salt,
-										groupName, name, confirmEmail);
+								return new JtownUser(pn, id, password, salt,
+										name, groupName, confirmEmail, enabled,
+										AuthorityUtils.NO_AUTHORITIES);
 							}
 						});
 	}

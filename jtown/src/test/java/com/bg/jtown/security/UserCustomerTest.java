@@ -2,7 +2,6 @@ package com.bg.jtown.security;
 
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
 
 import javax.annotation.Resource;
 
@@ -152,7 +151,7 @@ public class UserCustomerTest {
 	 */
 	private void confirmCustmoerAndLoadCustomer(JtownUser user,
 			JtownUser loadCustomer) {
-		assertThat(null, is(not(loadCustomer.getJoinDate())));
+
 	}
 
 }
