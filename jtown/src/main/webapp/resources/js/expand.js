@@ -281,21 +281,18 @@ jtown.expand.syncProductMove = function(){
 		
 		$('#jt-home-expand-shop-rigthArrow').unbind('click').bind('click', function(){
 			clearTimeout(s);	
-			
 			a = function(){
 				var first = $('#jt-seller-slide-content-dan>div:first'),
-					dan = $('#jt-seller-slide-content-dan');
+					dan = $('#jt-seller-slide-content-dan'),
 					parent = $('#jt-home-expand-shop'),
 					size = Number(parent.attr('data-size')),
 					np = Number(parent.attr('data-nowPosition'));
-			
 				dan.animate({left : '-170px'}, '500', 'swing', function(){
 						dan.css({left : '0px'});
 						first.remove();
 					}
 				);
 				dan.append(first.clone().wrapAll('<div/>').parent().html());
-				
 				parent.attr('data-nowPosition', (np - 1) <  1 ? size : (np - 1) );
 			};
 			
