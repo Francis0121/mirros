@@ -175,9 +175,9 @@ jtown.expand.makeInnerHtml = function(spn){
 		html += '</header>';
 		html += '<div class="jt-home-expand-shop jt-home-expand-click-shop" id="jt-home-expand-shop" data-size="'+productSize+'" data-nowPosition="'+productSize+'" data-spn="'+jtownUser.pn+'" >';
 		html += '	<div id="jt-home-expand-shop-notice">';
-		html += '<span class="jt-home-expand-shop-firstQuotationMark"></span>';
-		html += '<pre id="jt-seller-expand-shop-text" class="jt-home-expand-shop-text">'+ ( nullValueCheck(jtownUser.longNotice) ? "쇼핑몰의 홍보문구를 입력해주세요." : jtownUser.longNotice ) +'</pre>';
-		html += '<span class="jt-home-expand-shop-lastQuotationMark"></span>';				
+		html += '		<span class="jt-home-expand-shop-firstQuotationMark"></span>';
+		html += '		<pre id="jt-seller-expand-shop-text" class="jt-home-expand-shop-text">'+ ( nullValueCheck(jtownUser.longNotice) ? "쇼핑몰의 홍보문구를 입력해주세요." : jtownUser.longNotice ) +'</pre>';
+		html += '		<span class="jt-home-expand-shop-lastQuotationMark"></span>';				
 		html += '	</div>';
 		html += '	<ul class="jt-home-expand-shop-expandProducts">';
 		html += '		<li class="jt-home-expand-shop-leftArrow jt-home-expand-shop-arrow">';
