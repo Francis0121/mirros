@@ -17,6 +17,16 @@
 	.jt-header-nav-interestCategory{ top:76px; }
 	.jt-content{ padding-top: 128px; }
 </style>
+<!--[if IE 8]>
+<style type="text/css">
+	.jt-header-nav-interestCategory{ top:80px; }
+</style>
+<![endif]-->
+<!--[if IE 7]>
+<style type="text/css">
+	.jt-header-nav-interestCategory{ top:80px; }
+</style>
+<![endif]-->
 </sec:authorize>
 </head>
 <body>

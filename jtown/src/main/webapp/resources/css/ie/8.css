@@ -7,3 +7,6 @@
 .jt-one-header-title{ background: url("../../images/jt-one-header-bar.png");}
 
 #jt-login-form{border: 1px solid #cccccc;}
+
+.jt-header-nav-interestCategory{ top: 50px; }
+.jt-home-shop-content-fn>li>span{margin-right: 3px;}

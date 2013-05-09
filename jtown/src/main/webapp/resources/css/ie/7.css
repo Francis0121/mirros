@@ -22,3 +22,11 @@
 #jt-login-form{border: 1px solid #cccccc;}
 
 .jt-home-shop-new-event{position: absolute; width: 150px; padding-top: 3px; height: 0; margin-left: -147px;}
+
+.jt-header-nav-interestCategory{ top: 50px;}
+.jt-home-shop-event-new-image{ margin: -3px 3px 0 0;}
+
+#urlfolderBar{ width: 990px; height: 48px; padding-top: 0; }
+.jt-home-shop-content-fn>li>span{ margin-right: 3px;}
+.jt-home-expand-shop-content-love{ clear: left;  margin-left: 65px; margin-right:5px; }
+.jt-home-expand-shop-content-love-hover{ float: left;  }
