@@ -45,7 +45,7 @@
 	box-shadow : inset 0 1px #fff,0 1px 3px rgba(121,63,41,0.7);
 	-moz-box-shadow : inset 0 1px #fff,0 1px 3px rgba(121,63,41,0.7);
 	-webkit-box-shadow : inset 0 1px #fff,0 1px 3px rgba(121,63,41,0.7);
-	font-size: 12px; background: #fafafa;
+	font-size: 13px; background: #fafafa;
 }
 .jt-header-nav-interestCategory{ float: left; position: absolute; top: 46px; left: 50%; width: 400px; margin-left: -230px; height: 40px;}
 .jt-header-nav-interestCategory-help{float: left; position: absolute; top: 46px; left: 50%; width: 400px; margin-left: -230px; }
