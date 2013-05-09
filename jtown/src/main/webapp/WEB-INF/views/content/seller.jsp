@@ -65,10 +65,10 @@
 							<div class="jt-home-shop-new-event">
 							<c:choose>
 								<c:when test="${jtownUser.bannerDate ne null and jtownUser.bannerDate < 8 }">
-									<span id="new-<c:out value="${jtownUser.pn }"/>" class="jt-home-expand-shop-event-new-image"  style="display: block;">event</span>
+									<span id="new-<c:out value="${jtownUser.pn }"/>" class="jt-home-shop-event-new-image"  style="display: block;">event</span>
 								</c:when>
 								<c:otherwise>
-									<span id="new-<c:out value="${jtownUser.pn }"/>" class="jt-home-expand-shop-event-new-image" style="display: none;">event</span>
+									<span id="new-<c:out value="${jtownUser.pn }"/>" class="jt-home-shop-event-new-image" style="display: none;">event</span>
 								</c:otherwise>
 							</c:choose>
 							</div>
@@ -135,6 +135,30 @@
 		</section>
 		<section class="jt-seller-expand">
 			<div class="jt-home-expand-shop" id="jt-home-expand-shop" data-spn="${jtownUser.pn }" data-size="${productSize }" data-nowPosition="${productSize}">
+				<div id="jt-home-expand-shop-notice">
+					<div class="jt-seller-expand-notice-hover-tool" id="jt-seller-expand-notice-hover-tool">
+						<div>
+							<a href="#none" id="jt-seller-expand-notice-updateShow" class="jt-seller-expand-notice-updateShow jt-btn-white-small">
+								<span class="btnImage"></span>
+								<span class="btnText">수정</span>
+							</a>
+						</div>
+					</div>
+					<span class="jt-home-expand-shop-firstQuotationMark"></span>
+					<pre id="jt-seller-expand-shop-text" class="jt-home-expand-shop-text"><c:out value="${jtownUser.longNotice}"/></pre>
+					<textarea id="jt-seller-expand-textarea" class="jt-seller-expand-textarea" maxlength="200"><c:out value="${jtownUser.longNotice}"/></textarea>
+					<span class="jt-home-expand-shop-lastQuotationMark"></span>
+					<div class="jt-seller-expand-notice-update-tool" id="jt-seller-expand-notice-update-tool">
+						<a href="#none" id="jt-seller-expand-notice-update" class="jt-seller-expand-notice-update jt-btn-white-small">
+							<span class="btnImage"></span>
+							<span class="btnText">수정</span>
+						</a>
+						<a href="#none" id="jt-seller-expand-notice-cancle" class="jt-seller-expand-notice-cancle jt-btn-white-small">
+							<span class="btnImage"></span>
+							<span class="btnText">취소</span>
+						</a>
+					</div>
+				</div>
 				<ul class="jt-home-expand-shop-expandProducts">
 					<li class="jt-home-expand-shop-leftArrow jt-home-expand-shop-arrow">
 						<a href="#none" id="jt-home-expand-shop-leftArrow">&lt;</a>
@@ -155,21 +179,6 @@
 					</li>
 				</ul>
 				<div class="jt-home-expand-shop-products">
-					<div class="jt-seller-expand-product-insert-tool">
-						<div>
-							<a href="#none" class="jt-seller-expand-product-insert-btn jt-btn-white-small">
-								<span class="btnImage"></span>
-								<span class="btnText">상품입력</span>
-							</a>
-						</div>
-					</div>
-					<div class="jt-seller-expand-product-insert-wrap">
-						<input type="file" id="jt-product-file" name="jt-product-file"/><br/>
-						<a href="#none" class="jt-seller-expand-product-insert-cancle jt-btn-white-small">
-							<span class="btnImage"></span>
-							<span class="btnText">취소</span>
-						</a>
-					</div>
 					<ul id="jt-seller-slide-small">
 						<c:forEach items="${products }" var="product" varStatus="loop">
 							<li data-count="${productSize - loop.index }" data-ppn="${product.pn }">
@@ -184,6 +193,11 @@
 								<a href="#none" class="jt-product-list"><img alt="상품" src="${image }"/></a>
 							</li>
 						</c:forEach>
+						<c:if test="${productSize < 10}">
+						<li id="jt-seller-product-insert-wrap">
+							<input type="file" id="jt-product-file" name="jt-product-file"/>
+						</li>
+						</c:if>
 					</ul>
 					<form action="<c:url value="/seller/dp.jt"/>" method="post" id="product" name="product">
 						<input type="hidden" id="pn" name="pn" value="pn"/>

@@ -38,6 +38,8 @@ public interface SellerService {
 
 	void updateSellerNotice(JtownUser jtownUser);
 
+	void updateSellerLongNotice(JtownUser jtownUser);
+
 	// ~ SellerEvent
 
 	Map<String, Event> selectSellerEvent(Integer userPn);
@@ -79,5 +81,6 @@ public interface SellerService {
 	// ~ LoveCount
 
 	Integer selectLoveCount(Integer properNumber);
+
 
 }

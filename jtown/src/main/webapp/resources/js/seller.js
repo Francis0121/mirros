@@ -6,7 +6,7 @@ if (typeof jtown.seller == 'undefined') {
 	jtown.seller = {};
 }
 
-$(document).ready(function() {
+$(function() {
 	jtown.seller.syncMainNotice();
 
 	jtown.seller.syncMainImage();
@@ -14,6 +14,8 @@ $(document).ready(function() {
 	jtown.seller.syncProductList();
 
 	jtown.seller.syncEvent();
+	
+	jtown.seller.syncExpandNotice();
 
 	$('#jt-event-second-image').uploadify({
 		'buttonText' : '사진 업로드',
@@ -55,7 +57,9 @@ $(document).ready(function() {
 	});
 	
 	$('#jt-product-file').uploadify({
-		'buttonText' : '사진 업로드',
+		'buttonClass' : 'uploadify-plus-insert-btn',
+		'buttonText' : '',
+		'buttonImage' : contextPath + 'resources/images/jt-plus-btn.png',
 		'fileTypeDesc' : 'Image Files',
         'fileTypeExts' : '*.gif; *.jpg; *.png',
 		'swf' : contextPath + 'resources/uploadify/uploadify.swf',
@@ -66,6 +70,55 @@ $(document).ready(function() {
 		}
 	});
 });
+
+jtown.seller.syncExpandNotice = function(){
+	$('#jt-home-expand-shop-notice').unbind('mouseover mouseout').bind('mouseover mouseout', function(event) {
+		var display = $('#jt-seller-expand-notice-update-tool').css('display');
+		if (display == 'none') {
+			if (event.type == 'mouseover') {
+				$('#jt-seller-expand-notice-hover-tool').show();
+			} else if (event.type == 'mouseout') {
+				$('#jt-seller-expand-notice-hover-tool').hide();
+			}
+		}
+	});
+
+	$('#jt-seller-expand-notice-updateShow').unbind('click').bind('click', function() {
+		$('#jt-seller-expand-notice-hover-tool').hide();
+		$('#jt-seller-expand-shop-text').hide();
+		$('#jt-seller-expand-notice-update-tool').show();
+		$('#jt-seller-expand-textarea').show();
+	});
+
+	$('#jt-seller-expand-notice-update').unbind('click');
+	$('#jt-seller-expand-notice-update').bind('click', function() {
+		$('#jt-seller-expand-notice-update-tool').hide();
+		var url = contextPath + 'ajax/seller/changeLongNotice.jt',
+			longNotice =  $('#jt-seller-expand-textarea').val(),
+			json = { 'longNotice' : longNotice	};
+		
+		$.postJSON(url, json, function(){
+			return jQuery.ajax({
+				'success' : function(){
+					$('#jt-seller-expand-textarea').hide();
+					$('#jt-seller-expand-shop-text').html(longNotice).show();
+				},
+				'error' : function(){
+					$('#jt-seller-expand-textarea').hide();
+					$('#jt-seller-expand-shop-text').show();
+					jtown.dialog('오류발생');
+				}
+			});
+		});
+	});
+
+	$('#jt-seller-expand-notice-cancle').unbind('click');
+	$('#jt-seller-expand-notice-cancle').bind('click', function() {
+		$('#jt-seller-expand-notice-update-tool').hide();
+		$('#jt-seller-expand-textarea').hide().val($('#jt-seller-expand-shop-text').html());
+		$('#jt-seller-expand-shop-text').show();
+	});
+};
 
 jtown.seller.syncMainNotice = function() {
 	$('#jt-seller-main-footer').unbind('mouseover mouseout');
@@ -187,6 +240,9 @@ jtown.seller.productImage = function(file){
 		json = { 'imagePn' : file.imagePn};
 	
 	$.postJSON(url, json, function(product){
+		if(product.count >= 9){
+			$('#jt-seller-product-insert-wrap').hide();
+		}
 		if(!nullValueCheck(product.pn)){
 			var parent = $('#jt-home-expand-shop'),
 				size = Number(parent.attr('data-size')),
@@ -247,29 +303,6 @@ jtown.seller.syncProductList = function() {
 		var form = document.forms['product'];
 		form.pn.value = pn;
 		form.submit();
-	});
-
-	$('.jt-home-expand-shop-products').unbind('mouseover mouseout');
-	$('.jt-home-expand-shop-products').bind('mouseover mouseout', function(event) {
-		var display = $('.jt-seller-expand-product-insert-wrap').css('display');
-		if(display != 'block'){
-			if (event.type == 'mouseover') {
-				$(this).children('.jt-seller-expand-product-insert-tool').show();
-			} else if (event.type == 'mouseout') {
-				$(this).children('.jt-seller-expand-product-insert-tool').hide();
-			}
-		}
-	});
-	
-	$('.jt-seller-expand-product-insert-tool a').unbind('click');
-	$('.jt-seller-expand-product-insert-tool a').bind('click', function(){
-		$('.jt-seller-expand-product-insert-tool').hide();
-		$('.jt-seller-expand-product-insert-wrap').show();
-	});
-	
-	$('.jt-seller-expand-product-insert-cancle').unbind('click');
-	$('.jt-seller-expand-product-insert-cancle').bind('click', function(){
-		$('.jt-seller-expand-product-insert-wrap').hide();
 	});
 };
 

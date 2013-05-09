@@ -8,6 +8,7 @@
 		<result column="name" property="name"/>
 		<result column="shop_url" property="shopUrl"/>
 		<result column="notice" property="notice"/>
+		<result column="long_notice" property="longNotice"/>
 		<result column="love_count" property="loveCount"/>
 		<result column="view_count" property="viewCount"/>
 		<result column="comment_count" property="commentCount"/>
@@ -18,7 +19,7 @@
 
 	<select id="selectSellerInformation" parameterType="java.lang.Integer" resultMap="jtown-seller-map">
 		SELECT
-			us.pn, u.id, u.name, us.shop_url, us.notice, cvsp.view_count, clsp.love_count, ccsp.comment_count, bdl.banner_first, bdl.banner_second,
+			us.pn, u.id, u.name, us.shop_url, us.notice, us.long_notice, cvsp.view_count, clsp.love_count, ccsp.comment_count, bdl.banner_first, bdl.banner_second,
 			us.hot AS love_hot_count
 		FROM
 			user_seller us
@@ -110,6 +111,15 @@
 			user_seller
 		SET
 			notice = #{notice}
+		WHERE
+			pn = #{pn}
+	</update>
+	
+	<update id="updateSellerLongNotice" parameterType="com.bg.jtown.security.JtownUser">
+		UPDATE
+			user_seller
+		SET
+			long_notice = #{longNotice}
 		WHERE
 			pn = #{pn}
 	</update>

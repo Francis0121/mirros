@@ -27,6 +27,7 @@ public class JtownUser extends AbstractUser {
 
 	// ~ Seller
 	private String notice;
+	private String longNotice;
 	private String shopUrl;
 	private Integer loveCount;
 	private Integer loveHotCount;
@@ -143,6 +144,14 @@ public class JtownUser extends AbstractUser {
 
 	public void setNotice(String notice) {
 		this.notice = notice;
+	}
+
+	public String getLongNotice() {
+		return longNotice;
+	}
+
+	public void setLongNotice(String longNotice) {
+		this.longNotice = longNotice;
 	}
 
 	public String getShopUrl() {
@@ -264,6 +273,7 @@ public class JtownUser extends AbstractUser {
 		sb.append(" ] ");	
 		sb.append("Seller : [ ");
 		sb.append("Notice: ").append(this.notice).append("; ");
+		sb.append("LongNotice : ").append(this.longNotice).append("; ");
 		sb.append("ShopUrl: ").append(this.shopUrl).append("; ");
 		sb.append("LoveCount: ").append(this.loveCount).append("; ");
 		sb.append("LoveHotCount : ").append(this.loveHotCount).append(";");

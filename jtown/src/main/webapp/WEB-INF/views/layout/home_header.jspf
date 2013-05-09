@@ -14,7 +14,7 @@
 <sec:authorize access="hasRole('ROLE_USER') and !principal.confirmEmail">
 <style type="text/css">
 	.jt-header-banner{ top: 30px; }
-	.jt-header-nav-interestCategory{ top:89px; }
+	.jt-header-nav-interestCategory{ top:76px; }
 	.jt-content{ padding-top: 128px; }
 </style>
 </sec:authorize>

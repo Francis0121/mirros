@@ -33,10 +33,10 @@
 							<div class="jt-home-shop-new-event">
 							<c:choose>
 								<c:when test="${seller.bannerDate ne null and seller.bannerDate < 8  }">
-									<span id="new-<c:out value="${seller.pn }"/>" class="jt-home-expand-shop-event-new-image"  style="display: block;">event</span>
+									<span id="new-<c:out value="${seller.pn }"/>" class="jt-home-shop-event-new-image"  style="display: block;">event</span>
 								</c:when>
 								<c:otherwise>
-									<span id="new-<c:out value="${seller.pn }"/>" class="jt-home-expand-shop-event-new-image" style="display: none;">event</span>
+									<span id="new-<c:out value="${seller.pn }"/>" class="jt-home-shop-event-new-image" style="display: none;">event</span>
 								</c:otherwise>
 							</c:choose>
 							</div>

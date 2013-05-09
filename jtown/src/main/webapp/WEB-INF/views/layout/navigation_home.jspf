@@ -16,7 +16,7 @@
 					<a href="${search }" class="jt-header-nav-interestCategory-realPath">
 						<c:choose>
 							<c:when test="${homeFilter.sectionPn eq null or homeFilter.sectionPn eq 0}">
-								<c:out value="${interestCategory.name }"/>
+								<span><c:out value="${interestCategory.name }"/></span>
 							</c:when>
 							<c:otherwise>
 								<c:out value="${interestCategory.name }"/>
@@ -30,7 +30,7 @@
 					</a>
 				</c:when>
 				<c:otherwise>
-					<a href="${search }" class="jt-header-nav-interestCategory-normal"><c:out value="${interestCategory.name }"/></a>
+					<a href="${search }" class="jt-header-nav-interestCategory-normal"><span><c:out value="${interestCategory.name }"/></span></a>
 				</c:otherwise>
 			</c:choose>
 			<ul class="jt-header-nav-interest">

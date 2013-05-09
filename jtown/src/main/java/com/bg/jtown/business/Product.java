@@ -7,14 +7,9 @@ package com.bg.jtown.business;
 public class Product {
 
 	/**
-	 * 상품 등록 고유번호
+	 * 상품개
 	 */
-	private Integer pn;
-
-	/**
-	 * 판매자 고유번호
-	 */
-	private Integer sellerPn;
+	private Integer count;
 
 	/**
 	 * 이미지 고유번호
@@ -22,9 +17,19 @@ public class Product {
 	private Integer imagePn;
 
 	/**
+	 * 상품 등록 고유번호
+	 */
+	private Integer pn;
+
+	/**
 	 * 저장된이름
 	 */
 	private String saveName;
+
+	/**
+	 * 판매자 고유번호
+	 */
+	private Integer sellerPn;
 
 	public Product() {
 		super();
@@ -37,6 +42,10 @@ public class Product {
 		this.sellerPn = sellerPn;
 		this.imagePn = imagePn;
 		this.saveName = saveName;
+	}
+
+	public Integer getCount() {
+		return count;
 	}
 
 	public Integer getImagePn() {
@@ -53,6 +62,10 @@ public class Product {
 
 	public Integer getSellerPn() {
 		return sellerPn;
+	}
+
+	public void setCount(Integer count) {
+		this.count = count;
 	}
 
 	public void setImagePn(Integer imagePn) {
@@ -73,8 +86,9 @@ public class Product {
 
 	@Override
 	public String toString() {
-		return "Product [pn=" + pn + ", sellerPn=" + sellerPn + ", imagePn="
-				+ imagePn + ", saveName=" + saveName + "]";
+		return "Product [count=" + count + ", imagePn=" + imagePn + ", pn="
+				+ pn + ", saveName=" + saveName + ", sellerPn=" + sellerPn
+				+ "]";
 	}
 
 }

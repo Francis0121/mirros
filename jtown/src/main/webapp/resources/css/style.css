@@ -47,21 +47,24 @@
 	-webkit-box-shadow : inset 0 1px #fff,0 1px 3px rgba(121,63,41,0.7);
 	font-size: 15px; background: #fafafa;
 }
-.jt-header-nav-interestCategory{ float: left; position: absolute; top: 59px; left: 50%; width: 600px; margin-left: -350px; }
-.jt-header-nav-interestCategory-help{float: left; position: absolute; top: 59px; left: 50%; width: 400px; margin-left: -230px; }
-.jt-header-nav-interestCategory-li{ float: left; width: 100px; text-align: center; }
-.jt-header-nav-interestCategory-realPath{ color: #ff6a00 !important;  font-weight: bold;}
-.jt-header-nav-interestCategory-normal{color: #ffae0d; font-weight: bold;}
+.jt-header-nav-interestCategory{ float: left; position: absolute; top: 46px; left: 50%; width: 600px; margin-left: -350px; height: 40px;}
+.jt-header-nav-interestCategory-help{float: left; position: absolute; top: 46px; left: 50%; width: 400px; margin-left: -230px; }
+.jt-header-nav-interestCategory-li{ float: left; width: 100px; text-align: center; line-height: 40px;}
+.jt-header-nav-interestCategory-realPath{ color: #ff6a00 !important;  font-weight: bold; height: 40px; display: block;  background: url("../images/jt-nav_active.png") repeat-x; z-index: 2;}
+.jt-header-nav-interestCategory-realPath>span{  width :98px; line-height: 40px; display: block; border-left: 1px solid #e5e5e5; border-right: 1px solid #e5e5e5; z-index: 1; height: 37px;}
+.jt-header-nav-interestCategory-normal{color: #ffae0d; font-weight: bold; height: 40px; display: block; line-height: 40px;}
 .jt-header-nav-interestCategory-normal:HOVER{ color: #ff6a00; }
 
 .jt-header-nav-interest{ display: none; border-top: 1px solid #cccaca;
 	box-shadow : 0 2px 4px rgba(34,25,25,0.5);
 	-moz-box-shadow : 0 2px 4px rgba(34,25,25,0.5);
 	-webkit-box-shadow : 0 2px 4px rgba(34,25,25,0.5);
-	width: 203px; float: left; margin-top: 12px; background: #fff;
+	width: 203px; float: left; background: #fff;
 	min-height: 30px;
 	padding: 1px 0 0 0;
 	background: #f7f7f7;
+	line-height: normal;
+	margin-top: 1px;
 }
 .jt-header-nav-interest-li{ float: left; width: 100px; height: 30px; text-align: left; }
 .jt-header-nav-interest-li:nth-child(2n-1){ margin: 0 1px 0 1px;}

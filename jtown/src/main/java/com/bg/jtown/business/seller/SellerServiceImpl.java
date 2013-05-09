@@ -140,6 +140,19 @@ public class SellerServiceImpl extends SqlSessionDaoSupport implements
 		}
 	}
 
+	
+	@Override
+	public void updateSellerLongNotice(JtownUser jtownUser) {
+		String longNotice = jtownUser.getLongNotice();
+		if (longNotice.length() < 250) {
+			getSqlSession()
+					.update("sellerMapper.updateSellerLongNotice", jtownUser);
+		} else {
+			logger.error("=================> Notice Over Flow Character 100");
+			logger.error(jtownUser.getLongNotice());
+		}
+	}
+	
 	// ~ SellerEvent
 
 	@Override
@@ -249,9 +262,11 @@ public class SellerServiceImpl extends SqlSessionDaoSupport implements
 		Integer sellerPn = product.getSellerPn();
 		Integer count = selectSellerProductCount(sellerPn);
 		if (count >= 10) {
+			product.setCount(count);
 			return;
 		}
 		insertProduct(product);
+		product.setCount(count);
 	}
 
 	@Override

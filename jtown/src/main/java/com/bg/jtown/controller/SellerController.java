@@ -100,6 +100,15 @@ public class SellerController {
 	}
 
 	@PreAuthorize("hasRole('ROLE_SELLER')")
+	@RequestMapping(value = "/ajax/seller/changeLongNotice.jt", method = RequestMethod.POST)
+	@ResponseBody
+	public void ajaxChangeLongNotice(@RequestBody JtownUser jtownUser,
+			SummaryUser summaryUser) {
+		jtownUser.setPn(summaryUser.getPn());
+		sellerService.updateSellerLongNotice(jtownUser);
+	}
+
+	@PreAuthorize("hasRole('ROLE_SELLER')")
 	@RequestMapping(value = "/ajax/seller/changeEvent.jt", method = RequestMethod.POST)
 	@ResponseBody
 	public void ajaxChangeEvent(@RequestBody Event event,

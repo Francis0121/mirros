@@ -97,6 +97,7 @@ jtown.header.showLoginForm = function(){
 	j_username.attr('id', '');
 	j_password.attr('id', '');
 	
+	$('#j_username').focus();
 	setTimeout('$(function() { $(\'#j_username, #j_password\').placeholder(); });', 0);
 };
 
@@ -176,7 +177,7 @@ jtown.home.html = function(data) {
 		html += '				<li>';
 		html += '					' + imageHtml;
 		html += '					<div class="jt-home-shop-new-event">';
-		html += ' 					<span id="new-' + spn + '" class="jt-home-expand-shop-event-new-image"  style="'+((seller.bannerDate != null && Number(seller.bannerDate) < 8) ? "": "display:none;") +'">event</span>';	
+		html += ' 					<span id="new-' + spn + '" class="jt-home-shop-event-new-image"  style="'+((seller.bannerDate != null && Number(seller.bannerDate) < 8) ? "": "display:none;") +'">event</span>';	
 		html += '					</div>';
 		html += '				</li>';
 		html += '			</ul>';

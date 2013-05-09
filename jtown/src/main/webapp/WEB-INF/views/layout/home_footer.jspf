@@ -53,11 +53,11 @@
 	</script>
 	
 	<c:if test="${one.jtownUsers ne null}">
-		<c:set var="topHeight" value="59px"/>
-		<c:set var="downHeight" value="14px"/>
+		<c:set var="topHeight" value="46px"/>
+		<c:set var="downHeight" value="1px"/>
 		<sec:authorize access="hasRole('ROLE_USER') and !principal.confirmEmail">
-			<c:set var="topHeight" value="89px"/>
-			<c:set var="downHeight" value="44px"/>
+			<c:set var="topHeight" value="76px"/>
+			<c:set var="downHeight" value="31px"/>
 		</sec:authorize>
 		<script type="text/javascript">
 		/* <![CDATA[ */ 
