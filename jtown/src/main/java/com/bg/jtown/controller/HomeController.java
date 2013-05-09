@@ -16,6 +16,7 @@ import org.springframework.social.twitter.api.Twitter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -28,6 +29,7 @@ import com.bg.jtown.business.Interest;
 import com.bg.jtown.business.comment.CommentService;
 import com.bg.jtown.business.search.CommentFilter;
 import com.bg.jtown.business.search.HomeFilter;
+import com.bg.jtown.business.seller.SellerService;
 import com.bg.jtown.security.Authority;
 import com.bg.jtown.security.JtownUser;
 import com.bg.jtown.security.SummaryUser;
@@ -50,6 +52,8 @@ public class HomeController {
 	private Facebook facebook;
 	@Resource
 	private Twitter twitter;
+	@Resource
+	private SellerService sellerService;
 
 	// ~ FORM
 
@@ -57,11 +61,20 @@ public class HomeController {
 	public String showHome(Model model, HttpSession session,
 			@ModelAttribute HomeFilter homeFilter, SummaryUser summaryUser) {
 		getHomeModel(model, session, homeFilter, summaryUser);
-
-		logger.debug(facebook.toString());
-		logger.debug(twitter.toString());
-
 		return "home";
+	}
+
+	@RequestMapping(value = "/mir/{sellerPn}", method = RequestMethod.GET)
+	public String showSellerPage(Model model, @PathVariable Integer sellerPn, HttpSession session, SummaryUser summaryUser) {
+		if (session.getAttribute("interestCategories") == null) {
+			session.setAttribute("interestCategories", homeService.selecInterestCategory());
+		}
+		if (session.getAttribute("interestMap") == null) {
+			session.setAttribute("interestMap", homeService.selectInterest(null));
+		}
+		model.addAllAttributes(sellerService.selectAllInformation(sellerPn, summaryUser.getPn()));
+		
+		return "mir";
 	}
 
 	@RequestMapping(value = "/cpn/{categoryPn}/spn/{sectionPn}", method = RequestMethod.GET)

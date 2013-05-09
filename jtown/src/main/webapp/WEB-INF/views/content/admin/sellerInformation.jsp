@@ -313,6 +313,7 @@
 									</c:choose>
 								</li>
 							</c:forEach>
+							<c:if test="${fn:length(comments) > 0 }">
 							<c:set var="pagination" value="${commentFilter.pagination }"/>
 							<c:choose>
 								<c:when test="${fn:length(comments) > 0 }">
@@ -333,6 +334,7 @@
 									댓글 더 보기 <span id="comment-now-count"><c:out value="${pagination.numItemsPerPage * 0 }"/></span>/<c:out value="${pagination.numItems}"/>
 								</a>
 							</li>
+							</c:if>
 						</ul>
 						<div class="jt-home-expand-shop-comment-insert">
 							<input type="text" id="jt-comment-insert" readonly="readonly" placeholder="판매자 아이디로는 이용하실 수 없습니다."/>

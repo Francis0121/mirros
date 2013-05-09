@@ -97,7 +97,6 @@ jtown.header.showLoginForm = function(){
 	j_username.attr('id', '');
 	j_password.attr('id', '');
 	
-	$('#j_username').focus();
 	setTimeout('$(function() { $(\'#j_username, #j_password\').placeholder(); });', 0);
 };
 

@@ -15,12 +15,16 @@
 		<result column="banner_first" property="bannerFirst"/>
 		<result column="banner_second" property="bannerSecond"/>
 		<result column="love_hot_count" property="loveHotCount"/>
+		<result column="customer_pn" property="customerPn"/>
 	</resultMap>
 
-	<select id="selectSellerInformation" parameterType="java.lang.Integer" resultMap="jtown-seller-map">
+	<select id="selectSellerInformation" parameterType="java.util.HashMap" resultMap="jtown-seller-map">
 		SELECT
 			us.pn, u.id, u.name, us.shop_url, us.notice, us.long_notice, cvsp.view_count, clsp.love_count, ccsp.comment_count, bdl.banner_first, bdl.banner_second,
 			us.hot AS love_hot_count
+			<if test="customerPn != null">
+			, cl.customer_pn
+			</if>
 		FROM
 			user_seller us
 			LEFT OUTER JOIN users u
@@ -33,6 +37,10 @@
 			ON us.pn = cvsp.seller_pn
 			LEFT OUTER JOIN banner_diff_least bdl
 			ON us.pn = bdl.seller_pn
+			<if test="customerPn != null">
+			LEFT OUTER JOIN count_love cl
+			ON us.pn = cl.seller_pn AND cl.customer_pn = #{customerPn}
+			</if>
 		WHERE
 			us.pn = #{properNumber}
 	</select>

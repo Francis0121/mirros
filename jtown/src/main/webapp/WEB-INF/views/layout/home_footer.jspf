@@ -49,6 +49,8 @@
 		onResize();
 		
 		$(window).resize(onResize);
+		
+		$("#jt-comment-insert").placeholder();
 	/* ]]> */	
 	</script>
 	

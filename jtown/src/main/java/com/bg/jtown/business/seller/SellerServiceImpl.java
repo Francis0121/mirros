@@ -53,13 +53,57 @@ public class SellerServiceImpl extends SqlSessionDaoSupport implements
 
 		return selectMap;
 	}
+	
+	@Override
+	public Map<String, Object> selectAllInformation(Integer properNumber, Integer customerPn) {
+		CommentFilter commentFilter = new CommentFilter(properNumber);
+		Map<String, Object> selectMap = new HashMap<String, Object>();
+
+		selectMap.put("jtownUser", selectSellerInformation(properNumber, customerPn));
+		selectMap.put("mainImages", selectSellerImage(properNumber));
+		selectMap.putAll(selectSellerEvent(properNumber));
+		selectMap.put("interestes", selectSellerInterest(properNumber));
+		selectMap.put("products", selectSellerProduct(properNumber));
+		selectMap.put("comments",
+				commentService.selectCommentTop(commentFilter));
+		selectMap.put("commentFilter", commentFilter);
+
+		logger.debug(selectMap.toString());
+
+		return selectMap;
+	}
 
 	// ~ Seller Information
+	
+	@Override
+	public JtownUser selectSellerInformation(Integer properNumber,
+			Integer customerPn) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("properNumber", properNumber);
+		param.put("customerPn", customerPn);
+		JtownUser jtownUser = getSqlSession().selectOne(
+				"sellerMapper.selectSellerInformation", param);
+		if (jtownUser != null) {
+			if (jtownUser.getLoveCount() == null) {
+				jtownUser.setLoveCount(0);
+			}
+			if (jtownUser.getViewCount() == null) {
+				jtownUser.setViewCount(0);
+			}
+			if (jtownUser.getCommentCount() == null) {
+				jtownUser.setCommentCount(0);
+			}
+		}
+		return jtownUser;
+	}
 
 	@Override
 	public JtownUser selectSellerInformation(Integer properNumber) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("properNumber", properNumber);
+		param.put("customerPn", null);
 		JtownUser jtownUser = getSqlSession().selectOne(
-				"sellerMapper.selectSellerInformation", properNumber);
+				"sellerMapper.selectSellerInformation", param);
 		if (jtownUser != null) {
 			if (jtownUser.getLoveCount() == null) {
 				jtownUser.setLoveCount(0);

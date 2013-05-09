@@ -166,3 +166,28 @@ word-wrap: break-word; /* Internet Explorer 5.5+ */}
 .jt-home-expand-shop-update-wrap>input{ float: left; width: 540px; border: 1px solid #d1cdcd; margin: 5px 0; padding: 4px; }
 .jt-home-expand-shop-update-wrap>span{width: 540px; margin: 5px 5px; float: left;}
 .jt-home-expand-shop-tool-wrap{display: none; width: 560px; height:0px; position: absolute; text-align: right;}
+
+/**************************
+*	URL PAGE
+***************************/
+.jt-url-content-wrap{ width: 990px; margin: auto auto; }
+.jt-url-content { width: 984px; float: left; padding-bottom: 45px; margin-bottom: 30px;
+	border: 3px solid #f48409; background: #fff;
+ 	-webkit-border-radius: 5px 0 25px 25px;
+    -moz-border-radius: 5px 0 25px 25px;
+    border-radius: 5px 0 25px 25px;
+    box-shadow :  inset 4px 4px 10px -5px #000, 4px 4px 6px -4px #000;;
+	-moz-box-shadow : inset 4px 4px 10px -5px #000, 4px 4px 6px -4px #000;;
+	-webkit-box-shadow :  inset 4px 4px 10px -5px #000, 4px 4px 6px -4px #000;;
+}
+
+.jt-home-main-url{ float: left; width: 330px; margin: 15px 0 0 10px;}
+.jt-home-main-url-image{ float: left; width: 100%;}
+.jt-home-main-url-image>li{ float: left; width: 316px; padding: 0 7px;}
+.jt-home-main-url-image>li>img{ float: left; width: 100%;}
+
+#urlfolderBar{ width: 990px; height: 38px; padding-top: 0; }
+#urlfolderBar a, #urlfolderBar a:VISITED, #urlfolderBar a:HOVER{color: #fff}
+#urlfolderTabName{ width:150px; padding: 0 0 0 0; margin: 0 0 0 804px; font-weight: bold; text-align: center; font-size: 17px;}
+#urldigonalFolderImage{ background: url("../images/jt-home-icon.png") 0 -75px; width: 160px; height: 26px; display: block; color: #fff; margin-top: 10px; padding-top: 12px; padding-left: 26px;}
+

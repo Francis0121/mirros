@@ -16,9 +16,13 @@ public interface SellerService {
 
 	Map<String, Object> selectAllInformation(Integer properNumber);
 
+	Map<String, Object> selectAllInformation(Integer properNumber, Integer customerPn);
+	
 	// ~ Seller Information
 
 	JtownUser selectSellerInformation(Integer properNumber);
+	
+	JtownUser selectSellerInformation(Integer properNumber, Integer customerPn);
 
 	// ~ SellerImage
 
@@ -81,6 +85,7 @@ public interface SellerService {
 	// ~ LoveCount
 
 	Integer selectLoveCount(Integer properNumber);
+
 
 
 }
