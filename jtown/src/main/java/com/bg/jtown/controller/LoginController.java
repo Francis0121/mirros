@@ -90,9 +90,8 @@ public class LoginController {
 				|| authority.equals(Authority.ADMIN)) {
 			return "redirect:/noPermission";
 		}
-		String registerDate = loginService
-				.selectDeleteUser(summaryUser.getPn());
-		model.addAttribute("registerDate", registerDate);
+		model.addAllAttributes(loginService.selectDeleteUser(summaryUser
+				.getPn()));
 		return "login/disactive";
 	}
 
@@ -131,8 +130,7 @@ public class LoginController {
 		if (!result.hasErrors()) {
 			Integer pn = summaryUser.getPn();
 			loginService.insertDeleteUser(pn);
-			String registerDate = loginService.selectDeleteUser(pn);
-			model.addAttribute("registerDate", registerDate);
+			model.addAllAttributes(loginService.selectDeleteUser(pn));
 			return "login/disactive";
 		} else {
 			return "login/disactive";
@@ -176,8 +174,7 @@ public class LoginController {
 			loginService.deleteDeleteUser(pn);
 			return "login/disactive";
 		} else {
-			String registerDate = loginService.selectDeleteUser(pn);
-			model.addAttribute("registerDate", registerDate);
+			model.addAllAttributes(loginService.selectDeleteUser(pn));
 			return "login/disactive";
 		}
 	}
@@ -262,7 +259,8 @@ public class LoginController {
 		model.addAttribute("connectionMap", connections);
 
 		if (summaryUser.getEnumAuthority() == Authority.CUSTOMER) {
-			JtownUser jtownUser = loginService.selectCustomer(summaryUser.getPn());
+			JtownUser jtownUser = loginService.selectCustomer(summaryUser
+					.getPn());
 			jtownUser.setUsername(summaryUser.getUsername());
 			jtownUser.setName(summaryUser.getName());
 			model.addAttribute("jtownUser", jtownUser);
@@ -289,31 +287,40 @@ public class LoginController {
 				String newPassword = jtownUser.getNewPassword();
 
 				if (!VaildationUtil.checkNullAndBlank(newPassword)) {
-					if (VaildationUtil.confirmPassword(newPassword,confirmPassword)) {
-						errors.rejectValue("newPassword","join.password.isNotEqual");
-					} else if (!VaildationUtil.lengthCheck(newPassword, "password")) {
-						errors.rejectValue("newPassword", "join.password.notAllow");
+					if (VaildationUtil.confirmPassword(newPassword,
+							confirmPassword)) {
+						errors.rejectValue("newPassword",
+								"join.password.isNotEqual");
+					} else if (!VaildationUtil.lengthCheck(newPassword,
+							"password")) {
+						errors.rejectValue("newPassword",
+								"join.password.notAllow");
 					}
 				}
-				
+
 				String nowUsername = summaryUser.getUsername();
 				String changeUsername = jtownUser.getUsername();
-				
-				ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username","join.username.empty");
-				
+
+				ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username",
+						"join.username.empty");
+
 				if (!VaildationUtil.checkNullAndBlank(changeUsername)) {
-					if(!nowUsername.equals(changeUsername)){
-						if(!VaildationUtil.emailFormCheck(changeUsername)){
-							errors.rejectValue("username", "join.username.notAllow");
+					if (!nowUsername.equals(changeUsername)) {
+						if (!VaildationUtil.emailFormCheck(changeUsername)) {
+							errors.rejectValue("username",
+									"join.username.notAllow");
 						}
-						boolean exist = loginService.selectCheckExistEmail(changeUsername);
+						boolean exist = loginService
+								.selectCheckExistEmail(changeUsername);
 						if (exist) {
-							errors.rejectValue("username", "join.username.exist");
+							errors.rejectValue("username",
+									"join.username.exist");
 						}
 					}
 				}
-				
-				ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "join.nickName.empty");
+
+				ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name",
+						"join.nickName.empty");
 			}
 
 			@Override
@@ -330,22 +337,26 @@ public class LoginController {
 			String nowUsername = summaryUser.getUsername();
 			String changeUsername = jtownUser.getUsername();
 			if (!VaildationUtil.checkNullAndBlank(changeUsername)) {
-				if(!nowUsername.equals(changeUsername)){
-					loginService.updateUserCustomerEmail(jtownUser.getUsername(), summaryUser.getUsername());
+				if (!nowUsername.equals(changeUsername)) {
+					loginService.updateUserCustomerEmail(
+							jtownUser.getUsername(), summaryUser.getUsername());
 					emailSend.sendConfirmEmail(jtownUser.getUsername());
 				}
 			}
-			
+
 			String newPassword = jtownUser.getNewPassword();
 			if (!VaildationUtil.checkNullAndBlank(newPassword)) {
-				customJdbcUserDetailManager.changePassword(jtownUser.getPassword(), jtownUser.getNewPassword());
+				customJdbcUserDetailManager.changePassword(
+						jtownUser.getPassword(), jtownUser.getNewPassword());
 			}
-			
+
 			userAuthenticator.onApplicationEvent(jtownUser.getUsername());
 			return "redirect:modify/?result=2";
 		} else {
-			Map<String, List<Connection<?>>> connections = connectionRepository.findAllConnections();
-			model.addAttribute("providerIds",connectionFactoryLocator.registeredProviderIds());
+			Map<String, List<Connection<?>>> connections = connectionRepository
+					.findAllConnections();
+			model.addAttribute("providerIds",
+					connectionFactoryLocator.registeredProviderIds());
 			model.addAttribute("connectionMap", connections);
 			return "login/modify";
 		}

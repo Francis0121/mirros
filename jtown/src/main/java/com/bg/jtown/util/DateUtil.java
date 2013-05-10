@@ -1,8 +1,10 @@
 package com.bg.jtown.util;
 
 import java.text.ParseException;
+import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.TimeZone;
@@ -203,10 +205,10 @@ public class DateUtil {
 			cal.add(Calendar.MONTH, month);
 		if (day != 0)
 			cal.add(Calendar.DATE, day);
-		
+
 		return sdf.format(cal.getTime());
 	}
-	
+
 	/**
 	 * 입력된 일자 문자열을 확인하고 8자리로 리턴
 	 * 
@@ -297,5 +299,30 @@ public class DateUtil {
 	 */
 	public static String removeMinusChar(String str) {
 		return remove(str, '-');
+	}
+
+	public static int getDaysBetween(String startDate, String endDate) {
+		int daysBetween = 0;
+
+		try {
+			long interval = 0L;
+			if (startDate != null && startDate.length() == 8 && endDate != null
+					&& endDate.length() == 8) {
+				SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+				ParsePosition strPos = new ParsePosition(0);
+				ParsePosition endPos = new ParsePosition(0);
+
+				Date startDateOb = format.parse(startDate, strPos);
+				Date endDateOb = format.parse(endDate, endPos);
+
+				interval = endDateOb.getTime() - startDateOb.getTime();
+			}
+			daysBetween = new Long(interval / (1L * 24 * 60 * 60 * 1000))
+					.intValue();
+		} catch (Exception e) {
+
+		}
+
+		return daysBetween;
 	}
 }

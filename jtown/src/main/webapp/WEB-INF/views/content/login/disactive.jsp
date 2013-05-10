@@ -7,11 +7,14 @@
 <%@ include file="../../layout/none_header.jspf" %>
 <section class="jt-modify-content-wrap">
 	<section class="jt-modify-content">
-		계정삭제
+		<p>계정삭제를 하신 이 후 14일 이후에 계정은 완전히 삭제됩니다.</p>
 		<c:url value="/login/disactive.jt" var="disactiveUrl"/>
 		<c:choose>
 			<c:when test="${registerDate ne null }">
-				${registerDate }
+				계정삭제 취소<br/>
+				등록날짜 : ${registerDate } <br/>
+				삭제날짜 : ${deleteDate } ${between }남음
+				
 				<form:form commandName="jtownUser" action="${disactiveUrl }" htmlEscape="true" method="delete">
 					<form:label path="password">비밀번호</form:label>
 					<form:password path="password"/>
@@ -20,6 +23,7 @@
 				</form:form>
 			</c:when>
 			<c:otherwise>
+				계정삭제
 				<form:form commandName="jtownUser" action="${disactiveUrl }" htmlEscape="true">
 					<form:label path="password">비밀번호</form:label>
 					<form:password path="password"/>

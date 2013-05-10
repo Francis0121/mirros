@@ -7,6 +7,7 @@ import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.springframework.stereotype.Service;
 
 import com.bg.jtown.security.JtownUser;
+import com.bg.jtown.util.DateUtil;
 import com.bg.jtown.util.RandomUtil;
 
 /**
@@ -98,8 +99,21 @@ public class LoginServiceImpl extends SqlSessionDaoSupport implements
 	}
 
 	@Override
-	public String selectDeleteUser(Integer pn) {
-		return getSqlSession().selectOne("loginMapper.selectDeleteUser", pn);
+	public Map<String, Object> selectDeleteUser(Integer pn) {
+		String registerDate = getSqlSession().selectOne(
+				"loginMapper.selectDeleteUser", pn);
+		String deleteDate = DateUtil.addYearMonthDay(registerDate, 0, 0, 14);
+		String nowDate = DateUtil.getToday("YYYYMMDD");
+		int between = DateUtil.getDaysBetween(nowDate, deleteDate);
+
+		deleteDate = DateUtil.getDayString(deleteDate, "YYYY-MM-DD");
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("registerDate", registerDate);
+		map.put("deleteDate", deleteDate);
+		map.put("between", between);
+		map.put("nowDate", nowDate);
+		
+		return map;
 	}
 
 	@Override
