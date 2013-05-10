@@ -168,4 +168,14 @@ public class LoginServiceImpl extends SqlSessionDaoSupport implements
 	public void deleteEmailConfirm(Confirm confirm) {
 		getSqlSession().delete("loginMapper.deleteEmailConfirm", confirm);
 	}
+	
+	// ~ Social
+	
+	@Override
+	public String selectSocialProviderUserId(Integer properNumber, String providerId) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("properNumber", properNumber);
+		map.put("providerId", providerId);
+		return getSqlSession().selectOne("loginMapper.selectSocialProviderUserId", map);
+	}
 }

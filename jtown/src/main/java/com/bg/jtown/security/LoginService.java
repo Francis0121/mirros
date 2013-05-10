@@ -54,4 +54,8 @@ public interface LoginService {
 
 	void deleteEmailConfirm(Confirm confirm);
 
+	// Social
+	
+	String selectSocialProviderUserId(Integer properNumber, String providerId);
+
 }

@@ -169,4 +169,16 @@
 			id = #{id}
 	</delete>
 	
+	<!-- Social -->
+	<select id="selectSocialProviderUserId" parameterType="Integer" resultType="String">
+		SELECT
+			providerUserId
+		FROM
+			UserConnection
+		WHERE
+			userId = #{properNumber}
+		AND
+			providerId = #{providerId}
+	</select>
+	
 </mapper>

@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.social.facebook.api.Facebook;
+import org.springframework.social.facebook.api.FacebookLink;
 import org.springframework.social.twitter.api.Twitter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,6 +33,7 @@ import com.bg.jtown.business.search.HomeFilter;
 import com.bg.jtown.business.seller.SellerService;
 import com.bg.jtown.security.Authority;
 import com.bg.jtown.security.JtownUser;
+import com.bg.jtown.security.LoginService;
 import com.bg.jtown.security.SummaryUser;
 
 /**
@@ -54,6 +56,8 @@ public class HomeController {
 	private Twitter twitter;
 	@Resource
 	private SellerService sellerService;
+	@Resource
+	private LoginService loginService;
 
 	// ~ FORM
 
@@ -65,16 +69,21 @@ public class HomeController {
 	}
 
 	@RequestMapping(value = "/mir/{sellerPn}", method = RequestMethod.GET)
-	public String showSellerPage(Model model, @PathVariable Integer sellerPn, HttpSession session, SummaryUser summaryUser) {
+	public String showSellerPage(Model model, @PathVariable Integer sellerPn,
+			HttpSession session, SummaryUser summaryUser) {
 		if (session.getAttribute("interestCategories") == null) {
-			session.setAttribute("interestCategories", homeService.selecInterestCategory());
+			session.setAttribute("interestCategories",
+					homeService.selecInterestCategory());
 		}
 		if (session.getAttribute("interestMap") == null) {
-			session.setAttribute("interestMap", homeService.selectInterest(null));
+			session.setAttribute("interestMap",
+					homeService.selectInterest(null));
 		}
-		model.addAllAttributes(sellerService.selectAllInformation(sellerPn, summaryUser.getPn()));
-		model.addAttribute("intervalCount", sellerService.selectInterval7DayCount(sellerPn));
-		
+		model.addAllAttributes(sellerService.selectAllInformation(sellerPn,
+				summaryUser.getPn()));
+		model.addAttribute("intervalCount",
+				sellerService.selectInterval7DayCount(sellerPn));
+
 		return "mir";
 	}
 
@@ -212,6 +221,15 @@ public class HomeController {
 		if (summaryUser.getEnumAuthority().equals(Authority.CUSTOMER)) {
 			count.setCustomerPn(summaryUser.getPn());
 			homeService.insertLoveCount(count);
+			
+			String providerUserId = loginService.selectSocialProviderUserId(summaryUser.getPn(), "facebook");
+			if(providerUserId != null && !"".equals(providerUserId)){
+				if (count.getCrudType().equals("insert")) {
+					JtownUser jtownUser = sellerService.selectSellerInformation(count.getSellerPn());
+					FacebookLink link = new FacebookLink("https://www.mirros.net/mir/"+count.getSellerPn(), jtownUser.getName(), "", jtownUser.getLongNotice());
+					facebook.feedOperations().postLink(providerUserId, "@"+summaryUser.getName() +"님이 Secret Shop Mirros의 "+ jtownUser.getName()+"을 좋아합니다.", link);
+				}
+			}
 		} else if (summaryUser.getEnumAuthority().equals(Authority.NOT_LOGIN)) {
 			count.setMessage("1");
 		} else {
