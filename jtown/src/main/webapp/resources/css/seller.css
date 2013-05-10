@@ -97,9 +97,6 @@
 /******************
 Product Insert btn
 ********************/
-#jt-product-file{
-	width: 50px !important; height: 50px !important;
-}
 .uploadify-plus-insert-btn {
 	-moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
 	-webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;

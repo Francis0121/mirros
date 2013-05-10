@@ -58,8 +58,9 @@ $(function() {
 	
 	$('#jt-product-file').uploadify({
 		'buttonClass' : 'uploadify-plus-insert-btn',
-		'buttonText' : '',
-		'buttonImage' : contextPath + 'resources/images/jt-plus-btn.png',
+		'buttonText' : '<img src="'+ contextPath + '/resources/images/jt-plus-btn.png'+'"/>',
+		'height' : '50',
+		'width' : '50',
 		'fileTypeDesc' : 'Image Files',
         'fileTypeExts' : '*.gif; *.jpg; *.png',
 		'swf' : contextPath + 'resources/uploadify/uploadify.swf',
