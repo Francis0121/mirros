@@ -143,7 +143,9 @@
 	</form:form>
 	<footer class="jt-join-user-warning">
 		<ul>
-			<li>‘가입하기’를&nbsp;누르면&nbsp;<a href="#none">이용약관</a>&nbsp;및&nbsp;<a href="#none">개인정취급방침</a>에&nbsp;동의한&nbsp;것으로&nbsp;간주합니다.</li>
+			<c:url value="/individual" var="individualUrl"/>
+			<c:url value="/agreement" var="agreementUrl"/>
+			<li>‘가입하기’를&nbsp;누르면&nbsp;<a href="${agreementUrl }">이용약관</a>&nbsp;및&nbsp;<a href="${individualUrl }">개인정보취급방침</a>에&nbsp;동의한&nbsp;것으로&nbsp;간주합니다.</li>
 			<li>판매자&nbsp;회원가입은&nbsp;고객센터로&nbsp;문의주시기&nbsp;바랍니다.</li>
 		</ul>
 	</footer>
