@@ -29,7 +29,7 @@
 <![endif]-->
 </sec:authorize>
 </head>
-<body>
+<body style="background-color: #f6f4f5;">
 	<section class="jt-body">
 		<header class="jt-header">
 			<sec:authorize access="hasRole('ROLE_USER') and !principal.confirmEmail">
