@@ -102,6 +102,9 @@ public class LoginServiceImpl extends SqlSessionDaoSupport implements
 	public Map<String, Object> selectDeleteUser(Integer pn) {
 		String registerDate = getSqlSession().selectOne(
 				"loginMapper.selectDeleteUser", pn);
+		if(registerDate == null){
+			return null;
+		}
 		String deleteDate = DateUtil.addYearMonthDay(registerDate, 0, 0, 14);
 		String nowDate = DateUtil.getToday("YYYYMMDD");
 		int between = DateUtil.getDaysBetween(nowDate, deleteDate);

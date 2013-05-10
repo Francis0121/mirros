@@ -211,3 +211,37 @@
     cursor: pointer;
 }
 .jt-connect-facebook:ACTIVE{background-position: 0px 1px; width: 89px; height: 22px;}
+/***************************
+*	계정 삭제 페이지
+****************************/
+.jt-disactive-content { float:left;width: 864px; float: left; padding: 35px 0 45px 120px; min-height: 500px; }
+.jt-disactive-content>header{float:left; width: 660px;}
+.jt-disactive-content>header>h2{ float:left; font-size: 20px; color: #524d4d; width: 100%; float: left;}
+.jt-disactive-content>article{ float:left; margin: 15px 0; width: 660px; padding: 20px 20px 10px 20px; border: 1px solid #a4a4a4;  background: #fcfcfc;
+	-webkit-border-radius: 5px 5px;
+    -moz-border-radius: 5px 5px;
+    border-radius: 5px 5px;
+}
+.jt-disactive-content>article>p{float:left; font-size: 13px; line-height: 23px; margin-bottom: 10px;}
+.jt-disactive-content>footer{float: left; width: 660px; font-size: 12px;}
+.jt-disactive-content>footer label{color: #8c827e; font-size: 15px; margin-right: 8px; }
+.jt-disactive-content>footer>div{float: left; width: 660px; margin: 10px 0 0 0;}
+.jt-disactive-content>footer>ul{ float:left; margin: 10px 0 0 0;}
+.jt-disactive-content>footer>ul>li{ float: left; width: 150px; font-size: 13px;}
+
+.jt-disactive-input { width: 220px; padding: 2px 3px; border: 1px solid #ad9c9c; height: 25px;
+ 	-webkit-border-radius: 5px 5px;
+    -moz-border-radius: 5px 5px;
+    border-radius: 5px 5px;
+}
+.jt-disactive-input:FOCUS{	border: 1px solid #ff8a00; }
+.jt-disactive-input-error { width: 220px; padding: 2px 3px; border: 1px solid #ff8a00; height: 25px;
+ 	-webkit-border-radius: 5px 5px;
+    -moz-border-radius: 5px 5px;
+    border-radius: 5px 5px;
+}
+.jt-disactive-error:FOCUS{ border: 1px solid #ff0000;  }
+
+.jt-disactive-btn{padding: 5px 10px;}
+.jt-disactive-cancle-btn{padding: 5px 10px;}
+.jt-disactive-content-error{font-size: 11px; margin: 8px 0 0 80px; line-height: 1.2; color: #ff3c00;}
