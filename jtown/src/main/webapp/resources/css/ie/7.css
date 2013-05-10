@@ -28,5 +28,7 @@
 
 #urlfolderBar{ width: 990px; height: 48px; padding-top: 0; }
 .jt-home-shop-content-fn>li>span{ margin-right: 3px;}
-.jt-home-expand-shop-content-love{ clear: left;  margin-left: 65px; margin-right:5px; }
-.jt-home-expand-shop-content-love-hover{ float: left;  }
+.jt-home-expand-shop-content-love-wrap{ padding-top: 3px;}
+.jt-home-expand-shop-content-love{ margin: 12px 5px 0 65px; }
+.jt-home-expand-shop-content-love-hover{}
+
