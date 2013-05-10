@@ -250,7 +250,7 @@ jtown.naturalLanguage.autocomplete = function(){
 		select : function(event, ui){
 			var item = ui.item;
 			if(item.category =='SHOP'){				
-				jtown.expand.makeInnerHtml(item.pn);	
+				location.href = contextPath + 'mir/'+item.pn;
 			}else if(item.category =='CATEGORY'){
 				location.href = contextPath + 'cpn/'+item.categoryPn+'/spn/'+item.spn;
 			}
