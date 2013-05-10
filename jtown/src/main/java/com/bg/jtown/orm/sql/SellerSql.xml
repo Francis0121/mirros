@@ -45,6 +45,45 @@
 			us.pn = #{properNumber}
 	</select>
 	
+	<!-- 해결해야될 쿼리 -->
+	<resultMap type="com.bg.jtown.business.Json" id="interval-7day-map">
+		<result column="name" property="value"/>
+		<result column="count" property="key"/>
+	</resultMap>
+	
+	<select id="selectInterval7DayCount" parameterType="Integer" resultMap="interval-7day-map">
+		SELECT
+			'love' AS name,COUNT(seller_pn) AS count
+		FROM
+			count_love
+		WHERE
+			seller_pn = #{properNumber}
+		AND
+			input_date BETWEEN #{beforeDate} AND SYSDATE()
+		
+		UNION
+		
+		SELECT
+			'view' AS name, COUNT(seller_pn) AS count
+		FROM
+			view_ip_day
+		WHERE
+			seller_pn = #{properNumber}
+		AND
+			count_date BETWEEN #{beforeDate} AND SYSDATE()
+		
+		UNION
+		
+		SELECT
+			'comment' AS name, COUNT(seller_pn) AS count
+		FROM
+			user_customer_comment
+		WHERE
+			seller_pn = #{properNumber}
+		AND
+			input_date BETWEEN #{beforeDate} AND SYSDATE()
+	</select>
+	
 	<!-- Seller Image -->
 	
 	<select id="selectSellerImage" parameterType="java.lang.Integer" resultType="java.lang.String">

@@ -206,7 +206,7 @@ public class DateUtil {
 		
 		return sdf.format(cal.getTime());
 	}
-
+	
 	/**
 	 * 입력된 일자 문자열을 확인하고 8자리로 리턴
 	 * 

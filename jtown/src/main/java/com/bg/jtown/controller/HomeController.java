@@ -73,6 +73,7 @@ public class HomeController {
 			session.setAttribute("interestMap", homeService.selectInterest(null));
 		}
 		model.addAllAttributes(sellerService.selectAllInformation(sellerPn, summaryUser.getPn()));
+		model.addAttribute("intervalCount", sellerService.selectInterval7DayCount(sellerPn));
 		
 		return "mir";
 	}

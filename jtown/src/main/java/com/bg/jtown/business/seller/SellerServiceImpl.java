@@ -12,11 +12,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.bg.jtown.business.Event;
+import com.bg.jtown.business.Json;
 import com.bg.jtown.business.Product;
 import com.bg.jtown.business.comment.CommentService;
 import com.bg.jtown.business.search.CommentFilter;
 import com.bg.jtown.redis.Publisher;
 import com.bg.jtown.security.JtownUser;
+import com.bg.jtown.util.DateUtil;
 import com.bg.jtown.util.FileVO;
 
 /**
@@ -53,13 +55,15 @@ public class SellerServiceImpl extends SqlSessionDaoSupport implements
 
 		return selectMap;
 	}
-	
+
 	@Override
-	public Map<String, Object> selectAllInformation(Integer properNumber, Integer customerPn) {
+	public Map<String, Object> selectAllInformation(Integer properNumber,
+			Integer customerPn) {
 		CommentFilter commentFilter = new CommentFilter(properNumber);
 		Map<String, Object> selectMap = new HashMap<String, Object>();
 
-		selectMap.put("jtownUser", selectSellerInformation(properNumber, customerPn));
+		selectMap.put("jtownUser",
+				selectSellerInformation(properNumber, customerPn));
 		selectMap.put("mainImages", selectSellerImage(properNumber));
 		selectMap.putAll(selectSellerEvent(properNumber));
 		selectMap.put("interestes", selectSellerInterest(properNumber));
@@ -74,7 +78,7 @@ public class SellerServiceImpl extends SqlSessionDaoSupport implements
 	}
 
 	// ~ Seller Information
-	
+
 	@Override
 	public JtownUser selectSellerInformation(Integer properNumber,
 			Integer customerPn) {
@@ -116,6 +120,29 @@ public class SellerServiceImpl extends SqlSessionDaoSupport implements
 			}
 		}
 		return jtownUser;
+	}
+
+	@Override
+	public Map<String, Object> selectInterval7DayCount(Integer properNumber) {
+		String nowDate = DateUtil.getToday("YYYY-MM-DD");
+		String beforeDate = DateUtil.addYearMonthDay(nowDate, 0, 0, -7);
+		beforeDate = DateUtil.getDayString(beforeDate, "YYYY.MM.DD");
+		nowDate = nowDate.replace("-", ".");
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("nowDate", nowDate);
+		map.put("beforeDate", beforeDate);
+		map.put("properNumber", properNumber);
+		
+		List<Json> jsons = getSqlSession().selectList(
+				"sellerMapper.selectInterval7DayCount", map);
+		if (jsons == null) {
+			return map;
+		}
+
+		for (Json json : jsons) {
+			map.put(json.getValue(), json.getKey());
+		}
+		return map;
 	}
 
 	// ~ SellerImage
@@ -184,19 +211,18 @@ public class SellerServiceImpl extends SqlSessionDaoSupport implements
 		}
 	}
 
-	
 	@Override
 	public void updateSellerLongNotice(JtownUser jtownUser) {
 		String longNotice = jtownUser.getLongNotice();
 		if (longNotice.length() < 250) {
-			getSqlSession()
-					.update("sellerMapper.updateSellerLongNotice", jtownUser);
+			getSqlSession().update("sellerMapper.updateSellerLongNotice",
+					jtownUser);
 		} else {
 			logger.error("=================> Notice Over Flow Character 100");
 			logger.error(jtownUser.getLongNotice());
 		}
 	}
-	
+
 	// ~ SellerEvent
 
 	@Override

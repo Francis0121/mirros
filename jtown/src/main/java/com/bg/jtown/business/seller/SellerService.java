@@ -24,6 +24,8 @@ public interface SellerService {
 	
 	JtownUser selectSellerInformation(Integer properNumber, Integer customerPn);
 
+	Map<String, Object> selectInterval7DayCount(Integer properNumber);
+
 	// ~ SellerImage
 
 	List<String> selectSellerImage(Integer properNumber);
@@ -85,6 +87,7 @@ public interface SellerService {
 	// ~ LoveCount
 
 	Integer selectLoveCount(Integer properNumber);
+
 
 
 

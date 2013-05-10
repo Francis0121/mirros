@@ -35,6 +35,30 @@
 					</c:choose>
 				</li>
 			</ul>
+			<div class="jt-home-main-url-notice">
+				<span class="jt-home-shop-footer-firstQuotationMark">"</span>
+				<pre class="jt-home-shop-footer-text"><c:out value="${jtownUser.notice }"/></pre>
+				<span class="jt-home-shop-footer-lastQuotationMark">"</span>
+			</div>
+			<section class="jt-home-main-recently-wrap">
+				
+				<header>
+					<span class="jt-home-main-recently-mark">&nbsp;</span>
+					<h1>Recently</h1>
+					<span class="jt-home-main-recently-date"><c:out value="${intervalCount.beforeDate }"/> ~ ${intervalCount.nowDate }</span>
+				</header>
+				<ul>
+					<li>
+						<span>Love</span><span><c:out value="${intervalCount.love }"/></span>						
+					</li>
+					<li>
+						<span>View</span><span><c:out value="${intervalCount.view }"/></span>
+					</li>	
+					<li>
+						<span>Comment</span><span><c:out value="${intervalCount.comment }"/></span>
+					</li>
+				</ul>
+			</section>
 		</section>
 		<section class="jt-seller-expand">
 			<div class="jt-home-expand-shop" id="jt-home-expand-shop" data-spn="${jtownUser.pn }" data-size="${productSize }" data-nowPosition="${productSize}">
