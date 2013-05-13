@@ -3,7 +3,8 @@
 *	@author Francis
 *	/login/join Page
 */
-.jt-btn-orange-login{padding: 5px 10px;}
+.jt-btn-orange-login{font-family: Arial; border: 0; padding: 2px 0; background: transparent;cursor: pointer;color: #ff8900;}
+.jt-btn-orange-login:HOVER{text-decoration: underline;}
 .jt-join-user-header{ width: 990px; margin: auto auto; height: 75px; }
 .jt-join-user-login, .jt-join-user-login:VISITED{ font-size: 12px; float: right; color: #808080; margin-top: 60px;}
 .jt-join-user-login:HOVER, .jt-join-user-login:ACTIVE{color: #000;}
@@ -64,24 +65,42 @@
 *	login.jspf → smartPopup loginForm
 */
 #jt-login-form-wrap { display: none; }
-#jt-login-form { padding: 10px 0; width: 400px; height: 310px; background: #f5f5f7;
+#jt-login-form { width: 380px; height: 310px; background: #f5f5f7;
 	box-shadow : 1px 3px 5px rgba(193, 193, 193, 1);
 	-moz-box-shadow : 1px 3px 5px rgba(193, 193, 193, 1);
 	-webkit-box-shadow : 1px 3px 5px rgba(193, 193, 193, 1);
+	padding: 10px 20px;
 }
-.jt-login-form-table { border-collapse: collapse; width: 340px; margin: auto auto; margin: 0 30px 5px 30px;}
-.jt-login-form-table td, .jt-login-form-table th{font-size: 12px; vertical-align: middle; padding: 3px 2px; height: 40px; text-align: center;}
+.jt-login-form-table { border-collapse: collapse; width: 400px; margin: auto auto; margin: 0 0 5px 0;}
+.jt-login-form-table td, .jt-login-form-table th{font-size: 12px; vertical-align: middle; padding: 3px 2px; height: 40px;}
 .jt-login-form-table thead th{ font-family: Arial; font-size: 15px; width: 336px; text-align: left; color: #333333;}
-.jt-login-form-table tfoot th{ width: 168px; text-align: left; color: #010101; font-weight: normal;}
-.jt-login-form-table tfoot td{ width: 168px; text-align: right; color: #010101; }
+.jt-login-form-table tfoot th{ width: 320px; text-align: left; color: #010101; font-weight: normal;}
 .jt-login-form-table tbody td{ width: 336px; }
 .jt-login-form-table tbody th, .jt-login-form-table tbody td { }
 .jt-login-form-table thead th, .jt-login-form-table thead td { }
 .jt-login-form-table tfoot th, .jt-login-form-table tfoot td { height: 25px; }
-.jt-login-form-table-input{ width: 328px; padding: 2px 3px; border: 1px solid #ad9c9c; height: 25px;
+.jt-login-form-table-input{ width: 358px; padding: 2px 3px; border: 1px solid #ad9c9c; height: 25px;
  	-webkit-border-radius: 5px 5px;
     -moz-border-radius: 5px 5px;
     border-radius: 5px 5px;
+}
+.jt-login-form-table-password{ width: 328px; padding: 2px 3px; border: 1px solid #ad9c9c; height: 25px;
+ 	-webkit-border-radius:  5px 0 0 5px;
+    -moz-border-radius: 5px 0 0 5px;
+    border-radius: 5px 0 0 5px;
+    float: left;
+}
+.jt-login-findPassword{ border: 1px solid #ad9c9c; border-left :0; padding: 0; margin :0; width : 29px; height : 31px;
+	-webkit-border-radius: 0 5px 5px 0;
+    -moz-border-radius: 0 5px 5px 0;
+    border-radius: 0 5px 5px 0;
+    float: left;
+    cursor: pointer;
+    background: #fff;
+    font-weight: bold;
+    color: #ff8900;
+    font-family: Arial;
+    font-size: 14px;
 }
 .jt-login-form-find-password{ color: #010101; padding-top: 8px; display: block;}
 .jt-login-form-find-password:VISITED{ color: #010101; }
@@ -108,18 +127,24 @@
 	font-family: Arial;
 }
 .jt-login-form-login-btn:HOVER { background: #ff3c00;}
+
+.jt-login-sign-wrap{margin : 8px 0; width: 380px;  height: 40px;}
+.jt-login-sign-wrap>li{width: 180px; margin:0 5px 0 2px; float: left;}
+
+.jt-login-message-box{width: 359px;line-height: 1.7; margin-bottom: 10px; padding: 5px 3px; margin-left: 2px; }
+.jt-login-message-box>h1{ font-size: 15px; color: #1a1a1a; font-family: Arial;}
+.jt-login-message-box>p{font-size: 12px;}
 /****************
 *	로그인 페이지
 ****************/
-#jt-login-form-page { width: 500px; margin: 80px auto 0 auto; }
-.jt-login-form-table-page { border-collapse: collapse; width: 340px; margin: auto auto; margin: 0 30px 0 30px; }
-.jt-login-form-table-page td, .jt-login-form-table-page th{font-size: 12px; vertical-align: middle; padding: 10px 2px; min-height: 40px; text-align: center;}
+#jt-login-form-page { width: 380px; margin: 80px auto 0 auto; }
+.jt-login-form-table-page { border-collapse: collapse; width: 380px; margin: auto auto; margin: 0; }
+.jt-login-form-table-page td, .jt-login-form-table-page th{font-size: 12px; vertical-align: middle; padding: 10px 2px; min-height: 40px;}
 .jt-login-form-table-page thead th{ font-family: Arial; font-size: 20px; width: 336px; text-align: left; color: #333333;}
-.jt-login-form-table-page tfoot th{ width: 168px; text-align: left; color: #010101; font-weight: normal;}
-.jt-login-form-table-page tfoot td{ width: 168px; text-align: right; color: #010101; }
+.jt-login-form-table-page tfoot th{ width: 310px; text-align: left; color: #010101; font-weight: normal;}
 .jt-login-form-table-page tbody td{ width: 336px; }
 
-.jt-login-error-box{font-size: 13px; color: #e95800; width: 340px; margin-left: 35px; margin-bottom: 10px; line-height : 1.5; }
+.jt-login-error-box{font-size: 13px; color: #e95800; width: 374px; padding: 0 3px; margin-bottom: 10px; line-height : 1.7; float: left;}
 .jt-login-form-join-span-page{float: left; margin: 0 0 0 35px; font-size: 13px; }
 .jt-login-form-join-btn-page{ float: left; margin: 0 0 0 40px; font-size: 13px; color: #e75200;}
 .jt-login-form-join-btn-page:VISITED{color: #e75200; }

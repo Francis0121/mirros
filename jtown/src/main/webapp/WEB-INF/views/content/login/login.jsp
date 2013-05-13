@@ -13,7 +13,7 @@
 				<thead>
 					<tr>
 						<th colspan="2"> 
-							LOG&nbsp;IN&nbsp;
+							<span style="font-weight: normal;">LOG&nbsp;IN&nbsp;TO</span>&nbsp;J&nbsp;TOWN
 						</th>
 					</tr>
 				</thead>
@@ -23,14 +23,7 @@
 							<input id="_spring_security_remember_me" name="_spring_security_remember_me" type="checkbox" value="true" checked="checked"/>	
 							<label for="_spring_security_remember_me">자동 로그인</label>
 						</th>
-						<c:url var="findPasswordUrl" value="/login/findPassword"/>
-						<td><a href="${findPasswordUrl}" class="jt-login-form-find-password">비밀번호를&nbsp;잊으셨나요?</a></td>
-					</tr>
-					<tr>
-						<th>
-							<input type="submit" class="jt-btn-orange jt-btn-orange-login" value="LOG&nbsp;IN"/>
-						</th>
-						<td>&nbsp;</td>
+						<td><button type="submit" class="jt-btn-orange-login">Log&nbsp;In</button></td>
 					</tr>
 				</tfoot>
 				<tbody>
@@ -41,30 +34,35 @@
 					</tr>
 					<tr>
 						<td colspan="2">
-							<input id="j_password_page" name="j_password" size="20" maxlength="50" type="password" class="jt-login-form-table-input"  placeholder="Password"/>
+							<c:url var="findPasswordUrl" value="/login/findPassword"/>
+							<input id="j_password_page" name="j_password" size="20" maxlength="50" type="password" class="jt-login-form-table-password"  placeholder="Password"/><button type="button" onclick="location.href='${findPasswordUrl}'" title="비밀번호를&nbsp;잊으셨나요?" class="jt-login-findPassword">?</button>
 						</td>
 					</tr>
 				</tbody>
 			</table>
 			</form>
-			<table class="jt-login-form-table-page">
-				<tfoot>
-					<tr>
-						<th style="padding: 0 2px 10px 2px;">
-							<!-- FACEBOOK login -->
-							<form action="<c:url value="/signin/facebook" />" method="POST">
-								<input type="hidden" name="scope" value="email,user_birthday,user_about_me" />
-						    	<input class="facebook-login-button" type="image" src="<c:url value="/resources/images/sign-in-with-facebook.png" />" style="float:left; >
-							</form>
-							
-							<!-- TWITTER login -->
-							<form action="<c:url value="/signin/twitter" />" method="POST" >
-								<input class="twitter-login-button" type="image" src="<c:url value="/resources/images/sign-in-with-twitter-d.png" />" style="float:left; margin-left: 10px;">
-							</form>
-						</th>
-					</tr>
-				</tfoot>
-			</table>
+			<ul class="jt-login-sign-wrap" >
+				<li>
+					<!-- FACEBOOK login -->
+					<form action="<c:url value="/signin/facebook" />" method="POST">
+						<input type="hidden" name="scope" value="email,user_birthday,user_about_me" />
+				    	<button class="jt-btn-fbLogin" type="submit"><span class="loginImage"></span><span class="loginText">페이스북으로&nbsp;로그인</span></button>
+					</form>							
+				</li>
+				<li>
+					<c:url value="/login/join" var="joinUrl"/>
+					<button class="jt-btn-orange jt-btn-emailLogin" onclick="location.href='${joinUrl }'" type="button"><span class="loginImage"></span><span class="loginText">이메일로&nbsp;간편&nbsp;가입</span></button>
+				</li>
+			</ul>
+			<div class="jt-login-message-box">
+				<h1>Weclode to Mirros</h1>
+			
+				<p>
+					Mirros에서 더 쉽고 간편하게<br/>
+					인터넷 쇼핑몰을 체험하세요.
+				</p>
+			</div>
+			
 			<c:if test="${not empty param.login_error}">  
 			<div class="jt-login-error-box">
 		        <spring:message code="login.error.message"/>
@@ -72,8 +70,6 @@
 		        <c:out value="${SPRING_SECURITY_LAST_EXCEPTION.message}"/>
 		    </div>
 			</c:if>	
-			<c:url value="/login/join" var="joinUrl"/>
-			<span class="jt-login-form-join-span-page">아직&nbsp;회원이&nbsp;아니신가요?</span><a href="${joinUrl}" class="jt-login-form-join-btn-page">J&nbsp;Town&nbsp;가입하기</a>
 	</sec:authorize>	
 	<sec:authorize access="hasRole('ROLE_USER')">
 		<span style="font-size: 12px; "><sec:authentication property="principal.name" />님 반갑습니다.</span>

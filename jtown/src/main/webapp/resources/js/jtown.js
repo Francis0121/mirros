@@ -92,7 +92,7 @@ jtown.header.showLoginForm = function(){
 	j_username.attr('id', 'j_username');
 	j_password.attr('id', 'j_password');
 	
-	$.smartPop.open({ width : 420, height : 350, html : inner.html(), effect : null });	
+	$.smartPop.open({ width : 430, height : 350, html : inner.html(), effect : null });	
 	
 	j_username.attr('id', '');
 	j_password.attr('id', '');

@@ -21,32 +21,27 @@
 
 .jt-btn-orange{
 	cursor:pointer;
-	border:1px solid #ffad41; 
-	-webkit-border-radius: 3px; 
-	-moz-border-radius: 3px;
-	border-radius: 3px; 
 	padding: 10px 10px 10px 10px; 
-	text-shadow: -1px -1px 0 rgba(0,0,0,0.3);
-	font-weight:bold; 
-	text-align: center; 
-	color: #FFFFFF; 
-	background-color: #ffc579;
-	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffc579), color-stop(100%, #fb9d23));
-	background-image: -webkit-linear-gradient(top, #ffc579, #fb9d23);
- 	background-image: -moz-linear-gradient(top, #ffc579, #fb9d23);
- 	background-image: -ms-linear-gradient(top, #ffc579, #fb9d23);
- 	background-image: -o-linear-gradient(top, #ffc579, #fb9d23);
- 	background-image: linear-gradient(top, #ffc579, #fb9d23);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#ffc579, endColorstr=#fb9d23);
+	border:1px solid #FF7E00; 
+	-webkit-border-radius: 5px; -moz-border-radius: 5px;border-radius: 5px;
+	font-family: Dotum,Gulim; text-shadow: 1px 1px 0 rgba(209,109,0,0.3);font-weight:bold; text-align: center; color: #FFFFFF; background-color: #FB950F;
+ 	background-image: -webkit-gradient(linear, left top, left bottom, from(#FB950F), to(#FB950F));
+ 	background-image: -webkit-linear-gradient(top, #FB950F, #FB950F);
+ 	background-image: -moz-linear-gradient(top, #FB950F, #FB950F);
+ 	background-image: -ms-linear-gradient(top, #FB950F, #FB950F);
+ 	background-image: -o-linear-gradient(top, #FB950F, #FB950F);
+	background-image: linear-gradient(to bottom, #FB950F, #FB950F);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#FB950F, endColorstr=#FB950F);
+ 	
 }
 .jt-btn-orange:HOVER{
-	border:1px solid #ff9913; 
-	background-color: #ffaf46;
-	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffaf46), color-stop(100%, #e78404));
- 	background-image: -webkit-linear-gradient(top, #ffaf46, #e78404);
- 	background-image: -moz-linear-gradient(top, #ffaf46, #e78404);
- 	background-image: -ms-linear-gradient(top, #ffaf46, #e78404);
- 	background-image: -o-linear-gradient(top, #ffaf46, #e78404);
- 	background-image: linear-gradient(top, #ffaf46, #e78404);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#ffaf46, endColorstr=#e78404);
+	border:1px solid #FF7E00; 
+	background-color: #FFA01E;
+ 	background-image: -webkit-gradient(linear, left top, left bottom, from(#FFA01E), top(#FFA01E));
+ 	background-image: -webkit-linear-gradient(top, #FFA01E, #FFA01E);
+ 	background-image: -moz-linear-gradient(top, #FFA01E, #FFA01E);
+ 	background-image: -ms-linear-gradient(top, #FFA01E, #FFA01E);
+ 	background-image: -o-linear-gradient(top, #FFA01E, #FFA01E);
+ 	background-image: linear-gradient(to bottom, #FFA01E, #FFA01E);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#FFA01E, endColorstr=#FFA01E);
 }
 
 .jt-btn-white-small {
@@ -102,4 +97,70 @@ border:1px solid #d7dada; -webkit-border-radius: 3px; -moz-border-radius: 3px;bo
  background-image: -ms-linear-gradient(top, #d9dddd, #c6c3c3);
  background-image: -o-linear-gradient(top, #d9dddd, #c6c3c3);
  background-image: linear-gradient(to bottom, #d9dddd, #c6c3c3);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#d9dddd, endColorstr=#c6c3c3);
+}
+
+.jt-btn-fbLogin .loginImage{
+	margin: -1px 0;
+	background: url("../images/jt-login-fb.png") no-repeat;
+	float : left;
+	width: 34px; height: 34px;
+	border-right: 1px solid #b9e1f7;
+}
+
+.jt-btn-fbLogin .loginText{
+	margin-top : -1px;
+	float: left;
+	height: 30px;
+	border-left: 1px solid #5c9ec7;
+	width:136px;
+	line-height: 30px;
+	padding: 2px 0;
+}
+
+.jt-btn-fbLogin{
+	cursor: pointer;
+	width:180px; padding: 0;
+	border:1px solid #5F9EC1; 
+	-webkit-border-radius: 5px; -moz-border-radius: 5px;border-radius: 5px;
+	font-family: Dotum,Gulim; text-shadow: 0px 1px 1px rgba(76,132,163,0.3); font-weight:bold; text-align: center; color: #FFFFFF; 
+	background-color: #75B6DB;
+ 	background-image: -webkit-gradient(linear, left top, left bottom, from(#75B6DB), to(#75B6DB));
+ 	background-image: -webkit-linear-gradient(top, #75B6DB, #75B6DB);
+ 	background-image: -moz-linear-gradient(top, #75B6DB, #75B6DB);
+ 	background-image: -ms-linear-gradient(top, #75B6DB, #75B6DB);
+ 	background-image: -o-linear-gradient(top, #75B6DB, #75B6DB);
+ 	background-image: linear-gradient(to bottom, #75B6DB, #75B6DB);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#75B6DB, endColorstr=#75B6DB);
+}
+
+.jt-btn-fbLogin:hover{
+ 	border:1px solid #6AADD4; 
+ 	background-color: #8DC6E8;
+ 	background-image: -webkit-gradient(linear, left top, left bottom, from(#8DC6E8), top(#8DC6E8));
+ 	background-image: -webkit-linear-gradient(top, #8DC6E8, #8DC6E8);
+ 	background-image: -moz-linear-gradient(top, #8DC6E8, #8DC6E8);
+ 	background-image: -ms-linear-gradient(top, #8DC6E8, #8DC6E8);
+	background-image: -o-linear-gradient(top, #8DC6E8, #8DC6E8);
+ 	background-image: linear-gradient(to bottom, #8DC6E8, #8DC6E8);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#8DC6E8, endColorstr=#8DC6E8);
+}
+
+.jt-btn-emailLogin .loginImage{
+	margin: -1px 0;
+	background: url("../images/jt-login-mail.png") no-repeat;
+	float : left;
+	width: 34px; height: 34px;
+	border-right: 1px solid #ffc582;
+}
+
+.jt-btn-emailLogin .loginText{
+	margin-top : -1px;
+	float: left;
+	height: 30px;
+	border-left: 1px solid #e06c01;
+	width:136px;
+	line-height: 30px;
+	padding: 2px 0;
+}
+
+.jt-btn-emailLogin{
+	width:180px; padding: 0;
 }
