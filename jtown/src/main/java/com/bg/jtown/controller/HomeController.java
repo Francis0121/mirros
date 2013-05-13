@@ -68,8 +68,10 @@ public class HomeController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String showHome(Model model, HttpSession session,
 			@ModelAttribute HomeFilter homeFilter, SummaryUser summaryUser) {
-		if (summaryUser.getPn() != null) {
-			JtownUser jtownUser = loginService.selectCustomer(summaryUser.getPn());
+		if (summaryUser.getPn() != null
+				&& summaryUser.getAuthoirty().equals(Authority.CUSTOMER)) {
+			JtownUser jtownUser = loginService.selectCustomer(summaryUser
+					.getPn());
 			Integer sex = jtownUser.getSex() ? CATEGORY_MAN : CATEGORY_WOMAN;
 			homeFilter.setCategoryPn(sex);
 		}
