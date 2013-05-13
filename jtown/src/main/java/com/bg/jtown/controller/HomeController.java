@@ -69,7 +69,7 @@ public class HomeController {
 	public String showHome(Model model, HttpSession session,
 			@ModelAttribute HomeFilter homeFilter, SummaryUser summaryUser) {
 		if (summaryUser.getPn() != null
-				&& summaryUser.getAuthoirty().equals(Authority.CUSTOMER)) {
+				&& summaryUser.getEnumAuthority().equals(Authority.CUSTOMER)) {
 			JtownUser jtownUser = loginService.selectCustomer(summaryUser
 					.getPn());
 			Integer sex = jtownUser.getSex() ? CATEGORY_MAN : CATEGORY_WOMAN;
