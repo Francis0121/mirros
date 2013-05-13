@@ -58,4 +58,6 @@ public interface LoginService {
 	
 	String selectSocialProviderUserId(Integer properNumber, String providerId);
 
+	void updateFacebookFeed(JtownUser jtownUser);
+
 }

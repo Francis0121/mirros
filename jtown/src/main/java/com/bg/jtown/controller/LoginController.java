@@ -557,4 +557,18 @@ public class LoginController {
 
 	private static final String PROVIDER_ERROR_ATTRIBUTE = "social.provider.error";
 
+	@RequestMapping(value = "/login/modifyFacebookFeed.jt", method = RequestMethod.POST)
+	public String formModifyFacebookFeed(SummaryUser summaryUser) {
+		JtownUser jtownUser = new JtownUser();
+		jtownUser.setPn(summaryUser.getPn());
+		jtownUser.setFacebookFeed(!summaryUser.getFacebookFeed());
+
+		loginService.updateFacebookFeed(jtownUser);
+		
+		userAuthenticator.onApplicationEvent(summaryUser.getUsername());
+		
+		logger.debug("???????????????????????");
+		return "redirect:modify/?result=2";
+	}
+
 }

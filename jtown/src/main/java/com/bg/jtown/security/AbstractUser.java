@@ -44,6 +44,7 @@ public class AbstractUser implements JtownDetails, CredentialsContainer {
     private String groupName = "";
     private String name = "";
     private Boolean confirmEmail = true;
+    private Boolean facebookFeed = false;
     private Set<GrantedAuthority> authorities = new TreeSet<GrantedAuthority>();;
     private final boolean accountNonExpired;
     private final boolean accountNonLocked;
@@ -61,8 +62,8 @@ public class AbstractUser implements JtownDetails, CredentialsContainer {
     /**
      * Calls the more complex constructor with all boolean arguments set to {@code true}.
      */
-    public AbstractUser(Integer pn, String username, String password, String salt, String name, String groupName, Boolean confirmEmail, boolean enabled, Collection<? extends GrantedAuthority> authorities) {
-        this(pn, username, password, salt, name, groupName, enabled, true, true, true, true, authorities);
+    public AbstractUser(Integer pn, String username, String password, String salt, String name, String groupName, Boolean confirmEmail, Boolean facebookFeed, boolean enabled, Collection<? extends GrantedAuthority> authorities) {
+        this(pn, username, password, salt, name, groupName, confirmEmail, facebookFeed, enabled, true, true, true, authorities);
     }
 
 	/**
@@ -88,19 +89,20 @@ public class AbstractUser implements JtownDetails, CredentialsContainer {
      *         either as a parameter or as an element in the
      *         <code>GrantedAuthority</code> collection
      */
-    public AbstractUser(Integer pn, String username, String password, String salt, String name, String groupName, Boolean confirmEmail, boolean enabled, boolean accountNonExpired,
+    public AbstractUser(Integer pn, String username, String password, String salt, String name, String groupName, Boolean confirmEmail, Boolean facebookFeed, boolean enabled, boolean accountNonExpired,
             boolean credentialsNonExpired, boolean accountNonLocked, Collection<? extends GrantedAuthority> authorities) {
 
         if (	((username == null) || "".equals(username)) || (password == null) || 
         		((salt == null) || "".equals(salt)) || 
         		((name == null) || ("".equals(name))) || ((groupName == null) || ("".equals(groupName))) ||
-        		((pn == null) || (new Integer(0).equals(pn))) || (confirmEmail == null) ) {
+        		((pn == null) || (new Integer(0).equals(pn))) || (confirmEmail == null)  || (facebookFeed == null)) {
             throw new IllegalArgumentException("Cannot pass null or empty values to constructor");
         }
         this.pn = pn;
         this.name = name;
         this.groupName = groupName;
-        this.confirmEmail =confirmEmail;
+        this.confirmEmail = confirmEmail;
+        this.facebookFeed = facebookFeed;
         this.username = username;
         this.password = password;
         this.salt = salt;
@@ -141,7 +143,15 @@ public class AbstractUser implements JtownDetails, CredentialsContainer {
 		this.enabled = enabled;
 	}
     
-    public Collection<GrantedAuthority> getAuthorities() {
+    public Boolean getFacebookFeed() {
+		return facebookFeed;
+	}
+
+	public void setFacebookFeed(Boolean facebookFeed) {
+		this.facebookFeed = facebookFeed;
+	}
+
+	public Collection<GrantedAuthority> getAuthorities() {
         return authorities;
     }
 

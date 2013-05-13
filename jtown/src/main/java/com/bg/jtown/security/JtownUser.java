@@ -48,17 +48,17 @@ public class JtownUser extends AbstractUser {
 	}
 	
 	public JtownUser(Integer pn, String username, String password,
-			String salt, String name, String groupName, Boolean confirmEmail, boolean enabled,
+			String salt, String name, String groupName, Boolean confirmEmail, Boolean facebookFeed, boolean enabled,
 			Collection<? extends GrantedAuthority> authorities) {
-		this(pn, username, password, salt, name, groupName, confirmEmail, enabled, true, true, true, authorities);
+		this(pn, username, password, salt, name, groupName, confirmEmail, facebookFeed, enabled, true, true, true, authorities);
 	}
 
 	public JtownUser(Integer pn, String username, String password,
-			String salt, String name, String groupName, Boolean confirmEmail,
+			String salt, String name, String groupName, Boolean confirmEmail, Boolean facebookFeed,
 			boolean enabled, boolean accountNonExpired,
 			boolean credentialsNonExpired, boolean accountNonLocked,
 			Collection<? extends GrantedAuthority> authorities) {
-		super(pn, username, password, salt, name, groupName, confirmEmail,
+		super(pn, username, password, salt, name, groupName, confirmEmail, facebookFeed,
 				enabled, accountNonExpired, credentialsNonExpired,
 				accountNonLocked, authorities);
 	}

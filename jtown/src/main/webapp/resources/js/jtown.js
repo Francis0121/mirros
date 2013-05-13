@@ -126,19 +126,7 @@ jtown.home.clickLove = function(spn) {
 				jtown.dialog('판매자는 불가능합니다');
 			}
 		} else {
-			var crudType = count.crudType;
 
-			if (crudType == 'insert') {
-				$('#love-image-' + spn).addClass('jt-home-shop-love-click');
-				$('#love-' + spn).addClass('jt-home-shop-love-text-click');
-				$('#love-expand-image-' + spn).addClass('jt-home-shop-love-click');
-				$('#love-expand-' + spn).addClass('jt-home-shop-love-text-click');
-			} else if (crudType == 'delete') {
-				$('#love-image-' + spn).removeClass('jt-home-shop-love-click');
-				$('#love-' + spn).removeClass('jt-home-shop-love-text-click');
-				$('#love-expand-image-' + spn).removeClass('jt-home-shop-love-click');
-				$('#love-expand-' + spn).removeClass('jt-home-shop-love-text-click');
-			}
 		}
 	});
 

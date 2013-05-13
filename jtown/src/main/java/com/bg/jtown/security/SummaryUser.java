@@ -38,12 +38,17 @@ public class SummaryUser {
 	 */
 	private String username;
 
+	/**
+	 * Facebook Feed 이용 여부
+	 */
+	private Boolean facebookFeed;
+
 	public SummaryUser() {
 		super();
 	}
 
 	public SummaryUser(String authoirty, Boolean isLogin, String name,
-			Integer pn, String remoteIp, String username) {
+			Integer pn, String remoteIp, String username, Boolean facebookFeed) {
 		super();
 		this.authoirty = authoirty;
 		this.isLogin = isLogin;
@@ -51,6 +56,7 @@ public class SummaryUser {
 		this.pn = pn;
 		this.remoteIp = remoteIp;
 		this.username = username;
+		this.facebookFeed = facebookFeed;
 	}
 
 	public String getAuthoirty() {
@@ -117,11 +123,20 @@ public class SummaryUser {
 		this.username = username;
 	}
 
+	public Boolean getFacebookFeed() {
+		return facebookFeed;
+	}
+
+	public void setFacebookFeed(Boolean facebookFeed) {
+		this.facebookFeed = facebookFeed;
+	}
+
 	@Override
 	public String toString() {
 		return "SummaryUser [authoirty=" + authoirty + ", isLogin=" + isLogin
-				+ ", pn=" + pn + ", remoteIp=" + remoteIp + ", username="
-				+ username + ", name=" + name + "]";
+				+ ", name=" + name + ", pn=" + pn + ", remoteIp=" + remoteIp
+				+ ", username=" + username + ", facebookFeed=" + facebookFeed
+				+ "]";
 	}
 
 }

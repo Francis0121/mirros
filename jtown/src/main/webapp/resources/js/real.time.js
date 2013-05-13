@@ -12,10 +12,27 @@ jtown.real.time = function(data) {
 		var spn = obj.sellerPn;
 		var count = obj.count;
 		$('#love-' + spn).html(count);
+		var crudType = obj.crudType;
+
+		if (crudType == 'insert') {
+			$('#love-image-' + spn).addClass('jt-home-shop-love-click');
+			$('#love-' + spn).addClass('jt-home-shop-love-text-click');
+		} else if (crudType == 'delete') {
+			$('#love-image-' + spn).removeClass('jt-home-shop-love-click');
+			$('#love-' + spn).removeClass('jt-home-shop-love-text-click');
+		}
 		if (!nullValueCheck(expandShop.html())) {
 			var expandSpn = expandShop.attr('data-spn');
-			if (spn == expandSpn)
+			if (spn == expandSpn){
 				$('#love-expand-' + spn).html(count);
+				if (crudType == 'insert') {
+					$('#love-expand-image-' + spn).addClass('jt-home-shop-love-click');
+					$('#love-expand-' + spn).addClass('jt-home-shop-love-text-click');
+				} else if (crudType == 'delete') {
+					$('#love-expand-image-' + spn).removeClass('jt-home-shop-love-click');
+					$('#love-expand-' + spn).removeClass('jt-home-shop-love-text-click');
+				}
+			}
 		}
 	} else if (obj.redisType == 'view_count') {
 		var spn = obj.sellerPn;

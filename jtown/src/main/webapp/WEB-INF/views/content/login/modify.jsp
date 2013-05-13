@@ -129,20 +129,32 @@
 						<li>
 							<span>Login with ${providerDisplayName}</span>
 						</li>
-						<li>
 						<c:if test="${providerId eq 'twitter' }">
+						<li>
 							<form id="disconnect" action="<c:url value="/connect/twitter" />" method="post">
 								<input type="hidden" name="_method" value="delete" />
 								<button type="submit" class="jt-btn-silver">Disconnect</button>	
 							</form>
+						</li>
 						</c:if>
 						<c:if test="${providerId eq 'facebook' }">
+						<li>
 							<form id="disconnect" action="<c:url value="/connect/facebook" />" method="post">
 								<input type="hidden" name="_method" value="delete" />
 								<button type="submit" class="jt-btn-silver">Disconnect</button>	
 							</form>
-						</c:if>
 						</li>
+						<li>
+							<span>Post to message your wall</span>
+						</li>
+						<li>	
+							<sec:authentication var="feedBool" property="principal.facebookFeed"/>
+							<c:set var="feedValue" value="${feedBool eq true ? 'Off' : 'On' }"/>
+							<form action="<c:url value="/login/modifyFacebookFeed.jt"/>"	method="POST">
+								<button type="submit" class="jt-btn-silver" id="jt-modiy-facebookFeed">${feedValue }</button>
+							</form>	
+						</li>
+						</c:if>
 					</c:if>
 					<c:if test="${empty connections}">
 						<li style="width: 550px;">

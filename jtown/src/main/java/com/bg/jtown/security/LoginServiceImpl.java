@@ -178,4 +178,9 @@ public class LoginServiceImpl extends SqlSessionDaoSupport implements
 		map.put("providerId", providerId);
 		return getSqlSession().selectOne("loginMapper.selectSocialProviderUserId", map);
 	}
+	
+	@Override
+	public void updateFacebookFeed(JtownUser jtownUser) {
+		getSqlSession().update("loginMapper.updateFacebookFeed", jtownUser);
+	}
 }

@@ -181,4 +181,12 @@
 			providerId = #{providerId}
 	</select>
 	
+	<update id="updateFacebookFeed" parameterType="JtownUser" >
+		UPDATE users
+		SET
+			facebook_feed = #{facebookFeed}
+		WHERE
+			pn = #{pn}
+	</update>
+		
 </mapper>

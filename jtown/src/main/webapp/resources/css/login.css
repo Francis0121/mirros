@@ -188,11 +188,11 @@
 .jt-modfiy-connect-social>li{ width: 100%; float: left; }
 .jt-modify-connect-social-info{ float: left; }
 .jt-modify-connect-social-info>li{float: left; padding: 8px 0; }
+.jt-modify-connect-social-info>li:nth-child(2n){ width: 180px; }
+.jt-modify-connect-social-info>li:nth-child(2n)>span{float:left; margin-top: 10px;}
+.jt-modify-connect-social-info>li:nth-child(2n+1){ width: 350px; }
+.jt-modify-connect-social-info>li:nth-child(2n+1) button{padding: 5px 10px;}
 .jt-modify-connect-social-info>li:nth-child(1){ width: 50px; }
-.jt-modify-connect-social-info>li:nth-child(2){ width: 180px; }
-.jt-modify-connect-social-info>li:nth-child(2)>span{float:left; margin-top: 10px;}
-.jt-modify-connect-social-info>li:nth-child(3){ width: 350px; }
-.jt-modify-connect-social-info>li:nth-child(3) button{padding: 5px 10px;}
 
 .jt-modfiy-submit-wrap{float: left; width: 700px; text-align: center;}
 

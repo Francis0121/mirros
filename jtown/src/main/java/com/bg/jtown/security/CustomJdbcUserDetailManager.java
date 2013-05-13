@@ -103,7 +103,7 @@ public class CustomJdbcUserDetailManager extends JdbcUserDetailsManager {
 				userFromUserQuery.getPassword(),
 				((JtownUser) userFromUserQuery).getSalt(),
 				userFromUserQuery.getName(), userFromUserQuery.getGroupName(),
-				userFromUserQuery.getConfirmEmail(),
+				userFromUserQuery.getConfirmEmail(), userFromUserQuery.getFacebookFeed(),
 				userFromUserQuery.isEnabled(), combinedAuthorities);
 	}
 
@@ -154,7 +154,7 @@ public class CustomJdbcUserDetailManager extends JdbcUserDetailsManager {
 	@Override
 	protected List<UserDetails> loadUsersByUsername(String id) {
 		return getJdbcTemplate()
-				.query("SELECT u.id, u.password, u.enable, DATE_FORMAT(u.salt, '%Y-%m-%d %H:%i:%s') AS salt, u.pn, gmn.group_name, u.name, u.confirm_email "
+				.query("SELECT u.id, u.password, u.enable, DATE_FORMAT(u.salt, '%Y-%m-%d %H:%i:%s') AS salt, u.pn, gmn.group_name, u.name, u.confirm_email, u.facebook_feed "
 						+ "FROM users u, group_members_name gmn "
 						+ "WHERE u.id = ? AND u.pn = gmn.user_pn",
 						new String[] { id }, new RowMapper<UserDetails>() {
@@ -169,9 +169,10 @@ public class CustomJdbcUserDetailManager extends JdbcUserDetailsManager {
 								String groupName = rs.getString(6);
 								String name = rs.getString(7);
 								boolean confirmEmail = rs.getBoolean(8);
+								boolean facebookFeed = rs.getBoolean(9);
 
 								return new JtownUser(pn, id, password, salt,
-										name, groupName, confirmEmail, enabled,
+										name, groupName, confirmEmail, facebookFeed, enabled,
 										AuthorityUtils.NO_AUTHORITIES);
 							}
 						});

@@ -29,5 +29,10 @@ public interface JtownDetails extends UserDetails {
 	 * @return GET confirm email Address Booelan
 	 */
 	Boolean getConfirmEmail();
+	
+	/**
+	 * @return GET facebook Feed post Operation Boolean
+	 */
+	Boolean getFacebookFeed();
 
 }

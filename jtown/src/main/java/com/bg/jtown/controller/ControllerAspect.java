@@ -10,8 +10,10 @@ import org.aspectj.lang.annotation.Aspect;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.social.facebook.api.Facebook;
 import org.springframework.stereotype.Component;
 
+import com.bg.jtown.business.seller.SellerService;
 import com.bg.jtown.security.JtownUser;
 import com.bg.jtown.security.SummaryUser;
 
@@ -29,6 +31,12 @@ public class ControllerAspect {
 	@Resource
 	private HttpServletRequest request;
 
+	@Resource
+	private SellerService sellerService;
+	
+	@Resource
+	private Facebook facebook;
+	
 	@Around("bean(*Controller)")
 	public Object trace(ProceedingJoinPoint joinPoint) throws Throwable {
 		String signatureString = joinPoint.getSignature().toShortString();
@@ -47,11 +55,11 @@ public class ControllerAspect {
 				logger.debug(user.toString());
 				summaryUser = new SummaryUser(user.getGroupName(), true,
 						user.getName(), user.getPn(), remoteIp,
-						user.getUsername());
+						user.getUsername(), user.getFacebookFeed());
 			} catch (ClassCastException e) {
 				logger.debug("Not Log In user");
 				summaryUser = new SummaryUser(null, false, null, null,
-						remoteIp, null);
+						remoteIp, null, null);
 			}
 
 			for (int i = 0; i < param.length; i++) {

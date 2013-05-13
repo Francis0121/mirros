@@ -222,13 +222,16 @@ public class HomeController {
 			count.setCustomerPn(summaryUser.getPn());
 			homeService.insertLoveCount(count);
 			
-			String providerUserId = loginService.selectSocialProviderUserId(summaryUser.getPn(), "facebook");
-			if(providerUserId != null && !"".equals(providerUserId)){
-				if (count.getCrudType().equals("insert")) {
-					JtownUser jtownUser = sellerService.selectSellerInformation(count.getSellerPn());
-					FacebookLink link = new FacebookLink("https://www.mirros.net/mir/"+count.getSellerPn(), jtownUser.getName(), "", jtownUser.getLongNotice());
-					facebook.feedOperations().postLink(providerUserId, "@"+summaryUser.getName() +"님이 Secret Shop Mirros의 "+ jtownUser.getName()+"을 좋아합니다.", link);
-				}
+			if (count.getCrudType().equals("insert") && (summaryUser.getFacebookFeed() != null && summaryUser.getFacebookFeed().equals(true))) {
+				JtownUser jtownUser = sellerService.selectSellerInformation(count.getSellerPn());
+				String url = "https://www.mirros.net/mir/"+count.getSellerPn();
+				String name = jtownUser.getName();
+				String loginNotice = jtownUser.getLongNotice();
+				FacebookLink link = new FacebookLink(url, name, "", loginNotice);
+
+				String message = summaryUser.getName() +"님이 Secret Shop Mirros의 "+ jtownUser.getName()+"을 좋아합니다.";
+				
+				facebook.feedOperations().postLink(message, link);
 			}
 		} else if (summaryUser.getEnumAuthority().equals(Authority.NOT_LOGIN)) {
 			count.setMessage("1");
