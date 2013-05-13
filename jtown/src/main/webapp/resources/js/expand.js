@@ -268,12 +268,14 @@ jtown.expand.syncProductMove = function(){
 					parent = $('#jt-home-expand-shop'),
 					size = Number(parent.attr('data-size')),
 					np = Number(parent.attr('data-nowPosition'));
-			
-				dan.prepend(last.clone().wrapAll('<div/>').parent().html());
-				dan.css({left :  '-170px'}).animate({left :  '0px' }, '500', 'swing');
-				last.remove();
-
-				parent.attr('data-nowPosition', (np + 1) > size ? 1 : (np + 1) );
+				if(size > 3){
+					
+					dan.prepend(last.clone().wrapAll('<div/>').parent().html());
+					dan.css({left :  '-170px'}).animate({left :  '0px' }, '500', 'swing');
+					last.remove();
+	
+					parent.attr('data-nowPosition', (np + 1) > size ? 1 : (np + 1) );
+				}
 			};
 			
 			s = setTimeout('a()', 500);
@@ -292,13 +294,16 @@ jtown.expand.syncProductMove = function(){
 					parent = $('#jt-home-expand-shop'),
 					size = Number(parent.attr('data-size')),
 					np = Number(parent.attr('data-nowPosition'));
-				dan.animate({left : '-170px'}, '500', 'swing', function(){
-						dan.css({left : '0px'});
-						first.remove();
-					}
-				);
-				dan.append(first.clone().wrapAll('<div/>').parent().html());
-				parent.attr('data-nowPosition', (np - 1) <  1 ? size : (np - 1) );
+				if(size > 3){
+					
+					dan.animate({left : '-170px'}, '500', 'swing', function(){
+							dan.css({left : '0px'});
+							first.remove();
+						}
+					);
+					dan.append(first.clone().wrapAll('<div/>').parent().html());
+					parent.attr('data-nowPosition', (np - 1) <  1 ? size : (np - 1) );
+				}
 			};
 			
 			s = setTimeout('a()', 500);
@@ -320,16 +325,18 @@ jtown.expand.syncProductMove = function(){
 					size = Number(parent.attr('data-size')),
 					np = Number(parent.attr('data-nowPosition'));
 				
-				if(count != np){
-					setTimeout('a()', 500);
+				if(size > 3){
+				
+					if(count != np){
+						setTimeout('a()', 500);
+					}
+					
+					dan.prepend(last.clone().wrapAll('<div/>').parent().html());
+					dan.css({left :  '-170px'}).animate({left :  '0px' }, '500', 'swing');
+					last.remove();
+		
+					parent.attr('data-nowPosition', (np + 1) > size ? 1 : (np + 1) );
 				}
-				
-				dan.prepend(last.clone().wrapAll('<div/>').parent().html());
-				dan.css({left :  '-170px'}).animate({left :  '0px' }, '500', 'swing');
-				last.remove();
-	
-				parent.attr('data-nowPosition', (np + 1) > size ? 1 : (np + 1) );
-				
 			};
 			
 			s = setTimeout('a()', 500);
