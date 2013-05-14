@@ -16,7 +16,7 @@ public interface JtownDetails extends UserDetails {
 	Integer getPn();
 
 	/**
-	 * @return Get group name String ex) 'Customer', 'Seller', 'Administartor'
+	 * @return Get group name String ex) 'Customer', 'Seller', 'Administartor', 'RootAdministrator'
 	 */
 	String getGroupName();
 

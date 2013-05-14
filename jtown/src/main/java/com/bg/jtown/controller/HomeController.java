@@ -140,7 +140,8 @@ public class HomeController {
 			HomeFilter homeFilter, SummaryUser summaryUser, Model model) {
 
 		Authority authority = summaryUser.getEnumAuthority();
-		if (authority.equals(Authority.ADMIN)) {
+		if (authority.equals(Authority.ADMIN)
+				|| authority.equals(Authority.ROOT_ADMIN)) {
 			return "redirect:admin";
 		} else if (authority.equals(Authority.SELLER)) {
 			return "redirect:seller/" + summaryUser.getPn();

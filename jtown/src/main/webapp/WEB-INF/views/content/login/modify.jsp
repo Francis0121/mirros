@@ -183,11 +183,11 @@
 			</li>
 		</ul>
 		
+		</sec:authorize>
 		<div class="jt-modfiy-submit-wrap">
 			<input type="button" value="저장" class="jt-change-user-btn jt-btn-orange" />
 		</div>
 		
-		</sec:authorize>
 	</section>
 </section>
 <%@ include file="../../layout/none_footer.jspf" %>
