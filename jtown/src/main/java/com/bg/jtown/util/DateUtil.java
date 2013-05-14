@@ -86,6 +86,13 @@ public class DateUtil {
 		return date;
 	}
 
+	public static String getSysdate(String dateForm) {
+		Date date = new Date();
+		String sysdate = new SimpleDateFormat(dateForm, Locale.KOREA)
+				.format(date);
+		return sysdate;
+	}
+
 	/**
 	 * 입력시 분기와 년도를 계산해서 입력시켜줌
 	 * 

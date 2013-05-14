@@ -49,7 +49,7 @@ public class LoginServiceImpl extends SqlSessionDaoSupport implements
 	}
 
 	@Override
-	public int findGroupdId(String group) {
+	public int findGroupId(String group) {
 		return getSqlSession().selectOne("loginMapper.findGroupId", group);
 	}
 

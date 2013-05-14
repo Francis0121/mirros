@@ -26,8 +26,10 @@
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="locations">
 			<list>
-				<value>classpath:/com/bg/jtown/properties/DBSetting.properties</value>
-				<value>classpath:/com/bg/jtown/properties/RedisSetting.properties</value>
+				<value>classpath:/com/bg/jtown/properties/DBSetting.properties
+				</value>
+				<value>classpath:/com/bg/jtown/properties/RedisSetting.properties
+				</value>
 			</list>
 		</property>
 	</bean>
@@ -102,4 +104,7 @@
 		<property name="props" ref="jamesProperty" />
 	</bean>
 
+	<import resource="jtown-redis.xml" />
+
+	<import resource="jtown-security.xml" />
 </beans>

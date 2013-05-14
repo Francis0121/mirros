@@ -346,8 +346,9 @@ public class LoginController {
 
 			String newPassword = jtownUser.getNewPassword();
 			if (!VaildationUtil.checkNullAndBlank(newPassword)) {
-				customJdbcUserDetailManager.changePassword(
-						jtownUser.getPassword(), jtownUser.getNewPassword());
+				jtownUser.setNewPassword(newPassword);
+				jtownUser.setUsername(summaryUser.getUsername());
+				customJdbcUserDetailManager.changePassword(jtownUser);
 			}
 
 			userAuthenticator.onApplicationEvent(jtownUser.getUsername());

@@ -2,62 +2,68 @@ package com.bg.jtown.security;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
+import javax.inject.Inject;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.security.access.AccessDeniedException;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.SaltSource;
 import org.springframework.security.authentication.encoding.PasswordEncoder;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserCache;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.core.userdetails.cache.NullUserCache;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.util.Assert;
 
+import com.bg.jtown.util.DateUtil;
 import com.bg.jtown.util.RandomUtil;
 
 /**
- * @author 박광열
+ * @author 박광열, Francis
  * 
  */
 public class CustomJdbcUserDetailManager extends JdbcUserDetailsManager {
 
 	protected final Logger logger = LoggerFactory.getLogger(getClass());
 
+	// ~ Query
+
+	private static final String LOAD_USERS_BY_USERNAME_QUERY = ""
+			+ "SELECT "
+			+ "	u.id, u.password, u.enable, DATE_FORMAT(u.salt, '%Y-%m-%d %H:%i:%s') AS salt, "
+			+ "	u.pn, gmn.group_name, u.name, u.confirm_email, u.facebook_feed FROM users u, group_members_name gmn "
+			+ "WHERE u.id = ? AND u.pn = gmn.user_pn";
+
+	private static final String LOAD_GROUP_AUTHORITIES_QUERY = ""
+			+ "SELECT g.id, g.group_name, ga.authority "
+			+ "FROM groups g, group_members gm, group_authorities ga "
+			+ "WHERE gm.user_pn = (select pn from users where id = ?) AND g.id = ga.group_id AND g.id = gm.group_id";
+
 	// ~ Variable
-	private boolean enableAuthorities;
-	private boolean enableGroups;
-	private UserCache userCache = new NullUserCache();
+
+	private static final String CUSTOMER = "Customer";
+	private static final String SELLER = "Seller";
+	private static final String ADMIN = "Administrator";
+	private static final Integer RANDOM_PASSWORD_LENGTH = 12;
 
 	// ~ Dynamic Injection
 
-	@SuppressWarnings("unused")
-	private AuthenticationManager authenticationManager;
 	private PasswordEncoder passwordEncoder;
 	private SaltSource saltSource;
 	private LoginService loginService;
 
-	@Autowired
+	@Inject
 	private void config(PasswordEncoder passwordEncoder, SaltSource saltSource,
 			LoginService loginService) {
 		this.passwordEncoder = passwordEncoder;
@@ -65,30 +71,7 @@ public class CustomJdbcUserDetailManager extends JdbcUserDetailsManager {
 		this.loginService = loginService;
 	}
 
-	public void setAuthenticationManager(
-			AuthenticationManager authenticationManager) {
-		this.authenticationManager = authenticationManager;
-	}
-
-	// ~ Set,Get Method
-
-	public boolean isEnableAuthorities() {
-		return enableAuthorities;
-	}
-
-	public void setEnableAuthorities(boolean enableAuthorities) {
-		this.enableAuthorities = enableAuthorities;
-	}
-
-	public boolean isEnableGroups() {
-		return enableGroups;
-	}
-
-	public void setEnableGroups(boolean enableGroups) {
-		this.enableGroups = enableGroups;
-	}
-
-	// ~ Method
+	// ~ Login
 
 	protected UserDetails createUserDetails(String id,
 			JtownDetails userFromUserQuery,
@@ -103,7 +86,8 @@ public class CustomJdbcUserDetailManager extends JdbcUserDetailsManager {
 				userFromUserQuery.getPassword(),
 				((JtownUser) userFromUserQuery).getSalt(),
 				userFromUserQuery.getName(), userFromUserQuery.getGroupName(),
-				userFromUserQuery.getConfirmEmail(), userFromUserQuery.getFacebookFeed(),
+				userFromUserQuery.getConfirmEmail(),
+				userFromUserQuery.getFacebookFeed(),
 				userFromUserQuery.isEnabled(), combinedAuthorities);
 	}
 
@@ -114,34 +98,23 @@ public class CustomJdbcUserDetailManager extends JdbcUserDetailsManager {
 		List<UserDetails> users = loadUsersByUsername(username);
 
 		if (users.size() == 0) {
-			logger.debug("Query returned no results for user '" + username
-					+ "'");
+			logger.debug("Query returned no results for user " + username);
 
 			throw new UsernameNotFoundException(messages.getMessage(
 					"JdbcDaoImpl.notFound", new Object[] { username },
 					"Username {0} not found"), username);
 		}
 
-		JtownDetails user = (JtownDetails) users.get(0); // contains no
-															// GrantedAuthority[]
+		JtownDetails user = (JtownDetails) users.get(0);
 
 		Set<GrantedAuthority> dbAuthsSet = new HashSet<GrantedAuthority>();
-
-		if (enableAuthorities) {
-			dbAuthsSet.addAll(loadUserAuthorities(user.getUsername()));
-		}
-
-		if (enableGroups) {
-			dbAuthsSet.addAll(loadGroupAuthorities(user.getUsername()));
-		}
-
+		dbAuthsSet.addAll(loadGroupAuthorities(user.getUsername()));
 		List<GrantedAuthority> dbAuths = new ArrayList<GrantedAuthority>(
 				dbAuthsSet);
-
 		addCustomAuthorities(user.getUsername(), dbAuths);
+
 		if (dbAuths.size() == 0) {
-			logger.debug("User '" + username
-					+ "' has no authorities and will be treated as 'not found'");
+			logger.debug("User " + username + " has no authorities");
 
 			throw new UsernameNotFoundException(messages.getMessage(
 					"JdbcDaoImpl.noAuthority", new Object[] { username },
@@ -152,46 +125,33 @@ public class CustomJdbcUserDetailManager extends JdbcUserDetailsManager {
 	}
 
 	@Override
-	protected List<UserDetails> loadUsersByUsername(String id) {
-		return getJdbcTemplate()
-				.query("SELECT u.id, u.password, u.enable, DATE_FORMAT(u.salt, '%Y-%m-%d %H:%i:%s') AS salt, u.pn, gmn.group_name, u.name, u.confirm_email, u.facebook_feed "
-						+ "FROM users u, group_members_name gmn "
-						+ "WHERE u.id = ? AND u.pn = gmn.user_pn",
-						new String[] { id }, new RowMapper<UserDetails>() {
-							@Override
-							public UserDetails mapRow(ResultSet rs, int rowNum)
-									throws SQLException {
-								String id = rs.getString(1);
-								String password = rs.getString(2);
-								boolean enabled = rs.getBoolean(3);
-								String salt = rs.getString(4);
-								Integer pn = rs.getInt(5);
-								String groupName = rs.getString(6);
-								String name = rs.getString(7);
-								boolean confirmEmail = rs.getBoolean(8);
-								boolean facebookFeed = rs.getBoolean(9);
+	protected List<UserDetails> loadUsersByUsername(String username) {
+		return getJdbcTemplate().query(LOAD_USERS_BY_USERNAME_QUERY,
+				new String[] { username }, new RowMapper<UserDetails>() {
+					@Override
+					public UserDetails mapRow(ResultSet rs, int rowNum)
+							throws SQLException {
+						String id = rs.getString(1);
+						String password = rs.getString(2);
+						boolean enabled = rs.getBoolean(3);
+						String salt = rs.getString(4);
+						Integer pn = rs.getInt(5);
+						String groupName = rs.getString(6);
+						String name = rs.getString(7);
+						boolean confirmEmail = rs.getBoolean(8);
+						boolean facebookFeed = rs.getBoolean(9);
 
-								return new JtownUser(pn, id, password, salt,
-										name, groupName, confirmEmail, facebookFeed, enabled,
-										AuthorityUtils.NO_AUTHORITIES);
-							}
-						});
+						return new JtownUser(pn, id, password, salt, name,
+								groupName, confirmEmail, facebookFeed, enabled,
+								AuthorityUtils.NO_AUTHORITIES);
+					}
+				});
 	}
 
 	@Override
-	protected List<GrantedAuthority> loadGroupAuthorities(String id) {
-
-		StringBuffer groupAuthoritiesByUsernameQuery = new StringBuffer();
-		groupAuthoritiesByUsernameQuery
-				.append("SELECT g.id, g.group_name, ga.authority ");
-		groupAuthoritiesByUsernameQuery
-				.append("FROM groups g, group_members gm, group_authorities ga ");
-		groupAuthoritiesByUsernameQuery
-				.append("WHERE gm.user_pn = (select pn from users where id = ?) AND g.id = ga.group_id AND g.id = gm.group_id");
-
-		return getJdbcTemplate().query(
-				groupAuthoritiesByUsernameQuery.toString(),
-				new String[] { id }, new RowMapper<GrantedAuthority>() {
+	protected List<GrantedAuthority> loadGroupAuthorities(String username) {
+		return getJdbcTemplate().query(LOAD_GROUP_AUTHORITIES_QUERY,
+				new String[] { username }, new RowMapper<GrantedAuthority>() {
 					public GrantedAuthority mapRow(ResultSet rs, int rowNum)
 							throws SQLException {
 						String roleName = getRolePrefix() + rs.getString(3);
@@ -201,89 +161,73 @@ public class CustomJdbcUserDetailManager extends JdbcUserDetailsManager {
 				});
 	}
 
-	public void createUserSellerAndAuthority(JtownUser jtownUser) {
-		createUserSeller(jtownUser);
-		addUserToGroup(jtownUser.getPn(), "Seller");
-	}
+	// ~ Customer
 
-	public void createUserCustomAndAuthority(JtownUser jtownUser) {
+	public void createUserCustomAndAuthority(final JtownUser jtownUser) {
 		jtownUser.setConfirmEmail(false);
-		creatUserCustomer(jtownUser);
-		addUserToGroup(jtownUser.getPn(), "Customer");
-		loginService.confirmingEmailAddress(jtownUser);
-	}
+		jtownUser.setFacebookFeed(true);
+		setEncodedPassword(jtownUser, jtownUser.getPassword());
+		loginService.insertCreatUserCustomer(jtownUser);
 
-	public void createUserAdminAndAuthority(JtownUser jtownUser) {
-		createUserAdmin(jtownUser);
-		addUserToGroup(jtownUser.getPn(), "Administartor");
+		addUserToGroup(jtownUser.getPn(), CUSTOMER);
+
+		loginService.confirmingEmailAddress(jtownUser);
 	}
 
 	public void createUserSocialAndAuthority(JtownUser jtownUser) {
 		String username = jtownUser.getUsername();
 		boolean exist = loginService.selectCheckExistEmail(username);
 		if (!exist) {
-			jtownUser.setPassword(RandomUtil.randomPassword(12));
+			String password = RandomUtil.randomPassword(RANDOM_PASSWORD_LENGTH);
 			jtownUser.setConfirmEmail(true);
-			creatUserCustomer(jtownUser);
-			addUserToGroup(jtownUser.getPn(), "Customer");
+			jtownUser.setFacebookFeed(true);
+			setEncodedPassword(jtownUser, password);
+			loginService.insertCreatUserCustomer(jtownUser);
+			addUserToGroup(jtownUser.getPn(), CUSTOMER);
 		} else {
 			JtownUser getJtownUser = (JtownUser) loadUserByUsername(username);
 			jtownUser.setPn(getJtownUser.getPn());
 		}
 	}
 
-	@Override
-	public void changePassword(String oldPassword, String newPassword)
-			throws AuthenticationException {
-		Authentication currentUser = SecurityContextHolder.getContext()
-				.getAuthentication();
+	// ~ Seller
 
-		if (currentUser == null) {
-			// This would indicate bad coding somewhere
-			throw new AccessDeniedException(
-					"Can't change password as no Authentication object found in context "
-							+ "for current user.");
-		}
+	public void createUserSellerAndAuthority(JtownUser jtownUser) {
+		String name = "seller" + DateUtil.getSysdate("yyyyMMddHHmmss");
+		jtownUser.setFacebookFeed(false);
+		jtownUser.setUsername(name);
+		setEncodedPassword(jtownUser, name);
+		loginService.insertCreateUserSeller(jtownUser);
 
-		String username = currentUser.getName();
+		addUserToGroup(jtownUser.getPn(), SELLER);
+	}
 
-		JtownUser jtownUser = (JtownUser) loadUserByUsername(username);
+	// ~ Administrator
 
-		// PasswordEncoder SaltSource
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",
-				Locale.KOREA);
-		Date date = new Date();
-		String salt = sdf.format(date);
-		jtownUser.setSalt(salt);
+	public void createUserAdminAndAuthority(JtownUser jtownUser) {
+		String name = "admin" + DateUtil.getSysdate("yyyyMMddHHmmss");
+		jtownUser.setFacebookFeed(false);
+		jtownUser.setName(ADMIN);
+		jtownUser.setUsername(name);
+		setEncodedPassword(jtownUser, name);
+		loginService.insertCreatUserAdmin(jtownUser);
+		addUserToGroup(jtownUser.getPn(), ADMIN);
+	}
 
-		String encodedPassword = passwordEncoder.encodePassword(newPassword,
-				saltSource.getSalt(jtownUser));
-		jtownUser.setNewPassword(encodedPassword);
+	// ~ Common
 
+	public void changePassword(JtownUser jtownUser) {
+		setEncodedPassword(jtownUser, jtownUser.getNewPassword());
 		loginService.updateChangePassword(jtownUser);
-
-		SecurityContextHolder.getContext().setAuthentication(
-				createNewAuthentication(currentUser, newPassword));
-
-		userCache.removeUserFromCache(username);
 	}
 
 	public String changeTempPassword(String username) {
-		String tempPassword = RandomUtil.randomPassword(8);
+		JtownUser jtownUser = new JtownUser();
+		jtownUser.setUsername(username);
+		String tempPassword = RandomUtil.randomPassword(RANDOM_PASSWORD_LENGTH);
 
-		JtownUser jtownUser = (JtownUser) loadUserByUsername(username);
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",
-				Locale.KOREA);
-		Date date = new Date();
-		String salt = sdf.format(date);
-		jtownUser.setSalt(salt);
-
-		String encodedPassword = passwordEncoder.encodePassword(tempPassword,
-				saltSource.getSalt(jtownUser));
-		jtownUser.setNewPassword(encodedPassword);
-
+		setEncodedPassword(jtownUser, tempPassword);
 		loginService.updateChangePassword(jtownUser);
-
 		return tempPassword;
 	}
 
@@ -306,74 +250,15 @@ public class CustomJdbcUserDetailManager extends JdbcUserDetailsManager {
 		}
 	}
 
-	private void creatUserCustomer(JtownUser jtownUser) {
-		validateUserDetails(jtownUser);
+	private void setEncodedPassword(JtownUser jtownUser, String password) {
+		jtownUser.setSalt(DateUtil.getSysdate("yyyy-MM-dd HH:mm:ss"));
 
-		// PasswordEncoder SaltSource
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",
-				Locale.KOREA);
-		Date date = new Date();
-		String salt = sdf.format(date);
-		jtownUser.setSalt(salt);
-
-		logger.debug(jtownUser.toString());
-
-		String encodedPassword = passwordEncoder.encodePassword(
-				jtownUser.getPassword(), saltSource.getSalt(jtownUser));
+		String encodedPassword = passwordEncoder.encodePassword(password,
+				saltSource.getSalt(jtownUser));
 		jtownUser.setPassword(encodedPassword);
-
-		loginService.insertCreatUserCustomer(jtownUser);
-	}
-
-	private void createUserSeller(JtownUser jtownUser) {
-		// PasswordEncoder SaltSource
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",
-				Locale.KOREA);
-		Date date = new Date();
-		String salt = sdf.format(date);
-		jtownUser.setSalt(salt);
-
-		String ran = new SimpleDateFormat("yyyyMMddHHmmss", Locale.KOREA)
-				.format(date);
-		jtownUser.setUsername("seller" + ran);
-		jtownUser.setPassword("seller" + ran);
-
-		logger.debug(jtownUser.toString());
-
-		String encodedPassword = passwordEncoder.encodePassword(
-				jtownUser.getPassword(), saltSource.getSalt(jtownUser));
-		jtownUser.setPassword(encodedPassword);
-
-		loginService.insertCreateUserSeller(jtownUser);
-	}
-
-	private void createUserAdmin(JtownUser jtownUser) {
-		// validateUserDetails(jtownUser);
-
-		// PasswordEncoder SaltSource
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",
-				Locale.KOREA);
-		Date date = new Date();
-		String salt = sdf.format(date);
-		jtownUser.setSalt(salt);
-
-		String ran = new SimpleDateFormat("yyyyMMddHHmmss", Locale.KOREA)
-				.format(date);
-		jtownUser.setUsername("admin" + ran);
-		jtownUser.setPassword("admin" + ran);
-
-		logger.debug(jtownUser.toString());
-
-		String encodedPassword = passwordEncoder.encodePassword(
-				jtownUser.getPassword(), saltSource.getSalt(jtownUser));
-		jtownUser.setPassword(encodedPassword);
-
-		loginService.insertCreatUserAdmin(jtownUser);
 	}
 
 	private void addUserToGroup(Integer userPn, String groupName) {
-		logger.debug("Adding user '" + userPn + "' to group '" + groupName
-				+ "'");
 		Assert.hasText(userPn.toString());
 		Assert.hasText(groupName);
 
@@ -387,30 +272,7 @@ public class CustomJdbcUserDetailManager extends JdbcUserDetailsManager {
 	}
 
 	private int findGroupId(String group) {
-		return loginService.findGroupdId(group);
-	}
-
-	private void validateUserDetails(UserDetails user) {
-		Assert.hasText(user.getUsername(), "Username may not be empty or null");
-		validateAuthorities(user.getAuthorities());
-	}
-
-	private void validateAuthorities(
-			Collection<? extends GrantedAuthority> authorities) {
-		Assert.notNull(authorities, "Authorities list must not be null");
-
-		for (GrantedAuthority authority : authorities) {
-			Assert.notNull(authority, "Authorities list contains a null entry");
-			Assert.hasText(authority.getAuthority(),
-					"getAuthority() method must return a non-empty string");
-		}
-	}
-
-	public void deleteUserCustomer(JtownUser jtownUser) {
-		Integer pn = jtownUser.getPn();
-		String username = jtownUser.getUsername();
-		getJdbcTemplate().update("DELETE FROM users WHERE pn = ?", pn);
-		userCache.removeUserFromCache(username);
+		return loginService.findGroupId(group);
 	}
 
 }

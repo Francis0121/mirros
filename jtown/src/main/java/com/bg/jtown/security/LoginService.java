@@ -20,7 +20,7 @@ public interface LoginService {
 
 	void updateChangePassword(JtownUser jtownUser);
 
-	int findGroupdId(String group);
+	int findGroupId(String group);
 
 	boolean selectCheckExistEmail(String id);
 
@@ -55,7 +55,7 @@ public interface LoginService {
 	void deleteEmailConfirm(Confirm confirm);
 
 	// Social
-	
+
 	String selectSocialProviderUserId(Integer properNumber, String providerId);
 
 	void updateFacebookFeed(JtownUser jtownUser);

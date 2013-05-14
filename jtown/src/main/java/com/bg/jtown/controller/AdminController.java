@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -53,31 +52,26 @@ public class AdminController {
 
 	// ~ SHOW
 
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/admin", method = RequestMethod.GET)
 	public String showAdmin(Model model) {
 		return "admin/main";
 	}
 
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/admin/qna", method = RequestMethod.GET)
 	public String showQna(Model model) {
 		return "admin/qna";
 	}
 
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/admin/qnaSeller", method = RequestMethod.GET)
 	public String showQnaSeller(Model model) {
 		return "admin/qnaSeller";
 	}
 
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/admin/qnaCustomer", method = RequestMethod.GET)
 	public String showQnaCustomerPage(Model model) {
 		return "admin/qnaCustomer";
 	}
 
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/admin/seller", method = RequestMethod.GET)
 	public String showSellerPage(Model model,
 			@ModelAttribute UserFilter userFilter) {
@@ -85,7 +79,6 @@ public class AdminController {
 		return "admin/seller";
 	}
 
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/admin/customer", method = RequestMethod.GET)
 	public String showCustomerPage(Model model,
 			@ModelAttribute UserFilter userFilter) {
@@ -93,7 +86,6 @@ public class AdminController {
 		return "admin/customer";
 	}
 
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/admin/cs", method = RequestMethod.GET)
 	public String showCreatSeller(Model model,
 			@ModelAttribute JtownUser jtownUser) {
@@ -105,7 +97,6 @@ public class AdminController {
 
 	// ~ FORM
 
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/admin/cs.jt", method = RequestMethod.POST)
 	public String formCreateSeller(Model model,
 			@ModelAttribute JtownUser jtownUser, BindingResult result) {
@@ -138,7 +129,6 @@ public class AdminController {
 		}
 	}
 
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/admin/sellerInformation/sp/{sellerPn}", method = RequestMethod.GET)
 	public String showCreateSellerFinishPage(Model model,
 			@PathVariable Integer sellerPn) {
@@ -146,13 +136,11 @@ public class AdminController {
 		return "admin/sellerInformation";
 	}
 
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/admin/administrator", method = RequestMethod.GET)
 	public String showAdministratorPage(Model model) {
 		return "admin/administrator";
 	}
 
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/admin/createAdministrator.jt", method = RequestMethod.GET)
 	public String formCreateAdministrator(Model model) {
 		JtownUser jtownUser = new JtownUser();
@@ -161,21 +149,18 @@ public class AdminController {
 		return "admin/administrator";
 	}
 
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/admin/changeShopUrl", method = RequestMethod.POST)
 	@ResponseBody
 	public void ajaxChangeShopUrl(@RequestBody JtownUser jtownUser) {
 		adminService.updateShopUrl(jtownUser);
 	}
 
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/admin/changeInterest", method = RequestMethod.POST)
 	@ResponseBody
 	public void ajaxChangeInterest(@RequestBody Interest interest) {
 		adminService.updateInterest(interest);
 	}
 
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/admin/changeEnable", method = RequestMethod.POST)
 	@ResponseBody
 	public void ajaxChangeEnable(@RequestBody JtownUser jtownUser) {
@@ -184,7 +169,6 @@ public class AdminController {
 
 	// ~ Partnership
 
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/admin/partnership", method = RequestMethod.GET)
 	public String showSellerPage(Model model,
 			@ModelAttribute PartnershipFilter partnershipFilter) {
@@ -192,7 +176,6 @@ public class AdminController {
 		return "admin/partnership";
 	}
 
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/ajax/admin/process.jt", method = RequestMethod.POST)
 	@ResponseBody
 	public void showSellerPage(@RequestBody Partnership partnership) {
@@ -201,7 +184,6 @@ public class AdminController {
 
 	// ~ Contract
 
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/admin/contractList", method = RequestMethod.GET)
 	public String showContractListPopup(Model model,
 			@ModelAttribute ContractFilter contractFilter) {
@@ -211,7 +193,6 @@ public class AdminController {
 		return "admin/contractList";
 	}
 
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/admin/contract", method = RequestMethod.GET)
 	public String showContractListPopup(Model model,
 			@RequestParam Integer sellerPn) {
@@ -224,7 +205,6 @@ public class AdminController {
 		return "admin/contract";
 	}
 
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/admin/contract.jt", method = RequestMethod.POST)
 	public String formContract(Model model, @ModelAttribute Contract contract,
 			BindingResult result) {
@@ -256,7 +236,6 @@ public class AdminController {
 
 	// ~ Comment
 
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/admin/comment", method = RequestMethod.GET)
 	public String showContractListPopup(Model model,
 			@ModelAttribute AdminCommentFilter adminCommentFilter) {
@@ -267,7 +246,6 @@ public class AdminController {
 
 	// ~ Ajax
 
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/ajax/admin/autoInterestSection.jt", method = RequestMethod.POST)
 	@ResponseBody
 	public List<Interest> ajaxAutoInterestSection(@RequestBody Interest interest) {
