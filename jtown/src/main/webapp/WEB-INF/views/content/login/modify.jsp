@@ -9,7 +9,7 @@
 	<section class="jt-modify-content">
 		<ul class="jt-modify-content-header">
 			<li>
-				<h2>계정&nbsp;설정</h1>
+				<h2>계정&nbsp;설정</h2>
 			</li>
 			<sec:authorize access="principal.groupName eq 'Customer'">
 				<li class="jt-modify-content-disactive-btn">
@@ -104,7 +104,7 @@
 						<th>새&nbsp;비밀번호&nbsp;재입력</th>
 						<td>
 							<div class="jt-join-user-vaild-wrap" id="confirmPW">
-								<span class="jt-form-invalid" id="confirmPW">비밀번호를&nbsp;동일하게&nbsp;입력해&nbsp;주시기&nbsp;바랍니다.</span>
+								<span class="jt-form-invalid">비밀번호를&nbsp;동일하게&nbsp;입력해&nbsp;주시기&nbsp;바랍니다.</span>
 							</div>
 							<input type="password" name="confirmPassword" class="jt-modify-content-input"/>
 						</td>
@@ -123,7 +123,7 @@
 					<spring:message code="${providerId}.icon" var="iconUrl"/>
 					<ul class="jt-modify-connect-social-info">
 						<li>
-							<img src="<c:url value="${iconUrl}" />" width="36" height="36" />
+							<img src="<c:url value="${iconUrl}" />"/>
 						</li>
 					<c:if test="${not empty connections}">
 						<li>
