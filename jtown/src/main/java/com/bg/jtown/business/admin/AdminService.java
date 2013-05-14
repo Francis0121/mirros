@@ -6,6 +6,7 @@ import java.util.Map;
 import com.bg.jtown.business.Comment;
 import com.bg.jtown.business.Interest;
 import com.bg.jtown.business.search.AdminCommentFilter;
+import com.bg.jtown.business.search.AdministratorFilter;
 import com.bg.jtown.business.search.UserFilter;
 import com.bg.jtown.security.JtownUser;
 
@@ -29,7 +30,13 @@ public interface AdminService {
 
 	Map<String, Object> selectCustomerModelMap(UserFilter userFilter);
 
+	Map<String, Object> selectAdminModelMap(
+			AdministratorFilter administratorFilter);
+
 	List<Comment> selectAllCommentList(AdminCommentFilter adminCommentFilter);
 
 	List<Interest> selectInterestSection(Interest interest);
+
+	List<JtownUser> selectAdminList(AdministratorFilter administratorFilter);
+
 }

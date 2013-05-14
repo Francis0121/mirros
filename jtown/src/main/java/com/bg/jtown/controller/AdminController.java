@@ -24,6 +24,7 @@ import com.bg.jtown.business.Partnership;
 import com.bg.jtown.business.admin.AdminService;
 import com.bg.jtown.business.help.HelpService;
 import com.bg.jtown.business.search.AdminCommentFilter;
+import com.bg.jtown.business.search.AdministratorFilter;
 import com.bg.jtown.business.search.ContractFilter;
 import com.bg.jtown.business.search.PartnershipFilter;
 import com.bg.jtown.business.search.UserFilter;
@@ -122,7 +123,12 @@ public class AdminController {
 	}
 
 	@RequestMapping(value = "/admin/administrator", method = RequestMethod.GET)
-	public String showAdministratorPage(Model model) {
+	public String showAdministratorPage(Model model,
+			@ModelAttribute AdministratorFilter administratorFilter) {
+
+		model.addAllAttributes(adminService
+				.selectAdminModelMap(administratorFilter));
+
 		return "admin/administrator";
 	}
 
@@ -131,7 +137,7 @@ public class AdminController {
 		JtownUser jtownUser = new JtownUser();
 		customJdbcUserDetailManager.createUserAdminAndAuthority(jtownUser);
 		model.addAttribute("jtownUser", jtownUser);
-		return "admin/administrator";
+		return "redirect:administrator";
 	}
 
 	@RequestMapping(value = "/admin/changeShopUrl", method = RequestMethod.POST)

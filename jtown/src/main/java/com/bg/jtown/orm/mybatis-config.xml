@@ -10,6 +10,7 @@
 		<typeAlias alias="BoardFilter" type="com.bg.jtown.business.search.BoardFilter" />
 		
 		<typeAlias alias="NaturalLanguageFilter" type="com.bg.jtown.business.search.NaturalLanguageFilter"/>
+		<typeAlias alias="AdministratorFilter" type="com.bg.jtown.business.search.AdministratorFilter"/>
 		
 		<typeAlias alias="Interest" type="com.bg.jtown.business.Interest"/>
 	</typeAliases>

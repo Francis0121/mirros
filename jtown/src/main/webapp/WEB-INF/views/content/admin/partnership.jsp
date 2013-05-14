@@ -38,10 +38,12 @@ function goToPreviousPages() {
 	<form:form commandName="partnershipFilter" action="${partnershipUrl }" htmlEscape="true" method="get">
 		<form:hidden path="page" value="${pagination.currentPage}"/>
 		<li>
+			<form:label path="categoryPn">사업아이템</form:label>
 			<form:select path="categoryPn" onchange="document.forms['partnershipFilter'].submit();">
 				<form:option value="">전체</form:option>
 				<form:options items="${interestCategoryMap }"/>
 			</form:select>
+			<form:label path="process">처리상황</form:label>
 			<form:select path="process" onchange="document.forms['partnershipFilter'].submit();">
 				<form:option value="">전체</form:option>
 				<form:options items="${processMap }"/>

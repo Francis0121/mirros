@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.bg.jtown.business.Comment;
 import com.bg.jtown.business.Interest;
 import com.bg.jtown.business.search.AdminCommentFilter;
+import com.bg.jtown.business.search.AdministratorFilter;
 import com.bg.jtown.business.search.UserFilter;
 import com.bg.jtown.security.CustomJdbcUserDetailManager;
 import com.bg.jtown.security.JtownUser;
@@ -98,6 +99,28 @@ public class AdminServiceImpl extends SqlSessionDaoSupport implements
 		getSqlSession().update("adminMapper.updateEnable", jtownUser);
 	}
 
+	// ~ Aministrator
+
+	@Override
+	public Map<String, Object> selectAdminModelMap(
+			AdministratorFilter administartorFilter) {
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+
+		List<JtownUser> adminList = selectAdminList(administartorFilter);
+		modelMap.put("adminList", adminList);
+		
+		return modelMap;
+	};
+
+	// ~ Seller
+
+	@Override
+	public List<JtownUser> selectAdminList(
+			AdministratorFilter administartorFilter) {
+		return getSqlSession().selectList(
+				"adminMapper.selectAdministratorList", administartorFilter);
+	}
+
 	@Override
 	public List<Interest> selectInterestCategoryList() {
 		return getSqlSession()
@@ -151,6 +174,8 @@ public class AdminServiceImpl extends SqlSessionDaoSupport implements
 				"adminMapper.selectSellerInterestList", pnList);
 	}
 
+	// ~ Customer
+
 	@Override
 	public Map<String, Object> selectCustomerModelMap(UserFilter userFilter) {
 		Map<String, Object> modelMap = new HashMap<String, Object>();
@@ -197,6 +222,8 @@ public class AdminServiceImpl extends SqlSessionDaoSupport implements
 		return getSqlSession().selectList(
 				"adminMapper.selectCustomerInterestList", pnList);
 	}
+
+	// ~ Comment
 
 	@Override
 	public List<Comment> selectAllCommentList(

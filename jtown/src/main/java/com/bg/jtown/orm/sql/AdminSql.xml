@@ -310,4 +310,30 @@
 			category_pn = #{categoryPn}
 	</select>
 	
+	<resultMap type="JtownUser" id="jt_administrator_map">
+		<result column="pn" property="pn"/>
+		<result column="id" property="username"/>
+		<result column="name" property="name"/>
+		<result column="salt" property="salt"/>
+		<result column="enable" property="enabled"/>
+	</resultMap>
+	
+	<!--  Administrator -->
+	<select id="selectAdministratorList" parameterType="AdministratorFilter" resultMap="jt_administrator_map">
+		<include refid="paginationBefore"/>
+		SELECT
+			u.pn, u.id, u.name, u.salt, u.enable
+		FROM
+			users u,
+			group_members gm
+		WHERE
+			u.pn = gm.user_pn
+		AND
+			gm.group_id = 3
+		ORDER BY
+			salt DESC	
+		<include refid="paginationAfter"/>	
+	</select>
+	
+	
 </mapper>
