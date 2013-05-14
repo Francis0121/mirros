@@ -57,21 +57,6 @@ public class AdminController {
 		return "admin/main";
 	}
 
-	@RequestMapping(value = "/admin/qna", method = RequestMethod.GET)
-	public String showQna(Model model) {
-		return "admin/qna";
-	}
-
-	@RequestMapping(value = "/admin/qnaSeller", method = RequestMethod.GET)
-	public String showQnaSeller(Model model) {
-		return "admin/qnaSeller";
-	}
-
-	@RequestMapping(value = "/admin/qnaCustomer", method = RequestMethod.GET)
-	public String showQnaCustomerPage(Model model) {
-		return "admin/qnaCustomer";
-	}
-
 	@RequestMapping(value = "/admin/seller", method = RequestMethod.GET)
 	public String showSellerPage(Model model,
 			@ModelAttribute UserFilter userFilter) {
