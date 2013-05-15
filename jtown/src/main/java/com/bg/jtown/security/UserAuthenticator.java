@@ -1,6 +1,8 @@
 package com.bg.jtown.security;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -22,6 +24,9 @@ public class UserAuthenticator {
 	@Resource
 	private CustomJdbcUserDetailManager customJdbcUserDetailManager;
 
+	@Resource(name = "ipPersistentTokenBasedRememberMeServicesBean")
+	private IPPersistentTokenBasedRememberMeServices ipPersistentTokenBasedRememberMeServices;
+
 	/**
 	 * 로그인시 패스워드 보유
 	 * 
@@ -36,9 +41,11 @@ public class UserAuthenticator {
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 	}
 
-	public void onApplicationEvent(String username) {
+	public void onApplicationEvent(String username, HttpServletRequest request, HttpServletResponse response) {
 		Authentication authentication = SecurityContextHolder.getContext()
 				.getAuthentication();
+		ipPersistentTokenBasedRememberMeServices.logout(request, response,
+				authentication);
 		SecurityContextHolder.getContext().setAuthentication(
 				createNewAuthentication(authentication, username));
 	}

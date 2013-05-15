@@ -12,6 +12,8 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.userdetails.UserCache;
+import org.springframework.security.core.userdetails.cache.NullUserCache;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.ConnectionFactoryLocator;
 import org.springframework.social.connect.ConnectionRepository;
@@ -20,6 +22,7 @@ import org.springframework.social.twitter.api.Twitter;
 import org.springframework.social.twitter.api.TwitterProfile;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
@@ -57,6 +60,21 @@ public class LoginController {
 
 	private static final Logger logger = LoggerFactory
 			.getLogger(LoginController.class);
+
+	private UserCache userCache = new NullUserCache();
+
+	/**
+	 * Optionally sets the UserCache if one is in use in the application. This
+	 * allows the user to be removed from the cache after updates have taken
+	 * place to avoid stale data.
+	 * 
+	 * @param userCache
+	 *            the cache used by the AuthenticationManager.
+	 */
+	public void setUserCache(UserCache userCache) {
+		Assert.notNull(userCache, "userCache cannot be null");
+		this.userCache = userCache;
+	}
 
 	@Resource
 	private LoginValidator loginValidator;
@@ -276,7 +294,8 @@ public class LoginController {
 	@RequestMapping(value = "/login/modify.jt", method = RequestMethod.POST)
 	public String formPassword(@ModelAttribute JtownUser jtownUser,
 			BindingResult result, @RequestParam final String confirmPassword,
-			Model model, final SummaryUser summaryUser) {
+			Model model, final SummaryUser summaryUser,
+			HttpServletRequest request, HttpServletResponse response) {
 		new Validator() {
 			@Override
 			public void validate(Object target, Errors errors) {
@@ -358,6 +377,7 @@ public class LoginController {
 				loginService.updateUserCustomer(jtownUser);
 			}
 
+			// 아이디 변경전
 			String nowUsername = summaryUser.getUsername();
 			String changeUsername = jtownUser.getUsername();
 			if (!VaildationUtil.checkNullAndBlank(changeUsername)) {
@@ -371,9 +391,11 @@ public class LoginController {
 						loginService
 								.updateUsername(changeUsername, nowUsername);
 					}
+					summaryUser.setUsername(changeUsername);
 				}
 			}
 
+			// 아이디 변경후
 			String newPassword = jtownUser.getNewPassword();
 			if (!VaildationUtil.checkNullAndBlank(newPassword)) {
 				jtownUser.setNewPassword(newPassword);
@@ -381,7 +403,9 @@ public class LoginController {
 				customJdbcUserDetailManager.changePassword(jtownUser);
 			}
 
-			userAuthenticator.onApplicationEvent(jtownUser.getUsername());
+			userCache.removeUserFromCache(jtownUser.getUsername());
+			userAuthenticator.onApplicationEvent(jtownUser.getUsername(), request,
+					response);
 			return "redirect:modify/?result=2";
 		} else {
 			Map<String, List<Connection<?>>> connections = connectionRepository
@@ -468,7 +492,9 @@ public class LoginController {
 	}
 
 	@RequestMapping(value = "/confirmEmailAddress", method = RequestMethod.GET)
-	public ModelAndView formConfirmEmailAddress(@ModelAttribute Confirm confirm) {
+	public ModelAndView formConfirmEmailAddress(
+			@ModelAttribute Confirm confirm, HttpServletRequest request,
+			HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView(new RedirectView(
 				"resultEmailAddress"));
 		logger.debug(confirm.toString());
@@ -498,7 +524,7 @@ public class LoginController {
 			loginService.updateUserCustomer(setJtownUser);
 			loginService.deleteEmailConfirm(new Confirm(id));
 
-			userAuthenticator.onApplicationEvent(id);
+			userAuthenticator.onApplicationEvent(id, request, response);
 			mav.addObject("confirm", 1);
 		} else {
 			mav.addObject("confirm", 2);
@@ -589,16 +615,17 @@ public class LoginController {
 	private static final String PROVIDER_ERROR_ATTRIBUTE = "social.provider.error";
 
 	@RequestMapping(value = "/login/modifyFacebookFeed.jt", method = RequestMethod.POST)
-	public String formModifyFacebookFeed(SummaryUser summaryUser) {
+	public String formModifyFacebookFeed(SummaryUser summaryUser,
+			HttpServletRequest request, HttpServletResponse response) {
 		JtownUser jtownUser = new JtownUser();
 		jtownUser.setPn(summaryUser.getPn());
 		jtownUser.setFacebookFeed(!summaryUser.getFacebookFeed());
 
 		loginService.updateFacebookFeed(jtownUser);
 
-		userAuthenticator.onApplicationEvent(summaryUser.getUsername());
+		userAuthenticator.onApplicationEvent(summaryUser.getUsername(),
+				request, response);
 
-		logger.debug("???????????????????????");
 		return "redirect:modify/?result=2";
 	}
 
