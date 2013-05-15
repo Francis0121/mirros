@@ -14,7 +14,7 @@
 <article class="jt-url-content-wrap">
 	<div id="urlfolderBar">
 		<div id="urlfolderTabName">
-			<span id="urldigonalFolderImage"><a href="http://${jtownUser.shopUrl }"target="_blank"><c:out value="${jtownUser.name }"/></a></span>
+			<span id="urldigonalFolderImage"><a href="http://${jtownUser.shopUrl }"target="_blank" title="클릭시 해당 쇼핑몰로 이동됩니다."><c:out value="${jtownUser.name }"/></a></span>
 		</div>
 	</div>
 	<section class="jt-seller-content">
@@ -29,7 +29,7 @@
 						<c:otherwise>
 							<c:forEach items="${mainImages }" var="mainImage" varStatus="loop" >
 								<c:url value="/resources/uploadImage/${mainImage }" var="image"/>
-								<img alt="" src="${image }" title="${jtownUser.name}" id="jt-seller-main-image-area"/>	
+								<img alt="" src="${image }" id="jt-seller-main-image-area"/>	
 							</c:forEach>
 						</c:otherwise>
 					</c:choose>
@@ -61,8 +61,8 @@
 			</section>
 		</section>
 		<section class="jt-seller-expand">
-			<div class="jt-home-expand-shop" id="jt-home-expand-shop" data-spn="${jtownUser.pn }" data-size="${productSize }" data-nowPosition="${productSize}">
-				<div id="jt-home-expand-shop-notice">
+			<div class="jt-home-expand-shop" id="jt-home-expand-shop" data-spn="${jtownUser.pn }" data-size="${productSize }" data-nowPosition="${productSize}" data-url="${jtownUser.shopUrl }">
+				<div id="jt-home-expand-shop-notice"  class="gotoPage" title="클릭시 해당 쇼핑몰로 이동됩니다.">
 					<span class="jt-home-expand-shop-firstQuotationMark"></span>
 					<pre id="jt-seller-expand-shop-text" class="jt-home-expand-shop-text"><c:out value="${jtownUser.longNotice}"/></pre>
 					<textarea id="jt-seller-expand-textarea" class="jt-seller-expand-textarea" maxlength="200"><c:out value="${jtownUser.longNotice}"/></textarea>
@@ -107,7 +107,7 @@
 						<input type="hidden" id="pn" name="pn" value="pn"/>
 					</form>
 				</div>
-				<div class="jt-home-expand-shop-event" id="jt-seller-expand-event-first" data-epn="<c:out value="${event1.pn }"/>" data-bo="1">
+				<div class="jt-home-expand-shop-event gotoPage" id="jt-seller-expand-event-first" title="클릭시 해당 쇼핑몰로 이동됩니다." data-epn="<c:out value="${event1.pn }"/>" data-bo="1">
 					<c:if test="${jtownUser.bannerFirst < 8 }">
 						<div class="jt-home-expand-shop-event-new">
 							<div>
@@ -116,9 +116,9 @@
 						</div>
 					</c:if>
 					<c:url value="/resources/uploadImage/${event1.saveName eq null ? 'event-1.png' : event1.saveName}" var="image"/>
-					<img alt="event1" src="${image }" title="<c:out value="${jtownUser.name }"/> Event" id="jt-seller-expand-event-first-img"/>
+					<img alt="event1" src="${image }" id="jt-seller-expand-event-first-img"/>
 				</div>
-				<div class="jt-home-expand-shop-event" id="jt-seller-expand-event-second" data-epn="<c:out value="${event2.pn }"/>" data-bo="2">
+				<div class="jt-home-expand-shop-event gotoPage" id="jt-seller-expand-event-second" title="클릭시 해당 쇼핑몰로 이동됩니다." data-epn="<c:out value="${event2.pn }"/>" data-bo="2">
 					<c:if test="${jtownUser.bannerSecond < 8 }">
 					<div class="jt-home-expand-shop-event-new">
 						<div>
@@ -127,7 +127,7 @@
 					</div>
 					</c:if>
 					<c:url value="/resources/uploadImage/${event2.saveName eq null ? 'event-2.png' : event2.saveName}" var="image"/>
-					<img alt="event2" src="${image }" title="<c:out value="${jtownUser.name }"/> Event" id="jt-seller-expand-event-second-img"/>
+					<img alt="event2" src="${image }" id="jt-seller-expand-event-second-img"/>
 				</div>
 				<div class="jt-home-expand-shop-content-wrpa">
 					<ul class="jt-home-expand-shop-content-fn">
@@ -135,7 +135,7 @@
 							<span class="jt-home-expand-shop-content-view">Look</span>&nbsp;<span id="view-expand-<c:out value="${jtownUser.pn }"/>"><c:out value="${jtownUser.viewCount eq null ? 0 : jtownUser.viewCount}"/></span>
 						</li>
 						<li class="jt-home-expand-shop-content-comment-wrap">
-							<span class="jt-home-expand-shop-content-comment"></span>&nbsp;Comment&nbsp;&nbsp;<span id="comment-expand-<c:out value="${jtownUser.pn }"/>"><c:out value="${jtownUser.commentCount eq null ? 0 : jtownUser.commentCount}"/></span>
+							<span class="jt-home-expand-shop-content-comment"></span>&nbsp;Comment&nbsp;<span id="comment-expand-<c:out value="${jtownUser.pn }"/>" class="jt-home-expand-shop-content-comment-text"><c:out value="${jtownUser.commentCount eq null ? 0 : jtownUser.commentCount}"/></span>
 							<div class="jt-home-expand-shop-border-hide"></div>
 						</li>
 						<li class="jt-home-expand-shop-content-love-wrap">

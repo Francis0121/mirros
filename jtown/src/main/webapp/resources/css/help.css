@@ -5,9 +5,10 @@
 .jt-partnership-section{width: 800px; margin: auto auto; height: 75px; }
 .jt-partnership-header{float: left; width: 100%; margin: 20px 0 0 0;}
 .jt-partnership-header>hgroup{ float: left; width: 100%;}
-.jt-partnership-header>hgroup>h1{ float: left; width: 100%; color: #524d4d; font-size: 20px;}
+.jt-partnership-header>hgroup>h1{ float: left; width: 100%; color: #524d4d; font-size: 18px;}
 .jt-partnership-header>hgroup>h2{ float: left;  width: 100%; color: #524d4d; font-size: 13px; font-weight: normal; margin: 10px 0 0 0;}
-.jt-partnership-content{ float: left; width: 100%; min-height: 250px; }
+.jt-partnership-content{ float: left; width: 100%; min-height: 160px; }
+.jt-partnership-content>pre{ float: left; min-height: 80px; padding: 40px 0; font-size: 13px; line-height: 1.8;}
 .jt-partnership-form{ float: left; }
 
 .jt-partnership-form-table { border-collapse: collapse; width: 600px; margin: auto auto; }

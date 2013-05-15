@@ -10,13 +10,16 @@
 	
 	<header class="jt-partnership-header">
 		<hgroup>
-			<h1>Business(제휴문의)</h1>
-			<h2>당신의&nbsp;쇼핑몰을&nbsp;쉽게&nbsp;홍보하세요.</h2>
+			<h1>Business</h1>
 		</hgroup>
 	</header>
 	
 	<section class="jt-partnership-content">
-	
+<pre>
+미러스에서 당신의 쇼핑몰을 보다 쉽게 마케팅 해보세요!
+미러스는 위치에 따른 광고비용이 아니며, 사용자들의 평가에 따라 보다 많은 고객을 확보할 수 있습니다.
+고객의 쇼핑만큼 여러분의 인터넷 비즈니스도 즐거워야 합니다.    
+</pre>	
 	</section>
 	
 	<section class="jt-partnership-form">

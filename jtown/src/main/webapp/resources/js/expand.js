@@ -4,6 +4,8 @@ $(function(){
 	jtown.expand.syncProductMove();
 	
 	jtown.comment.syncComment();
+	
+	jtown.expand.gotoPage();
 });
 
 if (typeof jtown.expand == 'undefined') {
@@ -170,11 +172,11 @@ jtown.expand.makeInnerHtml = function(spn){
 		
 		html += '<header class="jt-home-expand-click-shop-header">';
 		html += '	<div>';
-		html += '		<a href="http://'+jtownUser.shopUrl+'" target="_blank" onclick="jtown.home.clickShop(\''+spn+'\');">'+htmlChars(jtownUser.name)+'</a>';
+		html += '		<a href="http://'+jtownUser.shopUrl+'" target="_blank" onclick="jtown.home.clickShop(\''+spn+'\');" title="클릭시 해당 쇼핑몰로 이동됩니다.">'+htmlChars(jtownUser.name)+'</a>';
 		html += '	</div>';	
 		html += '</header>';
-		html += '<div class="jt-home-expand-shop jt-home-expand-click-shop" id="jt-home-expand-shop" data-size="'+productSize+'" data-nowPosition="'+productSize+'" data-spn="'+jtownUser.pn+'" >';
-		html += '	<div id="jt-home-expand-shop-notice">';
+		html += '<div class="jt-home-expand-shop jt-home-expand-click-shop" id="jt-home-expand-shop" data-size="'+productSize+'" data-nowPosition="'+productSize+'" data-spn="'+jtownUser.pn+'" data-url="'+jtownUser.shopUrl+'">';
+		html += '	<div id="jt-home-expand-shop-notice" class="gotoPage" title="클릭시 해당 쇼핑몰로 이동됩니다.">';
 		html += '		<span class="jt-home-expand-shop-firstQuotationMark"></span>';
 		html += '		<pre id="jt-seller-expand-shop-text" class="jt-home-expand-shop-text">'+ ( nullValueCheck(jtownUser.longNotice) ? "쇼핑몰의 홍보문구를 입력해주세요." : jtownUser.longNotice ) +'</pre>';
 		html += '		<span class="jt-home-expand-shop-lastQuotationMark"></span>';				
@@ -198,25 +200,25 @@ jtown.expand.makeInnerHtml = function(spn){
 		}
 		html +=	'		</li>';
 		html += '	</ul>';
-		html += '	<div class="jt-home-expand-shop-products">';
+		html += '	<div class="jt-home-expand-shop-products ">';
 		html += '		<ul id="jt-seller-slide-small">';
 		html += '			'+smallProductHtml;
 		html += '		</ul>';
 		html += '	</div>';
-		html += '	<div class="jt-home-expand-shop-event" id="jt-seller-expand-event-first">';
+		html += '	<div class="jt-home-expand-shop-event gotoPage" id="jt-seller-expand-event-first" title="클릭시 해당 쇼핑몰로 이동됩니다.">';
 		html += '		'+ ( (jtownUser.bannerFirst != null && Number(jtownUser.bannerFirst) < 8 ) ? newEventHtml : '');
-		html += '		<img alt="event1" src="'+path + eventImage1 +'" title="'+htmlChars(jtownUser.name)+' Event"/>';
+		html += '		<img alt="event1" src="'+path + eventImage1 +'"/>';
 		html += '	</div>';
-		html += '	<div class="jt-home-expand-shop-event" id="jt-seller-expand-event-second">';
+		html += '	<div class="jt-home-expand-shop-event gotoPage" id="jt-seller-expand-event-second" title="클릭시 해당 쇼핑몰로 이동됩니다.">';
 		html += '		'+ ( (jtownUser.bannerSecond != null && Number(jtownUser.bannerSecond) < 8)? newEventHtml : '');
-		html +=	'		<img alt="event2" src="'+path + eventImage2 +'" title="'+htmlChars(jtownUser.name)+' Event"/>';
+		html +=	'		<img alt="event2" src="'+path + eventImage2 +'"/>';
 		html +=	'	</div>';	
 		html += '	<ul class="jt-home-expand-shop-content-fn">';
 		html +=	'		<li class="jt-home-expand-shop-content-view-wrap">';
 		html +=	'			<span class="jt-home-expand-shop-content-view">Look</span>&nbsp;<span id="view-expand-'+spn+'">'+jtownUser.viewCount+'</span>';	
 		html +=	'		</li>';
 		html +=	'		<li class="jt-home-expand-shop-content-comment-wrap">';
-		html +=	'			<span class="jt-home-expand-shop-content-comment"></span>&nbsp;Comment&nbsp;&nbsp;<span id="comment-expand-'+spn+'">' + jtownUser.commentCount+'</span>';
+		html +=	'			<span class="jt-home-expand-shop-content-comment"></span>&nbsp;Comment&nbsp;<span id="comment-expand-'+spn+'" class="jt-home-expand-shop-content-comment-text">' + jtownUser.commentCount+'</span>';
 		html += '			<div class="jt-home-expand-shop-border-hide"></div>';
 		html +=	'		</li>';
 		html +=	'		<li class="jt-home-expand-shop-content-love-wrap">';
@@ -239,6 +241,20 @@ jtown.expand.makeInnerHtml = function(spn){
 		setTimeout('jtown.comment.syncComment()', 0);
 		setTimeout('jtown.expand.changeContainerHeight()', 0);
 		setTimeout('$(function(){ $("#jt-comment-insert").placeholder(); })', 0);
+		setTimeout('jtown.expand.gotoPage()', 0);
+	});
+};
+
+jtown.expand.gotoPage = function(){
+	
+	$('.gotoPage').unbind('click').bind('click', function(){
+		var parent = $(this).parent('.jt-home-expand-shop');
+		var spn = parent.attr('data-spn');
+		var url = parent.attr('data-url');
+
+		var open = window.open('about:blank');
+		open.location.href = 'http://'+url;
+		jtown.home.clickShop(spn);
 	});
 };
 
