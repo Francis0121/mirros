@@ -89,7 +89,7 @@ public class UserCustomerTest {
 		customJdbcUserDetailManager.createUserCustomAndAuthority(jtownUser);
 		customJdbcUserDetailManager.createUserCustomAndAuthority(jtownUser2);
 
-		customJdbcUserDetailManager.deleteUserCustomer(jtownUser);
+		//TODO 사용자 삭제ustomJdbcUserDetailManager.deleteUserCustomer(jtownUser);
 		int count = loginService.selectUsersCount();
 		assertThat(count, is(1));
 
