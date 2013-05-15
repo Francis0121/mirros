@@ -23,7 +23,7 @@ import org.slf4j.LoggerFactory;
  */
 public class EmailSender {
 
-	private static final String SENDER_EMAIL_ADDRESS = "tjdrms0121@gmail.com";
+	private static final String SENDER_EMAIL_ADDRESS = "admin@mirros.net";
 
 	private static final Logger logger = LoggerFactory
 			.getLogger(EmailSender.class);
@@ -46,8 +46,8 @@ public class EmailSender {
 			msg.setFrom(new InternetAddress(SENDER_EMAIL_ADDRESS));
 			logger.debug(msg.getFrom()[0].toString());
 			// Recipients 받는사람
-			msg.setRecipients(Message.RecipientType.TO,
-					InternetAddress.parse(to));
+			InternetAddress[] address = {new InternetAddress(to)}; 
+			msg.setRecipients(Message.RecipientType.TO, address);
 			msg.setSubject(subject);
 			msg.setContent(content, "text/html; charset=UTF-8");
 			msg.setSentDate(new Date());
