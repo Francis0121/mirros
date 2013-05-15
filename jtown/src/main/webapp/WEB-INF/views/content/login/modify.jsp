@@ -40,7 +40,7 @@
 						<th>이름</th>
 						<td>
 							<div class="jt-join-user-vaild-wrap" id="nameLength">
-								<span class="jt-form-invalid">이름은&nbsp;20글자&nbsp;이하&nbsp;이어야&nbsp;합니다.</span>
+								<span class="jt-form-invalid">이름은&nbsp;20글자&nbsp;이하&nbsp;한글,영문,숫자&nbsp;이어야&nbsp;합니다.</span>
 							</div>
 							<form:input path="name" data-form="join" cssClass="jt-modify-content-input" maxlength="20" cssErrorClass="jt-modify-content-input-error"/>
 							<div class="jt-modify-content-error">	
@@ -75,6 +75,20 @@
 									<form:option value="${loop.index }">${loop.index }</form:option>
 								</c:forEach>
 							</form:select>
+						</td>
+					</tr>
+					</sec:authorize>
+					<sec:authorize access="principal.groupName eq 'Seller' or principal.groupName eq 'Administrator'">
+					<tr>
+						<th>아이디</th>
+						<td>
+							<div class="jt-join-user-vaild-wrap" id="confirmEmail">
+								<span class="jt-form-invalid">아이디는&nbsp;20글자&nbsp;이하&nbsp;한글,영문,숫자&nbsp;이어야&nbsp;합니다.</span>
+							</div>
+							<form:input path="username" data-type="createId" cssClass="jt-modify-content-input" cssErrorClass="jt-modify-content-input-error" maxlength="20"/>
+							<div class="jt-modify-content-error">	
+								<form:errors path="username" cssClass="commonError"/>
+							</div>
 						</td>
 					</tr>
 					</sec:authorize>
@@ -123,7 +137,7 @@
 					<spring:message code="${providerId}.icon" var="iconUrl"/>
 					<ul class="jt-modify-connect-social-info">
 						<li>
-							<img src="<c:url value="${iconUrl}" />"/>
+							<img src="<c:url value="${iconUrl}" />" width="40" height="40"/>
 						</li>
 					<c:if test="${not empty connections}">
 						<li>

@@ -44,6 +44,26 @@ public class VaildationUtil {
 		return matcher.matches();
 	}
 
+	public static boolean checkCharAndLength(String string) {
+		boolean regexBool = false;
+		boolean lengthBool = false;
+
+		String regex = "^[0-9A-Za-z가-힣]*$";
+
+		Pattern pattern = Pattern.compile(regex);
+		Matcher matcher = pattern.matcher(string);
+
+		regexBool = matcher.matches();
+
+		int length = string.length();
+
+		if (length > 0 && length <= 20) {
+			lengthBool = true;
+		}
+
+		return regexBool && lengthBool;
+	}
+
 	public static boolean lengthCheck(String value, String flag) {
 		int length = value.length();
 

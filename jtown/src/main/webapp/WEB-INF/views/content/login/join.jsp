@@ -36,7 +36,7 @@
 						</th>
 						<td>
 							<div class="jt-join-user-vaild-wrap" id="nameLength">
-								<span class="jt-form-invalid">이름은&nbsp;20글자&nbsp;이하&nbsp;이어야&nbsp;합니다.</span>
+								<span class="jt-form-invalid">이름은&nbsp;20글자&nbsp;이하&nbsp;한글,영문,숫자&nbsp;이어야&nbsp;합니다.</span>
 							</div>
 							<form:input path="name" data-form="join" cssClass="jt-join-user-input" maxlength="20" cssErrorClass="jt-join-user-input-error"/>
 							<div class="jt-join-user-error">

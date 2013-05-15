@@ -335,5 +335,16 @@
 		<include refid="paginationAfter"/>	
 	</select>
 	
+	<select id="selectAdminCount" parameterType="AdministratorFilter" resultType="Integer"> 
+		SELECT
+			COUNT(*)
+		FROM
+			users u,
+			group_members gm
+		WHERE
+			u.pn = gm.user_pn
+		AND
+			gm.group_id = 3
+	</select>
 	
 </mapper>

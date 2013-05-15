@@ -97,6 +97,14 @@ public class LoginServiceImpl extends SqlSessionDaoSupport implements
 				.toString(RandomUtil.randomRange(100000, 999999));
 		insertEmailConfirm(new Confirm(changeUserName, series));
 	}
+	
+	@Override
+	public void updateUsername(String changeUsername, String nowUsername) {
+		Map<String, Object> updateMap = new HashMap<String, Object>();
+		updateMap.put("changeUserName", changeUsername);
+		updateMap.put("nowUserName", nowUsername);
+		getSqlSession().update("loginMapper.updateUsername", updateMap);
+	}
 
 	@Override
 	public Map<String, Object> selectDeleteUser(Integer pn) {

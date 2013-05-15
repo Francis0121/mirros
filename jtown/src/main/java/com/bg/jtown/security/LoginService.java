@@ -60,4 +60,6 @@ public interface LoginService {
 
 	void updateFacebookFeed(JtownUser jtownUser);
 
+	void updateUsername(String changeUsername, String nowUsername);
+
 }

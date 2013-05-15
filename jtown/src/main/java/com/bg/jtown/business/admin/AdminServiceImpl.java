@@ -108,7 +108,7 @@ public class AdminServiceImpl extends SqlSessionDaoSupport implements
 
 		List<JtownUser> adminList = selectAdminList(administartorFilter);
 		modelMap.put("adminList", adminList);
-		
+
 		return modelMap;
 	};
 
@@ -117,8 +117,20 @@ public class AdminServiceImpl extends SqlSessionDaoSupport implements
 	@Override
 	public List<JtownUser> selectAdminList(
 			AdministratorFilter administartorFilter) {
+		Pagination pagination = administartorFilter.getPagination();
+		int count = selectAdminCount(administartorFilter);
+		pagination.setNumItems(count);
+		if (count == 0) {
+			return new ArrayList<JtownUser>();
+		}
+
 		return getSqlSession().selectList(
 				"adminMapper.selectAdministratorList", administartorFilter);
+	}
+
+	private Integer selectAdminCount(AdministratorFilter administartorFilter) {
+		return getSqlSession().selectOne("adminMapper.selectAdminCount",
+				administartorFilter);
 	}
 
 	@Override

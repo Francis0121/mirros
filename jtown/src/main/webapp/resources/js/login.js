@@ -16,6 +16,7 @@ $(function() {
 	
 	jtown.login.disactiveUser();
 	
+	jtown.login.confirmId();
 });
 
 if (typeof jtown.login == 'undefined') {
@@ -34,6 +35,30 @@ jtown.login.confirmEmail = function() {
 				}
 			}).focus(function() {
 		var regExp = /^[-A-Za-z0-9_]+[-A-Za-z0-9_.]*[@]{1}[-A-Za-z0-9_]+[-A-Za-z0-9_.]*[.]{1}[A-Za-z]{2,5}$/;
+		var username = $(this).val();
+		if (regExp.test(username)) {
+			$('#confirmEmail>span').removeClass('jt-form-invalid').addClass('jt-form-valid');
+		} else {
+			$('#confirmEmail>span').removeClass('jt-form-valid').addClass('jt-form-invalid');
+		}
+		$('#confirmEmail').show();
+	}).blur(function() {
+		$('#confirmEmail').hide();
+	});
+};
+
+jtown.login.confirmId = function() {
+	$('input[data-type=createId]').keyup(
+			function() {
+				var regExp = /^[0-9A-Za-z가-힣]*$/;
+				var username = $(this).val();
+				if (regExp.test(username)) {
+					$('#confirmEmail>span').removeClass('jt-form-invalid').addClass('jt-form-valid');
+				} else {
+					$('#confirmEmail>span').removeClass('jt-form-valid').addClass('jt-form-invalid');
+				}
+			}).focus(function() {
+		var regExp = /^[0-9A-Za-z가-힣]*$/;
 		var username = $(this).val();
 		if (regExp.test(username)) {
 			$('#confirmEmail>span').removeClass('jt-form-invalid').addClass('jt-form-valid');
@@ -89,21 +114,23 @@ jtown.login.confirmPassword = function() {
 
 jtown.login.nickNameLength = function(){
 	$('input[data-form=join]').keyup(function(){
-		var length = $(this).val().length;
-		
-		if(length <= 20 && length > 0){
+		var regExp = /^[0-9A-Za-z가-힣]*$/;
+		var name = $(this).val();
+		var length = name.length;
+		if (regExp.test(name) && length > 0) {
 			$('#nameLength>span').removeClass('jt-form-invalid').addClass('jt-form-valid');
 		} else {
 			$('#nameLength>span').removeClass('jt-form-valid').addClass('jt-form-invalid');
 		}
 	}).focus(function(){
-		var length = $(this).val().length;
-		
-		if(length <= 20 && length > 0){
+		var regExp = /^[0-9A-Za-z가-힣]*$/;
+		var name = $(this).val();
+		var length = name.length;
+		if (regExp.test(name) && length > 0) {
 			$('#nameLength>span').removeClass('jt-form-invalid').addClass('jt-form-valid');
 		} else {
 			$('#nameLength>span').removeClass('jt-form-valid').addClass('jt-form-invalid');
-		}	
+		}
 		$('#nameLength').show();
 	}).blur(function(){
 		$('#nameLength').hide();

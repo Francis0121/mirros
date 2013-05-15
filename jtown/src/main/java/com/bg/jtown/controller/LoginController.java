@@ -265,7 +265,9 @@ public class LoginController {
 			jtownUser.setName(summaryUser.getName());
 			model.addAttribute("jtownUser", jtownUser);
 		} else {
-			model.addAttribute("jtownUser", new JtownUser());
+			JtownUser jtownUser = new JtownUser();
+			jtownUser.setUsername(summaryUser.getUsername());
+			model.addAttribute("jtownUser", jtownUser);
 		}
 		return "login/modify";
 	}
@@ -303,13 +305,24 @@ public class LoginController {
 
 				ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username",
 						"join.username.empty");
+				Authority authority = summaryUser.getEnumAuthority();
 
 				if (!VaildationUtil.checkNullAndBlank(changeUsername)) {
 					if (!nowUsername.equals(changeUsername)) {
-						if (!VaildationUtil.emailFormCheck(changeUsername)) {
-							errors.rejectValue("username",
-									"join.username.notAllow");
+						if (authority.equals(Authority.CUSTOMER)) {
+							if (!VaildationUtil.emailFormCheck(changeUsername)) {
+								errors.rejectValue("username",
+										"join.username.notAllow");
+							}
+						} else if (authority.equals(Authority.SELLER)
+								|| authority.equals(Authority.ADMIN)) {
+							if (!VaildationUtil
+									.checkCharAndLength(changeUsername)) {
+								errors.rejectValue("username",
+										"join.username.notAllowId");
+							}
 						}
+
 						boolean exist = loginService
 								.selectCheckExistEmail(changeUsername);
 						if (exist) {
@@ -319,8 +332,15 @@ public class LoginController {
 					}
 				}
 
-				ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name",
-						"join.nickName.empty");
+				if (authority.equals(Authority.CUSTOMER)) {
+					ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name",
+							"join.nickName.empty");
+
+					String name = jtownUser.getName();
+					if (!VaildationUtil.checkCharAndLength(name)) {
+						errors.rejectValue("name", "join.nickName.notAllow");
+					}
+				}
 			}
 
 			@Override
@@ -330,17 +350,27 @@ public class LoginController {
 		}.validate(jtownUser, result);
 
 		if (!result.hasErrors()) {
-			jtownUser.setPn(summaryUser.getPn());
-			jtownUser.setConfirmEmail(null);
-			loginService.updateUserCustomer(jtownUser);
+			Authority authority = summaryUser.getEnumAuthority();
+
+			if (authority.equals(Authority.CUSTOMER)) {
+				jtownUser.setPn(summaryUser.getPn());
+				jtownUser.setConfirmEmail(null);
+				loginService.updateUserCustomer(jtownUser);
+			}
 
 			String nowUsername = summaryUser.getUsername();
 			String changeUsername = jtownUser.getUsername();
 			if (!VaildationUtil.checkNullAndBlank(changeUsername)) {
 				if (!nowUsername.equals(changeUsername)) {
-					loginService.updateUserCustomerEmail(
-							jtownUser.getUsername(), summaryUser.getUsername());
-					emailSend.sendConfirmEmail(jtownUser.getUsername());
+					if (authority.equals(Authority.CUSTOMER)) {
+						loginService.updateUserCustomerEmail(changeUsername,
+								nowUsername);
+						emailSend.sendConfirmEmail(changeUsername);
+					} else if (authority.equals(Authority.SELLER)
+							|| authority.equals(Authority.ADMIN)) {
+						loginService
+								.updateUsername(changeUsername, nowUsername);
+					}
 				}
 			}
 
@@ -565,9 +595,9 @@ public class LoginController {
 		jtownUser.setFacebookFeed(!summaryUser.getFacebookFeed());
 
 		loginService.updateFacebookFeed(jtownUser);
-		
+
 		userAuthenticator.onApplicationEvent(summaryUser.getUsername());
-		
+
 		logger.debug("???????????????????????");
 		return "redirect:modify/?result=2";
 	}

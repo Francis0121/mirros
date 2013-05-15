@@ -60,7 +60,7 @@ public class LoginValidator implements Validator {
 				"join.nickName.empty");
 
 		if (!VaildationUtil.checkNullAndBlank(name)) {
-			if (!VaildationUtil.lengthCheck(name, "nickName")) {
+			if (!VaildationUtil.checkCharAndLength(name)) {
 				errors.rejectValue("name", "join.nickName.notAllow");
 			}
 		}

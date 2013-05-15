@@ -64,13 +64,13 @@ public class ControllerAspect {
 
 			for (int i = 0; i < param.length; i++) {
 				if (param[i] != null) {
-					logger.debug("Object = " + param[i].toString()
-							+ param[i].getClass());
 					if (param[i].getClass() == HttpSession.class) {
 						param[i] = session;
 					} else if (param[i].getClass() == SummaryUser.class) {
 						param[i] = summaryUser;
 					}
+					logger.debug("Object = " + param[i].toString()
+							+ param[i].getClass());
 				}
 			}
 			return joinPoint.proceed(param);

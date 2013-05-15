@@ -118,6 +118,15 @@
 			id = #{nowUserName}
 	</update>
 	
+	<update id="updateUsername" parameterType="java.util.HashMap">
+		UPDATE
+			users
+		SET
+			id = #{changeUserName}
+		WHERE
+			id = #{nowUserName}
+	</update>
+	
 	<select id="selectDeleteUser" parameterType="Integer" resultType="String">
 		SELECT
 			register_date
