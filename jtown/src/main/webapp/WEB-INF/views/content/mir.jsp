@@ -191,7 +191,6 @@
 								</li>
 							</c:forEach>
 							<c:set var="pagination" value="${commentFilter.pagination }"/>
-							<c:if test="${fn:length(comments) > 0 }">
 							<c:choose>
 								<c:when test="${fn:length(comments) > 0 }">
 									<li class="jt-home-expand-shop-comment-add">
@@ -211,7 +210,6 @@
 									댓글 더 보기 <span id="comment-now-count"><c:out value="${pagination.numItemsPerPage * 0 }"/></span>/<c:out value="${pagination.numItems}"/>
 								</a>
 							</li>
-							</c:if>
 						</ul>
 						<div class="jt-home-expand-shop-comment-insert">
 							<sec:authorize access="hasRole('ROLE_USER')">

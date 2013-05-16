@@ -39,4 +39,8 @@ public interface CommentService {
 
 	void toggleCommentLove(Comment comment);
 
+	// ~ WarnComment
+	
+	void insertWarnComment(Comment comment);
+
 }

@@ -82,4 +82,19 @@ public class CommentController {
 		}
 		return comment;
 	}
+
+	@RequestMapping(value = "/ajax/home/warnCommentLove.jt", method = RequestMethod.POST)
+	@ResponseBody
+	public Comment ajaxWarnCommentLove(@RequestBody Comment comment,
+			SummaryUser summaryUser) {
+		if (summaryUser.getEnumAuthority().equals(Authority.CUSTOMER)) {
+			comment.setCustomerPn(summaryUser.getPn());
+			commentService.insertWarnComment(comment);
+		} else if (summaryUser.getEnumAuthority().equals(Authority.NOT_LOGIN)) {
+			comment.setMessage("로그인한 사용자만 이용가능합니다.");
+		} else {
+			comment.setMessage("판매자는 불가능 합니다.");
+		}
+		return comment;
+	}
 }

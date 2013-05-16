@@ -17,6 +17,11 @@ public class Comment {
 	private Integer commentCustomerPn;
 
 	/**
+	 * 경고 클릭 고객 고유 번호
+	 */
+	private Integer warnCustomerPn;
+
+	/**
 	 * comment 좋아요 개수
 	 */
 	private Integer commentLoveCount;
@@ -70,18 +75,25 @@ public class Comment {
 		super();
 	}
 
-	public Comment(String comment, Integer commentPn, Integer count,
+	public Comment(String comment, Integer commentCustomerPn,
+			Integer warnCustomerPn, Integer commentLoveCount,
+			Integer commentPn, Integer count, String crudType,
 			String customerName, Integer customerPn, String inputDate,
-			String redisType, Integer sellerPn, Integer commentLoveCount) {
+			String message, String redisType, Integer sellerPn) {
+		super();
 		this.comment = comment;
+		this.commentCustomerPn = commentCustomerPn;
+		this.warnCustomerPn = warnCustomerPn;
+		this.commentLoveCount = commentLoveCount;
 		this.commentPn = commentPn;
 		this.count = count;
+		this.crudType = crudType;
 		this.customerName = customerName;
 		this.customerPn = customerPn;
 		this.inputDate = inputDate;
+		this.message = message;
 		this.redisType = redisType;
 		this.sellerPn = sellerPn;
-		this.commentLoveCount = commentLoveCount;
 	}
 
 	public String getComment() {
@@ -180,15 +192,24 @@ public class Comment {
 		this.sellerPn = sellerPn;
 	}
 
+	public Integer getWarnCustomerPn() {
+		return warnCustomerPn;
+	}
+
+	public void setWarnCustomerPn(Integer warnCustomerPn) {
+		this.warnCustomerPn = warnCustomerPn;
+	}
+
 	@Override
 	public String toString() {
 		return "Comment [comment=" + comment + ", commentCustomerPn="
-				+ commentCustomerPn + ", commentLoveCount=" + commentLoveCount
-				+ ", commentPn=" + commentPn + ", count=" + count
-				+ ", crudType=" + crudType + ", customerName=" + customerName
-				+ ", customerPn=" + customerPn + ", inputDate=" + inputDate
-				+ ", message=" + message + ", redisType=" + redisType
-				+ ", sellerPn=" + sellerPn + "]";
+				+ commentCustomerPn + ", warnCustomerPn=" + warnCustomerPn
+				+ ", commentLoveCount=" + commentLoveCount + ", commentPn="
+				+ commentPn + ", count=" + count + ", crudType=" + crudType
+				+ ", customerName=" + customerName + ", customerPn="
+				+ customerPn + ", inputDate=" + inputDate + ", message="
+				+ message + ", redisType=" + redisType + ", sellerPn="
+				+ sellerPn + "]";
 	}
 
 }

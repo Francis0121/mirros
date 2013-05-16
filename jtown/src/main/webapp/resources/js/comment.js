@@ -116,7 +116,7 @@ jtown.comment.syncComment = function(){
 			}else{
 				var crudType = comment.crudType;
 				if(crudType == 'insert'){
-					$('.copnLoveIt-'+commentPn).append('<a href="#none" class="jt-home-expand-shop-comment-loveIt-cancle">취소</a>');
+					$('.copnLoveIt-'+commentPn+' .jt-home-expand-shop-comment-loveIt-count').after('<a href="#none" class="jt-home-expand-shop-comment-loveIt-cancle">&nbsp;취소</a>');
 					jtown.comment.loveCancle();
 				}else if(crudType == 'delete'){
 					$('.copnLoveIt-'+commentPn).find('.jt-home-expand-shop-comment-loveIt-cancle').remove();
@@ -126,6 +126,27 @@ jtown.comment.syncComment = function(){
 	});
 	
 	jtown.comment.loveCancle();
+	
+	$('.jt-warn-active').unbind('click').bind('click', function(){
+		var me = $(this),
+			parents = me.parents('.jt-home-expand-shop-comment-li');
+		
+		if(nullValueCheck(parents.html())){
+			parents = me.parents('.jt-home-expand-shop-comment-li-best');
+		}
+		var commentPn = parents.attr('data-copn');
+		
+		var url = contextPath + 'ajax/home/warnCommentLove.jt';
+		var json = {	commentPn	:	commentPn 	};
+		
+		$.postJSON(url, json, function(comment){
+			if(!nullValueCheck(comment.message)){
+				jtown.dialog(comment.message);
+			}else{
+				me.removeClass('jt-warn-active').addClass('jt-warn-disactive').unbind('click');	
+			}
+		});
+	});
 	
 };
 
@@ -161,6 +182,14 @@ jtown.comment.commentHtml = function(comment, position, best){
 	var cpn = $('#jt-logout').attr('data-cpn');
 	var cancleHtml = '&nbsp;<a href="#none" class="jt-home-expand-shop-comment-loveIt-cancle">취소</a>';
 	var cancleComment = nullValueCheck(comment.commentCustomerPn) ? '' : cancleHtml;
+	var warnComment = '';
+	if(comment.customerPn != cpn){
+		if(nullValueCheck(comment.warnCustomerPn)){
+			warnComment = '&nbsp;<span href="#none" class="jt-warn-active" title="신고">WARN</span>';
+		}else{
+			warnComment = '&nbsp;<span href="#none" class="jt-warn-disactive" title="신고">WARN</span>';
+		}
+	}
 	
 	var commentHtml ='';
 	commentHtml += 	'<li data-copn="'+comment.commentPn+'" class="' + (best ? 'jt-home-expand-shop-comment-li-best' : 'jt-home-expand-shop-comment-li') + '">';
@@ -177,7 +206,8 @@ jtown.comment.commentHtml = function(comment, position, best){
 	commentHtml +=	'		<li class="copnLoveIt-'+comment.commentPn+' jt-home-expand-shop-comment-footer">';
 	commentHtml += 	'			<span class="jt-home-expand-shop-comment-progress-date">'+comment.inputDate+'</span>';
 	commentHtml +=	' 			<a href="#none" class="jt-home-expand-shop-comment-loveIt">LOVE</a>';	
-	commentHtml +=	'			<span class="jt-home-expand-shop-comment-loveIt-count">'+ ( nullValueCheck(comment.commentLoveCount) ? '' : comment.commentLoveCount )+'</span>'+cancleComment;	
+	commentHtml +=	'			<span class="jt-home-expand-shop-comment-loveIt-count">'+ ( nullValueCheck(comment.commentLoveCount) ? '' : comment.commentLoveCount )+'</span>'+cancleComment;
+	commentHtml +=	'			'+warnComment;
 	commentHtml += 	'		</li>';
 	commentHtml	+= 	'	</ul>';
 	if(comment.customerPn == cpn){

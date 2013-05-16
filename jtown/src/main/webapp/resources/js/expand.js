@@ -88,6 +88,14 @@ jtown.expand.makeInnerHtml = function(spn){
 		for(var i=0; i<comments.length; i++){
 			var comment = comments[i];
 			var cancleComment = nullValueCheck(comment.commentCustomerPn) ? '' : cancleHtml;
+			var warnComment = '';
+			if(comment.customerPn != cpn){
+				if(nullValueCheck(comment.warnCustomerPn)){
+					warnComment = '&nbsp;<span href="#none" class="jt-warn-active" title="신고">WARN</span>';
+				}else{
+						warnComment = '&nbsp;<span href="#none" class="jt-warn-disactive" title="신고">WARN</span>';
+				}
+			}
 			
 			commentHtml += 	'<li data-copn="'+comment.commentPn+'" class="'+(best ? 'jt-home-expand-shop-comment-li-best' : 'jt-home-expand-shop-comment-li')+'">';
 			commentHtml +=	'	<ul class="jt-home-expand-shop-text-wrap">';
@@ -103,7 +111,8 @@ jtown.expand.makeInnerHtml = function(spn){
 			commentHtml +=	'		<li class="copnLoveIt-'+comment.commentPn+' jt-home-expand-shop-comment-footer">';
 			commentHtml += 	'			<span class="jt-home-expand-shop-comment-progress-date">'+comment.inputDate+'</span>';
 			commentHtml +=	' 			<a href="#none" class="jt-home-expand-shop-comment-loveIt">LOVE</a>';	
-			commentHtml +=	'			<span class="jt-home-expand-shop-comment-loveIt-count">'+ ( nullValueCheck(comment.commentLoveCount) ? '' : comment.commentLoveCount )+'</span>'+cancleComment;	
+			commentHtml +=	'			<span class="jt-home-expand-shop-comment-loveIt-count">'+ ( nullValueCheck(comment.commentLoveCount) ? '' : comment.commentLoveCount )+'</span>'+cancleComment;
+			commentHtml +=	'			'+warnComment;
 			commentHtml += 	'		</li>';
 			commentHtml	+= 	'	</ul>';
 			if(comment.customerPn == cpn){

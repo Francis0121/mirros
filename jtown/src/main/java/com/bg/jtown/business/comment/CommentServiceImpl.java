@@ -153,4 +153,11 @@ public class CommentServiceImpl extends SqlSessionDaoSupport implements
 		comment.setCommentLoveCount(selectCommentLoveCount(comment));
 		publisher.commentPublish(comment);
 	}
+
+	// ~ Warn Comment
+
+	@Override
+	public void insertWarnComment(Comment comment) {
+		getSqlSession().insert("commentMapper.insertWarnComment", comment);
+	}
 }
