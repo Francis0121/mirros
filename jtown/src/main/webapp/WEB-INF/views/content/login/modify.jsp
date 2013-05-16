@@ -175,14 +175,12 @@
 						<c:if test="${providerId eq 'twitter' }">
 							<form action="<c:url value="/connect/twitter" />" method="POST">
 								<button type="submit" class="jt-connect-twitter"></button>
-								<label for="postTweet"><input id="postTweet" type="checkbox" name="postTweet" checked="checked"/> 친구들에게 Mirros 정보를 Follow 해보세요.</label>
 							</form>
 						</c:if>
 						<c:if test="${providerId eq 'facebook' }">
 							<form action="<c:url value="/connect/facebook" />" method="POST">
 								<input type="hidden" name="scope" value="publish_stream,offline_access,email,user_birthday,user_likes" />
 								<button type="submit" class="jt-connect-facebook"></button>
-								<label for="postToWall"><input id="postToWall" type="checkbox" name="postToWall" checked="checked"/> 담벼락에 Mirros 정보를 게시해보세요.</label>
 							</form>
 						</c:if>
 						</li>

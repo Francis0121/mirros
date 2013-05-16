@@ -62,4 +62,6 @@ public interface LoginService {
 
 	void updateUsername(String changeUsername, String nowUsername);
 
+	Boolean selectFacebookFeed(String username);
+
 }

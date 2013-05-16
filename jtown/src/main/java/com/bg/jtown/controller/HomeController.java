@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.social.ApiException;
 import org.springframework.social.facebook.api.Facebook;
 import org.springframework.social.facebook.api.FacebookLink;
 import org.springframework.social.twitter.api.Twitter;
@@ -235,22 +236,27 @@ public class HomeController {
 			count.setCustomerPn(summaryUser.getPn());
 			homeService.insertLoveCount(count);
 
-			if (count.getCrudType().equals("insert")
-					&& (summaryUser.getFacebookFeed() != null && summaryUser
-							.getFacebookFeed().equals(true))) {
-				JtownUser jtownUser = sellerService
-						.selectSellerInformation(count.getSellerPn());
-				String url = "https://www.mirros.net/mir/"
-						+ count.getSellerPn();
-				String name = jtownUser.getName();
-				String loginNotice = jtownUser.getLongNotice();
-				FacebookLink link = new FacebookLink(url, name, "", loginNotice);
+			try {
+				if (count.getCrudType().equals("insert")
+						&& (summaryUser.getFacebookFeed() != null && summaryUser
+								.getFacebookFeed().equals(true))) {
+					JtownUser jtownUser = sellerService
+							.selectSellerInformation(count.getSellerPn());
+					String url = "https://www.mirros.net/mir/"
+							+ count.getSellerPn();
+					String name = jtownUser.getName();
+					String loginNotice = jtownUser.getLongNotice();
+					FacebookLink link = new FacebookLink(url, name, "",
+							loginNotice);
 
-				String message = summaryUser.getName()
-						+ "님이 Secret Shop Mirros의 " + jtownUser.getName()
-						+ "을 좋아합니다.";
+					String message = summaryUser.getName()
+							+ "님이 Secret Shop Mirros의 " + jtownUser.getName()
+							+ "을 좋아합니다.";
 
-				facebook.feedOperations().postLink(message, link);
+					facebook.feedOperations().postLink(message, link);
+				}
+			} catch (ApiException e) {
+				logger.debug("PostConnect Catch");
 			}
 		} else if (summaryUser.getEnumAuthority().equals(Authority.NOT_LOGIN)) {
 			count.setMessage("1");

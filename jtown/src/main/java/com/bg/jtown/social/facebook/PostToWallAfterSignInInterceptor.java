@@ -15,6 +15,8 @@
  */
 package com.bg.jtown.social.facebook;
 
+import javax.annotation.Resource;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.social.ApiException;
@@ -22,43 +24,50 @@ import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.ConnectionFactory;
 import org.springframework.social.connect.web.ConnectInterceptor;
 import org.springframework.social.facebook.api.Facebook;
+import org.springframework.social.facebook.api.FacebookLink;
+import org.springframework.social.facebook.api.FacebookProfile;
 import org.springframework.util.MultiValueMap;
-import org.springframework.util.StringUtils;
 import org.springframework.web.context.request.WebRequest;
 
+import com.bg.jtown.security.LoginService;
 
 /**
  * @author Francis
- *
+ * 
  */
 public class PostToWallAfterSignInInterceptor implements
 		ConnectInterceptor<Facebook> {
-	
+
+	@Resource
+	private LoginService loginService;
+
 	private static final Logger logger = LoggerFactory
 			.getLogger(PostToWallAfterSignInInterceptor.class);
 
 	public void preConnect(ConnectionFactory<Facebook> connectionFactory,
 			MultiValueMap<String, String> parameters, WebRequest request) {
-		if (StringUtils.hasText(request.getParameter(POST_TO_WALL_PARAMETER))) {
-			request.setAttribute(POST_TO_WALL_ATTRIBUTE, Boolean.TRUE, WebRequest.SCOPE_SESSION);
-		}
 	}
 
 	public void postConnect(Connection<Facebook> connection, WebRequest request) {
-		if (request.getAttribute(POST_TO_WALL_ATTRIBUTE, WebRequest.SCOPE_SESSION) != null) {
-			try {
-				//TODO updateStatus Facebook 글귀
-				connection.updateStatus("I've signin with the Mirros!");
-			} catch (ApiException e) {
-				logger.debug("PostConnect Catch");
-				// Do nothing: No need to break down if the post-connect post
-				// can't be made.
+		try {
+			Facebook facebook = connection.getApi();
+			FacebookProfile fp = facebook.userOperations().getUserProfile();
+
+			String username = fp.getEmail();
+			Boolean facebookFeed = loginService.selectFacebookFeed(username);
+			if (facebookFeed != null && facebookFeed) {
+				String message = fp.getName()
+						+ "님이 Secret Shop Mirros에 접속하셨습니다.";
+				String sex = fp.getGender().equals("male") ? "2" : "1";
+				FacebookLink link = new FacebookLink(
+						"https://www.mirros.net/cpn/" + sex + "/spn/0",
+						"Welcome To Mirros", "",
+						"Secret Shop Mirros에서 더 쉽고 간편하게,인터넷 쇼핑몰들을 체험하세요.");
+
+				facebook.feedOperations().postLink(message, link);
 			}
-			request.removeAttribute(POST_TO_WALL_ATTRIBUTE, WebRequest.SCOPE_SESSION);
+		} catch (ApiException e) {
+			logger.debug("PostConnect Catch");
 		}
 	}
-
-	private static final String POST_TO_WALL_PARAMETER = "postToWall";
-
-	private static final String POST_TO_WALL_ATTRIBUTE = "facebookConnect." + POST_TO_WALL_PARAMETER;
 }

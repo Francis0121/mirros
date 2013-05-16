@@ -24,7 +24,7 @@ import org.springframework.social.facebook.api.impl.FacebookTemplate;
 import org.springframework.social.facebook.connect.FacebookConnectionFactory;
 import org.springframework.social.twitter.api.Twitter;
 import org.springframework.social.twitter.api.impl.TwitterTemplate;
-import org.springframework.social.twitter.connect.TwitterConnectionFactory;
+//import org.springframework.social.twitter.connect.TwitterConnectionFactory;
 
 import com.bg.jtown.security.CustomJdbcUserDetailManager;
 import com.bg.jtown.security.JtownUser;
@@ -47,9 +47,9 @@ public class SocialConfig {
 				.getProperty("facebook.appId"), environment
 				.getProperty("facebook.appSecret")));
 
-		registry.addConnectionFactory(new TwitterConnectionFactory(environment
-				.getProperty("twitter.consumerKey"), environment
-				.getProperty("twitter.consumerSecret")));
+//		registry.addConnectionFactory(new TwitterConnectionFactory(environment
+//				.getProperty("twitter.consumerKey"), environment
+//				.getProperty("twitter.consumerSecret")));
 
 		return registry;
 	}

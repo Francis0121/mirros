@@ -27,6 +27,8 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.context.request.WebRequest;
 
 /**
+ * 회원가입시 twitter 연동은 없음
+ * 
  * @author Francis
  *
  */

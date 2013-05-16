@@ -97,7 +97,7 @@ public class LoginServiceImpl extends SqlSessionDaoSupport implements
 				.toString(RandomUtil.randomRange(100000, 999999));
 		insertEmailConfirm(new Confirm(changeUserName, series));
 	}
-	
+
 	@Override
 	public void updateUsername(String changeUsername, String nowUsername) {
 		Map<String, Object> updateMap = new HashMap<String, Object>();
@@ -110,7 +110,7 @@ public class LoginServiceImpl extends SqlSessionDaoSupport implements
 	public Map<String, Object> selectDeleteUser(Integer pn) {
 		String registerDate = getSqlSession().selectOne(
 				"loginMapper.selectDeleteUser", pn);
-		if(registerDate == null){
+		if (registerDate == null) {
 			return null;
 		}
 		String deleteDate = DateUtil.addYearMonthDay(registerDate, 0, 0, 14);
@@ -123,7 +123,7 @@ public class LoginServiceImpl extends SqlSessionDaoSupport implements
 		map.put("deleteDate", deleteDate);
 		map.put("between", between);
 		map.put("nowDate", nowDate);
-		
+
 		return map;
 	}
 
@@ -176,19 +176,27 @@ public class LoginServiceImpl extends SqlSessionDaoSupport implements
 	public void deleteEmailConfirm(Confirm confirm) {
 		getSqlSession().delete("loginMapper.deleteEmailConfirm", confirm);
 	}
-	
+
 	// ~ Social
-	
+
 	@Override
-	public String selectSocialProviderUserId(Integer properNumber, String providerId) {
+	public String selectSocialProviderUserId(Integer properNumber,
+			String providerId) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("properNumber", properNumber);
 		map.put("providerId", providerId);
-		return getSqlSession().selectOne("loginMapper.selectSocialProviderUserId", map);
+		return getSqlSession().selectOne(
+				"loginMapper.selectSocialProviderUserId", map);
 	}
-	
+
 	@Override
 	public void updateFacebookFeed(JtownUser jtownUser) {
 		getSqlSession().update("loginMapper.updateFacebookFeed", jtownUser);
+	}
+
+	@Override
+	public Boolean selectFacebookFeed(String username) {
+		return getSqlSession().selectOne("loginMapper.selectFacebookFeed",
+				username);
 	}
 }

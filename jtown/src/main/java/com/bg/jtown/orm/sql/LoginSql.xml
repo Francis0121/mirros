@@ -197,5 +197,14 @@
 		WHERE
 			pn = #{pn}
 	</update>
+	
+	<select id="selectFacebookFeed" parameterType="String" resultType="Boolean">
+		SELECT
+			facebook_feed
+		FROM
+			users
+		WHERE
+			id = #{username}
+	</select>
 		
 </mapper>
