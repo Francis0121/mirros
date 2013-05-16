@@ -96,7 +96,7 @@ public class HomeController {
 				summaryUser.getPn()));
 		model.addAttribute("intervalCount",
 				sellerService.selectInterval7DayCount(sellerPn));
-
+		model.addAttribute("facebookSellerPn", sellerPn);
 		return "mir";
 	}
 
