@@ -116,6 +116,7 @@
 		<ul>
 			<li>입력하신&nbsp;정보는&nbsp;상담처리를&nbsp;위한&nbsp;목적으로만&nbsp;사용되며,&nbsp;관련&nbsp;담당자&nbsp;외에는&nbsp;함부로&nbsp;열람할&nbsp;수&nbsp;없습니다.</li>
 			<li>‘문의하기’를&nbsp;누르면&nbsp;<a href="#none">개인정보보호를&nbsp;위한&nbsp;동의</a>에&nbsp;동의한&nbsp;것으로&nbsp;간주합니다.</li>
+			<li>추가&nbsp;제휴&nbsp;문의사항은&nbsp;<a href="mailto:help@mirros.net">help@mirros.net</a>으로&nbsp;연락&nbsp;주시기&nbsp;바랍니다.</li>
 		</ul>
 	</footer>
 
