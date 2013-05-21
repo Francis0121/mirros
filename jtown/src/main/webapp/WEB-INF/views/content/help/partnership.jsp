@@ -9,9 +9,9 @@
 <section class="jt-partnership-section">
 	
 	<header class="jt-partnership-header">
-		<hgroup>
+		<div>
 			<h1>Business</h1>
-		</hgroup>
+		</div>
 	</header>
 	
 	<section class="jt-partnership-content">
@@ -62,9 +62,7 @@
 						</td>
 					</tr>
 					<tr>
-						<th>
-							<form:label path="phoneNumber">연락처</form:label>
-						</th>
+						<th>연락처</th>
 						<td>
 							<div class="jt-partnership-wrap" id="confirmPhoneNumber">
 								<span class="jt-form-invalid">연락처는&nbsp;숫자만&nbsp;입력&nbsp;가능합니다.</span>

@@ -80,7 +80,7 @@
 				</th>
 				<td>
 					<div class="jt-join-user-vaild-wrap" id="confirmPW">
-						<span class="jt-form-invalid" id="confirmPW">비밀번호를&nbsp;동일하게&nbsp;입력해&nbsp;주시기&nbsp;바랍니다.</span>
+						<span class="jt-form-invalid">비밀번호를&nbsp;동일하게&nbsp;입력해&nbsp;주시기&nbsp;바랍니다.</span>
 					</div>
 					<input type="password" id="confirmPassword" name="confirmPassword" class="jt-join-user-input" maxlength="16"/>
 				</td>
@@ -95,7 +95,7 @@
 			</c:if>
 			<tr>
 				<th>
-					<label for="">성별</label>
+					<label for="sex">성별</label>
 				</th>
 				<td>
 					<form:select path="sex" cssClass="jt-join-user-select" cssErrorClass="jt-join-user-select-error">

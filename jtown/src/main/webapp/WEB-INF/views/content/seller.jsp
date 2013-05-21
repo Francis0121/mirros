@@ -321,25 +321,27 @@
 								</li>
 							</c:forEach>
 							<c:set var="pagination" value="${commentFilter.pagination }"/>
-							<c:choose>
-								<c:when test="${fn:length(comments) > 0 }">
-									<li class="jt-home-expand-shop-comment-add">
-										<a href="#none" class="jt-btn-silver" data-spn="${jtownUser.pn }"  id="comment-add-btn-best">베스트 리플보기</a>
-									</li>
-									<li class="jt-home-expand-shop-comment-add" style="display: none;">
-								</c:when>
-								<c:otherwise>
-									<li class="jt-home-expand-shop-comment-add">									
-								</c:otherwise>
-							</c:choose>
-								<a href="#none" class="jt-btn-silver" id="comment-add-btn" 
-									data-spn="${jtownUser.pn }" 
-									data-page="0" 
-									data-ni="<c:out value='${pagination.numItems }'/>"
-									data-nipp="<c:out value='${pagination.numItemsPerPage }'/>">
-									댓글 더 보기 <span id="comment-now-count"><c:out value="${pagination.numItemsPerPage * 0 }"/></span>/<c:out value="${pagination.numItems}"/>
-								</a>
-							</li>
+							<c:if test="${pagination.numItems ne 0 }">
+								<c:choose>
+									<c:when test="${fn:length(comments) > 0 }">
+										<li class="jt-home-expand-shop-comment-add">
+											<a href="#none" class="jt-btn-silver" data-spn="${jtownUser.pn }"  id="comment-add-btn-best">베스트 리플보기</a>
+										</li>
+										<li class="jt-home-expand-shop-comment-add" style="display: none;">
+									</c:when>
+									<c:otherwise>
+										<li class="jt-home-expand-shop-comment-add">									
+									</c:otherwise>
+								</c:choose>
+									<a href="#none" class="jt-btn-silver" id="comment-add-btn" 
+										data-spn="${jtownUser.pn }" 
+										data-page="0" 
+										data-ni="<c:out value='${pagination.numItems }'/>"
+										data-nipp="<c:out value='${pagination.numItemsPerPage }'/>">
+										댓글 더 보기 <span id="comment-now-count"><c:out value="${pagination.numItemsPerPage * 0 }"/></span>/<c:out value="${pagination.numItems}"/>
+									</a>
+								</li>
+							</c:if>
 						</ul>
 						<div class="jt-home-expand-shop-comment-insert">
 							<input type="text" id="jt-comment-insert" readonly="readonly" placeholder="판매자 아이디로는 이용하실 수 없습니다." maxlength="100"/>

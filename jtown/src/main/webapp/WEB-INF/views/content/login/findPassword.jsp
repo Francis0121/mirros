@@ -7,9 +7,9 @@
 <%@ include file="../../layout/none_header.jspf" %>
 <section id="jt-findpassword-page">
 	<header>
-		<hgroup>
+		<div>
 			<h1>비밀번호 찾기</h1>
-		</hgroup>
+		</div>
 
 		<ul>
 			<li>J TOWN 회원가입할 때 사용하신 email 을 아래에 입력해 주시기 바랍니다.</li>

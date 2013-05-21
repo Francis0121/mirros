@@ -14,7 +14,7 @@
 <article class="jt-url-content-wrap">
 	<div id="urlfolderBar">
 		<div id="urlfolderTabName">
-			<span id="urldigonalFolderImage"><a href="http://${jtownUser.shopUrl }"target="_blank" title="클릭시 해당 쇼핑몰로 이동됩니다."><c:out value="${jtownUser.name }"/></a></span>
+			<span id="urldigonalFolderImage"><a href="http://${jtownUser.shopUrl }" target="_blank" title="클릭시 해당 쇼핑몰로 이동됩니다."><c:out value="${jtownUser.name }"/></a></span>
 		</div>
 	</div>
 	<section class="jt-seller-content">
@@ -91,13 +91,6 @@
 					<ul id="jt-seller-slide-small">
 						<c:forEach items="${products }" var="product" varStatus="loop">
 							<li data-count="${productSize - loop.index }" data-ppn="${product.pn }">
-								<div class="jt-seller-expand-product-delete-tool">	
-									<div>
-										<a href="#none" class="jt-seller-product-delete jt-btn-white-small">
-											<span class="btnImage"></span>
-										</a>
-									</div>
-								</div>
 								<c:url value="/resources/uploadImage/${product.saveName }" var="image"/>
 								<a href="#none" class="jt-product-list"><img alt="상품" src="${image }"/></a>
 							</li>
@@ -191,25 +184,27 @@
 								</li>
 							</c:forEach>
 							<c:set var="pagination" value="${commentFilter.pagination }"/>
-							<c:choose>
-								<c:when test="${fn:length(comments) > 0 }">
-									<li class="jt-home-expand-shop-comment-add">
-										<a href="#none" class="jt-btn-silver" data-spn="${jtownUser.pn }"  id="comment-add-btn-best">베스트 리플보기</a>
-									</li>
-									<li class="jt-home-expand-shop-comment-add" style="display: none;">
-								</c:when>
-								<c:otherwise>
-									<li class="jt-home-expand-shop-comment-add">									
-								</c:otherwise>
-							</c:choose>
-								<a href="#none" class="jt-btn-silver" id="comment-add-btn" 
-									data-spn="${jtownUser.pn }" 
-									data-page="0" 
-									data-ni="<c:out value='${pagination.numItems }'/>"
-									data-nipp="<c:out value='${pagination.numItemsPerPage }'/>">
-									댓글 더 보기 <span id="comment-now-count"><c:out value="${pagination.numItemsPerPage * 0 }"/></span>/<c:out value="${pagination.numItems}"/>
-								</a>
-							</li>
+							<c:if test="${pagination.numItems ne 0 }">
+								<c:choose>
+									<c:when test="${fn:length(comments) > 0 }">
+										<li class="jt-home-expand-shop-comment-add">
+											<a href="#none" class="jt-btn-silver" data-spn="${jtownUser.pn }"  id="comment-add-btn-best">베스트 리플보기</a>
+										</li>
+										<li class="jt-home-expand-shop-comment-add" style="display: none;">
+									</c:when>
+									<c:otherwise>
+										<li class="jt-home-expand-shop-comment-add">									
+									</c:otherwise>
+								</c:choose>
+									<a href="#none" class="jt-btn-silver" id="comment-add-btn" 
+										data-spn="${jtownUser.pn }" 
+										data-page="0" 
+										data-ni="<c:out value='${pagination.numItems }'/>"
+										data-nipp="<c:out value='${pagination.numItemsPerPage }'/>">
+										댓글 더 보기 <span id="comment-now-count"><c:out value="${pagination.numItemsPerPage * 0 }"/></span>/<c:out value="${pagination.numItems}"/>
+									</a>
+								</li>
+							</c:if>
 						</ul>
 						<div class="jt-home-expand-shop-comment-insert">
 							<sec:authorize access="hasRole('ROLE_USER')">

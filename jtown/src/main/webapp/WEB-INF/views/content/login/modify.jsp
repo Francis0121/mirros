@@ -137,7 +137,7 @@
 					<spring:message code="${providerId}.icon" var="iconUrl"/>
 					<ul class="jt-modify-connect-social-info">
 						<li>
-							<img src="<c:url value="${iconUrl}" />" width="40" height="40"/>
+							<img src="<c:url value="${iconUrl}" />" width="40" height="40" alt="facebookicon"/>
 						</li>
 					<c:if test="${not empty connections}">
 						<li>

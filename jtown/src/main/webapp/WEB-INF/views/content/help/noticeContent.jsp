@@ -42,7 +42,7 @@
 		<c:forEach items="${noticeList }" var="notice" varStatus="i">
 			<tr class="jt-help-notice-content-tr">
 				<td><c:out value="${noticeContent.pn < notice.pn ? '다음글' : '이전글'}"/></td>
-				<c:url value="/help/notice/content?pn=${notice.pn }&page=${pagination.currentPage}" var="noticeUrl"/>
+				<c:url value="/help/notice/content?pn=${notice.pn }&amp;page=${pagination.currentPage}" var="noticeUrl"/>
 				<td><a href="${noticeUrl }"><c:out value="${notice.title }"/></a></td>
 				<td><c:out value="${fn:substring(notice.inputDate, 0, 19) }"/></td>
 				<td><c:out value="${notice.readCount eq null ? 0 : notice.readCount}"/></td>

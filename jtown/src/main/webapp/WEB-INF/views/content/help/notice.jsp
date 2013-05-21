@@ -79,7 +79,7 @@ function goToPreviousPages() {
 		<c:forEach items="${noticeList }" var="notice" varStatus="i">
 			<tr class="jt-help-notice-content-tr">
 				<td><c:out value="${pagination.numItems - (pagination.currentPage - 1)* 10-i.count+1}"/></td>
-				<c:url value="/help/notice/content?pn=${notice.pn }&page=${pagination.currentPage}" var="noticeUrl"/>
+				<c:url value="/help/notice/content?pn=${notice.pn }&amp;page=${pagination.currentPage}" var="noticeUrl"/>
 				<td><a href="${noticeUrl }" class="jt-help-notice-content-title-a"><c:out value="${notice.title }"/></a></td>
 				<td><c:out value="${fn:substring(notice.inputDate, 0, 19) }"/></td>
 				<td><c:out value="${notice.readCount eq null ? 0 : notice.readCount}"/></td>
