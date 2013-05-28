@@ -42,6 +42,9 @@ public class JtownUser extends AbstractUser {
 	private Integer customerPn;
 	private String interestCategory;
 	private String interestSectionList;
+	
+	// ~ Admin
+	private String email;
 
 	public JtownUser() {
 		super();
@@ -261,7 +264,15 @@ public class JtownUser extends AbstractUser {
 	public void setBannerDate(Integer bannerDate) {
 		this.bannerDate = bannerDate;
 	}
+	
+	public String getEmail() {
+		return email;
+	}
 
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
@@ -287,6 +298,9 @@ public class JtownUser extends AbstractUser {
 		sb.append("CustomerPn : ").append(this.customerPn).append(";");
 		sb.append("interestCategory : ").append(this.interestCategory).append("; ");
 		sb.append("interestSectionList : ").append(this.interestSectionList).append("; ");
+		sb.append(" ] ");
+		sb.append("Admin : [ ");
+		sb.append("email : ").append(this.email).append("; ");
 		sb.append(" ] ");
 		
 		return sb.toString();

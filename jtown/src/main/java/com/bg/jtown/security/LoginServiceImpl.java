@@ -46,6 +46,7 @@ public class LoginServiceImpl extends SqlSessionDaoSupport implements
 	@Override
 	public void insertCreatUserAdmin(JtownUser jtownUser) {
 		insertUser(jtownUser);
+		getSqlSession().insert("loginMapper.insertUserAdmin", jtownUser);
 	}
 
 	@Override
@@ -198,5 +199,21 @@ public class LoginServiceImpl extends SqlSessionDaoSupport implements
 	public Boolean selectFacebookFeed(String username) {
 		return getSqlSession().selectOne("loginMapper.selectFacebookFeed",
 				username);
+	}
+
+	// ~ Admin
+
+	@Override
+	public boolean selectCheckExistAdminEmail(String email) {
+		boolean result = getSqlSession().selectList(
+				"loginMapper.selectCheckExistAdminEmail", email).size() == 1;
+		return result;
+	}
+
+	@Override
+	public boolean selectCheckExistAdminUsername(String username) {
+		boolean result = getSqlSession().selectList(
+				"loginMapper.selectCheckExistAdminUsername", username).size() == 1;
+		return result;
 	}
 }

@@ -205,11 +205,8 @@ public class CustomJdbcUserDetailManager extends JdbcUserDetailsManager {
 	// ~ Administrator
 
 	public void createUserAdminAndAuthority(JtownUser jtownUser) {
-		String name = "admin" + DateUtil.getSysdate("yyyyMMddHHmmss");
 		jtownUser.setFacebookFeed(false);
-		jtownUser.setName(ADMIN);
-		jtownUser.setUsername(name);
-		setEncodedPassword(jtownUser, name);
+		setEncodedPassword(jtownUser, jtownUser.getPassword());
 		loginService.insertCreatUserAdmin(jtownUser);
 		addUserToGroup(jtownUser.getPn(), ADMIN);
 	}

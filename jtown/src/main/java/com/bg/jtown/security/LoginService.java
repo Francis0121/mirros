@@ -64,4 +64,10 @@ public interface LoginService {
 
 	Boolean selectFacebookFeed(String username);
 
+	// 관리자
+	
+	boolean selectCheckExistAdminUsername(String username);
+
+	boolean selectCheckExistAdminEmail(String email);
+
 }

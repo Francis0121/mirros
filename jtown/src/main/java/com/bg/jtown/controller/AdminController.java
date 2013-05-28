@@ -30,8 +30,10 @@ import com.bg.jtown.business.search.PartnershipFilter;
 import com.bg.jtown.business.search.UserFilter;
 import com.bg.jtown.business.seller.ContractService;
 import com.bg.jtown.business.seller.SellerService;
+import com.bg.jtown.controller.validator.AdminLoginValidator;
 import com.bg.jtown.security.CustomJdbcUserDetailManager;
 import com.bg.jtown.security.JtownUser;
+import com.bg.jtown.util.VaildationUtil;
 
 /**
  * @author Francis, 박광열
@@ -50,6 +52,8 @@ public class AdminController {
 	private ContractService contractService;
 	@Resource
 	private CustomJdbcUserDetailManager customJdbcUserDetailManager;
+	@Resource
+	private AdminLoginValidator adminLoginValidator;
 
 	// ~ SHOW
 
@@ -79,6 +83,34 @@ public class AdminController {
 				.selectInterestCategoryList();
 		model.addAttribute("categoryList", interestCategoryList);
 		return "admin/createSeller";
+	}
+
+	@RequestMapping(value = "/admin/sellerInformation/sp/{sellerPn}", method = RequestMethod.GET)
+	public String showCreateSellerFinish(Model model,
+			@PathVariable Integer sellerPn) {
+		model.addAllAttributes(sellerService.selectAllInformation(sellerPn));
+		return "admin/sellerInformation";
+	}
+
+	@RequestMapping(value = "/admin/administrator", method = RequestMethod.GET)
+	public String showAdministrator(Model model,
+			@ModelAttribute AdministratorFilter administratorFilter) {
+		model.addAllAttributes(adminService
+				.selectAdminModelMap(administratorFilter));
+		return "admin/user/list";
+	}
+
+	@RequestMapping(value = "/admin/createAdministrator", method = RequestMethod.GET)
+	public String showCreateAdministrator(Model model) {
+		model.addAttribute("jtownUser", new JtownUser());
+		return "admin/user/create";
+	}
+
+	@RequestMapping(value = "/admin/partnership", method = RequestMethod.GET)
+	public String showPartnership(Model model,
+			@ModelAttribute PartnershipFilter partnershipFilter) {
+		model.addAllAttributes(helpService.selectObject(partnershipFilter));
+		return "admin/partnership";
 	}
 
 	// ~ FORM
@@ -115,61 +147,44 @@ public class AdminController {
 		}
 	}
 
-	@RequestMapping(value = "/admin/sellerInformation/sp/{sellerPn}", method = RequestMethod.GET)
-	public String showCreateSellerFinishPage(Model model,
-			@PathVariable Integer sellerPn) {
-		model.addAllAttributes(sellerService.selectAllInformation(sellerPn));
-		return "admin/sellerInformation";
-	}
+	@RequestMapping(value = "/admin/createAdministrator.jt", method = RequestMethod.POST)
+	public String formCreateAdministrator(Model model,
+			@ModelAttribute JtownUser jtownUser, BindingResult result,
+			@RequestParam("confirmPassword") final String confirmPassword) {
+		adminLoginValidator.validate(jtownUser, result);
 
-	@RequestMapping(value = "/admin/administrator", method = RequestMethod.GET)
-	public String showAdministratorPage(Model model,
-			@ModelAttribute AdministratorFilter administratorFilter) {
+		new Validator() {
+			@Override
+			public void validate(Object target, Errors errors) {
+				JtownUser jtownUser = (JtownUser) target;
 
-		model.addAllAttributes(adminService
-				.selectAdminModelMap(administratorFilter));
+				if (jtownUser.getPassword() == null) {
+					errors.rejectValue("password", "join.password.empty");
+				} else if (VaildationUtil.confirmPassword(
+						jtownUser.getPassword(), confirmPassword)) {
+					errors.rejectValue("password", "join.password.isNotEqual");
+				}
+			}
 
-		return "admin/administrator";
-	}
+			@Override
+			public boolean supports(Class<?> clazz) {
+				return JtownUser.class.isAssignableFrom(clazz);
+			}
+		}.validate(jtownUser, result);
 
-	@RequestMapping(value = "/admin/createAdministrator.jt", method = RequestMethod.GET)
-	public String formCreateAdministrator(Model model) {
-		JtownUser jtownUser = new JtownUser();
-		customJdbcUserDetailManager.createUserAdminAndAuthority(jtownUser);
-		model.addAttribute("jtownUser", jtownUser);
-		return "redirect:administrator";
-	}
-
-	@RequestMapping(value = "/admin/changeShopUrl", method = RequestMethod.POST)
-	@ResponseBody
-	public void ajaxChangeShopUrl(@RequestBody JtownUser jtownUser) {
-		adminService.updateShopUrl(jtownUser);
-	}
-
-	@RequestMapping(value = "/admin/changeInterest", method = RequestMethod.POST)
-	@ResponseBody
-	public void ajaxChangeInterest(@RequestBody Interest interest) {
-		adminService.updateInterest(interest);
-	}
-
-	@RequestMapping(value = "/admin/changeEnable", method = RequestMethod.POST)
-	@ResponseBody
-	public void ajaxChangeEnable(@RequestBody JtownUser jtownUser) {
-		adminService.updateEnable(jtownUser);
+		if (result.hasErrors()) {
+			return "admin/user/create";
+		} else {
+			customJdbcUserDetailManager.createUserAdminAndAuthority(jtownUser);
+			return "redirect:administrator";
+		}
 	}
 
 	// ~ Partnership
 
-	@RequestMapping(value = "/admin/partnership", method = RequestMethod.GET)
-	public String showSellerPage(Model model,
-			@ModelAttribute PartnershipFilter partnershipFilter) {
-		model.addAllAttributes(helpService.selectObject(partnershipFilter));
-		return "admin/partnership";
-	}
-
 	@RequestMapping(value = "/ajax/admin/process.jt", method = RequestMethod.POST)
 	@ResponseBody
-	public void showSellerPage(@RequestBody Partnership partnership) {
+	public void ajaxPartnership(@RequestBody Partnership partnership) {
 		helpService.updatePatnership(partnership);
 	}
 
@@ -241,6 +256,24 @@ public class AdminController {
 	@ResponseBody
 	public List<Interest> ajaxAutoInterestSection(@RequestBody Interest interest) {
 		return adminService.selectInterestSection(interest);
+	}
+
+	@RequestMapping(value = "/admin/changeShopUrl", method = RequestMethod.POST)
+	@ResponseBody
+	public void ajaxChangeShopUrl(@RequestBody JtownUser jtownUser) {
+		adminService.updateShopUrl(jtownUser);
+	}
+
+	@RequestMapping(value = "/admin/changeInterest", method = RequestMethod.POST)
+	@ResponseBody
+	public void ajaxChangeInterest(@RequestBody Interest interest) {
+		adminService.updateInterest(interest);
+	}
+
+	@RequestMapping(value = "/admin/changeEnable", method = RequestMethod.POST)
+	@ResponseBody
+	public void ajaxChangeEnable(@RequestBody JtownUser jtownUser) {
+		adminService.updateEnable(jtownUser);
 	}
 
 }

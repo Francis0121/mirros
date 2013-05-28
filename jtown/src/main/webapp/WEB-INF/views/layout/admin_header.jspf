@@ -8,11 +8,12 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>MIRROS</title>
+<title>MIRROS ADMIN</title>
 <%-- Jquery --%>
 <link rel="stylesheet" type="text/css" href="${cp}/resources/jquery/jquery-ui-1.10.2.custom.min.css" />
 <link rel="stylesheet" type="text/css" href="${cp}/resources/uploadify/uploadify.css" />
 <%-- Custom --%>
+<link rel="shortcut icon" href="${cp }/resources/images/favicon-admin.ico" type="image/x-icon"/>
 <link rel="stylesheet" type="text/css" href="${cp}/resources/css/default.css" />
 <link rel="stylesheet" type="text/css" href="${cp}/resources/css/seller.css" />
 <link rel="stylesheet" type="text/css" href="${cp}/resources/css/home.css" />
@@ -46,15 +47,6 @@
 					<c:url value="/admin/notice" var="noticeUrl" />
 					<a href="${noticeUrl }">- 공지사항</a>
 				</li>
-				<li class="jt-left-nav-category">
-					Q&amp;A
-				</li>
-				<li class="jt-left-nav-content">
-					<a href="#">- 판매자</a>
-				</li>
-				<li class="jt-left-nav-content">
-					<a href="#">- 소비자</a>
-				</li>	
 				<li class="jt-left-nav-category">
 					사용자관리
 				</li>			

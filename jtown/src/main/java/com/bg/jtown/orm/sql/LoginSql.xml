@@ -62,6 +62,15 @@
 			( #{pn}, #{shopUrl}, 0 )
 	</insert>	
 		
+	<insert id="insertUserAdmin" parameterType="JtownUser">
+		INSERT
+			user_admin
+			(pn, email)
+		VALUES
+			(#{pn}, #{email})
+	</insert>
+		
+		
 	<insert id="addUserToGroup" parameterType="Map">
 		INSERT INTO
 			group_members
@@ -206,5 +215,24 @@
 		WHERE
 			id = #{username}
 	</select>
-		
+	
+	<!-- Admin -->
+	<select id="selectCheckExistAdminEmail" parameterType="String" resultType="String">
+		SELECT 
+			email
+		FROM	
+			user_admin
+		WHERE	
+			email = #{email}
+	</select>
+				
+	<select id="selectCheckExistAdminUsername" parameterType="String" resultType="String">
+		SELECT
+			id
+		FROM
+			users
+		WHERE
+			id = #{username}
+	</select>
+	
 </mapper>
