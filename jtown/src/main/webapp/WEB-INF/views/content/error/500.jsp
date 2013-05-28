@@ -5,8 +5,9 @@
 <html>
 <head>
 <title>Mirros :: 요청이 올바르지 않습니다.</title>
+<link rel="shortcut icon" href="${cp }/resources/images/favicon.ico" type="image/x-icon"/>
 </head>
 <body>
-Mirros :: 관리자에게 요청하시기 바랍니다.
+<a href="javascript:history.back();"><img alt="500 Internal server error" src="${cp }/resources/images/500.jpg" style="border: 0;"></a>
 </body>
 </html>

@@ -5,8 +5,9 @@
 <html>
 <head>
 <title>Mirros :: 페이지를 찾을 수 없습니다.</title>
+<link rel="shortcut icon" href="${cp }/resources/images/favicon.ico" type="image/x-icon"/>
 </head>
 <body>
-Mirros :: 페이지를 찾을 수 없습니다.
+<a href="${cp }/"><img alt="400 Bad request" src="${cp }/resources/images/400.jpg" style="border: 0;"></a>
 </body>
 </html>
