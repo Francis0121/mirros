@@ -76,7 +76,7 @@ function goToPreviousPages() {
 	</thead>
 	<tfoot>
 		<tr>	
-			<th colspan="11">
+			<th colspan="12">
 				<a href="javascript:void(goToPage(1))" onfocus="blur();">
 						처음
 <%-- 					<img src="<c:url value='/images/mims_pageFirst_btn.gif'/>" alt="처음" style="vertical-align: middle; border: none" /> --%>
@@ -149,7 +149,7 @@ function goToPreviousPages() {
 				<td><c:out value="${userInfo.enabled }"/></td>
 			</tr>
 			<tr class="jt-partnership-table-content" id="partnership-content-<c:out value="${partnership.pn }"/>">
-				<td colspan="11">
+				<td colspan="12">
 					<pre><c:out value="${partnership.content }"/></pre>
 				</td>
 			</tr>
