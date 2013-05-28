@@ -46,6 +46,20 @@ public class PartnershipFilter extends AbstractListFilter {
 		super();
 	}
 
+	public String getSearchEmail() {
+		if (this.email == null || this.email.trim().equals("")) {
+			return null;
+		}
+		return "%" + this.email + "%";
+	}
+
+	public String getSearchPhoneNumber() {
+		if (this.phoneNumber == null || this.phoneNumber.trim().equals("")) {
+			return null;
+		}
+		return "%" + this.phoneNumber + "%";
+	}
+
 	public PartnershipFilter(Integer categoryPn, Integer process, String email,
 			String phoneNumber) {
 		super();

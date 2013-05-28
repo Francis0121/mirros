@@ -110,7 +110,7 @@ public class AdminController {
 	public String showPartnership(Model model,
 			@ModelAttribute PartnershipFilter partnershipFilter) {
 		model.addAllAttributes(helpService.selectObject(partnershipFilter));
-		return "admin/partnership";
+		return "admin/partnership/list";
 	}
 
 	// ~ FORM

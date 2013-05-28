@@ -33,15 +33,29 @@
 		<result column="content" property="content"/>
 		<result column="process" property="process"/>
 		<result column="input_date" property="inputDate"/>
+		<result column="seller_pn" property="jtownUser.pn"/>
+		<result column="shop_url" property="jtownUser.shopUrl"/>
+		<result column="id" property="jtownUser.username"/>
+		<result column="enable" property="jtownUser.enabled"/>
+		<result column="salt" property="jtownUser.salt"/>
+		<result column="seller_name" property="jtownUser.name"/>
+		<result column="admin_pn" property="adminUser.pn"/>
+		<result column="admin_name" property="adminUser.name"/>
 	</resultMap>
 	
 	<select id="selectPartnershipList" parameterType="com.bg.jtown.business.search.PartnershipFilter" resultMap="jtown-help-partnership-map">
 		<include refid="paginationBefore"/>
 		SELECT
-			pn, name, email, phone_number,
-			category_pn, content, process, input_date
+			p.pn, p.name, p.email, p.phone_number,
+			p.category_pn, p.content, p.process, p.input_date,
+			u.pn AS seller_pn, u.shop_url, u.id, u.enable, u.salt, u.name AS seller_name,
+			ua.pn AS admin_pn, ua.name AS admin_name
 		FROM
-			partnership
+			partnership p
+			LEFT OUTER JOIN ( SELECT us.pn, us.shop_url, u.id, u.enable, u.salt, u.name FROM user_seller us, users u WHERE us.pn = u.pn ) u
+			ON u.pn = p.seller_pn
+			LEFT OUTER JOIN ( SELECT u.pn, u.name FROM user_admin ua, users u WHERE ua.pn = u.pn AND u.enable = TRUE ) ua
+			ON ua.pn = p.admin_pn
 		WHERE
 			1 = 1
 		<if test="process != null">
@@ -52,25 +66,25 @@
 		AND
 			category_pn = #{categoryPn}
 		</if>
-		<if test="email != null and email != ''">
+		<if test="searchEmail != null and searchEmail != ''">
 		AND
-			email = #{email}
+			email LIKE #{searchEmail}
 		</if>
-		<if test="phoneNumber != null and phoneNumber != ''">
+		<if test="searchPhoneNumber != null and searchPhoneNumber != ''">
 		AND
-			phone_number = #{phoneNumber}
+			phone_number LIKE #{searchPhoneNumber}
 		</if>	
 		ORDER BY
-			input_date DESC
+			p.pn DESC
 		<include refid="paginationAfter"/>
 	</select>
 	
 	<select id="selectPartnership" parameterType="java.lang.Integer" resultMap="jtown-help-partnership-map">
 		SELECT
-			pn, name, email, phone_number,
-			category_pn, content, process, input_date
+			p.pn, p.name, p.email, p.phone_number,
+			p.category_pn, p.content, p.process, p.input_date,
 		FROM
-			partnership
+			partnership p
 		WHERE
 		<if test="pn != null">
 			pn = #{pn}		
@@ -102,13 +116,13 @@
 		AND
 			category_pn = #{categoryPn}
 		</if>
-		<if test="email != null and email != ''">
+		<if test="searchEmail != null and searchEmail != ''">
 		AND
-			email = #{email}
+			email LIKE #{searchEmail}
 		</if>
-		<if test="phoneNumber != null and phoneNumber != ''">
+		<if test="searchPhoneNumber != null and searchPhoneNumber != ''">
 		AND
-			phone_number = #{phoneNumber}
+			phone_number LIKE #{searchPhoneNumber}
 		</if>		
 	</select>
 	
@@ -148,5 +162,17 @@
 		WHERE
 			pn = #{pn}
 	</update>
+	
+	<select id="selectAdminIdList" resultType="JtownUser">
+		SELECT
+			u.pn, u.name
+		FROM
+			user_admin ua,
+			users u
+		WHERE
+			ua.pn = u.pn
+		AND
+			u.enable = TRUE
+	</select>
 	
 </mapper>

@@ -1,5 +1,7 @@
 package com.bg.jtown.business;
 
+import com.bg.jtown.security.JtownUser;
+
 /**
  * <h1>제휴문의</h1>
  * 
@@ -7,6 +9,11 @@ package com.bg.jtown.business;
  * 
  */
 public class Partnership {
+
+	/**
+	 * 담당 관리자 정보
+	 */
+	private JtownUser adminUser = new JtownUser();
 
 	/**
 	 * 사업 아이템 분류
@@ -27,6 +34,11 @@ public class Partnership {
 	 * 입력날짜
 	 */
 	private String inputDate;
+
+	/**
+	 * 사업자 아이디 정보
+	 */
+	private JtownUser jtownUser = new JtownUser();
 
 	/**
 	 * 성명
@@ -79,9 +91,8 @@ public class Partnership {
 		this.process = process;
 	}
 
-	public void makePhoneNumber() {
-		this.phoneNumber = this.phoneNumberSt + this.phoneNumberNd
-				+ this.phoneNumberRd;
+	public JtownUser getAdminUser() {
+		return adminUser;
 	}
 
 	public Integer getCategoryPn() {
@@ -98,6 +109,10 @@ public class Partnership {
 
 	public String getInputDate() {
 		return inputDate;
+	}
+
+	public JtownUser getJtownUser() {
+		return jtownUser;
 	}
 
 	public String getName() {
@@ -128,6 +143,15 @@ public class Partnership {
 		return process;
 	}
 
+	public void makePhoneNumber() {
+		this.phoneNumber = this.phoneNumberSt + this.phoneNumberNd
+				+ this.phoneNumberRd;
+	}
+
+	public void setAdminUser(JtownUser adminUser) {
+		this.adminUser = adminUser;
+	}
+
 	public void setCategoryPn(Integer categoryPn) {
 		this.categoryPn = categoryPn;
 	}
@@ -142,6 +166,10 @@ public class Partnership {
 
 	public void setInputDate(String inputDate) {
 		this.inputDate = inputDate;
+	}
+
+	public void setJtownUser(JtownUser jtownUser) {
+		this.jtownUser = jtownUser;
 	}
 
 	public void setName(String name) {
@@ -174,12 +202,13 @@ public class Partnership {
 
 	@Override
 	public String toString() {
-		return "Partnership [categoryPn=" + categoryPn + ", content=" + content
-				+ ", email=" + email + ", inputDate=" + inputDate + ", name="
-				+ name + ", phoneNumber=" + phoneNumber + ", phoneNumberNd="
-				+ phoneNumberNd + ", phoneNumberSt=" + phoneNumberSt + ", pn="
-				+ pn + ", phoneNumberRd=" + phoneNumberRd + ", process="
-				+ process + "]";
+		return "Partnership [adminUser=" + adminUser + ", categoryPn="
+				+ categoryPn + ", content=" + content + ", email=" + email
+				+ ", inputDate=" + inputDate + ", jtownUser=" + jtownUser
+				+ ", name=" + name + ", phoneNumber=" + phoneNumber
+				+ ", phoneNumberNd=" + phoneNumberNd + ", phoneNumberRd="
+				+ phoneNumberRd + ", phoneNumberSt=" + phoneNumberSt + ", pn="
+				+ pn + ", process=" + process + "]";
 	}
 
 }

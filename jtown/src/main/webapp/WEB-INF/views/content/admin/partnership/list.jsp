@@ -4,7 +4,7 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
-<%@ include file="../../layout/admin_header.jspf" %>
+<%@ include file="../../../layout/admin_header.jspf" %>
 <c:set var="pagination" value="${partnershipFilter.pagination }"/>
 <c:set var="processMap" value="${partnershipFilter.processMap }"/>
 <c:set var="processList" value="${partnershipFilter.processList}"/>
@@ -66,12 +66,17 @@ function goToPreviousPages() {
 			<th>전화번호</th>
 			<th>사업아이템</th>
 			<th>입력날짜</th>
+			<th>담당자</th>
 			<th>처리상황</th>
+			<th>아이디정보</th>
+			<th>홈페이지</th>
+			<th>회사명</th>
+			<th>불량사용자</th>
 		</tr>
 	</thead>
 	<tfoot>
 		<tr>	
-			<th colspan="7">
+			<th colspan="11">
 				<a href="javascript:void(goToPage(1))" onfocus="blur();">
 						처음
 <%-- 					<img src="<c:url value='/images/mims_pageFirst_btn.gif'/>" alt="처음" style="vertical-align: middle; border: none" /> --%>
@@ -109,6 +114,21 @@ function goToPreviousPages() {
 				<td><c:out value="${interestCategoryMap[partnership.categoryPn] }"/></td>
 				<td><c:out value="${partnership.inputDate }"/></td>
 				<td>
+					<select>
+						<option value="">선택</option>
+						<c:forEach items="${usersAdmin }" var="adminUser">
+							<c:choose>
+								<c:when test="${adminUser.pn eq partnership.adminUser.pn}">
+									<option value="${adminUser.pn }" selected="selected"><c:out value="${adminUser.name }"/></option>
+								</c:when>							
+								<c:otherwise>
+									<option value="${adminUser.pn }"><c:out value="${adminUser.name }"/></option>
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>
+					</select>
+				</td>
+				<td>
 					<select class="jt-partnership-process" data-pspn="<c:out value="${partnership.pn }"/>">
 						<c:forEach items="${processList }" var="process">
 							<c:choose>
@@ -122,9 +142,14 @@ function goToPreviousPages() {
 						</c:forEach> 
 					</select>
 				</td>
+				<c:set var="userInfo" value="${partnership.jtownUser }"/>
+				<td><c:out value="${userInfo.username }"/></td>
+				<td><c:out value="${userInfo.shopUrl }"/></td>
+				<td><c:out value="${userInfo.name }"/></td>
+				<td><c:out value="${userInfo.enabled }"/></td>
 			</tr>
 			<tr class="jt-partnership-table-content" id="partnership-content-<c:out value="${partnership.pn }"/>">
-				<td colspan="7">
+				<td colspan="11">
 					<pre><c:out value="${partnership.content }"/></pre>
 				</td>
 			</tr>
@@ -132,4 +157,4 @@ function goToPreviousPages() {
 	</tbody>
 </table>
 
-<%@ include file="../../layout/admin_footer.jspf" %>
+<%@ include file="../../../layout/admin_footer.jspf" %>

@@ -14,6 +14,7 @@ import com.bg.jtown.business.HomeService;
 import com.bg.jtown.business.Interest;
 import com.bg.jtown.business.Partnership;
 import com.bg.jtown.business.search.PartnershipFilter;
+import com.bg.jtown.security.JtownUser;
 import com.bg.jtown.util.Pagination;
 
 /**
@@ -41,6 +42,9 @@ public class HelpServiceImpl extends SqlSessionDaoSupport implements
 		}
 		selectMap.put("interestCategoryMap", interestCategoryMap);
 
+		List<JtownUser> jtownUsers = getSqlSession().selectList(
+				"helpMapper.selectAdminIdList");
+		selectMap.put("usersAdmin", jtownUsers);
 		return selectMap;
 	}
 

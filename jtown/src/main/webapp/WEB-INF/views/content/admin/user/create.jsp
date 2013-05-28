@@ -9,18 +9,18 @@
 <form:form commandName="jtownUser" action="${cp }/admin//createAdministrator.jt" htmlEscape="true" method="post">
 	ID
 	<form:input path="username"/>
-	<form:errors path="username"/>
+	<form:errors path="username"/><br/>
 	Name
 	<form:input path="name"/>
-	<form:errors path="name"/>
+	<form:errors path="name"/><br/>
 	Email
 	<form:input path="email"/>
-	<form:errors path="email"/>
+	<form:errors path="email"/><br/>
 	Password
 	<form:password path="password"/>
-	<form:errors path="password"/>
+	<form:errors path="password"/><br/>
 	Confirm Password
-	<input type="password" id="confirmPassword" name="confirmPassword"/>
+	<input type="password" id="confirmPassword" name="confirmPassword"/><br/>
 		
 	<button type="submit">생성</button>
 </form:form>
