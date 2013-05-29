@@ -3,6 +3,7 @@ package com.bg.jtown.business.help;
 import java.util.List;
 import java.util.Map;
 
+import com.bg.jtown.business.Json;
 import com.bg.jtown.business.Partnership;
 import com.bg.jtown.business.search.PartnershipFilter;
 
@@ -27,5 +28,7 @@ public interface HelpService {
 	void deletePartnership(Partnership partnership);
 
 	void updatePatnership(Partnership partnership);
+
+	void updatePatnershipJson(Json json);
 
 }

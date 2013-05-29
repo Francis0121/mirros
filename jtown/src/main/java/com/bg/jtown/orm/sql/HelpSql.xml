@@ -33,6 +33,7 @@
 		<result column="content" property="content"/>
 		<result column="process" property="process"/>
 		<result column="input_date" property="inputDate"/>
+		<result column="update_date" property="updateDate"/>
 		<result column="seller_pn" property="jtownUser.pn"/>
 		<result column="shop_url" property="jtownUser.shopUrl"/>
 		<result column="id" property="jtownUser.username"/>
@@ -47,7 +48,7 @@
 		<include refid="paginationBefore"/>
 		SELECT
 			p.pn, p.name, p.email, p.phone_number,
-			p.category_pn, p.content, p.process, p.input_date,
+			p.category_pn, p.content, p.process, p.input_date, p.update_date,
 			u.pn AS seller_pn, u.shop_url, u.id, u.enable, u.salt, u.name AS seller_name,
 			ua.pn AS admin_pn, ua.name AS admin_name
 		FROM
@@ -82,7 +83,7 @@
 	<select id="selectPartnership" parameterType="java.lang.Integer" resultMap="jtown-help-partnership-map">
 		SELECT
 			p.pn, p.name, p.email, p.phone_number,
-			p.category_pn, p.content, p.process, p.input_date,
+			p.category_pn, p.content, p.process, p.input_date, p.update_date
 		FROM
 			partnership p
 		WHERE
@@ -129,9 +130,9 @@
 	<insert id="insertPartnership" parameterType="com.bg.jtown.business.Partnership">
 		INSERT INTO
 			partnership
-			(	name,	email,	phone_number,	category_pn,	content,	process, input_date	)
+			(	name,	email,	phone_number,	category_pn,	content,	process, input_date, update_date	)
 		VAlUES	
-			(	#{name},	#{email},	#{phoneNumber},	#{categoryPn},	#{content}, #{process}, SYSDATE()	)
+			(	#{name},	#{email},	#{phoneNumber},	#{categoryPn},	#{content}, #{process}, SYSDATE(), SYSDATE()	)
 		<selectKey keyProperty="pn" resultType="java.lang.Integer">
 			SELECT LAST_INSERT_ID()
 		</selectKey>
@@ -150,17 +151,41 @@
 		UPDATE
 			partnership
 		SET
+			update_date = SYSDATE(),
+			<if test="name != null and name !='' ">
+				name = #{name}
+			</if>
+			<if	test="email != null and email !='' ">
+				email = #{email}
+			</if>
+			<if test="phoneNumber != null and phoneNumber !='' ">
+				phone_number = #{phoneNumber}
+			</if>
+			<if test="process != null and process !='' ">
+				process = #{process}			
+			</if>
+			<if test="categoryPn != null and categoryPn != '' ">
+				category_pn = #{categoryPn}
+			</if>
+		WHERE
+			pn = #{pn}
+	</update>
+		
+	<update id="updatePatnershipJson" parameterType="com.bg.jtown.business.Json">
+		UPDATE
+			partnership
+		SET
+			update_date = SYSDATE(),
 			<choose>
-				<when test="process == null">
-					content = #{content},
-					category_pn = #{categoryPn}
+				<when test="value == null || value == ''">
+					admin_pn = null
 				</when>
 				<otherwise>
-					process = #{process}
+					admin_pn = #{value}
 				</otherwise>
 			</choose>
 		WHERE
-			pn = #{pn}
+			pn = #{key}
 	</update>
 	
 	<select id="selectAdminIdList" resultType="JtownUser">

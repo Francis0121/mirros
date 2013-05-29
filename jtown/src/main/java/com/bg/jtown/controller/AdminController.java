@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bg.jtown.business.Contract;
 import com.bg.jtown.business.Interest;
+import com.bg.jtown.business.Json;
 import com.bg.jtown.business.Partnership;
 import com.bg.jtown.business.admin.AdminService;
 import com.bg.jtown.business.help.HelpService;
@@ -180,14 +181,6 @@ public class AdminController {
 		}
 	}
 
-	// ~ Partnership
-
-	@RequestMapping(value = "/ajax/admin/process.jt", method = RequestMethod.POST)
-	@ResponseBody
-	public void ajaxPartnership(@RequestBody Partnership partnership) {
-		helpService.updatePatnership(partnership);
-	}
-
 	// ~ Contract
 
 	@RequestMapping(value = "/admin/contractList", method = RequestMethod.GET)
@@ -251,6 +244,20 @@ public class AdminController {
 	}
 
 	// ~ Ajax
+
+	@RequestMapping(value = "/admin/ajax/changePartnership.jt", method = RequestMethod.POST)
+	@ResponseBody
+	public Partnership ajaxChangePartnership(
+			@RequestBody Partnership partnership) {
+		helpService.updatePatnership(partnership);
+		return partnership;
+	}
+
+	@RequestMapping(value = "/admin/ajax/changePartnershipJson.jt", method = RequestMethod.POST)
+	@ResponseBody
+	public void changePartnershipJson(@RequestBody Json json) {
+		helpService.updatePatnershipJson(json);
+	}
 
 	@RequestMapping(value = "/ajax/admin/autoInterestSection.jt", method = RequestMethod.POST)
 	@ResponseBody

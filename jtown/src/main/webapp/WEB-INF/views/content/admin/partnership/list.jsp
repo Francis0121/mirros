@@ -65,9 +65,10 @@ function goToPreviousPages() {
 			<th>이메일&nbsp;주소</th>
 			<th>전화번호</th>
 			<th>사업아이템</th>
-			<th>입력날짜</th>
 			<th>담당자</th>
 			<th>처리상황</th>
+			<th>문의날짜</th>
+			<th>수정날짜</th>
 			<th>아이디정보</th>
 			<th>홈페이지</th>
 			<th>회사명</th>
@@ -106,15 +107,28 @@ function goToPreviousPages() {
 	</tfoot>
 	<tbody>
 		<c:forEach items="${partnerships }" var="partnership" varStatus="loop">
-			<tr class="jt-partnership-table-information" data-pspn="<c:out value="${partnership.pn }"/>">
-				<td><c:out value="${partnership.pn }"/></td>
-				<td><c:out value="${partnership.name }"/></td>
-				<td><c:out value="${partnership.email }"/></td>
-				<td><c:out value="${partnership.phoneNumber }"/></td>
-				<td><c:out value="${interestCategoryMap[partnership.categoryPn] }"/></td>
-				<td><c:out value="${partnership.inputDate }"/></td>
-				<td>
-					<select>
+			<c:set var="userInfo" value="${partnership.jtownUser }"/>
+			<tr class="jt-partnership-info" data-pspn="<c:out value="${partnership.pn }"/>" data-spn="<c:out value="${userInfo.pn}"/>">
+				<td class="jt-partnership-table-information"><c:out value="${partnership.pn }"/></td>
+				<td class="jt-partnership-name"><c:out value="${partnership.name }"/></td>
+				<td class="jt-partnership-email"><c:out value="${partnership.email }"/></td>
+				<td class="jt-partnership-phoneNumber"><c:out value="${partnership.phoneNumber }"/></td>
+				<td class="jt-partnership-category">
+					<select class="jt-partnership-category-select">
+						<c:forEach items="${interestCategories }" var="interestCategory">
+							<c:choose>
+								<c:when test="${partnership.categoryPn eq interestCategory.categoryPn}">
+									<option value="${interestCategory.categoryPn }" selected="selected"><c:out value="${interestCategory.name }"/></option>
+								</c:when>							
+								<c:otherwise>
+									<option value="${interestCategory.categoryPn }"><c:out value="${interestCategory.name }"/></option>
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>
+					</select>
+				</td>
+				<td class="jt-partnership-adminPn">
+					<select class="jt-partnership-adminPn-select">
 						<option value="">선택</option>
 						<c:forEach items="${usersAdmin }" var="adminUser">
 							<c:choose>
@@ -128,8 +142,8 @@ function goToPreviousPages() {
 						</c:forEach>
 					</select>
 				</td>
-				<td>
-					<select class="jt-partnership-process" data-pspn="<c:out value="${partnership.pn }"/>">
+				<td class="jt-partnership-process">
+					<select class="jt-partnership-process-select">
 						<c:forEach items="${processList }" var="process">
 							<c:choose>
 								<c:when test="${process.key eq partnership.process}">
@@ -142,11 +156,12 @@ function goToPreviousPages() {
 						</c:forEach> 
 					</select>
 				</td>
-				<c:set var="userInfo" value="${partnership.jtownUser }"/>
+				<td><c:out value="${partnership.inputDate }"/></td>
+				<td><c:out value="${partnership.updateDate }"/></td>
 				<td><c:out value="${userInfo.username }"/></td>
-				<td><c:out value="${userInfo.shopUrl }"/></td>
-				<td><c:out value="${userInfo.name }"/></td>
-				<td><c:out value="${userInfo.enabled }"/></td>
+				<td class="jt-partnership-shopUrl"><c:out value="${userInfo.shopUrl }"/></td>
+				<td class="jt-partnership-sellerName"><c:out value="${userInfo.name }"/></td>
+				<td class="jt-partnership-enabled"><c:out value="${userInfo.enabled }"/></td>
 			</tr>
 			<tr class="jt-partnership-table-content" id="partnership-content-<c:out value="${partnership.pn }"/>">
 				<td colspan="12">

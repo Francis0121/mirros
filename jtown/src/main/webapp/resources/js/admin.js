@@ -6,9 +6,7 @@ $(function() {
 	jtown.admin.createSubmit();
 	
 	jtown.admin.syncAdminPage();
-	
-	jtown.admin.partnershipProcess();
-	
+
 	jtown.admin.showPartnershipContent();
 	
 	jtown.admin.openContractList();
@@ -16,7 +14,96 @@ $(function() {
 	jtown.admin.openContract();
 	
 	jtown.admin.autoInterestSection();
+	
+	jtown.admin.changeText('jt-partnership-name' , function(thiz, nameVo){
+		var grandParent = thiz.parents(nameVo.parentSelector),
+			parent = thiz.parents(nameVo.selector),
+			url = contextPath+'admin/ajax/changePartnership.jt',
+			json = { pn : grandParent.attr('data-pspn'),
+					 name : thiz.val()	};
+		
+		$.postJSON(url, json, function(partnership){
+			parent.html(htmlChars(partnership.name));
+		});
+	});
+	jtown.admin.changeText('jt-partnership-email', function(thiz, nameVo){
+		var grandParent = thiz.parents(nameVo.parentSelector),
+		parent = thiz.parents(nameVo.selector),
+		url = contextPath+'admin/ajax/changePartnership.jt',
+		json = { pn : grandParent.attr('data-pspn'),
+				 email : thiz.val()	};
+	
+		$.postJSON(url, json, function(partnership){
+			parent.html(htmlChars(partnership.email));
+		});
+	});
+	jtown.admin.changeText('jt-partnership-phoneNumber', function(thiz, nameVo){
+		var grandParent = thiz.parents(nameVo.parentSelector),
+		parent = thiz.parents(nameVo.selector),
+		url = contextPath+'admin/ajax/changePartnership.jt',
+		json = { pn : grandParent.attr('data-pspn'),
+				 phoneNumber : thiz.val()	};
+	
+		$.postJSON(url, json, function(partnership){
+			parent.html(htmlChars(partnership.phoneNumber));
+		});
+	});
+	jtown.admin.changeSelect('jt-partnership-category', function(thiz, nameVo){
+		var grandParent = thiz.parents(nameVo.parentSelector),
+		url = contextPath+'admin/ajax/changePartnership.jt',
+		json = { pn : grandParent.attr('data-pspn'),
+				 categoryPn : thiz.val()	};
+		$.postJSON(url, json, function(partnership){
+		});
+	});
+	jtown.admin.changeSelect('jt-partnership-adminPn', function(thiz, nameVo){
+		var grandParent = thiz.parents(nameVo.parentSelector),
+		url = contextPath+'admin/ajax/changePartnershipJson.jt',
+		json = { key : grandParent.attr('data-pspn'),
+				 value : thiz.val()	};
+		$.postJSON(url, json, function(partnership){
+		});
+	});
+	jtown.admin.changeSelect('jt-partnership-process', function(thiz, nameVo){
+		var grandParent = thiz.parents(nameVo.parentSelector),
+		url = contextPath+'admin/ajax/changePartnership.jt',
+		json = { pn : grandParent.attr('data-pspn'),
+				 process : thiz.val()	};
+		$.postJSON(url, json, function(partnership){
+		});
+	});
+	
+	jtown.admin.changeText('jt-partnership-shopUrl');
+	jtown.admin.changeText('jt-partnership-sellerName');
 });
+
+jtown.admin.changeText = function(name, callback){
+	var nameVo = { 	selector : '.'+name,
+					input : name+'-input',
+					inputSelector : '#'+name+'-input',
+					parentSelector : '.jt-partnership-info'	};
+	
+	$(nameVo.selector).unbind('mouseup').bind('mouseup', function(){
+		var me = $(this),  value = me.text(),
+			html = '<input class="" id="' + nameVo.input + '" type="text" value="' + value + '" style="width: '+(Number(me.width())-14)+'px;"/>';
+		me.html(html);
+		
+		$(nameVo.inputSelector).focus();
+		$(nameVo.inputSelector).bind('focusout', function(){
+			callback($(this), nameVo);
+		});
+	});
+};
+
+jtown.admin.changeSelect = function(name, callback){
+	var nameVo = { 	selector : '.'+name,
+					input : name+'-select',
+					inputSelector : '.'+name+'-select',
+					parentSelector : '.jt-partnership-info'	};
+	$(nameVo.inputSelector).unbind('change').bind('change', function(){
+		callback($(this), nameVo);
+	});
+};
 
 jtown.admin.syncAdminPage = function(){
 	
@@ -230,28 +317,11 @@ jtown.admin.setFocus = function(clazz){
 	$('.' + clazz + ':input:visible:enabled:first').focus();
 };
 
-jtown.admin.partnershipProcess = function(){
-	
-	$('.jt-partnership-process').unbind('change');
-	$('.jt-partnership-process').bind('change', function(){
-		if(confirm('변경 하시겠습니까?')){
-			var partnershipPn = $(this).attr('data-pspn');
-			var process = $(this).val();
-			var url = contextPath + 'ajax/admin/process.jt';
-			var json = { pn : partnershipPn, process : process };
-			
-			$.postJSON(url, json, function(){
-			});
-		}
-	});
-	
-};
-
 jtown.admin.showPartnershipContent = function(){
 	
 	$('.jt-partnership-table-information').unbind('click');
 	$('.jt-partnership-table-information').bind('click', function(){
-		var partnershipPn =	$(this).attr('data-pspn');
+		var partnershipPn =	$(this).parents('.jt-partnership-info').attr('data-pspn');
 		$('#partnership-content-'+partnershipPn).toggle();
 	});
 };

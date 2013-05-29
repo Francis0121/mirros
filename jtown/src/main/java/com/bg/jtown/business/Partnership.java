@@ -75,6 +75,11 @@ public class Partnership {
 	 */
 	private Integer process;
 
+	/**
+	 * 수정날짜
+	 */
+	private String updateDate;
+
 	public Partnership() {
 		super();
 	}
@@ -143,6 +148,10 @@ public class Partnership {
 		return process;
 	}
 
+	public String getUpdateDate() {
+		return updateDate;
+	}
+
 	public void makePhoneNumber() {
 		this.phoneNumber = this.phoneNumberSt + this.phoneNumberNd
 				+ this.phoneNumberRd;
@@ -200,6 +209,10 @@ public class Partnership {
 		this.process = process;
 	}
 
+	public void setUpdateDate(String updateDate) {
+		this.updateDate = updateDate;
+	}
+
 	@Override
 	public String toString() {
 		return "Partnership [adminUser=" + adminUser + ", categoryPn="
@@ -208,7 +221,8 @@ public class Partnership {
 				+ ", name=" + name + ", phoneNumber=" + phoneNumber
 				+ ", phoneNumberNd=" + phoneNumberNd + ", phoneNumberRd="
 				+ phoneNumberRd + ", phoneNumberSt=" + phoneNumberSt + ", pn="
-				+ pn + ", process=" + process + "]";
+				+ pn + ", process=" + process + ", updateDate=" + updateDate
+				+ "]";
 	}
 
 }

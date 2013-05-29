@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.bg.jtown.business.HomeService;
 import com.bg.jtown.business.Interest;
+import com.bg.jtown.business.Json;
 import com.bg.jtown.business.Partnership;
 import com.bg.jtown.business.search.PartnershipFilter;
 import com.bg.jtown.security.JtownUser;
@@ -35,12 +36,8 @@ public class HelpServiceImpl extends SqlSessionDaoSupport implements
 
 		selectMap.put("partnerships", selectPartnership(partnershipFilter));
 
-		List<Interest> interestCatogies = homeService.selecInterestCategory();
-		Map<Integer, String> interestCategoryMap = new HashMap<Integer, String>();
-		for (Interest ic : interestCatogies) {
-			interestCategoryMap.put(ic.getCategoryPn(), ic.getName());
-		}
-		selectMap.put("interestCategoryMap", interestCategoryMap);
+		List<Interest> interestCategories = homeService.selecInterestCategory();
+		selectMap.put("interestCategories", interestCategories);
 
 		List<JtownUser> jtownUsers = getSqlSession().selectList(
 				"helpMapper.selectAdminIdList");
@@ -88,5 +85,10 @@ public class HelpServiceImpl extends SqlSessionDaoSupport implements
 	@Override
 	public void updatePatnership(Partnership partnership) {
 		getSqlSession().update("helpMapper.updatePatnership", partnership);
+	}
+
+	@Override
+	public void updatePatnershipJson(Json json) {
+		getSqlSession().update("helpMapper.updatePatnershipJson", json);
 	}
 }
