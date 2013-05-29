@@ -13,6 +13,8 @@ $(function() {
 	
 	jtown.admin.autoInterestSection();
 	
+	jtown.admin.changeCustomerEnable();
+	
 	jtown.admin.changeText('jt-partnership-name' , function(thiz, nameVo){
 		var grandParent = thiz.parents(nameVo.parentSelector),
 			parent = thiz.parents(nameVo.selector),
@@ -253,19 +255,21 @@ jtown.admin.changeInterest = function(me){
 };
 
 
-jtown.admin.changeCustomerEnable = function(me){
-	var parents = me.parents('.jt-admin-customer-table-tr');
-	var enabled = me.val();
-	var customerId = parents.children('.jt-admin-customer-table-customerId').text();
-	
-	var json = {
-			'username' : customerId,
-			'enabled' : (enabled == 1 ? true : false)
-	};
-	
-	var url = contextPath + 'admin/ajax/changeEnabled.jt';
-	
-	$.postJSON(url, json, function(){
+jtown.admin.changeCustomerEnable = function(){
+	$('.jt-admin-customer-enable').unbind('change').bind('change', function(){
+		var parents = $(this).parents('.jt-admin-customer-table-tr'),
+			pn = parents.attr('data-cpn');
+		var enabled = $(this).val();
+		
+		var json = {
+				'pn' : pn,
+				'enabled' : (enabled == 1 ? true : false)
+		};
+		
+		var url = contextPath + 'admin/ajax/changeEnabled.jt';
+		
+		$.postJSON(url, json, function(){
+		});
 	});
 };
 

@@ -95,7 +95,7 @@ function goToPreviousPages() {
 	<tbody>
 		<c:forEach items="${customerList }" var="customer" varStatus="i">
 			<c:set var="customerPn" value="${customer.pn }" />
-			<tr class="jt-admin-customer-table-tr">
+			<tr class="jt-admin-customer-table-tr" data-cpn="${customerPn}">
 				<td><c:out value="${pagination.numItems - (pagination.currentPage - 1)* 10-i.count+1}"/></td>
 				<td class="jt-admin-customer-table-customerId"><c:out value="${customer.username }"/></td>
 				<td><c:out value="${customer.name }"/></td>
