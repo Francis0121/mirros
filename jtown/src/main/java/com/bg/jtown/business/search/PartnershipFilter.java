@@ -16,11 +16,9 @@ import com.bg.jtown.util.AbstractListFilter;
  */
 public class PartnershipFilter extends AbstractListFilter {
 
-	private static final Integer FINISH = 3;
-
 	private static final Integer INQUIRE = 1;
-
 	private static final Integer RECEIPT = 2;
+	private static final Integer FINISH = 3;
 
 	/**
 	 * 사업 아이템 분류
@@ -42,6 +40,31 @@ public class PartnershipFilter extends AbstractListFilter {
 	 */
 	private Integer process;
 
+	/**
+	 * 판매자 아이디
+	 */
+	private String sellerId;
+
+	/**
+	 * 판매자 홈페이지
+	 */
+	private String shopUrl;
+
+	/**
+	 * 판매자 회사명
+	 */
+	private String sellerName;
+
+	/**
+	 * 판매자 불량사용자
+	 */
+	private Boolean enabled;
+
+	/**
+	 * 담당자
+	 */
+	private Integer adminPn;
+
 	public PartnershipFilter() {
 		super();
 	}
@@ -60,13 +83,25 @@ public class PartnershipFilter extends AbstractListFilter {
 		return "%" + this.phoneNumber + "%";
 	}
 
-	public PartnershipFilter(Integer categoryPn, Integer process, String email,
-			String phoneNumber) {
-		super();
-		this.categoryPn = categoryPn;
-		this.process = process;
-		this.email = email;
-		this.phoneNumber = phoneNumber;
+	public String getSearchSellerId() {
+		if (this.sellerId == null || this.sellerId.trim().equals("")) {
+			return null;
+		}
+		return "%" + this.sellerId + "%";
+	}
+
+	public String getSearchShopUrl() {
+		if (this.shopUrl == null || this.shopUrl.trim().equals("")) {
+			return null;
+		}
+		return "%" + this.shopUrl + "%";
+	}
+
+	public String getSearchSellerName() {
+		if (this.sellerName == null || this.sellerName.trim().equals("")) {
+			return null;
+		}
+		return "%" + this.sellerName + "%";
 	}
 
 	public Integer getCategoryPn() {
@@ -121,10 +156,53 @@ public class PartnershipFilter extends AbstractListFilter {
 		this.process = process;
 	}
 
+	public String getSellerId() {
+		return sellerId;
+	}
+
+	public void setSellerId(String sellerId) {
+		this.sellerId = sellerId;
+	}
+
+	public String getShopUrl() {
+		return shopUrl;
+	}
+
+	public void setShopUrl(String shopUrl) {
+		this.shopUrl = shopUrl;
+	}
+
+	public String getSellerName() {
+		return sellerName;
+	}
+
+	public void setSellerName(String sellerName) {
+		this.sellerName = sellerName;
+	}
+
+	public Boolean getEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(Boolean enabled) {
+		this.enabled = enabled;
+	}
+
+	public Integer getAdminPn() {
+		return adminPn;
+	}
+
+	public void setAdminPn(Integer adminPn) {
+		this.adminPn = adminPn;
+	}
+
 	@Override
 	public String toString() {
-		return "PartnershipFilter [categoryPn=" + categoryPn + ", process="
-				+ process + "]";
+		return "PartnershipFilter [categoryPn=" + categoryPn + ", email="
+				+ email + ", phoneNumber=" + phoneNumber + ", process="
+				+ process + ", sellerId=" + sellerId + ", shopUrl=" + shopUrl
+				+ ", sellerName=" + sellerName + ", enabled=" + enabled
+				+ ", adminPn=" + adminPn + "]";
 	}
 
 }

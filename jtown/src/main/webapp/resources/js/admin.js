@@ -4,14 +4,23 @@ if (typeof jtown.admin == 'undefined') {
 
 $(function() {
 	
-	jtown.admin.showPartnershipContent();
+	$('.jt-partnership-table-information').unbind('click').bind('click', function(){
+		var partnershipPn =	$(this).parents('.jt-partnership-info').attr('data-pspn');
+		$('#partnership-content-'+partnershipPn).toggle();
+	});
 	
 	jtown.admin.openContractList();
 	
 	jtown.admin.openContract();
 	
-	
-	jtown.admin.changeCustomerEnable();
+	$('.jt-admin-customer-enable').unbind('change').bind('change', function(){
+		var parents = $(this).parents('.jt-admin-customer-table-tr'),
+			json = { 	'pn' : parents.attr('data-cpn'), 
+						'enabled' : ($(this).val() == 1 ? true : false)},
+			url = contextPath + 'admin/ajax/changeEnabled.jt';
+		$.postJSON(url, json, function(){
+		});
+	});
 	
 	jtown.admin.changeText('jt-partnership-name' , function(thiz, nameVo){
 		var grandParent = thiz.parents(nameVo.parentSelector),
@@ -299,39 +308,11 @@ function split( val ) {
 	return val.split( /,\s*/ );
 }
 
-jtown.admin.changeCustomerEnable = function(){
-	$('.jt-admin-customer-enable').unbind('change').bind('change', function(){
-		var parents = $(this).parents('.jt-admin-customer-table-tr'),
-			pn = parents.attr('data-cpn');
-		var enabled = $(this).val();
-		
-		var json = {
-				'pn' : pn,
-				'enabled' : (enabled == 1 ? true : false)
-		};
-		
-		var url = contextPath + 'admin/ajax/changeEnabled.jt';
-		
-		$.postJSON(url, json, function(){
-		});
-	});
-};
-
-jtown.admin.showPartnershipContent = function(){
-	
-	$('.jt-partnership-table-information').unbind('click');
-	$('.jt-partnership-table-information').bind('click', function(){
-		var partnershipPn =	$(this).parents('.jt-partnership-info').attr('data-pspn');
-		$('#partnership-content-'+partnershipPn).toggle();
-	});
-};
-
 jtown.admin.openContractList = function(){
 	
-	$('.jt-admin-contract-list').unbind('click');
-	$('.jt-admin-contract-list').bind('click', function(){
-		var parent = $(this).parents('.jt-admin-seller-table-tr');
-		var spn = parent.attr('data-pn');
+	$('.jt-admin-contract-list').unbind('click').bind('click', function(){
+		var parent = $(this).parents('.jt-partnership-info'),
+			spn = parent.attr('data-spn');
 		
 		var url = contextPath + 'admin/contractList/?sellerPn='+spn;
 		var option = 'width=400, height=300, resizable=no, scrollbars=no, status=no';
@@ -342,10 +323,9 @@ jtown.admin.openContractList = function(){
 
 jtown.admin.openContract = function(){
 	
-	$('.jt-admin-contract').unbind('click');
-	$('.jt-admin-contract').bind('click', function(){
-		var parent = $(this).parents('.jt-admin-seller-table-tr');
-		var spn = parent.attr('data-pn');
+	$('.jt-admin-contract').unbind('click').bind('click', function(){
+		var parent = $(this).parents('.jt-partnership-info'),
+			spn = parent.attr('data-spn');
 		
 		var url = contextPath + 'admin/contract/?sellerPn='+spn;
 		var option = 'width=400, height=300, resizable=no, scrollbars=no, status=no';

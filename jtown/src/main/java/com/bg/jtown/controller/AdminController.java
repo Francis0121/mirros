@@ -63,14 +63,7 @@ public class AdminController {
 	public String showAdmin(Model model) {
 		return "admin/main";
 	}
-
-	@RequestMapping(value = "/admin/seller", method = RequestMethod.GET)
-	public String showSellerPage(Model model,
-			@ModelAttribute UserFilter userFilter) {
-		model.addAllAttributes(adminService.selectSellerModelMap(userFilter));
-		return "admin/seller";
-	}
-
+	
 	@RequestMapping(value = "/admin/customer", method = RequestMethod.GET)
 	public String showCustomerPage(Model model,
 			@ModelAttribute UserFilter userFilter) {

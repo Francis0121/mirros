@@ -26,8 +26,6 @@ public interface AdminService {
 
 	List<Interest> selectInterestCategoryList();
 
-	Map<String, Object> selectSellerModelMap(UserFilter userFilter);
-
 	Map<String, Object> selectCustomerModelMap(UserFilter userFilter);
 
 	Map<String, Object> selectAdminModelMap(

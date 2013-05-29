@@ -124,8 +124,6 @@ public class AdminServiceImpl extends SqlSessionDaoSupport implements
 		return modelMap;
 	};
 
-	// ~ Seller
-
 	@Override
 	public List<JtownUser> selectAdminList(
 			AdministratorFilter administartorFilter) {
@@ -149,45 +147,6 @@ public class AdminServiceImpl extends SqlSessionDaoSupport implements
 	public List<Interest> selectInterestCategoryList() {
 		return getSqlSession()
 				.selectList("adminMapper.getInterestCategoryList");
-	}
-
-	@Override
-	public Map<String, Object> selectSellerModelMap(UserFilter userFilter) {
-		Map<String, Object> modelMap = new HashMap<String, Object>();
-
-		List<JtownUser> sellerList = selectSellerList(userFilter);
-		modelMap.put("sellerList", sellerList);
-
-		List<Integer> pnList = new ArrayList<Integer>();
-		for (JtownUser ju : sellerList) {
-			pnList.add(ju.getPn());
-		}
-
-		List<Interest> interestList = selectSellerInterestList(pnList);
-		Map<Integer, Interest> interestMap = new HashMap<Integer, Interest>();
-		for (Interest interest : interestList) {
-			interestMap.put(interest.getSellerPn(), interest);
-		}
-		modelMap.put("interestMap", interestMap);
-
-		return modelMap;
-	}
-
-	public Integer selectSellerCount(UserFilter userFilter) {
-		return getSqlSession().selectOne("adminMapper.selectSellerCount",
-				userFilter);
-	}
-
-	public List<JtownUser> selectSellerList(UserFilter userFilter) {
-		Pagination pagination = userFilter.getPagination();
-		int count = selectSellerCount(userFilter);
-		if (count == 0) {
-			return new ArrayList<JtownUser>();
-		}
-		pagination.setNumItems(count);
-
-		return getSqlSession().selectList("adminMapper.selectSellerList",
-				userFilter);
 	}
 
 	@Override
@@ -271,8 +230,8 @@ public class AdminServiceImpl extends SqlSessionDaoSupport implements
 	@Override
 	public List<Interest> selectInterestSection(Interest interest) {
 		String[] names = interest.getName().split(",");
-		String name = names[names.length-1].trim();
-		interest.setName('%'+name+'%');
+		String name = names[names.length - 1].trim();
+		interest.setName('%' + name + '%');
 		return getSqlSession().selectList("adminMapper.selectInterestSection",
 				interest);
 	}

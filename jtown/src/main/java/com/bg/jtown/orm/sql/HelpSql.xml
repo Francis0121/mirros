@@ -41,6 +41,8 @@
 		<result column="enable" property="jtownUser.enabled"/>
 		<result column="salt" property="jtownUser.salt"/>
 		<result column="seller_name" property="jtownUser.name"/>
+		<result column="contract_count" property="jtownUser.contractCount"/>
+		<result column="contract_end_date" property="jtownUser.contractEndDate"/>
 		<result column="admin_pn" property="adminUser.pn"/>
 		<result column="admin_name" property="adminUser.name"/>
 	</resultMap>
@@ -50,11 +52,37 @@
 		SELECT
 			p.pn, p.name, p.email, p.phone_number,
 			p.category_pn, p.content, p.process, p.input_date, p.update_date, p.note,
-			u.pn AS seller_pn, u.shop_url, u.id, u.enable, u.salt, u.name AS seller_name,
+			u.pn AS seller_pn, u.shop_url, u.id, u.enable, u.salt, u.name AS seller_name, u.contract_count, u.contract_end_date,
 			ua.pn AS admin_pn, ua.name AS admin_name
 		FROM
 			partnership p
-			LEFT OUTER JOIN ( SELECT us.pn, us.shop_url, u.id, u.enable, u.salt, u.name FROM user_seller us, users u WHERE us.pn = u.pn ) u
+			LEFT OUTER JOIN ( 
+				SELECT 
+					us.pn, us.shop_url, u.id, u.enable, u.salt, u.name, uscit.contract_count, uscit.contract_end_date
+				FROM 
+					user_seller us
+					LEFT OUTER JOIN(
+						SELECT
+							usci.seller_pn, COUNT(usci.seller_pn) AS contract_count, now.contract_end_date
+						FROM
+							user_seller_contract_info usci
+							LEFT OUTER JOIN(
+								SELECT
+									seller_pn, end_date AS contract_end_date
+								FROM
+									user_seller_contract_info
+								WHERE
+									SYSDATE() BETWEEN start_date AND end_date
+							) NOW
+							ON usci.seller_pn = now.seller_pn
+						GROUP BY
+							usci.seller_pn
+					) uscit
+					ON us.pn = uscit.seller_pn		
+					, users u 
+				WHERE 
+					us.pn = u.pn 
+			) u
 			ON u.pn = p.seller_pn
 			LEFT OUTER JOIN ( SELECT u.pn, u.name FROM user_admin ua, users u WHERE ua.pn = u.pn AND u.enable = TRUE ) ua
 			ON ua.pn = p.admin_pn
@@ -75,7 +103,27 @@
 		<if test="searchPhoneNumber != null and searchPhoneNumber != ''">
 		AND
 			phone_number LIKE #{searchPhoneNumber}
-		</if>	
+		</if>
+		<if test="searchSellerId != null and searchSellerId != ''">
+		AND
+			u.id LIKE #{searchSellerId}
+		</if>
+		<if test="searchShopUrl != null and searchShopUrl != '' ">
+		AND
+			u.shop_url LIKE #{searchShopUrl}
+		</if>
+		<if test="searchSellerName != null and searchSellerName != ''">
+		AND
+			u.name LIKE #{searchSellerName}
+		</if>
+		<if test="enabled != null">
+		AND
+			u.enable = #{enabled}	
+		</if>
+		<if test="adminPn != null">
+		AND
+			admin_pn = #{adminPn}
+		</if>
 		ORDER BY
 			p.pn DESC
 		<include refid="paginationAfter"/>
@@ -107,7 +155,37 @@
 		SELECT
 			COUNT(*)
 		FROM
-			partnership
+			partnership p
+			LEFT OUTER JOIN ( 
+				SELECT 
+					us.pn, us.shop_url, u.id, u.enable, u.salt, u.name, uscit.contract_count, uscit.contract_end_date
+				FROM 
+					user_seller us
+					LEFT OUTER JOIN(
+						SELECT
+							usci.seller_pn, COUNT(usci.seller_pn) AS contract_count, now.contract_end_date
+						FROM
+							user_seller_contract_info usci
+							LEFT OUTER JOIN(
+								SELECT
+									seller_pn, end_date AS contract_end_date
+								FROM
+									user_seller_contract_info
+								WHERE
+									SYSDATE() BETWEEN start_date AND end_date
+							) NOW
+							ON usci.seller_pn = now.seller_pn
+						GROUP BY
+							usci.seller_pn
+					) uscit
+					ON us.pn = uscit.seller_pn		
+					, users u 
+				WHERE 
+					us.pn = u.pn 
+			) u
+			ON u.pn = p.seller_pn
+			LEFT OUTER JOIN ( SELECT u.pn, u.name FROM user_admin ua, users u WHERE ua.pn = u.pn AND u.enable = TRUE ) ua
+			ON ua.pn = p.admin_pn
 		WHERE
 			1 = 1
 		<if test="process != null">
@@ -125,6 +203,26 @@
 		<if test="searchPhoneNumber != null and searchPhoneNumber != ''">
 		AND
 			phone_number LIKE #{searchPhoneNumber}
+		</if>
+		<if test="searchSellerId != null and searchSellerId != ''">
+		AND
+			u.id LIKE #{searchSellerId}
+		</if>
+		<if test="searchShopUrl != null and searchShopUrl != '' ">
+		AND
+			u.shop_url LIKE #{searchShopUrl}
+		</if>
+		<if test="searchSellerName != null and searchSellerName != ''">
+		AND
+			u.name LIKE #{searchSellerName}
+		</if>
+		<if test="enabled != null">
+		AND
+			u.enable = #{enabled}	
+		</if>
+		<if test="adminPn != null">
+		AND
+			admin_pn = #{adminPn}
 		</if>		
 	</select>
 	
