@@ -9,7 +9,7 @@
 <html>
 <head>
 <title>MIRROS</title>
-<link rel="stylesheet" type="text/css" href="${cp}/resources/jquery/jquery-ui-1.10.0.custom.min.css" />
+<link rel="stylesheet" type="text/css" href="${cp}/resources/jquery/jquery-ui-1.10.2.custom.min.css" />
 <link rel="stylesheet" type="text/css" href="${cp}/resources/css/common.css" />
 <style type="text/css">
 body{font-size: 12px; font-family: Dotum, Gulim; background: #f2f2f2; }

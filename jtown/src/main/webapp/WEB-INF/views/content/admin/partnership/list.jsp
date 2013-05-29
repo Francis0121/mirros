@@ -74,6 +74,7 @@ function goToPreviousPages() {
 			<th>회사명</th>
 			<th>관심사</th>
 			<th>불량사용자</th>
+			<th>비고</th>
 		</tr>
 	</thead>
 	<tfoot>
@@ -185,6 +186,7 @@ function goToPreviousPages() {
 						</td> 		
 					</c:otherwise>
 				</c:choose>
+				<td class="jt-partnership-note"><pre><c:out value="${partnership.note }"/></pre></td>
 			</tr>
 			<tr class="jt-partnership-table-content" id="partnership-content-<c:out value="${partnership.pn }"/>">
 				<td colspan="14">

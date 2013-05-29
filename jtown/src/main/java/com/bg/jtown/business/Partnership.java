@@ -46,6 +46,11 @@ public class Partnership {
 	private String name;
 
 	/**
+	 * 메모, 비고
+	 */
+	private String note;
+
+	/**
 	 * 핸드폰 번호
 	 */
 	private String phoneNumber;
@@ -124,6 +129,10 @@ public class Partnership {
 		return name;
 	}
 
+	public String getNote() {
+		return note;
+	}
+
 	public String getPhoneNumber() {
 		return phoneNumber;
 	}
@@ -185,6 +194,10 @@ public class Partnership {
 		this.name = name;
 	}
 
+	public void setNote(String note) {
+		this.note = note;
+	}
+
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
@@ -222,7 +235,7 @@ public class Partnership {
 				+ ", phoneNumberNd=" + phoneNumberNd + ", phoneNumberRd="
 				+ phoneNumberRd + ", phoneNumberSt=" + phoneNumberSt + ", pn="
 				+ pn + ", process=" + process + ", updateDate=" + updateDate
-				+ "]";
+				+ ", note=" + note + "]";
 	}
 
 }

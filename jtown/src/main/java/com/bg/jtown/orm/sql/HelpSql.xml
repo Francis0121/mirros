@@ -34,6 +34,7 @@
 		<result column="process" property="process"/>
 		<result column="input_date" property="inputDate"/>
 		<result column="update_date" property="updateDate"/>
+		<result column="note" property="note"/>
 		<result column="seller_pn" property="jtownUser.pn"/>
 		<result column="shop_url" property="jtownUser.shopUrl"/>
 		<result column="id" property="jtownUser.username"/>
@@ -48,7 +49,7 @@
 		<include refid="paginationBefore"/>
 		SELECT
 			p.pn, p.name, p.email, p.phone_number,
-			p.category_pn, p.content, p.process, p.input_date, p.update_date,
+			p.category_pn, p.content, p.process, p.input_date, p.update_date, p.note,
 			u.pn AS seller_pn, u.shop_url, u.id, u.enable, u.salt, u.name AS seller_name,
 			ua.pn AS admin_pn, ua.name AS admin_name
 		FROM
@@ -83,7 +84,7 @@
 	<select id="selectPartnership" parameterType="java.lang.Integer" resultMap="jtown-help-partnership-map">
 		SELECT
 			p.pn, p.name, p.email, p.phone_number,
-			p.category_pn, p.content, p.process, p.input_date, p.update_date
+			p.category_pn, p.content, p.process, p.input_date, p.update_date, p.note
 		FROM
 			partnership p
 		WHERE
@@ -166,6 +167,9 @@
 			</if>
 			<if test="categoryPn != null and categoryPn != '' ">
 				category_pn = #{categoryPn}
+			</if>
+			<if test="note != null and note != ''">
+				note = #{note}
 			</if>
 		WHERE
 			pn = #{pn}

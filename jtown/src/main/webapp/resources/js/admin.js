@@ -70,6 +70,16 @@ $(function() {
 		$.postJSON(url, json, function(partnership){
 		});
 	});
+	jtown.admin.changeTextarea('jt-partnership-note',function(thiz, nameVo){
+		var grandParent = thiz.parents(nameVo.parentSelector),
+		parent = thiz.parents(nameVo.selector),
+		url = contextPath+'admin/ajax/changePartnership.jt',
+		json = { pn : grandParent.attr('data-pspn'),
+				 note : thiz.val()	};
+		$.postJSON(url, json, function(partnership){
+			parent.html('<pre>'+htmlChars(partnership.note)+'</pre>');
+		});
+	});
 	
 	jtown.admin.sellerCreate();
 	
@@ -180,6 +190,26 @@ jtown.admin.changeSelect = function(name, callback){
 					parentSelector : '.jt-partnership-info'	};
 	$(nameVo.inputSelector).unbind('change').bind('change', function(){
 		callback($(this), nameVo);
+	});
+};
+
+jtown.admin.changeTextarea = function(name, callback, event){
+	var nameVo = { 	selector : '.'+name,
+					input : name+'-input',
+					inputSelector : '#'+name+'-input',
+					parentSelector : '.jt-partnership-info'	};
+	
+	$(nameVo.selector).unbind('mouseup').bind('mouseup', function(){
+		var me = $(this),  value = me.text(),
+			html = '<textarea class="" id="' + nameVo.input + '" type="text" style="width: 120px;">'+value+'</textarea>';
+		me.html(html);
+		
+		setTimeout(event, 0);
+		
+		$(nameVo.inputSelector).focus();
+		$(nameVo.inputSelector).bind('focusout', function(){
+			callback($(this), nameVo);
+		});
 	});
 };
 
