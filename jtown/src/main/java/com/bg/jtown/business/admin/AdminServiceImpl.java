@@ -270,6 +270,9 @@ public class AdminServiceImpl extends SqlSessionDaoSupport implements
 
 	@Override
 	public List<Interest> selectInterestSection(Interest interest) {
+		String[] names = interest.getName().split(",");
+		String name = names[names.length-1].trim();
+		interest.setName('%'+name+'%');
 		return getSqlSession().selectList("adminMapper.selectInterestSection",
 				interest);
 	}

@@ -3,15 +3,13 @@ if (typeof jtown.admin == 'undefined') {
 }
 
 $(function() {
-	jtown.admin.syncAdminPage();
-
+	
 	jtown.admin.showPartnershipContent();
 	
 	jtown.admin.openContractList();
 	
 	jtown.admin.openContract();
 	
-	jtown.admin.autoInterestSection();
 	
 	jtown.admin.changeCustomerEnable();
 	
@@ -25,7 +23,7 @@ $(function() {
 		$.postJSON(url, json, function(partnership){
 			parent.html(htmlChars(partnership.name));
 		});
-	});
+	}, function(){});
 	jtown.admin.changeText('jt-partnership-email', function(thiz, nameVo){
 		var grandParent = thiz.parents(nameVo.parentSelector),
 		parent = thiz.parents(nameVo.selector),
@@ -36,7 +34,7 @@ $(function() {
 		$.postJSON(url, json, function(partnership){
 			parent.html(htmlChars(partnership.email));
 		});
-	});
+	}, function(){});
 	jtown.admin.changeText('jt-partnership-phoneNumber', function(thiz, nameVo){
 		var grandParent = thiz.parents(nameVo.parentSelector),
 		parent = thiz.parents(nameVo.selector),
@@ -47,7 +45,7 @@ $(function() {
 		$.postJSON(url, json, function(partnership){
 			parent.html(htmlChars(partnership.phoneNumber));
 		});
-	});
+	}, function(){});
 	jtown.admin.changeSelect('jt-partnership-category', function(thiz, nameVo){
 		var grandParent = thiz.parents(nameVo.parentSelector),
 		url = contextPath+'admin/ajax/changePartnership.jt',
@@ -76,6 +74,8 @@ $(function() {
 	jtown.admin.sellerCreate();
 	
 	jtown.admin.sellerSync();
+	
+	jtown.admin.autoInterest();
 });
 
 jtown.admin.sellerCreate = function(){
@@ -118,7 +118,7 @@ jtown.admin.sellerSync = function(){
 		$.postJSON(url, json, function(jtownUser){
 			parent.html(htmlChars(jtownUser.shopUrl));
 		});
-	});
+	}, function(){});
 	jtown.admin.changeText('jt-partnership-sellerName', function(thiz, nameVo){
 		var grandParent = thiz.parents(nameVo.parentSelector),
 		parent = thiz.parents(nameVo.selector),
@@ -129,7 +129,7 @@ jtown.admin.sellerSync = function(){
 		$.postJSON(url, json, function(jtownUser){
 			parent.html(htmlChars(jtownUser.name));
 		});
-	});
+	}, function(){});
 	jtown.admin.changeText('jt-partnership-interest', function(thiz, nameVo){
 		var grandParent = thiz.parents(nameVo.parentSelector),
 		parent = thiz.parents(nameVo.selector),
@@ -142,7 +142,7 @@ jtown.admin.sellerSync = function(){
 		$.postJSON(url, json, function(){
 			parent.html(htmlChars(thiz.val()));
 		});
-	});
+	}, jtown.admin.autoInterestOne);
 	jtown.admin.changeSelect('jt-partnership-enabled', function(thiz, nameVo){
 		var grandParent = thiz.parents(nameVo.parentSelector),
 		url = contextPath+'admin/ajax/changeEnabled.jt',
@@ -153,7 +153,7 @@ jtown.admin.sellerSync = function(){
 	});
 };
 
-jtown.admin.changeText = function(name, callback){
+jtown.admin.changeText = function(name, callback, event){
 	var nameVo = { 	selector : '.'+name,
 					input : name+'-input',
 					inputSelector : '#'+name+'-input',
@@ -163,6 +163,8 @@ jtown.admin.changeText = function(name, callback){
 		var me = $(this),  value = me.text(),
 			html = '<input class="" id="' + nameVo.input + '" type="text" value="' + value + '" style="width: '+(Number(me.width())-14)+'px;"/>';
 		me.html(html);
+		
+		setTimeout(event, 0);
 		
 		$(nameVo.inputSelector).focus();
 		$(nameVo.inputSelector).bind('focusout', function(){
@@ -181,32 +183,63 @@ jtown.admin.changeSelect = function(name, callback){
 	});
 };
 
-jtown.admin.syncAdminPage = function(){
-
-	$('.jt-admin-seller-table-interestList').unbind('mouseup').bind('mouseup', function(){
-		jtown.admin.insertInputBox($(this), 'jt-admin-seller-table-interestList');
-	});
-	
-	$('.jt-admin-seller-table-interestList-input').unbind('focusout').bind('focusout', function(){
-		jtown.admin.deleteInputBox($(this), 'jt-admin-seller-table-interestList');
-	});
-	
-	$('.jt-admin-seller-table-interestList-input').unbind('change').bind('change', function(){
-		jtown.admin.changeInterest($(this));
-	});
-
-};
-
-jtown.admin.autoInterestSection = function(){
-	$( "#interestSectionList" ).bind( "keydown", function( event ) {
-		if ( event.keyCode === $.ui.keyCode.TAB && $( this ).data( "ui-autocomplete" ).menu.active ) {
+jtown.admin.autoInterestOne = function(){
+	var categoryPn = '';
+	$('#jt-partnership-interest-input').bind( 'keydown', function( event ) {
+		if ( event.keyCode === $.ui.keyCode.TAB && $( this ).data( 'ui-autocomplete' ).menu.active ) {
 			event.preventDefault();
+		}
+		if(categoryPn == '' ){
+			var parent = $(this).parents('.jt-partnership-info');
+			categoryPn =  parent.find('.jt-partnership-category-select').val();
 		}
     }).autocomplete({
 		minLength: 0,
 		source: function( request, response ) {
-			var url = contextPath + 'ajax/admin/autoInterestSection.jt',
-			json = {	'categoryPn' : $('#interestCategory').val() };
+			var url = contextPath + 'admin/ajax/autoInterestSection.jt',
+				json = {	'categoryPn' : categoryPn,
+							'name'		: request.term };
+		
+			$.postJSON(url, json, function(interestes){
+				var data = [];
+				
+				for(var i=0, len = interestes.length ; i< len; i++){
+					var interest = interestes[i];
+					data[i] = { label : interest.name , value : interest.name };
+				}
+				response( data );
+			});
+		},
+		focus: function() {
+			return false;
+		},
+		select: function(event, ui) {
+			var terms = split( this.value );
+			terms.pop();
+			terms.push(ui.item.value);
+			terms.push('');
+			this.value = terms.join(',');
+			return false;
+		}
+	});	
+};
+
+jtown.admin.autoInterest = function(){
+	var categoryPn = '';
+	$('.jt-seller-interest-input').bind( 'keydown', function( event ) {
+		if ( event.keyCode === $.ui.keyCode.TAB && $( this ).data( 'ui-autocomplete' ).menu.active ) {
+			event.preventDefault();
+		}
+		if(categoryPn == '' ){
+			var parent = $(this).parents('.jt-partnership-info');
+			categoryPn =  parent.find('.jt-partnership-category-select').val();
+		}
+    }).autocomplete({
+		minLength: 0,
+		source: function( request, response ) {
+			var url = contextPath + 'admin/ajax/autoInterestSection.jt',
+				json = {	'categoryPn' : categoryPn,
+							'name'		: request.term };
 		
 			$.postJSON(url, json, function(interestes){
 				var data = [];
@@ -235,44 +268,6 @@ jtown.admin.autoInterestSection = function(){
 function split( val ) {
 	return val.split( /,\s*/ );
 }
-
-jtown.admin.changeInterest = function(me){
-	var parents = me.parents('.jt-admin-seller-table-tr');
-	
-	var interestListStr = me.val();
-	
-	var interestList = interestListStr.split(',');
-	
-	if(interestList.length == 1 && nullValueCheck(interestList)){
-		alert('관심사는 1개 이상 등록하셔야 됩니다.');
-		document.location.reload();
-	} else if( interestList.length > 5 ){
-		alert('관심사는 5개 이상 등록이 불가능합니다.');
-		document.location.reload();
-	} else {
-		var sellerPn = parents.attr('data-pn');
-		var categoryPn = parents.attr('data-categoryPn');
-		
-		var json = {
-				'sellerPn' : sellerPn,
-				'categoryPn' : categoryPn,
-				'interestSectionNameList' : interestListStr
-		};
-		
-		var url = contextPath + 'admin/changeInterest';
-		$.postJSON(url, json, function(){
-			return jQuery.ajax({
-				'success' : function(){
-					alert('관심사가 변경 되었습니다.');
-				},
-				'error' : function(){
-					alert('에러발생!!!');
-				}
-			});
-		});
-	}
-};
-
 
 jtown.admin.changeCustomerEnable = function(){
 	$('.jt-admin-customer-enable').unbind('change').bind('change', function(){

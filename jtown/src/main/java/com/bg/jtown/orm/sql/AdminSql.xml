@@ -290,6 +290,8 @@
 			interest_section
 		WHERE
 			category_pn = #{categoryPn}
+		AND
+			upper_name LIKE #{upperName}
 	</select>
 	
 	<resultMap type="JtownUser" id="jt_administrator_map">

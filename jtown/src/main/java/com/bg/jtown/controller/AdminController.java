@@ -249,7 +249,7 @@ public class AdminController {
 		adminService.updateInterest(interest);
 	}
 
-	@RequestMapping(value = "/ajax/admin/autoInterestSection.jt", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/ajax/autoInterestSection.jt", method = RequestMethod.POST)
 	@ResponseBody
 	public List<Interest> ajaxAutoInterestSection(@RequestBody Interest interest) {
 		return adminService.selectInterestSection(interest);
