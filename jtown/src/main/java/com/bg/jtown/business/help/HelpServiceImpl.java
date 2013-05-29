@@ -14,6 +14,7 @@ import com.bg.jtown.business.HomeService;
 import com.bg.jtown.business.Interest;
 import com.bg.jtown.business.Json;
 import com.bg.jtown.business.Partnership;
+import com.bg.jtown.business.admin.AdminService;
 import com.bg.jtown.business.search.PartnershipFilter;
 import com.bg.jtown.security.Authority;
 import com.bg.jtown.security.JtownUser;
@@ -30,12 +31,32 @@ public class HelpServiceImpl extends SqlSessionDaoSupport implements
 	@Resource
 	private HomeService homeService;
 
+	@Resource
+	private AdminService adminService;
+
 	// ~ Partnership
 	@Override
 	public Map<String, Object> selectObject(PartnershipFilter partnershipFilter) {
 		Map<String, Object> selectMap = new HashMap<String, Object>();
 
-		selectMap.put("partnerships", selectPartnership(partnershipFilter));
+		List<Partnership> partnerships = selectPartnership(partnershipFilter);
+		selectMap.put("partnerships", partnerships);
+
+		List<Integer> pnList = new ArrayList<Integer>();
+		for (Partnership p : partnerships) {
+			JtownUser ju = p.getJtownUser();
+			if (ju.getPn() != null && !ju.getPn().equals(0)) {
+				pnList.add(ju.getPn());
+			}
+		}
+
+		List<Interest> interestList = adminService
+				.selectSellerInterestList(pnList);
+		Map<Integer, Interest> interestMap = new HashMap<Integer, Interest>();
+		for (Interest interest : interestList) {
+			interestMap.put(interest.getSellerPn(), interest);
+		}
+		selectMap.put("interestMap", interestMap);
 
 		List<Interest> interestCategories = homeService.selecInterestCategory();
 		selectMap.put("interestCategories", interestCategories);
@@ -89,10 +110,10 @@ public class HelpServiceImpl extends SqlSessionDaoSupport implements
 	}
 
 	@Override
-	public void updatePartnershipJson(Json json,Authority authority) {
-		if(authority.equals(Authority.ADMIN)){
-			getSqlSession().update("helpMapper.updatePartnershipJsonA", json);			
-		}else if(authority.equals(Authority.SELLER)){
+	public void updatePartnershipJson(Json json, Authority authority) {
+		if (authority.equals(Authority.ADMIN)) {
+			getSqlSession().update("helpMapper.updatePartnershipJsonA", json);
+		} else if (authority.equals(Authority.SELLER)) {
 			getSqlSession().update("helpMapper.updatePartnershipJsonS", json);
 		}
 	}

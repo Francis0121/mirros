@@ -72,12 +72,13 @@ function goToPreviousPages() {
 			<th>아이디정보</th>
 			<th>홈페이지</th>
 			<th>회사명</th>
+			<th>관심사</th>
 			<th>불량사용자</th>
 		</tr>
 	</thead>
 	<tfoot>
 		<tr>	
-			<th colspan="12">
+			<th colspan="14">
 				<a href="javascript:void(goToPage(1))" onfocus="blur();">
 						처음
 <%-- 					<img src="<c:url value='/images/mims_pageFirst_btn.gif'/>" alt="처음" style="vertical-align: middle; border: none" /> --%>
@@ -163,6 +164,7 @@ function goToPreviousPages() {
 						<td><c:out value="${userInfo.username  }"/></td>
 						<td class="jt-partnership-shopUrl"><c:out value="${userInfo.shopUrl }"/></td>
 						<td class="jt-partnership-sellerName"><c:out value="${userInfo.name }"/></td>
+						<td class="jt-partnership-interest"><c:out value="${interestMap[userInfo.pn].interestSectionNameList }"/></td>
 						<td class="jt-partnership-enabled">
 							<select class="jt-partnership-enabled-select">
 								<option value="1" ${userInfo.enabled eq true ? 'selected=selected' : ''}>정상 사용자</option>
@@ -174,6 +176,7 @@ function goToPreviousPages() {
 						<td class="jt-seller-create"><button type="button" class="jt-seller-create-btn">아이디생성</button></td>
 						<td class="jt-seller-shopUrl"><input type="text" class="jt-seller-shopUrl-input"/></td>
 						<td class="jt-seller-name"><input type="text" class="jt-seller-name-input"/></td>
+						<td class="jt-seller-interest"><input type="text" class="jt-seller-interest-input"/></td>
 						<td class="jt-seller-enabled">
 							<select class="jt-partnership-enabled-select" >
 								<option value="1" ${userInfo.enabled eq true ? 'selected=selected' : ''}>정상 사용자</option>
@@ -184,7 +187,7 @@ function goToPreviousPages() {
 				</c:choose>
 			</tr>
 			<tr class="jt-partnership-table-content" id="partnership-content-<c:out value="${partnership.pn }"/>">
-				<td colspan="12">
+				<td colspan="14">
 					<pre><c:out value="${partnership.content }"/></pre>
 				</td>
 			</tr>

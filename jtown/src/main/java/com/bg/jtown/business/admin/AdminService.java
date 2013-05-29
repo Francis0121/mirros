@@ -21,7 +21,7 @@ public interface AdminService {
 	void updateSeller(JtownUser jtownUser);
 
 	void updateEnabled(JtownUser jtownUser);
-	
+
 	void updateInterest(Interest interest);
 
 	List<Interest> selectInterestCategoryList();
@@ -33,11 +33,12 @@ public interface AdminService {
 	Map<String, Object> selectAdminModelMap(
 			AdministratorFilter administratorFilter);
 
+	List<Interest> selectSellerInterestList(List<Integer> pnList);
+
 	List<Comment> selectAllCommentList(AdminCommentFilter adminCommentFilter);
 
 	List<Interest> selectInterestSection(Interest interest);
 
 	List<JtownUser> selectAdminList(AdministratorFilter administratorFilter);
-
 
 }

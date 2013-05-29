@@ -83,11 +83,16 @@ jtown.admin.sellerCreate = function(){
 		var parent = $(this).parents('.jt-partnership-info'),
 			pspn = parent.attr('data-pspn'),
 			shopUrl =  parent.find('.jt-seller-shopUrl-input'),
-			name = parent.find('.jt-seller-name-input');
+			name = parent.find('.jt-seller-name-input'),
+			interestSectionList = parent.find('.jt-seller-interest-input'),
+			category = parent.find('.jt-partnership-category-select');
+		
 		var url = contextPath + 'admin/ajax/createSeller.jt';
 		var json =	{ 	shopUrl : shopUrl.val(),
 						name	: name.val(),
-						pn		: pspn			};
+						pn		: pspn,
+						interestCategory : category.val(),
+						interestSectionList : interestSectionList.val()};
 		
 		$.postJSON(url, json, function(jtownUser){
 			parent.attr('data-spn', jtownUser.pn);
@@ -95,6 +100,7 @@ jtown.admin.sellerCreate = function(){
 			parent.find('.jt-seller-shopUrl').text(htmlChars(jtownUser.shopUrl)).addClass('jt-partnership-shopUrl').removeClass('jt-seller-shopUrl');
 			parent.find('.jt-seller-name').text(htmlChars(jtownUser.name)).addClass('jt-partnership-sellerName').removeClass('jt-seller-name');
 			parent.find('.jt-seller-enabled').addClass('jt-partnership-enabled').removeClass('jt-seller-enabled');
+			parent.find('.jt-seller-interest').text(htmlChars(jtownUser.interestSectionList)).addClass('jt-partnership-interest').removeClass('jt-seller-interest');
 			
 			setTimeout('jtown.admin.sellerSync()', 0);
 		});
@@ -122,6 +128,19 @@ jtown.admin.sellerSync = function(){
 	
 		$.postJSON(url, json, function(jtownUser){
 			parent.html(htmlChars(jtownUser.name));
+		});
+	});
+	jtown.admin.changeText('jt-partnership-interest', function(thiz, nameVo){
+		var grandParent = thiz.parents(nameVo.parentSelector),
+		parent = thiz.parents(nameVo.selector),
+		url = contextPath+'admin/ajax/changeInterest.jt',
+		category = grandParent.find('.jt-partnership-category-select'),
+		json = { 	sellerPn : grandParent.attr('data-spn'),
+					categoryPn : category.val(),
+					interestSectionNameList : thiz.val()};
+	
+		$.postJSON(url, json, function(){
+			parent.html(htmlChars(thiz.val()));
 		});
 	});
 	jtown.admin.changeSelect('jt-partnership-enabled', function(thiz, nameVo){

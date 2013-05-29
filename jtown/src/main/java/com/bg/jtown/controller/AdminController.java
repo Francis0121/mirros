@@ -78,15 +78,6 @@ public class AdminController {
 		return "admin/customer";
 	}
 
-	@RequestMapping(value = "/admin/cs", method = RequestMethod.GET)
-	public String showCreatSeller(Model model,
-			@ModelAttribute JtownUser jtownUser) {
-		List<Interest> interestCategoryList = adminService
-				.selectInterestCategoryList();
-		model.addAttribute("categoryList", interestCategoryList);
-		return "admin/createSeller";
-	}
-
 	@RequestMapping(value = "/admin/sellerInformation/sp/{sellerPn}", method = RequestMethod.GET)
 	public String showCreateSellerFinish(Model model,
 			@PathVariable Integer sellerPn) {
@@ -116,38 +107,6 @@ public class AdminController {
 	}
 
 	// ~ FORM
-
-	@RequestMapping(value = "/admin/cs.jt", method = RequestMethod.POST)
-	public String formCreateSeller(Model model,
-			@ModelAttribute JtownUser jtownUser, BindingResult result) {
-		new Validator() {
-			@Override
-			public void validate(Object target, Errors errors) {
-				ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name",
-						"create.seller.name.empty");
-				ValidationUtils.rejectIfEmptyOrWhitespace(errors, "shopUrl",
-						"create.seller.shopUrl.empty");
-				ValidationUtils.rejectIfEmptyOrWhitespace(errors,
-						"interestSectionList",
-						"create.seller.interestSection.notAllow");
-			}
-
-			@Override
-			public boolean supports(Class<?> clazz) {
-				return JtownUser.class.isAssignableFrom(clazz);
-			}
-		}.validate(jtownUser, result);
-
-		if (!result.hasErrors()) {
-			adminService.insertCreateSeller(jtownUser);
-			return "redirect:sellerInformation/sp/" + jtownUser.getPn();
-		} else {
-			List<Interest> interestCategoryList = adminService
-					.selectInterestCategoryList();
-			model.addAttribute("categoryList", interestCategoryList);
-			return "admin/createSeller";
-		}
-	}
 
 	@RequestMapping(value = "/admin/createAdministrator.jt", method = RequestMethod.POST)
 	public String formCreateAdministrator(Model model,
@@ -264,7 +223,7 @@ public class AdminController {
 	@ResponseBody
 	public JtownUser ajaxCreateSeller(@RequestBody JtownUser jtownUser) {
 		Json json = new Json(jtownUser.getPn(), null);
-		customJdbcUserDetailManager.createUserSellerAndAuthority(jtownUser);
+		adminService.insertCreateSeller(jtownUser);
 		json.setValue(jtownUser.getPn().toString());
 		helpService.updatePartnershipJson(json, Authority.SELLER);
 		return jtownUser;
@@ -276,24 +235,24 @@ public class AdminController {
 		adminService.updateSeller(jtownUser);
 		return jtownUser;
 	}
-	
+
 	@RequestMapping(value = "/admin/ajax/changeEnabled.jt", method = RequestMethod.POST)
 	@ResponseBody
 	public JtownUser ajaxChangeEnabled(@RequestBody JtownUser jtownUser) {
 		adminService.updateEnabled(jtownUser);
 		return jtownUser;
 	}
-	
+
+	@RequestMapping(value = "/admin/ajax/changeInterest.jt", method = RequestMethod.POST)
+	@ResponseBody
+	public void ajaxChangeInterest(@RequestBody Interest interest) {
+		adminService.updateInterest(interest);
+	}
+
 	@RequestMapping(value = "/ajax/admin/autoInterestSection.jt", method = RequestMethod.POST)
 	@ResponseBody
 	public List<Interest> ajaxAutoInterestSection(@RequestBody Interest interest) {
 		return adminService.selectInterestSection(interest);
-	}
-
-	@RequestMapping(value = "/admin/changeInterest", method = RequestMethod.POST)
-	@ResponseBody
-	public void ajaxChangeInterest(@RequestBody Interest interest) {
-		adminService.updateInterest(interest);
 	}
 
 }

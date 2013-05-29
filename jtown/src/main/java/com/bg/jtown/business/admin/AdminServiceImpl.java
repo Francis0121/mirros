@@ -33,15 +33,20 @@ public class AdminServiceImpl extends SqlSessionDaoSupport implements
 	public void insertCreateSeller(JtownUser jtownUser) {
 		customJdbcUserDetailManager.createUserSellerAndAuthority(jtownUser);
 		Integer sellerPn = jtownUser.getPn();
-		// insert user_interest
-		String[] interestSection = jtownUser.getInterestSectionList().trim()
-				.split(",");
+
+		String interestSectionList = jtownUser.getInterestSectionList().trim();
+		jtownUser.setInterestSectionList(interestSectionList);
+		String[] interestSection = interestSectionList.split(",");
 
 		Interest interestParam;
 
-		for (String interest : interestSection) {
+		for (String i : interestSection) {
+			if (i == null || i.equals("")) {
+				continue;
+			}
+			i = i.trim();
 			Integer pn = getSqlSession().selectOne(
-					"adminMapper.interestSectionPn", interest);
+					"adminMapper.interestSectionPn", i);
 			if (pn != null) {
 				interestParam = new Interest(sellerPn,
 						Integer.parseInt(jtownUser.getInterestCategory()), pn,
@@ -49,7 +54,7 @@ public class AdminServiceImpl extends SqlSessionDaoSupport implements
 			} else {
 				interestParam = new Interest(sellerPn,
 						Integer.parseInt(jtownUser.getInterestCategory()),
-						null, interest);
+						null, i);
 				getSqlSession().insert("adminMapper.insertInterestSection",
 						interestParam);
 			}
@@ -64,14 +69,21 @@ public class AdminServiceImpl extends SqlSessionDaoSupport implements
 		getSqlSession().delete("adminMapper.deleteInterestSellerInterest",
 				interest);
 
-		String[] interestListStr = interest.getInterestSectionNameList().trim()
-				.split(",");
+		String interestSectionList = interest.getInterestSectionNameList()
+				.trim();
+		interest.setInterestSectionNameList(interestSectionList);
+		String[] interestSection = interestSectionList.split(",");
 
 		Interest interestParam;
 
-		for (String interestTemp : interestListStr) {
+		for (String i : interestSection) {
+			if (i == null || i.equals("")) {
+				continue;
+			}
+			i = i.trim();
+
 			Integer pn = getSqlSession().selectOne(
-					"adminMapper.interestSectionPn", interestTemp);
+					"adminMapper.interestSectionPn", i);
 
 			if (pn != null) {
 				interestParam = new Interest(interest.getSellerPn(),
@@ -79,7 +91,7 @@ public class AdminServiceImpl extends SqlSessionDaoSupport implements
 
 			} else {
 				interestParam = new Interest(interest.getSellerPn(),
-						interest.getCategoryPn(), null, interestTemp);
+						interest.getCategoryPn(), null, i);
 				getSqlSession().insert("adminMapper.insertInterestSection",
 						interestParam);
 			}
@@ -178,6 +190,7 @@ public class AdminServiceImpl extends SqlSessionDaoSupport implements
 				userFilter);
 	}
 
+	@Override
 	public List<Interest> selectSellerInterestList(List<Integer> pnList) {
 		if (pnList.size() == 0) {
 			return new ArrayList<Interest>();
