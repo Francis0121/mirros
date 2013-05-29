@@ -171,7 +171,7 @@
 			pn = #{pn}
 	</update>
 		
-	<update id="updatePatnershipJson" parameterType="com.bg.jtown.business.Json">
+	<update id="updatePartnershipJsonA" parameterType="com.bg.jtown.business.Json">
 		UPDATE
 			partnership
 		SET
@@ -182,6 +182,23 @@
 				</when>
 				<otherwise>
 					admin_pn = #{value}
+				</otherwise>
+			</choose>
+		WHERE
+			pn = #{key}
+	</update>
+	
+	<update id="updatePartnershipJsonS" parameterType="com.bg.jtown.business.Json">
+		UPDATE
+			partnership
+		SET
+			update_date = SYSDATE(),
+			<choose>
+				<when test="value == null || value == ''">
+					seller_pn = null
+				</when>
+				<otherwise>
+					seller_pn = #{value}
 				</otherwise>
 			</choose>
 		WHERE

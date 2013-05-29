@@ -3,8 +3,6 @@ if (typeof jtown.admin == 'undefined') {
 }
 
 $(function() {
-	jtown.admin.createSubmit();
-	
 	jtown.admin.syncAdminPage();
 
 	jtown.admin.showPartnershipContent();
@@ -73,9 +71,66 @@ $(function() {
 		});
 	});
 	
-	jtown.admin.changeText('jt-partnership-shopUrl');
-	jtown.admin.changeText('jt-partnership-sellerName');
+	jtown.admin.sellerCreate();
+	
+	jtown.admin.sellerSync();
 });
+
+jtown.admin.sellerCreate = function(){
+	$('.jt-seller-create-btn').unbind('click').bind('click', function(){
+		var parent = $(this).parents('.jt-partnership-info'),
+			pspn = parent.attr('data-pspn'),
+			shopUrl =  parent.find('.jt-seller-shopUrl-input'),
+			name = parent.find('.jt-seller-name-input');
+		var url = contextPath + 'admin/ajax/createSeller.jt';
+		var json =	{ 	shopUrl : shopUrl.val(),
+						name	: name.val(),
+						pn		: pspn			};
+		
+		$.postJSON(url, json, function(jtownUser){
+			parent.attr('data-spn', jtownUser.pn);
+			parent.find('.jt-seller-create').text(htmlChars(jtownUser.username)).removeClass('jt-seller-create');
+			parent.find('.jt-seller-shopUrl').text(htmlChars(jtownUser.shopUrl)).addClass('jt-partnership-shopUrl').removeClass('jt-seller-shopUrl');
+			parent.find('.jt-seller-name').text(htmlChars(jtownUser.name)).addClass('jt-partnership-sellerName').removeClass('jt-seller-name');
+			parent.find('.jt-seller-enabled').addClass('jt-partnership-enabled').removeClass('jt-seller-enabled');
+			
+			setTimeout('jtown.admin.sellerSync()', 0);
+		});
+	});
+};
+
+jtown.admin.sellerSync = function(){
+	jtown.admin.changeText('jt-partnership-shopUrl', function(thiz, nameVo){
+		var grandParent = thiz.parents(nameVo.parentSelector),
+		parent = thiz.parents(nameVo.selector),
+		url = contextPath+'admin/ajax/changeSeller.jt',
+		json = { pn : grandParent.attr('data-spn'),
+				 shopUrl : thiz.val()	};
+	
+		$.postJSON(url, json, function(jtownUser){
+			parent.html(htmlChars(jtownUser.shopUrl));
+		});
+	});
+	jtown.admin.changeText('jt-partnership-sellerName', function(thiz, nameVo){
+		var grandParent = thiz.parents(nameVo.parentSelector),
+		parent = thiz.parents(nameVo.selector),
+		url = contextPath+'admin/ajax/changeSeller.jt',
+		json = { pn : grandParent.attr('data-spn'),
+				 name : thiz.val()	};
+	
+		$.postJSON(url, json, function(jtownUser){
+			parent.html(htmlChars(jtownUser.name));
+		});
+	});
+	jtown.admin.changeSelect('jt-partnership-enabled', function(thiz, nameVo){
+		var grandParent = thiz.parents(nameVo.parentSelector),
+		url = contextPath+'admin/ajax/changeEnabled.jt',
+		json = { pn : grandParent.attr('data-spn'),
+				enabled : (thiz.val() == 1 ? true : false)	};
+		$.postJSON(url, json, function(jtownUser){
+		});
+	});
+};
 
 jtown.admin.changeText = function(name, callback){
 	var nameVo = { 	selector : '.'+name,
@@ -106,17 +161,7 @@ jtown.admin.changeSelect = function(name, callback){
 };
 
 jtown.admin.syncAdminPage = function(){
-	
-	$('.jt-admin-seller-table-shopUrl').unbind('mouseup').bind('mouseup', function(){
-		jtown.admin.insertInputBox($(this), 'jt-admin-seller-table-shopUrl');
-	});
-	
-	$('.jt-admin-seller-table-shopUrl-input').unbind('focusout').bind('focusout', function(){
-		jtown.admin.deleteInputBox($(this), 'jt-admin-seller-table-shopUrl');
-	});
-	
-	jtown.admin.changeShopUrl();
-	
+
 	$('.jt-admin-seller-table-interestList').unbind('mouseup').bind('mouseup', function(){
 		jtown.admin.insertInputBox($(this), 'jt-admin-seller-table-interestList');
 	});
@@ -128,14 +173,7 @@ jtown.admin.syncAdminPage = function(){
 	$('.jt-admin-seller-table-interestList-input').unbind('change').bind('change', function(){
 		jtown.admin.changeInterest($(this));
 	});
-	
-	$('.jt-admin-seller-enable').unbind('change').bind('change', function(){
-		jtown.admin.changeEnable($(this));
-	});
-	
-	$('.jt-admin-customer-enable').unbind('change').bind('change', function(){
-		jtown.admin.changeCustomerEnable($(this));
-	});
+
 };
 
 jtown.admin.autoInterestSection = function(){
@@ -177,33 +215,6 @@ function split( val ) {
 	return val.split( /,\s*/ );
 }
 
-jtown.admin.createSubmit = function(){
-	$('.jt-create-seller-submit').unbind('click').bind('click', function() {
-		var form = document.forms['jtownUser'];
-		form.submit();
-	});
-};
-
-jtown.admin.changeShopUrl = function(){
-	$('.jt-admin-seller-table-shopUrl-input').unbind('change').bind('change', function(){
-		var parents = $(this).parents('.jt-admin-seller-table-tr'),
-		url = contextPath + 'admin/changeShopUrl',
-		json = {	'pn' 		: parents.attr('data-pn'), 
-					'shopUrl' 	: $(this).val()			 		};
-	
-		$.postJSON(url, json, function(){
-			return jQuery.ajax({
-				'success' : function(){
-					alert('주소 변경 성공');
-				},
-				'error' : function(){
-					alert('에러 발생!');
-				}
-			});
-		});
-	});
-};
-
 jtown.admin.changeInterest = function(me){
 	var parents = me.parents('.jt-admin-seller-table-tr');
 	
@@ -241,29 +252,6 @@ jtown.admin.changeInterest = function(me){
 	}
 };
 
-jtown.admin.changeEnable = function(me){
-	var parents = me.parents('.jt-admin-seller-table-tr');
-	var enabled = me.val();
-	var sellerId = parents.children('.jt-admin-seller-table-sellerId').text();
-	
-	var json = {
-		'username' : sellerId,
-		'enabled' : (enabled == 1 ? true : false)
-	};
-	
-	var url = contextPath + 'admin/changeEnable';
-	
-	$.postJSON(url, json, function(){
-		return jQuery.ajax({
-			'success' : function(){
-				alert('판매자 상태가 변경되었습니다.');
-			},
-			'error' : function(){
-				alert('에러 발생!!!');
-			}
-		});
-	});
-};
 
 jtown.admin.changeCustomerEnable = function(me){
 	var parents = me.parents('.jt-admin-customer-table-tr');
@@ -275,46 +263,10 @@ jtown.admin.changeCustomerEnable = function(me){
 			'enabled' : (enabled == 1 ? true : false)
 	};
 	
-	var url = contextPath + 'admin/changeEnable';
+	var url = contextPath + 'admin/ajax/changeEnabled.jt';
 	
 	$.postJSON(url, json, function(){
-		return jQuery.ajax({
-			'success' : function(){
-				alert('사용자의 상태가 변경되었습니다.');
-			},
-			'error' : function(){
-				alert('에러 발생!!!');
-			}
-		});
 	});
-};
-
-jtown.admin.insertInputBox = function(me, clazz){
-	if( !nullValueCheck(me.children('input').val())){
-		return;
-	}
-	
-	var value = me.text();
-	
-	var inputName = clazz + '-input';
-	
-	var html = '<input class="' + inputName + '" id="' + inputName + '" type="text" value="' + value + '" style="width: '+(Number(me.width())-14)+'px;"/>';
-
-	me.html(html);
-	jtown.admin.setFocus(inputName);
-	
-	jtown.admin.syncAdminPage();
-};
-
-jtown.admin.deleteInputBox = function(me, clazz){
-	var parent = me.parents('.' + clazz);
-	var value = me.val();
-	
-	parent.html(value);
-};
-
-jtown.admin.setFocus = function(clazz){
-	$('.' + clazz + ':input:visible:enabled:first').focus();
 };
 
 jtown.admin.showPartnershipContent = function(){

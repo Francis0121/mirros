@@ -146,15 +146,6 @@
 		<include refid="paginationAfter"/>
 	</select>
 	
-	<update id="updateShopUrl" parameterType="JtownUser">
-		UPDATE
-			user_seller
-		SET
-			shop_url = #{shopUrl}
-		WHERE
-			pn = #{pn}
-	</update>
-	
 	<delete id="deleteInterestSellerInterest" parameterType="Interest">
 		DELETE
 		FROM
@@ -162,15 +153,6 @@
 		WHERE
 			seller_pn = #{sellerPn}
 	</delete>
-	
-	<update id="updateEnable" parameterType="JtownUser">
-		UPDATE
-			users
-		SET
-			enable = #{enabled}
-		WHERE
-			id = #{username}
-	</update>
 	
 	<resultMap type="JtownUser" id="getCustomerListMap" extends="usersMap">
 		<result column="salt" property="salt" />
@@ -347,4 +329,35 @@
 			gm.group_id = 3
 	</select>
 	
+	<!-- ING -->
+	<update id="updateSeller" parameterType="JtownUser">
+		<choose>
+			<when test="name != null and name != ''">
+				UPDATE
+					users
+				SET
+					name = #{name},
+					upper_name = #{upperName}
+				WHERE
+					pn = #{pn}
+			</when>
+			<otherwise>
+				UPDATE
+					user_seller
+				SET
+					shop_url = #{shopUrl}
+				WHERE
+					pn = #{pn}
+			</otherwise>
+		</choose>
+	</update>
+
+	<update id="updateEnabled" parameterType="JtownUser">
+		UPDATE
+			users
+		SET
+			enable = #{enabled}
+		WHERE
+			pn = #{pn}	
+	</update>
 </mapper>

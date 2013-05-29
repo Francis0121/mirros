@@ -18,11 +18,11 @@ public interface AdminService {
 
 	void insertCreateSeller(JtownUser jtownUser);
 
-	void updateShopUrl(JtownUser jtownUser);
+	void updateSeller(JtownUser jtownUser);
 
+	void updateEnabled(JtownUser jtownUser);
+	
 	void updateInterest(Interest interest);
-
-	void updateEnable(JtownUser jtownUser);
 
 	List<Interest> selectInterestCategoryList();
 
@@ -38,5 +38,6 @@ public interface AdminService {
 	List<Interest> selectInterestSection(Interest interest);
 
 	List<JtownUser> selectAdminList(AdministratorFilter administratorFilter);
+
 
 }

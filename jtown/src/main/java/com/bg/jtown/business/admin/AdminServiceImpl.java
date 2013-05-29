@@ -60,11 +60,6 @@ public class AdminServiceImpl extends SqlSessionDaoSupport implements
 	}
 
 	@Override
-	public void updateShopUrl(JtownUser jtownUser) {
-		getSqlSession().update("adminMapper.updateShopUrl", jtownUser);
-	}
-
-	@Override
 	public void updateInterest(Interest interest) {
 		getSqlSession().delete("adminMapper.deleteInterestSellerInterest",
 				interest);
@@ -95,8 +90,13 @@ public class AdminServiceImpl extends SqlSessionDaoSupport implements
 	}
 
 	@Override
-	public void updateEnable(JtownUser jtownUser) {
-		getSqlSession().update("adminMapper.updateEnable", jtownUser);
+	public void updateSeller(JtownUser jtownUser) {
+		getSqlSession().update("adminMapper.updateSeller", jtownUser);
+	}
+
+	@Override
+	public void updateEnabled(JtownUser jtownUser) {
+		getSqlSession().update("adminMapper.updateEnabled", jtownUser);
 	}
 
 	// ~ Aministrator

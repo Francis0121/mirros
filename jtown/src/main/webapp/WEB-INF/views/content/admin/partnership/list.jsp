@@ -158,10 +158,30 @@ function goToPreviousPages() {
 				</td>
 				<td><c:out value="${partnership.inputDate }"/></td>
 				<td><c:out value="${partnership.updateDate }"/></td>
-				<td><c:out value="${userInfo.username }"/></td>
-				<td class="jt-partnership-shopUrl"><c:out value="${userInfo.shopUrl }"/></td>
-				<td class="jt-partnership-sellerName"><c:out value="${userInfo.name }"/></td>
-				<td class="jt-partnership-enabled"><c:out value="${userInfo.enabled }"/></td>
+				<c:choose>
+					<c:when test="${userInfo.username ne null and userInfo.username ne ''}">
+						<td><c:out value="${userInfo.username  }"/></td>
+						<td class="jt-partnership-shopUrl"><c:out value="${userInfo.shopUrl }"/></td>
+						<td class="jt-partnership-sellerName"><c:out value="${userInfo.name }"/></td>
+						<td class="jt-partnership-enabled">
+							<select class="jt-partnership-enabled-select">
+								<option value="1" ${userInfo.enabled eq true ? 'selected=selected' : ''}>정상 사용자</option>
+								<option value="0" ${userInfo.enabled eq false ? 'selected=selected' : ''}>불량 사용자</option>					
+							</select>
+						</td>					
+					</c:when>
+					<c:otherwise>
+						<td class="jt-seller-create"><button type="button" class="jt-seller-create-btn">아이디생성</button></td>
+						<td class="jt-seller-shopUrl"><input type="text" class="jt-seller-shopUrl-input"/></td>
+						<td class="jt-seller-name"><input type="text" class="jt-seller-name-input"/></td>
+						<td class="jt-seller-enabled">
+							<select class="jt-partnership-enabled-select" >
+								<option value="1" ${userInfo.enabled eq true ? 'selected=selected' : ''}>정상 사용자</option>
+								<option value="0" ${userInfo.enabled eq false ? 'selected=selected' : ''}>불량 사용자</option>					
+							</select>
+						</td> 		
+					</c:otherwise>
+				</c:choose>
 			</tr>
 			<tr class="jt-partnership-table-content" id="partnership-content-<c:out value="${partnership.pn }"/>">
 				<td colspan="12">

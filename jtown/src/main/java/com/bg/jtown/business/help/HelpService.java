@@ -6,6 +6,7 @@ import java.util.Map;
 import com.bg.jtown.business.Json;
 import com.bg.jtown.business.Partnership;
 import com.bg.jtown.business.search.PartnershipFilter;
+import com.bg.jtown.security.Authority;
 
 /**
  * @author Francis
@@ -29,6 +30,6 @@ public interface HelpService {
 
 	void updatePatnership(Partnership partnership);
 
-	void updatePatnershipJson(Json json);
+	void updatePartnershipJson(Json json, Authority authority);
 
 }

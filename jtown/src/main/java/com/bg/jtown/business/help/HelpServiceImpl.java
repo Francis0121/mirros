@@ -15,6 +15,7 @@ import com.bg.jtown.business.Interest;
 import com.bg.jtown.business.Json;
 import com.bg.jtown.business.Partnership;
 import com.bg.jtown.business.search.PartnershipFilter;
+import com.bg.jtown.security.Authority;
 import com.bg.jtown.security.JtownUser;
 import com.bg.jtown.util.Pagination;
 
@@ -88,7 +89,11 @@ public class HelpServiceImpl extends SqlSessionDaoSupport implements
 	}
 
 	@Override
-	public void updatePatnershipJson(Json json) {
-		getSqlSession().update("helpMapper.updatePatnershipJson", json);
+	public void updatePartnershipJson(Json json,Authority authority) {
+		if(authority.equals(Authority.ADMIN)){
+			getSqlSession().update("helpMapper.updatePartnershipJsonA", json);			
+		}else if(authority.equals(Authority.SELLER)){
+			getSqlSession().update("helpMapper.updatePartnershipJsonS", json);
+		}
 	}
 }

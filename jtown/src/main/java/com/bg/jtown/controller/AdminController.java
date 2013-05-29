@@ -32,6 +32,7 @@ import com.bg.jtown.business.search.UserFilter;
 import com.bg.jtown.business.seller.ContractService;
 import com.bg.jtown.business.seller.SellerService;
 import com.bg.jtown.controller.validator.AdminLoginValidator;
+import com.bg.jtown.security.Authority;
 import com.bg.jtown.security.CustomJdbcUserDetailManager;
 import com.bg.jtown.security.JtownUser;
 import com.bg.jtown.util.VaildationUtil;
@@ -255,32 +256,44 @@ public class AdminController {
 
 	@RequestMapping(value = "/admin/ajax/changePartnershipJson.jt", method = RequestMethod.POST)
 	@ResponseBody
-	public void changePartnershipJson(@RequestBody Json json) {
-		helpService.updatePatnershipJson(json);
+	public void ajaxChangePartnershipJson(@RequestBody Json json) {
+		helpService.updatePartnershipJson(json, Authority.ADMIN);
 	}
 
+	@RequestMapping(value = "/admin/ajax/createSeller.jt", method = RequestMethod.POST)
+	@ResponseBody
+	public JtownUser ajaxCreateSeller(@RequestBody JtownUser jtownUser) {
+		Json json = new Json(jtownUser.getPn(), null);
+		customJdbcUserDetailManager.createUserSellerAndAuthority(jtownUser);
+		json.setValue(jtownUser.getPn().toString());
+		helpService.updatePartnershipJson(json, Authority.SELLER);
+		return jtownUser;
+	}
+
+	@RequestMapping(value = "/admin/ajax/changeSeller.jt", method = RequestMethod.POST)
+	@ResponseBody
+	public JtownUser ajaxChangeSeller(@RequestBody JtownUser jtownUser) {
+		adminService.updateSeller(jtownUser);
+		return jtownUser;
+	}
+	
+	@RequestMapping(value = "/admin/ajax/changeEnabled.jt", method = RequestMethod.POST)
+	@ResponseBody
+	public JtownUser ajaxChangeEnabled(@RequestBody JtownUser jtownUser) {
+		adminService.updateEnabled(jtownUser);
+		return jtownUser;
+	}
+	
 	@RequestMapping(value = "/ajax/admin/autoInterestSection.jt", method = RequestMethod.POST)
 	@ResponseBody
 	public List<Interest> ajaxAutoInterestSection(@RequestBody Interest interest) {
 		return adminService.selectInterestSection(interest);
 	}
 
-	@RequestMapping(value = "/admin/changeShopUrl", method = RequestMethod.POST)
-	@ResponseBody
-	public void ajaxChangeShopUrl(@RequestBody JtownUser jtownUser) {
-		adminService.updateShopUrl(jtownUser);
-	}
-
 	@RequestMapping(value = "/admin/changeInterest", method = RequestMethod.POST)
 	@ResponseBody
 	public void ajaxChangeInterest(@RequestBody Interest interest) {
 		adminService.updateInterest(interest);
-	}
-
-	@RequestMapping(value = "/admin/changeEnable", method = RequestMethod.POST)
-	@ResponseBody
-	public void ajaxChangeEnable(@RequestBody JtownUser jtownUser) {
-		adminService.updateEnable(jtownUser);
 	}
 
 }
