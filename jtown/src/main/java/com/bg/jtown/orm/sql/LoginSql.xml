@@ -235,4 +235,15 @@
 			id = #{username}
 	</select>
 	
+	<select id="selectCheckExistSellerEmail" parameterType="String" resultType="Integer">
+		SELECT
+			p.pn
+		FROM
+			partnership p
+			LEFT OUTER JOIN users u
+			ON ( p.seller_pn = u.pn AND u.pn != NULL)
+		WHERE
+			p.email = #{username}
+	</select>
+	
 </mapper>

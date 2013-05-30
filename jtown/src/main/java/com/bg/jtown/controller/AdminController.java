@@ -187,7 +187,7 @@ public class AdminController {
 			model.addAttribute("result",
 					contractService.insertCaculatePeroidContract(contract));
 		}
-		return prefiexUrl + "/contract";
+		return prefiexUrl + "/partnership/contract";
 	}
 
 	// ~ Ajax

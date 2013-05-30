@@ -216,4 +216,10 @@ public class LoginServiceImpl extends SqlSessionDaoSupport implements
 				"loginMapper.selectCheckExistAdminUsername", username).size() == 1;
 		return result;
 	}
+
+	@Override
+	public Integer selectCheckExistSellerEmail(String username) {
+		return getSqlSession().selectOne(
+				"loginMapper.selectCheckExistSellerEmail", username);
+	}
 }

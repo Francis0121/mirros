@@ -334,8 +334,8 @@ public class LoginController {
 							}
 						} else if (authority.equals(Authority.SELLER)
 								|| authority.equals(Authority.ADMIN)) {
-							if (!ValidationUtil
-									.checkCharAndLength(changeUsername, 0, 20)) {
+							if (!ValidationUtil.checkCharAndLength(
+									changeUsername, 0, 20)) {
 								errors.rejectValue("username",
 										"join.username.notAllowId");
 							}
@@ -403,8 +403,8 @@ public class LoginController {
 			}
 
 			userCache.removeUserFromCache(jtownUser.getUsername());
-			userAuthenticator.onApplicationEvent(jtownUser.getUsername(), request,
-					response);
+			userAuthenticator.onApplicationEvent(jtownUser.getUsername(),
+					request, response);
 			return "redirect:modify/?result=2";
 		} else {
 			Map<String, List<Connection<?>>> connections = connectionRepository
@@ -533,15 +533,16 @@ public class LoginController {
 
 	@RequestMapping(value = "/login/findPassword", method = RequestMethod.GET)
 	public String showFindPassword(Model model,
-			@ModelAttribute JtownUser jtownUser,
 			@RequestParam(required = false) Integer result) {
+		model.addAttribute("jtownUser", new JtownUser());
+		model.addAttribute("sellerUser", new JtownUser());
 		model.addAttribute("result", result);
 		return "login/findPassword";
 	}
 
-	@RequestMapping(value = "/login/findPassword.jt", method = RequestMethod.POST)
-	public String formFindPassword(@ModelAttribute JtownUser jtownUser,
-			BindingResult result, WebRequest request) {
+	@RequestMapping(value = "/login/findUserPassword.jt", method = RequestMethod.POST)
+	public String formFindUserPassword(Model model,
+			@ModelAttribute JtownUser jtownUser, BindingResult result) {
 		new Validator() {
 			@Override
 			public void validate(Object target, Errors errors) {
@@ -550,9 +551,12 @@ public class LoginController {
 				ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username",
 						"join.username.empty");
 
-				boolean exist = loginService.selectCheckExistEmail(username);
-				if (!exist) {
-					errors.rejectValue("username", "join.username.notExist");
+				if (!ValidationUtil.checkNullAndBlank(username)) {
+					boolean exist = loginService
+							.selectCheckExistEmail(username);
+					if (!exist) {
+						errors.rejectValue("username", "join.username.notExist");
+					}
 				}
 			}
 
@@ -563,11 +567,46 @@ public class LoginController {
 		}.validate(jtownUser, result);
 
 		if (!result.hasErrors()) {
-			String referer = request.getHeader("referer") == null ? "../"
-					: request.getHeader("referer");
 			emailSend.sendTempPasswordEmail(jtownUser.getUsername());
-			return "redirect:" + referer + "/?result=4";
+			return "redirect:findPassword/?result=4";
 		} else {
+			model.addAttribute("sellerUser", new JtownUser());
+			return "login/findPassword";
+		}
+	}
+
+	@RequestMapping(value = "/login/findSellerPassword.jt", method = RequestMethod.POST)
+	public String formFindSellerPassword(Model model,
+			@ModelAttribute(value = "sellerUser") JtownUser jtownUser,
+			BindingResult result) {
+		String username = jtownUser.getUsername();
+		final Integer pn = loginService.selectCheckExistSellerEmail(username);
+		new Validator() {
+			@Override
+			public void validate(Object target, Errors errors) {
+				JtownUser jtownUser = (JtownUser) target;
+				String username = jtownUser.getUsername();
+				ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username",
+						"join.username.empty");
+
+				if (!ValidationUtil.checkNullAndBlank(username)) {
+					if (pn == null) {
+						errors.rejectValue("username", "join.username.notExist");
+					}
+				}
+			}
+
+			@Override
+			public boolean supports(Class<?> clazz) {
+				return JtownUser.class.isAssignableFrom(clazz);
+			}
+		}.validate(jtownUser, result);
+
+		if (!result.hasErrors()) {
+			emailSend.sendSellerTempPasswordEmail(pn);
+			return "redirect:findPassword/?result=4";
+		} else {
+			model.addAttribute("jtownUser", new JtownUser());
 			return "login/findPassword";
 		}
 	}
