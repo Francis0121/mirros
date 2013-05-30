@@ -199,11 +199,11 @@ function goToPreviousPages() {
 					</c:when>
 					<c:otherwise>
 						<td class="jt-seller-create"><button type="button" class="jt-seller-create-btn">아이디생성</button></td>
-						<td class="jt-seller-shopUrl"><input type="text" class="jt-seller-shopUrl-input"/></td>
-						<td class="jt-seller-name"><input type="text" class="jt-seller-name-input"/></td>
-						<td class="jt-seller-interest"><input type="text" class="jt-seller-interest-input"/></td>
+						<td class="jt-seller-shopUrl">&nbsp;</td>
+						<td class="jt-seller-name">&nbsp;</td>
+						<td class="jt-seller-interest">&nbsp;</td>
 						<td class="jt-seller-enabled">
-							<select class="jt-partnership-enabled-select" >
+							<select class="jt-partnership-enabled-select" style="display: none;">
 								<option value="1" ${userInfo.enabled eq true ? 'selected=selected' : ''}>정상 사용자</option>
 								<option value="0" ${userInfo.enabled eq false ? 'selected=selected' : ''}>불량 사용자</option>					
 							</select>

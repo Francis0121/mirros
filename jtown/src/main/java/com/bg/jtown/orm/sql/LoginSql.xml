@@ -59,7 +59,7 @@
 			user_seller
 			( pn, shop_url, hot )		
 		VALUES
-			( #{pn}, #{shopUrl}, 0 )
+			( #{pn}, '', 0 )
 	</insert>	
 		
 	<insert id="insertUserAdmin" parameterType="JtownUser">

@@ -8,6 +8,8 @@ $(function() {
 	
 	jtown.admin.openContract();
 	
+	jtown.admin.sellerCreate();
+	
 	$('.jt-partnership-table-information').unbind('click').bind('click', function(){
 		var partnershipPn =	$(this).parents('.jt-partnership-info').attr('data-pspn');
 		$('#partnership-content-'+partnershipPn).toggle();
@@ -120,36 +122,24 @@ $(function() {
 		});
 	});
 	
-	jtown.admin.sellerCreate();
-	
-	jtown.admin.sellerSync();
-	
-	jtown.admin.autoInterest();
 });
 
 jtown.admin.sellerCreate = function(){
 	$('.jt-seller-create-btn').unbind('click').bind('click', function(){
 		var parent = $(this).parents('.jt-partnership-info'),
-			pspn = parent.attr('data-pspn'),
-			shopUrl =  parent.find('.jt-seller-shopUrl-input'),
-			name = parent.find('.jt-seller-name-input'),
-			interestSectionList = parent.find('.jt-seller-interest-input'),
-			category = parent.find('.jt-partnership-category-select');
+			pspn = parent.attr('data-pspn');
 		
 		var url = contextPath + 'admin/ajax/createSeller.jt';
-		var json =	{ 	shopUrl : shopUrl.val(),
-						name	: name.val(),
-						pn		: pspn,
-						interestCategory : category.val(),
-						interestSectionList : interestSectionList.val()};
+		var json =	{ 	pn		: pspn	};
 		
 		$.postJSON(url, json, function(jtownUser){
 			parent.attr('data-spn', jtownUser.pn);
-			parent.find('.jt-seller-create').text(htmlChars(jtownUser.username)).removeClass('jt-seller-create');
-			parent.find('.jt-seller-shopUrl').text(htmlChars(jtownUser.shopUrl)).addClass('jt-partnership-shopUrl').removeClass('jt-seller-shopUrl');
-			parent.find('.jt-seller-name').text(htmlChars(jtownUser.name)).addClass('jt-partnership-sellerName').removeClass('jt-seller-name');
+			parent.find('.jt-seller-create').text(jtownUser.username).removeClass('jt-seller-create');
+			parent.find('.jt-seller-shopUrl').text('').addClass('jt-partnership-shopUrl').removeClass('jt-seller-shopUrl');
+			parent.find('.jt-seller-name').text('').addClass('jt-partnership-sellerName').removeClass('jt-seller-name');
 			parent.find('.jt-seller-enabled').addClass('jt-partnership-enabled').removeClass('jt-seller-enabled');
-			parent.find('.jt-seller-interest').text(htmlChars(jtownUser.interestSectionList)).addClass('jt-partnership-interest').removeClass('jt-seller-interest');
+			parent.find('.jt-partnership-enabled-select').css('display', 'block');
+			parent.find('.jt-seller-interest').text('').addClass('jt-partnership-interest').removeClass('jt-seller-interest');
 			
 			setTimeout('jtown.admin.sellerSync()', 0);
 		});
@@ -268,48 +258,6 @@ jtown.admin.changeTextarea = function(name, callback, event){
 jtown.admin.autoInterestOne = function(){
 	var categoryPn = '';
 	$('#jt-partnership-interest-input').bind( 'keydown', function( event ) {
-		if ( event.keyCode === $.ui.keyCode.TAB && $( this ).data( 'ui-autocomplete' ).menu.active ) {
-			event.preventDefault();
-		}
-		if(categoryPn == '' ){
-			var parent = $(this).parents('.jt-partnership-info');
-			categoryPn =  parent.find('.jt-partnership-category-select').val();
-		}
-    }).autocomplete({
-		minLength: 0,
-		source: function( request, response ) {
-			var url = contextPath + 'admin/ajax/autoInterestSection.jt',
-				json = {	'categoryPn' : categoryPn,
-							'name'		: request.term };
-		
-			$.postJSON(url, json, function(interestes){
-				var data = [];
-				
-				for(var i=0, len = interestes.length ; i< len; i++){
-					var interest = interestes[i];
-					data[i] = { label : interest.name , value : interest.name };
-				}
-				response( data );
-			});
-		},
-		focus: function() {
-			return false;
-		},
-		select: function(event, ui) {
-			var terms = split( this.value );
-			terms.pop();
-			terms.push(ui.item.value);
-			terms.push('');
-			this.value = terms.join(',');
-			return false;
-		}
-	});	
-};
-
-// ~ 입력되지 않은 판매자
-jtown.admin.autoInterest = function(){
-	var categoryPn = '';
-	$('.jt-seller-interest-input').bind( 'keydown', function( event ) {
 		if ( event.keyCode === $.ui.keyCode.TAB && $( this ).data( 'ui-autocomplete' ).menu.active ) {
 			event.preventDefault();
 		}

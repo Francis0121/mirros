@@ -138,13 +138,6 @@ public class AdminServiceImpl extends SqlSessionDaoSupport implements
 	@Override
 	public void insertSeller(JtownUser jtownUser) {
 		customJdbcUserDetailManager.createUserSellerAndAuthority(jtownUser);
-		Integer sellerPn = jtownUser.getPn();
-		Integer categoryPn = Integer.parseInt(jtownUser.getInterestCategory());
-
-		String interestSectionStr = jtownUser.getInterestSectionList().trim();
-		jtownUser.setInterestSectionList(interestSectionStr);
-
-		insertSellerInterestList(interestSectionStr, categoryPn, sellerPn);
 	}
 
 	@Override
