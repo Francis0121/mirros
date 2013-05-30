@@ -75,10 +75,14 @@ $(function() {
 	
 	jtown.admin.changeSelect('jt-partnership-category', function(thiz, nameVo){
 		var grandParent = thiz.parents(nameVo.parentSelector),
-		url = contextPath+'admin/ajax/updatePartnership.jt',
+		url = contextPath+'admin/ajax/updatePartnershipCategory.jt',
 		json = { pn : grandParent.attr('data-pspn'),
 				 categoryPn : thiz.val()	};
 		$.postJSON(url, json, function(partnership){
+			var pn = partnership.jtownUser.pn;
+			if(pn != null && pn != 0 ){
+				grandParent.find('.jt-partnership-interest').html('');
+			}
 		});
 	});
 	

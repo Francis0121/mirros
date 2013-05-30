@@ -29,7 +29,7 @@ public class HelpServiceImpl extends SqlSessionDaoSupport implements
 		HelpService {
 
 	private static final Integer PROCESS_RECEIPT = 1;
-	
+
 	@Resource
 	private HomeService homeService;
 
@@ -119,5 +119,16 @@ public class HelpServiceImpl extends SqlSessionDaoSupport implements
 		} else if (authority.equals(Authority.SELLER)) {
 			getSqlSession().update("helpMapper.updatePartnershipJsonS", json);
 		}
+	}
+
+	@Override
+	public Partnership updatePatnershipCategory(Partnership partnership) {
+		updatePatnership(partnership);
+		Partnership lp = selectPartnership(partnership);
+		Integer pn = lp.getJtownUser().getPn();
+		if(pn != null && !new Integer(0).equals(pn)){
+			adminService.deleteSellerInterest(new Interest(pn, null, null, null));
+		}
+		return lp;
 	}
 }

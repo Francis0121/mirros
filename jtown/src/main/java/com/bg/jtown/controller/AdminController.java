@@ -200,6 +200,13 @@ public class AdminController {
 		return partnership;
 	}
 	
+	@RequestMapping(value = "/ajax/updatePartnershipCategory.jt", method = RequestMethod.POST)
+	@ResponseBody
+	public Partnership ajaxChangePartnershipCategory(
+			@RequestBody Partnership partnership) {
+		return helpService.updatePatnershipCategory(partnership);
+	}
+	
 	@RequestMapping(value = "/ajax/updatePartnershipName.jt", method = RequestMethod.POST)
 	@ResponseBody
 	public Json ajaxChangePartnershipName(

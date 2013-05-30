@@ -23,6 +23,8 @@ public interface AdminService {
 	List<Interest> selectInterestSection(Interest interest);
 
 	void updateEnabled(JtownUser jtownUser);
+	 
+	void deleteSellerInterest(Interest interest);
 
 	// ~ Admin
 	

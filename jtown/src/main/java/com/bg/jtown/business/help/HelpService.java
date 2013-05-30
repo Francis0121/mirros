@@ -32,4 +32,6 @@ public interface HelpService {
 
 	void updatePartnershipJson(Json json, Authority authority);
 
+	Partnership updatePatnershipCategory(Partnership partnership);
+
 }

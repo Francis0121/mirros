@@ -133,21 +133,57 @@
 		SELECT
 			p.pn, p.name, p.email, p.phone_number,
 			p.category_pn, p.content, p.process, p.input_date, p.update_date, p.note
+			<if test="pn != null">
+			,u.pn AS seller_pn, u.shop_url, u.id, u.enable, u.salt, u.name AS seller_name, u.contract_count, u.contract_end_date,
+			ua.pn AS admin_pn, ua.name AS admin_name	
+			</if>
 		FROM
 			partnership p
+			<if test="pn != null">
+			LEFT OUTER JOIN ( 
+				SELECT 
+					us.pn, us.shop_url, u.id, u.enable, u.salt, u.name, uscit.contract_count, uscit.contract_end_date
+				FROM 
+					user_seller us
+					LEFT OUTER JOIN(
+						SELECT
+							usci.seller_pn, COUNT(usci.seller_pn) AS contract_count, now.contract_end_date
+						FROM
+							user_seller_contract_info usci
+							LEFT OUTER JOIN(
+								SELECT
+									seller_pn, end_date AS contract_end_date
+								FROM
+									user_seller_contract_info
+								WHERE
+									SYSDATE() BETWEEN start_date AND end_date
+							) NOW
+							ON usci.seller_pn = now.seller_pn
+						GROUP BY
+							usci.seller_pn
+					) uscit
+					ON us.pn = uscit.seller_pn		
+					, users u 
+				WHERE 
+					us.pn = u.pn 
+			) u
+			ON u.pn = p.seller_pn
+			LEFT OUTER JOIN ( SELECT u.pn, u.name FROM user_admin ua, users u WHERE ua.pn = u.pn AND u.enable = TRUE ) ua
+			ON ua.pn = p.admin_pn
+			</if>
 		WHERE
 		<if test="pn != null">
-			pn = #{pn}		
+			p.pn = #{pn}		
 		</if>
 		<if test="email != null">
-			email = #{email}
+			p.email = #{email}
 		AND
-			process = 1
+			p.process = 1
 		</if>
 		<if test="phoneNumber != null">
-			phone_number = #{phoneNumber}
+			p.phone_number = #{phoneNumber}
 		AND
-			process = 1
+			p.process = 1
 		</if>
 	</select>
 	

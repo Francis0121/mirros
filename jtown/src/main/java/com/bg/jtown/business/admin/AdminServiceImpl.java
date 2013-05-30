@@ -45,7 +45,8 @@ public class AdminServiceImpl extends SqlSessionDaoSupport implements
 		getSqlSession().insert("adminMapper.insertSellerInterest", interest);
 	}
 
-	private void deleteSellerInterest(Interest interest) {
+	@Override
+	public void deleteSellerInterest(Interest interest) {
 		getSqlSession().delete("adminMapper.deleteSellerInterest", interest);
 	}
 
