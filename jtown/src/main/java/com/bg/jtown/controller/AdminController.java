@@ -75,7 +75,7 @@ public class AdminController {
 	public String showCreateSellerFinish(Model model,
 			@PathVariable Integer sellerPn) {
 		model.addAllAttributes(sellerService.selectAllInformation(sellerPn));
-		return "admin/sellerInformation";
+		return "admin/partnership/sellerInformation";
 	}
 
 	@RequestMapping(value = "/admin/administrator", method = RequestMethod.GET)
@@ -142,7 +142,7 @@ public class AdminController {
 		List<Contract> contracts = contractService
 				.selectContractList(contractFilter);
 		model.addAttribute("contracts", contracts);
-		return "admin/contractList";
+		return "admin/partnership/contractList";
 	}
 
 	@RequestMapping(value = "/admin/contract", method = RequestMethod.GET)
@@ -154,7 +154,7 @@ public class AdminController {
 		Contract loadContract = contractService.selectContractPeroid(contract);
 		loadContract.setSellerPn(sellerPn);
 		model.addAttribute("contract", loadContract);
-		return "admin/contract";
+		return "admin/partnership/contract";
 	}
 
 	@RequestMapping(value = "/admin/contract.jt", method = RequestMethod.POST)
