@@ -192,6 +192,15 @@
 		</if>
 	</select>
 	
+	<select id="selectPartnershipCategory" parameterType="Integer" resultType="Integer">
+		SELECT
+			category_pn AS categoryPn
+		FROM
+			partnership
+		WHERE
+			pn = #{pn}
+	</select>
+	
 	<select id="selectPartnershipCount" parameterType="PartnershipFilter" resultType="Integer">
 		SELECT
 			COUNT(*)

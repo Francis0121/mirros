@@ -14,7 +14,9 @@ import com.bg.jtown.security.Authority;
  */
 public interface HelpService {
 
-	// ~ Partnershop
+	// ~ Partnership
+
+	Integer selectPartnershipCategory(Integer pn);
 
 	Map<String, Object> selectObject(PartnershipFilter partnershipFilter);
 
@@ -33,5 +35,6 @@ public interface HelpService {
 	void updatePartnershipJson(Json json, Authority authority);
 
 	Partnership updatePatnershipCategory(Partnership partnership);
+
 
 }

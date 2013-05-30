@@ -10,6 +10,8 @@ $(function() {
 	
 	jtown.admin.sellerCreate();
 	
+	jtown.admin.sellerSync();
+	
 	$('.jt-partnership-table-information').unbind('click').bind('click', function(){
 		var partnershipPn =	$(this).parents('.jt-partnership-info').attr('data-pspn');
 		$('#partnership-content-'+partnershipPn).toggle();
@@ -76,16 +78,31 @@ $(function() {
 	}, function(){});
 	
 	jtown.admin.changeSelect('jt-partnership-category', function(thiz, nameVo){
-		var grandParent = thiz.parents(nameVo.parentSelector),
-		url = contextPath+'admin/ajax/updatePartnershipCategory.jt',
-		json = { pn : grandParent.attr('data-pspn'),
-				 categoryPn : thiz.val()	};
-		$.postJSON(url, json, function(partnership){
-			var pn = partnership.jtownUser.pn;
-			if(pn != null && pn != 0 ){
-				grandParent.find('.jt-partnership-interest').html('');
-			}
-		});
+		
+		success = function(){
+			var grandParent = thiz.parents(nameVo.parentSelector),
+			url = contextPath+'admin/ajax/updatePartnershipCategory.jt',
+			json = { pn : grandParent.attr('data-pspn'),
+					 categoryPn : thiz.val()	};
+			$.postJSON(url, json, function(partnership){
+				var pn = partnership.jtownUser.pn;
+				if(pn != null && pn != 0 ){
+					grandParent.find('.jt-partnership-interest').html('');
+				}
+			});
+		};
+		
+		cancle = function(){
+			var grandParent = thiz.parents(nameVo.parentSelector),
+			url = contextPath+'admin/ajax/selectPartnershipCategory.jt',
+			json = { pn : grandParent.attr('data-pspn') };
+			$.postJSON(url, json, function(categoryPn){
+				thiz.val(categoryPn);
+			});
+		};
+		
+		jtown.confirm('사업아이템을 바꾸시겠습니까?', success, cancle);
+		
 	});
 	
 	jtown.admin.changeSelect('jt-partnership-adminPn', function(thiz, nameVo){
@@ -214,6 +231,8 @@ jtown.admin.sellerSync = function(){
 // ~ 일관된 format
 
 jtown.admin.changeText = function(name, callback, event){
+	var eventString = $.browser.chrome ? 'keydown' : 'keypress';
+	
 	var nameVo = { 	selector : '.'+name,
 					input : name+'-input',
 					inputSelector : '#'+name+'-input',
@@ -230,6 +249,14 @@ jtown.admin.changeText = function(name, callback, event){
 		$(nameVo.inputSelector).bind('focusout', function(){
 			callback($(this), nameVo);
 		});
+		
+		$(nameVo.inputSelector).bind(eventString, function(event){
+			if(event.keyCode == 13){
+				callback($(this), nameVo);
+			}else if(event.keyCode == 27){
+				me.html(htmlChars(value));
+			}
+		});
 	});
 };
 
@@ -244,6 +271,8 @@ jtown.admin.changeSelect = function(name, callback){
 };
 
 jtown.admin.changeTextarea = function(name, callback, event){
+	var eventString = $.browser.chrome ? 'keydown' : 'keypress';
+	
 	var nameVo = { 	selector : '.'+name,
 					input : name+'-input',
 					inputSelector : '#'+name+'-input',
@@ -260,13 +289,22 @@ jtown.admin.changeTextarea = function(name, callback, event){
 		$(nameVo.inputSelector).bind('focusout', function(){
 			callback($(this), nameVo);
 		});
+		
+		$(nameVo.inputSelector).bind(eventString, function(event){
+			if(event.keyCode == 13){
+				callback($(this), nameVo);
+			}else if(event.keyCode == 27){
+				me.html('<pre>'+htmlChars(value)+'</pre>');
+			}
+		});
 	});
 };
 
 // ~ 판매자 관심사 수정시
 jtown.admin.autoInterestOne = function(){
+	var eventString = $.browser.chrome ? 'keydown' : 'keypress';
 	var categoryPn = '';
-	$('#jt-partnership-interest-input').bind( 'keydown', function( event ) {
+	$('#jt-partnership-interest-input').unbind(eventString).bind( eventString, function( event ) {
 		if ( event.keyCode === $.ui.keyCode.TAB && $( this ).data( 'ui-autocomplete' ).menu.active ) {
 			event.preventDefault();
 		}

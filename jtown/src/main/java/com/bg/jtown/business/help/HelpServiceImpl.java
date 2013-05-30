@@ -70,6 +70,11 @@ public class HelpServiceImpl extends SqlSessionDaoSupport implements
 	}
 
 	@Override
+	public Integer selectPartnershipCategory(Integer pn) {
+		return getSqlSession().selectOne("helpMapper.selectPartnershipCategory", pn);
+	}
+	
+	@Override
 	public List<Partnership> selectPartnerships(
 			PartnershipFilter partnershipFilter) {
 		Pagination pagination = partnershipFilter.getPagination();

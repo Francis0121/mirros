@@ -16,7 +16,7 @@ jtown.comment.syncComment = function(){
 		var me = $(this);
 		jtown.confirm('댓글을 삭제하시겠습니까?', function(){ 
 			jtown.comment.deleteComment(me);
-		});
+		}, function(){});
 	});
 	
 	$('.jt-comment-update').unbind('click').bind('click', function(){

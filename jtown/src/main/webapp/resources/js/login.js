@@ -159,6 +159,8 @@ jtown.login.disactiveUser = function(){
 		jtown.confirm('계정을 정말로 삭제하시겠습니까?', function(){
 			var form = document.forms['jtownUser'];
 			form.submit();
+		}, function(){
+			
 		});
 	});
 	
@@ -166,6 +168,8 @@ jtown.login.disactiveUser = function(){
 		jtown.confirm('삭제를 취소하시겠습니까?', function(){
 			var form = document.forms['jtownUser'];
 			form.submit();
+		}, function(){
+			
 		});
 	});
 };
