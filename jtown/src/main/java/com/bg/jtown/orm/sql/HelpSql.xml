@@ -32,6 +32,7 @@
 		<result column="category_pn" property="categoryPn"/>
 		<result column="content" property="content"/>
 		<result column="process" property="process"/>
+		<result column="deposit" property="deposit"/>
 		<result column="input_date" property="inputDate"/>
 		<result column="update_date" property="updateDate"/>
 		<result column="note" property="note"/>
@@ -51,7 +52,7 @@
 		<include refid="paginationBefore"/>
 		SELECT
 			p.pn, p.name, p.email, p.phone_number,
-			p.category_pn, p.content, p.process, p.input_date, p.update_date, p.note,
+			p.category_pn, p.content, p.process, p.deposit, p.input_date, p.update_date, p.note,
 			u.pn AS seller_pn, u.shop_url, u.id, u.enable, u.salt, u.name AS seller_name, u.contract_count, u.contract_end_date,
 			ua.pn AS admin_pn, ua.name AS admin_name
 		FROM
@@ -91,6 +92,10 @@
 		<if test="process != null">
 		AND	
 			process = #{process}	
+		</if>
+		<if test="deposit != null">
+		AND	
+			deposit = #{deposit}	
 		</if>
 		<if test="categoryPn != null">
 		AND
@@ -132,7 +137,7 @@
 	<select id="selectPartnership" parameterType="Integer" resultMap="jt-help-partnership-map">
 		SELECT
 			p.pn, p.name, p.email, p.phone_number,
-			p.category_pn, p.content, p.process, p.input_date, p.update_date, p.note
+			p.category_pn, p.content, p.process, p.deposit, p.input_date, p.update_date, p.note
 			<if test="pn != null">
 			,u.pn AS seller_pn, u.shop_url, u.id, u.enable, u.salt, u.name AS seller_name, u.contract_count, u.contract_end_date,
 			ua.pn AS admin_pn, ua.name AS admin_name	
@@ -228,6 +233,10 @@
 		AND	
 			process = #{process}	
 		</if>
+		<if test="deposit != null">
+		AND	
+			deposit = #{deposit}	
+		</if>
 		<if test="categoryPn != null">
 		AND
 			category_pn = #{categoryPn}
@@ -265,9 +274,9 @@
 	<insert id="insertPartnership" parameterType="Partnership">
 		INSERT INTO
 			partnership
-			(	name,	email,	phone_number,	category_pn,	content,	process, input_date, update_date	)
+			(	name,	email,	phone_number,	category_pn,	content,	process, deposit, input_date, update_date	)
 		VAlUES	
-			(	#{name},	#{email},	#{phoneNumber},	#{categoryPn},	#{content}, #{process}, SYSDATE(), SYSDATE()	)
+			(	#{name},	#{email},	#{phoneNumber},	#{categoryPn},	#{content}, #{process}, #{deposit}, SYSDATE(), SYSDATE()	)
 		<selectKey keyProperty="pn" resultType="java.lang.Integer">
 			SELECT LAST_INSERT_ID()
 		</selectKey>
@@ -298,6 +307,9 @@
 			</if>
 			<if test="process != null and process !='' ">
 				process = #{process}			
+			</if>
+			<if test="deposit != null and deposit != '' ">
+				deposit = #{deposit}
 			</if>
 			<if test="categoryPn != null and categoryPn != '' ">
 				category_pn = #{categoryPn}

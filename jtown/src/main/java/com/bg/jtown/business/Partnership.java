@@ -81,6 +81,11 @@ public class Partnership {
 	private Integer process;
 
 	/**
+	 * 입금현황
+	 */
+	private Integer deposit;
+
+	/**
 	 * 수정날짜
 	 */
 	private String updateDate;
@@ -219,16 +224,24 @@ public class Partnership {
 		this.updateDate = updateDate;
 	}
 
+	public Integer getDeposit() {
+		return deposit;
+	}
+
+	public void setDeposit(Integer deposit) {
+		this.deposit = deposit;
+	}
+
 	@Override
 	public String toString() {
 		return "Partnership [adminUser=" + adminUser + ", categoryPn="
 				+ categoryPn + ", content=" + content + ", email=" + email
 				+ ", inputDate=" + inputDate + ", jtownUser=" + jtownUser
-				+ ", name=" + name + ", phoneNumber=" + phoneNumber
-				+ ", phoneNumberNd=" + phoneNumberNd + ", phoneNumberRd="
-				+ phoneNumberRd + ", phoneNumberSt=" + phoneNumberSt + ", pn="
-				+ pn + ", process=" + process + ", updateDate=" + updateDate
-				+ ", note=" + note + "]";
+				+ ", name=" + name + ", note=" + note + ", phoneNumber="
+				+ phoneNumber + ", phoneNumberNd=" + phoneNumberNd
+				+ ", phoneNumberRd=" + phoneNumberRd + ", phoneNumberSt="
+				+ phoneNumberSt + ", pn=" + pn + ", process=" + process
+				+ ", deposit=" + deposit + ", updateDate=" + updateDate + "]";
 	}
 
 }

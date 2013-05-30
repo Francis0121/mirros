@@ -9,6 +9,8 @@
 <c:set var="pagination" value="${partnershipFilter.pagination }"/>
 <c:set var="processMap" value="${partnershipFilter.processMap }"/>
 <c:set var="processList" value="${partnershipFilter.processList}"/>
+<c:set var="depositMap" value="${partnershipFilter.depositMap }"/>
+<c:set var="depositList" value="${partnershipFilter.depositList}"/>
 <%-- Page 처리 Script --%>
 <script type="text/javascript">
 /* <![CDATA[ */
@@ -49,14 +51,19 @@ function goToPreviousPages() {
 				<form:option value="">전체</form:option>
 				<form:options items="${processMap }"/>
 			</form:select>
+			<form:label path="deposit">입금현황</form:label>
+			<form:select path="deposit" onchange="document.forms['partnershipFilter'].submit();">
+				<form:option value="">전체</form:option>
+				<form:options items="${depositMap }"/>
+			</form:select>
 			불량사용자
-			<form:select path="enabled">
+			<form:select path="enabled" onchange="document.forms['partnershipFilter'].submit();">
 				<form:option value="">전체</form:option>
 				<form:option value="true">정상사용자</form:option>
 				<form:option value="false">불량사용자</form:option>
 			</form:select>
 			담당자
-			<form:select path="adminPn">
+			<form:select path="adminPn" onchange="document.forms['partnershipFilter'].submit();">
 				<form:option value="">전체</form:option>
 				<form:options items="${usersAdmin }" itemValue="pn" itemLabel="name"/>
 			</form:select>
@@ -83,6 +90,7 @@ function goToPreviousPages() {
 			<th>사업아이템</th>
 			<th>담당자</th>
 			<th>처리상황</th>
+			<th>입금현황</th>
 			<th>문의날짜</th>
 			<th>수정날짜</th>
 			<th>아이디정보</th>
@@ -172,6 +180,20 @@ function goToPreviousPages() {
 								</c:when>							
 								<c:otherwise>
 									<option value="<c:out value="${process.key }"/>"><c:out value="${process.value }"/></option>
+								</c:otherwise>
+							</c:choose>
+						</c:forEach> 
+					</select>
+				</td>
+				<td class="jt-partnership-deposit">
+					<select class="jt-partnership-deposit-select">
+						<c:forEach items="${depositList }" var="deposit">
+							<c:choose>
+								<c:when test="${deposit.key eq partnership.deposit}">
+									<option value="<c:out value="${deposit.key }"/>" selected="selected"><c:out value="${deposit.value }"/></option>
+								</c:when>							
+								<c:otherwise>
+									<option value="<c:out value="${deposit.key }"/>"><c:out value="${deposit.value }"/></option>
 								</c:otherwise>
 							</c:choose>
 						</c:forEach> 

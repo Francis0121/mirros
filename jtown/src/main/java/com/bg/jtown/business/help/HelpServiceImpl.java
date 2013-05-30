@@ -29,7 +29,7 @@ public class HelpServiceImpl extends SqlSessionDaoSupport implements
 		HelpService {
 
 	private static final Integer PROCESS_RECEIPT = 1;
-
+	private static final Integer DEPOSIT_NOT = 1; 
 	@Resource
 	private HomeService homeService;
 
@@ -99,6 +99,7 @@ public class HelpServiceImpl extends SqlSessionDaoSupport implements
 	@Override
 	public void insertPartnership(Partnership partnership) {
 		partnership.setProcess(PROCESS_RECEIPT);
+		partnership.setDeposit(DEPOSIT_NOT);
 		getSqlSession().insert("helpMapper.insertPartnership", partnership);
 	}
 

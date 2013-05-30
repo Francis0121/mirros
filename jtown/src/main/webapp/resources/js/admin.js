@@ -106,6 +106,15 @@ $(function() {
 		});
 	});
 	
+	jtown.admin.changeSelect('jt-partnership-deposit', function(thiz, nameVo){
+		var grandParent = thiz.parents(nameVo.parentSelector),
+		url = contextPath+'admin/ajax/updatePartnership.jt',
+		json = { pn : grandParent.attr('data-pspn'),
+				 deposit : thiz.val()	};
+		$.postJSON(url, json, function(partnership){
+		});
+	});
+	
 	jtown.admin.changeTextarea('jt-partnership-note',function(thiz, nameVo){
 		var grandParent = thiz.parents(nameVo.parentSelector),
 		parent = thiz.parents(nameVo.selector),
