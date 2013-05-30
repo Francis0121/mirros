@@ -24,7 +24,7 @@
 	</sql>
 	
 	<!-- Partnership -->
-	<resultMap type="com.bg.jtown.business.Partnership" id="jtown-help-partnership-map">
+	<resultMap type="Partnership" id="jt-help-partnership-map">
 		<result column="pn" property="pn"/>
 		<result column="name" property="name"/>
 		<result column="email" property="email"/>
@@ -47,7 +47,7 @@
 		<result column="admin_name" property="adminUser.name"/>
 	</resultMap>
 	
-	<select id="selectPartnershipList" parameterType="com.bg.jtown.business.search.PartnershipFilter" resultMap="jtown-help-partnership-map">
+	<select id="selectPartnershipList" parameterType="PartnershipFilter" resultMap="jt-help-partnership-map">
 		<include refid="paginationBefore"/>
 		SELECT
 			p.pn, p.name, p.email, p.phone_number,
@@ -129,7 +129,7 @@
 		<include refid="paginationAfter"/>
 	</select>
 	
-	<select id="selectPartnership" parameterType="java.lang.Integer" resultMap="jtown-help-partnership-map">
+	<select id="selectPartnership" parameterType="Integer" resultMap="jt-help-partnership-map">
 		SELECT
 			p.pn, p.name, p.email, p.phone_number,
 			p.category_pn, p.content, p.process, p.input_date, p.update_date, p.note
@@ -151,7 +151,7 @@
 		</if>
 	</select>
 	
-	<select id="selectPartnershipCount" parameterType="com.bg.jtown.business.search.PartnershipFilter" resultType="java.lang.Integer">
+	<select id="selectPartnershipCount" parameterType="PartnershipFilter" resultType="Integer">
 		SELECT
 			COUNT(*)
 		FROM
@@ -226,7 +226,7 @@
 		</if>		
 	</select>
 	
-	<insert id="insertPartnership" parameterType="com.bg.jtown.business.Partnership">
+	<insert id="insertPartnership" parameterType="Partnership">
 		INSERT INTO
 			partnership
 			(	name,	email,	phone_number,	category_pn,	content,	process, input_date, update_date	)
@@ -237,7 +237,7 @@
 		</selectKey>
 	</insert>
 	
-	<delete id="deletePartnership" parameterType="com.bg.jtown.business.Partnership">
+	<delete id="deletePartnership" parameterType="Partnership">
 		DELETE FROM
 			partnership
 		<if test="pn != null">
@@ -246,7 +246,7 @@
 		</if>
 	</delete>
 	
-	<update id="updatePatnership" parameterType="com.bg.jtown.business.Partnership">
+	<update id="updatePatnership" parameterType="Partnership">
 		UPDATE
 			partnership
 		SET
@@ -273,7 +273,7 @@
 			pn = #{pn}
 	</update>
 		
-	<update id="updatePartnershipJsonA" parameterType="com.bg.jtown.business.Json">
+	<update id="updatePartnershipJsonA" parameterType="Json">
 		UPDATE
 			partnership
 		SET
@@ -290,7 +290,7 @@
 			pn = #{key}
 	</update>
 	
-	<update id="updatePartnershipJsonS" parameterType="com.bg.jtown.business.Json">
+	<update id="updatePartnershipJsonS" parameterType="Json">
 		UPDATE
 			partnership
 		SET

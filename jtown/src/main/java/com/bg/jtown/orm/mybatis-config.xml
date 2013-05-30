@@ -17,5 +17,9 @@
 		<typeAlias alias="UserFilter" type="com.bg.jtown.business.search.UserFilter"/>
 		<typeAlias alias="AdminCommentFilter" type="com.bg.jtown.business.search.AdminCommentFilter"/>
 		<typeAlias alias="Comment" type="com.bg.jtown.business.Comment"/>
+		
+		<typeAlias alias="Partnership" type="com.bg.jtown.business.Partnership"/>
+		<typeAlias alias="PartnershipFilter" type="com.bg.jtown.business.search.PartnershipFilter"/>
+		<typeAlias alias="Json" type="com.bg.jtown.business.Json"/>
 	</typeAliases>
 </configuration>
