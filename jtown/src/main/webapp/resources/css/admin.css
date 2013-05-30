@@ -15,7 +15,7 @@
 /*************************
 *	왼쪽메뉴
 **************************/
-.jt-left-nav{width: 150px; float: left; font-size: 12px; background: #ff6f21; color: #fff; }
+.jt-left-nav{width: 10%; float: left; font-size: 12px; background: #ff6f21; color: #fff; }
 .jt-left_menu{ width: 130px; padding: 10px; float: left;}
 .jt-left_menu>li{ width: 120px; padding: 5px 0 ; float: left; }
 .jt-left-nav-category{ font-weight: bold; }
@@ -25,7 +25,13 @@
 /*************************
 *	내용물
 **************************/
-.jt-content{ padding: 10px; float: left; min-width: 1040px;}
+.jt-content{ padding: 10px; float: left; min-width: 1040px; width: 90%;
+	box-sizing: border-box;
+	-o-box-sizing : border-box;
+	-ms-box-sizing : border-box;
+	-moz-box-sizing : border-box;
+	-webkit-box-sizing : border-box;
+}
 /*************************
 *	공지사항 
 **************************/

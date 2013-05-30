@@ -5,7 +5,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <%@ include file="../../../layout/admin_header.jspf" %>
-<div style="width: 1700px; overflow-x : scroll;">
+<div style="width: 100%; overflow-x : scroll;">
 <c:set var="pagination" value="${partnershipFilter.pagination }"/>
 <c:set var="processMap" value="${partnershipFilter.processMap }"/>
 <c:set var="processList" value="${partnershipFilter.processList}"/>
