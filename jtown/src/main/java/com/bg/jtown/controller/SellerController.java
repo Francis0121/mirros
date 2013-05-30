@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bg.jtown.business.Product;
+import com.bg.jtown.security.Authority;
 import com.bg.jtown.security.JtownUser;
 import com.bg.jtown.security.SummaryUser;
 import com.bg.jtown.util.FileVO;
@@ -42,11 +43,13 @@ public class SellerController {
 	public String showSeller(@PathVariable(value = "p") Integer sellerPn,
 			@RequestParam(required = false) Integer error, Model model,
 			SummaryUser summaryUser) {
-		if (!summaryUser.getPn().equals(sellerPn)) {
-			logger.warn("Deny Seller page No Permission [ Access = "
-					+ summaryUser.getPn() + ", IP = "
-					+ summaryUser.getRemoteIp() + " ] ");
-			return "redirect:../noPermission";
+		if (summaryUser.getEnumAuthority().equals(Authority.SELLER)) {
+			if (!summaryUser.getPn().equals(sellerPn)) {
+				logger.warn("Deny Seller page No Permission [ Access = "
+						+ summaryUser.getPn() + ", IP = "
+						+ summaryUser.getRemoteIp() + " ] ");
+				return "redirect:../noPermission";
+			}
 		}
 		model.addAllAttributes(sellerService.selectAllInformation(sellerPn));
 		if (error != null) {

@@ -11,7 +11,6 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -30,10 +29,8 @@ import com.bg.jtown.business.search.ContractFilter;
 import com.bg.jtown.business.search.PartnershipFilter;
 import com.bg.jtown.business.search.UserFilter;
 import com.bg.jtown.business.seller.ContractService;
-import com.bg.jtown.business.seller.SellerService;
-import com.bg.jtown.controller.validator.AdminLoginValidator;
+import com.bg.jtown.controller.validator.SigninAdminVaildatorImpl;
 import com.bg.jtown.security.Authority;
-import com.bg.jtown.security.CustomJdbcUserDetailManager;
 import com.bg.jtown.security.JtownUser;
 import com.bg.jtown.util.VaildationUtil;
 
@@ -50,13 +47,9 @@ public class AdminController {
 	@Resource
 	private HelpService helpService;
 	@Resource
-	private SellerService sellerService;
-	@Resource
 	private ContractService contractService;
 	@Resource
-	private CustomJdbcUserDetailManager customJdbcUserDetailManager;
-	@Resource
-	private AdminLoginValidator adminLoginValidator;
+	private SigninAdminVaildatorImpl siginAdminVaildatorImpl;
 
 	private String prefiexUrl = "admin";
 
@@ -102,13 +95,6 @@ public class AdminController {
 		return prefiexUrl + "/partnership/list";
 	}
 
-	@RequestMapping(value = "/sellerInfo/sp/{sellerPn}", method = RequestMethod.GET)
-	public String showCreateSellerFinish(Model model,
-			@PathVariable Integer sellerPn) {
-		model.addAllAttributes(sellerService.selectAllInformation(sellerPn));
-		return prefiexUrl + "/partnership/sellerInfo";
-	}
-
 	@RequestMapping(value = "/contractList", method = RequestMethod.GET)
 	public String showContractListPopup(Model model,
 			@ModelAttribute ContractFilter contractFilter) {
@@ -142,7 +128,7 @@ public class AdminController {
 	public String formCreateAdministrator(Model model,
 			@ModelAttribute JtownUser jtownUser, BindingResult result,
 			@RequestParam("confirmPassword") final String confirmPassword) {
-		adminLoginValidator.validate(jtownUser, result);
+		siginAdminVaildatorImpl.validate(jtownUser, result);
 		new Validator() {
 			@Override
 			public void validate(Object target, Errors errors) {
@@ -165,7 +151,7 @@ public class AdminController {
 		if (result.hasErrors()) {
 			return prefiexUrl + "/user/create";
 		} else {
-			customJdbcUserDetailManager.createUserAdminAndAuthority(jtownUser);
+			adminService.insertAdmin(jtownUser);
 			return "redirect:administrator";
 		}
 	}

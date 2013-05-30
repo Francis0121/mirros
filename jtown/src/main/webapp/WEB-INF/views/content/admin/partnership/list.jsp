@@ -130,7 +130,7 @@ function goToPreviousPages() {
 			<c:set var="userInfo" value="${partnership.jtownUser }"/>
 			<tr class="jt-partnership-info" data-pspn="<c:out value="${partnership.pn }"/>" data-spn="<c:out value="${userInfo.pn}"/>">
 				<td class="jt-partnership-table-information"><c:out value="${partnership.pn }"/></td>
-				<td><a href="<c:url value="/admin/sellerInfo/sp/${userInfo.pn }"/>">바로가기</a></td>
+				<td><a href="<c:url value="/seller/${userInfo.pn }"/>">바로가기</a></td>
 				<td class="jt-partnership-name"><c:out value="${partnership.name }"/></td>
 				<td class="jt-partnership-email"><c:out value="${partnership.email }"/></td>
 				<td class="jt-partnership-phoneNumber"><c:out value="${partnership.phoneNumber }"/></td>

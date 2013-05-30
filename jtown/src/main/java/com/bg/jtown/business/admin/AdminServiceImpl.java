@@ -100,6 +100,11 @@ public class AdminServiceImpl extends SqlSessionDaoSupport implements
 		return getSqlSession().selectOne("adminMapper.selectAdminCount",
 				administartorFilter);
 	}
+	
+	@Override
+	public void insertAdmin(JtownUser jtownUser) {
+		customJdbcUserDetailManager.createUserAdminAndAuthority(jtownUser);
+	}
 
 	// ~ Seller
 

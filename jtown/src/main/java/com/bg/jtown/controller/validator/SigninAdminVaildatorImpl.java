@@ -12,7 +12,7 @@ import com.bg.jtown.security.LoginService;
 import com.bg.jtown.util.VaildationUtil;
 
 @Component
-public class AdminLoginValidator implements Validator {
+public class SigninAdminVaildatorImpl implements Validator {
 
 	@Resource
 	private LoginService loginService;
