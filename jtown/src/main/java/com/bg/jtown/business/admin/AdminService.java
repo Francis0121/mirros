@@ -11,32 +11,39 @@ import com.bg.jtown.business.search.UserFilter;
 import com.bg.jtown.security.JtownUser;
 
 /**
- * @author 박광열
- * 
+ * @author Francis
+ *
  */
 public interface AdminService {
-
-	void insertCreateSeller(JtownUser jtownUser);
-
-	void updateSeller(JtownUser jtownUser);
-
-	void updateEnabled(JtownUser jtownUser);
-
-	void updateInterest(Interest interest);
+	
+	// ~ Common
 
 	List<Interest> selectInterestCategoryList();
 
-	Map<String, Object> selectCustomerModelMap(UserFilter userFilter);
-
-	Map<String, Object> selectAdminModelMap(
-			AdministratorFilter administratorFilter);
-
-	List<Interest> selectSellerInterestList(List<Integer> pnList);
-
-	List<Comment> selectAllCommentList(AdminCommentFilter adminCommentFilter);
-
 	List<Interest> selectInterestSection(Interest interest);
+
+	void updateEnabled(JtownUser jtownUser);
+
+	// ~ Admin
+	
+	Map<String, Object> selectAdminModelMap(AdministratorFilter administratorFilter);
 
 	List<JtownUser> selectAdminList(AdministratorFilter administratorFilter);
 
+	// ~ Seller 
+
+	List<Interest> selectSellerInterestList(List<Integer> pnList);
+
+	void insertSeller(JtownUser jtownUser);
+
+	void updateSeller(JtownUser jtownUser);
+
+	void updateInterest(Interest interest);
+
+	// ~ Customer
+	
+	Map<String, Object> selectCustomerModelMap(UserFilter userFilter);
+
+	List<Comment> selectAllCommentList(AdminCommentFilter adminCommentFilter);
+	
 }

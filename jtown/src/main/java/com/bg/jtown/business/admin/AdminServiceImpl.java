@@ -5,8 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
+
 import org.mybatis.spring.support.SqlSessionDaoSupport;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bg.jtown.business.Comment;
@@ -19,91 +20,33 @@ import com.bg.jtown.security.JtownUser;
 import com.bg.jtown.util.Pagination;
 
 /**
- * @author 박광열
+ * @author Francis
  * 
  */
 @Service
 public class AdminServiceImpl extends SqlSessionDaoSupport implements
 		AdminService {
 
-	@Autowired
+	@Resource
 	private CustomJdbcUserDetailManager customJdbcUserDetailManager;
 
-	@Override
-	public void insertCreateSeller(JtownUser jtownUser) {
-		customJdbcUserDetailManager.createUserSellerAndAuthority(jtownUser);
-		Integer sellerPn = jtownUser.getPn();
+	// ~ Common
 
-		String interestSectionList = jtownUser.getInterestSectionList().trim();
-		jtownUser.setInterestSectionList(interestSectionList);
-		String[] interestSection = interestSectionList.split(",");
-
-		Interest interestParam;
-
-		for (String i : interestSection) {
-			if (i == null || i.equals("")) {
-				continue;
-			}
-			i = i.trim();
-			Integer pn = getSqlSession().selectOne(
-					"adminMapper.interestSectionPn", i);
-			if (pn != null) {
-				interestParam = new Interest(sellerPn,
-						Integer.parseInt(jtownUser.getInterestCategory()), pn,
-						null);
-			} else {
-				interestParam = new Interest(sellerPn,
-						Integer.parseInt(jtownUser.getInterestCategory()),
-						null, i);
-				getSqlSession().insert("adminMapper.insertInterestSection",
-						interestParam);
-			}
-
-			getSqlSession().insert("adminMapper.insertUserInterest",
-					interestParam);
-		}
+	private Integer selectInterestSectionFromName(String name) {
+		return getSqlSession().selectOne(
+				"adminMapper.selectInterestSectionFromName", name);
 	}
 
-	@Override
-	public void updateInterest(Interest interest) {
-		getSqlSession().delete("adminMapper.deleteInterestSellerInterest",
-				interest);
-
-		String interestSectionList = interest.getInterestSectionNameList()
-				.trim();
-		interest.setInterestSectionNameList(interestSectionList);
-		String[] interestSection = interestSectionList.split(",");
-
-		Interest interestParam;
-
-		for (String i : interestSection) {
-			if (i == null || i.equals("")) {
-				continue;
-			}
-			i = i.trim();
-
-			Integer pn = getSqlSession().selectOne(
-					"adminMapper.interestSectionPn", i);
-
-			if (pn != null) {
-				interestParam = new Interest(interest.getSellerPn(),
-						interest.getCategoryPn(), pn, null);
-
-			} else {
-				interestParam = new Interest(interest.getSellerPn(),
-						interest.getCategoryPn(), null, i);
-				getSqlSession().insert("adminMapper.insertInterestSection",
-						interestParam);
-			}
-
-			getSqlSession().insert("adminMapper.insertUserInterest",
-					interestParam);
-		}
+	private void insertInterestSection(Interest interest) {
+		getSqlSession().insert("adminMapper.insertInterestSection", interest);
 	}
 
-	@Override
-	public void updateSeller(JtownUser jtownUser) {
-		getSqlSession().update("adminMapper.updateSeller", jtownUser);
+	private void insertSellerInterest(Interest interest) {
+		getSqlSession().insert("adminMapper.insertSellerInterest", interest);
+	}
+
+	private void deleteSellerInterest(Interest interest) {
+		getSqlSession().delete("adminMapper.deleteSellerInterest", interest);
 	}
 
 	@Override
@@ -111,7 +54,22 @@ public class AdminServiceImpl extends SqlSessionDaoSupport implements
 		getSqlSession().update("adminMapper.updateEnabled", jtownUser);
 	}
 
-	// ~ Aministrator
+	@Override
+	public List<Interest> selectInterestCategoryList() {
+		return getSqlSession()
+				.selectList("adminMapper.selectInterestCategoryList");
+	}
+
+	@Override
+	public List<Interest> selectInterestSection(Interest interest) {
+		String[] names = interest.getName().split(",");
+		String name = names[names.length - 1].trim();
+		interest.setName('%' + name + '%');
+		return getSqlSession().selectList("adminMapper.selectInterestSection",
+				interest);
+	}
+
+	// ~ Admin
 
 	@Override
 	public Map<String, Object> selectAdminModelMap(
@@ -143,10 +101,56 @@ public class AdminServiceImpl extends SqlSessionDaoSupport implements
 				administartorFilter);
 	}
 
+	// ~ Seller
+
+	private void insertSellerInterestList(String interestSectionStr,
+			Integer categoryPn, Integer sellerPn) {
+		String[] interestSection = interestSectionStr.split(",");
+
+		for (String name : interestSection) {
+			Interest interest = new Interest(sellerPn, categoryPn, null, null);
+			if (name == null || name.equals("")) {
+				continue;
+			}
+			name = name.trim();
+			Integer pn = selectInterestSectionFromName(name);
+			if (pn != null) {
+				interest.setSectionPn(pn);
+			} else {
+				interest.setName(name);
+				insertInterestSection(interest);
+			}
+			insertSellerInterest(interest);
+		}
+	}
+
 	@Override
-	public List<Interest> selectInterestCategoryList() {
-		return getSqlSession()
-				.selectList("adminMapper.getInterestCategoryList");
+	public void insertSeller(JtownUser jtownUser) {
+		customJdbcUserDetailManager.createUserSellerAndAuthority(jtownUser);
+		Integer sellerPn = jtownUser.getPn();
+		Integer categoryPn = Integer.parseInt(jtownUser.getInterestCategory());
+
+		String interestSectionStr = jtownUser.getInterestSectionList().trim();
+		jtownUser.setInterestSectionList(interestSectionStr);
+
+		insertSellerInterestList(interestSectionStr, categoryPn, sellerPn);
+	}
+
+	@Override
+	public void updateSeller(JtownUser jtownUser) {
+		getSqlSession().update("adminMapper.updateSeller", jtownUser);
+	}
+
+	@Override
+	public void updateInterest(Interest interest) {
+		deleteSellerInterest(interest);
+		Integer sellerPn = interest.getSellerPn();
+		Integer categoryPn = interest.getCategoryPn();
+
+		String interestSectionStr = interest.getInterestSectionList().trim();
+		interest.setInterestSectionList(interestSectionStr);
+
+		insertSellerInterestList(interestSectionStr, categoryPn, sellerPn);
 	}
 
 	@Override
@@ -159,6 +163,36 @@ public class AdminServiceImpl extends SqlSessionDaoSupport implements
 	}
 
 	// ~ Customer
+
+	private Integer selectCustomerCount(UserFilter userFilter) {
+		return getSqlSession().selectOne("adminMapper.selectCustomerCount",
+				userFilter);
+	}
+
+	private List<JtownUser> selectCustomerList(UserFilter userFilter) {
+		Pagination pagination = userFilter.getPagination();
+		int count = selectCustomerCount(userFilter);
+		if (count == 0) {
+			return new ArrayList<JtownUser>();
+		}
+		pagination.setNumItems(count);
+
+		return getSqlSession().selectList("adminMapper.selectCustomerList",
+				userFilter);
+	}
+
+	private List<Interest> selectCustomerInterestList(List<Integer> pnList) {
+		if (pnList.size() == 0) {
+			return new ArrayList<Interest>();
+		}
+		return getSqlSession().selectList(
+				"adminMapper.selectCustomerInterestList", pnList);
+	}
+
+	private Integer selectAllCommentCount(AdminCommentFilter adminCommentFilter) {
+		return getSqlSession().selectOne("adminMapper.selectAllCommentCount",
+				adminCommentFilter);
+	}
 
 	@Override
 	public Map<String, Object> selectCustomerModelMap(UserFilter userFilter) {
@@ -182,33 +216,6 @@ public class AdminServiceImpl extends SqlSessionDaoSupport implements
 		return modelMap;
 	}
 
-	public Integer selectCustomerCount(UserFilter userFilter) {
-		return getSqlSession().selectOne("adminMapper.selectCustomerCount",
-				userFilter);
-	}
-
-	public List<JtownUser> selectCustomerList(UserFilter userFilter) {
-		Pagination pagination = userFilter.getPagination();
-		int count = selectCustomerCount(userFilter);
-		if (count == 0) {
-			return new ArrayList<JtownUser>();
-		}
-		pagination.setNumItems(count);
-
-		return getSqlSession().selectList("adminMapper.selectCustomerList",
-				userFilter);
-	}
-
-	public List<Interest> selectCustomerInterestList(List<Integer> pnList) {
-		if (pnList.size() == 0) {
-			return new ArrayList<Interest>();
-		}
-		return getSqlSession().selectList(
-				"adminMapper.selectCustomerInterestList", pnList);
-	}
-
-	// ~ Comment
-
 	@Override
 	public List<Comment> selectAllCommentList(
 			AdminCommentFilter adminCommentFilter) {
@@ -222,17 +229,4 @@ public class AdminServiceImpl extends SqlSessionDaoSupport implements
 				adminCommentFilter);
 	}
 
-	private Integer selectAllCommentCount(AdminCommentFilter adminCommentFilter) {
-		return getSqlSession().selectOne("adminMapper.selectAllCommentCount",
-				adminCommentFilter);
-	}
-
-	@Override
-	public List<Interest> selectInterestSection(Interest interest) {
-		String[] names = interest.getName().split(",");
-		String name = names[names.length - 1].trim();
-		interest.setName('%' + name + '%');
-		return getSqlSession().selectList("adminMapper.selectInterestSection",
-				interest);
-	}
 }

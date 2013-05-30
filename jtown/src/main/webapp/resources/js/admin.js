@@ -4,14 +4,14 @@ if (typeof jtown.admin == 'undefined') {
 
 $(function() {
 	
+	jtown.admin.openContractList();
+	
+	jtown.admin.openContract();
+	
 	$('.jt-partnership-table-information').unbind('click').bind('click', function(){
 		var partnershipPn =	$(this).parents('.jt-partnership-info').attr('data-pspn');
 		$('#partnership-content-'+partnershipPn).toggle();
 	});
-	
-	jtown.admin.openContractList();
-	
-	jtown.admin.openContract();
 	
 	$('.jt-admin-customer-enable').unbind('change').bind('change', function(){
 		var parents = $(this).parents('.jt-admin-customer-table-tr'),
@@ -33,6 +33,7 @@ $(function() {
 			parent.html(htmlChars(partnership.name));
 		});
 	}, function(){});
+	
 	jtown.admin.changeText('jt-partnership-email', function(thiz, nameVo){
 		var grandParent = thiz.parents(nameVo.parentSelector),
 		parent = thiz.parents(nameVo.selector),
@@ -44,6 +45,7 @@ $(function() {
 			parent.html(htmlChars(partnership.email));
 		});
 	}, function(){});
+	
 	jtown.admin.changeText('jt-partnership-phoneNumber', function(thiz, nameVo){
 		var grandParent = thiz.parents(nameVo.parentSelector),
 		parent = thiz.parents(nameVo.selector),
@@ -55,6 +57,7 @@ $(function() {
 			parent.html(htmlChars(partnership.phoneNumber));
 		});
 	}, function(){});
+	
 	jtown.admin.changeSelect('jt-partnership-category', function(thiz, nameVo){
 		var grandParent = thiz.parents(nameVo.parentSelector),
 		url = contextPath+'admin/ajax/changePartnership.jt',
@@ -63,6 +66,7 @@ $(function() {
 		$.postJSON(url, json, function(partnership){
 		});
 	});
+	
 	jtown.admin.changeSelect('jt-partnership-adminPn', function(thiz, nameVo){
 		var grandParent = thiz.parents(nameVo.parentSelector),
 		url = contextPath+'admin/ajax/changePartnershipJson.jt',
@@ -71,6 +75,7 @@ $(function() {
 		$.postJSON(url, json, function(partnership){
 		});
 	});
+	
 	jtown.admin.changeSelect('jt-partnership-process', function(thiz, nameVo){
 		var grandParent = thiz.parents(nameVo.parentSelector),
 		url = contextPath+'admin/ajax/changePartnership.jt',
@@ -79,6 +84,7 @@ $(function() {
 		$.postJSON(url, json, function(partnership){
 		});
 	});
+	
 	jtown.admin.changeTextarea('jt-partnership-note',function(thiz, nameVo){
 		var grandParent = thiz.parents(nameVo.parentSelector),
 		parent = thiz.parents(nameVo.selector),
@@ -156,7 +162,7 @@ jtown.admin.sellerSync = function(){
 		category = grandParent.find('.jt-partnership-category-select'),
 		json = { 	sellerPn : grandParent.attr('data-spn'),
 					categoryPn : category.val(),
-					interestSectionNameList : thiz.val()};
+					interestSectionList : thiz.val()};
 	
 		$.postJSON(url, json, function(){
 			parent.html(htmlChars(thiz.val()));
@@ -171,6 +177,8 @@ jtown.admin.sellerSync = function(){
 		});
 	});
 };
+
+// ~ 일관된 format
 
 jtown.admin.changeText = function(name, callback, event){
 	var nameVo = { 	selector : '.'+name,
@@ -222,6 +230,7 @@ jtown.admin.changeTextarea = function(name, callback, event){
 	});
 };
 
+// ~ 판매자 관심사 수정시
 jtown.admin.autoInterestOne = function(){
 	var categoryPn = '';
 	$('#jt-partnership-interest-input').bind( 'keydown', function( event ) {
@@ -263,6 +272,7 @@ jtown.admin.autoInterestOne = function(){
 	});	
 };
 
+// ~ 입력되지 않은 판매자
 jtown.admin.autoInterest = function(){
 	var categoryPn = '';
 	$('.jt-seller-interest-input').bind( 'keydown', function( event ) {
@@ -304,12 +314,7 @@ jtown.admin.autoInterest = function(){
 	});	
 };
 
-function split( val ) {
-	return val.split( /,\s*/ );
-}
-
 jtown.admin.openContractList = function(){
-	
 	$('.jt-admin-contract-list').unbind('click').bind('click', function(){
 		var parent = $(this).parents('.jt-partnership-info'),
 			spn = parent.attr('data-spn');
@@ -322,7 +327,6 @@ jtown.admin.openContractList = function(){
 };
 
 jtown.admin.openContract = function(){
-	
 	$('.jt-admin-contract').unbind('click').bind('click', function(){
 		var parent = $(this).parents('.jt-partnership-info'),
 			spn = parent.attr('data-spn');
@@ -332,5 +336,4 @@ jtown.admin.openContract = function(){
 		
 		window.open(url, '', option);
 	});
-	
 };

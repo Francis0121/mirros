@@ -6,17 +6,17 @@ package com.bg.jtown.business;
  */
 public class Interest {
 
-	private Integer customerPn;
-
-	private Integer sellerPn;
-
 	private Integer categoryPn;
 
-	private Integer sectionPn;
+	private Integer customerPn;
+
+	private String interestSectionList;
 
 	private String name;
 
-	private String interestSectionNameList;
+	private Integer sectionPn;
+
+	private Integer sellerPn;
 
 	public Interest() {
 		super();
@@ -30,25 +30,6 @@ public class Interest {
 		this.name = name;
 	}
 
-	public Interest(Integer sellerPn, Integer categoryPn, Integer sectionPn,
-			String name, String interestSectionNameList) {
-		this.sellerPn = sellerPn;
-		this.categoryPn = categoryPn;
-		this.sectionPn = sectionPn;
-		this.name = name;
-		this.interestSectionNameList = interestSectionNameList;
-	}
-
-	public Interest(Integer customerPn, Integer sellerPn, Integer categoryPn,
-			Integer sectionPn, String name, String interestSectionNameList) {
-		this.customerPn = customerPn;
-		this.sellerPn = sellerPn;
-		this.categoryPn = categoryPn;
-		this.sectionPn = sectionPn;
-		this.name = name;
-		this.interestSectionNameList = interestSectionNameList;
-	}
-
 	public Integer getCategoryPn() {
 		return categoryPn;
 	}
@@ -57,16 +38,12 @@ public class Interest {
 		return customerPn;
 	}
 
-	public String getInterestSectionNameList() {
-		return interestSectionNameList;
+	public String getInterestSectionList() {
+		return interestSectionList;
 	}
 
 	public String getName() {
 		return name;
-	}
-
-	public String getUpperName() {
-		return name.toUpperCase();
 	}
 
 	public Integer getSectionPn() {
@@ -77,6 +54,10 @@ public class Interest {
 		return sellerPn;
 	}
 
+	public String getUpperName() {
+		return name.toUpperCase();
+	}
+
 	public void setCategoryPn(Integer categoryPn) {
 		this.categoryPn = categoryPn;
 	}
@@ -85,8 +66,8 @@ public class Interest {
 		this.customerPn = customerPn;
 	}
 
-	public void setInterestSectionNameList(String interestSectionNameList) {
-		this.interestSectionNameList = interestSectionNameList;
+	public void setInterestSectionList(String interestSectionList) {
+		this.interestSectionList = interestSectionList;
 	}
 
 	public void setName(String name) {
@@ -103,11 +84,10 @@ public class Interest {
 
 	@Override
 	public String toString() {
-		return "Interest [customerPn=" + customerPn + ", sellerPn=" + sellerPn
-				+ ", categoryPn=" + categoryPn + ", sectionPn=" + sectionPn
-				+ ", name=" + name + ", interestSectionNameList="
-				+ interestSectionNameList + ", toString()=" + super.toString()
-				+ "]";
+		return "Interest [categoryPn=" + categoryPn + ", customerPn="
+				+ customerPn + ", interestSectionList=" + interestSectionList
+				+ ", name=" + name + ", sectionPn=" + sectionPn + ", sellerPn="
+				+ sellerPn + "]";
 	}
 
 }

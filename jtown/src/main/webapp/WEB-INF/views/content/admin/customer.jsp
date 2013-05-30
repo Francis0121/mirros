@@ -99,7 +99,7 @@ function goToPreviousPages() {
 				<td><c:out value="${pagination.numItems - (pagination.currentPage - 1)* 10-i.count+1}"/></td>
 				<td class="jt-admin-customer-table-customerId"><c:out value="${customer.username }"/></td>
 				<td><c:out value="${customer.name }"/></td>
-				<td><c:out value="${interestMap[customerPn].interestSectionNameList }"/></td>
+				<td><c:out value="${interestMap[customerPn].interestSectionList }"/></td>
 				<td><c:out value="${customer.salt }"/></td>
 				<td>
 					<select class="jt-admin-customer-enable">

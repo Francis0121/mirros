@@ -42,6 +42,7 @@ import com.bg.jtown.util.VaildationUtil;
  * 
  */
 @Controller
+@RequestMapping("/admin")
 public class AdminController {
 
 	@Resource
@@ -57,56 +58,91 @@ public class AdminController {
 	@Resource
 	private AdminLoginValidator adminLoginValidator;
 
+	private String prefiexUrl = "admin";
+
+	public String getPrefiexUrl() {
+		return prefiexUrl;
+	}
+
+	public void setPrefiexUrl(String prefiexUrl) {
+		this.prefiexUrl = prefiexUrl;
+	}
+
 	// ~ SHOW
 
-	@RequestMapping(value = "/admin", method = RequestMethod.GET)
+	@RequestMapping(method = RequestMethod.GET)
 	public String showAdmin(Model model) {
-		return "admin/main";
+		return prefiexUrl + "/main";
 	}
-	
-	@RequestMapping(value = "/admin/customer", method = RequestMethod.GET)
+
+	@RequestMapping(value = "/customer", method = RequestMethod.GET)
 	public String showCustomerPage(Model model,
 			@ModelAttribute UserFilter userFilter) {
 		model.addAllAttributes(adminService.selectCustomerModelMap(userFilter));
-		return "admin/customer";
+		return prefiexUrl + "/customer";
 	}
 
-	@RequestMapping(value = "/admin/sellerInformation/sp/{sellerPn}", method = RequestMethod.GET)
-	public String showCreateSellerFinish(Model model,
-			@PathVariable Integer sellerPn) {
-		model.addAllAttributes(sellerService.selectAllInformation(sellerPn));
-		return "admin/partnership/sellerInformation";
-	}
-
-	@RequestMapping(value = "/admin/administrator", method = RequestMethod.GET)
+	@RequestMapping(value = "/administrator", method = RequestMethod.GET)
 	public String showAdministrator(Model model,
 			@ModelAttribute AdministratorFilter administratorFilter) {
-		model.addAllAttributes(adminService
-				.selectAdminModelMap(administratorFilter));
-		return "admin/user/list";
+		model.addAllAttributes(adminService.selectAdminModelMap(administratorFilter));
+		return prefiexUrl + "/user/list";
 	}
 
-	@RequestMapping(value = "/admin/createAdministrator", method = RequestMethod.GET)
+	@RequestMapping(value = "/createAdministrator", method = RequestMethod.GET)
 	public String showCreateAdministrator(Model model) {
 		model.addAttribute("jtownUser", new JtownUser());
-		return "admin/user/create";
+		return prefiexUrl + "/user/create";
 	}
 
-	@RequestMapping(value = "/admin/partnership", method = RequestMethod.GET)
+	@RequestMapping(value = "/partnership", method = RequestMethod.GET)
 	public String showPartnership(Model model,
 			@ModelAttribute PartnershipFilter partnershipFilter) {
 		model.addAllAttributes(helpService.selectObject(partnershipFilter));
-		return "admin/partnership/list";
+		return prefiexUrl + "/partnership/list";
+	}
+
+	@RequestMapping(value = "/sellerInfo/sp/{sellerPn}", method = RequestMethod.GET)
+	public String showCreateSellerFinish(Model model,
+			@PathVariable Integer sellerPn) {
+		model.addAllAttributes(sellerService.selectAllInformation(sellerPn));
+		return prefiexUrl + "/partnership/sellerInfo";
+	}
+
+	@RequestMapping(value = "/contractList", method = RequestMethod.GET)
+	public String showContractListPopup(Model model,
+			@ModelAttribute ContractFilter contractFilter) {
+		List<Contract> contracts = contractService
+				.selectContractList(contractFilter);
+		model.addAttribute("contracts", contracts);
+		return prefiexUrl + "/partnership/contractList";
+	}
+
+	@RequestMapping(value = "/contract", method = RequestMethod.GET)
+	public String showContractListPopup(Model model,
+			@RequestParam Integer sellerPn) {
+		Contract contract = new Contract();
+		contract.setSellerPn(sellerPn);
+		Contract loadContract = contractService.selectContractPeroid(contract);
+		loadContract.setSellerPn(sellerPn);
+		model.addAttribute("contract", loadContract);
+		return prefiexUrl + "/partnership/contract";
+	}
+
+	@RequestMapping(value = "/comment", method = RequestMethod.GET)
+	public String showContractListPopup(Model model,
+			@ModelAttribute AdminCommentFilter adminCommentFilter) {
+		model.addAttribute("comments", adminService.selectAllCommentList(adminCommentFilter));
+		return prefiexUrl + "/comment";
 	}
 
 	// ~ FORM
 
-	@RequestMapping(value = "/admin/createAdministrator.jt", method = RequestMethod.POST)
+	@RequestMapping(value = "/createAdministrator.jt", method = RequestMethod.POST)
 	public String formCreateAdministrator(Model model,
 			@ModelAttribute JtownUser jtownUser, BindingResult result,
 			@RequestParam("confirmPassword") final String confirmPassword) {
 		adminLoginValidator.validate(jtownUser, result);
-
 		new Validator() {
 			@Override
 			public void validate(Object target, Errors errors) {
@@ -127,41 +163,17 @@ public class AdminController {
 		}.validate(jtownUser, result);
 
 		if (result.hasErrors()) {
-			return "admin/user/create";
+			return prefiexUrl + "/user/create";
 		} else {
 			customJdbcUserDetailManager.createUserAdminAndAuthority(jtownUser);
 			return "redirect:administrator";
 		}
 	}
 
-	// ~ Contract
-
-	@RequestMapping(value = "/admin/contractList", method = RequestMethod.GET)
-	public String showContractListPopup(Model model,
-			@ModelAttribute ContractFilter contractFilter) {
-		List<Contract> contracts = contractService
-				.selectContractList(contractFilter);
-		model.addAttribute("contracts", contracts);
-		return "admin/partnership/contractList";
-	}
-
-	@RequestMapping(value = "/admin/contract", method = RequestMethod.GET)
-	public String showContractListPopup(Model model,
-			@RequestParam Integer sellerPn) {
-		Contract contract = new Contract();
-		contract.setSellerPn(sellerPn);
-
-		Contract loadContract = contractService.selectContractPeroid(contract);
-		loadContract.setSellerPn(sellerPn);
-		model.addAttribute("contract", loadContract);
-		return "admin/partnership/contract";
-	}
-
-	@RequestMapping(value = "/admin/contract.jt", method = RequestMethod.POST)
+	@RequestMapping(value = "/contract.jt", method = RequestMethod.POST)
 	public String formContract(Model model, @ModelAttribute Contract contract,
 			BindingResult result) {
 		new Validator() {
-
 			@Override
 			public void validate(Object object, Errors errors) {
 				Contract contract = (Contract) object;
@@ -183,22 +195,12 @@ public class AdminController {
 			model.addAttribute("result",
 					contractService.insertCaculatePeroidContract(contract));
 		}
-		return "admin/contract";
-	}
-
-	// ~ Comment
-
-	@RequestMapping(value = "/admin/comment", method = RequestMethod.GET)
-	public String showContractListPopup(Model model,
-			@ModelAttribute AdminCommentFilter adminCommentFilter) {
-		model.addAttribute("comments",
-				adminService.selectAllCommentList(adminCommentFilter));
-		return "admin/comment";
+		return prefiexUrl + "/contract";
 	}
 
 	// ~ Ajax
 
-	@RequestMapping(value = "/admin/ajax/changePartnership.jt", method = RequestMethod.POST)
+	@RequestMapping(value = "/ajax/changePartnership.jt", method = RequestMethod.POST)
 	@ResponseBody
 	public Partnership ajaxChangePartnership(
 			@RequestBody Partnership partnership) {
@@ -206,43 +208,43 @@ public class AdminController {
 		return partnership;
 	}
 
-	@RequestMapping(value = "/admin/ajax/changePartnershipJson.jt", method = RequestMethod.POST)
+	@RequestMapping(value = "/ajax/changePartnershipJson.jt", method = RequestMethod.POST)
 	@ResponseBody
 	public void ajaxChangePartnershipJson(@RequestBody Json json) {
 		helpService.updatePartnershipJson(json, Authority.ADMIN);
 	}
 
-	@RequestMapping(value = "/admin/ajax/createSeller.jt", method = RequestMethod.POST)
+	@RequestMapping(value = "/ajax/createSeller.jt", method = RequestMethod.POST)
 	@ResponseBody
 	public JtownUser ajaxCreateSeller(@RequestBody JtownUser jtownUser) {
 		Json json = new Json(jtownUser.getPn(), null);
-		adminService.insertCreateSeller(jtownUser);
+		adminService.insertSeller(jtownUser);
 		json.setValue(jtownUser.getPn().toString());
 		helpService.updatePartnershipJson(json, Authority.SELLER);
 		return jtownUser;
 	}
 
-	@RequestMapping(value = "/admin/ajax/changeSeller.jt", method = RequestMethod.POST)
+	@RequestMapping(value = "/ajax/changeSeller.jt", method = RequestMethod.POST)
 	@ResponseBody
 	public JtownUser ajaxChangeSeller(@RequestBody JtownUser jtownUser) {
 		adminService.updateSeller(jtownUser);
 		return jtownUser;
 	}
 
-	@RequestMapping(value = "/admin/ajax/changeEnabled.jt", method = RequestMethod.POST)
+	@RequestMapping(value = "/ajax/changeEnabled.jt", method = RequestMethod.POST)
 	@ResponseBody
 	public JtownUser ajaxChangeEnabled(@RequestBody JtownUser jtownUser) {
 		adminService.updateEnabled(jtownUser);
 		return jtownUser;
 	}
 
-	@RequestMapping(value = "/admin/ajax/changeInterest.jt", method = RequestMethod.POST)
+	@RequestMapping(value = "/ajax/changeInterest.jt", method = RequestMethod.POST)
 	@ResponseBody
 	public void ajaxChangeInterest(@RequestBody Interest interest) {
 		adminService.updateInterest(interest);
 	}
 
-	@RequestMapping(value = "/admin/ajax/autoInterestSection.jt", method = RequestMethod.POST)
+	@RequestMapping(value = "/ajax/autoInterestSection.jt", method = RequestMethod.POST)
 	@ResponseBody
 	public List<Interest> ajaxAutoInterestSection(@RequestBody Interest interest) {
 		return adminService.selectInterestSection(interest);

@@ -104,4 +104,14 @@ function inputOnlyNumber(event) {
 	}
 
 	return keyBool;
-};
+}
+
+/**
+ * 자르기
+ * 
+ * @param val
+ * @returns
+ */
+function split(val) {
+	return val.split( /,\s*/ );
+}

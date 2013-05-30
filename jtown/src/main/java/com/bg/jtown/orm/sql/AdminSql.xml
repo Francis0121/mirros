@@ -23,200 +23,74 @@
 		]]>
 	</sql>
 	
-	<resultMap type="JtownUser" id="usersMap">
-		<result column="pn" property="pn"/>
-		<result column="id" property="username"/>
-		<result column="enable" property="enabled"/>
-		<result column="salt" property="salt" />
-		<result column="name" property="name" />
+	<resultMap type="JtownUser" id="jt-user-map">
+		<result property="pn" column="pn" />
+		<result property="username" column="id" />
+		<result property="enabled" column="enable" />
+		<result property="salt" column="salt" />
+		<result property="name" column="name" />
 	</resultMap>
 	
-	<resultMap type="Interest" id="interestCategoryMap">
+	<resultMap type="Interest" id="jt-auto-interest-section-map">
+		<result property="sectionPn" column="pn"/>
+		<result property="name" column="name"/>
+	</resultMap>
+	
+	<resultMap type="Interest" id="jt-interest-category-map">
 		<result property="categoryPn" column="category_pn" />
 		<result property="name" column="name"/>
 	</resultMap>
 	
-	<select id="getInterestCategoryList" resultMap="interestCategoryMap">
-		SELECT
-			pn AS category_pn, name
-		FROM
-			interest_category
+	<resultMap type="Interest" id="jt-interest-section-list-map" extends="jt-interest-category-map">
+		<result property="customerPn" column="customer_pn" />
+		<result property="sellerPn" column="seller_pn" />
+		<result property="interestSectionList" column="interest_section_list" />
+	</resultMap>
+	
+	<resultMap type="Comment" id="jt-admin-comment-map">
+		<result property="commentPn" column="pn" />
+		<result property="customerPn" column="customer_pn" />
+		<result property="customerName" column="id" />
+		<result property="sellerPn" column="seller_pn" />
+		<result property="comment" column="comment" />
+		<result property="inputDate" column="input_date" />
+	</resultMap>
+	
+	<!-- Common -->
+	
+	<select id="selectInterestCategoryList" resultMap="jt-interest-category-map">
+		SELECT pn AS category_pn, name FROM interest_category
 	</select>
 	
-	<select id="interestSectionPn" parameterType="String" resultType="Integer">
-		SELECT
-			pn
-		FROM
-			interest_section
-		WHERE
-			name = #{interest}
+	<select id="selectInterestSectionFromName" parameterType="String" resultType="Integer">
+		SELECT pn FROM interest_section WHERE name = #{name}
 	</select>
 	
 	<insert id="insertInterestSection" parameterType="Interest">
-		INSERT INTO
-			interest_section
-			(
-				category_pn, name, upper_name
-			)
+		INSERT INTO interest_section
+			( category_pn, name, upper_name)
 		VALUES
-			(
-				#{categoryPn}, #{name}, #{upperName}
-			)
+			(#{categoryPn}, #{name}, #{upperName} )
 		<selectKey keyProperty="sectionPn" resultType="Integer">
 			SELECT LAST_INSERT_ID()
 		</selectKey>			
 	</insert>
 	
-	<insert id="insertUserInterest" parameterType="Interest">
-		INSERT INTO
-			user_seller_interest
-			(
-				seller_pn, section_pn
-			)
+	<insert id="insertSellerInterest" parameterType="Interest">
+		INSERT INTO user_seller_interest
+			( seller_pn, section_pn )
 		VALUES
-			(
-				#{sellerPn}, #{sectionPn}
-			)
+			( #{sellerPn}, #{sectionPn} )
 	</insert>
 	
-	<delete id="deleteInterestSellerInterest" parameterType="Interest">
-		DELETE
-		FROM
+	<delete id="deleteSellerInterest" parameterType="Interest">
+		DELETE FROM
 			user_seller_interest
 		WHERE
 			seller_pn = #{sellerPn}
 	</delete>
 	
-	<resultMap type="JtownUser" id="getCustomerListMap" extends="usersMap">
-		<result column="salt" property="salt" />
-	</resultMap>
-	
-	<select id="selectCustomerCount" parameterType="com.bg.jtown.business.search.UserFilter" resultType="java.lang.Integer">
-		SELECT
-			COUNT(u.pn)
-		FROM
-			user_customer uc,
-			users u 
-		WHERE
-			uc.pn = u.pn
-		<if test="enabled != null">
-		AND	u.enable = #{enabled}
-		</if>
-		<if test="name != null and name != ''">
-		AND	u.name = #{name}
-		</if>
-		<if test="userId != null and userId != ''">
-		AND	u.id = #{userId}
-		</if>	
-	</select>
-	
-	<select id="selectCustomerList" parameterType="com.bg.jtown.business.search.UserFilter" resultMap="getCustomerListMap">
-		<include refid="paginationBefore"/>
-			SELECT
-				u.pn, u.id, u.name, u.enable, u.salt
-			FROM
-				user_customer uc,
-				users u 
-			WHERE
-				uc.pn = u.pn
-			<if test="enabled != null">
-			AND	u.enable = #{enabled}
-			</if>
-			<if test="name != null and name != ''">
-			AND	u.name = #{name}
-			</if>
-			<if test="userId != null and userId != ''">
-			AND	u.id = #{userId}
-			</if>	
-			ORDER BY
-				u.salt DESC	 	
-		<include refid="paginationAfter"/>
-	</select>
-	
-	<resultMap type="Interest" id="jt-interest-section-name-list-map" extends="interestCategoryMap">
-		<result column="customer_pn" property="customerPn"/>
-		<result column="seller_pn" property="sellerPn"/>
-		<result column="interest_name_list" property="interestSectionNameList" />
-	</resultMap>
-	
-	<select id="selectSellerInterestList" parameterType="java.util.ArrayList" resultMap="jt-interest-section-name-list-map">
-		SELECT 
-			seller_pn, category_pn, interest_name_list
-		FROM (
-			SELECT
-				*, GROUP_CONCAT(isn.name) AS interest_name_list
-			FROM
-				interest_section isn,
-				user_seller_interest usi
-			WHERE
-				isn.pn = usi.section_pn
-			GROUP BY usi.seller_pn
-		) interest
-		WHERE 
-			seller_pn IN
-		<foreach collection="list" item="item" index="index"  open="(" separator="," close=")">
-			#{item}
-		</foreach>				
-	</select>
-	
-	<select id="selectCustomerInterestList" parameterType="java.util.ArrayList" resultMap="jt-interest-section-name-list-map">
-		SELECT 
-			customer_pn, category_pn, interest_name_list
-		FROM (
-				SELECT
-					*, GROUP_CONCAT(isn.name) AS interest_name_list
-				FROM
-					interest_section isn,
-					user_customer_interest uci
-				WHERE
-					isn.pn = uci.section_pn
-				GROUP BY uci.customer_pn
-			) interest
-		WHERE 
-			customer_pn IN
-		<foreach collection="list" item="item" index="index"  open="(" separator="," close=")">
-			#{item}
-		</foreach>		
-	</select>
-	
-	<resultMap type="com.bg.jtown.business.Comment" id="jt-admin-comment-map">
-		<result column="pn" property="commentPn"/>
-		<result column="customer_pn" property="customerPn"/>
-		<result column="id" property="customerName"/>
-		<result column="seller_pn" property="sellerPn"/>
-		<result column="comment" property="comment"/>
-		<result column="input_date" property="inputDate"/>
-	</resultMap>
-	
-	<select id="selectAllCommentCount" parameterType="com.bg.jtown.business.search.AdminCommentFilter" resultType="java.lang.Integer">
-		SELECT
-			COUNT(*)
-		FROM
-			user_customer_comment	
-	</select>
-	
-	<select id="selectAllCommentList" parameterType="com.bg.jtown.business.search.AdminCommentFilter" resultMap="jt-admin-comment-map">
-		<include refid="paginationBefore"/>
-			SELECT
-				ucc.pn, ucc.customer_pn, u.id, ucc.seller_pn, ucc.comment, input_date
-			FROM
-				user_customer_comment ucc,
-				user_customer uc
-				LEFT OUTER JOIN users u
-				ON uc.pn = u.pn
-			WHERE
-				ucc.customer_pn = uc.pn	
-			ORDER BY
-				input_date DESC
-		<include refid="paginationAfter"/>
-	</select>
-	
-	<resultMap type="Interest" id="auto_interest_section_map">
-		<result property="sectionPn" column="pn"/>
-		<result property="name" column="name"/>
-	</resultMap>
-	
-	<select id="selectInterestSection" parameterType="Interest" resultMap="auto_interest_section_map">
+	<select id="selectInterestSection" parameterType="Interest" resultMap="jt-auto-interest-section-map">
 		SELECT
 			pn, name
 		FROM
@@ -227,16 +101,18 @@
 			upper_name LIKE #{upperName}
 	</select>
 	
-	<resultMap type="JtownUser" id="jt_administrator_map">
-		<result column="pn" property="pn"/>
-		<result column="id" property="username"/>
-		<result column="name" property="name"/>
-		<result column="salt" property="salt"/>
-		<result column="enable" property="enabled"/>
-	</resultMap>
+	<update id="updateEnabled" parameterType="JtownUser">
+		UPDATE
+			users
+		SET
+			enable = #{enabled}
+		WHERE
+			pn = #{pn}	
+	</update>
 	
-	<!--  Administrator -->
-	<select id="selectAdministratorList" parameterType="AdministratorFilter" resultMap="jt_administrator_map">
+	<!-- Admin -->
+	
+	<select id="selectAdministratorList" parameterType="AdministratorFilter" resultMap="jt-user-map">
 		<include refid="paginationBefore"/>
 		SELECT
 			u.pn, u.id, u.name, u.salt, u.enable
@@ -264,7 +140,28 @@
 			gm.group_id = 3
 	</select>
 	
-	<!-- ING -->
+	<!-- Seller -->
+	
+	<select id="selectSellerInterestList" parameterType="ArrayList" resultMap="jt-interest-section-list-map">
+		SELECT 
+			seller_pn, category_pn, interest_section_list
+		FROM (
+			SELECT
+				*, GROUP_CONCAT(isn.name) AS interest_section_list
+			FROM
+				interest_section isn,
+				user_seller_interest usi
+			WHERE
+				isn.pn = usi.section_pn
+			GROUP BY usi.seller_pn
+		) interest
+		WHERE 
+			seller_pn IN
+		<foreach collection="list" item="item" index="index"  open="(" separator="," close=")">
+			#{item}
+		</foreach>				
+	</select>
+	
 	<update id="updateSeller" parameterType="JtownUser">
 		<choose>
 			<when test="name != null and name != ''">
@@ -286,13 +183,92 @@
 			</otherwise>
 		</choose>
 	</update>
-
-	<update id="updateEnabled" parameterType="JtownUser">
-		UPDATE
-			users
-		SET
-			enable = #{enabled}
+	
+	<!-- Customer -->
+	
+	<select id="selectCustomerInterestList" parameterType="ArrayList" resultMap="jt-interest-section-list-map">
+		SELECT 
+			customer_pn, category_pn, interest_name_list
+		FROM (
+				SELECT
+					*, GROUP_CONCAT(isn.name) AS interest_name_list
+				FROM
+					interest_section isn,
+					user_customer_interest uci
+				WHERE
+					isn.pn = uci.section_pn
+				GROUP BY uci.customer_pn
+			) interest
+		WHERE 
+			customer_pn IN
+		<foreach collection="list" item="item" index="index"  open="(" separator="," close=")">
+			#{item}
+		</foreach>		
+	</select>
+	
+	<select id="selectAllCommentCount" parameterType="AdminCommentFilter" resultType="Integer">
+		SELECT
+			COUNT(*)
+		FROM
+			user_customer_comment	
+	</select>
+	
+	<select id="selectAllCommentList" parameterType="AdminCommentFilter" resultMap="jt-admin-comment-map">
+		<include refid="paginationBefore"/>
+			SELECT
+				ucc.pn, ucc.customer_pn, u.id, ucc.seller_pn, ucc.comment, input_date
+			FROM
+				user_customer_comment ucc,
+				user_customer uc
+				LEFT OUTER JOIN users u
+				ON uc.pn = u.pn
+			WHERE
+				ucc.customer_pn = uc.pn	
+			ORDER BY
+				input_date DESC
+		<include refid="paginationAfter"/>
+	</select>
+	
+	<select id="selectCustomerList" parameterType="UserFilter" resultMap="jt-user-map">
+		<include refid="paginationBefore"/>
+			SELECT
+				u.pn, u.id, u.name, u.enable, u.salt
+			FROM
+				user_customer uc,
+				users u 
+			WHERE
+				uc.pn = u.pn
+			<if test="enabled != null">
+			AND	u.enable = #{enabled}
+			</if>
+			<if test="name != null and name != ''">
+			AND	u.name = #{name}
+			</if>
+			<if test="userId != null and userId != ''">
+			AND	u.id = #{userId}
+			</if>	
+			ORDER BY
+				u.salt DESC	 	
+		<include refid="paginationAfter"/>
+	</select>
+	
+	<select id="selectCustomerCount" parameterType="UserFilter" resultType="Integer">
+		SELECT
+			COUNT(u.pn)
+		FROM
+			user_customer uc,
+			users u 
 		WHERE
-			pn = #{pn}	
-	</update>
+			uc.pn = u.pn
+		<if test="enabled != null">
+		AND	u.enable = #{enabled}
+		</if>
+		<if test="name != null and name != ''">
+		AND	u.name = #{name}
+		</if>
+		<if test="userId != null and userId != ''">
+		AND	u.id = #{userId}
+		</if>	
+	</select>	
+	
 </mapper>

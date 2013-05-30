@@ -13,5 +13,9 @@
 		<typeAlias alias="AdministratorFilter" type="com.bg.jtown.business.search.AdministratorFilter"/>
 		
 		<typeAlias alias="Interest" type="com.bg.jtown.business.Interest"/>
+		
+		<typeAlias alias="UserFilter" type="com.bg.jtown.business.search.UserFilter"/>
+		<typeAlias alias="AdminCommentFilter" type="com.bg.jtown.business.search.AdminCommentFilter"/>
+		<typeAlias alias="Comment" type="com.bg.jtown.business.Comment"/>
 	</typeAliases>
 </configuration>

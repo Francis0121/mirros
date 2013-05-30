@@ -130,7 +130,7 @@ function goToPreviousPages() {
 			<c:set var="userInfo" value="${partnership.jtownUser }"/>
 			<tr class="jt-partnership-info" data-pspn="<c:out value="${partnership.pn }"/>" data-spn="<c:out value="${userInfo.pn}"/>">
 				<td class="jt-partnership-table-information"><c:out value="${partnership.pn }"/></td>
-				<td><a href="<c:url value="/admin/sellerInformation/sp/${userInfo.pn }"/>">바로가기</a></td>
+				<td><a href="<c:url value="/admin/sellerInfo/sp/${userInfo.pn }"/>">바로가기</a></td>
 				<td class="jt-partnership-name"><c:out value="${partnership.name }"/></td>
 				<td class="jt-partnership-email"><c:out value="${partnership.email }"/></td>
 				<td class="jt-partnership-phoneNumber"><c:out value="${partnership.phoneNumber }"/></td>
@@ -184,7 +184,7 @@ function goToPreviousPages() {
 						<td><c:out value="${userInfo.username  }"/></td>
 						<td class="jt-partnership-shopUrl"><c:out value="${userInfo.shopUrl }"/></td>
 						<td class="jt-partnership-sellerName"><c:out value="${userInfo.name }"/></td>
-						<td class="jt-partnership-interest"><c:out value="${interestMap[userInfo.pn].interestSectionNameList }"/></td>
+						<td class="jt-partnership-interest"><c:out value="${interestMap[userInfo.pn].interestSectionList }"/></td>
 						<td class="jt-partnership-enabled">
 							<select class="jt-partnership-enabled-select">
 								<option value="1" ${userInfo.enabled eq true ? 'selected=selected' : ''}>정상 사용자</option>
