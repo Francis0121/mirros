@@ -32,9 +32,9 @@ public class AdminServiceImpl extends SqlSessionDaoSupport implements
 
 	// ~ Common
 
-	private Integer selectInterestSectionFromName(String name) {
+	private Integer selectInterestSectionFromName(Interest interest) {
 		return getSqlSession().selectOne(
-				"adminMapper.selectInterestSectionFromName", name);
+				"adminMapper.selectInterestSectionFromName", interest);
 	}
 
 	private void insertInterestSection(Interest interest) {
@@ -114,16 +114,15 @@ public class AdminServiceImpl extends SqlSessionDaoSupport implements
 		String[] interestSection = interestSectionStr.split(",");
 
 		for (String name : interestSection) {
-			Interest interest = new Interest(sellerPn, categoryPn, null, null);
 			if (name == null || name.equals("")) {
 				continue;
 			}
 			name = name.trim();
-			Integer pn = selectInterestSectionFromName(name);
+			Interest interest = new Interest(sellerPn, categoryPn, null, name);
+			Integer pn = selectInterestSectionFromName(interest);
 			if (pn != null) {
 				interest.setSectionPn(pn);
 			} else {
-				interest.setName(name);
 				insertInterestSection(interest);
 			}
 			insertSellerInterest(interest);

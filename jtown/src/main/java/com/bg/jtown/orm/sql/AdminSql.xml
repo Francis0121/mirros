@@ -63,7 +63,7 @@
 	</select>
 	
 	<select id="selectInterestSectionFromName" parameterType="String" resultType="Integer">
-		SELECT pn FROM interest_section WHERE name = #{name}
+		SELECT pn FROM interest_section WHERE name = #{name} AND category_pn = #{categoryPn}
 	</select>
 	
 	<insert id="insertInterestSection" parameterType="Interest">
