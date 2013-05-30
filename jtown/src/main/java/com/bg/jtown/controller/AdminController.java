@@ -52,7 +52,7 @@ public class AdminController {
 	private ContractService contractService;
 	@Resource
 	private SigninAdminVaildatorImpl siginAdminVaildatorImpl;
-	@Resource(name="messageSource")
+	@Resource(name = "messageSource")
 	private DelegatingMessageSource messageSource;
 
 	private String prefiexUrl = "admin";
@@ -199,88 +199,99 @@ public class AdminController {
 		helpService.updatePatnership(partnership);
 		return partnership;
 	}
-	
+
 	@RequestMapping(value = "/ajax/updatePartnershipCategory.jt", method = RequestMethod.POST)
 	@ResponseBody
 	public Partnership ajaxChangePartnershipCategory(
 			@RequestBody Partnership partnership) {
 		return helpService.updatePatnershipCategory(partnership);
 	}
-	
+
 	@RequestMapping(value = "/ajax/updatePartnershipName.jt", method = RequestMethod.POST)
 	@ResponseBody
-	public Json ajaxChangePartnershipName(
-			@RequestBody Partnership partnership, Locale locale) {
+	public Json ajaxChangePartnershipName(@RequestBody Partnership partnership,
+			Locale locale) {
 		String name = partnership.getName();
-		if(ValidationUtil.lengthCheck(name, 0, 10)){
-			if(!ValidationUtil.onlyEucKR(name)){
-				return new Json(1, messageSource.getMessage("partnership.name.notAllow", null, locale));
-			}	
-		}else{
-			return new Json(1, messageSource.getMessage("partnership.name.empty", null, locale));
+		if (ValidationUtil.lengthCheck(name, 0, 10)) {
+			if (!ValidationUtil.onlyEucKR(name)) {
+				return new Json(1, messageSource.getMessage(
+						"partnership.name.notAllow", null, locale));
+			}
+		} else {
+			return new Json(1, messageSource.getMessage(
+					"partnership.name.empty", null, locale));
 		}
 		helpService.updatePatnership(partnership);
 		return new Json(0, name);
 	}
-	
+
 	@RequestMapping(value = "/ajax/updatePartnershipEmail.jt", method = RequestMethod.POST)
 	@ResponseBody
 	public Json ajaxChangePartnershipEmail(
 			@RequestBody Partnership partnership, Locale locale) {
 		String email = partnership.getEmail();
-		if(ValidationUtil.lengthCheck(email, 0, 50)){
+		if (ValidationUtil.lengthCheck(email, 0, 50)) {
 			if (!ValidationUtil.emailFormCheck(email)) {
-				return new Json(1, messageSource.getMessage("partnership.email.notAllow", null, locale));
-			}else{
-				Partnership lp = helpService.selectPartnership(new Partnership(email, null));
+				return new Json(1, messageSource.getMessage(
+						"partnership.email.notAllow", null, locale));
+			} else {
+				Partnership lp = helpService.selectPartnership(new Partnership(
+						email, null));
 				if (lp != null) {
-					if(lp.getPn().equals(partnership.getPn())){
+					if (lp.getPn().equals(partnership.getPn())) {
 						return new Json(0, email);
 					}
-					return new Json(1, messageSource.getMessage("partnership.email.exist", null, locale));
+					return new Json(1, messageSource.getMessage(
+							"partnership.email.exist", null, locale));
 				}
 			}
-		}else{
-			return new Json(1, messageSource.getMessage("partnership.email.empty", null, locale));
+		} else {
+			return new Json(1, messageSource.getMessage(
+					"partnership.email.empty", null, locale));
 		}
 		helpService.updatePatnership(partnership);
 		return new Json(0, email);
 	}
-	
+
 	@RequestMapping(value = "/ajax/updatePartnershipPhoneNumber.jt", method = RequestMethod.POST)
 	@ResponseBody
 	public Json ajaxChangePartnershipPhoneNumber(
 			@RequestBody Partnership partnership, Locale locale) {
 		String phoneNumber = partnership.getPhoneNumber();
-		if(ValidationUtil.lengthCheck(phoneNumber, 9, 12)){
+		if (ValidationUtil.lengthCheck(phoneNumber, 9, 12)) {
 			if (!ValidationUtil.onlyNumber(phoneNumber)) {
-				return new Json(1, messageSource.getMessage("partnership.phoneNumber.notAllow", null, locale));
-			}else{
-				Partnership lp = helpService.selectPartnership(new Partnership(null, phoneNumber));
+				return new Json(1, messageSource.getMessage(
+						"partnership.phoneNumber.notAllow", null, locale));
+			} else {
+				Partnership lp = helpService.selectPartnership(new Partnership(
+						null, phoneNumber));
 				if (lp != null) {
-					if(lp.getPn().equals(partnership.getPn())){
+					if (lp.getPn().equals(partnership.getPn())) {
 						return new Json(0, phoneNumber);
 					}
-					return new Json(1, messageSource.getMessage("partnership.phoneNumber.exist", null, locale));
+					return new Json(1, messageSource.getMessage(
+							"partnership.phoneNumber.exist", null, locale));
 				}
 			}
-		}else{
-			return new Json(1, messageSource.getMessage("partnership.phoneNumber.empty", null, locale));
+		} else {
+			return new Json(1, messageSource.getMessage(
+					"partnership.phoneNumber.empty", null, locale));
 		}
 		helpService.updatePatnership(partnership);
 		return new Json(0, phoneNumber);
 	}
-	
+
 	@RequestMapping(value = "/ajax/updatePartnershipNote.jt", method = RequestMethod.POST)
 	@ResponseBody
-	public Json ajaxChangePartnershipNote(
-			@RequestBody Partnership partnership, Locale locale) {
+	public Json ajaxChangePartnershipNote(@RequestBody Partnership partnership,
+			Locale locale) {
 		String note = partnership.getNote();
-		if(!ValidationUtil.lengthCheck(note, -1, 3000)){
-			return new Json(1, messageSource.getMessage("partnership.note.empty", null, locale));
-		}else{
-			if(note.length() == 0){
-				return new Json(0, note);				
+		if (!ValidationUtil.lengthCheck(note, -1, 3000)) {
+			return new Json(1, messageSource.getMessage(
+					"partnership.note.empty", null, locale));
+		} else {
+			if (note.length() == 0) {
+				return new Json(0, note);
 			}
 		}
 		helpService.updatePatnership(partnership);
@@ -303,11 +314,30 @@ public class AdminController {
 		return jtownUser;
 	}
 
-	@RequestMapping(value = "/ajax/changeSeller.jt", method = RequestMethod.POST)
+	@RequestMapping(value = "/ajax/changeSellerShopUrl.jt", method = RequestMethod.POST)
 	@ResponseBody
-	public JtownUser ajaxChangeSeller(@RequestBody JtownUser jtownUser) {
+	public Json ajaxChangeSellerShopUrl(@RequestBody JtownUser jtownUser,
+			Locale locale) {
+		String shopUrl = jtownUser.getShopUrl();
+		if (!ValidationUtil.lengthCheck(shopUrl, 0, 100)) {
+			return new Json(1, messageSource.getMessage("seller.name.empty",
+					null, locale));
+		}
 		adminService.updateSeller(jtownUser);
-		return jtownUser;
+		return new Json(0, shopUrl);
+	}
+
+	@RequestMapping(value = "/ajax/changeSellerName.jt", method = RequestMethod.POST)
+	@ResponseBody
+	public Json ajaxChangeSellerName(@RequestBody JtownUser jtownUser,
+			Locale locale) {
+		String name = jtownUser.getName();
+		if (!ValidationUtil.checkCharAndLength(name, 0, 30)) {
+			return new Json(1, messageSource.getMessage("seller.name.empty",
+					null, locale));
+		}
+		adminService.updateSeller(jtownUser);
+		return new Json(0, name);
 	}
 
 	@RequestMapping(value = "/ajax/changeEnabled.jt", method = RequestMethod.POST)

@@ -160,23 +160,33 @@ jtown.admin.sellerSync = function(){
 	jtown.admin.changeText('jt-partnership-shopUrl', function(thiz, nameVo){
 		var grandParent = thiz.parents(nameVo.parentSelector),
 		parent = thiz.parents(nameVo.selector),
-		url = contextPath+'admin/ajax/changeSeller.jt',
+		url = contextPath+'admin/ajax/changeSellerShopUrl.jt',
 		json = { pn : grandParent.attr('data-spn'),
 				 shopUrl : thiz.val()	};
 	
-		$.postJSON(url, json, function(jtownUser){
-			parent.html(htmlChars(jtownUser.shopUrl));
+		$.postJSON(url, json, function(object){
+			if(object.key == 1){
+				alert(object.value);
+				thiz.focus();
+			}else{				
+				parent.html(htmlChars(object.value));
+			}
 		});
 	}, function(){});
 	jtown.admin.changeText('jt-partnership-sellerName', function(thiz, nameVo){
 		var grandParent = thiz.parents(nameVo.parentSelector),
 		parent = thiz.parents(nameVo.selector),
-		url = contextPath+'admin/ajax/changeSeller.jt',
+		url = contextPath+'admin/ajax/changeSellerName.jt',
 		json = { pn : grandParent.attr('data-spn'),
 				 name : thiz.val()	};
 	
-		$.postJSON(url, json, function(jtownUser){
-			parent.html(htmlChars(jtownUser.name));
+		$.postJSON(url, json, function(object){
+			if(object.key == 1){
+				alert(object.value);
+				thiz.focus();
+			}else{				
+				parent.html(htmlChars(object.value));
+			}
 		});
 	}, function(){});
 	jtown.admin.changeText('jt-partnership-interest', function(thiz, nameVo){
