@@ -50,7 +50,7 @@
 			<c:url var="findSellerPassword" value="/login/findSellerPassword.jt"/>
 			<form:form commandName="sellerUser" method="post" action="${findSellerPassword }" htmlEscape="true">
 				<form:input id="username_findPassword" path="username" cssClass="jt-findpassword-input" cssErrorClass="jt-findpassword-input-error" placeholder="Email Address"/>
-				<input type="submit" value="보내기" class="jt-btn-orange"/>
+				<input type="submit" value="보내기" class="jt-btn-orange jt-findpassword-submit-btn"/>
 				<div class="jt-join-user-error">
 					<form:errors path="username" cssClass="commonError"></form:errors>
 				</div>
