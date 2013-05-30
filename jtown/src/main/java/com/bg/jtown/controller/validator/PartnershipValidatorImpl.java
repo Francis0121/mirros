@@ -9,10 +9,10 @@ import org.springframework.validation.Validator;
 
 import com.bg.jtown.business.Partnership;
 import com.bg.jtown.business.help.HelpService;
-import com.bg.jtown.util.VaildationUtil;
+import com.bg.jtown.util.ValidationUtil;
 
 @Component
-public class PartnershipValidator implements Validator {
+public class PartnershipValidatorImpl implements Validator {
 
 	@Resource
 	private HelpService helpService;
@@ -20,7 +20,7 @@ public class PartnershipValidator implements Validator {
 	@Override
 	public void validate(Object object, Errors errors) {
 		Partnership partnership = (Partnership) object;
-
+		
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "categoryPn",
 				"partnership.categoryPn.empty");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "content",
@@ -31,13 +31,13 @@ public class PartnershipValidator implements Validator {
 				"partnership.name.empty");
 
 		String email = partnership.getEmail();
-		if (!VaildationUtil.checkNullAndBlank(email)) {
-			if (!VaildationUtil.emailFormCheck(email)) {
+		if (!ValidationUtil.checkNullAndBlank(email)) {
+			if (!ValidationUtil.emailFormCheck(email)) {
 				errors.rejectValue("email", "partnership.email.notAllow");
 			} else {
 				Partnership loadPartnership = helpService
-						.selectPartnership(new Partnership(null, null,
-								partnership.getEmail(), null, null, null, null));
+						.selectPartnership(new Partnership(partnership
+								.getEmail(), null));
 				if (loadPartnership != null) {
 					errors.rejectValue("email", "partnership.email.exist");
 				}
@@ -45,51 +45,60 @@ public class PartnershipValidator implements Validator {
 		}
 
 		String name = partnership.getName();
-		if (!VaildationUtil.checkNullAndBlank(name)) {
-			if (!VaildationUtil.onlyEucKR(name)) {
+		if (!ValidationUtil.checkNullAndBlank(name)) {
+			if (!ValidationUtil.onlyEucKR(name)) {
 				errors.rejectValue("name", "partnership.name.notAllow");
 			}
 		}
 
 		String phoneNumberNd = partnership.getPhoneNumberNd();
-		if (!VaildationUtil.checkNullAndBlank(phoneNumberNd)) {
-			if (!VaildationUtil.onlyNumber(phoneNumberNd)) {
+		if (!ValidationUtil.checkNullAndBlank(phoneNumberNd)) {
+			if (!ValidationUtil.onlyNumber(phoneNumberNd)) {
 				errors.rejectValue("phoneNumber",
 						"partnership.phoneNumber.notAllow");
-				errors.rejectValue("phoneNumberNd", "partnership.phoneNumberNd.check");
-				errors.rejectValue("phoneNumberRd", "partnership.phoneNumberRd.check");
+				errors.rejectValue("phoneNumberNd",
+						"partnership.phoneNumberNd.check");
+				errors.rejectValue("phoneNumberRd",
+						"partnership.phoneNumberRd.check");
 			} else {
 				String phoneNumberRd = partnership.getPhoneNumberRd();
-				if (!VaildationUtil.checkNullAndBlank(phoneNumberRd)) {
-					if (!VaildationUtil.onlyNumber(phoneNumberRd)) {
+				if (!ValidationUtil.checkNullAndBlank(phoneNumberRd)) {
+					if (!ValidationUtil.onlyNumber(phoneNumberRd)) {
 						errors.rejectValue("phoneNumber",
 								"partnership.phoneNumber.notAllow");
-						errors.rejectValue("phoneNumberNd", "partnership.phoneNumberNd.check");
-						errors.rejectValue("phoneNumberRd", "partnership.phoneNumberRd.check");
+						errors.rejectValue("phoneNumberNd",
+								"partnership.phoneNumberNd.check");
+						errors.rejectValue("phoneNumberRd",
+								"partnership.phoneNumberRd.check");
 					} else {
 						partnership.makePhoneNumber();
 						Partnership loadPartnership = helpService
-								.selectPartnership(new Partnership(null, null,
-										null, null, partnership
-												.getPhoneNumber(), null, null));
+								.selectPartnership(new Partnership(null,
+										partnership.getPhoneNumber()));
 						if (loadPartnership != null) {
 							errors.rejectValue("phoneNumber",
 									"partnership.phoneNumber.exist");
-							errors.rejectValue("phoneNumberNd", "partnership.phoneNumberNd.check");
-							errors.rejectValue("phoneNumberRd", "partnership.phoneNumberRd.check");
+							errors.rejectValue("phoneNumberNd",
+									"partnership.phoneNumberNd.check");
+							errors.rejectValue("phoneNumberRd",
+									"partnership.phoneNumberRd.check");
 						}
 					}
 				} else {
 					errors.rejectValue("phoneNumber",
 							"partnership.phoneNumber.empty");
-					errors.rejectValue("phoneNumberNd", "partnership.phoneNumberNd.check");
-					errors.rejectValue("phoneNumberRd", "partnership.phoneNumberRd.check");
+					errors.rejectValue("phoneNumberNd",
+							"partnership.phoneNumberNd.check");
+					errors.rejectValue("phoneNumberRd",
+							"partnership.phoneNumberRd.check");
 				}
 			}
 		} else {
 			errors.rejectValue("phoneNumber", "partnership.phoneNumber.empty");
-			errors.rejectValue("phoneNumberNd", "partnership.phoneNumberNd.check");
-			errors.rejectValue("phoneNumberRd", "partnership.phoneNumberRd.check");
+			errors.rejectValue("phoneNumberNd",
+					"partnership.phoneNumberNd.check");
+			errors.rejectValue("phoneNumberRd",
+					"partnership.phoneNumberRd.check");
 		}
 
 	}

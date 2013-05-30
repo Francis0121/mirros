@@ -1,9 +1,11 @@
 package com.bg.jtown.controller;
 
 import java.util.List;
+import java.util.Locale;
 
 import javax.annotation.Resource;
 
+import org.springframework.context.support.DelegatingMessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -32,7 +34,7 @@ import com.bg.jtown.business.seller.ContractService;
 import com.bg.jtown.controller.validator.SigninAdminVaildatorImpl;
 import com.bg.jtown.security.Authority;
 import com.bg.jtown.security.JtownUser;
-import com.bg.jtown.util.VaildationUtil;
+import com.bg.jtown.util.ValidationUtil;
 
 /**
  * @author Francis, 박광열
@@ -50,6 +52,8 @@ public class AdminController {
 	private ContractService contractService;
 	@Resource
 	private SigninAdminVaildatorImpl siginAdminVaildatorImpl;
+	@Resource(name="messageSource")
+	private DelegatingMessageSource messageSource;
 
 	private String prefiexUrl = "admin";
 
@@ -78,7 +82,8 @@ public class AdminController {
 	@RequestMapping(value = "/administrator", method = RequestMethod.GET)
 	public String showAdministrator(Model model,
 			@ModelAttribute AdministratorFilter administratorFilter) {
-		model.addAllAttributes(adminService.selectAdminModelMap(administratorFilter));
+		model.addAllAttributes(adminService
+				.selectAdminModelMap(administratorFilter));
 		return prefiexUrl + "/user/list";
 	}
 
@@ -118,7 +123,8 @@ public class AdminController {
 	@RequestMapping(value = "/comment", method = RequestMethod.GET)
 	public String showContractListPopup(Model model,
 			@ModelAttribute AdminCommentFilter adminCommentFilter) {
-		model.addAttribute("comments", adminService.selectAllCommentList(adminCommentFilter));
+		model.addAttribute("comments",
+				adminService.selectAllCommentList(adminCommentFilter));
 		return prefiexUrl + "/comment";
 	}
 
@@ -136,7 +142,7 @@ public class AdminController {
 
 				if (jtownUser.getPassword() == null) {
 					errors.rejectValue("password", "join.password.empty");
-				} else if (VaildationUtil.confirmPassword(
+				} else if (ValidationUtil.confirmPassword(
 						jtownUser.getPassword(), confirmPassword)) {
 					errors.rejectValue("password", "join.password.isNotEqual");
 				}
@@ -186,12 +192,92 @@ public class AdminController {
 
 	// ~ Ajax
 
-	@RequestMapping(value = "/ajax/changePartnership.jt", method = RequestMethod.POST)
+	@RequestMapping(value = "/ajax/updatePartnership.jt", method = RequestMethod.POST)
 	@ResponseBody
 	public Partnership ajaxChangePartnership(
 			@RequestBody Partnership partnership) {
 		helpService.updatePatnership(partnership);
 		return partnership;
+	}
+	
+	@RequestMapping(value = "/ajax/updatePartnershipName.jt", method = RequestMethod.POST)
+	@ResponseBody
+	public Json ajaxChangePartnershipName(
+			@RequestBody Partnership partnership, Locale locale) {
+		String name = partnership.getName();
+		if(ValidationUtil.lengthCheck(name, 0, 10)){
+			if(!ValidationUtil.onlyEucKR(name)){
+				return new Json(1, messageSource.getMessage("partnership.name.notAllow", null, locale));
+			}	
+		}else{
+			return new Json(1, messageSource.getMessage("partnership.name.empty", null, locale));
+		}
+		helpService.updatePatnership(partnership);
+		return new Json(0, name);
+	}
+	
+	@RequestMapping(value = "/ajax/updatePartnershipEmail.jt", method = RequestMethod.POST)
+	@ResponseBody
+	public Json ajaxChangePartnershipEmail(
+			@RequestBody Partnership partnership, Locale locale) {
+		String email = partnership.getEmail();
+		if(ValidationUtil.lengthCheck(email, 0, 50)){
+			if (!ValidationUtil.emailFormCheck(email)) {
+				return new Json(1, messageSource.getMessage("partnership.email.notAllow", null, locale));
+			}else{
+				Partnership lp = helpService.selectPartnership(new Partnership(email, null));
+				if (lp != null) {
+					if(lp.getPn().equals(partnership.getPn())){
+						return new Json(0, email);
+					}
+					return new Json(1, messageSource.getMessage("partnership.email.exist", null, locale));
+				}
+			}
+		}else{
+			return new Json(1, messageSource.getMessage("partnership.email.empty", null, locale));
+		}
+		helpService.updatePatnership(partnership);
+		return new Json(0, email);
+	}
+	
+	@RequestMapping(value = "/ajax/updatePartnershipPhoneNumber.jt", method = RequestMethod.POST)
+	@ResponseBody
+	public Json ajaxChangePartnershipPhoneNumber(
+			@RequestBody Partnership partnership, Locale locale) {
+		String phoneNumber = partnership.getPhoneNumber();
+		if(ValidationUtil.lengthCheck(phoneNumber, 9, 12)){
+			if (!ValidationUtil.onlyNumber(phoneNumber)) {
+				return new Json(1, messageSource.getMessage("partnership.phoneNumber.notAllow", null, locale));
+			}else{
+				Partnership lp = helpService.selectPartnership(new Partnership(null, phoneNumber));
+				if (lp != null) {
+					if(lp.getPn().equals(partnership.getPn())){
+						return new Json(0, phoneNumber);
+					}
+					return new Json(1, messageSource.getMessage("partnership.phoneNumber.exist", null, locale));
+				}
+			}
+		}else{
+			return new Json(1, messageSource.getMessage("partnership.phoneNumber.empty", null, locale));
+		}
+		helpService.updatePatnership(partnership);
+		return new Json(0, phoneNumber);
+	}
+	
+	@RequestMapping(value = "/ajax/updatePartnershipNote.jt", method = RequestMethod.POST)
+	@ResponseBody
+	public Json ajaxChangePartnershipNote(
+			@RequestBody Partnership partnership, Locale locale) {
+		String note = partnership.getNote();
+		if(!ValidationUtil.lengthCheck(note, -1, 3000)){
+			return new Json(1, messageSource.getMessage("partnership.note.empty", null, locale));
+		}else{
+			if(note.length() == 0){
+				return new Json(0, note);				
+			}
+		}
+		helpService.updatePatnership(partnership);
+		return new Json(0, note);
 	}
 
 	@RequestMapping(value = "/ajax/changePartnershipJson.jt", method = RequestMethod.POST)

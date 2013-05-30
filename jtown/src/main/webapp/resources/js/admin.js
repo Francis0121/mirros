@@ -25,42 +25,57 @@ $(function() {
 	jtown.admin.changeText('jt-partnership-name' , function(thiz, nameVo){
 		var grandParent = thiz.parents(nameVo.parentSelector),
 			parent = thiz.parents(nameVo.selector),
-			url = contextPath+'admin/ajax/changePartnership.jt',
+			url = contextPath+'admin/ajax/updatePartnershipName.jt',
 			json = { pn : grandParent.attr('data-pspn'),
 					 name : thiz.val()	};
 		
-		$.postJSON(url, json, function(partnership){
-			parent.html(htmlChars(partnership.name));
+		$.postJSON(url, json, function(object){
+			if(object.key == 1){
+				alert(object.value);
+				thiz.focus();
+			}else{				
+				parent.html(htmlChars(object.value));
+			}
 		});
 	}, function(){});
 	
 	jtown.admin.changeText('jt-partnership-email', function(thiz, nameVo){
 		var grandParent = thiz.parents(nameVo.parentSelector),
 		parent = thiz.parents(nameVo.selector),
-		url = contextPath+'admin/ajax/changePartnership.jt',
+		url = contextPath+'admin/ajax/updatePartnershipEmail.jt',
 		json = { pn : grandParent.attr('data-pspn'),
 				 email : thiz.val()	};
 	
-		$.postJSON(url, json, function(partnership){
-			parent.html(htmlChars(partnership.email));
+		$.postJSON(url, json, function(object){
+			if(object.key == 1){
+				alert(object.value);
+				thiz.focus();
+			}else{				
+				parent.html(htmlChars(object.value));
+			}
 		});
 	}, function(){});
 	
 	jtown.admin.changeText('jt-partnership-phoneNumber', function(thiz, nameVo){
 		var grandParent = thiz.parents(nameVo.parentSelector),
 		parent = thiz.parents(nameVo.selector),
-		url = contextPath+'admin/ajax/changePartnership.jt',
+		url = contextPath+'admin/ajax/updatePartnershipPhoneNumber.jt',
 		json = { pn : grandParent.attr('data-pspn'),
 				 phoneNumber : thiz.val()	};
 	
-		$.postJSON(url, json, function(partnership){
-			parent.html(htmlChars(partnership.phoneNumber));
+		$.postJSON(url, json, function(object){
+			if(object.key == 1){
+				alert(object.value);
+				thiz.focus();
+			}else{				
+				parent.html(htmlChars(object.value));
+			}
 		});
 	}, function(){});
 	
 	jtown.admin.changeSelect('jt-partnership-category', function(thiz, nameVo){
 		var grandParent = thiz.parents(nameVo.parentSelector),
-		url = contextPath+'admin/ajax/changePartnership.jt',
+		url = contextPath+'admin/ajax/updatePartnership.jt',
 		json = { pn : grandParent.attr('data-pspn'),
 				 categoryPn : thiz.val()	};
 		$.postJSON(url, json, function(partnership){
@@ -78,7 +93,7 @@ $(function() {
 	
 	jtown.admin.changeSelect('jt-partnership-process', function(thiz, nameVo){
 		var grandParent = thiz.parents(nameVo.parentSelector),
-		url = contextPath+'admin/ajax/changePartnership.jt',
+		url = contextPath+'admin/ajax/updatePartnership.jt',
 		json = { pn : grandParent.attr('data-pspn'),
 				 process : thiz.val()	};
 		$.postJSON(url, json, function(partnership){
@@ -88,11 +103,16 @@ $(function() {
 	jtown.admin.changeTextarea('jt-partnership-note',function(thiz, nameVo){
 		var grandParent = thiz.parents(nameVo.parentSelector),
 		parent = thiz.parents(nameVo.selector),
-		url = contextPath+'admin/ajax/changePartnership.jt',
+		url = contextPath+'admin/ajax/updatePartnershipNote.jt',
 		json = { pn : grandParent.attr('data-pspn'),
 				 note : thiz.val()	};
-		$.postJSON(url, json, function(partnership){
-			parent.html('<pre>'+htmlChars(partnership.note)+'</pre>');
+		$.postJSON(url, json, function(object){
+			if(object.key == 1){
+				alert(object.value);
+				thiz.focus();
+			}else{				
+				parent.html('<pre>'+htmlChars(object.value)+'</pre>');
+			}
 		});
 	});
 	

@@ -9,7 +9,7 @@ import org.springframework.validation.Validator;
 
 import com.bg.jtown.security.JtownUser;
 import com.bg.jtown.security.LoginService;
-import com.bg.jtown.util.VaildationUtil;
+import com.bg.jtown.util.ValidationUtil;
 
 /**
  * @author 박광열
@@ -41,8 +41,8 @@ public class LoginValidator implements Validator {
 			errors.rejectValue("username", "join.username.exist");
 		}
 
-		if (!VaildationUtil.checkNullAndBlank(username)) {
-			if (!VaildationUtil.emailFormCheck(username)) {
+		if (!ValidationUtil.checkNullAndBlank(username)) {
+			if (!ValidationUtil.emailFormCheck(username)) {
 				errors.rejectValue("username", "join.username.notAllow");
 			}
 		}
@@ -50,8 +50,8 @@ public class LoginValidator implements Validator {
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password",
 				"join.password.empty");
 
-		if (!VaildationUtil.checkNullAndBlank(password)) {
-			if (!VaildationUtil.lengthCheck(password, "password")) {
+		if (!ValidationUtil.checkNullAndBlank(password)) {
+			if (!ValidationUtil.lengthCheck(password, 7, 16)) {
 				errors.rejectValue("password", "join.password.notAllow");
 			}
 		}
@@ -59,8 +59,8 @@ public class LoginValidator implements Validator {
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name",
 				"join.nickName.empty");
 
-		if (!VaildationUtil.checkNullAndBlank(name)) {
-			if (!VaildationUtil.checkCharAndLength(name)) {
+		if (!ValidationUtil.checkNullAndBlank(name)) {
+			if (!ValidationUtil.checkCharAndLength(name, 0, 20)) {
 				errors.rejectValue("name", "join.nickName.notAllow");
 			}
 		}

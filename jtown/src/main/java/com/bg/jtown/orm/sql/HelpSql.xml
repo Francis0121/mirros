@@ -47,7 +47,7 @@
 		<result column="admin_name" property="adminUser.name"/>
 	</resultMap>
 	
-	<select id="selectPartnershipList" parameterType="PartnershipFilter" resultMap="jt-help-partnership-map">
+	<select id="selectPartnerships" parameterType="PartnershipFilter" resultMap="jt-help-partnership-map">
 		<include refid="paginationBefore"/>
 		SELECT
 			p.pn, p.name, p.email, p.phone_number,

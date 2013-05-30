@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
  * @author 박광열
  * 
  */
-public class VaildationUtil {
+public class ValidationUtil {
 
 	public static boolean checkNullAndBlank(String target) {
 		if (target == null || "".equals(target.trim())) {
@@ -44,46 +44,34 @@ public class VaildationUtil {
 		return matcher.matches();
 	}
 
-	public static boolean checkCharAndLength(String string) {
+	public static boolean checkCharAndLength(String str, int start, int end) {
 		boolean regexBool = false;
 		boolean lengthBool = false;
 
 		String regex = "^[0-9A-Za-z가-힣]*$";
 
 		Pattern pattern = Pattern.compile(regex);
-		Matcher matcher = pattern.matcher(string);
+		Matcher matcher = pattern.matcher(str);
 
 		regexBool = matcher.matches();
 
-		int length = string.length();
+		int length = str.length();
 
-		if (length > 0 && length <= 20) {
+		if (length > start && length <= end) {
 			lengthBool = true;
 		}
 
 		return regexBool && lengthBool;
 	}
 
-	public static boolean lengthCheck(String value, String flag) {
-		int length = value.length();
-
-		if (flag != null) {
-			if (flag.equals("password")) {
-				if (length >= 8 && length <= 16) {
-					return true;
-				} else {
-					return false;
-				}
-			} else if (flag.equals("nickName")) {
-				if (length > 0 && length <= 20) {
-					return true;
-				} else {
-					return false;
-				}
-			}
+	public static boolean lengthCheck(String str, int start, int end) {
+		int length = str.length();
+		
+		if (length > start && length <= end) {
+			return true;
+		} else {
+			return false;
 		}
-
-		return false;
 	}
 
 	public static boolean confirmPassword(String password,

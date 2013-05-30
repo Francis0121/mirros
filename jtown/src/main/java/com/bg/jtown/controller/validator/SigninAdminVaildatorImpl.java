@@ -9,7 +9,7 @@ import org.springframework.validation.Validator;
 
 import com.bg.jtown.security.JtownUser;
 import com.bg.jtown.security.LoginService;
-import com.bg.jtown.util.VaildationUtil;
+import com.bg.jtown.util.ValidationUtil;
 
 @Component
 public class SigninAdminVaildatorImpl implements Validator {
@@ -38,8 +38,8 @@ public class SigninAdminVaildatorImpl implements Validator {
 			errors.rejectValue("username", "join.username.exist");
 		}
 
-		if (!VaildationUtil.checkNullAndBlank(username)) {
-			if (!VaildationUtil.checkCharAndLength(username)) {
+		if (!ValidationUtil.checkNullAndBlank(username)) {
+			if (!ValidationUtil.checkCharAndLength(username, 0, 20)) {
 				errors.rejectValue("username", "join.username.notAllow");
 			}
 		}
@@ -47,8 +47,8 @@ public class SigninAdminVaildatorImpl implements Validator {
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password",
 				"join.password.empty");
 
-		if (!VaildationUtil.checkNullAndBlank(password)) {
-			if (!VaildationUtil.lengthCheck(password, "password")) {
+		if (!ValidationUtil.checkNullAndBlank(password)) {
+			if (!ValidationUtil.lengthCheck(password, 7, 16)) {
 				errors.rejectValue("password", "join.password.notAllow");
 			}
 		}
@@ -59,8 +59,8 @@ public class SigninAdminVaildatorImpl implements Validator {
 		if (exist) {
 			errors.rejectValue("username", "join.email.exist");
 		}
-		if (!VaildationUtil.checkNullAndBlank(email)) {
-			if (!VaildationUtil.emailFormCheck(email)) {
+		if (!ValidationUtil.checkNullAndBlank(email)) {
+			if (!ValidationUtil.emailFormCheck(email)) {
 				errors.rejectValue("email", "join.email.notAllow");
 			}
 		}
@@ -68,8 +68,8 @@ public class SigninAdminVaildatorImpl implements Validator {
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name",
 				"join.nickName.empty");
 
-		if (!VaildationUtil.checkNullAndBlank(name)) {
-			if (!VaildationUtil.checkCharAndLength(name)) {
+		if (!ValidationUtil.checkNullAndBlank(name)) {
+			if (!ValidationUtil.checkCharAndLength(name, 0, 20)) {
 				errors.rejectValue("name", "join.nickName.notAllow");
 			}
 		}

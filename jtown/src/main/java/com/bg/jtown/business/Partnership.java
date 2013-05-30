@@ -89,16 +89,9 @@ public class Partnership {
 		super();
 	}
 
-	public Partnership(Integer categoryPn, String content, String email,
-			String name, String phoneNumber, Integer pn, Integer process) {
-		super();
-		this.categoryPn = categoryPn;
-		this.content = content;
+	public Partnership(String email, String phoneNumber) {
 		this.email = email;
-		this.name = name;
 		this.phoneNumber = phoneNumber;
-		this.pn = pn;
-		this.process = process;
 	}
 
 	public JtownUser getAdminUser() {

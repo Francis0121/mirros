@@ -18,7 +18,7 @@ public interface HelpService {
 
 	Map<String, Object> selectObject(PartnershipFilter partnershipFilter);
 
-	List<Partnership> selectPartnership(PartnershipFilter partnershipFilter);
+	List<Partnership> selectPartnerships(PartnershipFilter partnershipFilter);
 
 	Partnership selectPartnership(Partnership partnership);
 

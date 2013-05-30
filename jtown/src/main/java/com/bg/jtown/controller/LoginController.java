@@ -48,7 +48,7 @@ import com.bg.jtown.security.SummaryUser;
 import com.bg.jtown.security.UserAuthenticator;
 import com.bg.jtown.security.algorithm.SeedCipher;
 import com.bg.jtown.util.StringUtil;
-import com.bg.jtown.util.VaildationUtil;
+import com.bg.jtown.util.ValidationUtil;
 import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 
 /**
@@ -228,7 +228,7 @@ public class LoginController {
 
 				if (jtownUser.getPassword() == null) {
 					errors.rejectValue("password", "join.password.empty");
-				} else if (VaildationUtil.confirmPassword(
+				} else if (ValidationUtil.confirmPassword(
 						jtownUser.getPassword(), confirmPassword)) {
 					errors.rejectValue("password", "join.password.isNotEqual");
 				}
@@ -307,13 +307,12 @@ public class LoginController {
 
 				String newPassword = jtownUser.getNewPassword();
 
-				if (!VaildationUtil.checkNullAndBlank(newPassword)) {
-					if (VaildationUtil.confirmPassword(newPassword,
+				if (!ValidationUtil.checkNullAndBlank(newPassword)) {
+					if (ValidationUtil.confirmPassword(newPassword,
 							confirmPassword)) {
 						errors.rejectValue("newPassword",
 								"join.password.isNotEqual");
-					} else if (!VaildationUtil.lengthCheck(newPassword,
-							"password")) {
+					} else if (!ValidationUtil.lengthCheck(newPassword, 7, 16)) {
 						errors.rejectValue("newPassword",
 								"join.password.notAllow");
 					}
@@ -326,17 +325,17 @@ public class LoginController {
 						"join.username.empty");
 				Authority authority = summaryUser.getEnumAuthority();
 
-				if (!VaildationUtil.checkNullAndBlank(changeUsername)) {
+				if (!ValidationUtil.checkNullAndBlank(changeUsername)) {
 					if (!nowUsername.equals(changeUsername)) {
 						if (authority.equals(Authority.CUSTOMER)) {
-							if (!VaildationUtil.emailFormCheck(changeUsername)) {
+							if (!ValidationUtil.emailFormCheck(changeUsername)) {
 								errors.rejectValue("username",
 										"join.username.notAllow");
 							}
 						} else if (authority.equals(Authority.SELLER)
 								|| authority.equals(Authority.ADMIN)) {
-							if (!VaildationUtil
-									.checkCharAndLength(changeUsername)) {
+							if (!ValidationUtil
+									.checkCharAndLength(changeUsername, 0, 20)) {
 								errors.rejectValue("username",
 										"join.username.notAllowId");
 							}
@@ -356,7 +355,7 @@ public class LoginController {
 							"join.nickName.empty");
 
 					String name = jtownUser.getName();
-					if (!VaildationUtil.checkCharAndLength(name)) {
+					if (!ValidationUtil.checkCharAndLength(name, 0, 20)) {
 						errors.rejectValue("name", "join.nickName.notAllow");
 					}
 				}
@@ -380,7 +379,7 @@ public class LoginController {
 			// 아이디 변경전
 			String nowUsername = summaryUser.getUsername();
 			String changeUsername = jtownUser.getUsername();
-			if (!VaildationUtil.checkNullAndBlank(changeUsername)) {
+			if (!ValidationUtil.checkNullAndBlank(changeUsername)) {
 				if (!nowUsername.equals(changeUsername)) {
 					if (authority.equals(Authority.CUSTOMER)) {
 						loginService.updateUserCustomerEmail(changeUsername,
@@ -397,7 +396,7 @@ public class LoginController {
 
 			// 아이디 변경후
 			String newPassword = jtownUser.getNewPassword();
-			if (!VaildationUtil.checkNullAndBlank(newPassword)) {
+			if (!ValidationUtil.checkNullAndBlank(newPassword)) {
 				jtownUser.setNewPassword(newPassword);
 				jtownUser.setUsername(summaryUser.getUsername());
 				customJdbcUserDetailManager.changePassword(jtownUser);
@@ -448,8 +447,8 @@ public class LoginController {
 					errors.rejectValue("username", "join.username.exist");
 				}
 
-				if (!VaildationUtil.checkNullAndBlank(username)) {
-					if (!VaildationUtil.emailFormCheck(username)) {
+				if (!ValidationUtil.checkNullAndBlank(username)) {
+					if (!ValidationUtil.emailFormCheck(username)) {
 						errors.rejectValue("username", "join.username.notAllow");
 					}
 				}

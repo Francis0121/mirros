@@ -18,7 +18,7 @@ import com.bg.jtown.business.board.Board;
 import com.bg.jtown.business.board.BoardService;
 import com.bg.jtown.business.help.HelpService;
 import com.bg.jtown.business.search.BoardFilter;
-import com.bg.jtown.controller.validator.PartnershipValidator;
+import com.bg.jtown.controller.validator.PartnershipValidatorImpl;
 
 /**
  * @author Francis, 박광열
@@ -27,8 +27,6 @@ import com.bg.jtown.controller.validator.PartnershipValidator;
 @Controller
 public class HelpController {
 
-	private static final Integer PROCESS_RECEIPT = 1;
-
 	@Resource
 	private HelpService helpService;
 	@Resource
@@ -36,7 +34,7 @@ public class HelpController {
 	@Resource
 	private HomeService homeService;
 	@Resource
-	private PartnershipValidator partnershipValidator;
+	private PartnershipValidatorImpl partnershipValidatorImpl;
 
 	// ~ Show
 
@@ -83,10 +81,8 @@ public class HelpController {
 	@RequestMapping(value = "/help/partnership.jt", method = RequestMethod.POST)
 	public String formSumbitPartnership(Model model,
 			@ModelAttribute Partnership partnership, BindingResult result) {
-		this.partnershipValidator.validate(partnership, result);
-
+		partnershipValidatorImpl.validate(partnership, result);
 		if (!result.hasErrors()) {
-			partnership.setProcess(PROCESS_RECEIPT);
 			helpService.insertPartnership(partnership);
 			model.addAttribute("result", 1);
 			return "redirect:partnership";

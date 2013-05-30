@@ -28,6 +28,8 @@ import com.bg.jtown.util.Pagination;
 public class HelpServiceImpl extends SqlSessionDaoSupport implements
 		HelpService {
 
+	private static final Integer PROCESS_RECEIPT = 1;
+	
 	@Resource
 	private HomeService homeService;
 
@@ -39,7 +41,7 @@ public class HelpServiceImpl extends SqlSessionDaoSupport implements
 	public Map<String, Object> selectObject(PartnershipFilter partnershipFilter) {
 		Map<String, Object> selectMap = new HashMap<String, Object>();
 
-		List<Partnership> partnerships = selectPartnership(partnershipFilter);
+		List<Partnership> partnerships = selectPartnerships(partnershipFilter);
 		selectMap.put("partnerships", partnerships);
 
 		List<Integer> pnList = new ArrayList<Integer>();
@@ -68,7 +70,7 @@ public class HelpServiceImpl extends SqlSessionDaoSupport implements
 	}
 
 	@Override
-	public List<Partnership> selectPartnership(
+	public List<Partnership> selectPartnerships(
 			PartnershipFilter partnershipFilter) {
 		Pagination pagination = partnershipFilter.getPagination();
 		int count = selectPartnershipCount(partnershipFilter);
@@ -78,7 +80,7 @@ public class HelpServiceImpl extends SqlSessionDaoSupport implements
 		pagination.setNumItems(count);
 
 		List<Partnership> partnerships = getSqlSession().selectList(
-				"helpMapper.selectPartnershipList", partnershipFilter);
+				"helpMapper.selectPartnerships", partnershipFilter);
 		return partnerships;
 	}
 
@@ -96,6 +98,7 @@ public class HelpServiceImpl extends SqlSessionDaoSupport implements
 
 	@Override
 	public void insertPartnership(Partnership partnership) {
+		partnership.setProcess(PROCESS_RECEIPT);
 		getSqlSession().insert("helpMapper.insertPartnership", partnership);
 	}
 
