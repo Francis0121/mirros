@@ -131,6 +131,11 @@ public class AdminServiceImpl extends SqlSessionDaoSupport implements
 	}
 
 	@Override
+	public JtownUser selectSeller(String name) {
+		return getSqlSession().selectOne("adminMapper.selectSeller", name);
+	}
+	
+	@Override
 	public void insertSeller(JtownUser jtownUser) {
 		customJdbcUserDetailManager.createUserSellerAndAuthority(jtownUser);
 		Integer sellerPn = jtownUser.getPn();

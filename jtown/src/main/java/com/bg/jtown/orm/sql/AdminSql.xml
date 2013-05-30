@@ -142,6 +142,18 @@
 	
 	<!-- Seller -->
 	
+	<select id="selectSeller" parameterType="Integer" resultMap="jt-user-map">
+		SELECT
+			u.pn, u.id, u.enable, u.name, u.salt
+		FROM
+			user_seller us,
+			users u
+		WHERE
+			us.pn = u.pn
+		AND
+			u.name = #{name}
+	</select>
+	
 	<select id="selectSellerInterestList" parameterType="ArrayList" resultMap="jt-interest-section-list-map">
 		SELECT 
 			seller_pn, category_pn, interest_section_list

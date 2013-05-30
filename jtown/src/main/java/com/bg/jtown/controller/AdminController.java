@@ -238,11 +238,10 @@ public class AdminController {
 				Partnership lp = helpService.selectPartnership(new Partnership(
 						email, null));
 				if (lp != null) {
-					if (lp.getPn().equals(partnership.getPn())) {
-						return new Json(0, email);
+					if (!lp.getPn().equals(partnership.getPn())) {
+						return new Json(1, messageSource.getMessage(
+								"partnership.email.exist", null, locale));
 					}
-					return new Json(1, messageSource.getMessage(
-							"partnership.email.exist", null, locale));
 				}
 			}
 		} else {
@@ -266,11 +265,10 @@ public class AdminController {
 				Partnership lp = helpService.selectPartnership(new Partnership(
 						null, phoneNumber));
 				if (lp != null) {
-					if (lp.getPn().equals(partnership.getPn())) {
-						return new Json(0, phoneNumber);
+					if (!lp.getPn().equals(partnership.getPn())) {
+						return new Json(1, messageSource.getMessage(
+								"partnership.phoneNumber.exist", null, locale));
 					}
-					return new Json(1, messageSource.getMessage(
-							"partnership.phoneNumber.exist", null, locale));
 				}
 			}
 		} else {
@@ -320,7 +318,7 @@ public class AdminController {
 			Locale locale) {
 		String shopUrl = jtownUser.getShopUrl();
 		if (!ValidationUtil.lengthCheck(shopUrl, 0, 100)) {
-			return new Json(1, messageSource.getMessage("seller.name.empty",
+			return new Json(1, messageSource.getMessage("seller.shopUrl.empty",
 					null, locale));
 		}
 		adminService.updateSeller(jtownUser);
@@ -335,6 +333,14 @@ public class AdminController {
 		if (!ValidationUtil.checkCharAndLength(name, 0, 30)) {
 			return new Json(1, messageSource.getMessage("seller.name.empty",
 					null, locale));
+		} else {
+			JtownUser lj = adminService.selectSeller(name);
+			if (lj != null) {
+				if (!lj.getPn().equals(jtownUser.getPn())) {
+					return new Json(1, messageSource.getMessage(
+							"seller.name.exist", null, locale));
+				}
+			}
 		}
 		adminService.updateSeller(jtownUser);
 		return new Json(0, name);

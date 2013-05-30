@@ -38,6 +38,8 @@ public interface AdminService {
 
 	List<Interest> selectSellerInterestList(List<Integer> pnList);
 
+	JtownUser selectSeller(String name);
+
 	void insertSeller(JtownUser jtownUser);
 
 	void updateSeller(JtownUser jtownUser);
@@ -49,6 +51,5 @@ public interface AdminService {
 	Map<String, Object> selectCustomerModelMap(UserFilter userFilter);
 
 	List<Comment> selectAllCommentList(AdminCommentFilter adminCommentFilter);
-
 	
 }
