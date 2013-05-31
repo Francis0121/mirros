@@ -74,7 +74,7 @@
 									user_seller_contract_info
 								WHERE
 									SYSDATE() BETWEEN start_date AND end_date
-							) NOW
+							) now
 							ON usci.seller_pn = now.seller_pn
 						GROUP BY
 							usci.seller_pn
@@ -162,7 +162,7 @@
 									user_seller_contract_info
 								WHERE
 									SYSDATE() BETWEEN start_date AND end_date
-							) NOW
+							) now
 							ON usci.seller_pn = now.seller_pn
 						GROUP BY
 							usci.seller_pn
@@ -223,7 +223,7 @@
 									user_seller_contract_info
 								WHERE
 									SYSDATE() BETWEEN start_date AND end_date
-							) NOW
+							) now
 							ON usci.seller_pn = now.seller_pn
 						GROUP BY
 							usci.seller_pn
