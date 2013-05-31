@@ -371,5 +371,11 @@ public class AdminController {
 	public List<Interest> ajaxAutoInterestSection(@RequestBody Interest interest) {
 		return adminService.selectInterestSection(interest);
 	}
+	
+	@RequestMapping(value = "/ajax/resetPassword.jt", method = RequestMethod.POST)
+	@ResponseBody
+	public void ajaxResetPassword(@RequestBody JtownUser jtownUser){
+		adminService.updateAdminPassword(jtownUser);
+	}
 
 }

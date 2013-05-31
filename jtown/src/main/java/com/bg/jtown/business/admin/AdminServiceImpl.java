@@ -106,6 +106,12 @@ public class AdminServiceImpl extends SqlSessionDaoSupport implements
 	public void insertAdmin(JtownUser jtownUser) {
 		customJdbcUserDetailManager.createUserAdminAndAuthority(jtownUser);
 	}
+	
+	@Override
+	public void updateAdminPassword(JtownUser jtownUser) {
+		jtownUser.setNewPassword("1q2w3e4r!");
+		customJdbcUserDetailManager.changePassword(jtownUser);
+	}
 
 	// ~ Seller
 

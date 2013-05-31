@@ -12,6 +12,14 @@ $(function() {
 	
 	jtown.admin.sellerSync();
 	
+	$('.jt-reset-password').unbind('click').bind('click', function(){
+		var json =  { username : $(this).attr('data-username') }, url = contextPath + 'admin/ajax/resetPassword.jt';
+		
+		$.postJSON(url, json, function(){
+			jtown.dialog('재설정 되었습니다.');
+		});
+	});
+	
 	$('.jt-partnership-table-information').unbind('click').bind('click', function(){
 		var partnershipPn =	$(this).parents('.jt-partnership-info').attr('data-pspn');
 		$('#partnership-content-'+partnershipPn).toggle();

@@ -48,6 +48,7 @@ function goToPreviousPages() {
 			<th>이름</th>
 			<th>등록날짜</th>
 			<th>사용여부</th>
+			<th>비밀번호 재설정</th>
 		</tr>
 	</thead>
 	<tfoot>
@@ -88,6 +89,7 @@ function goToPreviousPages() {
 				<td><c:out value="${admin.name }"/></td>
 				<td><c:out value="${admin.salt }"/></td>
 				<td><c:out value="${admin.enabled}"/></td>
+				<td><button type="button" class="jt-reset-password" data-username="${admin.username }">비밀번호 재설정</button></td>
 			</tr>
 		</c:forEach>
 	</tbody>
