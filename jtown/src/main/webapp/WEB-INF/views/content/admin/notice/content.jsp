@@ -23,27 +23,18 @@
 		<a href="${noticeUrl }" class="jt-common-a-base-two">목록</a>
 	</li>
 </ul>
-			
-<table class="jt-notice-content-table">
-	<tbody>
-		<tr>
-			<th>제목</th>
-			<td><c:out value="${notice.title }"/></td>
-			<th>조회수</th>
-			<td><c:out value="${notice.readCount }"/></td>
-		</tr>
-		<tr>
-			<th>작성자</th>
-			<td colspan="3">운영자</td>
-		</tr>
-		<tr>
-			<th>게시일</th>
-			<td colspan="3"><c:out value="${fn:substring(notice.inputDate, 0, 19) }"/></td>
-		</tr>			
-		<tr>
-			<th>내용</th>
-			<td colspan="3"><pre>${notice.content }</pre></td>
-		</tr>
-	</tbody>	
-</table>
+
+<section class="jt-notice-content-table">
+	<header>
+		<ul>
+			<li class="jt-notice-content-table-title"><span><c:out value="${notice.title }"/></span></li>
+			<li class="jt-notice-content-table-count"><span>조회 <c:out value="${notice.readCount }"/></span></li>
+		</ul>
+	</header>
+	<article>
+		<span><c:out value="${notice.inputDate}"/></span>
+		<pre>${notice.content }</pre>
+	</article>
+</section>
+
 <%@ include file="../../../layout/admin_footer.jspf" %>

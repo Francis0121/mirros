@@ -5,6 +5,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
 <%@ include file="../../../layout/admin_header.jspf" %>
+<c:set var="cp" value="<%=request.getContextPath() %>"/>
 <c:set var="pagination" value="${boardFilter.pagination }"/>
 <%-- Page 처리 Script --%>
 <script type="text/javascript">
@@ -46,47 +47,44 @@ function goToPreviousPages() {
 <table class="jt-notice-table">
 	<thead>
 		<tr>
-			<th>번호</th>
-			<th>제목</th>
-			<th>날짜</th>
+			<th colspan="2">제목</th>
+			<th>작성일</th>
 			<th>조회수</th>				
 		</tr>
 	</thead>
 	<tfoot>
 		<tr>
 			<td colspan="4">
-				<a href="javascript:void(goToPage(1))" onfocus="blur();">
-						처음
-<%-- 					<img src="<c:url value='/images/mims_pageFirst_btn.gif'/>" alt="처음" style="vertical-align: middle; border: none" /> --%>
-				</a>
-				<a href="javascript:void(goToPreviousPages())" onfocus="blur();">
-						다음
-<%-- 					<img src="<c:url value='/images/button/mims_prev_btn.gif'/>" alt="다음" style="vertical-align: middle; border: none" /> --%>
-				</a>
-				<c:forEach var="i" begin="${pagination.pageBegin}" end="${pagination.pageEnd}">
-					<c:if test="${i == pagination.currentPage}">
-						<strong>${i}</strong>
-					</c:if>
-					<c:if test="${i != pagination.currentPage}">
-						<a class="pageLink" href="javascript:void(goToPage(${i}))" onfocus="blur();">${i}</a>
-					</c:if>
-				</c:forEach>
-				<a href="javascript:void(goToNextPages())" onfocus="blur();">
-						다음
-<%-- 					<img src="<c:url value='/images/button/mims_next_btn.gif'/>" alt="다음" style="vertical-align: middle; border: none" /> --%>
-				</a>
-				<a href="javascript:void(goToPage(${pagination.numPages}))" onfocus="blur();">
-						끝
-<%-- 					<img src="<c:url value='/images/mims_pageLast_btn.gif'/>" alt="끝" style="vertical-align: middle; border: none" /> --%>
-				</a>			
+				<div style="float: left;">
+					<a href="javascript:void(goToPage(1))" onfocus="blur();">
+						<img src="${cp }/resources/images/arrow/pageFirst_btn.png" alt="처음" title="First" style="vertical-align: middle; border: none;" />
+					</a>
+					<a href="javascript:void(goToPreviousPages())" onfocus="blur();" class="page-beforeafter">
+						<img src="${cp }/resources/images/arrow/prev_btn.png" alt="이전" title="Before" style="vertical-align: middle; border: none;  margin-top: -2px;" />&nbsp;&nbsp;<span>PREV</span>
+					</a>
+					<c:forEach var="i" begin="${pagination.pageBegin}" end="${pagination.pageEnd}">
+						<c:if test="${i == pagination.currentPage}">
+							<a class="page-link page-now">${i}</a>
+						</c:if>
+						<c:if test="${i != pagination.currentPage}">
+							<a class="page-link" href="javascript:void(goToPage(${i}))" onfocus="blur();">${i}</a>
+						</c:if>
+					</c:forEach>
+					<a href="javascript:void(goToNextPages())" onfocus="blur();" class="page-beforeafter">
+						<span>NEXT</span>&nbsp;&nbsp;<img src="${cp }/resources/images/arrow/next_btn.png" alt="다음" title="After" style="vertical-align: middle; border: none; margin-top: -2px;" />
+					</a>
+					<a href="javascript:void(goToPage(${pagination.numPages}))" onfocus="blur();">
+						<img src="${cp }/resources/images/arrow/pageLast_btn.png" alt="끝" title="Last" style="vertical-align: middle; border: none; " />
+					</a>
+					</div>			
 			</td>
 		</tr>
 	</tfoot>
 	<tbody>
 		<c:forEach items="${noticeList }" var="notice" varStatus="i">
-			<tr class="jt-notice-content-tr" data-pn="<c:out value="${notice.pn }"/>">
+			<tr>
 				<td><c:out value="${pagination.numItems - (pagination.currentPage - 1)* 10-i.count+1}"/></td>
-				<td><c:out value="${notice.title }"/></td>
+				<td><a href="${cp }/admin/noticeContent?pn=<c:out value="${notice.pn }"/>"><c:out value="${notice.title }"/></a></td>
 				<td><c:out value="${fn:substring(notice.inputDate, 0, 19) }"/></td>
 				<td><c:out value="${notice.readCount }"/></td>
 			</tr>

@@ -7,25 +7,19 @@
 <%@ include file="../../layout/help_header.jspf" %>
 
 <section class="jt-help-notice-wrap">
-			
-<table class="jt-help-notice-content-table">
-	<thead>
-		<tr>
-			<th><div>제목</div></th>
-			<td colspan="3" class="jt-help-notice-content-title"><c:out value="${noticeContent.title }"/></td>
-		</tr>
-		<tr>
-			<th><div>작성자</div></th>
-			<td>관리자</td>
-			<th><div>날짜</div></th>
-			<td><c:out value="${fn:substring(noticeContent.inputDate, 0, 19) }"/></td>
-		</tr>
-	</thead>			
-		<tr>
-			<td colspan="4"><div><pre>${noticeContent.content }</pre></div></td>
-		</tr>
-	</tbody>	
-</table>
+
+<section class="jt-help-notice-content">
+	<header>
+		<ul>
+			<li class="jt-help-notice-content-title"><span><c:out value="${noticeContent.title }"/></span></li>
+			<li class="jt-help-notice-content-count"><span>조회 <c:out value="${noticeContent.readCount }"/></span></li>
+		</ul>
+	</header>
+	<article>
+		<span><c:out value="${fn:substring(noticeContent.inputDate, 0, 19) }"/></span>
+		<pre>${noticeContent.content }</pre>
+	</article>
+</section>
 
 <ul class="jt-help-notice-tool">
 	<li>
@@ -37,7 +31,7 @@
 	</li>
 </ul>
 
-<table class="jt-help-notice-content-list-table">
+<table class="jt-beforeAfterBoards-table">
 	<tbody>
 		<c:forEach items="${noticeList }" var="notice" varStatus="i">
 			<tr class="jt-help-notice-content-tr">

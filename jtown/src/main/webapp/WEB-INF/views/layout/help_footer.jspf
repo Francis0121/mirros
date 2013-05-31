@@ -8,5 +8,10 @@
 	</section>
 	<%@ include file="login.jspf" %>
 	<%@ include file="script_foot.jspf" %>
+	<script>
+	$(function(){
+		$('#page-wrap').css('width', $('#page-wrap>div').width());
+	});
+	</script>
 </body>
 </html>
