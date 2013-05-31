@@ -1,4 +1,4 @@
-package com.bg.jtown.business;
+package com.bg.jtown.business.file;
 
 import com.bg.jtown.util.FileVO;
 

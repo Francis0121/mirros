@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
-import com.bg.jtown.business.FileService;
+import com.bg.jtown.business.file.FileService;
 import com.bg.jtown.security.SummaryUser;
 import com.bg.jtown.util.FileUtil;
 import com.bg.jtown.util.FileVO;
