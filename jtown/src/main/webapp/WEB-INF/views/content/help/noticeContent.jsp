@@ -22,7 +22,7 @@
 		</tr>
 	</thead>			
 		<tr>
-			<td colspan="4"><div><pre><c:out value="${noticeContent.content }"/></pre></div></td>
+			<td colspan="4"><div><pre>${noticeContent.content }</pre></div></td>
 		</tr>
 	</tbody>	
 </table>

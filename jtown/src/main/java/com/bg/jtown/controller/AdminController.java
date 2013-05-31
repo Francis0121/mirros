@@ -24,16 +24,20 @@ import com.bg.jtown.business.Interest;
 import com.bg.jtown.business.Json;
 import com.bg.jtown.business.Partnership;
 import com.bg.jtown.business.admin.AdminService;
+import com.bg.jtown.business.file.FileService;
 import com.bg.jtown.business.help.HelpService;
 import com.bg.jtown.business.search.AdminCommentFilter;
 import com.bg.jtown.business.search.AdministratorFilter;
 import com.bg.jtown.business.search.ContractFilter;
+import com.bg.jtown.business.search.FileFilter;
 import com.bg.jtown.business.search.PartnershipFilter;
 import com.bg.jtown.business.search.UserFilter;
 import com.bg.jtown.business.seller.ContractService;
 import com.bg.jtown.controller.validator.SigninAdminVaildatorImpl;
 import com.bg.jtown.security.Authority;
 import com.bg.jtown.security.JtownUser;
+import com.bg.jtown.util.FileUtil;
+import com.bg.jtown.util.FileVO;
 import com.bg.jtown.util.ValidationUtil;
 
 /**
@@ -54,6 +58,8 @@ public class AdminController {
 	private SigninAdminVaildatorImpl siginAdminVaildatorImpl;
 	@Resource(name = "messageSource")
 	private DelegatingMessageSource messageSource;
+	@Resource
+	private FileService fileService;
 
 	private String prefiexUrl = "admin";
 
@@ -198,7 +204,7 @@ public class AdminController {
 			@RequestBody Partnership partnership) {
 		return helpService.selectPartnershipCategory(partnership.getPn());
 	}
-	
+
 	@RequestMapping(value = "/ajax/updatePartnership.jt", method = RequestMethod.POST)
 	@ResponseBody
 	public Partnership ajaxChangePartnership(
@@ -371,10 +377,10 @@ public class AdminController {
 	public List<Interest> ajaxAutoInterestSection(@RequestBody Interest interest) {
 		return adminService.selectInterestSection(interest);
 	}
-	
+
 	@RequestMapping(value = "/ajax/resetPassword.jt", method = RequestMethod.POST)
 	@ResponseBody
-	public void ajaxResetPassword(@RequestBody JtownUser jtownUser){
+	public void ajaxResetPassword(@RequestBody JtownUser jtownUser) {
 		adminService.updateAdminPassword(jtownUser);
 	}
 

@@ -9,9 +9,9 @@ $(document).ready(function() {
 });
 
 jtown.board.noticeWrite = function(){
-	$('#jt-admin-noticeWrite-btn').unbind('click');
-	$('#jt-admin-noticeWrite-btn').bind('click', function(){
+	$('#jt-admin-noticeWrite-btn').unbind('click').bind('click', function(){
 		var form = document.forms['board'];
+		oEditors[0].exec("UPDATE_CONTENTS_FIELD", []);
 		form.submit();
 	});
 };

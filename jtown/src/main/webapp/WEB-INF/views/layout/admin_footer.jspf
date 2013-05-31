@@ -2,6 +2,8 @@
 	</section>
 	<%@ include file="login.jspf" %>
 	<%@ include file="script_foot.jspf" %>
+	<c:set var="cp" value="<%=request.getContextPath() %>"/>
+	<script src="${cp}/resources/se2/js/HuskyEZCreator.js"></script>
 	<script type="text/javascript">
 	<!--
 		onAdminResize = function(){
@@ -14,6 +16,14 @@
 		};
 		onAdminResize();
 		$(window).resize(onAdminResize);
+		
+		var oEditors = [];
+		nhn.husky.EZCreator.createInIFrame({
+			oAppRef : oEditors,
+			elPlaceHolder : "content",
+			sSkinURI : contextPath + "resources/se2/SmartEditor2Skin.html",
+			fCreator : "createSEditor2"
+		});
 	//-->
 	</script>
 </body>

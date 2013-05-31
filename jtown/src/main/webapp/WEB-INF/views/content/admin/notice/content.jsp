@@ -42,7 +42,7 @@
 		</tr>			
 		<tr>
 			<th>내용</th>
-			<td colspan="3"><pre><c:out value="${notice.content }"/></pre></td>
+			<td colspan="3"><pre>${notice.content }</pre></td>
 		</tr>
 	</tbody>	
 </table>

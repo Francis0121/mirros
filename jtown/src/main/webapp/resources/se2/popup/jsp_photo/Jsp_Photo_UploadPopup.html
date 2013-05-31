@@ -1,0 +1,30 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="ko">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title>사진 첨부하기 :: SmartEditor2</title>
+<style type="text/css">
+/* NHN Web Standard 1Team JJS 120106 */ 
+/* Common */
+body,p,h1,h2,h3,h4,h5,h6,ul,ol,li,dl,dt,dd,table,th,td,form,fieldset,legend,input,textarea,button,select{margin:0;padding:0}
+body,input,textarea,select,button,table{font-family:'돋움',Dotum,Helvetica,sans-serif;font-size:12px}
+img,fieldset{border:0}
+ul,ol{list-style:none}
+em,address{font-style:normal}
+a{text-decoration:none}
+a:hover,a:active,a:focus{text-decoration:underline}
+</style>
+<link rel="stylesheet" type="text/css" href="../../../uploadify/uploadify.css" />
+<script type="text/javascript" src="jquery-1.8.2.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="../../../uploadify/jquery.uploadify.min.js"></script>
+<script type="text/javascript" src="syncFileUpload.js" charset="utf-8"></script>
+</head>
+<body>
+	<form name="se2FileForm" id="se2FileForm" method="POST" enctype="multipart/form-data">
+		<input type="file" id="filedata" name="filedata">
+		<a href="javascript:$('#filedata').uploadify('upload','*')">Upload Files</a>
+	</form>
+</body>
+</html>

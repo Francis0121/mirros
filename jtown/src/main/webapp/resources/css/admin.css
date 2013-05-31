@@ -68,14 +68,14 @@
 /*************************
 *	공지사항 - 작성
 **************************/
-.jt-notice-write-table { border-bottom: 1px solid #ffd5a6; border-right: 1px solid #ffd5a6; border-collapse: collapse; font-size: 12px; width: 600px;}
+.jt-notice-write-table { border-bottom: 1px solid #ffd5a6; border-right: 1px solid #ffd5a6; border-collapse: collapse; font-size: 12px; width: 800px;}
 .jt-notice-write-table th{ background: #ffead1; vertical-align: middle;}
 .jt-notice-write-table th, .jt-notice-write-table td{ padding: 8px 3px; border-top: 1px solid #ffd5a6; border-left: 1px solid #ffd5a6; min-height: 20px;}
 .jt-notice-write-table>tbody>tr:nth-child(2)>th{width:73px;}
-.jt-notice-write-table>tbody>tr:nth-child(2)>td{width:512px; padding: 2px 3px;}
-.jt-notice-write-table>tbody>tr:nth-child(2)>td>input{ border: 2px solid #d9d9d9; width: 502px; padding: 2px 3px; }
-.jt-notice-write-table>tbody>tr:nth-child(3)>td{width:512px; padding: 2px 3px;}
-.jt-notice-write-table>tbody>tr:nth-child(3)>td>textarea{ border: 2px solid #d9d9d9; width: 502px; padding: 2px 3px; resize :none; height: 200px;}
+.jt-notice-write-table>tbody>tr:nth-child(2)>td{width:712px; padding: 2px 3px;}
+.jt-notice-write-table>tbody>tr:nth-child(2)>td>input{ border: 2px solid #d9d9d9; width: 702px; padding: 2px 3px; }
+.jt-notice-write-table>tbody>tr:nth-child(3)>td{width:712px; padding: 2px 3px;}
+.jt-notice-write-table>tbody>tr:nth-child(3)>td>textarea{ border: 2px solid #d9d9d9; width: 700px; padding: 2px 3px; resize :none; height: 400px;}
 .jt-notice-write-table tfoot{text-align: right;}
 /*************************
 *	사용자관리

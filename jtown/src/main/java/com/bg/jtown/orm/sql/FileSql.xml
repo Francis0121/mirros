@@ -2,7 +2,62 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="fileMapper">
 	
-	<insert id="insertFileVO" parameterType="com.bg.jtown.util.FileVO">
+	<sql id="paginationBefore">
+		SELECT 
+			t.*
+		FROM 
+		( 
+			SELECT  
+				z.*, @RNUM := @RNUM + 1 AS rnum
+			FROM
+				(
+	</sql>
+	
+	<sql id="paginationAfter">
+		<![CDATA[
+				) z,  
+				( SELECT @RNUM := 0 ) R
+			WHERE @RNUM + 1 <=  #{pagination.itemSeqEnd}
+		) t
+		WHERE t.rnum >= #{pagination.itemSeqBegin}
+		]]>
+	</sql>
+	
+	<select id="selectFileCount" parameterType="FileFilter" resultType="Integer">
+		SELECT COUNT(*) FROM image WHERE owner_pn = 1
+	</select>
+	
+	<resultMap type="File" id="file-map">
+		<result property="imagePn" column="pn"/>
+		<result property="saveName" column="save_name"/>
+		<result property="originalName" column="original_name"/>
+	</resultMap>
+	
+	<select id="selectFiles" parameterType="FileFilter" resultMap="file-map">
+		<include refid="paginationBefore"/>
+		SELECT
+			pn, save_name, original_name
+		FROM
+			image
+		WHERE
+			owner_pn = 1	
+		ORDER BY
+			pn DESC
+		<include refid="paginationAfter"/>
+	</select>
+	
+	<select id="selectFile" parameterType="Integer" resultMap="file-map">
+		SELECT
+			pn, save_name, original_name
+		FROM
+			image
+		WHERE
+			pn = #{pn}
+		AND
+			owner_pn = 1
+	</select>
+	
+	<insert id="insertFile" parameterType="File">
 		INSERT INTO
 			image
 			( save_name, original_name, owner_pn, memory_size)
@@ -12,5 +67,12 @@
 			SELECT LAST_INSERT_ID()
 		</selectKey>
 	</insert>
+
+	<delete id="deleteFile" parameterType="Integer">
+		DELETE FROM
+			image
+		WHERE
+			pn = #{pn}
+	</delete>
 	
 </mapper>
