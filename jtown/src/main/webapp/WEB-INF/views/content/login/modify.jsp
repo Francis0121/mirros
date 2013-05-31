@@ -136,8 +136,8 @@
 				<spring:message code="${providerId}.displayName" var="providerDisplayName" />
 					<spring:message code="${providerId}.icon" var="iconUrl"/>
 					<ul class="jt-modify-connect-social-info">
-						<li>
-							<img src="<c:url value="${iconUrl}" />" width="40" height="40" alt="facebookicon"/>
+						<li style="width: 100%;">
+							<img src="<c:url value="${iconUrl}" />" width="30" height="30" alt="facebookicon"/>
 						</li>
 					<c:if test="${not empty connections}">
 						<li>
@@ -147,7 +147,7 @@
 						<li>
 							<form id="disconnect" action="<c:url value="/connect/twitter" />" method="post">
 								<input type="hidden" name="_method" value="delete" />
-								<button type="submit" class="jt-btn-silver">Disconnect</button>	
+								<button type="submit" class="jt-yes-btn" title="Disconnect"><span>Yes</span></button>	
 							</form>
 						</li>
 						</c:if>
@@ -155,7 +155,7 @@
 						<li>
 							<form id="disconnect" action="<c:url value="/connect/facebook" />" method="post">
 								<input type="hidden" name="_method" value="delete" />
-								<button type="submit" class="jt-btn-silver">Disconnect</button>	
+								<button type="submit" class="jt-Yes-btn" title="Disconnect"><span class="jt-Yes-text">Yes</span><span class="jt-Yes-blank">&nbsp;</span></button>	
 							</form>
 						</li>
 						<li>
@@ -163,27 +163,36 @@
 						</li>
 						<li>	
 							<sec:authentication var="feedBool" property="principal.facebookFeed"/>
-							<c:set var="feedValue" value="${feedBool eq true ? 'Off' : 'On' }"/>
+							<c:set var="feedValue" value="${feedBool eq true ? 'Yes' : 'No' }"/>
 							<form action="<c:url value="/login/modifyFacebookFeed.jt"/>"	method="POST">
-								<button type="submit" class="jt-btn-silver" id="jt-modiy-facebookFeed">${feedValue }</button>
+								<button type="submit" class="jt-${feedValue }-btn" id="jt-modiy-facebookFeed" title="${feedValue }"><span class="jt-${feedValue }-text">${feedValue }</span><span class="jt-${feedValue }-blank">&nbsp;</span></button>
 							</form>	
 						</li>
 						</c:if>
 					</c:if>
 					<c:if test="${empty connections}">
-						<li style="width: 550px;">
 						<c:if test="${providerId eq 'twitter' }">
+						<li>
+							<span>Login with Twitter</span>
+						</li>
+						<li>
 							<form action="<c:url value="/connect/twitter" />" method="POST">
-								<button type="submit" class="jt-connect-twitter"></button>
+								Login with Twitter
+								<button type="submit" class="jt-No-btn"><span class="jt-No-text">No</span><span class="jt-No-blank">&nbsp;</span></button>
 							</form>
+						</li>
 						</c:if>
 						<c:if test="${providerId eq 'facebook' }">
+						<li>
+							<span>Login with Facebook</span>
+						</li>
+						<li>
 							<form action="<c:url value="/connect/facebook" />" method="POST">
 								<input type="hidden" name="scope" value="publish_stream,offline_access,email,user_birthday,user_likes" />
-								<button type="submit" class="jt-connect-facebook"></button>
+								<button type="submit" class="jt-No-btn"><span class="jt-No-text">No</span><span class="jt-No-blank">&nbsp;</span></button>
 							</form>
-						</c:if>
 						</li>
+						</c:if>
 					</c:if>
 					</ul>
 				</li>
