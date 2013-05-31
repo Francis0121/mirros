@@ -29,15 +29,12 @@ import com.bg.jtown.business.help.HelpService;
 import com.bg.jtown.business.search.AdminCommentFilter;
 import com.bg.jtown.business.search.AdministratorFilter;
 import com.bg.jtown.business.search.ContractFilter;
-import com.bg.jtown.business.search.FileFilter;
 import com.bg.jtown.business.search.PartnershipFilter;
 import com.bg.jtown.business.search.UserFilter;
 import com.bg.jtown.business.seller.ContractService;
 import com.bg.jtown.controller.validator.SigninAdminVaildatorImpl;
 import com.bg.jtown.security.Authority;
 import com.bg.jtown.security.JtownUser;
-import com.bg.jtown.util.FileUtil;
-import com.bg.jtown.util.FileVO;
 import com.bg.jtown.util.ValidationUtil;
 
 /**
