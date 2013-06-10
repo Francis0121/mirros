@@ -24,10 +24,6 @@
 			sSkinURI : contextPath + "resources/se2/SmartEditor2Skin.html",
 			fCreator : "createSEditor2"
 		});
-		
-		$(function(){
-			$('#partnership_content').plceholder();
-		});
 	//-->
 	</script>
 </body>
