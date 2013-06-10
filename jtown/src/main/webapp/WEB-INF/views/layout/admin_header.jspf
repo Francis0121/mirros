@@ -19,59 +19,34 @@
 <link rel="stylesheet" type="text/css" href="${cp}/resources/css/home.css" />
 <link rel="stylesheet" type="text/css" href="${cp}/resources/css/common.css" />
 <link rel="stylesheet" type="text/css" href="${cp}/resources/css/admin.css" />
+
+<script src="${cp}/resources/se2/js/HuskyEZCreator.js"></script>
 </head>
 <body>
 	<section class="jt-body">
-		<header class="jt-header">
-			<ul class="jt-header-login-menu">
-				<li>
-					<c:url value="/admin" var="admin"/>
-					<a href="${admin }" class="jt-common-a-base">관리자페이지</a>
-				</li>
-				<li>
-					<c:url value="/login/modify" var="modifyUrl"/>
-					<a href="${modifyUrl }" class="jt-common-a-base" id="jt-modify">비밀번호 변경</a>
-				</li>
-				<li>
-					<c:url value="/login/logout" var="logoutUrl"/>
-					<a href="${logoutUrl }" class="jt-common-a-base" id="jt-logout" data-cpn="<sec:authentication property="principal.pn" />">로그아웃</a>
-				</li>		
+	
+		<nav class="jt-left">
+		
+			<ul class="jt-login-info">
+				<li><sec:authentication property="principal.name"/></li>
+				<li><a href="${cp }/login/modify" class="jt-common-a-base">비밀번호변경</a></li>
+				<li><a href="${cp }/login/logout" class="jt-common-a-base">로그아웃</a></li>		
 			</ul>
-		</header>
-		<nav class="jt-left-nav">
-			<ul class="jt-left_menu">
-				<li class="jt-left-nav-category">
-					게시판
+			
+			<ul class="jt-menu">
+				<li><a href="${cp }/admin">Home</a></li>
+				<li><a href="${cp }/admin/notice">Notice</a></li>
+				<li>
+					<a href="${cp }/admin/partnership">User</a>
+					<ul class="jt-sub-menu">
+						<li><a href="${cp }/admin/administrator">Administrator</a></li>
+						<li><a href="${cp }/admin/partnership">Seller</a></li>
+						<li><a href="${cp }/admin/customer">Customer</a></li>
+					</ul>
 				</li>
-				<li class="jt-left-nav-content">
-					<c:url value="/admin/notice" var="noticeUrl" />
-					<a href="${noticeUrl }">- 공지사항</a>
-				</li>
-				<li class="jt-left-nav-category">
-					사용자관리
-				</li>			
-				<li class="jt-left-nav-content">
-					<c:url value="/admin/customer" var="adminCustomer"/>
-					<a href="${adminCustomer }">- 사용자 관리</a>
-				</li>
-				<li class="jt-left-nav-content">
-					<c:url value="/admin/administrator" var="createAdmin" />
-					<a href="${createAdmin }">- 관리자 관리</a>
-				</li>
-				<li class="jt-left-nav-category">
-					제휴문의
-				</li>
-				<li class="jt-left-nav-content">
-					<c:url value="/admin/partnership" var="partnership" />
-					<a href="${partnership }">- 관리</a>
-				</li>
-				<li class="jt-left-nav-category">
-					판매자 댓글
-				</li>
-				<li class="jt-left-nav-content">
-					<c:url value="/admin/comment" var="commentUrl" />
-					<a href="${commentUrl }">- 관리</a>
-				</li>						
+				<li><a href="${cp }/admin/comment">Comment</a></li>
 			</ul>
+			
 		</nav>
+		
 		<section class="jt-content">

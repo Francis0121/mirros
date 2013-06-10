@@ -3,34 +3,36 @@
 /*************************
 *	최상단
 **************************/
-.jt-body{ width: 100%; min-width: 1250px; min-height: 600px; float: left; font-family: Dotum;}
-/*************************
-*	로그인메뉴
-**************************/
-.jt-header{ width: 100%; float: left;}
-.jt-header-login-menu{ width: 100%; float: left; font-size: 12px; background: #ff6f21;}
-.jt-header-login-menu>li:nth-child(1){ float: left; padding: 9px; font-weight: bold;}
-.jt-header-login-menu>li:nth-child(2){ float: right; text-align: right; padding: 9px;}
-.jt-header-login-menu>li:nth-child(3){ float: right; text-align: right; padding: 9px;}
-/*************************
-*	왼쪽메뉴
-**************************/
-.jt-left-nav{width: 10%; float: left; font-size: 12px; background: #ff6f21; color: #fff; }
-.jt-left_menu{ width: 130px; padding: 10px; float: left;}
-.jt-left_menu>li{ width: 120px; padding: 5px 0 ; float: left; }
-.jt-left-nav-category{ font-weight: bold; }
-.jt-left-nav-content>a{ color: #fff; width: 120px; display: block; padding:5px 0;}
-.jt-left-nav-content>a:HOVER{color: #ff6f21 !important; background: #fff;}
-.jt-left-nav-content>a:VISITED, .jt-left-nav-content>a:ACTIVE{color: #fff;}
-/*************************
-*	내용물
-**************************/
-.jt-content{ padding: 10px; float: left; min-width: 1040px; width: 90%;
-	box-sizing: border-box;
-	-o-box-sizing : border-box;
-	-ms-box-sizing : border-box;
-	-moz-box-sizing : border-box;
-	-webkit-box-sizing : border-box;
+body{background: #fafafb;}
+
+.jt-body{ float: left; width: 100%; min-width: 1200px;}
+
+.jt-left{ float: left; width: 10%; padding : 10px;
+	box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box; -moz-box-sizing : border-box; -webkit-box-sizing : border-box;
+}
+
+.jt-login-info{ float: left; width: 100%; border : 1px solid #808080; padding : 5px;
+	border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px;	
+	box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box; -moz-box-sizing : border-box; -webkit-box-sizing : border-box;	
+}
+.jt-login-info>li{float: left; text-align: center; font-size: 12px; font-family: Dotum, Gulim;}
+.jt-login-info>li:nth-child(1){width: 100%; height: 40px; line-height: 40px;}
+.jt-login-info>li:nth-child(2), .jt-login-info>li:nth-child(3){width: 50%; height: 25px; line-height: 25px; font-size: 11px;}
+
+.jt-menu{ float: left; width: 100%; padding: 5px;
+	box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box; -moz-box-sizing : border-box; -webkit-box-sizing : border-box;	
+}
+.jt-menu>li{ float: left; width: 100%; margin-top: 15px;}
+.jt-menu a, .jt-menu a:VISITED, .jt-menu a:HOVER{ font-size: 12px; font-family: Arial,sans-serif; color: #000; width: 100%; float: left; height: 25px; line-height: 25px; text-indent: 8px;}
+.jt-menu a:HOVER{background: #000; color: #fff;}
+.jt-sub-menu{ float: left; width: 100%; padding-left : 10px;
+	box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box; -moz-box-sizing : border-box; -webkit-box-sizing : border-box;	
+}
+.jt-sub-menu>li{float: left; width: 100%; margin-top: 15px; }
+
+.jt-content{
+	float: left; width: 90%;  padding : 10px;
+	box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box; -moz-box-sizing : border-box; -webkit-box-sizing : border-box;
 }
 /*************************
 *	공지사항 
@@ -181,45 +183,6 @@ word-wrap: break-word;
 .jt-create-table tbody select{border: 2px solid #d9d9d9; padding: 2px 3px;}
 .jt-create-table tfoot{text-align: center;}
 .jt-create-table tfoot input { padding: 6px 10px;}
-/*************************
-*	공통적용
-**************************/
-.jt-common-a-base, .jt-common-a-base:VISITED{ color: #fff; }
-.jt-common-a-base:HOVER, .jt-common-a-base:ACTIVE{ color: #e5e5e5; }
-
-.jt-common-a-base-two, .jt-common-a-bas-two:VISITED{ color: #808080; }
-.jt-common-a-base-two:HOVER, .jt-common-a-base-two:ACTIVE{ color: #000; }
-
-.jt-btn-orange{
-	cursor:pointer;
-	border:1px solid #ffad41; 
-	-webkit-border-radius: 3px; 
-	-moz-border-radius: 3px;
-	border-radius: 3px;
-	font-family:arial, helvetica, sans-serif; 
-	padding: 10px 10px 10px 10px; 
-	text-shadow: -1px -1px 0 rgba(0,0,0,0.3);
-	font-weight:bold; 
-	text-align: center; 
-	color: #FFFFFF; 
-	background-color: #ffc579;
-	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffc579), color-stop(100%, #fb9d23));
-	background-image: -webkit-linear-gradient(top, #ffc579, #fb9d23);
- 	background-image: -moz-linear-gradient(top, #ffc579, #fb9d23);
- 	background-image: -ms-linear-gradient(top, #ffc579, #fb9d23);
- 	background-image: -o-linear-gradient(top, #ffc579, #fb9d23);
- 	background-image: linear-gradient(top, #ffc579, #fb9d23);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#ffc579, endColorstr=#fb9d23);
-}
-.jt-btn-orange:HOVER{
-	border:1px solid #ff9913; 
-	background-color: #ffaf46;
-	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffaf46), color-stop(100%, #e78404));
- 	background-image: -webkit-linear-gradient(top, #ffaf46, #e78404);
- 	background-image: -moz-linear-gradient(top, #ffaf46, #e78404);
- 	background-image: -ms-linear-gradient(top, #ffaf46, #e78404);
- 	background-image: -o-linear-gradient(top, #ffaf46, #e78404);
- 	background-image: linear-gradient(top, #ffaf46, #e78404);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#ffaf46, endColorstr=#e78404);
-}
 /*************************
 *	제휴문의 관리
 **************************/
