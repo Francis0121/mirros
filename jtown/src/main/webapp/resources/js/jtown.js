@@ -20,6 +20,8 @@ $(function() {
 		jtown.header.resendEmailAddress();
 	});
 	
+	$('#jt-naturalLanguage-search').placeholder();
+	
 	jtown.naturalLanguage.autocomplete();
 });
 

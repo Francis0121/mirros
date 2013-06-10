@@ -99,7 +99,7 @@
 							<form:label path="content">문의내용</form:label>
 						</th>
 						<td>
-							<form:textarea path="content" htmlEscape="true" maxlength="3000" cssClass="jt-partnership-textarea" cssErrorClass="jt-partnership-textarea-error"/>
+							<form:textarea path="content" id="partnership_content" htmlEscape="true" maxlength="3000" cssClass="jt-partnership-textarea" cssErrorClass="jt-partnership-textarea-error" placeholder="쇼핑몰 입점을 희망하시거나 기타 문의사항을 작성하여주세요."/>
 							<div class="jt-partnership-error">
 								<form:errors path="content"/>
 							</div>

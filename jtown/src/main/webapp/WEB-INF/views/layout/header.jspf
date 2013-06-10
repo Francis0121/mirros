@@ -5,7 +5,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <div class="jt-header-search">
-	<input type="text" class="jt-header-search-input" id="jt-naturalLanguage-search"/>
+	<input type="text" class="jt-header-search-input" id="jt-naturalLanguage-search" placeholder="어떤 쇼핑몰을 찾으시나요?"/>
 </div>
 <div class="jt-header-banner">
 	<a href="${cp }/"><h1 class="jt-header-banner-h1">J Town</h1></a>

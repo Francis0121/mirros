@@ -160,3 +160,61 @@ word-wrap: break-word;
 .jt-beforeAfterBoards-table tbody tr td:nth-child(4){ width: 44px; }
 .jt-beforeAfterBoards-table a, .beforeAfterBoards-table a:VISITED{color: #000;}
 .jt-beforeAfterBoards-table a:HOVER { text-decoration: underline;}
+
+/**********************
+About US
+**********************/
+.jt-about-mirrosis{ float:left; width: 100%; padding: 20px 20px;
+	box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box; -moz-box-sizing : border-box; -webkit-box-sizing : border-box;
+}
+
+.jt-about-mirrosis-header{ float: left; width: 100%; margin-bottom: 20px;}
+.jt-about-mirrosis-header>h1{ font-family: Arial, sans-serif; font-size: 20px; color: #848484; }
+
+.jt-about-mirrosis-banner{ float: left; width: 100%; }
+.jt-about-mirrosis-banner>img{ width: 620px;}
+.jt-about-mirrosis-banner>div{ position: absolute; margin-top: -105px; background: rgba(0,0,0,0.2); width: 600px; height: 85px;
+	padding : 10px;
+}
+.jt-about-mirrosis-banner>div>h2{ color: #ee600f; font-size: 15px; font-family: Arial, sans-serif; }
+.jt-about-mirrosis-banner>div>pre{ margin-top: 5px; color: #ffffff; font-size: 12px; font-family: Dotum, Gulim;  line-height :  17px;
+	white-space: pre-wrap; /* CSS3*/ white-space: -moz-pre-wrap; /* Mozilla, since 1999 */ white-space: -pre-wrap; /* Opera 4-6 */ white-space: -o-pre-wrap; /* Opera 7 */word-wrap: break-word;
+}
+
+.jt-about-mirrosis-content{ float: left; width: 100%; }
+.jt-about-mirrosis-content>li{ float: left; width: 100%; margin: 20px 0;}
+.jt-about-mirrosis-content>li>div{ width: 160px; float: left; height: 80px}
+.jt-about-mirrosis-content>li>div>img{ width: 70px; height: 72px; margin: 4px 45px 0 45px;}
+
+.jt-about-mirrosis-content>li>ul{ width: 500px; float: left;}
+.jt-about-mirrosis-content>li>ul>li{width: 100%; float: left;}
+.jt-about-mirrosis-content>li>ul>li>h2{ font-family: Arial, sans-serif; font-size: 20px; color: #848484; height: 30px; line-height: 30px;}
+.jt-about-mirrosis-content>li>ul>li>pre{ font-family: Dotum, Gulim; font-size: 12px; color: #848484; height: 50px; line-height: 17px;
+	white-space: pre-wrap; /* CSS3*/ white-space: -moz-pre-wrap; /* Mozilla, since 1999 */ white-space: -pre-wrap; /* Opera 4-6 */ white-space: -o-pre-wrap; /* Opera 7 */word-wrap: break-word;
+}
+
+.jt-about-bar{ float:left; width : 620px;  margin : 15px 0;}
+
+.jt-about-ourstory{float:left; width: 100%; padding: 20px 20px;
+	box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box; -moz-box-sizing : border-box; -webkit-box-sizing : border-box;
+}
+
+.jt-about-ourstory-header{ float: left; width: 100%; margin-bottom: 20px; }
+.jt-about-ourstory-header>h1{ font-family: Arial, sans-serif; font-size: 20px; color: #848484; }
+
+.jt-about-ourstory-banner{ float: left; width: 100%; }
+.jt-about-ourstory-banner>img{ width: 620px;}
+
+.jt-about-ourstory-content{ float: left; width: 100%; }
+.jt-about-ourstory-content>li{ float: left; width: 100%; margin-top: 20px;}
+.jt-about-ourstory-content>li>div{ float: left; width: 171px; margin-right: 9px;}
+.jt-about-ourstory-content>li>div>img{ width: 171px; height: 159px;}
+
+.jt-about-ourstory-content>li>ul{ float: left; width: 440px;}
+.jt-about-ourstory-content>li>ul>li{ float: left; width: 440px;}
+.jt-about-ourstory-content>li>ul>li>h2{font-family: Arial, sans-serif; font-size: 15px; color: #848484; margin-top: 34px;}
+.jt-about-ourstory-content>li>ul>li>pre{font-family: Dotum, Gulim; font-size: 12px; color: #848484; line-height: 17px; margin-top : 6px;
+	white-space: pre-wrap; /* CSS3*/ white-space: -moz-pre-wrap; /* Mozilla, since 1999 */ white-space: -pre-wrap; /* Opera 4-6 */ white-space: -o-pre-wrap; /* Opera 7 */word-wrap: break-word;
+}
+
+

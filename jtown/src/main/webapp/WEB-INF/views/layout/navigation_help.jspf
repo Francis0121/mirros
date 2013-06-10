@@ -7,6 +7,10 @@
 <c:set var="realPath" value='<%=request.getAttribute("javax.servlet.forward.request_uri")%>'/>
 <ul class="jt-header-nav-interestCategory-help">
 	<li class="jt-header-nav-interestCategory-li">
+		<c:url var="partnership" value="/help/partnership"/>
+		<a href="${partnership }" class="<c:out value="${realPath eq partnership ? 'jt-header-nav-interestCategory-realPath' : 'jt-header-nav-interestCategory-normal'}"/>"><span>Business</span></a>
+	</li>
+	<li class="jt-header-nav-interestCategory-li">
 		<c:url var="serviceGuide" value="/help/serviceGuide"/>
 		<a href="${serviceGuide }" class="<c:out value="${realPath eq serviceGuide ? 'jt-header-nav-interestCategory-realPath' : 'jt-header-nav-interestCategory-normal'}"/>"><span>About US</span></a>
 	</li>
@@ -17,9 +21,5 @@
 	<li class="jt-header-nav-interestCategory-li">
 		<c:url var="question" value="/help/question"/>
 		<a href="${question }" class="<c:out value="${realPath eq question ? 'jt-header-nav-interestCategory-realPath' : 'jt-header-nav-interestCategory-normal'}"/>"><span>FAQ</span></a>
-	</li>
-	<li class="jt-header-nav-interestCategory-li">
-		<c:url var="partnership" value="/help/partnership"/>
-		<a href="${partnership }" class="<c:out value="${realPath eq partnership ? 'jt-header-nav-interestCategory-realPath' : 'jt-header-nav-interestCategory-normal'}"/>"><span>Business</span></a>
 	</li>
 </ul>
