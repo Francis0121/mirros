@@ -25,13 +25,11 @@ public class BoardServiceImpl extends SqlSessionDaoSupport implements
 	@Override
 	public void insertNoticeWrite(Board board) {
 		getSqlSession().insert("boardMapper.insertNoticeWrite", board);
-		logger.debug(board.toString());
 	}
 
 	@Override
 	public void updateNotice(Board board) {
 		getSqlSession().update("boardMapper.updateNotice", board);
-		logger.debug(board.toString());
 	}
 
 	@Override
@@ -49,7 +47,6 @@ public class BoardServiceImpl extends SqlSessionDaoSupport implements
 		}
 		List<Board> boards = getSqlSession().selectList(
 				"boardMapper.selectNoticeList", boardFilter);
-		logger.debug(boards.toString());
 		return boards;
 	}
 
@@ -57,7 +54,6 @@ public class BoardServiceImpl extends SqlSessionDaoSupport implements
 	public Board selectNoticeContent(Board board) {
 		Board loadBoard = getSqlSession().selectOne(
 				"boardMapper.selectNoticeContent", board);
-		logger.debug(loadBoard.toString());
 		return loadBoard;
 	}
 
@@ -65,7 +61,6 @@ public class BoardServiceImpl extends SqlSessionDaoSupport implements
 	public Integer selectNoticeCount(BoardFilter boardFilter) {
 		Integer count = getSqlSession().selectOne(
 				"boardMapper.selectNoticeCount", boardFilter);
-		logger.debug(count.toString());
 		return count;
 	}
 

@@ -5,6 +5,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <c:set var="cp" value="<%=request.getContextPath() %>"/>
+<c:set var="rp" value='<%=request.getAttribute("javax.servlet.forward.request_uri")%>'/>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -18,6 +19,7 @@
 <link rel="stylesheet" type="text/css" href="${cp}/resources/css/seller.css" />
 <link rel="stylesheet" type="text/css" href="${cp}/resources/css/home.css" />
 <link rel="stylesheet" type="text/css" href="${cp}/resources/css/common.css" />
+<link rel="stylesheet" type="text/css" href="${cp}/resources/css/help.css" />
 <link rel="stylesheet" type="text/css" href="${cp}/resources/css/admin.css" />
 
 <script src="${cp}/resources/se2/js/HuskyEZCreator.js"></script>
@@ -34,17 +36,23 @@
 			</ul>
 			
 			<ul class="jt-menu">
-				<li><a href="${cp }/admin">Home</a></li>
-				<li><a href="${cp }/admin/notice">Notice</a></li>
+				<c:set var="url" value="${cp }/admin"/>
+				<li><a href="${url}" class="<c:out value="${url eq rp ? 'jt-menu-hover' : '' }"/>">Home</a></li>
+				<c:set var="url" value="${cp }/admin/notice"/>
+				<li><a href="${url}" class="<c:out value="${url eq rp ? 'jt-menu-hover' : '' }"/>">Notice</a></li>
 				<li>
 					<a href="${cp }/admin/partnership">User</a>
 					<ul class="jt-sub-menu">
-						<li><a href="${cp }/admin/administrator">Administrator</a></li>
-						<li><a href="${cp }/admin/partnership">Seller</a></li>
-						<li><a href="${cp }/admin/customer">Customer</a></li>
+						<c:set var="url" value="${cp }/admin/administrator"/>
+						<li><a href="${url}" class="<c:out value="${url eq rp ? 'jt-menu-hover' : '' }"/>">Administrator</a></li>
+						<c:set var="url" value="${cp }/admin/partnership"/>
+						<li><a href="${url}" class="<c:out value="${url eq rp ? 'jt-menu-hover' : '' }"/>">Seller</a></li>
+						<c:set var="url" value="${cp }/admin/customer"/>
+						<li><a href="${url}" class="<c:out value="${url eq rp ? 'jt-menu-hover' : '' }"/>">Customer</a></li>
 					</ul>
 				</li>
-				<li><a href="${cp }/admin/comment">Comment</a></li>
+				<c:set var="url" value="${cp }/admin/comment"/>
+				<li><a href="${url}" class="<c:out value="${url eq rp ? 'jt-menu-hover' : '' }"/>">Comment</a></li>
 			</ul>
 			
 		</nav>

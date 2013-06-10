@@ -2,9 +2,12 @@ package com.bg.jtown.controller;
 
 import javax.annotation.Resource;
 
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
+import org.springframework.validation.ValidationUtils;
+import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -14,59 +17,102 @@ import com.bg.jtown.business.board.BoardService;
 import com.bg.jtown.business.search.BoardFilter;
 
 @Controller
+@RequestMapping("/admin")
 public class BoardController {
 
 	@Resource
 	private BoardService boardService;
 
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	@RequestMapping(value = "/admin/notice", method = RequestMethod.GET)
+	private String prefiexUrl = "admin";
+
+	public String getPrefiexUrl() {
+		return prefiexUrl;
+	}
+
+	public void setPrefiexUrl(String prefiexUrl) {
+		this.prefiexUrl = prefiexUrl;
+	}
+
+	@RequestMapping(value = "/notice", method = RequestMethod.GET)
 	public String showNotice(Model model,
 			@ModelAttribute BoardFilter boardFilter) {
 		model.addAttribute("noticeList",
 				boardService.selectNoticeList(boardFilter));
-		return "admin/notice/list";
+		return prefiexUrl + "/notice/list";
 	}
 
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	@RequestMapping(value = "/admin/noticeWrite", method = RequestMethod.GET)
+	@RequestMapping(value = "/noticeWrite", method = RequestMethod.GET)
 	public String showNoticeWrite(Model model, @ModelAttribute Board board) {
-		return "admin/notice/write";
+		Integer pn = board.getPn();
+		if (pn != null && !pn.equals(0)) {
+			model.addAttribute("board", boardService.selectNoticeContent(board));
+		}
+		return prefiexUrl + "/notice/write";
 	}
 
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	@RequestMapping(value = "/admin/noticeWrite", method = RequestMethod.POST)
-	public String formNoticeWrite(Model model, @ModelAttribute Board board) {
-		boardService.insertNoticeWrite(board);
-		return "redirect:/admin/notice";
+	@RequestMapping(value = "/noticeWrite", method = RequestMethod.POST)
+	public String formNoticeWrite(Model model, @ModelAttribute Board board,
+			BindingResult result) {
+		new Validator() {
+
+			@Override
+			public void validate(Object target, Errors errors) {
+				ValidationUtils.rejectIfEmptyOrWhitespace(errors, "title",
+						"board.title.empty", "제목을 입력해 주시기 바랍니다.");
+			}
+
+			@Override
+			public boolean supports(Class<?> clazz) {
+				return Board.class.isAssignableFrom(clazz);
+			}
+		}.validate(board, result);
+
+		if (result.hasErrors()) {
+			return prefiexUrl + "/notice/write";
+		} else {
+			boardService.insertNoticeWrite(board);
+			return "redirect:/" + prefiexUrl + "/notice";
+		}
 	}
 
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	@RequestMapping(value = "/admin/noticeWrite", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/noticeWrite", method = RequestMethod.DELETE)
 	public String formNoticeDelete(Model model, @ModelAttribute Board board) {
 		boardService.deleteBoard(board);
-		return "redirect:/admin/notice";
+		return "redirect:/" + prefiexUrl + "/notice";
 	}
 
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	@RequestMapping(value = "/admin/noticeContent", method = RequestMethod.GET)
+	@RequestMapping(value = "/noticeContent", method = RequestMethod.GET)
 	public String showNoticeContent(Model model, @ModelAttribute Board board) {
 		model.addAttribute("notice", boardService.selectNoticeContent(board));
-		return "admin/notice/content";
+		model.addAttribute("noticeList",
+				boardService.selectBeforeAfterNotice(board));
+		return prefiexUrl + "/notice/content";
 	}
 
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	@RequestMapping(value = "/admin/noticeModify", method = RequestMethod.GET)
-	public String showNoticeModify(Model model, @ModelAttribute Board board) {
-		model.addAttribute("board", boardService.selectNoticeContent(board));
-		return "admin/notice/modify";
-	}
+	@RequestMapping(value = "/noticeWrite", method = RequestMethod.PUT)
+	public String showNoticeModifyPost(Model model,
+			@ModelAttribute Board board, BindingResult result) {
+		new Validator() {
 
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	@RequestMapping(value = "/admin/noticeModify", method = RequestMethod.POST)
-	public String showNoticeModifyPost(Model model, @ModelAttribute Board board) {
-		boardService.updateNotice(board);
-		model.addAttribute("notice", boardService.selectNoticeContent(board));
-		return "redirect:noticeContent?pn=" + board.getPn();
+			@Override
+			public void validate(Object target, Errors errors) {
+				ValidationUtils.rejectIfEmptyOrWhitespace(errors, "title",
+						"board.title.empty", "제목을 입력해 주시기 바랍니다.");
+			}
+
+			@Override
+			public boolean supports(Class<?> clazz) {
+				return Board.class.isAssignableFrom(clazz);
+			}
+		}.validate(board, result);
+		if (result.hasErrors()) {
+			return prefiexUrl + "/notice/write";
+		} else {
+			boardService.updateNotice(board);
+			model.addAttribute("notice",
+					boardService.selectNoticeContent(board));
+			return "redirect:noticeContent?pn=" + board.getPn();
+		}
+
 	}
 }

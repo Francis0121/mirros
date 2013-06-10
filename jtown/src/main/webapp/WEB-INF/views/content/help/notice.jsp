@@ -5,8 +5,8 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <%@ include file="../../layout/help_header.jspf" %>
-<c:set var="pagination" value="${boardFilter.pagination }"/>
 <c:set var="cp" value="<%=request.getContextPath() %>"/>
+<c:set var="pagination" value="${boardFilter.pagination }"/>
 <%-- Page 처리 Script --%>
 <script type="text/javascript">
 /* <![CDATA[ */
