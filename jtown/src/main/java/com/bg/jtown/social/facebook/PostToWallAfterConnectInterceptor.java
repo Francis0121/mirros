@@ -64,11 +64,11 @@ public class PostToWallAfterConnectInterceptor implements
 			Facebook facebook = connection.getApi();
 			FacebookProfile fp = facebook.userOperations().getUserProfile();
 
-			String message = fp.getName() + "님이 Secret Shop Mirros에 접속하셨습니다.";
+			String message = fp.getName() + "님이 맛있는 쇼핑페이지 Mirros에 접속하셨습니다.";
 			String sex = fp.getGender().equals("male") ? "2" : "1";
 			FacebookLink link = new FacebookLink("https://www.mirros.net/cpn/"
 					+ sex + "/spn/0", "Welcome To Mirros", "",
-					"Secret Shop Mirros에서 더 쉽고 간편하게,인터넷 쇼핑몰들을 체험하세요.");
+					"맛있는 쇼핑페이지 Mirros에서 더 쉽고 간편하게,인터넷 쇼핑몰들을 체험하세요.");
 
 			facebook.feedOperations().postLink(message, link);
 		} catch (ApiException e) {
