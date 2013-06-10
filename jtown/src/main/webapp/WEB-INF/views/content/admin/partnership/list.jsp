@@ -74,6 +74,7 @@ function goToPreviousPages() {
 			<form:label path="sellerId">판매자아이디</form:label><form:input path="sellerId"/>
 			<form:label path="shopUrl">판매자홈페이지</form:label><form:input path="shopUrl"/>
 			<form:label path="sellerName">회사명</form:label><form:input path="sellerName"/>
+			<form:label path="shopPn">판매자고유번호</form:label><form:input path="shopPn"/>
 			<input type="submit" value="전송"/>
 		</li>
 	</form:form>
@@ -94,6 +95,7 @@ function goToPreviousPages() {
 			<th>문의날짜</th>
 			<th>수정날짜</th>
 			<th>아이디정보</th>
+			<th>Shop No.</th>
 			<th>홈페이지</th>
 			<th>회사명</th>
 			<th>관심사</th>
@@ -105,7 +107,7 @@ function goToPreviousPages() {
 	</thead>
 	<tfoot>
 		<tr>	
-			<th colspan="17">
+			<th colspan="18">
 				<a href="javascript:void(goToPage(1))" onfocus="blur();">
 						처음
 <%-- 					<img src="<c:url value='/images/mims_pageFirst_btn.gif'/>" alt="처음" style="vertical-align: middle; border: none" /> --%>
@@ -204,6 +206,7 @@ function goToPreviousPages() {
 				<c:choose>
 					<c:when test="${userInfo.username ne null and userInfo.username ne ''}">
 						<td><c:out value="${userInfo.username  }"/></td>
+						<td><c:out value="${userInfo.sixShopPn }"/></td>
 						<td class="jt-partnership-shopUrl"><c:out value="${userInfo.shopUrl }"/></td>
 						<td class="jt-partnership-sellerName"><c:out value="${userInfo.name }"/></td>
 						<td class="jt-partnership-interest"><c:out value="${interestMap[userInfo.pn].interestSectionList }"/></td>
@@ -221,6 +224,7 @@ function goToPreviousPages() {
 					</c:when>
 					<c:otherwise>
 						<td class="jt-seller-create"><button type="button" class="jt-seller-create-btn">아이디생성</button></td>
+						<td><c:out value="${userInfo.sixShopPn }"/></td>
 						<td class="jt-seller-shopUrl">&nbsp;</td>
 						<td class="jt-seller-name">&nbsp;</td>
 						<td class="jt-seller-interest">&nbsp;</td>
@@ -237,7 +241,7 @@ function goToPreviousPages() {
 				<td class="jt-partnership-note"><pre><c:out value="${partnership.note }"/></pre></td>
 			</tr>
 			<tr class="jt-partnership-table-content" id="partnership-content-<c:out value="${partnership.pn }"/>">
-				<td colspan="17">
+				<td colspan="18">
 					<pre><c:out value="${partnership.content }"/></pre>
 				</td>
 			</tr>

@@ -42,6 +42,7 @@
 		<result column="enable" property="jtownUser.enabled"/>
 		<result column="salt" property="jtownUser.salt"/>
 		<result column="seller_name" property="jtownUser.name"/>
+		<result column="shop_pn" property="jtownUser.shopPn"/>
 		<result column="contract_count" property="jtownUser.contractCount"/>
 		<result column="contract_end_date" property="jtownUser.contractEndDate"/>
 		<result column="admin_pn" property="adminUser.pn"/>
@@ -53,13 +54,13 @@
 		SELECT
 			p.pn, p.name, p.email, p.phone_number,
 			p.category_pn, p.content, p.process, p.deposit, p.input_date, p.update_date, p.note,
-			u.pn AS seller_pn, u.shop_url, u.id, u.enable, u.salt, u.name AS seller_name, u.contract_count, u.contract_end_date,
+			u.pn AS seller_pn, u.shop_pn, u.shop_url, u.id, u.enable, u.salt, u.name AS seller_name, u.contract_count, u.contract_end_date,
 			ua.pn AS admin_pn, ua.name AS admin_name
 		FROM
 			partnership p
 			LEFT OUTER JOIN ( 
 				SELECT 
-					us.pn, us.shop_url, u.id, u.enable, u.salt, u.name, uscit.contract_count, uscit.contract_end_date
+					us.pn, us.shop_pn, us.shop_url, u.id, u.enable, u.salt, u.name, uscit.contract_count, uscit.contract_end_date
 				FROM 
 					user_seller us
 					LEFT OUTER JOIN(
@@ -121,6 +122,10 @@
 		AND
 			u.name LIKE #{searchSellerName}
 		</if>
+		<if test="shopPnNo != null and shopPnNo != ''">
+		AND
+			u.shop_pn = #{shopPnNo}
+		</if>
 		<if test="enabled != null">
 		AND
 			u.enable = #{enabled}	
@@ -139,7 +144,7 @@
 			p.pn, p.name, p.email, p.phone_number,
 			p.category_pn, p.content, p.process, p.deposit, p.input_date, p.update_date, p.note
 			<if test="pn != null">
-			,u.pn AS seller_pn, u.shop_url, u.id, u.enable, u.salt, u.name AS seller_name, u.contract_count, u.contract_end_date,
+			,u.pn AS seller_pn, u.shop_pn, u.shop_url, u.id, u.enable, u.salt, u.name AS seller_name, u.contract_count, u.contract_end_date,
 			ua.pn AS admin_pn, ua.name AS admin_name	
 			</if>
 		FROM
@@ -147,7 +152,7 @@
 			<if test="pn != null">
 			LEFT OUTER JOIN ( 
 				SELECT 
-					us.pn, us.shop_url, u.id, u.enable, u.salt, u.name, uscit.contract_count, uscit.contract_end_date
+					us.pn, us.shop_pn, us.shop_url, u.id, u.enable, u.salt, u.name, uscit.contract_count, uscit.contract_end_date
 				FROM 
 					user_seller us
 					LEFT OUTER JOIN(
@@ -208,7 +213,7 @@
 			partnership p
 			LEFT OUTER JOIN ( 
 				SELECT 
-					us.pn, us.shop_url, u.id, u.enable, u.salt, u.name, uscit.contract_count, uscit.contract_end_date
+					us.pn, us.shop_pn, us.shop_url, u.id, u.enable, u.salt, u.name, uscit.contract_count, uscit.contract_end_date
 				FROM 
 					user_seller us
 					LEFT OUTER JOIN(
@@ -269,6 +274,10 @@
 		<if test="searchSellerName != null and searchSellerName != ''">
 		AND
 			u.name LIKE #{searchSellerName}
+		</if>
+		<if test="shopPnNo != null and shopPnNo != ''">
+		AND
+			u.shop_pn = #{shopPnNo}
 		</if>
 		<if test="enabled != null">
 		AND

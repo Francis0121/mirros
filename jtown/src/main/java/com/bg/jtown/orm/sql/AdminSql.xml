@@ -31,6 +31,10 @@
 		<result property="name" column="name" />
 	</resultMap>
 	
+	<resultMap type="JtownUser" id="jt-user-seller-map" extends="jt-user-map">
+		<result property="shopPn" column="shop_pn"/>
+	</resultMap>		
+	
 	<resultMap type="Interest" id="jt-auto-interest-section-map">
 		<result property="sectionPn" column="pn"/>
 		<result property="name" column="name"/>
@@ -142,9 +146,9 @@
 	
 	<!-- Seller -->
 	
-	<select id="selectSeller" parameterType="Integer" resultMap="jt-user-map">
+	<select id="selectSeller" parameterType="Integer" resultMap="jt-user-seller-map">
 		SELECT
-			u.pn, u.id, u.enable, u.name, u.salt
+			u.pn, u.id, u.enable, u.name, u.salt, us.shop_pn
 		FROM
 			user_seller us,
 			users u

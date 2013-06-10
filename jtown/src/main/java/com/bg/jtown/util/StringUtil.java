@@ -177,7 +177,7 @@ public class StringUtil {
 
 		if (szText.getBytes().length < nLength)
 			return r_val;
-		
+
 		return r_val + tail;
 	}
 
@@ -208,6 +208,19 @@ public class StringUtil {
 		}
 		rtnStr.append(nextStr);
 		return rtnStr.toString();
+	}
+
+	public static String replacetZero(String str) {
+		try {
+			for (int i = 0; i < str.length(); i++) {
+				if (!(str.substring(i, i + 1).indexOf("0") > -1)) {
+					return str.substring(i);
+				}
+			}
+		} catch (IndexOutOfBoundsException e) {
+			str = "";
+		}
+		return str;
 	}
 
 }

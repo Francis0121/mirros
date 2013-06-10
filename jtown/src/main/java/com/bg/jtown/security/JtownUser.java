@@ -26,6 +26,7 @@ public class JtownUser extends AbstractUser {
 	private String social;
 
 	// ~ Seller
+	private Integer shopPn;
 	private String notice;
 	private String longNotice;
 	private String shopUrl;
@@ -85,10 +86,24 @@ public class JtownUser extends AbstractUser {
 		return bannerDate;
 	}
 	
+	public String getSixShopPn(){
+		if(this.shopPn == null || "".equals(this.shopPn))
+			return null;
+		return String.format("%06d", this.shopPn);
+	}
+	
 	public int getNowYear() {
 		return DateUtil.getYear();
 	}
-	
+
+	public Integer getShopPn() {
+		return shopPn;
+	}
+
+	public void setShopPn(Integer shopPn) {
+		this.shopPn = shopPn;
+	}
+
 	public String getUpperName() {
 		return super.getName().toUpperCase();
 	}
@@ -283,6 +298,7 @@ public class JtownUser extends AbstractUser {
 		sb.append("Social : ").append(this.social).append(";");
 		sb.append(" ] ");	
 		sb.append("Seller : [ ");
+		sb.append("Spon Pn : ").append(this.shopPn).append("; ");
 		sb.append("Notice: ").append(this.notice).append("; ");
 		sb.append("LongNotice : ").append(this.longNotice).append("; ");
 		sb.append("ShopUrl: ").append(this.shopUrl).append("; ");

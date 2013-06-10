@@ -7,6 +7,7 @@ import java.util.Map;
 
 import com.bg.jtown.business.Json;
 import com.bg.jtown.util.AbstractListFilter;
+import com.bg.jtown.util.StringUtil;
 
 /**
  * <h1>제휴문의 검색 필터</h1>
@@ -78,6 +79,25 @@ public class PartnershipFilter extends AbstractListFilter {
 	 * 판매자 홈페이지
 	 */
 	private String shopUrl;
+
+	/**
+	 * 판매자 6자리 고유번호
+	 */
+	private String shopPn;
+
+	public String getShopPnNo() {
+		if (this.shopPn == null || "".equals(this.shopPn))
+			return null;
+		return StringUtil.replacetZero(this.shopPn);
+	}
+
+	public String getShopPn() {
+		return shopPn;
+	}
+
+	public void setShopPn(String shopPn) {
+		this.shopPn = shopPn;
+	}
 
 	public PartnershipFilter() {
 		super();
@@ -151,7 +171,7 @@ public class PartnershipFilter extends AbstractListFilter {
 		depositMap.put(NOT_DEPOSIT, "미입금");
 		depositMap.put(DEPOSIT, "입금");
 		depositMap.put(ETC, "기타");
-		
+
 		return depositMap;
 	}
 
@@ -248,7 +268,8 @@ public class PartnershipFilter extends AbstractListFilter {
 				+ categoryPn + ", deposit=" + deposit + ", email=" + email
 				+ ", enabled=" + enabled + ", phoneNumber=" + phoneNumber
 				+ ", process=" + process + ", sellerId=" + sellerId
-				+ ", sellerName=" + sellerName + ", shopUrl=" + shopUrl + "]";
+				+ ", sellerName=" + sellerName + ", shopUrl=" + shopUrl
+				+ ", shopPn=" + shopPn + "]";
 	}
 
 }

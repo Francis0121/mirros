@@ -16,6 +16,10 @@
 		<section class="jt-seller-main">
 			<ul class="jt-seller-text-content">
 				<li>
+					<h3>ShopNo</h3>
+					<span><c:out value="${jtownUser.sixShopPn }"/></span>
+				</li>
+				<li>
 					<h3>Seller</h3>
 					<span><c:out value="${jtownUser.name }"/></span>
 				</li>
