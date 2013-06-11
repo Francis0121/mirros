@@ -57,7 +57,7 @@ public class SigninAdminVaildatorImpl implements Validator {
 				"join.email.empty");
 		exist = loginService.selectCheckExistAdminEmail(email);
 		if (exist) {
-			errors.rejectValue("username", "join.email.exist");
+			errors.rejectValue("email", "join.email.exist");
 		}
 		if (!ValidationUtil.checkNullAndBlank(email)) {
 			if (!ValidationUtil.emailFormCheck(email)) {
