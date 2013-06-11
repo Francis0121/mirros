@@ -25,7 +25,7 @@
 
 	<!-- Comment -->
 
-	<resultMap type="com.bg.jtown.business.Comment" id="jtown-comment-map">
+	<resultMap type="Comment" id="jtown-comment-map">
 		<result column="pn" property="commentPn"/>
 		<result column="customer_pn" property="customerPn"/>
 		<result column="name" property="customerName"/>
@@ -37,7 +37,7 @@
 		<result column="warn_customer_pn" property="warnCustomerPn"/>
 	</resultMap>
 	
-	<select id="selectCommentCount" parameterType="com.bg.jtown.business.search.CommentFilter" resultType="java.lang.Integer">
+	<select id="selectCommentCount" parameterType="CommentFilter" resultType="Integer">
 		SELECT
 			comment_count
 		FROM	
@@ -46,7 +46,7 @@
 			seller_pn = #{sellerPn}
 	</select>
 	
-	<select id="selectCommentTop" parameterType="com.bg.jtown.business.search.CommentFilter" resultMap="jtown-comment-map">	
+	<select id="selectCommentTop" parameterType="CommentFilter" resultMap="jtown-comment-map">	
 		SELECT
 			p.pn, p.customer_pn, p.name, p.seller_pn, p.comment, p.comment_love_count, 
 			DATE_FORMAT(p.input_date, '%Y년 %c월 %d일') AS input_date
@@ -103,7 +103,7 @@
 		LIMIT #{topItemNum}
 	</select>
 	
-	<select id="selectComment" parameterType="com.bg.jtown.business.search.CommentFilter" resultMap="jtown-comment-map">
+	<select id="selectComment" parameterType="CommentFilter" resultMap="jtown-comment-map">
 		<include refid="paginationBefore"/>
 		SELECT
 			ucc.pn, ucc.customer_pn, u.name, ucc.seller_pn, ucc.comment, cclcp.comment_love_count,
@@ -146,7 +146,7 @@
 		<include refid="paginationAfter"/>
 	</select>
 	
-	<select id="selectCommentOne" parameterType="java.lang.Integer" resultMap="jtown-comment-map">
+	<select id="selectCommentOne" parameterType="Integer" resultMap="jtown-comment-map">
 		SELECT
 			ucc.pn, ucc.customer_pn, u.name, ucc.seller_pn, ucc.comment, cclcp.comment_love_count, 
 			DATE_FORMAT(ucc.input_date, '%Y년 %c월 %d일') AS input_date
@@ -163,7 +163,31 @@
 			ucc.pn = #{commentPn}
 	</select>
 	
-	<insert id="insertComment" parameterType="com.bg.jtown.business.Comment">
+	<select id="selectExistComment" parameterType="Comment" resultType="Comment">
+		SELECT
+			pn
+		FROM
+			user_customer_comment
+		WHERE
+			customer_pn = #{customerPn}
+		AND
+			seller_pn = #{sellerPn}
+		AND
+			DATE_FORMAT(input_date, "%Y-%m-%d") = #{inputDate}
+	</select>
+	
+	<select id="selectExistLove" parameterType="Count" resultType="Count">
+		SELECT
+			seller_pn AS sellerPn
+		FROM
+			count_love
+		WHERE
+			customer_pn = #{customerPn}
+		AND
+			seller_pn = #{sellerPn}
+	</select>
+	
+	<insert id="insertComment" parameterType="Comment">
 		INSERT INTO
 			user_customer_comment
 			( customer_pn, seller_pn, COMMENT, input_date)
@@ -174,7 +198,7 @@
 		</selectKey>
 	</insert>
 	
-	<update id="updateComment" parameterType="com.bg.jtown.business.Comment">
+	<update id="updateComment" parameterType="Comment">
 		UPDATE
 			user_customer_comment
 		SET
@@ -185,7 +209,7 @@
 			pn = #{commentPn}
 	</update>
 
-	<delete id="deleteComment" parameterType="com.bg.jtown.business.Comment">
+	<delete id="deleteComment" parameterType="Comment">
 		DELETE FROM
 			user_customer_comment
 		WHERE
@@ -195,7 +219,7 @@
 	</delete>
 	
 	<!-- Comment Love -->
-	<select id="selectCommentLove" parameterType="com.bg.jtown.business.Comment" resultType="com.bg.jtown.business.Comment">
+	<select id="selectCommentLove" parameterType="Comment" resultType="Comment">
 		SELECT
 			comment_pn AS commentPn, customer_pn AS customerPn, input_date AS inputDate
 		FROM
@@ -210,7 +234,7 @@
 		</if>
 	</select>
 	
-	<select id="selectCommentLoveCount" parameterType="com.bg.jtown.business.Comment" resultType="java.lang.Integer">
+	<select id="selectCommentLoveCount" parameterType="Comment" resultType="Integer">
 		SELECT
 			COUNT(comment_pn)
 		FROM
@@ -225,7 +249,7 @@
 		</if>
 	</select>
 	
-	<insert id="insertCommentLove" parameterType="com.bg.jtown.business.Comment">
+	<insert id="insertCommentLove" parameterType="Comment">
 		INSERT INTO
 			user_customer_comment_love
 			( comment_pn, customer_pn, input_date )
@@ -233,7 +257,7 @@
 			( #{commentPn}, #{customerPn}, SYSDATE() )
 	</insert>
 	
-	<delete id="deleteCommentLove" parameterType="com.bg.jtown.business.Comment">
+	<delete id="deleteCommentLove" parameterType="Comment">
 		DELETE FROM
 			user_customer_comment_love
 		WHERE
@@ -245,7 +269,7 @@
 	</delete>
 	
 	<!-- Comment Warn -->
-	<insert id="insertWarnComment" parameterType="com.bg.jtown.business.Comment">
+	<insert id="insertWarnComment" parameterType="Comment">
 		INSERT
 			user_customer_comment_warn
 			( comment_pn, customer_pn, input_date )

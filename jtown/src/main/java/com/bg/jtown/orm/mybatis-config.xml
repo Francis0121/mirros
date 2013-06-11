@@ -24,5 +24,9 @@
 		
 		<typeAlias alias="File" type="com.bg.jtown.util.FileVO"/>
 		<typeAlias alias="FileFilter" type="com.bg.jtown.business.search.FileFilter"/>
+		
+		<typeAlias alias="CommentFilter" type="com.bg.jtown.business.search.CommentFilter"/>
+		
+		<typeAlias alias="Count" type="com.bg.jtown.business.Count"/>
 	</typeAliases>
 </configuration>

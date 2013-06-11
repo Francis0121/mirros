@@ -4,23 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.mybatis.spring.support.SqlSessionDaoSupport;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.bg.jtown.business.search.BoardFilter;
 import com.bg.jtown.util.Pagination;
 
 /**
- * @author 박광열
+ * @author 김성근
  * 
  */
 @Service
 public class BoardServiceImpl extends SqlSessionDaoSupport implements
 		BoardService {
-
-	private static Logger logger = LoggerFactory
-			.getLogger(BoardServiceImpl.class);
 
 	@Override
 	public void insertNoticeWrite(Board board) {

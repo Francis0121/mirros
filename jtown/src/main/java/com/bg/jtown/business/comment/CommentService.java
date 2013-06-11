@@ -3,6 +3,7 @@ package com.bg.jtown.business.comment;
 import java.util.List;
 
 import com.bg.jtown.business.Comment;
+import com.bg.jtown.business.Count;
 import com.bg.jtown.business.search.CommentFilter;
 
 /**
@@ -21,6 +22,10 @@ public interface CommentService {
 
 	Comment selectCommentOne(Integer commentPn);
 
+	Boolean selectExistComment(Comment comment);
+
+	Boolean selectExistLove(Count count);
+	
 	Comment insertComment(Comment comment);
 
 	Comment updateComment(Comment comment);
@@ -42,5 +47,7 @@ public interface CommentService {
 	// ~ WarnComment
 	
 	void insertWarnComment(Comment comment);
+
+
 
 }

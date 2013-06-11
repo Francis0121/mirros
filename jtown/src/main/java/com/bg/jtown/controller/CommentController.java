@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bg.jtown.business.Comment;
+import com.bg.jtown.business.Count;
 import com.bg.jtown.business.comment.CommentService;
 import com.bg.jtown.business.search.CommentFilter;
 import com.bg.jtown.security.Authority;
@@ -42,6 +43,22 @@ public class CommentController {
 			commentFilter.setCustomerPn(summaryUser.getPn());
 		}
 		return commentService.selectComment(commentFilter);
+	}
+
+	@RequestMapping(value = "/ajax/home/existComment.jt", method = RequestMethod.POST)
+	@ResponseBody
+	public Boolean ajaxExistComment(@RequestBody Comment comment,
+			SummaryUser summaryUser) {
+		comment.setCustomerPn(summaryUser.getPn());
+		return commentService.selectExistComment(comment);
+	}
+
+	@RequestMapping(value = "/ajax/home/existLove.jt", method = RequestMethod.POST)
+	@ResponseBody
+	public Boolean ajaxExistLove(@RequestBody Count count,
+			SummaryUser summaryUser) {
+		count.setCustomerPn(summaryUser.getPn());
+		return commentService.selectExistLove(count);
 	}
 
 	@RequestMapping(value = "/ajax/home/insertComment.jt", method = RequestMethod.POST)

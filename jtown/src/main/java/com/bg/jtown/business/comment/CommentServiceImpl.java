@@ -11,8 +11,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.bg.jtown.business.Comment;
+import com.bg.jtown.business.Count;
 import com.bg.jtown.business.search.CommentFilter;
 import com.bg.jtown.redis.Publisher;
+import com.bg.jtown.util.DateUtil;
 import com.bg.jtown.util.Pagination;
 
 /**
@@ -78,6 +80,21 @@ public class CommentServiceImpl extends SqlSessionDaoSupport implements
 	public Comment selectCommentOne(Integer commentPn) {
 		return getSqlSession().selectOne("commentMapper.selectCommentOne",
 				commentPn);
+	}
+
+	@Override
+	public Boolean selectExistComment(Comment comment) {
+		comment.setInputDate(DateUtil.getToday("YYYY-MM-DD"));
+		List<Comment> comments = getSqlSession().selectList(
+				"commentMapper.selectExistComment", comment);
+		return comments.size() > 0 ? true : false;
+	}
+
+	@Override
+	public Boolean selectExistLove(Count count) {
+		List<Count> counts = getSqlSession().selectList(
+				"commentMapper.selectExistLove", count);
+		return counts.size() > 0 ? true : false;
 	}
 
 	@Override

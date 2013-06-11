@@ -138,7 +138,7 @@
 			</div>
 		</section>
 		<section class="jt-seller-expand">
-			<div class="jt-home-expand-shop" id="jt-home-expand-shop" data-spn="${jtownUser.pn }" data-size="${productSize }" data-nowPosition="${productSize}">
+			<div class="jt-home-expand-shop" id="jt-home-expand-shop" data-name="<c:out value="${jtownUser.name }"/>" data-spn="${jtownUser.pn }" data-size="${productSize }" data-nowPosition="${productSize}">
 				<div id="jt-home-expand-shop-notice">
 					<div class="jt-seller-expand-notice-hover-tool" id="jt-seller-expand-notice-hover-tool">
 						<div>
@@ -302,7 +302,7 @@
 									<c:choose>
 										<c:when test="${comment.customerPn eq jtownUser.pn }">
 											<div class="jt-home-expand-shop-update-wrap">
-												<input type="text" class="jt-comment-update-input" value="'+htmlChars(comment.comment)+'"/><br/>
+												<input type="text" class="jt-comment-update-input" value="<c:out value="${comment.comment)"/>" maxlength="100"/><br/>
 												<span>esc를 누르시면 수정이 취소 됩니다.</span>
 											</div>
 											<div class="jt-home-expand-shop-tool-wrap">
@@ -348,7 +348,7 @@
 							</c:if>
 						</ul>
 						<div class="jt-home-expand-shop-comment-insert">
-							<input type="text" id="jt-comment-insert" readonly="readonly" placeholder="판매자 아이디로는 이용하실 수 없습니다." maxlength="100"/>
+							<input type="text" id="jt-comment-insert" readonly="readonly" placeholder="판매자 아이디로는 이용하실 수 없습니다."/>
 						</div>
 					</div>
 				</div>

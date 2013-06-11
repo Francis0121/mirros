@@ -43,9 +43,9 @@ jtown.postJSON = function(url, json, option, callback){
 };
 
 jtown.dialog = function(message){
-	var dialog = '<div style="text-align:center; margin-top: 25px; font-weight: bold;">'+message+'</div>';
+	var dialog = '<div style="text-align:center; margin-top: 15px; font-weight: bold; line-height : 16px;">'+message+'</div>';
 	$(dialog).dialog({
-		resizable: false, width: '300px', hegiht : '200px', modal : true, buttons : { 'Close' : function(){$(this).dialog('close');} }
+		resizable: false, width: '300px', hegiht : '200px', modal : true, buttons : { 'Close' : function(){$(this).dialog('close'); } }
 	});
 	$('.ui-dialog-titlebar').removeClass('ui-widget-header');
 	$('.ui-dialog-buttonset').css({'float' : 'none', 'text-align' : 'center'});

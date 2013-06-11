@@ -12,6 +12,23 @@ jtown.comment.syncComment = function(){
 		}
 	});
 	
+	$('#jt-comment-insert').unbind('click').bind('click', function(){
+		var $parent = $(this).parents('#jt-home-expand-shop'),
+			spn = $parent.attr('data-spn'),
+			name = $parent.attr('data-name');
+		
+		var url = contextPath + 'ajax/home/existComment.jt',
+			json = { sellerPn : spn	};
+		$.postJSON(url, json, function(result){
+			if(result){	
+				$('#jt-comment-insert').attr('readonly', 'readonly');
+				jtown.dialog(name+' 쇼핑몰에 대한 댓글은<br/>하루에 한번만 가능합니다.');				
+			}else{
+				$('#jt-comment-insert').removeAttr('readonly');
+			}
+		});
+	});
+	
 	$('.jt-comment-delete').unbind('click').bind('click', function(){
 		var me = $(this);
 		jtown.confirm('댓글을 삭제하시겠습니까?', function(){ 
@@ -141,7 +158,7 @@ jtown.comment.syncComment = function(){
 		
 		$.postJSON(url, json, function(comment){
 			if(!nullValueCheck(comment.message)){
-				jtown.dialog(comment.message);
+				jtown.dialog(comment.message );
 			}else{
 				me.removeClass('jt-warn-active').addClass('jt-warn-disactive').unbind('click');	
 			}
@@ -212,7 +229,7 @@ jtown.comment.commentHtml = function(comment, position, best){
 	commentHtml	+= 	'	</ul>';
 	if(comment.customerPn == cpn){
 	commentHtml +=	'	<div class="jt-home-expand-shop-update-wrap">';
-	commentHtml +=	'		<input type="text" class="jt-comment-update-input" value="'+htmlChars(comment.comment)+'"/><br/>';
+	commentHtml +=	'		<input type="text" class="jt-comment-update-input" value="'+htmlChars(comment.comment)+'" maxlength="100"/><br/>';
 	commentHtml += 	'		<span>esc를 누르시면 수정이 취소 됩니다.</span>';
 	commentHtml +=	'	</div>';
 	commentHtml +=	'	<div class="jt-home-expand-shop-tool-wrap">';
@@ -245,16 +262,48 @@ jtown.comment.commentHtml = function(comment, position, best){
 jtown.comment.insertComment = function(me){
 	var $parent = me.parents('#jt-home-expand-shop'),
 		spn = $parent.attr('data-spn'),
+		name = $parent.attr('data-name'),
 		comment = me.val();
 	
-	var url = contextPath + 'ajax/home/insertComment.jt',
-		json = {	'sellerPn' 	: spn,
-				 	'comment'	: comment 	};
+	var url, json = { 	'sellerPn' 	: spn };
 	
-	$.postJSON(url, json, function(comment){
-		me.val('');
+	url = contextPath + 'ajax/home/existLove.jt';
+	
+	$.postJSON(url, json, function(result){
+	
+		postComment = function(){
+			url = contextPath + 'ajax/home/insertComment.jt';
+			json.comment = comment;
+			$.postJSON(url, json, function(comment){
+				me.val('');
+				me.attr('readonly', 'readonly');
+			});
+		};
+		
+		if(!result){
+			jtown.comment.loveconfirm(function(){jtown.home.clickLove(spn); setTimeout('postComment()', 0);}, function(){ postComment(); }, name);
+		}else{
+			postComment();
+		}
+		
 	});
 };
+
+jtown.comment.loveconfirm = function(success, cancle, name){
+	var dialog = '<div><div class="jt-love-img"><img src="'+contextPath+'resources/images/heart.jpg" alt="Heart"/></div></div>';
+	$(dialog).dialog({
+		resizable: false, width: '550px', modal : true, buttons : { 'YES' : function(){ success(); $(this).dialog('close');  }, 'NO' : function(){ cancle(); $(this).dialog('close');} }
+	});
+	$('.ui-dialog-titlebar').remove();
+	$('.ui-widget-overlay').css('opacity','.9');
+	$('.ui-dialog').removeClass('ui-widget-content').addClass('jt-love-dialog');
+	$('.ui-dialog-content').removeClass('ui-widget-content').addClass('jt-love-dialog-content');
+	$('.ui-dialog-content').after('<div class="jt-love-dialog-ment">'+name+'를 평가해주세요.</div>');
+	$('.ui-dialog-buttonpane').removeClass('ui-widget-content').addClass('jt-love-dialog-buttonpane');
+	$('.ui-dialog-buttonset').addClass('jt-love-dialog-buttonset');
+	$('.ui-button').removeClass().addClass('jt-love-dialog-button');
+};
+
 
 jtown.comment.deleteComment = function(me){
 	var $shop = me.parents('#jt-home-expand-shop'),

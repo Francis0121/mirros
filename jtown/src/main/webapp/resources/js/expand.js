@@ -117,7 +117,7 @@ jtown.expand.makeInnerHtml = function(spn){
 			commentHtml	+= 	'	</ul>';
 			if(comment.customerPn == cpn){
 				commentHtml +=	'<div class="jt-home-expand-shop-update-wrap">';
-				commentHtml +=	'	<input type="text" class="jt-comment-update-input" value="'+htmlChars(comment.comment)+'"/><br/>';
+				commentHtml +=	'	<input type="text" class="jt-comment-update-input" value="'+htmlChars(comment.comment)+'" maxlength="100" /><br/>';
 				commentHtml += 	'	<span>esc를 누르시면 수정이 취소 됩니다.</span>';
 				commentHtml +=	'</div>';
 				commentHtml +=	'<div class="jt-home-expand-shop-tool-wrap">';
@@ -158,8 +158,8 @@ jtown.expand.makeInnerHtml = function(spn){
 		var commentInputHtml = '';
 		if(cpn == 0){
 			commentInputHtml += '<input type="text" id="jt-comment-insert" readonly="readonly" placeholder="판매자 아이디로는 이용하실 수 없습니다."/>';	
-		}else if(!nullValueCheck(cpn)){			
-			commentInputHtml += '<input type="text" id="jt-comment-insert" placeholder="이 쇼핑몰에 대한 한마디를 남겨주세요." maxlength="100"/>';
+		}else if(!nullValueCheck(cpn)){			 
+			commentInputHtml += '<input type="text" id="jt-comment-insert" placeholder="이 쇼핑몰에 대한 한마디를 남겨주세요. 상품 배송문의는 해당 쇼핑몰 고객센터로 남겨주세요." maxlength="100"/>';
 		}else{
 			commentInputHtml += '<input type="text" id="jt-comment-insert" readonly="readonly" placeholder="로그인한 사용자만 사용할 수 있습니다."/>';
 		}
@@ -184,7 +184,7 @@ jtown.expand.makeInnerHtml = function(spn){
 		html += '		<a href="http://'+jtownUser.shopUrl+'" target="_blank" onclick="jtown.home.clickShop(\''+spn+'\');" title="클릭시 해당 쇼핑몰로 이동됩니다.">'+htmlChars(jtownUser.name)+'</a>';
 		html += '	</div>';	
 		html += '</header>';
-		html += '<div class="jt-home-expand-shop jt-home-expand-click-shop" id="jt-home-expand-shop" data-size="'+productSize+'" data-nowPosition="'+productSize+'" data-spn="'+jtownUser.pn+'" data-url="'+jtownUser.shopUrl+'">';
+		html += '<div class="jt-home-expand-shop jt-home-expand-click-shop" id="jt-home-expand-shop" data-name="'+htmlChars(jtownUser.name)+'" data-size="'+productSize+'" data-nowPosition="'+productSize+'" data-spn="'+jtownUser.pn+'" data-url="'+jtownUser.shopUrl+'">';
 		html += '	<div id="jt-home-expand-shop-notice" class="gotoPage" title="클릭시 해당 쇼핑몰로 이동됩니다.">';
 		html += '		<span class="jt-home-expand-shop-firstQuotationMark"></span>';
 		html += '		<pre id="jt-seller-expand-shop-text" class="jt-home-expand-shop-text">'+ ( nullValueCheck(jtownUser.longNotice) ? "쇼핑몰의 홍보문구를 입력해주세요." : jtownUser.longNotice ) +'</pre>';
