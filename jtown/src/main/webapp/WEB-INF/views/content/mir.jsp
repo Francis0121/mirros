@@ -161,7 +161,7 @@
 									<c:choose>
 										<c:when test="${comment.customerPn eq jtownUser.pn }">
 											<div class="jt-home-expand-shop-update-wrap">
-												<input type="text" class="jt-comment-update-input" value="<c:out value="${comment.comment)"/>" maxlength="100"/><br/>
+												<input type="text" class="jt-comment-update-input" value="<c:out value="${comment.comment}"/>" maxlength="100"/><br/>
 												<span>esc를 누르시면 수정이 취소 됩니다.</span>
 											</div>
 											<div class="jt-home-expand-shop-tool-wrap">

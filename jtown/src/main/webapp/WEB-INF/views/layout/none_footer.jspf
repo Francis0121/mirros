@@ -6,11 +6,13 @@
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <c:set var="cp" value="<%=request.getContextPath() %>"/>
 	</section>
+	<<sec:authorize access="anonymous">
 	<div id="temp" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #fff; opacity: 0.95; z-index: 9999; cursor: pointer;" >
 		<div style="width: 990px; margin: auto;">
 			<img alt="Comming Soon. End of the July. Mirros." src="${cp }/resources/images/jt-commingsoon.png" style="width: 990px;">
 		</div>
 	</div>
+	</sec:authorize>
 	<%@ include file="../layout/login.jspf" %>
 	<%@ include file="../layout/script_foot.jspf" %>
 	<script type="text/javascript">

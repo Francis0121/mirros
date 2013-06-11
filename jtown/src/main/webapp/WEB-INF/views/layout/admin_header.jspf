@@ -43,8 +43,10 @@
 				<li>
 					<a href="${cp }/admin/partnership">User</a>
 					<ul class="jt-sub-menu">
+						<sec:authorize access="hasRole('ROLE_ROOT')">
 						<c:set var="url" value="${cp }/admin/administrator"/>
 						<li><a href="${url}" class="<c:out value="${url eq rp ? 'jt-menu-hover' : '' }"/>">Administrator</a></li>
+						</sec:authorize>
 						<c:set var="url" value="${cp }/admin/partnership"/>
 						<li><a href="${url}" class="<c:out value="${url eq rp ? 'jt-menu-hover' : '' }"/>">Seller</a></li>
 						<c:set var="url" value="${cp }/admin/customer"/>

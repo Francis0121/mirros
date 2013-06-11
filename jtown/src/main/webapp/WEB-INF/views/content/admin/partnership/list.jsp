@@ -5,7 +5,6 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <%@ include file="../../../layout/admin_header.jspf" %>
-<div style="width: 100%; overflow-x : scroll;">
 <c:set var="pagination" value="${partnershipFilter.pagination }"/>
 <c:set var="processMap" value="${partnershipFilter.processMap }"/>
 <c:set var="processList" value="${partnershipFilter.processList}"/>
@@ -41,106 +40,129 @@ function goToPreviousPages() {
 	<form:form commandName="partnershipFilter" action="${partnershipUrl }" htmlEscape="true" method="get">
 		<form:hidden path="page" value="${pagination.currentPage}"/>
 		<li>
-			<form:label path="categoryPn">사업아이템</form:label>
-			<form:select path="categoryPn" onchange="document.forms['partnershipFilter'].submit();">
-				<form:option value="">전체</form:option>
-				<form:options items="${interestCategoryMap }"/>
-			</form:select>
+			<sec:authorize access="hasRole('ROLE_ROOT')">
+				<form:label path="adminPn">담당자</form:label>
+				<form:select path="adminPn" onchange="document.forms['partnershipFilter'].submit();" cssClass="jt-admin-filter-select">
+					<form:option value="">전체</form:option>
+					<form:options items="${usersAdmin }" itemValue="pn" itemLabel="name"/>
+				</form:select>
+			</sec:authorize>
 			<form:label path="process">처리상황</form:label>
-			<form:select path="process" onchange="document.forms['partnershipFilter'].submit();">
+			<form:select path="process" onchange="document.forms['partnershipFilter'].submit();" cssClass="jt-admin-filter-select">
 				<form:option value="">전체</form:option>
 				<form:options items="${processMap }"/>
 			</form:select>
 			<form:label path="deposit">입금현황</form:label>
-			<form:select path="deposit" onchange="document.forms['partnershipFilter'].submit();">
+			<form:select path="deposit" onchange="document.forms['partnershipFilter'].submit();" cssClass="jt-admin-filter-select">
 				<form:option value="">전체</form:option>
 				<form:options items="${depositMap }"/>
 			</form:select>
-			불량사용자
-			<form:select path="enabled" onchange="document.forms['partnershipFilter'].submit();">
+			<form:label path="categoryPn">사업아이템</form:label>
+			<form:select path="categoryPn" onchange="document.forms['partnershipFilter'].submit();" cssClass="jt-admin-filter-select">
+				<form:option value="">전체</form:option>
+				<form:options items="${interestCategories }" itemLabel="name" itemValue="categoryPn"/>
+			</form:select>
+		 	<form:label path="enabled">불량사용자</form:label>
+			<form:select path="enabled" onchange="document.forms['partnershipFilter'].submit();" cssClass="jt-admin-filter-select">
 				<form:option value="">전체</form:option>
 				<form:option value="true">정상사용자</form:option>
 				<form:option value="false">불량사용자</form:option>
 			</form:select>
-			담당자
-			<form:select path="adminPn" onchange="document.forms['partnershipFilter'].submit();">
-				<form:option value="">전체</form:option>
-				<form:options items="${usersAdmin }" itemValue="pn" itemLabel="name"/>
-			</form:select>
 		</li>
 		<li>
-			<form:label path="email">이메일</form:label><form:input path="email"/>	
-			<form:label path="phoneNumber">핸드폰번호</form:label><form:input path="phoneNumber"/>	
-			<form:label path="sellerId">판매자아이디</form:label><form:input path="sellerId"/>
-			<form:label path="shopUrl">판매자홈페이지</form:label><form:input path="shopUrl"/>
-			<form:label path="sellerName">회사명</form:label><form:input path="sellerName"/>
-			<form:label path="shopPn">판매자고유번호</form:label><form:input path="shopPn"/>
-			<input type="submit" value="전송"/>
+			<form:label path="shopPn">고유번호</form:label><form:input path="shopPn" cssClass="jt-admin-filter-input"/>
+			<form:label path="sellerId">아이디</form:label><form:input path="sellerId" cssClass="jt-admin-filter-input"/>
+			<form:label path="sellerName">회사명</form:label><form:input path="sellerName" cssClass="jt-admin-filter-input"/>
+			<form:label path="email">이메일</form:label><form:input path="email" cssClass="jt-admin-filter-input"/>	
+			<form:label path="phoneNumber">핸드폰번호</form:label><form:input path="phoneNumber" cssClass="jt-admin-filter-input"/>	
+			<form:label path="shopUrl">홈페이지</form:label><form:input path="shopUrl" cssClass="jt-admin-filter-input"/>
+			<button type="submit" class="jt-btn-white-small">
+				<span class="btnText">검색</span>
+			</button>
 		</li>
 	</form:form>
 </ul>
 
-<table class="jt-partnership-table">
+<table class="jt-partnership-table jt-admin-base-table">
 	<thead>
 		<tr>
-			<th>번호</th>
-			<th>페이지탐색</th>
+			<th rowspan="2">담당자</th>
+			<th colspan="7">문의사항정보</th>
+			<th colspan="7">판매자정보</th>
+			<th colspan="3">계약정보</th>
+			<th rowspan="2">비고</th>
+		</tr>
+		<tr>
+			<th>접수번호</th>
+			<th>문의날짜</th>
 			<th>성명</th>
 			<th>이메일&nbsp;주소</th>
 			<th>전화번호</th>
 			<th>사업아이템</th>
-			<th>담당자</th>
 			<th>처리상황</th>
 			<th>입금현황</th>
-			<th>문의날짜</th>
-			<th>수정날짜</th>
 			<th>아이디정보</th>
-			<th>Shop No.</th>
+			<th>ShopNo</th>
 			<th>홈페이지</th>
 			<th>회사명</th>
 			<th>관심사</th>
 			<th>불량사용자</th>
-			<th>계약기간</th>
-			<th>계약</th>
-			<th>비고</th>
+			<th>횟수</th>
+			<th>기간</th>
+			<th>등록</th>
 		</tr>
 	</thead>
-	<tfoot>
+	<tfoot class="jt-pagination">
 		<tr>	
-			<th colspan="18">
-				<a href="javascript:void(goToPage(1))" onfocus="blur();">
-						처음
-<%-- 					<img src="<c:url value='/images/mims_pageFirst_btn.gif'/>" alt="처음" style="vertical-align: middle; border: none" /> --%>
-				</a>
-				<a href="javascript:void(goToPreviousPages())" onfocus="blur();">
-						다음
-<%-- 					<img src="<c:url value='/images/button/mims_prev_btn.gif'/>" alt="다음" style="vertical-align: middle; border: none" /> --%>
-				</a>
-				<c:forEach var="i" begin="${pagination.pageBegin}" end="${pagination.pageEnd}">
-					<c:if test="${i == pagination.currentPage}">
-						<strong>${i}</strong>
-					</c:if>
-					<c:if test="${i != pagination.currentPage}">
-						<a class="pageLink" href="javascript:void(goToPage(${i}))" onfocus="blur();">${i}</a>
-					</c:if>
-				</c:forEach>
-				<a href="javascript:void(goToNextPages())" onfocus="blur();">
-						다음
-<%-- 					<img src="<c:url value='/images/button/mims_next_btn.gif'/>" alt="다음" style="vertical-align: middle; border: none" /> --%>
-				</a>
-				<a href="javascript:void(goToPage(${pagination.numPages}))" onfocus="blur();">
-						끝
-<%-- 					<img src="<c:url value='/images/mims_pageLast_btn.gif'/>" alt="끝" style="vertical-align: middle; border: none" /> --%>
-				</a>
-			</th>
+			<td colspan="20">
+				<div id="page-wrap">
+					<div style="float: left;">
+						<a href="javascript:void(goToPage(1))" onfocus="blur();">
+							<img src="${cp }/resources/images/arrow/pageFirst_btn.png" alt="처음" title="First" style="vertical-align: middle; border: none;" />
+						</a>
+						<a href="javascript:void(goToPreviousPages())" onfocus="blur();" class="page-beforeafter">
+							<img src="${cp }/resources/images/arrow/prev_btn.png" alt="이전" title="Before" style="vertical-align: middle; border: none;  margin-top: -2px;" />&nbsp;&nbsp;<span>PREV</span>
+						</a>
+						<c:forEach var="i" begin="${pagination.pageBegin}" end="${pagination.pageEnd}">
+							<c:if test="${i == pagination.currentPage}">
+								<a class="page-link page-now">${i}</a>
+							</c:if>
+							<c:if test="${i != pagination.currentPage}">
+								<a class="page-link" href="javascript:void(goToPage(${i}))" onfocus="blur();">${i}</a>
+							</c:if>
+						</c:forEach>
+						<a href="javascript:void(goToNextPages())" onfocus="blur();" class="page-beforeafter">
+							<span>NEXT</span>&nbsp;&nbsp;<img src="${cp }/resources/images/arrow/next_btn.png" alt="다음" title="After" style="vertical-align: middle; border: none; margin-top: -2px;" />
+						</a>
+						<a href="javascript:void(goToPage(${pagination.numPages}))" onfocus="blur();">
+							<img src="${cp }/resources/images/arrow/pageLast_btn.png" alt="끝" title="Last" style="vertical-align: middle; border: none; " />
+						</a>
+					</div>
+				</div>
+			</td>
 		</tr>
 	</tfoot>
 	<tbody>
 		<c:forEach items="${partnerships }" var="partnership" varStatus="loop">
 			<c:set var="userInfo" value="${partnership.jtownUser }"/>
 			<tr class="jt-partnership-info" data-pspn="<c:out value="${partnership.pn }"/>" data-spn="<c:out value="${userInfo.pn}"/>">
+				<td class="jt-partnership-adminPn">
+					<select class="jt-partnership-adminPn-select">
+						<option value="">선택</option>
+						<c:forEach items="${usersAdmin }" var="adminUser">
+							<c:choose>
+								<c:when test="${adminUser.pn eq partnership.adminUser.pn}">
+									<option value="${adminUser.pn }" selected="selected"><c:out value="${adminUser.name }"/></option>
+								</c:when>							
+								<c:otherwise>
+									<option value="${adminUser.pn }"><c:out value="${adminUser.name }"/></option>
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>
+					</select>
+				</td>
 				<td class="jt-partnership-table-information"><c:out value="${partnership.pn }"/></td>
-				<td><a href="<c:url value="/seller/${userInfo.pn }"/>">바로가기</a></td>
+				<td class="jt-partnership-insert-date"><c:out value="${fn:substring(partnership.inputDate , 0, 10) }"/></td>
 				<td class="jt-partnership-name"><c:out value="${partnership.name }"/></td>
 				<td class="jt-partnership-email"><c:out value="${partnership.email }"/></td>
 				<td class="jt-partnership-phoneNumber"><c:out value="${partnership.phoneNumber }"/></td>
@@ -153,21 +175,6 @@ function goToPreviousPages() {
 								</c:when>							
 								<c:otherwise>
 									<option value="${interestCategory.categoryPn }"><c:out value="${interestCategory.name }"/></option>
-								</c:otherwise>
-							</c:choose>
-						</c:forEach>
-					</select>
-				</td>
-				<td class="jt-partnership-adminPn">
-					<select class="jt-partnership-adminPn-select">
-						<option value="">선택</option>
-						<c:forEach items="${usersAdmin }" var="adminUser">
-							<c:choose>
-								<c:when test="${adminUser.pn eq partnership.adminUser.pn}">
-									<option value="${adminUser.pn }" selected="selected"><c:out value="${adminUser.name }"/></option>
-								</c:when>							
-								<c:otherwise>
-									<option value="${adminUser.pn }"><c:out value="${adminUser.name }"/></option>
 								</c:otherwise>
 							</c:choose>
 						</c:forEach>
@@ -201,12 +208,10 @@ function goToPreviousPages() {
 						</c:forEach> 
 					</select>
 				</td>
-				<td><c:out value="${partnership.inputDate }"/></td>
-				<td><c:out value="${partnership.updateDate }"/></td>
 				<c:choose>
 					<c:when test="${userInfo.username ne null and userInfo.username ne ''}">
-						<td><c:out value="${userInfo.username  }"/></td>
-						<td><c:out value="${userInfo.sixShopPn }"/></td>
+						<td class="jt-partnership-username"><a href="<c:url value="/seller/${userInfo.pn }"/>"><c:out value="${userInfo.username  }"/></a></td>
+						<td class="jt-partnership-shopPn"><c:out value="${userInfo.sixShopPn }"/></td>
 						<td class="jt-partnership-shopUrl"><c:out value="${userInfo.shopUrl }"/></td>
 						<td class="jt-partnership-sellerName"><c:out value="${userInfo.name }"/></td>
 						<td class="jt-partnership-interest"><c:out value="${interestMap[userInfo.pn].interestSectionList }"/></td>
@@ -216,15 +221,28 @@ function goToPreviousPages() {
 								<option value="0" ${userInfo.enabled eq false ? 'selected=selected' : ''}>불량 사용자</option>					
 							</select>
 						</td>
-						<td>
-							계약&nbsp;횟수&nbsp;:&nbsp;<span id="contract-count-${userInfo.pn }"><c:out value="${userInfo.contractCount eq null ? 0 : userInfo.contractCount}"/></span><button type="button" class="jt-admin-contract-list">조회</button><br/>
-							계약&nbsp;만료&nbsp;:&nbsp;<span id="contract-end-date-${userInfo.pn }"><c:out value="${userInfo.contractEndDate}"/></span>
+						<td class="jt-partnership-contract-number">
+							<button type="button" class="jt-admin-contract-list jt-btn-white-small">
+								<span class="btnText" id="contract-count-${userInfo.pn }"><c:out value="${userInfo.contractCount eq null ? 0 : userInfo.contractCount}"/></span>
+							</button>
 						</td>
-						<td><button type="button" class="jt-admin-contract">계약</button></td>					
+						<td class="jt-partnership-contract-end">
+							<span id="contract-end-date-${userInfo.pn }"><c:out value="${userInfo.contractEndDate}"/></span>
+						</td>
+						<td class="jt-partnership-contract-register">
+							<button type="button" class="jt-admin-contract jt-btn-white-small">
+								<span class="btnText">계약</span>
+							</button>
+						</td>					
 					</c:when>
 					<c:otherwise>
-						<td class="jt-seller-create"><button type="button" class="jt-seller-create-btn">아이디생성</button></td>
-						<td><c:out value="${userInfo.sixShopPn }"/></td>
+						<td class="jt-seller-create">
+							<button type="button" class="jt-seller-create-btn jt-btn-white-small">
+								<span class="btnImage"></span>
+								<span class="btnText">아이디 생성</span>
+							</button>
+						</td>
+						<td class="jt-seller-shopPn">&nbsp;</td>
 						<td class="jt-seller-shopUrl">&nbsp;</td>
 						<td class="jt-seller-name">&nbsp;</td>
 						<td class="jt-seller-interest">&nbsp;</td>
@@ -235,18 +253,18 @@ function goToPreviousPages() {
 							</select>
 						</td> 	
 						<td></td>
+						<td></td>
 						<td></td>	
 					</c:otherwise>
 				</c:choose>
 				<td class="jt-partnership-note"><pre><c:out value="${partnership.note }"/></pre></td>
 			</tr>
 			<tr class="jt-partnership-table-content" id="partnership-content-<c:out value="${partnership.pn }"/>">
-				<td colspan="18">
+				<td colspan="20">
 					<pre><c:out value="${partnership.content }"/></pre>
 				</td>
 			</tr>
 		</c:forEach>
 	</tbody>
 </table>
-</div>
 <%@ include file="../../../layout/admin_footer.jspf" %>

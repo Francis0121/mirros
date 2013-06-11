@@ -60,6 +60,9 @@
 			( pn, shop_url, hot )		
 		VALUES
 			( #{pn}, '', 0 )
+		<selectKey keyProperty="shopPn" resultType="Integer">
+			SELECT LAST_INSERT_ID()
+		</selectKey>	
 	</insert>	
 		
 	<insert id="insertUserAdmin" parameterType="JtownUser">

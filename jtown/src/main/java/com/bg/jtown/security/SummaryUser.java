@@ -69,7 +69,7 @@ public class SummaryUser {
 		}
 		if (this.authoirty.equals("RootAdministrator")) {
 			return Authority.ROOT_ADMIN;
-		} else if (this.authoirty.equals("Administartor")) {
+		} else if (this.authoirty.equals("Administrator")) {
 			return Authority.ADMIN;
 		} else if (this.authoirty.equals("Seller")) {
 			return Authority.SELLER;

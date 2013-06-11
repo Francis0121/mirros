@@ -168,7 +168,8 @@ jtown.admin.sellerCreate = function(){
 		
 		$.postJSON(url, json, function(jtownUser){
 			parent.attr('data-spn', jtownUser.pn);
-			parent.find('.jt-seller-create').text(jtownUser.username).removeClass('jt-seller-create');
+			parent.find('.jt-seller-create').html('<a href="'+contextPath+'seller/'+jtownUser.pn+'">'+jtownUser.username+'</a>').removeClass('jt-seller-create').addClass('jt-partnership-username');
+			parent.find('.jt-seller-shopPn').text(jtownUser.sixShopPn).removeClass('jt-seller-shopPn').addClass('jt-partnership-shopPn');
 			parent.find('.jt-seller-shopUrl').text('').addClass('jt-partnership-shopUrl').removeClass('jt-seller-shopUrl');
 			parent.find('.jt-seller-name').text('').addClass('jt-partnership-sellerName').removeClass('jt-seller-name');
 			parent.find('.jt-seller-enabled').addClass('jt-partnership-enabled').removeClass('jt-seller-enabled');
@@ -288,7 +289,7 @@ jtown.admin.changeTextarea = function(name, callback, event){
 	
 	$(nameVo.selector).unbind('mouseup').bind('mouseup', function(){
 		var me = $(this),  value = me.text(),
-			html = '<textarea class="" id="' + nameVo.input + '" type="text" style="width: 120px;">'+value+'</textarea>';
+			html = '<textarea class="" id="' + nameVo.input + '" type="text" style="width: '+(Number(me.width())-14)+'px; height: '+(Number(me.height()))+'">'+value+'</textarea>';
 		me.html(html);
 		
 		setTimeout(event, 0);

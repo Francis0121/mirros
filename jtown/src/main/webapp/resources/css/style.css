@@ -151,7 +151,5 @@
 .jt-rule-article{width: 990px; margin: 50px auto 20px auto; }
 .jt-rule-article>h1{ float: left; width: 950px; padding: 10px 20px; font-size: 13px;}
 .jt-rule-article>pre{float:  left; width: 950px; padding: 10px 20px; font-size: 13px; line-height: 20px;
-white-space: pre-wrap; /* CSS3*/
-white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
-word-wrap: break-word; /* Internet Explorer 5.5+ */
+	white-space: pre-wrap; /* CSS3*/ white-space: -moz-pre-wrap; /* Mozilla, since 1999 */ white-space: -pre-wrap; /* Opera 4-6 */ white-space: -o-pre-wrap; /* Opera 7 */word-wrap: break-word;
 }

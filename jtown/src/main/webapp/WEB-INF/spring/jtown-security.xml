@@ -27,7 +27,7 @@
 		<intercept-url pattern="/login/*" access="permitAll" requires-channel="any"/>
 		<intercept-url pattern="/help/*" access="permitAll" requires-channel="any"/>
 		<intercept-url pattern="/admin" 
-			access="hasRole('ROLE_ROOT') and 
+			access="hasRole('ROLE_ADMIN') and 
 					( hasIpAddress('127.0.0.1') or 
 						hasIpAddress('218.55.100.40') or
 						hasIpAddress('218.55.100.41') or
@@ -42,7 +42,7 @@
 						hasIpAddress('218.55.100.50')	)" 
 			requires-channel="any" />
 		<intercept-url pattern="/admin/*" 
-			access="hasRole('ROLE_ROOT') and 
+			access="hasRole('ROLE_ADMIN') and 
 					( hasIpAddress('127.0.0.1') or 
 						hasIpAddress('218.55.100.40') or
 						hasIpAddress('218.55.100.41') or

@@ -93,16 +93,6 @@ body{background: #f6f4f5;}
 }
 .jt-admin-base-table thead th{ background: #808080; color: #fff;}
 
-.jt-administrator-table{ width: 500px; margin-top: 5px;}
-.jt-administrator-table tbody tr td:nth-child(1){ width: 150px;}
-.jt-administrator-table tbody tr td:nth-child(2){ width: 100px;}
-.jt-administrator-table tbody tr td:nth-child(3){ width: 160px; font-size: 11px;}
-.jt-administrator-table tbody tr td:nth-child(4){ width: 90px; }
-
-.jt-administrator-create-table{ width: 400px;}
-.jt-administrator-create-table tbody tr th:nth-child(1){ width: 150px; text-align: left;}
-.jt-administrator-create-table tbody tr td:nth-child(2){ width: 250px;}
-
 .jt-admin-input { width: 180px; padding: 2px 3px; border: 1px solid #ad9c9c; height: 25px;
  	-webkit-border-radius: 5px;  -moz-border-radius: 5px; border-radius: 5px;
 }
@@ -117,12 +107,21 @@ body{background: #f6f4f5;}
 .jt-pagination td a{ margin: 0 3px; width: 10px; float: left; height: 16px; line-height: 16px;}
 .jt-pagination td .page-beforeafter{ font-size: 10px; font-weight: bold; font-family: Arial; width: 45px; color: #5a5a5a;}
 .jt-pagination td .page-link, .jt-pagination td .page-link:VISITED{ color: #5a5a5a; font-size: 13px; }
-.jt-pagination tfoot td .page-link:HOVER{ color: #5a5a5a; text-decoration: underline; font-weight: bold; }
-.jt-pagination tfoot td .page-now{font-weight: bold;}
-.jt-pagination tfoot td .page-now:HOVER{text-decoration: none;}
+.jt-pagination td .page-link:HOVER{ color: #5a5a5a; text-decoration: underline; font-weight: bold; }
+.jt-pagination td .page-now{font-weight: bold;}
+.jt-pagination td .page-now:HOVER{text-decoration: none;}
+
+.jt-administrator-table{ width: 500px; margin-top: 5px;}
+.jt-administrator-table tbody tr td:nth-child(1){ width: 150px;}
+.jt-administrator-table tbody tr td:nth-child(2){ width: 100px;}
+.jt-administrator-table tbody tr td:nth-child(3){ width: 160px; font-size: 11px;}
+.jt-administrator-table tbody tr td:nth-child(4){ width: 90px; }
+
+.jt-administrator-create-table{ width: 400px;}
+.jt-administrator-create-table tbody tr th:nth-child(1){ width: 150px; text-align: left;}
+.jt-administrator-create-table tbody tr td:nth-child(2){ width: 250px;}
 
 .jt-manage-filter{font-size: 12px;}
-
 .jt-manage-table { border-bottom: 1px solid #ffd5a6; border-right: 1px solid #ffd5a6; border-collapse: collapse; font-size: 12px; width: 1000px;}
 .jt-manage-table th{ background: #ffead1; vertical-align: middle;}
 .jt-manage-table th, .jt-manage-table td{ padding: 8px 3px; border-top: 1px solid #ffd5a6; border-left: 1px solid #ffd5a6; min-height: 20px;}
@@ -141,43 +140,52 @@ body{background: #f6f4f5;}
 .jt-manage-table>tbody>tr>td:nth-child(6)>select{ border: 2px solid #d9d9d9; padding: 2px 3px; width: 102px;}
 .jt-manage-table>tbody>tr>td>input{border: 2px solid #d9d9d9; padding: 2px 3px;}
 /*************************
-*	판매자 관리
-**************************/
-.jt-manage-seller-table { border-bottom: 1px solid #ffd5a6; border-right: 1px solid #ffd5a6; border-collapse: collapse; font-size: 12px; width: 1250px;}
-.jt-manage-seller-table th{ background: #ffead1; vertical-align: middle;}
-.jt-manage-seller-table th, .jt-manage-seller-table td{ padding: 8px 3px; border-top: 1px solid #ffd5a6; border-left: 1px solid #ffd5a6; min-height: 20px;}
-.jt-manage-seller-table>thead>tr>th:nth-child(1){ width: 43px; }
-.jt-manage-seller-table>thead>tr>th:nth-child(2){ width: 203px; }
-.jt-manage-seller-table>thead>tr>th:nth-child(3){ width: 143px; }
-.jt-manage-seller-table>thead>tr>th:nth-child(4){ width: 293px; }
-.jt-manage-seller-table>thead>tr>th:nth-child(5){ width: 153px; }
-.jt-manage-seller-table>thead>tr>th:nth-child(6){ width: 113px; }
-.jt-manage-seller-table>thead>tr>th:nth-child(7){ width: 182px; }
-.jt-manage-seller-table>thead>tr>th:nth-child(8){ width: 62px; }
-.jt-manage-seller-table>tbody>tr>td:nth-child(1){ text-align: center; }
-.jt-manage-seller-table>tbody>tr>td:nth-child(2){}
-.jt-manage-seller-table>tbody>tr>td:nth-child(3){}
-.jt-manage-seller-table>tbody>tr>td:nth-child(4){}
-.jt-manage-seller-table>tbody>tr>td:nth-child(5){ text-align: center; }
-.jt-manage-seller-table>tbody>tr>td:nth-child(6){ text-align: center; }
-.jt-manage-seller-table>tbody>tr>td:nth-child(6)>select{ border: 2px solid #d9d9d9; padding: 2px 3px; width: 102px;}
-.jt-manage-seller-table>tbody>tr>td:nth-child(7){ text-align: left; line-height: 1.2; }
-.jt-manage-seller-table>tbody>tr>td:nth-child(8){ text-align: center; }
-.jt-manage-seller-table>tbody>tr>td>input{border: 2px solid #d9d9d9; padding: 2px 3px;}
-
-/*************************
 *	제휴문의 관리
 **************************/
-.jt-partnership-filter{font-size: 12px;}
+.jt-partnership-filter{font-size: 12px; width: 1500px;}
+.jt-partnership-filter li{ float: left;  width: 100%; padding: 5px 0;
+	box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box; -moz-box-sizing : border-box; -webkit-box-sizing : border-box;
+}
+.jt-partnership-filter label{ float: left; height: 28px; line-height: 35px; margin: 0 5px;}
+.jt-admin-filter-input { width: 120px; padding: 2px 3px; border: 1px solid #ad9c9c; height: 16px;
+ 	-webkit-border-radius: 3px;  -moz-border-radius: 3px; border-radius: 3px; font-size: 12px;
+ 	float: left; margin-top: 6px;
+}
+.jt-admin-filter-select { width: 80px; padding: 2px 3px; border: 1px solid #ad9c9c; height: 24px;
+ 	-webkit-border-radius: 3px;  -moz-border-radius: 3px; border-radius: 3px; font-size: 12px;
+ 	float: left; margin-top: 6px;
+}
 
-.jt-partnership-table { border-bottom: 1px solid #ffd5a6; border-right: 1px solid #ffd5a6; border-collapse: collapse; font-size: 12px; width: 2000px;}
-.jt-partnership-table th, .jt-partnership-table td{ padding: 8px 3px; border-top: 1px solid #ffd5a6; border-left: 1px solid #ffd5a6; min-height: 20px;}
-.jt-partnership-table>thead>tr{background: #ff9921; color: #fff;}
-.jt-partnership-table>tbody>tr:HOVER{background: #ffb866; cursor: pointer;}
-.jt-partnership-table-content{cursor: auto !important; display: none;}
-.jt-partnership-table-content:HOVER{cursor: auto !important; background:#ffead1; }
-.jt-partnership-table-content>td{ text-align: left; width: 991px;}
-.jt-partnership-table-content>td>pre{ text-align: left; width : 900px; white-space: pre-wrap; /* CSS3*/white-space: -moz-pre-wrap; /* Mozilla, since 1999 */word-wrap: break-word; /* Internet Explorer 5.5+ */}
+.jt-partnership-table { width: 2600px;}
+.jt-partnership-table-content {display: none;}
+.jt-partnership-table-content td{ text-align : left; }
+
+.jt-partnership-table-information{width: 75px; cursor: pointer;}
+.jt-partnership-table-information:HOVER{background: #d9d9d9;}
+.jt-partnership-name{width: 100px;}
+.jt-partnership-email{width: 200px; text-align: left !important;}
+.jt-partnership-phoneNumber{width: 120px; text-align: left !important;}
+.jt-partnership-category{width: 120px;}
+.jt-partnership-adminPn{width: 100px;}
+.jt-partnership-process{width: 100px;}
+.jt-partnership-deposit{width: 100px;}
+.jt-partnership-insert-date{width: 100px;}
+.jt-partnership-username{width: 200px; text-align: left !important;}
+.jt-partnership-username a, .jt-partnership-username a:VISITED{color: black;}
+.jt-partnership-username a:HOVER{text-decoration: underline;}
+.jt-partnership-shopPn{width: 80px;}
+.jt-partnership-shopUrl{width: 200px; text-align: left !important;}
+.jt-partnership-sellerName{width: 120px; }
+.jt-partnership-interest{width: 250px; text-align: left !important;}
+.jt-partnership-enabled{width: 115px;}
+.jt-partnership-contract-number{ width: 80px;}
+.jt-admin-contract-list{min-width: 26px;}
+.jt-partnership-contract-end{ width: 100px;}
+.jt-partnership-contract-register{width: 80px; }
+.jt-partnership-note{width: 360px; text-align: left !important;}
+
+.jt-seller-create{ text-align: left !important; }
+.jt-seller-create-btn .btnImage{ background-position: 0 -36px;}
 /**********************
 *	판매자 정보
 **********************/
