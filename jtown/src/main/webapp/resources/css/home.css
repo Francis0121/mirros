@@ -219,8 +219,10 @@ color: #808080;}
 }
 .jt-love-dialog-content{ width: 188px !important; float: left; padding: 0 !important;
 	box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box; -moz-box-sizing : border-box; -webkit-box-sizing : border-box;
+	height: 150px;
 }
 .jt-love-img{
+	height: 150px;
 }
 .jt-love-dialog-ment{ width: 316px; float: left; height: 40px; line-height: 40px; text-align: center; font-size: 13px; font-weight: bold;  color: #333333;} 
 .jt-love-dialog-buttonpane{ width: 306px; height :100px; float: left; padding : 0 !important; margin:  0 0 0 10px !important;
