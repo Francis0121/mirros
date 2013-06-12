@@ -58,10 +58,23 @@
 					<li>
 						<c:set var="loveClick" value="${seller.customerPn ne null ? 'jt-home-shop-love-click' : '' }"/>
 						<c:set var="loveTextClick" value="${seller.customerPn ne null ? 'jt-home-shop-love-text-click' : '' }"/>
-						<a href="#none" onclick="jtown.home.clickLove('<c:out value="${spn }"/>');" id="love-image-<c:out value="${spn }"/>" class="jt-home-shop-love ${loveClick }">♥</a>&nbsp;<span id="love-<c:out value="${spn }"/>" class="${loveTextClick}"><c:out value="${seller.loveCount eq null ? 0 : seller.loveCount}"/></span>
-						<c:if test="${seller.loveHotCount ne null and seller.loveHotCount ne 0}">
-						<span class="jt-home-shop-love-hot">HOT</span>
-						</c:if>
+						<div class="jt-heart-click-wrap">
+							<div class="jt-heart-click-background" id="jt-heart-click-<c:out value="${spn }"/>">
+								<img alt="heart-background" src="${cp}/resources/images/heart-background.png">
+							</div>
+							<div class="jt-heart-click">
+								<a href="#none" 
+									onclick="jtown.home.clickLove('<c:out value="${spn }"/>');" 
+									id="love-image-<c:out value="${spn }"/>" 
+									class="jt-home-shop-love ${loveClick }">♥</a>
+							</div>
+						</div>
+						<div class="jt-home-shop-content-love-text-wrap">
+							<span id="love-<c:out value="${spn }"/>" class="${loveTextClick}"><c:out value="${seller.loveCount eq null ? 0 : seller.loveCount}"/></span>
+							<c:if test="${seller.loveHotCount ne null and seller.loveHotCount ne 0}">
+							<span class="jt-home-shop-love-hot">HOT</span>
+							</c:if>
+						</div>
 					</li>
 				</ul>
 				<!--[if IE 7]>

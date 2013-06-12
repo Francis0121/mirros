@@ -123,10 +123,20 @@
 						<span class="jt-home-shop-comment">COMMENT</span>&nbsp;<span id="comment-<c:out value="${jtownUser.pn }"/>"><c:out value="${jtownUser.commentCount eq null ? 0 : jtownUser.commentCount}"/></span>
 					</li>
 					<li>
-						<span class="jt-home-shop-love">♥</span>&nbsp;<span id="love-<c:out value="${jtownUser.pn}"/>"><c:out value="${jtownUser.loveCount eq null ? 0 : jtownUser.loveCount}"/></span>
-						<c:if test="${jtownUser.loveHotCount ne null and jtownUser.loveHotCount ne 0}">
-							<span class="jt-home-shop-love-hot">HOT</span>
-						</c:if>
+						<div class="jt-heart-click-wrap">
+							<div class="jt-heart-click-background" id="jt-heart-click-<c:out value="${spn }"/>">
+								<img alt="heart-background" src="${cp}/resources/images/heart-background.png">
+							</div>
+							<div class="jt-heart-click">
+								<span class="jt-home-shop-love jt-home-shop-love-click">♥</span>
+							</div>
+						</div>
+						<div class="jt-home-shop-content-love-text-wrap">
+							<span id="love-<c:out value="${jtownUser.pn}"/>" class="jt-home-shop-love-text-click"><c:out value="${jtownUser.loveCount eq null ? 0 : jtownUser.loveCount}"/></span>
+							<c:if test="${jtownUser.loveHotCount ne null and jtownUser.loveHotCount ne 0}">
+								<span class="jt-home-shop-love-hot">HOT</span>
+							</c:if>
+						</div>
 					</li>
 				</ul>
 				<!--[if IE 7]>
@@ -275,10 +285,20 @@
 							<div class="jt-home-expand-shop-border-hide"></div>
 						</li>
 						<li class="jt-home-expand-shop-content-love-wrap">
-							<span class="jt-home-expand-shop-content-love">Love</span>&nbsp;<span id="love-expand-<c:out value="${jtownUser.pn }"/>"><c:out value="${jtownUser.loveCount eq null ? 0 : jtownUser.loveCount}"/></span>
-							<c:if test="${jtownUser.loveHotCount ne null and jtownUser.loveHotCount ne 0}">
-								<span class="jt-home-shop-love-hot">HOT</span>
-							</c:if>
+							<div class="jt-heart-click-expand-wrap">
+								<div class="jt-heart-click-background" id="jt-heart-click-<c:out value="${jtownUser.pn }"/>">
+									<img alt="heart-background" src="${cp}/resources/images/heart-background.png">
+								</div>
+								<div class="jt-heart-click">
+									<span class="jt-home-expand-shop-content-love jt-home-shop-love-click">Love</span>
+								</div>
+							</div>
+							<div class="jt-home-expand-shop-content-love-text-wrap">
+								<span id="love-expand-<c:out value="${jtownUser.pn }"/>" class="jt-home-shop-love-text-click"><c:out value="${jtownUser.loveCount eq null ? 0 : jtownUser.loveCount}"/></span>
+								<c:if test="${jtownUser.loveHotCount ne null and jtownUser.loveHotCount ne 0}">
+									<span class="jt-home-shop-love-hot">HOT</span>
+								</c:if>
+							</div>		
 						</li>
 					</ul>
 					<div class="jt-home-expand-shop-comment-wrap">

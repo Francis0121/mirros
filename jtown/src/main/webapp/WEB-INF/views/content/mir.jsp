@@ -5,6 +5,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <%@ include file="../layout/home_header.jspf" %>
+<c:set var="cp" value="<%=request.getContextPath() %>"/>
 <style>
 <!--
 	.jt-content {min-height: 800px;}
@@ -134,10 +135,24 @@
 						<li class="jt-home-expand-shop-content-love-wrap">
 							<c:set var="loveClick" value="${jtownUser.customerPn ne null ? 'jt-home-shop-love-click' : '' }"/>
 							<c:set var="loveTextClick" value="${jtownUser.customerPn ne null ? 'jt-home-shop-love-text-click' : '' }"/>
-							<a href="#none" onclick="jtown.home.clickLove('<c:out value="${jtownUser.pn }"/>');" id="love-image-<c:out value="${jtownUser.pn }"/>" class="jt-home-expand-shop-content-love ${loveClick }">♥</a>&nbsp;<span id="love-<c:out value="${jtownUser.pn }"/>" class="${loveTextClick}"><c:out value="${jtownUser.loveCount eq null ? 0 : jtownUser.loveCount}"/></span>
+							<div class="jt-heart-click-expand-wrap">
+								<div class="jt-heart-click-background" id="jt-heart-click-<c:out value="${jtownUser.pn }"/>">
+									<img alt="heart-background" src="${cp}/resources/images/heart-background.png">
+								</div>
+								<div class="jt-heart-click">
+									<a href="#none" 
+										onclick="jtown.home.clickLove('<c:out value="${jtownUser.pn }"/>');" 
+										id="love-image-<c:out value="${jtownUser.pn }"/>" 
+										class="jt-home-expand-shop-content-love ${loveClick }">♥</a>
+								</div>
+							</div>
+							<div class="jt-home-expand-shop-content-love-text-wrap">
+							<span id="love-<c:out value="${jtownUser.pn }"/>" 
+								class="${loveTextClick}"><c:out value="${jtownUser.loveCount eq null ? 0 : jtownUser.loveCount}"/></span>
 							<c:if test="${jtownUser.loveHotCount ne null and jtownUser.loveHotCount ne 0}">
 								<span class="jt-home-shop-love-hot">HOT</span>
 							</c:if>
+							</div>
 						</li>
 					</ul>
 					<div class="jt-home-expand-shop-comment-wrap">

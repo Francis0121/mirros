@@ -15,9 +15,11 @@ jtown.real.time = function(data) {
 		var crudType = obj.crudType;
 
 		if (crudType == 'insert') {
+			$('#jt-heart-click-'+spn).addClass('jt-heart-animation');
 			$('#love-image-' + spn).addClass('jt-home-shop-love-click');
 			$('#love-' + spn).addClass('jt-home-shop-love-text-click');
 		} else if (crudType == 'delete') {
+			$('#jt-heart-click-'+spn).removeClass('jt-heart-animation');
 			$('#love-image-' + spn).removeClass('jt-home-shop-love-click');
 			$('#love-' + spn).removeClass('jt-home-shop-love-text-click');
 		}
@@ -26,9 +28,11 @@ jtown.real.time = function(data) {
 			if (spn == expandSpn){
 				$('#love-expand-' + spn).html(count);
 				if (crudType == 'insert') {
+					$('#jt-heart-expand-click-'+spn).addClass('jt-heart-animation');
 					$('#love-expand-image-' + spn).addClass('jt-home-shop-love-click');
 					$('#love-expand-' + spn).addClass('jt-home-shop-love-text-click');
 				} else if (crudType == 'delete') {
+					$('#jt-heart-expand-click-'+spn).removeClass('jt-heart-animation');
 					$('#love-expand-image-' + spn).removeClass('jt-home-shop-love-click');
 					$('#love-expand-' + spn).removeClass('jt-home-shop-love-text-click');
 				}

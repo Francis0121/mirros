@@ -1,4 +1,31 @@
 @CHARSET "UTF-8";
+@keyframes jt-heart-click { from {opacity : 0;} to {opacity: 1;} }
+@-webkit-keyframes jt-heart-click { from {opacity : 0;} to {opacity: 1;} }
+@-moz-keyframes jt-heart-click { from {opacity : 0;} to {opacity: 1;} }
+.jt-heart-animation{
+	animation-name : jt-heart-click;
+	animation-timing-function : ease-in-out;
+	animation-iteration-count : 2;
+	animation-direction : alternate;
+	animation-duration : 1s;
+	animation-delay : 1s;
+	-moz-animation-name : jt-heart-click;
+	-moz-animation-timing-function : ease-in-out;
+	-moz-animation-iteration-count : 2;
+	-moz-animation-direction : alternate;
+	-moz-animation-duration : 1s;
+	-moz-animation-delay : 1s;	
+	-webkit-animation-name : jt-heart-click;
+	-webkit-animation-timing-function : ease-in-out;
+	-webkit-animation-iteration-count : 2;
+	-webkit-animation-direction : alternate;
+	-webkit-animation-duration : 1s;
+	-webkit-animation-delay : 1s;
+}
+.jt-heart-click-expand-wrap{ float: left; width: 19px; height:19px; margin-left: 60px; margin-top: -2px;}
+.jt-heart-click-wrap{ float: left; width: 19px; height:19px; margin-left: 6px; margin-top: -3px; }
+.jt-heart-click-background{ position : absolute; opacity : 0; height : 19px; width : 19px;}
+.jt-heart-click{position: absolute; height: 15px; width: 15px; margin: 2px;}
 /**
 *
 *	@author Francis
@@ -39,11 +66,12 @@ word-wrap: break-word; /* Internet Explorer 5.5+ */}
 .jt-home-shop-content-fn>li>span{float: left; font-weight: bold; color: #b2b2b2;}
 .jt-home-shop-view{ float: left; margin-left: 50px; margin-top:-2px; width: 15px; height: 15px; background: url("../images/jt-home-icon.png") 0 -45px no-repeat; text-indent: -99999px;}
 .jt-home-shop-love-hot{float: left; margin-left: 8px; color: #e92f25 !important;}
-.jt-home-shop-love{ float: left; margin-left: 12px;  margin-top:-2px; width: 15px; height: 15px; background: url("../images/jt-home-icon.png") 0 -30px no-repeat; text-indent: -99999px; }
+.jt-home-shop-love{ display: block; width: 15px; height: 15px; background: url("../images/jt-home-icon.png") 0 -30px no-repeat; text-indent: -99999px; }
 .jt-home-shop-love:HOVER{ background-position: -15px -30px;}
 .jt-home-shop-comment{ float: left; margin-left: 36px; margin-top:-1px; width: 15px; height: 15px; background: url("../images/jt-home-icon.png") 0 -60px no-repeat; text-indent: -99999px; cursor: pointer;}
 .jt-home-shop-comment:HOVER{ background-position: -15px -60px;}
-
+.jt-home-shop-content-love-text-wrap{ float: left; font-weight: bold; margin-left: 2px;}
+.jt-home-shop-content-love-text-wrap span:nth-child(1){float: left; color: #b2b2b2;}
 .jt-home-shop-love-click{background: url("../images/jt-home-icon.png") -15px -30px no-repeat !important;}
 .jt-home-shop-love-text-click{color: #f59697 !important;}
 
@@ -131,9 +159,11 @@ color: #808080;}
 .jt-home-expand-shop-content-view{ float: left; margin-left: 105px; margin-top : -1px; width: 15px; height: 15px; background: url("../images/jt-home-icon.png") 0 -45px no-repeat; text-indent: -99999px;}
 .jt-home-expand-shop-content-comment{ float: left; margin: 0 3px 0 30px; width: 25px; height: 18px; background: url("../images/jt-home-icon.png") -15px 0px no-repeat; text-indent: -99999px;}
 .jt-home-expand-shop-content-comment-text{margin-left : 3px}
-.jt-home-expand-shop-content-love{ float: left;  margin-left: 65px; margin-right:5px; width: 15px; height: 15px; background: url("../images/jt-home-icon.png") 0 -30px no-repeat; text-indent: -99999px;}
+.jt-home-expand-shop-content-love{ display: block; width: 15px; height: 15px; background: url("../images/jt-home-icon.png") 0 -30px no-repeat; text-indent: -99999px;}
 .jt-home-expand-shop-content-love:HOVER{background-position: -15px -30px;}
-.jt-home-expand-shop-content-love-hover{ float: left;  width: 15px; height: 15px; background: url("../images/jt-home-icon.png") -15px -30px no-repeat; text-indent: -99999px;}
+
+.jt-home-expand-shop-content-love-text-wrap { float: left; margin-left: 6px;}
+.jt-home-expand-shop-content-love-text-wrap span:nth-child(1) { float: left; }
 
 .jt-home-expand-shop-comment-wrap{float: left; font-size: 12px; font-family: Dotum;  border: 1px solid #cdcdcd;
 	width: 580px; margin: 0 20px 20px 20px ; background: #fff;
