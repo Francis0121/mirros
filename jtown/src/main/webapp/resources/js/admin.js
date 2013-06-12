@@ -4,8 +4,6 @@ if (typeof jtown.admin == 'undefined') {
 
 $(function() {
 	
-	jtown.admin.openContract();
-	
 	jtown.admin.sellerCreate();
 	
 	jtown.admin.sellerSync();
@@ -173,6 +171,9 @@ jtown.admin.sellerCreate = function(){
 			parent.find('.jt-seller-enabled').addClass('jt-partnership-enabled').removeClass('jt-seller-enabled');
 			parent.find('.jt-partnership-enabled-select').css('display', 'block');
 			parent.find('.jt-seller-interest').text('').addClass('jt-partnership-interest').removeClass('jt-seller-interest');
+			parent.find('.jt-seller-date').text('').addClass('jt-partnership-contract-date').removeClass('jt-seller-date');
+			var btn = '<button type="button" class="jt-admin-contract jt-btn-white-small"><span class="btnText">조회</span></button>';
+			parent.find('.jt-seller-register').html(btn).addClass('jt-partnership-contract-register').removeClass('jt-seller-register');
 			
 			setTimeout('jtown.admin.sellerSync()', 0);
 		});
@@ -232,6 +233,16 @@ jtown.admin.sellerSync = function(){
 				enabled : (thiz.val() == 1 ? true : false)	};
 		$.postJSON(url, json, function(jtownUser){
 		});
+	});
+	
+	$('.jt-admin-contract').unbind('click').bind('click', function(){
+		var parent = $(this).parents('.jt-partnership-info'),
+			spn = parent.attr('data-spn');
+		
+		var url = contextPath + 'admin/contract/?sellerPn='+spn;
+		var option = 'width=800, height=300, resizable=no, scrollbars=no, status=no';
+		
+		window.open(url, '', option);
 	});
 };
 
@@ -348,16 +359,4 @@ jtown.admin.autoInterestOne = function(){
 			return false;
 		}
 	});	
-};
-
-jtown.admin.openContract = function(){
-	$('.jt-admin-contract').unbind('click').bind('click', function(){
-		var parent = $(this).parents('.jt-partnership-info'),
-			spn = parent.attr('data-spn');
-		
-		var url = contextPath + 'admin/contract/?sellerPn='+spn;
-		var option = 'width=800, height=300, resizable=no, scrollbars=no, status=no';
-		
-		window.open(url, '', option);
-	});
 };

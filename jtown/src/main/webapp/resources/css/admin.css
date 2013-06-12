@@ -133,31 +133,21 @@ body{background: #f6f4f5;}
 .jt-administrator-create-table tbody tr td:nth-child(2){ width: 250px;}
 
 .jt-manage-filter{font-size: 12px;}
-.jt-manage-table { border-bottom: 1px solid #ffd5a6; border-right: 1px solid #ffd5a6; border-collapse: collapse; font-size: 12px; width: 1000px;}
-.jt-manage-table th{ background: #ffead1; vertical-align: middle;}
-.jt-manage-table th, .jt-manage-table td{ padding: 8px 3px; border-top: 1px solid #ffd5a6; border-left: 1px solid #ffd5a6; min-height: 20px;}
-.jt-manage-table>thead>tr>th:nth-child(1){ width: 42px; }
-.jt-manage-table>thead>tr>th:nth-child(2){ width: 202px; }
-.jt-manage-table>thead>tr>th:nth-child(3){ width: 142px; }
-.jt-manage-table>thead>tr>th:nth-child(4){ width: 292px; }
-.jt-manage-table>thead>tr>th:nth-child(5){ width: 152px; }
-.jt-manage-table>thead>tr>th:nth-child(6){ width: 111px; }
-.jt-manage-table>tbody>tr>td:nth-child(1){ text-align: center; }
-.jt-manage-table>tbody>tr>td:nth-child(2){}
-.jt-manage-table>tbody>tr>td:nth-child(3){}
-.jt-manage-table>tbody>tr>td:nth-child(4){}
-.jt-manage-table>tbody>tr>td:nth-child(5){ text-align: center; }
-.jt-manage-table>tbody>tr>td:nth-child(6){ text-align: center; }
-.jt-manage-table>tbody>tr>td:nth-child(6)>select{ border: 2px solid #d9d9d9; padding: 2px 3px; width: 102px;}
-.jt-manage-table>tbody>tr>td>input{border: 2px solid #d9d9d9; padding: 2px 3px;}
+.jt-manage-table { width: 850px; }
+.jt-manage-table tbody td:nth-child(1){ width: 50px;}
+.jt-manage-table tbody td:nth-child(2){ width: 200px; text-align: left !important;}
+.jt-manage-table tbody td:nth-child(3){ width: 150px; text-align: left !important;}
+.jt-manage-table tbody td:nth-child(4){ width: 130px;}
+.jt-manage-table tbody td:nth-child(5){ width: 140px;}
+.jt-manage-table tbody td:nth-child(6){ width: 180px; text-align: left !important;}
 /*************************
 *	제휴문의 관리
 **************************/
-.jt-partnership-filter{font-size: 12px; width: 1500px;}
-.jt-partnership-filter li{ float: left;  width: 100%; padding: 5px 0;
+.jt-admin-filter{font-size: 12px; width: 1500px;}
+.jt-admin-filter li{ float: left;  width: 100%; padding: 5px 0;
 	box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box; -moz-box-sizing : border-box; -webkit-box-sizing : border-box;
 }
-.jt-partnership-filter label{ float: left; height: 28px; line-height: 35px; margin: 0 5px;}
+.jt-admin-filter label{ float: left; height: 28px; line-height: 35px; margin: 0 5px;}
 .jt-admin-filter-input { width: 120px; padding: 2px 3px; border: 1px solid #ad9c9c; height: 16px;
  	-webkit-border-radius: 3px;  -moz-border-radius: 3px; border-radius: 3px; font-size: 12px;
  	float: left; margin-top: 6px;
@@ -189,11 +179,11 @@ body{background: #f6f4f5;}
 .jt-partnership-shopUrl{width: 200px; text-align: left !important;}
 .jt-partnership-sellerName{width: 120px; }
 .jt-partnership-interest{width: 250px; text-align: left !important;}
-.jt-partnership-enabled{width: 115px;}
+.jt-partnership-enabled{width: 100px;}
 .jt-partnership-contract-date{ width: 100px; font-size: 11px; line-height: 14px !important;}
 .jt-partnership-contract-date span{ display: block;}
 .jt-partnership-contract-register{width: 80px; }
-.jt-partnership-note{width: 360px; text-align: left !important;}
+.jt-partnership-note{width: 375px; text-align: left !important;}
 
 .jt-seller-create{ text-align: left !important; }
 .jt-seller-create-btn .btnImage{ background-position: 0 -36px;}
@@ -215,21 +205,4 @@ body{background: #f6f4f5;}
 /*********************
 *	댓글 관리
 ********************/
-.jt-admin-comment-table { border-bottom: 1px solid #ffd5a6; border-right: 1px solid #ffd5a6; border-collapse: collapse; font-size: 12px; width: 1200px;}
-.jt-admin-comment-table th, .jt-admin-comment-table td{ padding: 8px 3px; border-top: 1px solid #ffd5a6; border-left: 1px solid #ffd5a6; min-height: 20px;}
-.jt-admin-comment-table>thead>tr{background: #ff9921; color: #fff;}
-.jt-admin-comment-table>tfoot>tr>td{text-align: center;}
-.jt-admin-comment-table>thead>tr>th:nth-child(1){ width: 93px; }
-.jt-admin-comment-table>thead>tr>th:nth-child(2){ width: 93px; }
-.jt-admin-comment-table>thead>tr>th:nth-child(3){ width: 143px; }
-.jt-admin-comment-table>thead>tr>th:nth-child(4){ width: 443x; }
-.jt-admin-comment-table>thead>tr>th:nth-child(5){ width: 193px; }
-.jt-admin-comment-table>thead>tr>th:nth-child(6){ width: 93px; }
-.jt-admin-comment-table>thead>tr>th:nth-child(7){ width: 92px; }
-.jt-admin-comment-table>tbody>tr>td:nth-child(1){ text-align: center; }
-.jt-admin-comment-table>tbody>tr>td:nth-child(2){ text-align: center; }
-.jt-admin-comment-table>tbody>tr>td:nth-child(3){ text-align: center; }
-.jt-admin-comment-table>tbody>tr>td:nth-child(4){ text-align: left; }
-.jt-admin-comment-table>tbody>tr>td:nth-child(5){ text-align: center; }
-.jt-admin-comment-table>tbody>tr>td:nth-child(6){ text-align: center; }
-.jt-admin-comment-table>tbody>tr>td:nth-child(7){ text-align: center; }
+.jt-admin-comment-table{}

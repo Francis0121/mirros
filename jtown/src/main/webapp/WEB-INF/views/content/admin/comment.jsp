@@ -5,6 +5,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <%@ include file="../../layout/admin_header.jspf" %>
+<c:set var="cp" value="<%=request.getContextPath() %>"/>
 <c:set var="pagination" value="${adminCommentFilter.pagination }"/>
 <%-- Page 처리 Script --%>
 <script type="text/javascript">
@@ -31,13 +32,12 @@ function goToPreviousPages() {
 /* ]]> */
 </script>
 
-<c:url value="/admin/comment" var="commentUrl"/>
-<form:form commandName="adminCommentFilter" action="${commentUrl }" method="get">
+<form:form commandName="adminCommentFilter" action="${cp }/admin/comment" method="get">
 	<form:hidden path="page" value="${pagination.currentPage}"/>
 </form:form>
 
 
-<table class="jt-admin-comment-table">
+<table class="jt-admin-base-table jt-admin-comment-table">
 	<thead>
 		<tr>
 			<th>순번</th>
@@ -49,33 +49,33 @@ function goToPreviousPages() {
 			<th>아이디정지</th>
 		</tr>
 	</thead>
-	<tfoot>
+	<tfoot class="jt-pagination">
 		<tr>
 			<td colspan="7">
-				<a href="javascript:void(goToPage(1))" onfocus="blur();">
-						처음
-<%-- 					<img src="<c:url value='/images/mims_pageFirst_btn.gif'/>" alt="처음" style="vertical-align: middle; border: none" /> --%>
-				</a>
-				<a href="javascript:void(goToPreviousPages())" onfocus="blur();">
-						다음
-<%-- 					<img src="<c:url value='/images/button/mims_prev_btn.gif'/>" alt="다음" style="vertical-align: middle; border: none" /> --%>
-				</a>
-				<c:forEach var="i" begin="${pagination.pageBegin}" end="${pagination.pageEnd}">
-					<c:if test="${i == pagination.currentPage}">
-						<strong>${i}</strong>
-					</c:if>
-					<c:if test="${i != pagination.currentPage}">
-						<a class="pageLink" href="javascript:void(goToPage(${i}))" onfocus="blur();">${i}</a>
-					</c:if>
-				</c:forEach>
-				<a href="javascript:void(goToNextPages())" onfocus="blur();">
-						다음
-<%-- 					<img src="<c:url value='/images/button/mims_next_btn.gif'/>" alt="다음" style="vertical-align: middle; border: none" /> --%>
-				</a>
-				<a href="javascript:void(goToPage(${pagination.numPages}))" onfocus="blur();">
-						끝
-<%-- 					<img src="<c:url value='/images/mims_pageLast_btn.gif'/>" alt="끝" style="vertical-align: middle; border: none" /> --%>
-				</a>
+				<div id="page-wrap">
+					<div style="float: left;">
+						<a href="javascript:void(goToPage(1))" onfocus="blur();">
+							<img src="${cp }/resources/images/arrow/pageFirst_btn.png" alt="처음" title="First" style="vertical-align: middle; border: none;" />
+						</a>
+						<a href="javascript:void(goToPreviousPages())" onfocus="blur();" class="page-beforeafter">
+							<img src="${cp }/resources/images/arrow/prev_btn.png" alt="이전" title="Before" style="vertical-align: middle; border: none;  margin-top: -2px;" />&nbsp;&nbsp;<span>PREV</span>
+						</a>
+						<c:forEach var="i" begin="${pagination.pageBegin}" end="${pagination.pageEnd}">
+							<c:if test="${i == pagination.currentPage}">
+								<a class="page-link page-now">${i}</a>
+							</c:if>
+							<c:if test="${i != pagination.currentPage}">
+								<a class="page-link" href="javascript:void(goToPage(${i}))" onfocus="blur();">${i}</a>
+							</c:if>
+						</c:forEach>
+						<a href="javascript:void(goToNextPages())" onfocus="blur();" class="page-beforeafter">
+							<span>NEXT</span>&nbsp;&nbsp;<img src="${cp }/resources/images/arrow/next_btn.png" alt="다음" title="After" style="vertical-align: middle; border: none; margin-top: -2px;" />
+						</a>
+						<a href="javascript:void(goToPage(${pagination.numPages}))" onfocus="blur();">
+							<img src="${cp }/resources/images/arrow/pageLast_btn.png" alt="끝" title="Last" style="vertical-align: middle; border: none; " />
+						</a>
+					</div>
+				</div>
 			</td>
 		</tr>
 	</tfoot>

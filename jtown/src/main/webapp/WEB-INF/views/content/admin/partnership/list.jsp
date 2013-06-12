@@ -5,6 +5,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <%@ include file="../../../layout/admin_header.jspf" %>
+<c:set var="cp" value="<%=request.getContextPath() %>"/>
 <c:set var="pagination" value="${partnershipFilter.pagination }"/>
 <c:set var="processMap" value="${partnershipFilter.processMap }"/>
 <c:set var="processList" value="${partnershipFilter.processList}"/>
@@ -35,15 +36,15 @@ function goToPreviousPages() {
 /* ]]> */
 </script>
 
-<c:url value="/admin/partnership" var="partnershipUrl"/>
-<ul class="jt-partnership-filter">
-	<form:form commandName="partnershipFilter" action="${partnershipUrl }" htmlEscape="true" method="get">
+<ul class="jt-admin-filter">
+	<form:form commandName="partnershipFilter" action="${cp }/admin/partnership" htmlEscape="true" method="get">
 		<form:hidden path="page" value="${pagination.currentPage}"/>
 		<li>
 			<sec:authorize access="hasRole('ROLE_ROOT')">
 				<form:label path="adminPn">담당자</form:label>
 				<form:select path="adminPn" onchange="document.forms['partnershipFilter'].submit();" cssClass="jt-admin-filter-select">
 					<form:option value="">전체</form:option>
+					<form:option value="0">담당자 미지정</form:option>
 					<form:options items="${usersAdmin }" itemValue="pn" itemLabel="name"/>
 				</form:select>
 			</sec:authorize>
@@ -223,7 +224,7 @@ function goToPreviousPages() {
 				</td>
 				<c:choose>
 					<c:when test="${userInfo.username ne null and userInfo.username ne ''}">
-						<td class="jt-partnership-username"><a href="<c:url value="/seller/${userInfo.pn }"/>"><c:out value="${userInfo.username  }"/></a></td>
+						<td class="jt-partnership-username"><a href="${cp }/seller/${userInfo.pn }"><c:out value="${userInfo.username  }"/></a></td>
 						<td class="jt-partnership-shopPn"><c:out value="${userInfo.sixShopPn }"/></td>
 						<td class="jt-partnership-shopUrl"><c:out value="${userInfo.shopUrl }"/></td>
 						<td class="jt-partnership-sellerName"><c:out value="${userInfo.name }"/></td>
@@ -266,8 +267,8 @@ function goToPreviousPages() {
 								<option value="0" ${userInfo.enabled eq false ? 'selected=selected' : ''}>비활성화</option>					
 							</select>
 						</td> 	
-						<td></td>
-						<td></td>	
+						<td class="jt-seller-date"></td>
+						<td class="jt-seller-register"></td>	
 					</c:otherwise>
 				</c:choose>
 				<td class="jt-partnership-note"><pre><c:out value="${partnership.note }"/></pre></td>

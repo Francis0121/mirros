@@ -137,8 +137,16 @@
 			u.enable = #{enabled}	
 		</if>
 		<if test="adminPn != null">
-		AND
-			admin_pn = #{adminPn}
+			<choose>
+				<when test="adminPn == 0">
+					AND
+						admin_pn IS NULL
+				</when>
+				<otherwise>
+					AND
+						admin_pn = #{adminPn}
+				</otherwise>
+			</choose>
 		</if>
 		ORDER BY
 			p.pn DESC
@@ -301,8 +309,16 @@
 			u.enable = #{enabled}	
 		</if>
 		<if test="adminPn != null">
-		AND
-			admin_pn = #{adminPn}
+			<choose>
+				<when test="adminPn == 0">
+					AND
+						admin_pn IS NULL
+				</when>
+				<otherwise>
+					AND
+						admin_pn = #{adminPn}
+				</otherwise>
+			</choose>
 		</if>		
 	</select>
 	

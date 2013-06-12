@@ -5,6 +5,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <%@ include file="../../layout/admin_header.jspf" %>
+<c:set var="cp" value="<%=request.getContextPath() %>"/>
 <c:set var="pagination" value="${userFilter.pagination }"/>
 <script type="text/javascript">
 /* <![CDATA[ */
@@ -30,12 +31,12 @@ function goToPreviousPages() {
 /* ]]> */
 </script>
 
-<c:url value="/admin/customer" var="customerUrl"/>
-<ul class="jt-manage-filter">
-<form:form commandName="userFilter" action="${customerUrl }" method="get" htmlEscape="true">
+<ul class="jt-admin-filter">
+<form:form commandName="userFilter" action="${cp }/admin/customer" method="get" htmlEscape="true">
 	<form:hidden path="page" value="${pagination.currentPage}"/>
 	<li>
-		<form:select path="enabled" htmlEscape="true" onchange="document.forms['userFilter'].submit();">
+		<form:label path="enabled">불량사용자</form:label>
+		<form:select path="enabled" cssClass="jt-admin-filter-select" htmlEscape="true" onchange="document.forms['userFilter'].submit();">
 			<form:option value="">전체</form:option>
 			<form:option value="true">정상사용자</form:option>
 			<form:option value="false">불량사용자</form:option>
@@ -43,52 +44,54 @@ function goToPreviousPages() {
 	</li>
 	<li>
 		<form:label path="name">이름</form:label>
-		<form:input path="name"/>
+		<form:input path="name" cssClass="jt-admin-filter-input "/>
 		<form:label path="userId">아이디</form:label>
-		<form:input path="userId"/>
-		<input type="submit" value="전송"/>
+		<form:input path="userId" cssClass="jt-admin-filter-input "/>
+		<button type="submit" class="jt-btn-white-small">
+			<span class="btnText">검색</span>
+		</button>
 	</li>
 </form:form>
 </ul>
 
-<table class="jt-manage-table">
+<table class="jt-admin-base-table jt-manage-table">
 	<thead>
 		<tr>
 			<th>번호</th>
 			<th>아이디</th>
 			<th>이름</th>
-			<th>관심사</th>
-			<th>가입날짜</th>
 			<th>불량사용자 여부</th>
+			<th>가입날짜</th>
+			<th>관심사</th>
 		</tr>
 	</thead>
-	<tfoot>
+	<tfoot class="jt-pagination">
 		<tr>
 			<td colspan="6">
-				<a href="javascript:void(goToPage(1))" onfocus="blur();">
-						처음
-<%-- 					<img src="<c:url value='/images/mims_pageFirst_btn.gif'/>" alt="처음" style="vertical-align: middle; border: none" /> --%>
-				</a>
-				<a href="javascript:void(goToPreviousPages())" onfocus="blur();">
-						다음
-<%-- 					<img src="<c:url value='/images/button/mims_prev_btn.gif'/>" alt="다음" style="vertical-align: middle; border: none" /> --%>
-				</a>
-				<c:forEach var="i" begin="${pagination.pageBegin}" end="${pagination.pageEnd}">
-					<c:if test="${i == pagination.currentPage}">
-						<strong>${i}</strong>
-					</c:if>
-					<c:if test="${i != pagination.currentPage}">
-						<a class="pageLink" href="javascript:void(goToPage(${i}))" onfocus="blur();">${i}</a>
-					</c:if>
-				</c:forEach>
-				<a href="javascript:void(goToNextPages())" onfocus="blur();">
-						다음
-<%-- 					<img src="<c:url value='/images/button/mims_next_btn.gif'/>" alt="다음" style="vertical-align: middle; border: none" /> --%>
-				</a>
-				<a href="javascript:void(goToPage(${pagination.numPages}))" onfocus="blur();">
-						끝
-<%-- 					<img src="<c:url value='/images/mims_pageLast_btn.gif'/>" alt="끝" style="vertical-align: middle; border: none" /> --%>
-				</a>			
+				<div id="page-wrap">
+					<div style="float: left;">
+						<a href="javascript:void(goToPage(1))" onfocus="blur();">
+							<img src="${cp }/resources/images/arrow/pageFirst_btn.png" alt="처음" title="First" style="vertical-align: middle; border: none;" />
+						</a>
+						<a href="javascript:void(goToPreviousPages())" onfocus="blur();" class="page-beforeafter">
+							<img src="${cp }/resources/images/arrow/prev_btn.png" alt="이전" title="Before" style="vertical-align: middle; border: none;  margin-top: -2px;" />&nbsp;&nbsp;<span>PREV</span>
+						</a>
+						<c:forEach var="i" begin="${pagination.pageBegin}" end="${pagination.pageEnd}">
+							<c:if test="${i == pagination.currentPage}">
+								<a class="page-link page-now">${i}</a>
+							</c:if>
+							<c:if test="${i != pagination.currentPage}">
+								<a class="page-link" href="javascript:void(goToPage(${i}))" onfocus="blur();">${i}</a>
+							</c:if>
+						</c:forEach>
+						<a href="javascript:void(goToNextPages())" onfocus="blur();" class="page-beforeafter">
+							<span>NEXT</span>&nbsp;&nbsp;<img src="${cp }/resources/images/arrow/next_btn.png" alt="다음" title="After" style="vertical-align: middle; border: none; margin-top: -2px;" />
+						</a>
+						<a href="javascript:void(goToPage(${pagination.numPages}))" onfocus="blur();">
+							<img src="${cp }/resources/images/arrow/pageLast_btn.png" alt="끝" title="Last" style="vertical-align: middle; border: none; " />
+						</a>
+					</div>
+				</div>			
 			</td>
 		</tr>
 	</tfoot>
@@ -99,14 +102,14 @@ function goToPreviousPages() {
 				<td><c:out value="${pagination.numItems - (pagination.currentPage - 1)* 10-i.count+1}"/></td>
 				<td class="jt-admin-customer-table-customerId"><c:out value="${customer.username }"/></td>
 				<td><c:out value="${customer.name }"/></td>
-				<td><c:out value="${interestMap[customerPn].interestSectionList }"/></td>
-				<td><c:out value="${customer.salt }"/></td>
 				<td>
 					<select class="jt-admin-customer-enable">
 						<option value="1" ${customer.enabled eq true ? 'selected=selected' : ''}>정상 사용자</option>
 						<option value="0" ${customer.enabled eq false ? 'selected=selected' : ''}>불량 사용자</option>					
 					</select>
 				</td>
+				<td><c:out value="${customer.salt }"/></td>
+				<td><c:out value="${interestMap[customerPn].interestSectionList }"/></td>
 			</tr>
 		</c:forEach>
 	</tbody>
