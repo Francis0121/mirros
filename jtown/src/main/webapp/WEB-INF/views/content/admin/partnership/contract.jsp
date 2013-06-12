@@ -76,7 +76,7 @@
 
 <section class="jt-contract-section">
 	<form:form commandName="contract" action="${cp }/admin/contract.jt" method="post">
-		<form:hidden path="sellerPn" value="${contractFilter.sellerPn }"/>
+		<form:hidden path="sellerPn"/>
 		<c:choose>
 			<c:when test="${contract.contractEndDate eq null }">
 				<header>

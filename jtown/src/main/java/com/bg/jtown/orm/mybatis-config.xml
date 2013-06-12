@@ -28,5 +28,8 @@
 		<typeAlias alias="CommentFilter" type="com.bg.jtown.business.search.CommentFilter"/>
 		
 		<typeAlias alias="Count" type="com.bg.jtown.business.Count"/>
+		
+		<typeAlias alias="Contract" type="com.bg.jtown.business.Contract"/>
+		<typeAlias alias="ContractFilter" type="com.bg.jtown.business.search.ContractFilter"/>
 	</typeAliases>
 </configuration>

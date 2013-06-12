@@ -107,16 +107,15 @@ public class AdminController {
 	public String showContracPopup(Model model,
 			@ModelAttribute ContractFilter contractFilter,
 			@RequestParam(required = false) Integer result) {
+		model.addAttribute("result", result);
+
 		List<Contract> contracts = contractService
 				.selectContractList(contractFilter);
 		model.addAttribute("contracts", contracts);
 
 		Integer sellerPn = contractFilter.getSellerPn();
-		Contract loadContract = contractService
-				.selectContractPeroid(new Contract(sellerPn));
-		model.addAttribute("contract", loadContract);
-
-		model.addAttribute("result", result);
+		Contract contract = contractService.selectContractPeroid(sellerPn);
+		model.addAttribute("contract", contract);
 		return prefiexUrl + "/partnership/contract";
 	}
 

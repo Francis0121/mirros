@@ -9,11 +9,6 @@ package com.bg.jtown.business;
 public class Contract {
 
 	/**
-	 * 계약 횟수
-	 */
-	private Integer contractCount;
-
-	/**
 	 * 계약 만료 날짜
 	 */
 	private String contractEndDate;
@@ -58,10 +53,6 @@ public class Contract {
 		this.sellerPn = sellerPn;
 	}
 
-	public Integer getContractCount() {
-		return contractCount;
-	}
-
 	public String getContractEndDate() {
 		return contractEndDate;
 	}
@@ -88,10 +79,6 @@ public class Contract {
 
 	public String getStartDate() {
 		return startDate;
-	}
-
-	public void setContractCount(Integer contractCount) {
-		this.contractCount = contractCount;
 	}
 
 	public void setContractEndDate(String contractEndDate) {
@@ -124,11 +111,10 @@ public class Contract {
 
 	@Override
 	public String toString() {
-		return "Contract [contractCount=" + contractCount
-				+ ", contractEndDate=" + contractEndDate + ", contractPeroid="
-				+ contractPeroid + ", endDate=" + endDate + ", inputDate="
-				+ inputDate + ", pn=" + pn + ", sellerPn=" + sellerPn
-				+ ", startDate=" + startDate + "]";
+		return "Contract [contractEndDate=" + contractEndDate
+				+ ", contractPeroid=" + contractPeroid + ", endDate=" + endDate
+				+ ", inputDate=" + inputDate + ", pn=" + pn + ", sellerPn="
+				+ sellerPn + ", startDate=" + startDate + "]";
 	}
 
 }

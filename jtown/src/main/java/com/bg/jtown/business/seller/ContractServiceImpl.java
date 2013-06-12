@@ -20,7 +20,12 @@ public class ContractServiceImpl extends SqlSessionDaoSupport implements
 		ContractService {
 
 	private static final Integer CONTRACT_PER_PAGE_NUM = 5;
-	
+
+	private Integer selectContractCount(ContractFilter contractFilter) {
+		return getSqlSession().selectOne("contractMapper.selectContractCount",
+				contractFilter);
+	}
+
 	@Override
 	public List<Contract> selectContractList(ContractFilter contractFilter) {
 		Pagination pagination = contractFilter.getPagination();
@@ -30,36 +35,32 @@ public class ContractServiceImpl extends SqlSessionDaoSupport implements
 		if (count == 0) {
 			return new ArrayList<Contract>();
 		}
-
 		List<Contract> contracts = getSqlSession().selectList(
 				"contractMapper.selectContractList", contractFilter);
 		return contracts;
 	}
 
 	@Override
-	public Contract selectContract(Contract contract) {
+	public Contract selectContract(Integer contractPn) {
 		return getSqlSession().selectOne("contractMapper.selectContract",
-				contract);
+				contractPn);
 	}
 
 	@Override
-	public Contract selectContractPeroid(Contract contract) {
-		Contract loadContract = getSqlSession().selectOne(
-				"contractMapper.selctContractPeroid", contract);
-		if (loadContract == null || loadContract.getSellerPn() == null) {
-			return new Contract();
+	public Contract selectContractPeroid(Integer sellerPn) {
+		List<Contract> contracts = getSqlSession().selectList(
+				"contractMapper.selectContractPeroid", sellerPn);
+		if (contracts.size() == 0) {
+			return new Contract(sellerPn);
 		}
-		return loadContract;
+
+		Contract contract = contracts.get(0);
+		contract.setContractEndDate(contract.getEndDate());
+		return contract;
 	}
 
 	@Override
-	public Integer selectContractCount(ContractFilter contractFilter) {
-		return getSqlSession().selectOne("contractMapper.selectContractCount",
-				contractFilter);
-	}
-
-	@Override
-	public Integer insertCaculatePeroidContract(Contract contract) {
+	public void insertCaculatePeroidContract(Contract contract) {
 		String contractEndDate = contract.getContractEndDate();
 		Integer peroid = contract.getContractPeroid();
 		if (contractEndDate == null) {
@@ -74,7 +75,6 @@ public class ContractServiceImpl extends SqlSessionDaoSupport implements
 			contract.setEndDate(endDate);
 		}
 		insertContract(contract);
-		return 1;
 	}
 
 	@Override
@@ -83,12 +83,8 @@ public class ContractServiceImpl extends SqlSessionDaoSupport implements
 	}
 
 	@Override
-	public void deleteContract(Contract contract) {
-		getSqlSession().delete("contractMapper.deleteContract", contract);
+	public void deleteContract(Integer contractPn) {
+		getSqlSession().delete("contractMapper.deleteContract", contractPn);
 	}
 
-	@Override
-	public void updateContract(Contract contract) {
-		getSqlSession().update("contractMapper.updateContract", contract);
-	}
 }

@@ -13,19 +13,14 @@ public interface ContractService {
 
 	List<Contract> selectContractList(ContractFilter contractFilter);
 
-	Contract selectContract(Contract contract);
+	Contract selectContract(Integer sellerPn);
 
-	Integer selectContractCount(ContractFilter contractFilter);
+	Contract selectContractPeroid(Integer sellerPn);
 
-	Contract selectContractPeroid(Contract contract);
-
-	Integer insertCaculatePeroidContract(Contract contract);
+	void insertCaculatePeroidContract(Contract contract);
 
 	void insertContract(Contract contract);
 
-	void deleteContract(Contract contract);
-
-	void updateContract(Contract contract);
-
+	void deleteContract(Integer contractPn);
 
 }
