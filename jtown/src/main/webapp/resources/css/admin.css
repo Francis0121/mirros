@@ -103,6 +103,19 @@ body{background: #f6f4f5;}
 .jt-admin-input-error:FOCUS{ border: 1px solid #ff0000;  }
 .jt-admin-error{font-size: 11px; margin: 5px 0 0 5px; line-height: 1.2; color: #ff3c00;}
 
+.jt-admin-select{ 
+	width: 80px; padding: 2px 3px; border: 1px solid #ad9c9c; height: 28px;
+ 	-webkit-border-radius: 3px;  -moz-border-radius: 3px; border-radius: 3px; font-size: 12px;
+}
+.jt-admin-select:FOCUS{	border: 1px solid #ff8a00; }
+.jt-admin-select-error{ 
+	width: 80px; padding: 2px 3px; border: 1px solid #ff8a00; height: 28px;
+ 	-webkit-border-radius: 3px;  -moz-border-radius: 3px; border-radius: 3px; font-size: 12px;
+ }
+.jt-admin-select-error:FOCUS{	border: 1px solid #ff0000; }
+
+
+
 .jt-pagination td div{ margin: 0 auto;}
 .jt-pagination td a{ margin: 0 3px; width: 10px; float: left; height: 16px; line-height: 16px;}
 .jt-pagination td .page-beforeafter{ font-size: 10px; font-weight: bold; font-family: Arial; width: 45px; color: #5a5a5a;}
@@ -156,7 +169,8 @@ body{background: #f6f4f5;}
  	float: left; margin-top: 6px;
 }
 
-.jt-partnership-table { width: 2600px;}
+.jt-partnership-table { width: 2500px;}
+.jt-partnership-root-table{ width: 2600px;}
 .jt-partnership-table-content {display: none;}
 .jt-partnership-table-content td{ text-align : left; }
 
@@ -179,18 +193,27 @@ body{background: #f6f4f5;}
 .jt-partnership-interest{width: 250px; text-align: left !important;}
 .jt-partnership-enabled{width: 115px;}
 .jt-partnership-contract-number{ width: 80px;}
-.jt-admin-contract-list{min-width: 26px;}
 .jt-partnership-contract-end{ width: 100px;}
 .jt-partnership-contract-register{width: 80px; }
 .jt-partnership-note{width: 360px; text-align: left !important;}
 
 .jt-seller-create{ text-align: left !important; }
 .jt-seller-create-btn .btnImage{ background-position: 0 -36px;}
-/**********************
-*	판매자 정보
-**********************/
-.jt-admin-sellerInformation-id{font-size: 12px; margin-left: 25px; float: left;}
-#folderBar { padding-top: 0;}
+
+.jt-contract-table{ width: 350px; margin: 10px; float: left;}
+.jt-contract-table tbody td:nth-child(1){ width: 50px; }
+.jt-contract-table tbody td:nth-child(2){ width: 100px; }
+.jt-contract-table tbody td:nth-child(3){ width: 100px; }
+.jt-contract-table tbody td:nth-child(4){ width: 100px; }
+
+.jt-contract-section{ width: 350px; margin: 10px; float: left; font-size: 12px;
+	border: 1px solid #000; padding : 20px; background : #fff;
+	box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box; -moz-box-sizing : border-box; -webkit-box-sizing : border-box;	
+}
+.jt-contract-section footer{ float :left; width: 100%;}
+.jt-contract-section header{ float :left; width: 100%; font-size: 18px; font-weight: bold; color: #474747; }
+.jt-contract-section article{ float :left; width: 100%;}
+.jt-contract-section article li{ float :left; width: 100%; margin: 10px 0;}
 /*********************
 *	댓글 관리
 ********************/

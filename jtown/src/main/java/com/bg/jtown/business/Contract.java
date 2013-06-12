@@ -53,18 +53,9 @@ public class Contract {
 
 	}
 
-	public Contract(Integer contractCount, String contractEndDate,
-			Integer contractPeroid, String endDate, String inputDate,
-			Integer pn, Integer sellerPn, String startDate) {
+	public Contract(Integer sellerPn) {
 		super();
-		this.contractCount = contractCount;
-		this.contractEndDate = contractEndDate;
-		this.contractPeroid = contractPeroid;
-		this.endDate = endDate;
-		this.inputDate = inputDate;
-		this.pn = pn;
 		this.sellerPn = sellerPn;
-		this.startDate = startDate;
 	}
 
 	public Integer getContractCount() {

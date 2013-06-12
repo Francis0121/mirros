@@ -83,10 +83,17 @@ function goToPreviousPages() {
 	</form:form>
 </ul>
 
-<table class="jt-partnership-table jt-admin-base-table">
+<sec:authorize access="principal.groupName eq 'Administrator'">
+	<table class="jt-partnership-table jt-admin-base-table">
+</sec:authorize>
+<sec:authorize access="hasRole('ROLE_ROOT')">
+	<table class="jt-partnership-root-table jt-admin-base-table">
+</sec:authorize>
 	<thead>
 		<tr>
+			<sec:authorize access="hasRole('ROLE_ROOT')">
 			<th rowspan="2">담당자</th>
+			</sec:authorize>
 			<th colspan="7">문의사항정보</th>
 			<th colspan="7">판매자정보</th>
 			<th colspan="3">계약정보</th>
@@ -107,14 +114,19 @@ function goToPreviousPages() {
 			<th>회사명</th>
 			<th>관심사</th>
 			<th>불량사용자</th>
-			<th>횟수</th>
 			<th>기간</th>
+			<th>횟수</th>
 			<th>등록</th>
 		</tr>
 	</thead>
 	<tfoot class="jt-pagination">
-		<tr>	
-			<td colspan="20">
+		<tr>
+			<sec:authorize access="principal.groupName eq 'Administrator'">
+				<td colspan="19">
+			</sec:authorize>
+			<sec:authorize access="hasRole('ROLE_ROOT')">
+				<td colspan="20">
+			</sec:authorize>
 				<div id="page-wrap">
 					<div style="float: left;">
 						<a href="javascript:void(goToPage(1))" onfocus="blur();">
@@ -146,6 +158,7 @@ function goToPreviousPages() {
 		<c:forEach items="${partnerships }" var="partnership" varStatus="loop">
 			<c:set var="userInfo" value="${partnership.jtownUser }"/>
 			<tr class="jt-partnership-info" data-pspn="<c:out value="${partnership.pn }"/>" data-spn="<c:out value="${userInfo.pn}"/>">
+				<sec:authorize access="hasRole('ROLE_ROOT')">
 				<td class="jt-partnership-adminPn">
 					<select class="jt-partnership-adminPn-select">
 						<option value="">선택</option>
@@ -161,6 +174,7 @@ function goToPreviousPages() {
 						</c:forEach>
 					</select>
 				</td>
+				</sec:authorize>
 				<td class="jt-partnership-table-information"><c:out value="${partnership.pn }"/></td>
 				<td class="jt-partnership-insert-date"><c:out value="${fn:substring(partnership.inputDate , 0, 10) }"/></td>
 				<td class="jt-partnership-name"><c:out value="${partnership.name }"/></td>
@@ -221,14 +235,10 @@ function goToPreviousPages() {
 								<option value="0" ${userInfo.enabled eq false ? 'selected=selected' : ''}>불량 사용자</option>					
 							</select>
 						</td>
-						<td class="jt-partnership-contract-number">
-							<button type="button" class="jt-admin-contract-list jt-btn-white-small">
-								<span class="btnText" id="contract-count-${userInfo.pn }"><c:out value="${userInfo.contractCount eq null ? 0 : userInfo.contractCount}"/></span>
-							</button>
-						</td>
 						<td class="jt-partnership-contract-end">
 							<span id="contract-end-date-${userInfo.pn }"><c:out value="${userInfo.contractEndDate}"/></span>
 						</td>
+						<td class="jt-partnership-contract-number"><c:out value="${userInfo.contractCount eq null ? 0 : userInfo.contractCount}"/></td>
 						<td class="jt-partnership-contract-register">
 							<button type="button" class="jt-admin-contract jt-btn-white-small">
 								<span class="btnText">계약</span>
@@ -260,7 +270,12 @@ function goToPreviousPages() {
 				<td class="jt-partnership-note"><pre><c:out value="${partnership.note }"/></pre></td>
 			</tr>
 			<tr class="jt-partnership-table-content" id="partnership-content-<c:out value="${partnership.pn }"/>">
-				<td colspan="20">
+				<sec:authorize access="principal.groupName eq 'Administrator'">
+					<td colspan="19">
+				</sec:authorize>
+				<sec:authorize access="hasRole('ROLE_ROOT')">
+					<td colspan="20">
+				</sec:authorize>
 					<pre><c:out value="${partnership.content }"/></pre>
 				</td>
 			</tr>

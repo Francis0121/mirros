@@ -14,6 +14,15 @@ public class ContractFilter extends AbstractListFilter {
 	 */
 	private Integer sellerPn;
 
+	public ContractFilter() {
+		super();
+	}
+
+	public ContractFilter(Integer sellerPn) {
+		super();
+		this.sellerPn = sellerPn;
+	}
+
 	public Integer getSellerPn() {
 		return sellerPn;
 	}

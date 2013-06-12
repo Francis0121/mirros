@@ -19,14 +19,17 @@ import com.bg.jtown.util.Pagination;
 public class ContractServiceImpl extends SqlSessionDaoSupport implements
 		ContractService {
 
+	private static final Integer CONTRACT_PER_PAGE_NUM = 5;
+	
 	@Override
 	public List<Contract> selectContractList(ContractFilter contractFilter) {
 		Pagination pagination = contractFilter.getPagination();
 		int count = selectContractCount(contractFilter);
+		pagination.setNumItems(count);
+		pagination.setNumItemsPerPage(CONTRACT_PER_PAGE_NUM);
 		if (count == 0) {
 			return new ArrayList<Contract>();
 		}
-		pagination.setNumItems(count);
 
 		List<Contract> contracts = getSqlSession().selectList(
 				"contractMapper.selectContractList", contractFilter);

@@ -103,23 +103,20 @@ public class AdminController {
 		return prefiexUrl + "/partnership/list";
 	}
 
-	@RequestMapping(value = "/contractList", method = RequestMethod.GET)
-	public String showContractListPopup(Model model,
-			@ModelAttribute ContractFilter contractFilter) {
+	@RequestMapping(value = "/contract", method = RequestMethod.GET)
+	public String showContracPopup(Model model,
+			@ModelAttribute ContractFilter contractFilter,
+			@RequestParam(required = false) Integer result) {
 		List<Contract> contracts = contractService
 				.selectContractList(contractFilter);
 		model.addAttribute("contracts", contracts);
-		return prefiexUrl + "/partnership/contractList";
-	}
 
-	@RequestMapping(value = "/contract", method = RequestMethod.GET)
-	public String showContractListPopup(Model model,
-			@RequestParam Integer sellerPn) {
-		Contract contract = new Contract();
-		contract.setSellerPn(sellerPn);
-		Contract loadContract = contractService.selectContractPeroid(contract);
-		loadContract.setSellerPn(sellerPn);
+		Integer sellerPn = contractFilter.getSellerPn();
+		Contract loadContract = contractService
+				.selectContractPeroid(new Contract(sellerPn));
 		model.addAttribute("contract", loadContract);
+
+		model.addAttribute("result", result);
 		return prefiexUrl + "/partnership/contract";
 	}
 
@@ -185,12 +182,18 @@ public class AdminController {
 				return Contract.class.isAssignableFrom(clazz);
 			}
 		}.validate(contract, result);
+		Integer sellerPn = contract.getSellerPn();
 		if (result.hasErrors()) {
+			ContractFilter contractFilter = new ContractFilter(sellerPn);
+			model.addAttribute("contractFilter", contractFilter);
+			List<Contract> contracts = contractService
+					.selectContractList(contractFilter);
+			model.addAttribute("contracts", contracts);
+			return prefiexUrl + "/partnership/contract";
 		} else {
-			model.addAttribute("result",
-					contractService.insertCaculatePeroidContract(contract));
+			contractService.insertCaculatePeroidContract(contract);
+			return "redirect:contract?result=1&sellerPn=" + sellerPn;
 		}
-		return prefiexUrl + "/partnership/contract";
 	}
 
 	// ~ Ajax

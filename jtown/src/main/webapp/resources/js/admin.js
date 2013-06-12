@@ -4,8 +4,6 @@ if (typeof jtown.admin == 'undefined') {
 
 $(function() {
 	
-	jtown.admin.openContractList();
-	
 	jtown.admin.openContract();
 	
 	jtown.admin.sellerCreate();
@@ -352,25 +350,13 @@ jtown.admin.autoInterestOne = function(){
 	});	
 };
 
-jtown.admin.openContractList = function(){
-	$('.jt-admin-contract-list').unbind('click').bind('click', function(){
-		var parent = $(this).parents('.jt-partnership-info'),
-			spn = parent.attr('data-spn');
-		
-		var url = contextPath + 'admin/contractList/?sellerPn='+spn;
-		var option = 'width=400, height=300, resizable=no, scrollbars=no, status=no';
-		
-		window.open(url, '', option);
-	});
-};
-
 jtown.admin.openContract = function(){
 	$('.jt-admin-contract').unbind('click').bind('click', function(){
 		var parent = $(this).parents('.jt-partnership-info'),
 			spn = parent.attr('data-spn');
 		
 		var url = contextPath + 'admin/contract/?sellerPn='+spn;
-		var option = 'width=400, height=300, resizable=no, scrollbars=no, status=no';
+		var option = 'width=800, height=300, resizable=no, scrollbars=no, status=no';
 		
 		window.open(url, '', option);
 	});
