@@ -43,8 +43,8 @@
 		<result column="salt" property="jtownUser.salt"/>
 		<result column="seller_name" property="jtownUser.name"/>
 		<result column="shop_pn" property="jtownUser.shopPn"/>
-		<result column="contract_count" property="jtownUser.contractCount"/>
 		<result column="contract_end_date" property="jtownUser.contractEndDate"/>
+		<result column="begin_start_date" property="jtownUser.beginStartDate"/>
 		<result column="admin_pn" property="adminUser.pn"/>
 		<result column="admin_name" property="adminUser.name"/>
 	</resultMap>
@@ -54,33 +54,39 @@
 		SELECT
 			p.pn, p.name, p.email, p.phone_number,
 			p.category_pn, p.content, p.process, p.deposit, p.input_date, p.update_date, p.note,
-			u.pn AS seller_pn, u.shop_pn, u.shop_url, u.id, u.enable, u.salt, u.name AS seller_name, u.contract_count, u.contract_end_date,
+			u.pn AS seller_pn, u.shop_pn, u.shop_url, u.id, u.enable, u.salt, u.name AS seller_name, 
+			u.begin_start_date, u.contract_end_date,
 			ua.pn AS admin_pn, ua.name AS admin_name
 		FROM
 			partnership p
 			LEFT OUTER JOIN ( 
 				SELECT 
-					us.pn, us.shop_pn, us.shop_url, u.id, u.enable, u.salt, u.name, uscit.contract_count, uscit.contract_end_date
+					us.pn, us.shop_pn, us.shop_url, u.id, u.enable, u.salt, u.name, 
+					uscie.contract_end_date, uscib.begin_start_date
 				FROM 
 					user_seller us
 					LEFT OUTER JOIN(
 						SELECT
-							usci.seller_pn, COUNT(usci.seller_pn) AS contract_count, now.contract_end_date
+							seller_pn, end_date AS contract_end_date
 						FROM
-							user_seller_contract_info usci
-							LEFT OUTER JOIN(
-								SELECT
-									seller_pn, end_date AS contract_end_date
-								FROM
-									user_seller_contract_info
-								WHERE
-									SYSDATE() BETWEEN start_date AND end_date
-							) now
-							ON usci.seller_pn = now.seller_pn
+							user_seller_contract_info
+						WHERE
+							SYSDATE() BETWEEN start_date AND end_date
+					) uscie
+					ON us.pn = uscie.seller_pn
+					LEFT OUTER JOIN	(
+						<![CDATA[
+						SELECT
+							seller_pn, MIN(start_date) AS begin_start_date
+						FROM
+							user_seller_contract_info
+						WHERE
+							SYSDATE() < start_date
 						GROUP BY
-							usci.seller_pn
-					) uscit
-					ON us.pn = uscit.seller_pn		
+							seller_pn
+						]]>
+					) uscib
+					ON us.pn = uscib.seller_pn
 					, users u 
 				WHERE 
 					us.pn = u.pn 
@@ -144,7 +150,8 @@
 			p.pn, p.name, p.email, p.phone_number,
 			p.category_pn, p.content, p.process, p.deposit, p.input_date, p.update_date, p.note
 			<if test="pn != null">
-			,u.pn AS seller_pn, u.shop_pn, u.shop_url, u.id, u.enable, u.salt, u.name AS seller_name, u.contract_count, u.contract_end_date,
+			,u.pn AS seller_pn, u.shop_pn, u.shop_url, u.id, u.enable, u.salt, u.name AS seller_name,
+			u.begin_start_date, u.contract_end_date,
 			ua.pn AS admin_pn, ua.name AS admin_name	
 			</if>
 		FROM
@@ -152,27 +159,32 @@
 			<if test="pn != null">
 			LEFT OUTER JOIN ( 
 				SELECT 
-					us.pn, us.shop_pn, us.shop_url, u.id, u.enable, u.salt, u.name, uscit.contract_count, uscit.contract_end_date
+					us.pn, us.shop_pn, us.shop_url, u.id, u.enable, u.salt, u.name, 
+					uscie.contract_end_date, uscib.begin_start_date
 				FROM 
 					user_seller us
 					LEFT OUTER JOIN(
 						SELECT
-							usci.seller_pn, COUNT(usci.seller_pn) AS contract_count, now.contract_end_date
+							seller_pn, end_date AS contract_end_date
 						FROM
-							user_seller_contract_info usci
-							LEFT OUTER JOIN(
-								SELECT
-									seller_pn, end_date AS contract_end_date
-								FROM
-									user_seller_contract_info
-								WHERE
-									SYSDATE() BETWEEN start_date AND end_date
-							) now
-							ON usci.seller_pn = now.seller_pn
+							user_seller_contract_info
+						WHERE
+							SYSDATE() BETWEEN start_date AND end_date
+					) uscie
+					ON us.pn = uscie.seller_pn
+					LEFT OUTER JOIN	(
+						<![CDATA[
+						SELECT
+							seller_pn, MIN(start_date) AS begin_start_date
+						FROM
+							user_seller_contract_info
+						WHERE
+							SYSDATE() < start_date
 						GROUP BY
-							usci.seller_pn
-					) uscit
-					ON us.pn = uscit.seller_pn		
+							seller_pn
+						]]>
+					) uscib
+					ON us.pn = uscib.seller_pn		
 					, users u 
 				WHERE 
 					us.pn = u.pn 
@@ -213,27 +225,32 @@
 			partnership p
 			LEFT OUTER JOIN ( 
 				SELECT 
-					us.pn, us.shop_pn, us.shop_url, u.id, u.enable, u.salt, u.name, uscit.contract_count, uscit.contract_end_date
+					us.pn, us.shop_pn, us.shop_url, u.id, u.enable, u.salt, u.name, 
+					uscie.contract_end_date, uscib.begin_start_date
 				FROM 
 					user_seller us
 					LEFT OUTER JOIN(
 						SELECT
-							usci.seller_pn, COUNT(usci.seller_pn) AS contract_count, now.contract_end_date
+							seller_pn, end_date AS contract_end_date
 						FROM
-							user_seller_contract_info usci
-							LEFT OUTER JOIN(
-								SELECT
-									seller_pn, end_date AS contract_end_date
-								FROM
-									user_seller_contract_info
-								WHERE
-									SYSDATE() BETWEEN start_date AND end_date
-							) now
-							ON usci.seller_pn = now.seller_pn
+							user_seller_contract_info
+						WHERE
+							SYSDATE() BETWEEN start_date AND end_date
+					) uscie
+					ON us.pn = uscie.seller_pn
+					LEFT OUTER JOIN	(
+						<![CDATA[
+						SELECT
+							seller_pn, MIN(start_date) AS begin_start_date
+						FROM
+							user_seller_contract_info
+						WHERE
+							SYSDATE() < start_date
 						GROUP BY
-							usci.seller_pn
-					) uscit
-					ON us.pn = uscit.seller_pn		
+							seller_pn
+						]]>
+					) uscib
+					ON us.pn = uscib.seller_pn		
 					, users u 
 				WHERE 
 					us.pn = u.pn 

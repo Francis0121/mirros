@@ -79,10 +79,10 @@ public class HelpServiceImpl extends SqlSessionDaoSupport implements
 			PartnershipFilter partnershipFilter) {
 		Pagination pagination = partnershipFilter.getPagination();
 		int count = selectPartnershipCount(partnershipFilter);
+		pagination.setNumItems(count);
 		if (count == 0) {
 			return new ArrayList<Partnership>();
 		}
-		pagination.setNumItems(count);
 
 		List<Partnership> partnerships = getSqlSession().selectList(
 				"helpMapper.selectPartnerships", partnershipFilter);

@@ -35,6 +35,7 @@ import com.bg.jtown.business.seller.ContractService;
 import com.bg.jtown.controller.validator.SigninAdminVaildatorImpl;
 import com.bg.jtown.security.Authority;
 import com.bg.jtown.security.JtownUser;
+import com.bg.jtown.security.SummaryUser;
 import com.bg.jtown.util.ValidationUtil;
 
 /**
@@ -98,8 +99,15 @@ public class AdminController {
 
 	@RequestMapping(value = "/partnership", method = RequestMethod.GET)
 	public String showPartnership(Model model,
-			@ModelAttribute PartnershipFilter partnershipFilter) {
+			@ModelAttribute PartnershipFilter partnershipFilter,
+			SummaryUser summaryUser) {
+		Authority authority = summaryUser.getEnumAuthority();
+		if (authority.equals(Authority.ADMIN)) {
+			Integer adminPn = summaryUser.getPn();
+			partnershipFilter.setAdminPn(adminPn);
+		}
 		model.addAllAttributes(helpService.selectObject(partnershipFilter));
+
 		return prefiexUrl + "/partnership/list";
 	}
 

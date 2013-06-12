@@ -34,7 +34,7 @@ public class JtownUser extends AbstractUser {
 	private Integer loveHotCount;
 	private Integer viewCount;
 	private Integer commentCount;
-	private Integer contractCount;
+	private String beginStartDate;
 	private String contractEndDate;
 	private Integer bannerDate;
 	private Integer bannerFirst;
@@ -228,14 +228,6 @@ public class JtownUser extends AbstractUser {
 		this.images = images;
 	}
 
-	public Integer getContractCount() {
-		return contractCount;
-	}
-
-	public void setContractCount(Integer contractCount) {
-		this.contractCount = contractCount;
-	}
-
 	public String getContractEndDate() {
 		return contractEndDate;
 	}
@@ -288,6 +280,14 @@ public class JtownUser extends AbstractUser {
 		this.email = email;
 	}
 	
+	public String getBeginStartDate() {
+		return beginStartDate;
+	}
+
+	public void setBeginStartDate(String beginStartDate) {
+		this.beginStartDate = beginStartDate;
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
@@ -306,7 +306,7 @@ public class JtownUser extends AbstractUser {
 		sb.append("LoveHotCount : ").append(this.loveHotCount).append(";");
 		sb.append("ViewCount: ").append(this.viewCount).append("; ");
 		sb.append("CommentCount : ").append(this.commentCount).append("; ");
-		sb.append("ContractCount :").append(this.contractCount).append("; ");
+		sb.append("BeginStartDate :").append(this.beginStartDate).append("; ");
 		sb.append("ContractEndDate :").append(this.contractEndDate).append("; ");
 		sb.append("BannerDate : ").append(this.bannerDate).append("; ");
 		sb.append("BannerFirst : ").append(this.bannerFirst).append("; ");

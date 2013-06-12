@@ -114,8 +114,6 @@ body{background: #f6f4f5;}
  }
 .jt-admin-select-error:FOCUS{	border: 1px solid #ff0000; }
 
-
-
 .jt-pagination td div{ margin: 0 auto;}
 .jt-pagination td a{ margin: 0 3px; width: 10px; float: left; height: 16px; line-height: 16px;}
 .jt-pagination td .page-beforeafter{ font-size: 10px; font-weight: bold; font-family: Arial; width: 45px; color: #5a5a5a;}
@@ -169,8 +167,8 @@ body{background: #f6f4f5;}
  	float: left; margin-top: 6px;
 }
 
-.jt-partnership-table { width: 2500px;}
-.jt-partnership-root-table{ width: 2600px;}
+.jt-partnership-table { width: 2420px;}
+.jt-partnership-root-table{ width: 2520px;}
 .jt-partnership-table-content {display: none;}
 .jt-partnership-table-content td{ text-align : left; }
 
@@ -192,8 +190,8 @@ body{background: #f6f4f5;}
 .jt-partnership-sellerName{width: 120px; }
 .jt-partnership-interest{width: 250px; text-align: left !important;}
 .jt-partnership-enabled{width: 115px;}
-.jt-partnership-contract-number{ width: 80px;}
-.jt-partnership-contract-end{ width: 100px;}
+.jt-partnership-contract-date{ width: 100px; font-size: 11px; line-height: 14px !important;}
+.jt-partnership-contract-date span{ display: block;}
 .jt-partnership-contract-register{width: 80px; }
 .jt-partnership-note{width: 360px; text-align: left !important;}
 

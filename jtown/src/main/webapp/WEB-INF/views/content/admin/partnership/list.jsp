@@ -62,11 +62,11 @@ function goToPreviousPages() {
 				<form:option value="">전체</form:option>
 				<form:options items="${interestCategories }" itemLabel="name" itemValue="categoryPn"/>
 			</form:select>
-		 	<form:label path="enabled">불량사용자</form:label>
+		 	<form:label path="enabled">활성화</form:label>
 			<form:select path="enabled" onchange="document.forms['partnershipFilter'].submit();" cssClass="jt-admin-filter-select">
 				<form:option value="">전체</form:option>
-				<form:option value="true">정상사용자</form:option>
-				<form:option value="false">불량사용자</form:option>
+				<form:option value="true">활성화</form:option>
+				<form:option value="false">비활성화</form:option>
 			</form:select>
 		</li>
 		<li>
@@ -96,7 +96,7 @@ function goToPreviousPages() {
 			</sec:authorize>
 			<th colspan="7">문의사항정보</th>
 			<th colspan="7">판매자정보</th>
-			<th colspan="3">계약정보</th>
+			<th colspan="2">계약정보</th>
 			<th rowspan="2">비고</th>
 		</tr>
 		<tr>
@@ -113,19 +113,18 @@ function goToPreviousPages() {
 			<th>홈페이지</th>
 			<th>회사명</th>
 			<th>관심사</th>
-			<th>불량사용자</th>
+			<th>활성화</th>
 			<th>기간</th>
-			<th>횟수</th>
-			<th>등록</th>
+			<th>조회</th>
 		</tr>
 	</thead>
 	<tfoot class="jt-pagination">
 		<tr>
 			<sec:authorize access="principal.groupName eq 'Administrator'">
-				<td colspan="19">
+				<td colspan="18">
 			</sec:authorize>
 			<sec:authorize access="hasRole('ROLE_ROOT')">
-				<td colspan="20">
+				<td colspan="19">
 			</sec:authorize>
 				<div id="page-wrap">
 					<div style="float: left;">
@@ -231,17 +230,22 @@ function goToPreviousPages() {
 						<td class="jt-partnership-interest"><c:out value="${interestMap[userInfo.pn].interestSectionList }"/></td>
 						<td class="jt-partnership-enabled">
 							<select class="jt-partnership-enabled-select">
-								<option value="1" ${userInfo.enabled eq true ? 'selected=selected' : ''}>정상 사용자</option>
-								<option value="0" ${userInfo.enabled eq false ? 'selected=selected' : ''}>불량 사용자</option>					
+								<option value="1" ${userInfo.enabled eq true ? 'selected=selected' : ''}>활성화</option>
+								<option value="0" ${userInfo.enabled eq false ? 'selected=selected' : ''}>비활성화</option>					
 							</select>
 						</td>
-						<td class="jt-partnership-contract-end">
-							<span id="contract-end-date-${userInfo.pn }"><c:out value="${userInfo.contractEndDate}"/></span>
+						<td class="jt-partnership-contract-date">
+							<c:if test="${userInfo.contractEndDate ne null }">
+								<span style="color: #003cff;">게시중</span>
+							</c:if>
+							<c:if test="${userInfo.contractEndDate eq null and  userInfo.beginStartDate ne null}">
+								<span style="color: #ff4621;">예정일</span>
+							</c:if>
+							<span style="color: #3b3b3b;"><c:out value="${userInfo.beginStartDate}"/></span>
 						</td>
-						<td class="jt-partnership-contract-number"><c:out value="${userInfo.contractCount eq null ? 0 : userInfo.contractCount}"/></td>
 						<td class="jt-partnership-contract-register">
 							<button type="button" class="jt-admin-contract jt-btn-white-small">
-								<span class="btnText">계약</span>
+								<span class="btnText">조회</span>
 							</button>
 						</td>					
 					</c:when>
@@ -258,11 +262,10 @@ function goToPreviousPages() {
 						<td class="jt-seller-interest">&nbsp;</td>
 						<td class="jt-seller-enabled">
 							<select class="jt-partnership-enabled-select" style="display: none;">
-								<option value="1" ${userInfo.enabled eq true ? 'selected=selected' : ''}>정상 사용자</option>
-								<option value="0" ${userInfo.enabled eq false ? 'selected=selected' : ''}>불량 사용자</option>					
+								<option value="1" ${userInfo.enabled eq true ? 'selected=selected' : ''}>활성화</option>
+								<option value="0" ${userInfo.enabled eq false ? 'selected=selected' : ''}>비활성화</option>					
 							</select>
 						</td> 	
-						<td></td>
 						<td></td>
 						<td></td>	
 					</c:otherwise>
@@ -271,10 +274,10 @@ function goToPreviousPages() {
 			</tr>
 			<tr class="jt-partnership-table-content" id="partnership-content-<c:out value="${partnership.pn }"/>">
 				<sec:authorize access="principal.groupName eq 'Administrator'">
-					<td colspan="19">
+					<td colspan="18">
 				</sec:authorize>
 				<sec:authorize access="hasRole('ROLE_ROOT')">
-					<td colspan="20">
+					<td colspan="19">
 				</sec:authorize>
 					<pre><c:out value="${partnership.content }"/></pre>
 				</td>
