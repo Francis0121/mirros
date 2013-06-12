@@ -49,8 +49,13 @@ public class CommentController {
 	@ResponseBody
 	public Boolean ajaxExistComment(@RequestBody Comment comment,
 			SummaryUser summaryUser) {
-		comment.setCustomerPn(summaryUser.getPn());
-		return commentService.selectExistComment(comment);
+		Authority authority = summaryUser.getEnumAuthority();
+		if(authority.equals(Authority.CUSTOMER)){
+			comment.setCustomerPn(summaryUser.getPn());
+			return commentService.selectExistComment(comment);			
+		}else{
+			return null;
+		}
 	}
 
 	@RequestMapping(value = "/ajax/home/existLove.jt", method = RequestMethod.POST)

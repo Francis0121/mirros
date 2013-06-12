@@ -20,11 +20,15 @@ jtown.comment.syncComment = function(){
 		var url = contextPath + 'ajax/home/existComment.jt',
 			json = { sellerPn : spn	};
 		$.postJSON(url, json, function(result){
-			if(result){	
-				$('#jt-comment-insert').attr('readonly', 'readonly');
-				jtown.dialog(name+' 쇼핑몰에 대한 댓글은<br/>하루에 한번만 가능합니다.');				
+			if(!nullValueCheck(result)){
+				if(result){	
+					$('#jt-comment-insert').attr('readonly', 'readonly');
+					jtown.dialog(name+' 쇼핑몰에 대한 댓글은<br/>하루에 한번만 가능합니다.');				
+				}else{
+					$('#jt-comment-insert').removeAttr('readonly');
+				}	
 			}else{
-				$('#jt-comment-insert').removeAttr('readonly');
+				$('#jt-comment-insert').attr('readonly', 'readonly').unbind('click');
 			}
 		});
 	});
