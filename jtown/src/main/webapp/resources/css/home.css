@@ -108,12 +108,12 @@ word-wrap: break-word; /* Internet Explorer 5.5+ */}
 .jt-home-expand-shop-rigthArrow{}
 .jt-home-expand-shop-rigthArrow>a{ position : absolute; width: 20px; height: 53px; margin: 76px 20px 0 5px; background: url("../images/jt-home-icon.png") -130px 0; display: block; text-indent: -9999px;}
 .jt-home-expand-shop-rigthArrow>a:HOVER{background-position: -151px 0;}
-.jt-home-expand-shop-expandProduct-slide{ min-width: 510px; min-height: 200px; float: left; overflow: hidden;}
+.jt-home-expand-shop-expandProduct-slide{ min-width: 510px; min-height: 200px; float: left; overflow: hidden; cursor: pointer;}
 #jt-seller-slide-fake-dan{position: absolute; width: 510px; overflow: hidden; height: 190px;}
 #jt-seller-slide-content-dan{position: absolute; left: 0; }
 .jt-home-expand-shop-expandProduct{ width: 140px; padding: 20px 15px 30px 15px; margin-top:10px; float:left; position: relative;background: #fff;}
 .jt-home-expand-shop-expandProduct>img{ width: 140px; height: 140px; padding: 0px; float:left;}
-#jt-home-expand-shop-notice{ float: left; border-bottom: 1px solid #d1cdcd; width: 100%;}
+#jt-home-expand-shop-notice{ float: left; border-bottom: 1px solid #d1cdcd; width: 100%; cursor: pointer;}
 .jt-home-expand-shop-firstQuotationMark{ float: left; width: 15px; height:15px; 
 	background: url("../images/jt-home-icon.png") 0 0 no-repeat; margin: 5px 10px 0 10px; text-indent: -99999px;
 }
@@ -131,7 +131,7 @@ color: #808080;}
 .jt-home-expand-shop-products>ul>li{ float: left; margin-right: 5px;}
 .jt-home-expand-shop-products>ul>li>a{ float: left; display: block; width: 50px; height: 50px;}
 .jt-home-expand-shop-products>ul>li>a>img{ float: left; width: 50px; height: 50px;}
-.jt-home-expand-shop-event{ width : 309px; height: 154px; float: left; border-right: 1px solid #999999;}
+.jt-home-expand-shop-event{ width : 309px; height: 154px; float: left; border-right: 1px solid #999999; cursor: pointer;}
 .jt-home-expand-shop-event>img{width: 309px; height: 154px; }
 .jt-home-expand-shop-event-new{float : left; position: absolute;  font-size: 13px; color: #fe6009; font-weight: bold; margin: 5px; width: 305px;}
 .jt-home-expand-shop-event-new>div{float: right; width: 305px; text-indent: -999999px;}
