@@ -128,7 +128,25 @@ jtown.home.clickLove = function(spn) {
 				jtown.dialog('판매자는 불가능합니다');
 			}
 		} else {
-
+			var spn = count.sellerPn;
+			var crudType = count.crudType;
+			if (crudType == 'insert') {
+				$('#jt-heart-click-'+spn).addClass('jt-heart-animation');
+			} else if (crudType == 'delete') {
+				$('#jt-heart-click-'+spn).removeClass('jt-heart-animation');
+			}
+			
+			var expandShop = $('#jt-home-expand-shop');
+			if (!nullValueCheck(expandShop.html())) {
+				var expandSpn = expandShop.attr('data-spn');
+				if (spn == expandSpn){
+					if (crudType == 'insert') {
+						$('#jt-heart-expand-click-'+spn).addClass('jt-heart-animation');
+					} else if (crudType == 'delete') {
+						$('#jt-heart-expand-click-'+spn).removeClass('jt-heart-animation');
+					}
+				}
+			}
 		}
 	});
 

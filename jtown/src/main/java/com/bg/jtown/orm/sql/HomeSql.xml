@@ -54,11 +54,15 @@
 				SELECT
 					us.pn
 				FROM
-					user_seller us,
+					user_seller us
+					LEFT OUTER JOIN users u
+					ON us.pn = u.pn,
 					user_seller_interest usi,
 					interest_section ise,
 					interest_category ic
 				WHERE
+					u.enable = 1
+				AND
 					us.pn = usi.seller_pn
 				AND
 					usi.section_pn = ise.pn
@@ -101,6 +105,8 @@
 			interest_section ise,
 			interest_category ic
 		WHERE
+			u.enable = 1
+		AND
 			us.pn = usi.seller_pn
 		AND
 			us.pn = usci.seller_pn
@@ -123,11 +129,15 @@
 		SELECT
 			COUNT(*)
 		FROM
-			user_seller us,
+			user_seller us
+			LEFT OUTER JOIN users u
+			ON us.pn = u.pn,
 			user_seller_interest usi,
 			interest_section ise,
 			interest_category ic
 		WHERE
+			u.enable = 1
+		AND
 			us.pn = usi.seller_pn
 		AND
 			usi.section_pn = ise.pn
@@ -169,6 +179,8 @@
 			interest_section ise,
 			interest_category ic
 		WHERE
+			u.enable = 1
+		AND
 			us.pn = usi.seller_pn
 		AND
 			us.pn = usci.seller_pn
