@@ -196,7 +196,7 @@ jtown.expand.makeInnerHtml = function(spn){
 		html += '			<a href="#none" id="jt-home-expand-shop-leftArrow">&lt;</a>';
 		}
 		html += '		</li>';
-		html += '		<li class="jt-home-expand-shop-expandProduct-slide" id="jt-seller-slide-big">';
+		html += '		<li class="jt-home-expand-shop-expandProduct-slide gotoPage" id="jt-seller-slide-big" title="클릭시 해당 쇼핑몰로 이동됩니다.">';
 		html += '			<div id="jt-seller-slide-fake-dan">';
 		html += '				<div style="width : '+(Number(productSize)*170)+'px;" id="jt-seller-slide-content-dan">';
 		html +=	'					'+bigProductHtml;
@@ -267,7 +267,7 @@ jtown.expand.makeInnerHtml = function(spn){
 jtown.expand.gotoPage = function(){
 	
 	$('.gotoPage').unbind('click').bind('click', function(){
-		var parent = $(this).parent('.jt-home-expand-shop');
+		var parent = $(this).parents('.jt-home-expand-shop');
 		var spn = parent.attr('data-spn');
 		var url = parent.attr('data-url');
 
