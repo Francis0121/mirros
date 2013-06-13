@@ -12,6 +12,7 @@
 		$(function(){
 			$('#jt-comment-insert').placeholder();
 			$('#username_findPassword').placeholder();
+			$('#username_findSellerPassword').placeholder();
 			$('#j_username_page, #j_password_page').placeholder();
 		});
 	</script>
@@ -42,6 +43,13 @@
 			}
 		/* ]]> */	            
 		</script>
+	</c:if>
+	<c:if test="${disactiveError }">
+		<script type="text/javascript">
+		/* <![CDATA[ */ 
+		setTimeout("$('html, body').animate({scrollTop: $(document).height()}, 'slow')",0);             	
+		/* ]]> */	            
+		</script>            
 	</c:if>
 	
 </body>

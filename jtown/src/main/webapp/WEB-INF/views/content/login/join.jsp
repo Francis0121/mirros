@@ -5,6 +5,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <%@ include file="../../layout/none_header.jspf" %>
+<c:set var="cp" value="<%=request.getContextPath() %>"/>
 <c:set var="social" value="${jtownUser.social }" scope="request"/>
 <section class="jt-join-user-wrap">
 	<header class="jt-join-user-info">
@@ -13,16 +14,9 @@
 			<h2>Connected as Twitter <c:out value="${jtownUser.name }"/></h2>
 		</c:if>
 	</header>
-	<c:url value="/login/joinSubmit.jt" var="joinSubmit"/>
-	<form:form commandName="jtownUser" action="${joinSubmit }" htmlEscape="true" method="post">
+	<form:form commandName="jtownUser" action="${cp }/login/joinSubmit.jt" htmlEscape="true" method="post">
+	<article class="jt-join-user-article">
 	<table class="jt-join-user-table">
-		<tfoot>
-			<tr>
-				<td colspan="2">
-					<input type="button" value="가입하기" class="jt-join-submit jt-btn-orange" />
-				</td>
-			</tr>
-		</tfoot>
 		<tbody>
 			<c:choose>
 				<c:when test="${social eq 'twitter' }">
@@ -132,20 +126,22 @@
 						</c:forEach>
 					</form:select>
 					<div class="jt-join-user-error">
-						<form:errors path="year" cssClass="commonError"></form:errors><br/>
-						<form:errors path="month" cssClass="commonError"></form:errors><br/>
-						<form:errors path="day" cssClass="commonError"></form:errors>
+						<form:errors path="year" cssClass="jt-join-date-error"></form:errors>
+						<form:errors path="month" cssClass="jt-join-date-error"></form:errors>
+						<form:errors path="day" cssClass="jt-join-date-error"></form:errors>
 					</div>
 				</td>
 			</tr>
 		</tbody>
 	</table>
 	</form:form>
-	<footer class="jt-join-user-warning">
+	</article>
+	<footer class="jt-join-user-footer">
+		<div>
+		<button type="button" class="jt-join-submit jt-btn-orange">가입하기</button>
+		</div>
 		<ul>
-			<c:url value="/individual" var="individualUrl"/>
-			<c:url value="/agreement" var="agreementUrl"/>
-			<li>‘가입하기’를&nbsp;누르면&nbsp;<a href="${individualUrl }">이용약관</a>&nbsp;및&nbsp;<a href="${agreementUrl }">개인정보취급방침</a>에&nbsp;동의한&nbsp;것으로&nbsp;간주합니다.</li>
+			<li>‘가입하기’를&nbsp;누르면&nbsp;<a href="${cp }/individual">이용약관</a>&nbsp;및&nbsp;<a href="${cp }/agreement">개인정보취급방침</a>에&nbsp;동의한&nbsp;것으로&nbsp;간주합니다.</li>
 			<li>판매자&nbsp;회원가입은&nbsp;고객센터로&nbsp;문의주시기&nbsp;바랍니다.</li>
 		</ul>
 	</footer>

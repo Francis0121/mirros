@@ -234,7 +234,7 @@
 	</footer>
 	
 	<sec:authorize access="principal.groupName eq 'Customer'">
-		<div class="jt-disactive-content">
+		<div class="jt-disactive-content" style="${disactiveError ? 'display : block;' : ''}">
 			<header>
 				<h2>계정삭제</h2>
 			</header>

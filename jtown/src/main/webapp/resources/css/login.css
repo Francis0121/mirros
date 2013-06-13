@@ -8,37 +8,35 @@
 .jt-join-user-header{ width: 990px; margin: auto auto; height: 75px; }
 .jt-join-user-login, .jt-join-user-login:VISITED{ font-size: 12px; float: right; color: #808080; margin-top: 60px;}
 .jt-join-user-login:HOVER, .jt-join-user-login:ACTIVE{color: #000;}
-.jt-join-user-wrap{ width : 500px; margin: 75px auto 0 auto; min-height: 400px;}
+.jt-join-user-wrap{ width : 500px; margin: 75px auto 0 auto; min-height: 400px;
+}
 .jt-join-user-info{ width: 500px; float: left;}
-.jt-join-user-info>h1{ float: left; width: 100%; padding: 0 0 20px 0; font-size: 20px; color: #524d4d;}
-.jt-join-user-table { float: left; border-collapse: collapse; width: 500px; font-size: 12px;}
-.jt-join-user-table th, .jt-join-user-table td{ padding: 3px 2px 3px 2px; height: 55px;}
-.jt-join-user-table th{ width: 200px; vertical-align: middle; color: #8c827e;  text-align: left; font-size: 15px; font-weight: normal;}
-.jt-join-user-table td{ width: 300px; vertical-align: middle;}
-.jt-join-user-table tbody th, .jt-join-user-table tbody td { }
-.jt-join-user-table thead th, .jt-join-user-table thead td { }
+.jt-join-user-info>h1{ float: left; margin-left : 10px; font-family: NanumGothic, Dotum, Gulim; font-size: 25px; color: #524d4d;
+text-shadow : 1px 2px 4px #e3e3e3,0 0 0 #000,1px 2px 4px #e3e3e3,0 1px 0 #fff;}
+.jt-join-user-table{ float: left; width : 500px; margin-top : 20px;
+	box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box; -moz-box-sizing : border-box; -webkit-box-sizing : border-box;
+}
+.jt-join-user-table th, .jt-join-user-table td{ padding: 0 3px; height : 55px; vertical-align: middle;
+	box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box; -moz-box-sizing : border-box; -webkit-box-sizing : border-box;
+}
+.jt-join-user-table th label, .jt-join-user-table td label{ font-family: NanumGothic, Dotum, Gulim; }
+.jt-join-user-table th{ width: 200px; color: #8c827e;  text-align: left; font-size: 15px; font-weight: normal;}
+.jt-join-user-table td{ width: 300px; font-size: 12px;}
 .jt-join-user-table tfoot th, .jt-join-user-table tfoot td { text-align: center;}
+.jt-join-date-error{float: left; width: 100%;}
 .jt-join-user-input { width: 220px; padding: 2px 3px; border: 1px solid #ad9c9c; height: 25px;
- 	-webkit-border-radius: 5px 5px;
-    -moz-border-radius: 5px 5px;
-    border-radius: 5px 5px;
+ 	border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; 
 }
 .jt-join-user-input:FOCUS{	border: 1px solid #ff8a00; }
 .jt-join-user-input-error { width: 220px; padding: 2px 3px; border: 1px solid #ff8a00; height: 25px;
- 	-webkit-border-radius: 5px 5px;
-    -moz-border-radius: 5px 5px;
-    border-radius: 5px 5px;
+ 	border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; 
 }
 .jt-join-user-input-error:FOCUS{ border: 1px solid #ff0000;  }
 .jt-join-user-select{width: 225px; padding: 2px 3px; border: 1px solid #ad9c9c; height: 30px;
- 	-webkit-border-radius: 5px 5px;
-    -moz-border-radius: 5px 5px;
-    border-radius: 5px 5px;
+ 	border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; 
 }
 .jt-join-user-select-error{width: 225px; padding: 2px 3px; border: 1px solid #ff8a00; height: 30px;
- 	-webkit-border-radius: 5px 5px;
-    -moz-border-radius: 5px 5px;
-    border-radius: 5px 5px;
+ 	border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; 
 }
 .jt-join-user-select:FOCUS{ border: 1px solid #ff8a00;}
 .jt-join-user-select-error:FOCUS{ border: 1px solid #ff0000;}
@@ -50,13 +48,14 @@
 .jt-join-user-vaild-wrap>span{display: block; width: 280px; background: #fff; font-size: 11px; text-align: center; }
 .jt-form-invalid { line-height: 24px; color: red; border: 1px solid red;}
 .jt-form-valid { line-height: 24px; color: green; border: 1px solid green;}
-.jt-join-submit{width: 100px; font-size: 15px;}
+.jt-join-submit{width: 100px; font-size: 15px; padding: 7px 10px;}
 
-.jt-join-user-warning{font-size: 11px; color: #7a7a7a; margin: 20px 0 0 20px; float: left;}
-.jt-join-user-warning>ul{}
-.jt-join-user-warning>ul>li{ padding: 5px 0; list-style-type: circle;}
-.jt-join-user-warning>ul>li>a, .jt-join-user-warning>ul>li>a:VISITED{ color: #7a7a7a; text-decoration: underline;}
-.jt-join-user-warning>ul>li>a:HOVER{ color: #7a7a7a; }
+.jt-join-user-footer{font-size: 11px; color: #7a7a7a; margin: 20px 0 0 0; float: left;}
+.jt-join-user-footer div { width: 500px; text-align: center; margin-bottom: 15px;}
+.jt-join-user-footer ul {margin-left: 20px;}
+.jt-join-user-footer>ul>li{ padding: 5px 0; list-style-type: circle;}
+.jt-join-user-footer>ul>li>a, .jt-join-user-warning>ul>li>a:VISITED{ color: #7a7a7a; text-decoration: underline; font-family: NanumGothic, Dotum, Gulim; }
+.jt-join-user-footer>ul>li>a:HOVER{ color: #7a7a7a; }
 
 .jt-join-user-error{font-size: 11px; margin: 5px 0 0 5px; line-height: 1.2; color: #ff3c00;}
 /*
@@ -78,6 +77,7 @@
 .jt-login-form-table tbody th, .jt-login-form-table tbody td { }
 .jt-login-form-table thead th, .jt-login-form-table thead td { }
 .jt-login-form-table tfoot th, .jt-login-form-table tfoot td { height: 25px; }
+
 .jt-login-form-table-input{ width: 358px; padding: 2px 3px; border: 1px solid #ad9c9c; height: 25px;
  	-webkit-border-radius: 5px 5px;
     -moz-border-radius: 5px 5px;
@@ -151,37 +151,36 @@
 /************************
 *	비밀번호 찾는 페이지
 ************************/
-#jt-findpassword-page-section { width: 550px; margin: 80px auto 0 auto; }
-#jt-findpassword-page-section>header{float: left;}
-#jt-findpassword-page-section>header>h2{float:left;font-size: 20px;color: #524d4d;}
-#jt-findpassword-page-section>footer{ float:left; font-size: 12px; color:#e95800; margin-top: 30px;}
-
-.jt-findpassword-page { float:left; width: 550px; margin-top: 35px; border: 1px solid #cccccc; padding: 25px 25px 10px 25px;
-	box-sizing: border-box;
-	-o-box-sizing : border-box;
-	-ms-box-sizing : border-box;
-	-moz-box-sizing : border-box;
-	-webkit-box-sizing : border-box;
-    border-radius: 5px;	-webkit-border-radius: 5px; -moz-border-radius: 5px;
+#jt-findpassword-page-section { width: 550px; margin: 50px auto; }
+#jt-findpassword-page-section>header{float: left; margin: 20px 0;}
+#jt-findpassword-page-section>header>h2{float: left; margin-left : 10px; font-family: NanumGothic, Dotum, Gulim; font-size: 25px; color: #524d4d;
+text-shadow : 1px 2px 4px #e3e3e3,0 0 0 #000,1px 2px 4px #e3e3e3,0 1px 0 #fff;}
+#jt-findpassword-page-section>footer{ float:left; font-size: 12px; color:#e95800; } 
+#jt-findpassword-page-section>footer ul li { margin-left : 10px; font-family: NanumGothic, Dotum, Gulim;}
+.jt-findpassword-page { float:left; width: 550px; margin-bottom: 20px; border: 1px solid #cccccc; padding: 25px 25px 10px 25px;
+	border: 1px solid #cccccc; background : #fcfcfc;
+	box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box; -moz-box-sizing : border-box; -webkit-box-sizing : border-box;
+	border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; 
+	box-shadow: inset 3px 3px 8px -5px #cccccc, 4px 4px 6px -4px #cccccc;
+	-moz-box-shadow: inset 3px 3px 8px -5px #cccccc, 4px 4px 6px -4px #cccccc;
+	-webkit-box-shadow: inset 3px 3px 8px -5px #cccccc, 4px 4px 6px -4px #cccccc;
 }
+
 .jt-findpassword-page>header{float:left; }
 .jt-findpassword-page>header>div{ float:left;margin-bottom: 20px;}
-.jt-findpassword-page>header>div>h1{ float:left;font-size: 16px;color: #524d4d;}
+.jt-findpassword-page>header>div>h1{ float:left;font-size: 16px;color: #524d4d; font-family: NanumGothic, Dotum, Gulim;}
 .jt-findpassword-page>header>ul{ float:left; width:100%; font-size: 12px; color:#303030; margin-bottom: 20px; }
-.jt-findpassword-page>header>ul>li{float:left; margin-top: 5px; width: 100%;}
+.jt-findpassword-page>header>ul>li{float:left; margin: 8px 0; width: 100%; font-family: NanumGothic, Dotum, Gulim;}
 .jt-findpassword-page>section{width: 100%; float: left; margin-bottom: 20px; text-align: center;}
+
 .jt-findpassword-submit-btn{padding: 7px 10px;}
 
 .jt-findpassword-input { width: 220px; padding: 2px 3px; border: 1px solid #ad9c9c; height: 25px;
- 	-webkit-border-radius: 5px 5px;
-    -moz-border-radius: 5px 5px;
-    border-radius: 5px 5px;
+   	border-radius: 5px;	-webkit-border-radius: 5px; -moz-border-radius: 5px;
 }
 .jt-findpassword-input:FOCUS{	border: 1px solid #ff8a00; }
 .jt-findpassword-input-error { width: 220px; padding: 2px 3px; border: 1px solid #ff8a00; height: 25px;
- 	-webkit-border-radius: 5px 5px;
-    -moz-border-radius: 5px 5px;
-    border-radius: 5px 5px;
+    border-radius: 5px;	-webkit-border-radius: 5px; -moz-border-radius: 5px;
 }
 .jt-findpassword-error:FOCUS{ border: 1px solid #ff0000;  }
 /***********************
@@ -190,9 +189,9 @@
 .jt-account-setting-section{ width: 730px; margin: 50px auto;}
 
 .jt-account-setting-section-header{ float: left; width: 100%; margin: 15px 0; }
-.jt-account-setting-section-header>h1{ float: left; margin-left : 10px; font-family: NanumGothic, Dotum, Gulim; font-size: 30px; color: #524d4d;
+.jt-account-setting-section-header>h1{ float: left; margin-left : 10px; font-family: NanumGothic, Dotum, Gulim; font-size: 25px; color: #524d4d;
 text-shadow : 1px 2px 4px #e3e3e3,0 0 0 #000,1px 2px 4px #e3e3e3,0 1px 0 #fff;}
-.jt-account-setting-section-header>span{ float: left; margin: 8px 0 0 10px; font-family: NanumGothic, Dotum, Gulim; font-size: 14px; color: #ee2f2f; }
+.jt-account-setting-section-header>span{ float: left; margin: 6px 0 0 10px; font-family: NanumGothic, Dotum, Gulim; font-size: 13px; color: #ee2f2f; }
 .jt-account-setting-section-footer{ float: left; width: 100%; margin: 15px 0 30px 0; border: 1px solid #cccccc; padding : 10px 15px; background : #fafafa; 
 	box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box; -moz-box-sizing : border-box; -webkit-box-sizing : border-box;
 	border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; 
@@ -296,9 +295,11 @@ text-shadow : 1px 2px 4px #e3e3e3,0 0 0 #000,1px 2px 4px #e3e3e3,0 1px 0 #fff;}
 	box-sizing: border-box; -o-box-sizing : border-box;	-ms-box-sizing : border-box; -moz-box-sizing : border-box; -webkit-box-sizing : border-box;	
 }
 .jt-Yes-btn>.jt-Yes-text{
+	width :37px;
 	text-align: left;text-indent: 10px; line-height: 25px; color: #fff; font-weight: bold; font-family: Arial;
 }
 .jt-Yes-btn>.jt-Yes-blank{ 
+	float : right;
 	background: #ffffff; /* Old browsers */
 	/* IE9 SVG, needs conditional override of 'filter' to 'none' */
 	background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNmMmYyZjIiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
@@ -327,9 +328,11 @@ text-shadow : 1px 2px 4px #e3e3e3,0 0 0 #000,1px 2px 4px #e3e3e3,0 1px 0 #fff;}
 	box-sizing: border-box; -o-box-sizing : border-box;	-ms-box-sizing : border-box; -moz-box-sizing : border-box; -webkit-box-sizing : border-box;	
 }
 .jt-No-btn>.jt-No-text{
-	text-align: left;text-indent: 13px; line-height: 25px; color: #fff; font-weight: bold; font-family: Arial;
+	width :37px;
+	text-align: left;text-indent: 10px; line-height: 25px; color: #fff; font-weight: bold; font-family: Arial;
 }
-.jt-No-btn>.jt-No-blank{ 
+.jt-No-btn>.jt-No-blank{
+	float : left;
 	background: #ffffff; /* Old browsers */
 	/* IE9 SVG, needs conditional override of 'filter' to 'none' */
 	background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNmMmYyZjIiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);

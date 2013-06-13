@@ -147,6 +147,7 @@ public class LoginController {
 				model.addAttribute("jtownUser", user);
 				model.addAllAttributes(loginService.selectDeleteUser(pn));
 				model.addAttribute("disactiveUser", jtownUser);
+				model.addAttribute("disactiveError", true);
 			} else {
 				JtownUser user = new JtownUser();
 				user.setUsername(summaryUser.getUsername());
@@ -204,6 +205,7 @@ public class LoginController {
 				model.addAttribute("jtownUser", user);
 				model.addAllAttributes(loginService.selectDeleteUser(pn));
 				model.addAttribute("disactiveUser", jtownUser);
+				model.addAttribute("disactiveError", true);
 			} else {
 				JtownUser user = new JtownUser();
 				user.setUsername(summaryUser.getUsername());
