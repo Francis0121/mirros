@@ -155,22 +155,25 @@ jtown.login.changeUserSubmit = function(){
 
 jtown.login.disactiveUser = function(){
 	
+	$('.jt-disactive-user-btn').toggle(function(){
+		$('.jt-disactive-content').show();
+		setTimeout("$('html, body').animate({scrollTop: $(document).height()}, 'slow')",0);
+	}, function(){
+		$('.jt-disactive-content').slideUp();
+	});
+	
 	$('.jt-disactive-btn').unbind('click').bind('click', function(){
 		jtown.confirm('계정을 정말로 삭제하시겠습니까?', function(){
-			var form = document.forms['jtownUser'];
+			var form = document.forms['disactiveUser'];
 			form.submit();
-		}, function(){
-			
-		});
+		}, function(){});
 	});
 	
 	$('.jt-disactive-cancle-btn').unbind('click').bind('click', function(){
-		jtown.confirm('삭제를 취소하시겠습니까?', function(){
-			var form = document.forms['jtownUser'];
+		jtown.confirm('계정 삭제를 취소하시겠습니까?', function(){
+			var form = document.forms['disactiveUser'];
 			form.submit();
-		}, function(){
-			
-		});
+		}, function(){});
 	});
 };
 

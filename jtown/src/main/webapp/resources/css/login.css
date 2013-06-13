@@ -187,98 +187,98 @@
 /***********************
 *	계정 설정 페이지
 ***********************/
-.jt-modify-content-wrap{ width: 990px; margin: 50px auto; }
-.jt-modify-content { width: 864px; float: left; padding: 35px 0 45px 120px; min-height: 500px; }
+.jt-account-setting-section{ width: 730px; margin: 50px auto;}
 
-.jt-modify-content-header{width: 600px;}
-.jt-modify-content-header li {float: left; width: 50%;}
-.jt-modify-content-header h2{ font-size: 20px; color: #524d4d; width: 100%; float: left;}
-.jt-modify-content-disactive-btn{font-size: 12px; text-align: right;}
-.jt-modify-content-disactive-btn a{padding: 5px 10px;}
+.jt-account-setting-section-header{ float: left; width: 100%; margin: 15px 0; }
+.jt-account-setting-section-header>h1{ float: left; margin-left : 10px; font-family: NanumGothic, Dotum, Gulim; font-size: 30px; color: #524d4d;
+text-shadow : 1px 2px 4px #e3e3e3,0 0 0 #000,1px 2px 4px #e3e3e3,0 1px 0 #fff;}
+.jt-account-setting-section-header>span{ float: left; margin: 8px 0 0 10px; font-family: NanumGothic, Dotum, Gulim; font-size: 14px; color: #ee2f2f; }
+.jt-account-setting-section-footer{ float: left; width: 100%; margin: 15px 0 30px 0; border: 1px solid #cccccc; padding : 10px 15px; background : #fafafa; 
+	box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box; -moz-box-sizing : border-box; -webkit-box-sizing : border-box;
+	border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; 
+	box-shadow: inset 3px 3px 8px -5px #cccccc, 4px 4px 6px -4px #cccccc;
+	-moz-box-shadow: inset 3px 3px 8px -5px #cccccc, 4px 4px 6px -4px #cccccc;
+	-webkit-box-shadow: inset 3px 3px 8px -5px #cccccc, 4px 4px 6px -4px #cccccc;
+}
+.jt-account-setting-section-footer ul{ float: left; width: 100%;}
+.jt-account-setting-section-footer ul li{ float: left; width: 50%;}
+.jt-change-user-btn{ float: right;  padding: 7px 10px; width: 70px;}
+.jt-disactive-user-btn{ padding: 7px 10px; }
+.jt-emailAddress-user-btn{ padding: 7px 10px; width: 70px; }
+.jt-account-setting-findPassword-btn{ color: #ee2f2f; font-family:NanumGothic; font-size: 11px; font-weight: bold; margin-left: 8px; }
+.jt-account-setting-findPassword-btn:HOVER{text-decoration: underline;}
 
-.jt-modify-content-table{float: left; margin-top: 30px;}
-.jt-modify-content-table { border-collapse: collapse; width: 700px; font-size: 12px;}
-.jt-modify-content-table th, .jt-modify-content-table td{ padding: 3px 2px; height: 55px;}
-.jt-modify-content-table th{ width: 200px; vertical-align: middle; color: #8c827e;  text-align: left; font-size: 15px; font-weight: normal;}
-.jt-modify-content-table td{ width: 500px; vertical-align: middle;}
-.jt-modify-content-table tfoot td{text-align: center;}
-.jt-change-user-btn{width: 120px; font-size: 15px;}
+.jt-account-setting-article{ float: left; width: 100%; margin: 15px 0; border: 1px solid #cccccc; padding : 15px; background : #fcfcfc;
+	box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box; -moz-box-sizing : border-box; -webkit-box-sizing : border-box;
+	border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; 
+	box-shadow: inset 3px 3px 8px -5px #cccccc, 4px 4px 6px -4px #cccccc;
+	-moz-box-shadow: inset 3px 3px 8px -5px #cccccc, 4px 4px 6px -4px #cccccc;
+	-webkit-box-shadow: inset 3px 3px 8px -5px #cccccc, 4px 4px 6px -4px #cccccc;
+}
+.jt-account-setting-article-header{ float: left; width: 100%; }
+.jt-account-setting-article-header>h2{float: left; width: 100%; font-family: NanumGothic, Dotum, Gulim; font-size: 18px; color: #524d4d; }
+.jt-account-setting-article-table{ float: left; width : 700px; margin-top : 10px;
+	box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box; -moz-box-sizing : border-box; -webkit-box-sizing : border-box;
+}
+.jt-account-setting-article-table th, .jt-account-setting-article-table td{ padding: 0 3px; height : 55px; font-family: NanumGothic, Dotum, Gulim; vertical-align: middle;
+	box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box; -moz-box-sizing : border-box; -webkit-box-sizing : border-box;
+}
+.jt-account-setting-article-table th{ width: 170px; color: #8c827e;  text-align: left; font-size: 15px; font-weight: normal; }
+.jt-account-setting-article-table td{ width: 530px; font-size: 12px; }
+
+.jt-account-setting-error{ font-size: 11px; margin: 5px; line-height: 17px; color: #ff3c00;}
+
+.jt-account-setting-article-social{ float: left; }
+.jt-account-setting-article-social-header{ float: left; margin: 15px 0 -10px 0;}
+.jt-account-setting-article-social-header-table th{font-size: 12px;}
+.jt-account-setting-article-social-footer{ float : left; font-size: 11px; margin: 5px 3px; line-height: 17px; color: #ff3c00;}
 
 .jt-modify-content-input { width: 220px; padding: 2px 3px; border: 1px solid #ad9c9c; height: 25px;
- 	-webkit-border-radius: 5px 5px;
-    -moz-border-radius: 5px 5px;
-    border-radius: 5px 5px;
+ 	border-radius: 5px;-moz-border-radius: 5px; -webkit-border-radius: 5px;
 }
 .jt-modify-content-input:FOCUS{	border: 1px solid #ff8a00; }
 .jt-modify-content-input-error { width: 220px; padding: 2px 3px; border: 1px solid #ff8a00; height: 25px;
- 	-webkit-border-radius: 5px 5px;
-    -moz-border-radius: 5px 5px;
-    border-radius: 5px 5px;
+    border-radius: 5px;-moz-border-radius: 5px; -webkit-border-radius: 5px;
 }
 .jt-modify-content-input-error:FOCUS{ border: 1px solid #ff0000;  }
 .jt-modify-content-error{font-size: 11px; margin: 5px 0 0 5px; line-height: 1.2; color: #ff3c00;}
 
-.jt-modfiy-connect-social{float: left; width: 600px; font-size: 12px; color: #8c827e;}
-.jt-modfiy-connect-social>li{ width: 100%; float: left; }
-.jt-modify-connect-social-info{ float: left; }
-.jt-modify-connect-social-info>li{float: left; padding: 8px 0; }
-.jt-modify-connect-social-info>li:nth-child(2n){ width: 180px; }
-.jt-modify-connect-social-info>li:nth-child(2n)>span{float:left; margin-top: 10px;}
-.jt-modify-connect-social-info>li:nth-child(2n+1){ width: 350px; }
-.jt-modify-connect-social-info>li:nth-child(1){ width: 50px; }
-
-.jt-modfiy-submit-wrap{float: left; width: 700px; text-align: center;}
-
-.jt-connect-twitter{ background: url("../images/connect-with-twitter.png") no-repeat; width: 146px; height: 22px; border: 0;
-	-webkit-border-radius: 2px 2px;
-    -moz-border-radius: 2px 2px;
-    border-radius: 2px 2px;
-    cursor: pointer;
-}
-.jt-connect-twitter:ACTIVE{background-position: 0px 1px; width: 146px; height: 23px;}
-
-.jt-connect-facebook{ background: url("../images/connect_light_medium_short.gif") no-repeat; width: 89px; height: 21px; border: 0;
-	-webkit-border-radius: 2px 2px;
-    -moz-border-radius: 2px 2px;
-    border-radius: 2px 2px;
-    cursor: pointer;
-}
-.jt-connect-facebook:ACTIVE{background-position: 0px 1px; width: 89px; height: 22px;}
+.jt-emailAddress-comment{ font-size: 14px; font-family: NanumGothic, Dotum, Gulim; text-indent: 4px;}
 /***************************
 *	계정 삭제 페이지
 ****************************/
-.jt-disactive-content { float:left;width: 864px; float: left; padding: 35px 0 45px 120px; min-height: 500px; }
-.jt-disactive-content>header{float:left; width: 660px;}
-.jt-disactive-content>header>h2{ float:left; font-size: 20px; color: #524d4d; width: 100%; float: left;}
-.jt-disactive-content>article{ float:left; margin: 15px 0; width: 660px; padding: 20px 20px 10px 20px; border: 1px solid #a4a4a4;  background: #fcfcfc;
-	-webkit-border-radius: 5px 5px;
-    -moz-border-radius: 5px 5px;
-    border-radius: 5px 5px;
+.jt-disactive-content { margin-bottom : 20px; display : none;
+	float: left; width: 100%; border: 1px solid #acacac; padding : 15px; background : #dbdbdb;
+	box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box; -moz-box-sizing : border-box; -webkit-box-sizing : border-box;
+	border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; 
+	box-shadow: inset 3px 3px 8px -5px #acacac, 4px 4px 6px -4px #acacac;
+	-moz-box-shadow: inset 3px 3px 8px -5px #acacac, 4px 4px 6px -4px #acacac;
+	-webkit-box-shadow: inset 3px 3px 8px -5px #acacac, 4px 4px 6px -4px #acacac;
 }
-.jt-disactive-content>article>p{float:left; font-size: 13px; line-height: 23px; margin-bottom: 10px;}
-.jt-disactive-content>footer{float: left; width: 660px; font-size: 12px;}
-.jt-disactive-content>footer label{color: #8c827e; font-size: 15px; margin-right: 8px; }
-.jt-disactive-content>footer>div{float: left; width: 660px; margin: 10px 0 0 0;}
-.jt-disactive-content>footer>ul{ float:left; margin: 10px 0 0 0;}
-.jt-disactive-content>footer>ul>li{ float: left; width: 150px; font-size: 13px;}
+.jt-disactive-content>header{float:left; width: 100%;}
+.jt-disactive-content>header>h2{ float:left; font-size: 18px; margin-left : 3px; color: #524d4d; width: 100%; float: left; font-family: NanumGothic, Dotum, Gulim;  }
+.jt-disactive-content>article{ float:left; margin: 10px 0; padding: 20px 20px 10px 20px; border: 1px solid #a4a4a4;  background: #fcfcfc;
+	border-radius: 5px; -moz-border-radius: 5px;-webkit-border-radius: 5px;
+}
+.jt-disactive-content>article>p{float:left; font-size: 12px; line-height: 23px; margin-bottom: 10px;  font-family: NanumGothic, Dotum, Gulim; }
+.jt-disactive-content>footer{float: left; width: 100%; font-size: 12px;}
+.jt-disactive-content>footer label{color: #8c827e; font-size: 12px; margin-right: 8px; font-family: NanumGothic, Dotum, Gulim; }
+.jt-disactive-content>footer>div{float: left; }
+.jt-disactive-content>footer>ul{ float:left; margin: 8px 0 0 3px;}
+.jt-disactive-content>footer>ul>li{ float: left; width: 150px; font-size: 12px; font-family: NanumGothic, Dotum, Gulim; }
 
-.jt-disactive-input { width: 220px; padding: 2px 3px; border: 1px solid #ad9c9c; height: 25px;
- 	-webkit-border-radius: 5px 5px;
-    -moz-border-radius: 5px 5px;
-    border-radius: 5px 5px;
+.jt-disactive-input { width: 200px; padding: 2px 3px; border: 1px solid #ad9c9c; height: 20px;
+ 	border-radius: 5px; -moz-border-radius: 5px;-webkit-border-radius: 5px;
 }
 .jt-disactive-input:FOCUS{	border: 1px solid #ff8a00; }
-.jt-disactive-input-error { width: 220px; padding: 2px 3px; border: 1px solid #ff8a00; height: 25px;
- 	-webkit-border-radius: 5px 5px;
-    -moz-border-radius: 5px 5px;
-    border-radius: 5px 5px;
+.jt-disactive-input-error { width: 200px; padding: 2px 3px; border: 1px solid #ff8a00; height: 20px;
+ 	border-radius: 5px; -moz-border-radius: 5px;-webkit-border-radius: 5px;
 }
 .jt-disactive-error:FOCUS{ border: 1px solid #ff0000;  }
 
 .jt-disactive-btn{padding: 5px 10px;}
 .jt-disactive-cancle-btn{padding: 5px 10px;}
 .jt-disactive-content-error{font-size: 11px; margin: 8px 0 0 80px; line-height: 1.2; color: #ff3c00;}
-
 /*********************
 	YES OR NO BUTTON
 *************************/

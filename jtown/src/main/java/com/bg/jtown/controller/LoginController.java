@@ -99,23 +99,8 @@ public class LoginController {
 	}
 
 	@PreAuthorize("hasRole('ROLE_USER')")
-	@RequestMapping(value = "/login/disactive", method = RequestMethod.GET)
-	public String showDisactive(@ModelAttribute JtownUser jtownUser,
-			SummaryUser summaryUser, Model model) {
-
-		Authority authority = summaryUser.getEnumAuthority();
-		if (authority.equals(Authority.SELLER)
-				|| authority.equals(Authority.ADMIN)) {
-			return "redirect:/noPermission";
-		}
-		model.addAllAttributes(loginService.selectDeleteUser(summaryUser
-				.getPn()));
-		return "login/disactive";
-	}
-
-	@PreAuthorize("hasRole('ROLE_USER')")
 	@RequestMapping(value = "/login/disactive.jt", method = RequestMethod.POST)
-	public String formDisactive(@ModelAttribute JtownUser jtownUser,
+	public String formDisactive(@ModelAttribute(value="disactiveUser") JtownUser jtownUser,
 			BindingResult result, HttpSession session, SummaryUser summaryUser,
 			Model model) {
 		Authority authority = summaryUser.getEnumAuthority();
@@ -145,19 +130,35 @@ public class LoginController {
 			}
 		}.validate(jtownUser, result);
 
+		Integer pn = summaryUser.getPn();
 		if (!result.hasErrors()) {
-			Integer pn = summaryUser.getPn();
 			loginService.insertDeleteUser(pn);
 			model.addAllAttributes(loginService.selectDeleteUser(pn));
-			return "login/disactive";
+			return "redirect:modify";
 		} else {
-			return "login/disactive";
+			Map<String, List<Connection<?>>> connections = connectionRepository.findAllConnections();
+			model.addAttribute("providerIds", connectionFactoryLocator.registeredProviderIds());
+			model.addAttribute("connectionMap", connections);
+
+			if (summaryUser.getEnumAuthority() == Authority.CUSTOMER) {
+				JtownUser user = loginService.selectCustomer(pn);
+				user.setUsername(summaryUser.getUsername());
+				user.setName(summaryUser.getName());
+				model.addAttribute("jtownUser", user);
+				model.addAllAttributes(loginService.selectDeleteUser(pn));
+				model.addAttribute("disactiveUser", jtownUser);
+			} else {
+				JtownUser user = new JtownUser();
+				user.setUsername(summaryUser.getUsername());
+				model.addAttribute("jtownUser", user);
+			}
+			return "login/modify";
 		}
 	}
 
 	@PreAuthorize("hasRole('ROLE_USER')")
 	@RequestMapping(value = "/login/disactive.jt", method = RequestMethod.DELETE)
-	public String formDisactiveDelete(@ModelAttribute JtownUser jtownUser,
+	public String formDisactiveDelete(@ModelAttribute(value="disactiveUser") JtownUser jtownUser,
 			BindingResult result, HttpSession session, SummaryUser summaryUser,
 			Model model) {
 		Authority authority = summaryUser.getEnumAuthority();
@@ -190,10 +191,25 @@ public class LoginController {
 		Integer pn = summaryUser.getPn();
 		if (!result.hasErrors()) {
 			loginService.deleteDeleteUser(pn);
-			return "login/disactive";
+			return "redirect:modify";
 		} else {
-			model.addAllAttributes(loginService.selectDeleteUser(pn));
-			return "login/disactive";
+			Map<String, List<Connection<?>>> connections = connectionRepository.findAllConnections();
+			model.addAttribute("providerIds", connectionFactoryLocator.registeredProviderIds());
+			model.addAttribute("connectionMap", connections);
+
+			if (summaryUser.getEnumAuthority() == Authority.CUSTOMER) {
+				JtownUser user = loginService.selectCustomer(pn);
+				user.setUsername(summaryUser.getUsername());
+				user.setName(summaryUser.getName());
+				model.addAttribute("jtownUser", user);
+				model.addAllAttributes(loginService.selectDeleteUser(pn));
+				model.addAttribute("disactiveUser", jtownUser);
+			} else {
+				JtownUser user = new JtownUser();
+				user.setUsername(summaryUser.getUsername());
+				model.addAttribute("jtownUser", user);
+			}
+			return "login/modify";
 		}
 	}
 
@@ -268,20 +284,19 @@ public class LoginController {
 			NativeWebRequest request) {
 		setNoCache(request);
 		processFlash(request, model);
-
 		model.addAttribute("result", result);
-		Map<String, List<Connection<?>>> connections = connectionRepository
-				.findAllConnections();
-		model.addAttribute("providerIds",
-				connectionFactoryLocator.registeredProviderIds());
+		
+		Map<String, List<Connection<?>>> connections = connectionRepository.findAllConnections();
+		model.addAttribute("providerIds", connectionFactoryLocator.registeredProviderIds());
 		model.addAttribute("connectionMap", connections);
 
 		if (summaryUser.getEnumAuthority() == Authority.CUSTOMER) {
-			JtownUser jtownUser = loginService.selectCustomer(summaryUser
-					.getPn());
+			JtownUser jtownUser = loginService.selectCustomer(summaryUser.getPn());
 			jtownUser.setUsername(summaryUser.getUsername());
 			jtownUser.setName(summaryUser.getName());
 			model.addAttribute("jtownUser", jtownUser);
+			model.addAllAttributes(loginService.selectDeleteUser(summaryUser.getPn()));
+			model.addAttribute("disactiveUser", new JtownUser());
 		} else {
 			JtownUser jtownUser = new JtownUser();
 			jtownUser.setUsername(summaryUser.getUsername());
@@ -367,9 +382,8 @@ public class LoginController {
 			}
 		}.validate(jtownUser, result);
 
+		Authority authority = summaryUser.getEnumAuthority();
 		if (!result.hasErrors()) {
-			Authority authority = summaryUser.getEnumAuthority();
-
 			if (authority.equals(Authority.CUSTOMER)) {
 				jtownUser.setPn(summaryUser.getPn());
 				jtownUser.setConfirmEmail(null);
@@ -412,6 +426,11 @@ public class LoginController {
 			model.addAttribute("providerIds",
 					connectionFactoryLocator.registeredProviderIds());
 			model.addAttribute("connectionMap", connections);
+			
+			if(authority.equals(Authority.CUSTOMER)){
+				model.addAllAttributes(loginService.selectDeleteUser(summaryUser.getPn()));
+				model.addAttribute("disactiveUser", new JtownUser());
+			}
 			return "login/modify";
 		}
 	}

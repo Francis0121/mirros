@@ -21,9 +21,9 @@
  	-webkit-border-radius: 5px 0 25px 25px;
     -moz-border-radius: 5px 0 25px 25px;
     border-radius: 5px 0 25px 25px;
-    box-shadow :  inset 4px 4px 10px -5px #000, 4px 4px 6px -4px #000;;
-	-moz-box-shadow : inset 4px 4px 10px -5px #000, 4px 4px 6px -4px #000;;
-	-webkit-box-shadow :  inset 4px 4px 10px -5px #000, 4px 4px 6px -4px #000;;
+    box-shadow :  inset 4px 4px 10px -5px #000, 4px 4px 6px -4px #000;
+	-moz-box-shadow : inset 4px 4px 10px -5px #000, 4px 4px 6px -4px #000;
+	-webkit-box-shadow :  inset 4px 4px 10px -5px #000, 4px 4px 6px -4px #000;
 }
 
 .jt-seller-text-content{width: 330px; margin: 25px 0 15px 0; float: left;}
@@ -34,7 +34,7 @@
 .jt-seller-text-content>li:nth-child(2){}
 .jt-seller-text-content>li:nth-child(3){}
 /**
-*i
+*
 *	@author Francis
 *	seller - main update
 *

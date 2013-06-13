@@ -24,7 +24,7 @@
 	padding: 10px 10px 10px 10px; 
 	border:1px solid #FF7E00; 
 	-webkit-border-radius: 5px; -moz-border-radius: 5px;border-radius: 5px;
-	font-family: Dotum,Gulim; text-shadow: 1px 1px 0 rgba(209,109,0,0.3);font-weight:bold; text-align: center; color: #FFFFFF; background-color: #FB950F;
+	font-family:NanumGothic, Dotum,Gulim; text-shadow: 1px 1px 0 rgba(209,109,0,0.3);font-weight:bold; text-align: center; color: #FFFFFF; background-color: #FB950F;
  	background-image: -webkit-gradient(linear, left top, left bottom, from(#FB950F), to(#FB950F));
  	background-image: -webkit-linear-gradient(top, #FB950F, #FB950F);
  	background-image: -moz-linear-gradient(top, #FB950F, #FB950F);
@@ -58,7 +58,7 @@
 	border:1px solid #dcdcdc;
 	display:inline-block;
 	color:#4d4d4d;
-	font-family:Gulim;
+	font-family:NanumGothic, Dotum, Gulim;
 	font-size:11px;
 	padding:6px 6px;
 	text-decoration:none;
@@ -79,7 +79,7 @@
 }
 
 .jt-btn-silver{
-border:1px solid #d7dada; -webkit-border-radius: 3px; -moz-border-radius: 3px;border-radius: 3px;font-family:arial, helvetica, sans-serif; padding: 10px 10px 10px 10px; text-shadow: -1px -1px 0 rgba(255,255,255,0.3);font-weight:bold; text-align: center; color: #707070; background-color: #f4f5f5;
+border:1px solid #d7dada; -webkit-border-radius: 3px; -moz-border-radius: 3px;border-radius: 3px;font-family: arial, helvetica, sans-serif; padding: 10px 10px 10px 10px; text-shadow: -1px -1px 0 rgba(255,255,255,0.3);font-weight:bold; text-align: center; color: #707070; background-color: #f4f5f5;
  background-image: -webkit-gradient(linear, left top, left bottom, from(#f4f5f5), to(#dfdddd));
  background-image: -webkit-linear-gradient(top, #f4f5f5, #dfdddd);
  background-image: -moz-linear-gradient(top, #f4f5f5, #dfdddd);
@@ -97,6 +97,22 @@ border:1px solid #d7dada; -webkit-border-radius: 3px; -moz-border-radius: 3px;bo
  background-image: -ms-linear-gradient(top, #d9dddd, #c6c3c3);
  background-image: -o-linear-gradient(top, #d9dddd, #c6c3c3);
  background-image: linear-gradient(to bottom, #d9dddd, #c6c3c3);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#d9dddd, endColorstr=#c6c3c3);
+}
+
+.jt-btn-gray{
+	border:1px solid #797979; 
+	-webkit-border-radius: 3px; -moz-border-radius: 3px;border-radius: 3px;
+	font-family:NanumGothic, Dotum,Gulim; 
+	padding: 10px 10px 10px 10px; 
+	font-weight:bold; 
+	text-align: center; 
+	color: #fff; 
+	background-color: #8c8c8c;
+ 	cursor: pointer;
+}
+
+.jt-btn-gray:hover{
+ 	border:1px solid #636363; background-color: #797979;
 }
 
 .jt-btn-fbLogin .loginImage{
