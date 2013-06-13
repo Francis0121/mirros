@@ -1,6 +1,8 @@
 package com.bg.jtown.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -47,15 +49,18 @@ public class CommentController {
 
 	@RequestMapping(value = "/ajax/home/existComment.jt", method = RequestMethod.POST)
 	@ResponseBody
-	public Boolean ajaxExistComment(@RequestBody Comment comment,
+	public Object ajaxExistComment(@RequestBody Comment comment,
 			SummaryUser summaryUser) {
 		Authority authority = summaryUser.getEnumAuthority();
-		if(authority.equals(Authority.CUSTOMER)){
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("authority", authority);
+		if (authority.equals(Authority.CUSTOMER)) {
 			comment.setCustomerPn(summaryUser.getPn());
-			return commentService.selectExistComment(comment);			
-		}else{
-			return null;
+			map.put("result", commentService.selectExistComment(comment));
+		} else {
+			map.put("result", true);
 		}
+		return map;
 	}
 
 	@RequestMapping(value = "/ajax/home/existLove.jt", method = RequestMethod.POST)
