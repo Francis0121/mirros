@@ -123,6 +123,13 @@ public class Question {
 		this.title = title;
 	}
 
+	public String getSixShopPn() {
+		if (this.shopPn == null || "".equals(this.shopPn))
+			return null;
+		int number = Integer.parseInt(this.shopPn);
+		return String.format("%06d", number);
+	}
+
 	@Override
 	public String toString() {
 		return "Question [browser=" + browser + ", content=" + content
@@ -130,6 +137,5 @@ public class Question {
 				+ name + ", pn=" + pn + ", questionSection=" + questionSection
 				+ ", shopPn=" + shopPn + ", title=" + title + "]";
 	}
-	
-	
+
 }

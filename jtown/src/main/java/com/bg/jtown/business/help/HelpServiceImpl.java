@@ -19,6 +19,7 @@ import com.bg.jtown.business.QuestionCategory;
 import com.bg.jtown.business.QuestionSection;
 import com.bg.jtown.business.admin.AdminService;
 import com.bg.jtown.business.search.PartnershipFilter;
+import com.bg.jtown.business.search.QuestionFilter;
 import com.bg.jtown.security.Authority;
 import com.bg.jtown.security.JtownUser;
 import com.bg.jtown.util.Pagination;
@@ -160,6 +161,18 @@ public class HelpServiceImpl extends SqlSessionDaoSupport implements
 		return map;
 	}
 
+	@Override
+	public Map<String, Object> selectQuestionCategoriesList(
+			QuestionFilter questionFilter) {
+		Integer categoryPn = questionFilter.getCategoryPn();
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("questionCategories", selectQuestionCategories());
+		if (categoryPn != null) {
+			map.put("questionSections", selectQuestionSections(categoryPn));
+		}
+		return map;
+	}
+
 	private List<QuestionSection> selectQuestionSections(Integer categoryPn) {
 		return getSqlSession().selectList("helpMapper.selectQuestionSections",
 				categoryPn);
@@ -173,5 +186,29 @@ public class HelpServiceImpl extends SqlSessionDaoSupport implements
 	@Override
 	public void insertQuestion(Question question) {
 		getSqlSession().insert("helpMapper.insertQuestion", question);
+	}
+
+	@Override
+	public List<Question> selectQuestions(QuestionFilter questionFilter) {
+		Pagination pagination = questionFilter.getPagination();
+		int count = selectQuestionCount(questionFilter);
+		pagination.setNumItems(count);
+		if (count == 0) {
+			return new ArrayList<Question>();
+		}
+
+		return getSqlSession().selectList("helpMapper.selectQuestions",
+				questionFilter);
+	}
+
+	@Override
+	public Question selectQuestion(Integer questionPn) {
+		return getSqlSession().selectOne("helpMapper.selectQuestion",
+				questionPn);
+	}
+
+	private int selectQuestionCount(QuestionFilter questionFilter) {
+		return getSqlSession().selectOne("helpMapper.selectQuestionCount",
+				questionFilter);
 	}
 }

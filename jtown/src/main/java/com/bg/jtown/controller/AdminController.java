@@ -23,6 +23,7 @@ import com.bg.jtown.business.Contract;
 import com.bg.jtown.business.Interest;
 import com.bg.jtown.business.Json;
 import com.bg.jtown.business.Partnership;
+import com.bg.jtown.business.Question;
 import com.bg.jtown.business.admin.AdminService;
 import com.bg.jtown.business.file.FileService;
 import com.bg.jtown.business.help.HelpService;
@@ -30,6 +31,7 @@ import com.bg.jtown.business.search.AdminCommentFilter;
 import com.bg.jtown.business.search.AdministratorFilter;
 import com.bg.jtown.business.search.ContractFilter;
 import com.bg.jtown.business.search.PartnershipFilter;
+import com.bg.jtown.business.search.QuestionFilter;
 import com.bg.jtown.business.search.UserFilter;
 import com.bg.jtown.business.seller.ContractService;
 import com.bg.jtown.controller.validator.SigninAdminVaildatorImpl;
@@ -133,6 +135,24 @@ public class AdminController {
 		model.addAttribute("comments",
 				adminService.selectAllCommentList(adminCommentFilter));
 		return prefiexUrl + "/comment";
+	}
+
+	@RequestMapping(value = "/questions", method = RequestMethod.GET)
+	public String showQuestionList(Model model,
+			@ModelAttribute QuestionFilter questionFilter) {
+		List<Question> questions = helpService.selectQuestions(questionFilter);
+		model.addAllAttributes(helpService
+				.selectQuestionCategoriesList(questionFilter));
+		model.addAttribute("questions", questions);
+		return prefiexUrl + "/question/list";
+	}
+
+	@RequestMapping(value = "/question", method = RequestMethod.GET)
+	public String showQuestion(Model model,
+			@RequestParam(value = "qpn") Integer questionPn) {
+		Question question = helpService.selectQuestion(questionPn);
+		model.addAttribute("question", question);
+		return prefiexUrl + "/question/content";
 	}
 
 	// ~ FORM

@@ -52,6 +52,10 @@
 		<a href="${questionUrl }" class="jt-common-a-base">HELP&nbsp;<span class="jt-btn-underArrow">▼</span></a>
 		<ul class="jt-help-under-wrap" id="jt-help-wrap">
 			<li>
+				<c:url var="partnershipUrl" value="/help/partnership"/>
+				<a href="${partnershipUrl }" class="jt-common-a-base">Business</a>
+			</li>
+			<li>
 				<c:url var="serviceGuideUrl" value="/help/serviceGuide"/>
 				<a href="${serviceGuideUrl }" class="jt-common-a-base">About US</a>
 			</li>
@@ -61,10 +65,6 @@
 			</li>
 			<li>
 				<a href="${questionUrl }" class="jt-common-a-base">FAQ</a>
-			</li>
-			<li>
-				<c:url var="partnershipUrl" value="/help/partnership"/>
-				<a href="${partnershipUrl }" class="jt-common-a-base">Business</a>
 			</li>
 		</ul>
 	</li>

@@ -33,6 +33,7 @@
 		<typeAlias alias="ContractFilter" type="com.bg.jtown.business.search.ContractFilter"/>
 		
 		<typeAlias alias="Question" type="com.bg.jtown.business.Question"/>
+		<typeAlias alias="QuestionFilter" type="com.bg.jtown.business.search.QuestionFilter"/>
 		<typeAlias alias="QuestionCategory" type="com.bg.jtown.business.QuestionCategory"/>
 		<typeAlias alias="QuestionSection" type="com.bg.jtown.business.QuestionSection"/>
 		
