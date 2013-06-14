@@ -5,6 +5,11 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <c:set value="<%=request.getContextPath() %>" var="cp"/>
+<div id="temp" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #fff; opacity: 0.95; z-index: 9999; display: none;">
+	<div style="width: 990px; margin: auto;">
+		<img alt="Comming Soon. End of the July. Mirros." src="${cp }/resources/images/jt-commingsoon.png" style="width: 990px;">
+	</div>
+</div>
 <script type="text/javascript">
 /* <![CDATA[ */
 	var contextPath = '<c:out value="${cp}"/>/';

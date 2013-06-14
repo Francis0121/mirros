@@ -232,3 +232,30 @@ var BrowserDetect = {
 		]
 
 	};
+
+function getCookie(sName) {
+	 var aCookie = document.cookie.split("; ");
+	 for (var i=0; i < aCookie.length; i++) {
+	  var aCrumb = aCookie[i].split("=");
+	  if (sName == aCrumb[0]) 
+	   return unescape(aCrumb[1]);
+	 }
+	 return null;
+}
+
+function setCookie( name, value, expiredays ) {
+	 var endDate = new Date();
+	 endDate.setDate( endDate.getDate()+ expiredays );
+	 document.cookie = name + '=' + escape( value ) + '; path=/; expires=' + endDate.toGMTString() + ';';
+}
+
+function commingSoonPopup() {
+	if(getCookie('commingSoonPop')!='N') {
+		$('#temp').fadeIn();
+		$('#temp').bind('click', function(){
+			$(this).fadeOut();
+			setCookie('commingSoonPop','N',1);
+		});
+	}
+}
+commingSoonPopup();
