@@ -4,7 +4,7 @@
 *********************/
 .jt-partnership-section{width: 690px; margin: auto auto; height: 75px; }
 .jt-partnership-header{float: left; width: 100%; margin: 20px 0 0 0;}
-.jt-partnership-header h1{ loat: left; width: 100%; margin-left : 5px; font-family: NanumGothic, Dotum, Gulim; font-size: 25px; color: #524d4d;
+.jt-partnership-header h1{ float: left; width: 100%; margin-left : 5px; font-family: NanumGothic, Dotum, Gulim; font-size: 25px; color: #524d4d;
 text-shadow : 1px 2px 4px #e3e3e3,0 0 0 #000,1px 2px 4px #e3e3e3,0 1px 0 #fff;}
 .jt-partnership-header pre{ float: left; min-height: 80px; padding: 30px 0; font-size: 13px; line-height: 1.8; font-family: NanumGothic, Dotum, Gulim;}
 .jt-partnership-article{  float: left; width: 100%;  border: 1px solid #cccccc; padding : 15px; background : #fcfcfc;
@@ -164,7 +164,8 @@ About US
 }
 
 .jt-about-mirrosis-header{ float: left; width: 100%; margin-bottom: 20px;}
-.jt-about-mirrosis-header>h1{ font-family: Arial, sans-serif; font-size: 20px; color: #848484; }
+.jt-about-mirrosis-header>h1{ float: left; width: 100%; margin-left : 5px; font-family: NanumGothic, Dotum, Gulim; font-size: 25px; color: #524d4d;
+text-shadow : 1px 2px 4px #e3e3e3,0 0 0 #000,1px 2px 4px #e3e3e3,0 1px 0 #fff;}
 
 .jt-about-mirrosis-banner{ float: left; width: 100%; }
 .jt-about-mirrosis-banner>img{ width: 620px;}
@@ -195,7 +196,8 @@ About US
 }
 
 .jt-about-ourstory-header{ float: left; width: 100%; margin-bottom: 20px; }
-.jt-about-ourstory-header>h1{ font-family: Arial, sans-serif; font-size: 20px; color: #848484; }
+.jt-about-ourstory-header>h1{ float: left; width: 100%; margin-left : 5px; font-family: NanumGothic, Dotum, Gulim; font-size: 25px; color: #524d4d;
+text-shadow : 1px 2px 4px #e3e3e3,0 0 0 #000,1px 2px 4px #e3e3e3,0 1px 0 #fff; }
 
 .jt-about-ourstory-banner{ float: left; width: 100%; }
 .jt-about-ourstory-banner>img{ width: 620px;}
