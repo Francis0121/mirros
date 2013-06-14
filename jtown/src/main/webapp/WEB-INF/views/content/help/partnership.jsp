@@ -9,22 +9,17 @@
 <section class="jt-partnership-section">
 	
 	<header class="jt-partnership-header">
-		<div>
-			<h1>Business</h1>
-		</div>
-	</header>
-	
-	<section class="jt-partnership-content">
+		<h1>제휴문의</h1>	
 <pre>
 미러스에서 당신의 쇼핑몰을 보다 쉽게 마케팅 해보세요!
 미러스는 위치에 따른 광고비용이 아니며, 사용자들의 평가에 따라 보다 많은 고객을 확보할 수 있습니다.
 고객의 쇼핑만큼 여러분의 인터넷 비즈니스도 즐거워야 합니다.    
 </pre>	
-	</section>
+	</header>
 	
-	<section class="jt-partnership-form">
+	<article class="jt-partnership-article">
 		<form:form commandName="partnership" htmlEscape="true" method="post" action="${action }">
-			<table class="jt-partnership-form-table">
+			<table class="jt-partnership-article-table">
 				<tfoot>
 					<tr>
 						<td colspan="2">
@@ -108,7 +103,7 @@
 				</tbody>
 			</table>	
 		</form:form>
-	</section>
+	</article>
 	
 	<footer class="jt-partnership-footer">
 		<ul>
