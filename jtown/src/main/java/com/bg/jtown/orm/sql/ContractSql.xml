@@ -77,7 +77,7 @@
 					SELECT pn 
 					FROM user_seller_contract_info 
 					WHERE seller_pn = #{sellerPn}
-					AND SYSDATE() BETWEEN start_date AND end_date
+					AND DATE_FORMAT(SYSDATE(), '%Y-%m-%d') BETWEEN start_date AND end_date
 				)
 		ORDER BY 
 			pn DESC

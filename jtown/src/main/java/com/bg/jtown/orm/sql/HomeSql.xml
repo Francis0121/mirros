@@ -111,7 +111,7 @@
 		AND
 			us.pn = usci.seller_pn
 		AND
-			SYSDATE() BETWEEN usci.start_date AND usci.end_date
+			DATE_FORMAT(SYSDATE(), '%Y-%m-%d') BETWEEN usci.start_date AND usci.end_date
 		AND
 			usi.section_pn = ise.pn
 		AND
@@ -185,7 +185,7 @@
 		AND
 			us.pn = usci.seller_pn
 		AND
-			SYSDATE() BETWEEN usci.start_date AND usci.end_date
+			DATE_FORMAT(SYSDATE(), '%Y-%m-%d') BETWEEN usci.start_date AND usci.end_date
 		AND
 			usi.section_pn = ise.pn
 		AND

@@ -71,7 +71,7 @@
 						FROM
 							user_seller_contract_info
 						WHERE
-							SYSDATE() BETWEEN start_date AND end_date
+							DATE_FORMAT(SYSDATE(), '%Y-%m-%d') BETWEEN start_date AND end_date
 					) uscie
 					ON us.pn = uscie.seller_pn
 					LEFT OUTER JOIN	(
@@ -81,7 +81,7 @@
 						FROM
 							user_seller_contract_info
 						WHERE
-							SYSDATE() < start_date
+							DATE_FORMAT(SYSDATE(), '%Y-%m-%d') < start_date
 						GROUP BY
 							seller_pn
 						]]>
@@ -177,7 +177,7 @@
 						FROM
 							user_seller_contract_info
 						WHERE
-							SYSDATE() BETWEEN start_date AND end_date
+							DATE_FORMAT(SYSDATE(), '%Y-%m-%d') BETWEEN start_date AND end_date
 					) uscie
 					ON us.pn = uscie.seller_pn
 					LEFT OUTER JOIN	(
@@ -187,7 +187,7 @@
 						FROM
 							user_seller_contract_info
 						WHERE
-							SYSDATE() < start_date
+							DATE_FORMAT(SYSDATE(), '%Y-%m-%d') < start_date
 						GROUP BY
 							seller_pn
 						]]>
@@ -243,7 +243,7 @@
 						FROM
 							user_seller_contract_info
 						WHERE
-							SYSDATE() BETWEEN start_date AND end_date
+							DATE_FORMAT(SYSDATE(), '%Y-%m-%d') BETWEEN start_date AND end_date
 					) uscie
 					ON us.pn = uscie.seller_pn
 					LEFT OUTER JOIN	(
@@ -253,7 +253,7 @@
 						FROM
 							user_seller_contract_info
 						WHERE
-							SYSDATE() < start_date
+							DATE_FORMAT(SYSDATE(), '%Y-%m-%d') < start_date
 						GROUP BY
 							seller_pn
 						]]>
