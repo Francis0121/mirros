@@ -418,4 +418,35 @@
 			u.enable = TRUE
 	</select>
 	
+	<!-- FAQ -->
+	
+	<resultMap type="QuestionSection" id="jt-question-section-map">
+		<result property="pn" column="pn"/>
+		<result property="name" column="name"/>
+	</resultMap>
+	
+	<select id="selectQuestionSections" parameterType="Integer" resultMap="jt-question-section-map">
+		SELECT
+			pn, name
+		FROM
+			question_section
+		WHERE
+			category_pn = #{categoryPn}
+	</select>	
+	
+	<select id="selectQuestionCategories" resultType="QuestionCategory">
+		SELECT
+			pn, name
+		FROM
+			question_category
+	</select>
+	
+	<insert id="insertQuestion" parameterType="Question">
+		INSERT INTO
+			question
+			( section, name, email, browser, title, content, input_date, shopPn	)
+		VALUES
+			( #{questionSection.pn}, #{name}, #{email}, #{browser}, #{title}, #{content}, SYSDATE(), #{shopPn} )
+	</insert>
+	
 </mapper>

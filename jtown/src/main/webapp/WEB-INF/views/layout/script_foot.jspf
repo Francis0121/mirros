@@ -90,6 +90,10 @@
 		<c:set var="alertText" value="이름이 변경되었습니다."/>
 		<c:set value="${realPath }" var="pageUrl"/>
 	</c:if>
+	<c:if test="${result eq 7 }">
+		<c:set var="alertText" value="문의사항이 작성되었습니다."/>
+		<c:set value="${cp }/help/question" var="pageUrl"/>
+	</c:if>
 	<script type="text/javascript">
 	/* <![CDATA[ */  
 	    jtown.dialog('${alertText}');
@@ -114,4 +118,22 @@
 		}
 	/* ]]> */	            
 	</script>
+</c:if>
+
+<c:set var="cq" value="${cp }/help/cQuestion.jt"/>
+<c:if test="${realPath eq cq }">
+<script type="text/javascript">
+/* <![CDATA[ */ 
+setTimeout("$('html, body').animate({scrollTop: '100px'}, 'slow')",0);             	
+/* ]]> */	  
+</script>
+</c:if>
+
+<c:set var="sq" value="${cp }/help/sQuestion.jt"/>
+<c:if test="${realPath eq sq }">
+<script type="text/javascript">
+/* <![CDATA[ */ 
+setTimeout("$('html, body').animate({scrollTop: '680px'}, 'slow')",0);             	
+/* ]]> */	  
+</script>
 </c:if>

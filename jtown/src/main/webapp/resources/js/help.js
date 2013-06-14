@@ -6,6 +6,8 @@ $(document).ready(function() {
 	jtown.help.phoneNumberNd();
 	
 	jtown.help.phoneNumberRd();
+	
+	jtown.help.questionSync();
 });
 
 if (typeof jtown.help == 'undefined') {
@@ -78,5 +80,22 @@ jtown.help.phoneNumberRd = function() {
 		$('#confirmPhoneNumber').show();
 	}).blur(function() {
 		$('#confirmPhoneNumber').hide();
+	});
+};
+
+jtown.help.questionSync = function(){
+	
+	$('.jt-cQuestion-btn').bind('click',function(){
+		var form = document.forms['cQuestion'];
+		BrowserDetect.init();
+		form.browser.value = BrowserDetect.browser +'-'+ BrowserDetect.version + ' [ '+ BrowserDetect.OS + ' ] ';
+		form.submit();
+	});
+	
+	$('.jt-sQuestion-btn').bind('click',function(){
+		var form = document.forms['sQuestion'];
+		BrowserDetect.init();
+		form.browser.value = BrowserDetect.browser +'-'+ BrowserDetect.version + ' [ '+ BrowserDetect.OS + ' ] ';
+		form.submit();
 	});
 };

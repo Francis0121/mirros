@@ -14,6 +14,9 @@ import com.bg.jtown.business.HomeService;
 import com.bg.jtown.business.Interest;
 import com.bg.jtown.business.Json;
 import com.bg.jtown.business.Partnership;
+import com.bg.jtown.business.Question;
+import com.bg.jtown.business.QuestionCategory;
+import com.bg.jtown.business.QuestionSection;
 import com.bg.jtown.business.admin.AdminService;
 import com.bg.jtown.business.search.PartnershipFilter;
 import com.bg.jtown.security.Authority;
@@ -29,7 +32,7 @@ public class HelpServiceImpl extends SqlSessionDaoSupport implements
 		HelpService {
 
 	private static final Integer PROCESS_RECEIPT = 1;
-	private static final Integer DEPOSIT_NOT = 1; 
+	private static final Integer DEPOSIT_NOT = 1;
 	@Resource
 	private HomeService homeService;
 
@@ -71,9 +74,10 @@ public class HelpServiceImpl extends SqlSessionDaoSupport implements
 
 	@Override
 	public Integer selectPartnershipCategory(Integer pn) {
-		return getSqlSession().selectOne("helpMapper.selectPartnershipCategory", pn);
+		return getSqlSession().selectOne(
+				"helpMapper.selectPartnershipCategory", pn);
 	}
-	
+
 	@Override
 	public List<Partnership> selectPartnerships(
 			PartnershipFilter partnershipFilter) {
@@ -132,9 +136,42 @@ public class HelpServiceImpl extends SqlSessionDaoSupport implements
 		updatePatnership(partnership);
 		Partnership lp = selectPartnership(partnership);
 		Integer pn = lp.getJtownUser().getPn();
-		if(pn != null && !new Integer(0).equals(pn)){
-			adminService.deleteSellerInterest(new Interest(pn, null, null, null));
+		if (pn != null && !new Integer(0).equals(pn)) {
+			adminService
+					.deleteSellerInterest(new Interest(pn, null, null, null));
 		}
 		return lp;
+	}
+
+	// ~ FAQ
+	@Override
+	public Map<String, List<QuestionSection>> selectQuestionCategoriesMap() {
+		List<QuestionCategory> qcs = selectQuestionCategories();
+		if (qcs.size() == 0) {
+			return null;
+		}
+
+		Map<String, List<QuestionSection>> map = new HashMap<String, List<QuestionSection>>();
+		for (QuestionCategory q : qcs) {
+			Integer categoryPn = q.getPn();
+			List<QuestionSection> qss = selectQuestionSections(categoryPn);
+			map.put(q.getName(), qss);
+		}
+		return map;
+	}
+
+	private List<QuestionSection> selectQuestionSections(Integer categoryPn) {
+		return getSqlSession().selectList("helpMapper.selectQuestionSections",
+				categoryPn);
+	}
+
+	private List<QuestionCategory> selectQuestionCategories() {
+		return getSqlSession()
+				.selectList("helpMapper.selectQuestionCategories");
+	}
+
+	@Override
+	public void insertQuestion(Question question) {
+		getSqlSession().insert("helpMapper.insertQuestion", question);
 	}
 }

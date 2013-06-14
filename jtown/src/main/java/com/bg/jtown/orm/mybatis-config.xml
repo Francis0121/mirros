@@ -31,5 +31,10 @@
 		
 		<typeAlias alias="Contract" type="com.bg.jtown.business.Contract"/>
 		<typeAlias alias="ContractFilter" type="com.bg.jtown.business.search.ContractFilter"/>
+		
+		<typeAlias alias="Question" type="com.bg.jtown.business.Question"/>
+		<typeAlias alias="QuestionCategory" type="com.bg.jtown.business.QuestionCategory"/>
+		<typeAlias alias="QuestionSection" type="com.bg.jtown.business.QuestionSection"/>
+		
 	</typeAliases>
 </configuration>

@@ -5,6 +5,8 @@ import java.util.Map;
 
 import com.bg.jtown.business.Json;
 import com.bg.jtown.business.Partnership;
+import com.bg.jtown.business.Question;
+import com.bg.jtown.business.QuestionSection;
 import com.bg.jtown.business.search.PartnershipFilter;
 import com.bg.jtown.security.Authority;
 
@@ -36,5 +38,10 @@ public interface HelpService {
 
 	Partnership updatePatnershipCategory(Partnership partnership);
 
+	// ~ FAQ
+
+	Map<String, List<QuestionSection>> selectQuestionCategoriesMap();
+
+	void insertQuestion(Question question);
 
 }
