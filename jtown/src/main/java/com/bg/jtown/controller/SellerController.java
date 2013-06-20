@@ -87,7 +87,7 @@ public class SellerController {
 		if (!result) {
 			model.addAttribute("error", 1);
 		}
-		return "redirect:" + summaryUser.getPn();
+		return "redirect:products/" + summaryUser.getPn();
 	}
 
 	// ~ Ajax

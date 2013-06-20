@@ -7,6 +7,8 @@ if (typeof jtown.seller == 'undefined') {
 }
 
 $(function() {
+	jtown.seller.syncPopup();
+	
 	jtown.seller.syncMainNotice();
 
 	jtown.seller.syncMainImage();
@@ -77,7 +79,34 @@ $(function() {
 			jtown.seller.productImage(eval('('+data+')'));
 		}
 	});
+	
+	$('#jt-product-finish').unbind('click').bind('click', function(){
+		window.opener.document.location.reload();
+		window.close();
+	});
 });
+
+jtown.seller.syncPopup = function(){
+	
+	$('.jt-product-article-object').unbind('mouseover mouseout').bind('mouseover mouseout', function(event){
+		if (event.type == 'mouseover') {
+			$(this).children('.jt-seller-expand-product-delete-tool').show();
+			$(this).children('.jt-product-article-object-wrap').show();
+		} else if (event.type == 'mouseout') {
+			$(this).children('.jt-seller-expand-product-delete-tool').hide();
+			$(this).children('.jt-product-article-object-wrap').hide();
+		}
+	});
+	
+	$('.jt-seller-product-delete').unbind('click');
+	$('.jt-seller-product-delete').bind('click', function() {
+		var pn = $(this).parents('li').attr('data-ppn');
+		var form = document.forms['product'];
+		form.pn.value = pn;
+		form.submit();
+	});
+
+};
 
 jtown.seller.syncExpandNotice = function(){
 	$('#jt-home-expand-shop-notice').unbind('mouseover mouseout').bind('mouseover mouseout', function(event) {
@@ -304,14 +333,6 @@ jtown.seller.syncProductList = function() {
 							.hide();
 				}
 			});
-
-	$('.jt-seller-product-delete').unbind('click');
-	$('.jt-seller-product-delete').bind('click', function() {
-		var pn = $(this).parents('li').attr('data-ppn');
-		var form = document.forms['product'];
-		form.pn.value = pn;
-		form.submit();
-	});
 };
 
 jtown.seller.syncEvent = function() {

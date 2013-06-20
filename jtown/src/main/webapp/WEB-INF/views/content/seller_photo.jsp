@@ -25,12 +25,21 @@ html{ overflow-y: hidden;}
 		</header>
 		
 		<article class="jt-product-article">
+			<form action="${cp }/seller/dp.jt" method="post" id="product" name="product">
+				<input type="hidden" id="pn" name="pn" />
+			</form>
 			<ul>
 				<c:forEach items="${products }" var="product" varStatus="i">
-					<li class="jt-product-article-object">
+					<li class="jt-product-article-object" data-ppn="${product.pn}">
+						<div class="jt-seller-expand-product-delete-tool">	
+							<div>
+								<a href="#none" class="jt-seller-product-delete jt-btn-white-small">
+									<span class="btnImage"></span>
+								</a>
+							</div>
+						</div>
 						<img alt="${product.name }" src="${cp }/resources/uploadImage/${product.saveName }"/>
-						<div class="jt-product-article-object-wrap"></div>
-						<div class="jt-product-article-object-text">
+						<div class="jt-product-article-object-wrap">
 							<span><c:out value="${product.name }"/></span>
 							<span><c:out value="${product.price }"/></span>
 						</div>
@@ -43,9 +52,15 @@ html{ overflow-y: hidden;}
 				</c:forEach>
 				<li class="jt-product-article-inputBox">
 					<ul class="jt-product-article-insert">
-						<li><input type="file" id="jt-product-file" name="jt-product-file"/></li>
+						<li><input type="file" id="jt-product-file" name="jt-product-file"/>
+						</li>
+						<li>
+							<button type="button" class="jt-finish-insert-btn" id="jt-product-finish">
+								<img src="${cp }/resources/images/jt-cloth-icon.png" style="float:left; margin: 1px 7px 0 3px;"/><span style="float:left; ">입력완료</span>
+							</button>
+						</li>
 						<li>상품 수정은 해당 상품을 클릭하시기 바랍니다.</li>
-						<li>상품 삭제는 해당 상품에 마우스를 올릴시 좌측 상단에 뜨는 X 버튼을 클릭하시기 바랍니다.</li>
+						<li>상품 삭제는 해당 상품에 마우스를 올릴시 좌측 상단에 뜨는 삭제 버튼을 클릭하시기 바랍니다.</li>
 					</ul>
 					<div class="jt-product-article-update">
 		

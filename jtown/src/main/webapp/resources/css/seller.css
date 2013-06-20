@@ -77,8 +77,7 @@
 .jt-seller-expand{ width: 630px; float: left; margin-top: 15px; margin-left: 3px; }
 .jt-seller-expand-product-delete-tool{ float: left; width: 100%; display: none;}
 .jt-seller-expand-product-delete-tool>div{float: left; position: absolute;}
-.jt-seller-product-delete{font-size: 12px; font-weight: bold; color: #000; z-index: 10;}
-.jt-seller-product-delete{ margin:1px 0 0 1px; padding: 3px; }
+.jt-seller-product-delete{font-size: 11px; font-weight: normal; color: #000; z-index: 10; margin:2px; padding: 2px 1px;}
 .jt-seller-product-delete>.btnImage{ background-position: 0 -12px;}
 .jt-home-expand-shop-event-tool{float : left; position: absolute; display:  none; font-size: 12px;}
 .jt-home-expand-shop-event-update-btn{ margin: 3px 0 0 3px; }
@@ -124,6 +123,31 @@ Product Insert btn
 	background-color:#f6f6f6;
 }
 
+.jt-finish-insert-btn {
+	width: 90px; height: 32px; margin-top: 3px;
+	font-weight : normal;
+	font-size: 12px;
+	border-radius: 2px; -moz-border-radius: 2px; -webkit-border-radius: 2px; 
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ffffff), color-stop(1, #f6f6f6) );
+	background:-moz-linear-gradient( center top, #ffffff 5%, #f6f6f6 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#f6f6f6');
+	-moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
+	box-shadow:inset 0px 1px 0px 0px #ffffff;
+	background-color:#ffffff;
+	border:1px solid #dcdcdc;
+	color:#4d4d4d;
+	text-shadow:1px 1px 0px #ffffff;
+	cursor: pointer;
+}
+
+.jt-finish-insert-btn:HOVER {
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #f6f6f6), color-stop(1, #ffffff) );
+	background:-moz-linear-gradient( center top, #f6f6f6 5%, #ffffff 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#f6f6f6', endColorstr='#ffffff');
+	background-color:#f6f6f6;
+}
+
 /**********************
 	Popup
 **********************/
@@ -148,9 +172,8 @@ Product Insert btn
 	box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box; -moz-box-sizing : border-box; -webkit-box-sizing : border-box;
 }
 .jt-product-article-object>img{ width: 140px; height: 140px; }
-.jt-product-article-object-wrap{ background: #000; opacity:0.5; height: 40px; width: 140px; margin-top: -40px; position: absolute;}
-.jt-product-article-object-text{ color: #fff; height: 40px; width: 140px; margin-top: -40px; position: absolute;}
-.jt-product-article-object-text>span{width: 140px; line-height: 20px; text-align: center; display: block; font-size: 12px; font-weight: bold; }
+.jt-product-article-object-wrap{ color: #fff;  background: rgba(0,0,0, .5); height: 40px; width: 140px; margin-top: -40px; position: absolute; display: none;}
+.jt-product-article-object-wrap>span{width: 140px; line-height: 20px; text-align: center; display: block;  font-size: 12px;font-weight: bold;}
 
 .jt-product-article-inputBox{ width: 300px; height: 150px; padding: 5px;
 	box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box; -moz-box-sizing : border-box; -webkit-box-sizing : border-box;
@@ -159,10 +182,12 @@ Product Insert btn
 .jt-product-article-insert{border : 1px solid #d9d9d9; height: 140px; background : #fff;  padding :10px;
 	box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box; -moz-box-sizing : border-box; -webkit-box-sizing : border-box;	
 }
-.jt-product-article-insert li:nth-child(2){width :100%; float: left;
+.jt-product-article-insert li:nth-child(1){ float: left; width: 100px;}
+.jt-product-article-insert li:nth-child(2){ float: left; width: 50%;}
+.jt-product-article-insert li:nth-child(3){width :100%; float: left;
 	font-family: Dotum,Gulim; font-size: 12px; margin: 15px 0 0 4px; color: #4d4d4d;
 }
-.jt-product-article-insert li:nth-child(3){width :100%; float: left; color: #4d4d4d;
+.jt-product-article-insert li:nth-child(4){width :100%; float: left; color: #4d4d4d;
 	font-family: Dotum,Gulim; font-size: 12px; margin: 10px 0 0 4px; line-height: 18px;
 }
 .jt-product-article-update{display: none;
