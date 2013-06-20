@@ -132,7 +132,7 @@ public class SellerServiceImpl extends SqlSessionDaoSupport implements
 		map.put("nowDate", nowDate);
 		map.put("beforeDate", beforeDate);
 		map.put("properNumber", properNumber);
-		
+
 		List<Json> jsons = getSqlSession().selectList(
 				"sellerMapper.selectInterval7DayCount", map);
 		if (jsons == null) {
@@ -342,6 +342,11 @@ public class SellerServiceImpl extends SqlSessionDaoSupport implements
 	@Override
 	public void insertProduct(Product product) {
 		getSqlSession().insert("sellerMapper.insertSellerProduct", product);
+	}
+
+	@Override
+	public void updateProduct(Product product) {
+		getSqlSession().update("sellerMapper.updateSellerProduct", product);
 	}
 
 	// ~ LoveCount

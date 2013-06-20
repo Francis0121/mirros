@@ -80,9 +80,11 @@ public interface SellerService {
 
 	boolean deleteSellerProduct(Product product);
 
-	void insertProduct(Product product2);
+	void insertProduct(Product product);
 
 	void insertSellerProduct(Product product);
+	
+	void updateProduct(Product product);
 
 	// ~ LoveCount
 

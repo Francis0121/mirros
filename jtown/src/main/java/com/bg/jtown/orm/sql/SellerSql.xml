@@ -268,9 +268,21 @@
 
 	<!-- Product -->
 
-	<select id="selectSellerProduct" parameterType="java.lang.Integer" resultType="com.bg.jtown.business.Product">
+	<resultMap type="Product" id="jt-product-map">
+		<result column="image_pn" property="imagePn"/>
+		<result column="save_name" property="saveName" />
+		<result column="pn" property="pn"/>
+		<result column="name" property="name"/>
+		<result column="url" property="url"/>
+		<result column="price" property="price"/>
+		<result column="order" property="order"/>
+		<result column="input_date" property="inputDate"/>
+	</resultMap>
+
+	<select id="selectSellerProduct" parameterType="Integer" resultMap="jt-product-map">
 		SELECT
-			usp.pn, i.save_name AS saveName
+			i.pn AS image_pn, i.save_name, 
+			usp.pn, usp.name, usp.url, usp.price, usp.order, usp.input_date
 		FROM
 			user_seller_product usp,
 			image i
@@ -282,20 +294,24 @@
 			usp.input_date DESC	
 	</select>
 	
-	<select id="selectSellerProductCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
-		SELECT	COUNT(pn) FROM	user_seller_product WHERE seller_pn = #{userPn}
+	<select id="selectSellerProductCount" parameterType="Integer" resultType="Integer">
+		SELECT COUNT(pn) FROM user_seller_product WHERE seller_pn = #{userPn}
 	</select>
 	
-	<select id="selectSellerProductOne" parameterType="java.lang.Integer" resultType="com.bg.jtown.business.Product">
+	<select id="selectSellerProductOne" parameterType="Integer" resultMap="jt-product-map">
 		SELECT
-			pn, seller_pn AS sellerPn, image_pn AS imagePn
+			i.pn AS image_pn, i.save_name, 
+			usp.pn, usp.name, usp.url, usp.price, usp.order, usp.input_date
 		FROM
-			user_seller_product
+			user_seller_product usp,
+			image i
 		WHERE
+			usp.image_pn = i.pn
+		AND
 			pn = #{productPn}
 	</select>
 	
-	<delete id="deleteSellerProduct" parameterType="com.bg.jtown.business.Product">
+	<delete id="deleteSellerProduct" parameterType="Product">
 		DELETE	FROM
 			user_seller_product
 		<if test="pn != null">
@@ -306,7 +322,7 @@
 		</if>
 	</delete>
 	
-	<insert id="insertSellerProduct" parameterType="com.bg.jtown.business.Product">
+	<insert id="insertSellerProduct" parameterType="Product">
 		INSERT INTO
 			user_seller_product
 			(	seller_pn,	image_pn, input_date )
@@ -316,6 +332,19 @@
 			SELECT LAST_INSERT_ID()
 		</selectKey>
 	</insert>
+	
+	<update id="updateSellerProduct" parameterType="Product">
+		UPDATE
+			user_seller_product
+		SET
+			name = #{name},
+			url = #{url},
+			price = #{price}
+		WHERE
+			pn = #{pn}
+		AND
+			seller_pn = #{sellerPn}
+	</update>
 
 	<!-- LoveCount -->
 

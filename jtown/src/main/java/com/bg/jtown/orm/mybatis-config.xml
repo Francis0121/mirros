@@ -37,5 +37,7 @@
 		<typeAlias alias="QuestionCategory" type="com.bg.jtown.business.QuestionCategory"/>
 		<typeAlias alias="QuestionSection" type="com.bg.jtown.business.QuestionSection"/>
 		
+		<typeAlias alias="Product" type="com.bg.jtown.business.Product"/>
+		
 	</typeAliases>
 </configuration>

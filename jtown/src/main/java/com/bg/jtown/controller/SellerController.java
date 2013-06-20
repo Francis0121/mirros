@@ -58,6 +58,24 @@ public class SellerController {
 		return "seller";
 	}
 
+	@PreAuthorize("hasRole('ROLE_SELLER')")
+	@RequestMapping(value = "/seller/products/{p}", method = RequestMethod.GET)
+	public String showProducts(@PathVariable(value = "p") Integer sellerPn,
+			Model model, SummaryUser summaryUser) {
+
+		if (summaryUser.getEnumAuthority().equals(Authority.SELLER)) {
+			if (!summaryUser.getPn().equals(sellerPn)) {
+				logger.warn("Deny Seller page No Permission [ Access = "
+						+ summaryUser.getPn() + ", IP = "
+						+ summaryUser.getRemoteIp() + " ] ");
+				return "redirect:../noPermission";
+			}
+		}
+		model.addAttribute("products",
+				sellerService.selectSellerProduct(sellerPn));
+		return "seller_photo";
+	}
+
 	// ~ Form
 
 	@PreAuthorize("hasRole('ROLE_SELLER')")

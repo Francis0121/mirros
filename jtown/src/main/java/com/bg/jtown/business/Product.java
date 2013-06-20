@@ -7,7 +7,7 @@ package com.bg.jtown.business;
 public class Product {
 
 	/**
-	 * 상품개
+	 * 상품개수
 	 */
 	private Integer count;
 
@@ -17,9 +17,29 @@ public class Product {
 	private Integer imagePn;
 
 	/**
+	 * 입력날짜
+	 */
+	private String inputDate;
+
+	/**
+	 * 상품명
+	 */
+	private String name;
+
+	/**
+	 * 상품순서
+	 */
+	private Integer order;
+
+	/**
 	 * 상품 등록 고유번호
 	 */
 	private Integer pn;
+
+	/**
+	 * 가격
+	 */
+	private Integer price;
 
 	/**
 	 * 저장된이름
@@ -31,17 +51,13 @@ public class Product {
 	 */
 	private Integer sellerPn;
 
+	/**
+	 * 상품주소
+	 */
+	private String url;
+
 	public Product() {
 		super();
-	}
-
-	public Product(Integer pn, Integer sellerPn, Integer imagePn,
-			String saveName) {
-		super();
-		this.pn = pn;
-		this.sellerPn = sellerPn;
-		this.imagePn = imagePn;
-		this.saveName = saveName;
 	}
 
 	public Integer getCount() {
@@ -52,8 +68,24 @@ public class Product {
 		return imagePn;
 	}
 
+	public String getInputDate() {
+		return inputDate;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public Integer getOrder() {
+		return order;
+	}
+
 	public Integer getPn() {
 		return pn;
+	}
+
+	public Integer getPrice() {
+		return price;
 	}
 
 	public String getSaveName() {
@@ -64,6 +96,10 @@ public class Product {
 		return sellerPn;
 	}
 
+	public String getUrl() {
+		return url;
+	}
+
 	public void setCount(Integer count) {
 		this.count = count;
 	}
@@ -72,8 +108,24 @@ public class Product {
 		this.imagePn = imagePn;
 	}
 
+	public void setInputDate(String inputDate) {
+		this.inputDate = inputDate;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setOrder(Integer order) {
+		this.order = order;
+	}
+
 	public void setPn(Integer pn) {
 		this.pn = pn;
+	}
+
+	public void setPrice(Integer price) {
+		this.price = price;
 	}
 
 	public void setSaveName(String saveName) {
@@ -84,11 +136,16 @@ public class Product {
 		this.sellerPn = sellerPn;
 	}
 
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
 	@Override
 	public String toString() {
-		return "Product [count=" + count + ", imagePn=" + imagePn + ", pn="
-				+ pn + ", saveName=" + saveName + ", sellerPn=" + sellerPn
-				+ "]";
+		return "Product [count=" + count + ", imagePn=" + imagePn
+				+ ", inputDate=" + inputDate + ", name=" + name + ", order="
+				+ order + ", pn=" + pn + ", price=" + price + ", saveName="
+				+ saveName + ", sellerPn=" + sellerPn + ", url=" + url + "]";
 	}
 
 }

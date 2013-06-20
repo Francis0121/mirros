@@ -56,11 +56,18 @@ $(function() {
 		}
 	});
 	
+	$('#jt-product-popup').unbind('click').bind('click', function(){
+		var url = contextPath + 'seller/products/'+$(this).attr('data-pn');
+		var option = 'width=610, height=530, toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=no';
+		
+		window.open(url, '', option);
+	});
+	
 	$('#jt-product-file').uploadify({
 		'buttonClass' : 'uploadify-plus-insert-btn',
-		'buttonText' : '<img src="'+ contextPath + 'resources/images/jt-plus-btn.png'+'"/>',
-		'height' : '50',
-		'width' : '50',
+		'buttonText' : '<img src="'+ contextPath + 'resources/images/jt-cloth-icon.png'+'" style="float:left; margin:9px 7px 0 10px"/><span style="float:left; ">상품추가</span>',
+		'height' : '30',
+		'width' : '90',
 		'fileTypeDesc' : 'Image Files',
         'fileTypeExts' : '*.gif; *.jpg; *.png',
 		'swf' : contextPath + 'resources/uploadify/uploadify.swf',

@@ -5,6 +5,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <%@ include file="../layout/none_header.jspf" %>
+<c:set var="cp" value="<%=request.getContextPath() %>"/>
 <c:set value="${fn:length(products) }" var="productSize"/>
 <article class="jt-seller-content-wrap">
 	<div id="folderBar">
@@ -209,7 +210,9 @@
 						</c:forEach>
 						<c:if test="${productSize < 10}">
 						<li id="jt-seller-product-insert-wrap">
-							<input type="file" id="jt-product-file" name="jt-product-file"/>
+							<button type="button" id="jt-product-popup" data-pn="${jtownUser.pn }" class="jt-btn-white-small jt-product-plus-btn">
+								<img alt="plus" src="${cp }/resources/images/jt-plus-btn.png">
+							</button>
 						</li>
 						</c:if>
 					</ul>
