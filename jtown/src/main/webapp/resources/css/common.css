@@ -79,24 +79,13 @@
 }
 
 .jt-btn-silver{
-border:1px solid #d7dada; -webkit-border-radius: 3px; -moz-border-radius: 3px;border-radius: 3px;font-family: arial, helvetica, sans-serif; padding: 10px 10px 10px 10px; text-shadow: -1px -1px 0 rgba(255,255,255,0.3);font-weight:bold; text-align: center; color: #707070; background-color: #f4f5f5;
- background-image: -webkit-gradient(linear, left top, left bottom, from(#f4f5f5), to(#dfdddd));
- background-image: -webkit-linear-gradient(top, #f4f5f5, #dfdddd);
- background-image: -moz-linear-gradient(top, #f4f5f5, #dfdddd);
- background-image: -ms-linear-gradient(top, #f4f5f5, #dfdddd);
- background-image: -o-linear-gradient(top, #f4f5f5, #dfdddd);
- background-image: linear-gradient(to bottom, #f4f5f5, #dfdddd);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#f4f5f5, endColorstr=#dfdddd);
- cursor: pointer;
+border:1px solid #e0e0e0; -webkit-border-radius: 3px; -moz-border-radius: 3px;border-radius: 3px;font-family: arial, helvetica, sans-serif; padding: 10px 10px 10px 10px; font-weight:bold; text-align: center; color: #808080;
+background-color: #f5f5f5;
+cursor: pointer;
 }
 
 .jt-btn-silver:hover{
- border:1px solid #bfc4c4; background-color: #d9dddd;
- background-image: -webkit-gradient(linear, left top, left bottom, from(#d9dddd), top(#c6c3c3));
- background-image: -webkit-linear-gradient(top, #d9dddd, #c6c3c3);
- background-image: -moz-linear-gradient(top, #d9dddd, #c6c3c3);
- background-image: -ms-linear-gradient(top, #d9dddd, #c6c3c3);
- background-image: -o-linear-gradient(top, #d9dddd, #c6c3c3);
- background-image: linear-gradient(to bottom, #d9dddd, #c6c3c3);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#d9dddd, endColorstr=#c6c3c3);
+ border:1px solid #d1d1d1; background-color: #ebebeb;
 }
 
 .jt-btn-gray{
