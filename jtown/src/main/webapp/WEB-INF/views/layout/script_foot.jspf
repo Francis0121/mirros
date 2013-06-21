@@ -99,6 +99,14 @@
 		<c:set var="alertText" value="문의사항이 작성되었습니다."/>
 		<c:set value="${cp }/help/question" var="pageUrl"/>
 	</c:if>
+	<c:if test="${result eq 8 }">
+		<c:set var="alertText" value="3개 이하로 삭제하실 수 없습니다."/>
+		<c:set value="${realPath}" var="pageUrl"/>
+	</c:if>
+	<c:if test="${result eq 9 }">
+		<c:set var="alertText" value="상품이 수정되었습니다."/>
+		<c:set value="${realPath}" var="pageUrl"/>
+	</c:if>
 	<script type="text/javascript">
 	/* <![CDATA[ */  
 	    jtown.dialog('${alertText}');

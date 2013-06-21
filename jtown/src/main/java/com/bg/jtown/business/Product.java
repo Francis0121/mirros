@@ -1,5 +1,7 @@
 package com.bg.jtown.business;
 
+import java.text.DecimalFormat;
+
 /**
  * @author Francis
  * 
@@ -39,7 +41,7 @@ public class Product {
 	/**
 	 * 가격
 	 */
-	private Integer price;
+	private String price;
 
 	/**
 	 * 저장된이름
@@ -58,6 +60,14 @@ public class Product {
 
 	public Product() {
 		super();
+	}
+
+	public String getCommaPrice() {
+		if (this.price == null || this.price.equals("")) {
+			return null;
+		}
+		DecimalFormat format = new DecimalFormat("#,###");
+		return format.format(Integer.parseInt(this.price));
 	}
 
 	public Integer getCount() {
@@ -84,7 +94,7 @@ public class Product {
 		return pn;
 	}
 
-	public Integer getPrice() {
+	public String getPrice() {
 		return price;
 	}
 
@@ -124,7 +134,7 @@ public class Product {
 		this.pn = pn;
 	}
 
-	public void setPrice(Integer price) {
+	public void setPrice(String price) {
 		this.price = price;
 	}
 

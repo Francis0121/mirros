@@ -24,8 +24,7 @@
 				<li>
 					<c:choose>
 						<c:when test="${fn:length(mainImages) eq 0 }">
-							<c:url value="/resources/uploadImage/8.jpg" var="image"/>
-							<img alt="" src="${image }" title="${jtownUser.name}" id="jt-seller-main-image-area"/>	
+							<img alt="blank" src="${cp }/resources/images/jt-introduce-user-blank.png" title="${jtownUser.name}" id="jt-seller-main-image-area"/>	
 						</c:when>
 						<c:otherwise>
 							<c:forEach items="${mainImages }" var="mainImage" varStatus="loop" >
@@ -71,21 +70,30 @@
 				</div>
 				<ul class="jt-home-expand-shop-expandProducts">
 					<li class="jt-home-expand-shop-leftArrow jt-home-expand-shop-arrow">
+					<c:if test="${fn:length(products) > 3}">
 						<a href="#none" id="jt-home-expand-shop-leftArrow">&lt;</a>
+					</c:if>
 					</li>
 					<li class="jt-home-expand-shop-expandProduct-slide" id="jt-seller-slide-big">
 						<div id="jt-seller-slide-fake-dan">
 							<div style="width :${fn:length(products) * 170}px;" id="jt-seller-slide-content-dan">
 							<c:forEach items="${products }" var="product" varStatus="loop">
 								<div class="jt-home-expand-shop-expandProduct" id="jt-product-${productSize - loop.index }">
-									<img alt="상품" src="<c:url value="/resources/uploadImage/${product.saveName }"/>"/>
+									<c:set var="shopUrl" value="http://${jtownUser.shopUrl }" />
+									<a href="${product.url eq null ? shopUrl : product.url}" target="_blank"><img alt="상품" src="<c:url value="/resources/uploadImage/${product.saveName }"/>"/></a>
+									<div class="jt-product-article-object-wrap jt-product-article-object-expand">
+										<span><c:out value="${product.name }"/></span>
+										<span><c:out value="${product.commaPrice }"/></span>
+									</div>
 								</div>
 							</c:forEach>
 							</div>
 						</div>
 					</li>
 					<li class="jt-home-expand-shop-rigthArrow jt-home-expand-shop-arrow">
+					<c:if test="${fn:length(products) > 3}">
 						<a href="#none" id="jt-home-expand-shop-rigthArrow">&gt;</a>
+					</c:if>
 					</li>
 				</ul>
 				<div class="jt-home-expand-shop-products">
@@ -109,8 +117,9 @@
 							</div>
 						</div>
 					</c:if>
-					<c:url value="/resources/uploadImage/${event1.saveName eq null ? 'event-1.png' : event1.saveName}" var="image"/>
-					<img alt="event1" src="${image }" id="jt-seller-expand-event-first-img"/>
+					<c:set var="blankEvent" value="${cp }/resources/images/jt-event-user-blank.png"/>
+					<c:set var="imageEvent" value="${cp }/resources/uploadImage/${event1.saveName }"/>
+					<img alt="First Event" src="${event1.saveName eq null ? blankEvent : imageEvent }" id="jt-seller-expand-event-first-img"/>
 				</div>
 				<div class="jt-home-expand-shop-event gotoPage" id="jt-seller-expand-event-second" title="클릭시 해당 쇼핑몰로 이동됩니다." data-epn="<c:out value="${event2.pn }"/>" data-bo="2">
 					<c:if test="${jtownUser.bannerSecond < 8 }">
@@ -120,8 +129,8 @@
 						</div>
 					</div>
 					</c:if>
-					<c:url value="/resources/uploadImage/${event2.saveName eq null ? 'event-2.png' : event2.saveName}" var="image"/>
-					<img alt="event2" src="${image }" id="jt-seller-expand-event-second-img"/>
+					<c:set var="imageEvent" value="${cp }/resources/uploadImage/${event2.saveName }"/>
+					<img alt="Second Event" src="${event2.saveName eq null ? blankEvent : imageEvent }" id="jt-seller-expand-event-second-img"/>
 				</div>
 				<div class="jt-home-expand-shop-content-wrpa">
 					<ul class="jt-home-expand-shop-content-fn">

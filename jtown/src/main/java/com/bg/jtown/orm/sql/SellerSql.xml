@@ -291,7 +291,7 @@
 		AND
 			usp.image_pn = i.pn
 		ORDER BY
-			usp.input_date DESC	
+			usp.order ASC	
 	</select>
 	
 	<select id="selectSellerProductCount" parameterType="Integer" resultType="Integer">
@@ -325,9 +325,13 @@
 	<insert id="insertSellerProduct" parameterType="Product">
 		INSERT INTO
 			user_seller_product
-			(	seller_pn,	image_pn, input_date )
+			(	seller_pn,	image_pn, `order`, input_date )
 		VALUES
-			(	#{sellerPn}, #{imagePn}, SYSDATE() )
+			(	
+				#{sellerPn}, #{imagePn}, 
+				(SELECT a.order FROM  (SELECT MAX(`order`) + 1 AS `order` FROM user_seller_product WHERE seller_pn = 8) a), 
+				 SYSDATE() 
+			)
 		<selectKey resultType="java.lang.Integer" keyProperty="pn">
 			SELECT LAST_INSERT_ID()
 		</selectKey>

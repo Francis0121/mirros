@@ -59,7 +59,11 @@ jtown.expand.makeInnerHtml = function(spn){
 				index = productSize-Number(i);
 			
 			bigProductHtml += '<div class="jt-home-expand-shop-expandProduct">';
-			bigProductHtml += '<img alt="상품" src="'+path+product.saveName+'"/>';
+			bigProductHtml += '<a href="'+ ( nullValueCheck(product.url) ? 'http://'+jtownUser.shopUrl : product.url  )+'" target="_blank"><img alt="상품" src="'+path+product.saveName+'"/></a>';
+			bigProductHtml += '<div class="jt-product-article-object-wrap jt-product-article-object-expand">';
+			bigProductHtml += '	<span>'+htmlChars(nullValueCheck(product.name) ? '' : product.name)+'</span>';
+			bigProductHtml += ' <span>'+htmlChars(nullValueCheck(product.commaPrice) ? '' : product.commaPrice)+'</span>';
+			bigProductHtml += '</div>';
 			bigProductHtml += '</div>';
 			
 			smallProductHtml += '<li data-count="'+index+'">';
@@ -67,14 +71,15 @@ jtown.expand.makeInnerHtml = function(spn){
 			smallProductHtml += '</li>';
 		}
 		
-		var eventImage1='event-1.png', eventImage2 = 'event-2.png';
+		var eventImage1 = contextPath + 'resources/images/jt-event-user-blank.png', 
+			eventImage2 = contextPath + 'resources/images/jt-event-user-blank.png';
 		
 		if(!nullValueCheck(event1)){
-			eventImage1 = event1.saveName;
+			eventImage1 = path + event1.saveName;
 		}
 		
 		if(!nullValueCheck(event2)){
-			eventImage2 = event2.saveName;
+			eventImage2 = path + event2.saveName;
 		}
 		
 		var commentHtml = '';
@@ -196,7 +201,7 @@ jtown.expand.makeInnerHtml = function(spn){
 		html += '			<a href="#none" id="jt-home-expand-shop-leftArrow">&lt;</a>';
 		}
 		html += '		</li>';
-		html += '		<li class="jt-home-expand-shop-expandProduct-slide gotoPage" id="jt-seller-slide-big" title="클릭시 해당 쇼핑몰로 이동됩니다.">';
+		html += '		<li class="jt-home-expand-shop-expandProduct-slide" id="jt-seller-slide-big">';
 		html += '			<div id="jt-seller-slide-fake-dan">';
 		html += '				<div style="width : '+(Number(productSize)*170)+'px;" id="jt-seller-slide-content-dan">';
 		html +=	'					'+bigProductHtml;
@@ -216,11 +221,11 @@ jtown.expand.makeInnerHtml = function(spn){
 		html += '	</div>';
 		html += '	<div class="jt-home-expand-shop-event gotoPage" id="jt-seller-expand-event-first" title="클릭시 해당 쇼핑몰로 이동됩니다.">';
 		html += '		'+ ( (jtownUser.bannerFirst != null && Number(jtownUser.bannerFirst) < 8 ) ? newEventHtml : '');
-		html += '		<img alt="event1" src="'+path + eventImage1 +'"/>';
+		html += '		<img alt="First Event" src="'+eventImage1 +'"/>';
 		html += '	</div>';
 		html += '	<div class="jt-home-expand-shop-event gotoPage" id="jt-seller-expand-event-second" title="클릭시 해당 쇼핑몰로 이동됩니다.">';
 		html += '		'+ ( (jtownUser.bannerSecond != null && Number(jtownUser.bannerSecond) < 8)? newEventHtml : '');
-		html +=	'		<img alt="event2" src="'+path + eventImage2 +'"/>';
+		html +=	'		<img alt="Second Event" src="'+eventImage2 +'"/>';
 		html +=	'	</div>';	
 		html += '	<ul class="jt-home-expand-shop-content-fn">';
 		html +=	'		<li class="jt-home-expand-shop-content-view-wrap">';
@@ -256,11 +261,18 @@ jtown.expand.makeInnerHtml = function(spn){
 		html +=	'</div>';
 		
 		$.smartPop.open({width : 640,height : 650,html : html ,effect : 'transfer', target : '#jt-home-shop-'+spn });
-		setTimeout('jtown.expand.syncProductMove()', 0);
-		setTimeout('jtown.comment.syncComment()', 0);
-		setTimeout('jtown.expand.changeContainerHeight()', 0);
-		setTimeout('$(function(){ $("#jt-comment-insert").placeholder(); })', 0);
-		setTimeout('jtown.expand.gotoPage()', 0);
+		setTimeout('jtown.expand.setTimeout()',0);
+	});
+};
+
+jtown.expand.setTimeout = function(){
+	jtown.expand.syncProductMove();
+	jtown.comment.syncComment();
+	jtown.expand.changeContainerHeight();
+	jtown.expand.gotoPage();
+	jtown.seller.syncProduct();
+	$(function(){
+		$("#jt-comment-insert").placeholder(); 
 	});
 };
 
@@ -310,6 +322,7 @@ jtown.expand.syncProductMove = function(){
 					last.remove();
 	
 					parent.attr('data-nowPosition', (np + 1) > size ? 1 : (np + 1) );
+					jtown.seller.syncProduct();
 				}
 			};
 			
@@ -338,6 +351,7 @@ jtown.expand.syncProductMove = function(){
 					);
 					dan.append(first.clone().wrapAll('<div/>').parent().html());
 					parent.attr('data-nowPosition', (np - 1) <  1 ? size : (np - 1) );
+					jtown.seller.syncProduct();
 				}
 			};
 			
@@ -371,6 +385,7 @@ jtown.expand.syncProductMove = function(){
 					last.remove();
 		
 					parent.attr('data-nowPosition', (np + 1) > size ? 1 : (np + 1) );
+					jtown.seller.syncProduct();
 				}
 			};
 			

@@ -172,7 +172,7 @@ text-shadow : 1px 2px 4px #e3e3e3,0 0 0 #000,1px 2px 4px #e3e3e3,0 1px 0 #fff;}
 .jt-about-mirrosis-banner>div{ position: absolute; margin-top: -105px; background: rgba(0,0,0,0.2); width: 600px; height: 85px;
 	padding : 10px;
 }
-.jt-about-mirrosis-banner>div>h2{ color: #ee600f; font-size: 15px; font-family: Arial, sans-serif; }
+.jt-about-mirrosis-banner>div>h2{ color: #fff; font-size: 15px; font-family: Arial, sans-serif; }
 .jt-about-mirrosis-banner>div>pre{ margin-top: 5px; color: #ffffff; font-size: 12px; font-family: Dotum, Gulim;  line-height :  17px;
 	white-space: pre-wrap; /* CSS3*/ white-space: -moz-pre-wrap; /* Mozilla, since 1999 */ white-space: -pre-wrap; /* Opera 4-6 */ white-space: -o-pre-wrap; /* Opera 7 */word-wrap: break-word;
 }

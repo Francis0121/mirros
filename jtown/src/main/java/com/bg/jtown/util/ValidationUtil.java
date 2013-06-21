@@ -26,6 +26,31 @@ public class ValidationUtil {
 		return matcher.matches();
 	}
 
+	public static boolean homepageFormCheck(String homepage) {
+		String regex = "^http://.*$";
+
+		Pattern pattern = Pattern.compile(regex);
+		Matcher matcher = pattern.matcher(homepage);
+
+		boolean http = matcher.matches();
+
+		regex = "^https://.*$";
+
+		pattern = Pattern.compile(regex);
+		matcher = pattern.matcher(homepage);
+
+		boolean https = matcher.matches();
+
+		System.out.println(http);
+		System.out.println(https);
+		
+		if (http || https) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	public static boolean onlyNumber(String number) {
 		String regex = "^[0-9]*$";
 
@@ -66,7 +91,7 @@ public class ValidationUtil {
 
 	public static boolean lengthCheck(String str, int start, int end) {
 		int length = str.length();
-		
+
 		if (length > start && length <= end) {
 			return true;
 		} else {

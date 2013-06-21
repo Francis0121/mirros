@@ -239,8 +239,11 @@ function goToPreviousPages() {
 							<c:if test="${userInfo.contractEndDate ne null }">
 								<span style="color: #003cff;">게시중</span>
 							</c:if>
+							<c:if test="${userInfo.contractEndDate eq null and userInfo.beginStartDate eq null}">
+								<span style="color: #ff4621;">게시완료</span>
+							</c:if>
 							<c:if test="${userInfo.contractEndDate eq null and  userInfo.beginStartDate ne null}">
-								<span style="color: #ff4621;">예정일</span>
+								<span style="color: #ff8b1a;">예정일</span>
 							</c:if>
 							<span style="color: #3b3b3b;"><c:out value="${userInfo.beginStartDate}"/></span>
 						</td>

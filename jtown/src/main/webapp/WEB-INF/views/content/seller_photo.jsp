@@ -25,12 +25,14 @@ html{ overflow-y: hidden;}
 		</header>
 		
 		<article class="jt-product-article">
-			<form action="${cp }/seller/dp.jt" method="post" id="product" name="product">
-				<input type="hidden" id="pn" name="pn" />
-			</form>
 			<ul>
 				<c:forEach items="${products }" var="product" varStatus="i">
-					<li class="jt-product-article-object" data-ppn="${product.pn}">
+					<li class="jt-product-article-object jt-product-article-object-img" 
+						id="jt-product-article-object-<c:out value="${i.index }"/>"
+						data-ppn="${product.pn}"
+						data-name="<c:out value="${product.name }"/>"
+						data-price="<c:out value="${product.price }"/>"
+						data-url="<c:out value="${product.url }"/>">
 						<div class="jt-seller-expand-product-delete-tool">	
 							<div>
 								<a href="#none" class="jt-seller-product-delete jt-btn-white-small">
@@ -41,29 +43,79 @@ html{ overflow-y: hidden;}
 						<img alt="${product.name }" src="${cp }/resources/uploadImage/${product.saveName }"/>
 						<div class="jt-product-article-object-wrap">
 							<span><c:out value="${product.name }"/></span>
-							<span><c:out value="${product.price }"/></span>
+							<span><c:out value="${product.commaPrice }"/></span>
 						</div>
 					</li>
 				</c:forEach>
 				<c:forEach begin="${fn:length(products) }" end="9" varStatus="i">
-					<li class="jt-product-article-object">
+					<li class="jt-product-article-object" id="jt-product-article-object-<c:out value="${i.index }"/>">
+						<div class="jt-seller-expand-product-delete-tool">	
+							<div>
+								<a href="#none" class="jt-seller-product-delete jt-btn-white-small">
+									<span class="btnImage"></span>
+								</a>
+							</div>
+						</div>
 						<img alt="Blank" src="${cp }/resources/images/jt-product-blank.png">
+						<div class="jt-product-article-object-wrap">
+							<span><c:out value="${product.name }"/></span>
+							<span><c:out value="${product.price }"/></span>
+						</div>
 					</li>
 				</c:forEach>
 				<li class="jt-product-article-inputBox">
-					<ul class="jt-product-article-insert">
-						<li><input type="file" id="jt-product-file" name="jt-product-file"/>
+					<c:set var="insert" value="block"/>
+					<c:set var="update" value="none"/>
+					<c:if test="${product.pn ne null }">
+						<c:set var="insert" value="none"/>
+						<c:set var="update" value="block"/>
+					</c:if>
+					<ul class="jt-product-article-insert" style="display: ${insert};">
+						<li class="jt-product-insert-wrap">
+							<input type="file" id="jt-product-file" name="jt-product-file"/>
 						</li>
 						<li>
 							<button type="button" class="jt-finish-insert-btn" id="jt-product-finish">
-								<img src="${cp }/resources/images/jt-cloth-icon.png" style="float:left; margin: 1px 7px 0 3px;"/><span style="float:left; ">입력완료</span>
+								<img src="${cp }/resources/images/jt-confirm-icon.png" style="float:left; margin: 1px 7px 0 3px;"/><span style="float:left; ">입력완료</span>
 							</button>
 						</li>
 						<li>상품 수정은 해당 상품을 클릭하시기 바랍니다.</li>
-						<li>상품 삭제는 해당 상품에 마우스를 올릴시 좌측 상단에 뜨는 삭제 버튼을 클릭하시기 바랍니다.</li>
+						<li>상품 삭제는 해당 상품에 마우스를 올릴시 좌측 상단에 뜨는 X 버튼을 클릭하시기 바랍니다.</li>
 					</ul>
-					<div class="jt-product-article-update">
-		
+					<div class="jt-product-article-update" style="display: ${update};">
+						<form:form commandName="product" action="${cp }/seller/form.jt" method="delete">
+							<form:hidden path="pn"/>
+							<form:hidden path="sellerPn"/>
+							<ul class="jt-product-article-update-input"> 
+								<li style="width: 130px;">
+									<form:label path="name" cssClass="jt-product-label">상품명</form:label>
+									<form:input path="name" cssClass="jt-product-input" cssErrorClass="jt-product-input-error" maxlength="15" placeholder="ex) T-Shirt"/>
+								</li>
+								<li style="width: 130px;">
+									<form:label path="price" cssClass="jt-product-label">가격</form:label>
+									<form:input path="price" cssClass="jt-product-input" cssErrorClass="jt-product-input-error" maxlength="10" placeholder="ex) 2000"/>
+								</li>
+								<li style="width: 260px;">
+									<form:label path="url" cssClass="jt-product-label">주소</form:label>
+									<form:input path="url" cssClass="jt-product-input" cssErrorClass="jt-product-input-error" cssStyle="width: 210px;" maxlength="300" placeholder="ex) http://www.mirros.net/"/>
+								</li>
+								<li style="width: 260px; margin: 0;">
+									<div class="jt-product-error">
+										<form:errors path="*" cssClass="jt-product-error-text"/>
+									</div>
+								</li>
+								<li>
+									<button type="button" class="jt-btn-white-small jt-product-update-submit">
+										<span class="btnImage"></span>
+										<span class="btnText">저장</span>
+									</button>
+									<button type="button" class="jt-btn-white-small jt-product-update-cancle">
+										<span class="btnImage"></span>
+										<span class="btnText">취소</span>
+									</button>
+								</li>
+							</ul>
+						</form:form>	
 					</div>
 				</li>
 			</ul>
@@ -74,5 +126,14 @@ html{ overflow-y: hidden;}
 		</footer>
 	</section>	
 	<%@ include file="../layout/script_foot.jspf" %>
+<script type="text/javascript">
+/* <![CDATA[ */ 
+	$(function(){
+		$('#name').placeholder();
+		$('#price').placeholder();
+		$('#url').placeholder();
+	});  	
+/* ]]> */	
+</script>
 </body>
 </html>

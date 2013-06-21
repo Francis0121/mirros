@@ -299,13 +299,13 @@ jtown.comment.insertComment = function(me){
 jtown.comment.loveconfirm = function(success, cancle, name){
 	var dialog = '<div><div class="jt-love-img"><img src="'+contextPath+'resources/images/heart.jpg" alt="Heart"/></div></div>';
 	$(dialog).dialog({
-		resizable: false, width: '550px', modal : true, buttons : { 'YES' : function(){ success(); $(this).dialog('close');  }, 'NO' : function(){ cancle(); $(this).dialog('close');} }
+		resizable: false, width: '400px', modal : true, buttons : { 'YES' : function(){ success(); $(this).dialog('close');  }, 'NO' : function(){ cancle(); $(this).dialog('close');} }
 	});
 	$('.ui-dialog-titlebar').remove();
 	$('.ui-widget-overlay').css('opacity','.9');
 	$('.ui-dialog').removeClass('ui-widget-content').addClass('jt-love-dialog');
 	$('.ui-dialog-content').removeClass('ui-widget-content').addClass('jt-love-dialog-content');
-	$('.ui-dialog-content').after('<div class="jt-love-dialog-ment">'+name+'를 평가해주세요.</div>');
+	$('.ui-dialog-content').after('<div class="jt-love-dialog-ment">쇼핑몰&nbsp;'+name+'에게 하트를 주시겠어요?</div>');
 	$('.ui-dialog-buttonpane').removeClass('ui-widget-content').addClass('jt-love-dialog-buttonpane');
 	$('.ui-dialog-buttonset').addClass('jt-love-dialog-buttonset');
 	$('.ui-button').removeClass().addClass('jt-love-dialog-button');

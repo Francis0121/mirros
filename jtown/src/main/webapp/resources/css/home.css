@@ -8,19 +8,19 @@
 	animation-iteration-count : 2;
 	animation-direction : alternate;
 	animation-duration : .8s;
-	animation-delay : .5s;
+	animation-delay : 0;
 	-moz-animation-name : jt-heart-click;
 	-moz-animation-timing-function : ease-in-out;
 	-moz-animation-iteration-count : 2;
 	-moz-animation-direction : alternate;
 	-moz-animation-duration : .8s;
-	-moz-animation-delay : .5s;	
+	-moz-animation-delay : 0;	
 	-webkit-animation-name : jt-heart-click;
 	-webkit-animation-timing-function : ease-in-out;
 	-webkit-animation-iteration-count : 2;
 	-webkit-animation-direction : alternate;
 	-webkit-animation-duration : .8s;
-	-webkit-animation-delay : .5s;
+	-webkit-animation-delay : 0;
 }
 .jt-heart-click-expand-wrap{ float: left; width: 19px; height:19px; margin-left: 60px; margin-top: -2px;}
 .jt-heart-click-wrap{ float: left; width: 19px; height:19px; margin-left: 6px; margin-top: -3px; }
@@ -112,7 +112,7 @@ word-wrap: break-word; /* Internet Explorer 5.5+ */}
 #jt-seller-slide-fake-dan{position: absolute; width: 510px; overflow: hidden; height: 190px;}
 #jt-seller-slide-content-dan{position: absolute; left: 0; }
 .jt-home-expand-shop-expandProduct{ width: 140px; padding: 20px 15px 30px 15px; margin-top:10px; float:left; position: relative;background: #fff;}
-.jt-home-expand-shop-expandProduct>img{ width: 140px; height: 140px; padding: 0px; float:left;}
+.jt-home-expand-shop-expandProduct img{ width: 140px; height: 140px; padding: 0px; float:left;}
 #jt-home-expand-shop-notice{ float: left; border-bottom: 1px solid #d1cdcd; width: 100%; cursor: pointer;}
 .jt-home-expand-shop-firstQuotationMark{ float: left; width: 15px; height:15px; 
 	background: url("../images/jt-home-icon.png") 0 0 no-repeat; margin: 5px 10px 0 10px; text-indent: -99999px;
@@ -241,26 +241,31 @@ color: #808080;}
 /***********************
 	Love 확인 창
 ***********************/
-.jt-love-dialog{ background: #fff; padding:20px; border: 3px solid #ffdcdc;
+.jt-love-dialog{ background: #fff; padding:10px 10px 10px 30px; border: 2px solid #e6e6e6;
 	box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box; -moz-box-sizing : border-box; -webkit-box-sizing : border-box;
 	box-shadow : 4px 4px 6px -4px #000;;
 	-moz-box-shadow : 4px 4px 6px -4px #000;;
 	-webkit-box-shadow : 4px 4px 6px -4px #000;;
 }
-.jt-love-dialog-content{ width: 188px !important; float: left; padding: 0 !important;
+.jt-love-dialog-content{ width: 80px !important; height : 70px; padding : 50px 0 !important; float: left;
 	box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box; -moz-box-sizing : border-box; -webkit-box-sizing : border-box;
-	height: 150px;
 }
 .jt-love-img{
-	height: 150px;
+	height: 70px;
 }
-.jt-love-dialog-ment{ width: 316px; float: left; height: 40px; line-height: 40px; text-align: center; font-size: 13px; font-weight: bold;  color: #333333;} 
-.jt-love-dialog-buttonpane{ width: 306px; height :100px; float: left; padding : 0 !important; margin:  0 0 0 10px !important;
+.jt-love-img img{
+	width: 80px;
+}
+.jt-love-dialog-ment{ margin-left:20px !important; width: 250px; float: left; height: 80px; line-height: 80px; text-align: center; font-size: 12px; font-weight: bold;  color: #333333; font-family: NanumGothic, Dotum, Gulim; font-weight: normal;
+	border-bottom: 2px solid #e6e6e6;
+} 
+.jt-love-dialog-buttonpane{ width: 250px; height :50px; float: left; padding : 0 !important; margin: 0 0 0 20px !important;
 	box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box; -moz-box-sizing : border-box; -webkit-box-sizing : border-box;
 }
-.jt-love-dialog-buttonset{ padding: 0; float: none !important; height: 100px;}
-.jt-love-dialog-button{ padding: 25px 30px ; font-family: Arial !important;  margin: 0 !important; background: #fff !important; border: 0px solid black !important; color: #666666 !important; outline: 0 solid !important;
-	font-size: 50px !important; line-height: 50px; height: 100px; 
+.jt-love-dialog-buttonset{ padding: 0; float: none !important; height: 80px;}
+.jt-love-dialog-button{ font-family: Arial !important;  margin: 0 !important; background: #fff !important; border: 0px solid black !important; color: #ff870f !important; outline: 0 solid !important;
+	font-size: 45px !important; line-height: 80px; height: 80px; width: 125px; font-weight: bold;
+	text-shadow: 0 1px 1px rgba(150, 150, 150, 0.5);
 }
-.jt-love-dialog-button:FOCUS { background: #fff !important; border: 0px solid black !important; color: #666666 !important; }
-.jt-love-dialog-button:HOVER { background: #fff !important; border: 0px solid black !important; color: #f19495 !important;}
+.jt-love-dialog-button:FOCUS { background: #fff !important; border: 0px solid black !important; color: #ff870f !important; }
+.jt-love-dialog-button:HOVER { background: #fff !important; border: 0px solid black !important; color: #ff6a00 !important;}

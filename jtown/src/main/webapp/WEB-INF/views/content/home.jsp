@@ -5,6 +5,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <%@ include file="../layout/home_header.jspf" %>
+<c:set var="cp" value="<%=request.getContextPath() %>"/>
 <div id="jt-home-container">
 	<c:forEach begin="1" end="2" varStatus="loop">
 		<c:if test="${loop.count eq 1 }">
@@ -26,10 +27,16 @@
 				<div class="jt-home-shop-content">
 					<ul class="jt-home-shop-content-image">
 						<li>
-							<c:forEach items="${mainImages }" var="mainImage">
-								<c:url value="/resources/uploadImage/${mainImage eq null ? '8.jpg' : mainImage}" var="image"/>
-								<img alt="" src="${image }" title="${jtownUser.name}"/>	
-							</c:forEach>
+							<c:choose>
+								<c:when test="${fn:length(mainImages) eq 0 }">
+									<img alt="blank" src="${cp }/resources/images/jt-introduce-home-blank.png" title="${jtownUser.name}" id="jt-seller-main-image-area"/>	
+								</c:when>
+								<c:otherwise>	
+									<c:forEach items="${mainImages }" var="mainImage">
+										<img alt="" src="${cp }/resources/uploadImage/${mainImage}" title="${jtownUser.name}"/>	
+									</c:forEach>
+								</c:otherwise>
+							</c:choose>
 							<div class="jt-home-shop-new-event">
 							<c:choose>
 								<c:when test="${seller.bannerDate ne null and seller.bannerDate < 8  }">

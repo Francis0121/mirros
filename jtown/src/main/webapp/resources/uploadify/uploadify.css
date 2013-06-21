@@ -54,15 +54,7 @@ Released under the MIT License <http://www.opensource.org/licenses/mit-license.p
 /* 	color: #808080; */
 /* } */
 .uploadify-button {
-	background-color: #ffc579;
-	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffc579), color-stop(100%, #fb9d23));
-	background-image: -webkit-linear-gradient(top, #ffc579, #fb9d23);
- 	background-image: -moz-linear-gradient(top, #ffc579, #fb9d23);
- 	background-image: -ms-linear-gradient(top, #ffc579, #fb9d23);
- 	background-image: -o-linear-gradient(top, #ffc579, #fb9d23);
- 	background-image: linear-gradient(top, #ffc579, #fb9d23);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#ffc579, endColorstr=#fb9d23);
-	background-position: center top;
-	background-repeat: no-repeat;
+	background-color: #FB950F;
 	color: #FFF;
 	text-align: center;
 	width: 100%;
@@ -70,23 +62,15 @@ Released under the MIT License <http://www.opensource.org/licenses/mit-license.p
 	-moz-border-radius: 5px;
 	border-radius: 5px;
 	font-family: Dotum, Gulim; 
-	text-shadow: -1px -1px 0 rgba(0,0,0,0.3);
 	font-weight:bold; 
 	color: #FFFFFF; 
 	margin: 3px;
 }
 .uploadify:hover .uploadify-button {
-	background-color: #ffaf46;
-	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffaf46), color-stop(100%, #e78404));
- 	background-image: -webkit-linear-gradient(top, #ffaf46, #e78404);
- 	background-image: -moz-linear-gradient(top, #ffaf46, #e78404);
- 	background-image: -ms-linear-gradient(top, #ffaf46, #e78404);
- 	background-image: -o-linear-gradient(top, #ffaf46, #e78404);
- 	background-image: linear-gradient(top, #ffaf46, #e78404);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#ffaf46, endColorstr=#e78404);
-	background-position: center bottom;
+	background-color: #FFA01E;
 }
 .uploadify-button.disabled {
-	background-color: #ffaf46;
+	background-color: #FFA01E;
 	color: #FFF;
 }
 .uploadify-queue {
