@@ -66,7 +66,7 @@ jtown.expand.makeInnerHtml = function(spn){
 			}
 			
 			bigProductHtml += '<div class="jt-home-expand-shop-expandProduct">';
-			bigProductHtml += '<a href="'+ ( nullValueCheck(product.url) ? 'http://'+jtownUser.shopUrl : product.url  )+'" target="_blank"><img alt="상품" src="'+path+product.saveName+'"/></a>';
+			bigProductHtml += '<a href="'+ ( nullValueCheck(product.url) ? 'http://'+jtownUser.shopUrl : product.url  )+'" target="_blank" onclick="jtown.home.clickShop('+spn+');"><img alt="상품" src="'+path+product.saveName+'"/></a>';
 			bigProductHtml += '<div class="jt-product-article-object-wrap jt-product-article-object-expand">';
 			bigProductHtml += detailProduct;
 			bigProductHtml += '</div>';

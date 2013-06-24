@@ -80,7 +80,7 @@
 							<c:forEach items="${products }" var="product" varStatus="loop">
 								<div class="jt-home-expand-shop-expandProduct" id="jt-product-${productSize - loop.index }">
 									<c:set var="shopUrl" value="http://${jtownUser.shopUrl }" />
-									<a href="${product.url eq null ? shopUrl : product.url}" target="_blank"><img alt="상품" src="<c:url value="/resources/uploadImage/${product.saveName }"/>"/></a>
+									<a href="${product.url eq null ? shopUrl : product.url}" target="_blank"  onclick="jtown.home.clickShop('${jtownUser.pn }');"><img alt="상품" src="<c:url value="/resources/uploadImage/${product.saveName }"/>"/></a>
 									<div class="jt-product-article-object-wrap jt-product-article-object-expand">
 										<c:choose>
 											<c:when test="${product.name eq null or product.commaPrice eq null }">
