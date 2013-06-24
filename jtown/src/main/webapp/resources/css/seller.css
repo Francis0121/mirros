@@ -97,7 +97,7 @@
 Product Insert btn
 ********************/
 .jt-product-plus-btn{
-	 width:50px; height:50px; padding: 5px;
+	 width:50px; height:50px; padding: 4px 6px 6px 4px;
 }
 
 .uploadify-plus-insert-btn {
@@ -159,8 +159,8 @@ Product Insert btn
 }
 .jt-product-header ul{float: left; width: 100%; }
 .jt-product-header ul li{ float: left;}
-.jt-product-header ul li:nth-child(1){width: 45%;}
-.jt-product-header ul li:nth-child(2){width: 55%;}
+.jt-product-header ul li:nth-child(1){width: 35%;}
+.jt-product-header ul li:nth-child(2){width: 65%;}
 .jt-product-header h1{float: left; width: 100%; margin-left : 5px; font-family: NanumGothic, Dotum, Gulim; font-size: 15px; color: #524d4d; text-indent: 10px; line-height: 25px;}
 .jt-product-header-icon{background: url('../images/jt-home-icon.png') -172px -27px; width: 12px; height: 12px; float: left; margin: 5px 5px 0 0;}
 .jt-product-header-text{ color: #808080; font-size: 11px; line-height: 25px; float: left;}
@@ -210,7 +210,7 @@ Product Insert btn
 .jt-product-error-text{float: left; line-height: 15px;}
 
 .jt-product-update-submit{}
-.jt-product-update-submit>.btnImage{ background-position: 0 -36px;}
+.jt-product-update-submit>.btnImage{ background-position: 0 -72px;}
 .jt-product-update-cancle{}
 .jt-product-update-cancle>.btnImage{ background-position: 0 -24px;}
 

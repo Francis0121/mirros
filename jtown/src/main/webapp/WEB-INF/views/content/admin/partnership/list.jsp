@@ -71,7 +71,7 @@ function goToPreviousPages() {
 			</form:select>
 		</li>
 		<li>
-			<form:label path="shopPn">고유번호</form:label><form:input path="shopPn" cssClass="jt-admin-filter-input"/>
+			<form:label path="shopPn">ShopNo</form:label><form:input path="shopPn" cssClass="jt-admin-filter-input"/>
 			<form:label path="sellerId">아이디</form:label><form:input path="sellerId" cssClass="jt-admin-filter-input"/>
 			<form:label path="sellerName">회사명</form:label><form:input path="sellerName" cssClass="jt-admin-filter-input"/>
 			<form:label path="email">이메일</form:label><form:input path="email" cssClass="jt-admin-filter-input"/>	

@@ -38,6 +38,8 @@
 				ON us.pn = u.pn
 			WHERE
 				u.upper_name LIKE #{upperSearchName}
+			AND	
+				u.enable = 1
 			ORDER BY
 				u.name
 		<include refid="paginationAfter"/>

@@ -6,8 +6,8 @@ jtown.comment.syncComment = function(){
 	
 	var eventString = $.browser.chrome ? 'keydown' : 'keypress';
 
-	$('#jt-comment-insert').unbind(eventString).bind(eventString, function(event){
-		if(event.keyCode == 13){
+	$('#jt-comment-insert').unbind(eventString).bind(eventString, function(event){	
+		if (event.keyCode == 13){
 			jtown.comment.insertComment($(this));
 		}
 	});
@@ -136,7 +136,16 @@ jtown.comment.syncComment = function(){
 		
 		$.postJSON(url, json, function(comment){
 			if(!nullValueCheck(comment.message)){
-				jtown.header.showLoginForm();
+				switch (Number(comment.message)) {
+				case 1:
+					jtown.header.showLoginForm();					
+					break;
+				case 2:
+					jtown.dialog('판매자는 불가능 합니다.');
+					break;
+				default:
+					break;
+				}
 			}else{
 				var crudType = comment.crudType;
 				if(crudType == 'insert'){
@@ -271,6 +280,9 @@ jtown.comment.insertComment = function(me){
 		spn = $parent.attr('data-spn'),
 		name = $parent.attr('data-name'),
 		comment = me.val();
+	if(nullValueCheck(comment)){
+		return ;
+	}
 	
 	var url, json = { 	'sellerPn' 	: spn };
 	

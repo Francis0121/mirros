@@ -82,8 +82,16 @@
 									<c:set var="shopUrl" value="http://${jtownUser.shopUrl }" />
 									<a href="${product.url eq null ? shopUrl : product.url}" target="_blank"><img alt="상품" src="<c:url value="/resources/uploadImage/${product.saveName }"/>"/></a>
 									<div class="jt-product-article-object-wrap jt-product-article-object-expand">
-										<span><c:out value="${product.name }"/></span>
-										<span><c:out value="${product.commaPrice }"/></span>
+										<c:choose>
+											<c:when test="${product.name eq null or product.commaPrice eq null }">
+												<span>상품 정보가 아직</span>
+												<span>입력되지 않았습니다.</span>
+											</c:when>
+											<c:otherwise>
+												<span><c:out value="${product.name }"/></span>
+												<span><c:out value="${product.commaPrice }"/></span>
+											</c:otherwise>
+										</c:choose>
 									</div>
 								</div>
 							</c:forEach>
@@ -185,7 +193,7 @@
 									<c:choose>
 										<c:when test="${comment.customerPn eq jtownUser.pn }">
 											<div class="jt-home-expand-shop-update-wrap">
-												<input type="text" class="jt-comment-update-input" value="<c:out value="${comment.comment}"/>" maxlength="100"/><br/>
+												<input type="text" class="jt-comment-update-input" maxlength="100" value="<c:out value="${comment.comment}"/>"/><br/>
 												<span>esc를 누르시면 수정이 취소 됩니다.</span>
 											</div>
 											<div class="jt-home-expand-shop-tool-wrap">
@@ -244,7 +252,7 @@
 											<input type="text" id="jt-comment-insert" placeholder="이 쇼핑몰에 대한 한마디를 남겨주세요. 상품 배송문의는 해당 쇼핑몰 고객센터로 남겨주세요." maxlength="100"/>
 										</c:when>
 										<c:otherwise>
-											<input type="text" id="jt-comment-insert" readonly="readonly" placeholder="판매자 아이디로는 이용하실 수 없습니다."/>
+											<textarea id="jt-comment-insert" readonly="readonly" placeholder="판매자 아이디로는 이용하실 수 없습니다."/>
 										</c:otherwise>
 									</c:choose>
 								</c:otherwise>

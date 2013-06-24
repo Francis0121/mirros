@@ -103,9 +103,9 @@ public class CommentController {
 			comment.setCustomerPn(summaryUser.getPn());
 			commentService.toggleCommentLove(comment);
 		} else if (summaryUser.getEnumAuthority().equals(Authority.NOT_LOGIN)) {
-			comment.setMessage("로그인한 사용자만 이용가능합니다.");
+			comment.setMessage("1");
 		} else {
-			comment.setMessage("판매자는 불가능 합니다.");
+			comment.setMessage("2");
 		}
 		return comment;
 	}

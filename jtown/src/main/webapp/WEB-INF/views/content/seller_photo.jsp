@@ -15,12 +15,12 @@
 html{ overflow-y: hidden;}
 </style>
 </head>
-<body>
+<body onunload="closePage(event);">
 	<section class="jt-product-section">
 		<header class="jt-product-header">
 			<ul>
 				<li><h1>상품 사진 올리기</h1></li>
-				<li><span class="jt-product-header-icon"></span><span class="jt-product-header-text">한 장당 15MB, 상품은 총 10장 가능합니다. (JPG, GIF, PNG)</span></li>
+				<li><span class="jt-product-header-icon"></span><span class="jt-product-header-text">한 장당 15MB이하로, 상품은 총 10장 까지 가능합니다. (JPG, GIF, PNG)</span></li>
 			</ul>
 		</header>
 		
@@ -42,8 +42,16 @@ html{ overflow-y: hidden;}
 						</div>
 						<img alt="${product.name }" src="${cp }/resources/uploadImage/${product.saveName }"/>
 						<div class="jt-product-article-object-wrap">
-							<span><c:out value="${product.name }"/></span>
-							<span><c:out value="${product.commaPrice }"/></span>
+							<c:choose>
+								<c:when test="${product.name eq null or product.commaPrice eq null }">
+									<span>상품 정보가 아직</span>
+									<span>입력되지 않았습니다.</span>
+								</c:when>
+								<c:otherwise>
+									<span><c:out value="${product.name }"/></span>
+									<span><c:out value="${product.commaPrice }"/></span>
+								</c:otherwise>
+							</c:choose>
 						</div>
 					</li>
 				</c:forEach>
@@ -104,7 +112,7 @@ html{ overflow-y: hidden;}
 										<form:errors path="*" cssClass="jt-product-error-text"/>
 									</div>
 								</li>
-								<li>
+								<li style="float: right;">
 									<button type="button" class="jt-btn-white-small jt-product-update-submit">
 										<span class="btnImage"></span>
 										<span class="btnText">저장</span>
@@ -132,7 +140,11 @@ html{ overflow-y: hidden;}
 		$('#name').placeholder();
 		$('#price').placeholder();
 		$('#url').placeholder();
-	});  	
+	}); 
+	
+	$(window).unload(function(event){
+		window.opener.document.location.reload();
+	});
 /* ]]> */	
 </script>
 </body>
