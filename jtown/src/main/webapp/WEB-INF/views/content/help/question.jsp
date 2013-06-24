@@ -23,11 +23,6 @@ Mirros 이용 중에 불편하거나 보완되어야할 사항이 있나요?
 			<form:form commandName="cQuestion" method="post" action="${cp }/help/cQuestion.jt">
 				<form:hidden path="browser"/>
 				<table class="jt-question-article-table">
-					<tfoot>
-						<tr>
-							<td colspan="2">'문의하기'버튼을 누르시면 <a href="#PRIVACY_INFO">개인정보 수집 및 이용</a>에 동의하는 것으로 간주합니다.</td>
-						</tr>
-					</tfoot>
 					<tbody>
 						<tr>
 							<th><form:label path="name">이름</form:label></th>
@@ -78,7 +73,10 @@ Mirros 이용 중에 불편하거나 보완되어야할 사항이 있나요?
 			</form:form>
 		</article>
 		<footer class="jt-question-article-footer">
-			<button type="button" class="jt-btn-orange jt-cQuestion-btn">문의하기</button>
+			<ul>
+				<li>'문의하기'버튼을 누르시면 <a href="#PRIVACY_INFO">개인정보 수집 및 이용</a>에 동의하는 것으로 간주합니다.</li>
+				<li style="list-style: none; text-align: center; margin-top: 10px;"><button type="button" class="jt-btn-orange jt-cQuestion-btn">문의하기</button></li>
+			</ul>
 		</footer>
 	</article>
 	<article class="jt-question-article">
@@ -89,11 +87,6 @@ Mirros 이용 중에 불편하거나 보완되어야할 사항이 있나요?
 			<form:form commandName="sQuestion" method="post" action="${cp }/help/sQuestion.jt">
 				<form:hidden path="browser"/>
 				<table class="jt-question-article-table">
-					<tfoot>
-						<tr>
-							<td colspan="2">'문의하기'버튼을 누르시면 <a href="#PRIVACY_INFO">개인정보 수집 및 이용</a>에 동의하는 것으로 간주합니다.</td>
-						</tr>
-					</tfoot>
 					<tbody>
 						<tr>
 							<th><form:label path="shopPn">ShopNo</form:label></th>
@@ -153,8 +146,11 @@ Mirros 이용 중에 불편하거나 보완되어야할 사항이 있나요?
 			</form:form>
 		</article>
 		<footer class="jt-question-article-footer">
-			<button type="button" class="jt-btn-orange jt-sQuestion-btn">문의하기</button>
-		</footer>	
+			<ul>
+				<li>'문의하기'버튼을 누르시면 <a href="#PRIVACY_INFO">개인정보 수집 및 이용</a>에 동의하는 것으로 간주합니다.</li>
+				<li style="list-style: none; text-align: center; margin-top: 10px;"><button type="button" class="jt-btn-orange jt-sQuestion-btn">문의하기</button></li>
+			</ul>
+		</footer>
 	</article>
 	
 	<footer class="jt-question-section-footer">

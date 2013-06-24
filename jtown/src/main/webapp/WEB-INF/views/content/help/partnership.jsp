@@ -20,13 +20,6 @@
 	<article class="jt-partnership-article">
 		<form:form commandName="partnership" htmlEscape="true" method="post" action="${action }">
 			<table class="jt-partnership-article-table">
-				<tfoot>
-					<tr>
-						<td colspan="2">
-							<input type="submit" value="문의하기" class="jt-partnership-submit jt-btn-orange"/>
-						</td>
-					</tr>
-				</tfoot>
 				<tbody>
 					<tr>
 						<th>
@@ -44,7 +37,7 @@
 					</tr>
 					<tr>
 						<th>
-							<form:label path="name">성함</form:label>
+							<form:label path="name">제안자명</form:label>
 						</th>
 						<td>
 							<div class="jt-partnership-wrap" id="nameLength">
@@ -91,26 +84,37 @@
 					</tr>
 					<tr>
 						<th>
-							<form:label path="content">문의내용</form:label>
+							<form:label path="content">제안내용</form:label>
 						</th>
 						<td>
-							<form:textarea path="content" id="partnership_content" htmlEscape="true" maxlength="3000" cssClass="jt-partnership-textarea" cssErrorClass="jt-partnership-textarea-error" placeholder="쇼핑몰 입점을 희망하시거나, 기타 문의사항을 작성하여주세요."/>
+							<form:textarea path="content" id="partnership_content" htmlEscape="true" maxlength="3000" cssClass="jt-partnership-textarea" cssErrorClass="jt-partnership-textarea-error" placeholder="쇼핑몰 입점을 희망하시거나, 기타 제안내용을 작성하여주세요."/>
 							<div class="jt-partnership-error">
 								<form:errors path="content"/>
 							</div>
 						</td>
 					</tr>
 				</tbody>
-			</table>	
+			</table>
+			<footer class="jt-partnership-article-footer">
+				<ul>
+					<li>입력하신&nbsp;정보는&nbsp;상담처리를&nbsp;위한&nbsp;목적으로만&nbsp;사용되며,&nbsp;관련&nbsp;담당자&nbsp;외에는&nbsp;함부로&nbsp;열람할&nbsp;수&nbsp;없습니다.</li>
+					<li>‘문의하기’를&nbsp;누르면&nbsp;<a href="#PRIVACY_INFO">개인정보보호를&nbsp;위한&nbsp;동의</a>에&nbsp;동의한&nbsp;것으로&nbsp;간주합니다.</li>
+					<li>추가&nbsp;제휴&nbsp;문의사항은&nbsp;<a href="mailto:help@mirros.net">help@mirros.net</a>이나&nbsp;070-7079-2234로&nbsp;연락&nbsp;주시기&nbsp;바랍니다.</li>
+					<li style="list-style: none; text-align: center; margin-top: 10px;"><input type="submit" value="문의하기" class="jt-partnership-submit jt-btn-orange"/></li>
+				</ul>
+			</footer>
 		</form:form>
 	</article>
 	
-	<footer class="jt-partnership-footer">
-		<ul>
-			<li>입력하신&nbsp;정보는&nbsp;상담처리를&nbsp;위한&nbsp;목적으로만&nbsp;사용되며,&nbsp;관련&nbsp;담당자&nbsp;외에는&nbsp;함부로&nbsp;열람할&nbsp;수&nbsp;없습니다.</li>
-			<li>‘문의하기’를&nbsp;누르면&nbsp;<a href="#none">개인정보보호를&nbsp;위한&nbsp;동의</a>에&nbsp;동의한&nbsp;것으로&nbsp;간주합니다.</li>
-			<li>추가&nbsp;제휴&nbsp;문의사항은&nbsp;<a href="mailto:help@mirros.net">help@mirros.net</a>이나&nbsp;070-7079-2234로&nbsp;연락&nbsp;주시기&nbsp;바랍니다.</li>
-		</ul>
+	<footer class="jt-partnership-footer">		
+<pre>
+<span style="font-weight: bold; font-family: NanumGothic, Dotum, Gulim;" id="PRIVACY_INFO">미러스는 제휴 제안 사항의 등록 시, 아래와 같이 제안자의 개인정보(기업인 경우 담당자의 정보)를 수집하고 있습니다.</span>
+1. 수집 항목 : [필수] 아이템분야, 제안자명, 전화번호, 메일주, 제휴제안내용
+2. 수집 및 이용 목적 : 제휴 제안에 따른 연락처 정보 확인
+3. 보유 및 이용 기간 : 제휴 제안 사항에 대한 검토 완료 후 3개월 간 보관하며 이후 해당 정보를 지체 없이 파기합니다.
+그 밖의 사항은 별도로 고지하는 개인정보처리방침을 참고해 주시기 바랍니다.
+</pre>
+
 	</footer>
 
 </section>
