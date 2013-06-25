@@ -9,6 +9,12 @@ if (typeof jtown.seller == 'undefined') {
 $(function() {
 	jtown.seller.syncPopup();
 	
+	jtown.seller.startIntro();
+	
+	jtown.seller.markIntro();
+
+	jtown.seller.syncIntro();
+	
 	jtown.seller.syncMainNotice();
 
 	jtown.seller.syncMainImage();
@@ -58,13 +64,6 @@ $(function() {
 		}
 	});
 	
-	$('#jt-product-popup').unbind('click').bind('click', function(){
-		var url = contextPath + 'seller/products/'+$(this).attr('data-pn');
-		var option = 'width=610, height=530, toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=no';
-		
-		window.open(url, '', option);
-	});
-	
 	$('#jt-product-file').uploadify({
 		'buttonClass' : 'uploadify-plus-insert-btn',
 		'buttonText' : '<img src="'+ contextPath + 'resources/images/jt-cloth-icon.png'+'" style="float:left; margin:9px 7px 0 10px"/><span style="float:left; ">상품추가</span>',
@@ -87,6 +86,110 @@ $(function() {
 	});
 });
 
+makeIntro = function(){
+	var intro = introJs();
+	intro.setOptions({
+        steps: 
+        [
+			{
+				element: '#step1',
+				intro: 'ShopNo : 고객 고유번호 입니다.<br/> Seller : 회사명 <br/> Site : 홈페이지 주소 <br/> Tag : 회사 관심사 테그 <br/> 고유정보로 바꾸시려면 연락 주시면 됩니다.'
+			},
+			{
+				element: '#step2',
+				intro: '1.수정버튼을 누른다.<br/> 2.사진업로드를 한다.<br/> 3.수정버튼을 누른다.'
+			},
+			{
+				element: '#jt-seller-main-footer',
+				intro: '1.수정버튼을 누른다.<br/> 2.내용을 수정 한다.<br/> 3.수정버튼을 누른다.'
+			},
+			{
+				element: '#step4',
+				intro: '뷰, 댓글, 하트 수를 보여줍니다.'
+			},
+			{
+				element: '#jt-home-expand-shop-notice',
+				intro: '1.수정버튼을 누른다.<br/> 2.내용을 수정 한다.<br/> 3.수정버튼을 누른다.'
+			},
+			{
+				element: '#step6',
+				intro: '상품을 크게 볼수 있는 화면 입니다.'
+			},
+			{
+				element: '#step7',
+				intro: '+ 버튼을 누르시면 상품 입력창이 뜹니다.'
+			},
+			{
+				element: '#jt-seller-expand-event-first',
+				intro: '1.수정버튼을 누른다.<br/> 2.내용을 수정 한다.<br/> 3.수정버튼을 누른다.'
+			},
+			{
+				element: '#jt-seller-expand-event-second',
+				intro: '1.수정버튼을 누른다.<br/> 2.내용을 수정 한다.<br/> 3.수정버튼을 누른다.'
+			}
+		]
+	});
+	return intro;
+};
+
+jtown.seller.syncIntro = function(){
+	$('.jt-seller-text-content').unbind('mouseover mouseout').bind('mouseover mouseout', function(){
+		if(event.type =='mouseover'){
+			$(this).find('.question-mark-wrap').show();
+		}else if(event.type == 'mouseout'){
+			$(this).find('.question-mark-wrap').hide();
+		}
+	});
+	
+	$('.jt-home-shop-content-fn').unbind('mouseover mouseout').bind('mouseover mouseout', function(){
+		if(event.type =='mouseover'){
+			$(this).find('.question-mark-wrap').show();
+		}else if(event.type == 'mouseout'){
+			$(this).find('.question-mark-wrap').hide();
+		}
+	});
+	
+	$('.jt-home-expand-shop-expandProducts').unbind('mouseover mouseout').bind('mouseover mouseout', function(){
+		if(event.type =='mouseover'){
+			$(this).find('.question-mark-wrap').show();
+		}else if(event.type == 'mouseout'){
+			$(this).find('.question-mark-wrap').hide();
+		}
+	});
+	
+	$('.jt-home-expand-shop-products').unbind('mouseover mouseout').bind('mouseover mouseout', function(){
+		if(event.type =='mouseover'){
+			$(this).find('.question-mark-wrap').show();
+		}else if(event.type == 'mouseout'){
+			$(this).find('.question-mark-wrap').hide();
+		}
+	});
+};
+
+jtown.seller.startIntro = function(){
+	$('#showHow').unbind('click').bind('click', function(){
+		makeIntro().start();
+  	});
+	
+	$('#showHowPopup').unbind('click').bind('click',function(){
+		makePoupIntro().start();
+	});
+};
+
+jtown.seller.markIntro = function(){
+	$('.question-mark').unbind('click').bind('click', function(){
+		$('.question-mark').addClass('question-mark-hide');
+		var step = $(this).attr('data-step');
+		makeIntro().goToStep(step).start().oncomplete(function(){
+			jtown.seller.markIntro();
+			$('.question-mark').removeClass('question-mark-hide');
+		}).onexit(function(){
+			jtown.seller.markIntro();
+			$('.question-mark').removeClass('question-mark-hide');
+		});
+	});	
+};
+
 jtown.seller.syncProduct = function() {
 	$('.jt-home-expand-shop-expandProduct').unbind('mouseover mouseout');
 	$('.jt-home-expand-shop-expandProduct').bind('mouseover mouseout', function(){
@@ -95,6 +198,13 @@ jtown.seller.syncProduct = function() {
 		}else if(event.type == 'mouseout'){
 			$(this).find('.jt-product-article-object-wrap').hide();
 		}
+	});
+	
+	$('#jt-product-popup').unbind('click').bind('click', function(){
+		var url = contextPath + 'seller/products/'+$(this).attr('data-pn');
+		var option = 'width=610, height=530, toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=no';
+		
+		window.open(url, '', option);
 	});
 };
 
@@ -159,14 +269,21 @@ jtown.seller.syncPopup = function(){
 	});
 };
 
+jtown.seller.changeExpandTextIntro = function(){
+	var height = Number($('#jt-home-expand-shop-notice').height()) + 20;
+	$('.introjs-helperLayer').height(height);
+};
+
 jtown.seller.syncExpandNotice = function(){
 	$('#jt-home-expand-shop-notice').unbind('mouseover mouseout').bind('mouseover mouseout', function(event) {
 		var display = $('#jt-seller-expand-notice-update-tool').css('display');
 		if (display == 'none') {
 			if (event.type == 'mouseover') {
 				$('#jt-seller-expand-notice-hover-tool').show();
+				$(this).find('.question-mark-wrap').show();
 			} else if (event.type == 'mouseout') {
 				$('#jt-seller-expand-notice-hover-tool').hide();
+				$(this).find('.question-mark-wrap').hide();
 			}
 		}
 	});
@@ -176,10 +293,10 @@ jtown.seller.syncExpandNotice = function(){
 		$('#jt-seller-expand-shop-text').hide();
 		$('#jt-seller-expand-notice-update-tool').show();
 		$('#jt-seller-expand-textarea').show();
+		setTimeout('jtown.seller.changeExpandTextIntro();', 0);
 	});
 
-	$('#jt-seller-expand-notice-update').unbind('click');
-	$('#jt-seller-expand-notice-update').bind('click', function() {
+	$('#jt-seller-expand-notice-update').unbind('click').bind('click', function() {
 		$('#jt-seller-expand-notice-update-tool').hide();
 		var url = contextPath + 'ajax/seller/changeLongNotice.jt',
 			longNotice =  $('#jt-seller-expand-textarea').val(),
@@ -190,47 +307,54 @@ jtown.seller.syncExpandNotice = function(){
 				'success' : function(){
 					$('#jt-seller-expand-textarea').hide();
 					$('#jt-seller-expand-shop-text').html(longNotice).show();
+					setTimeout('jtown.seller.changeExpandTextIntro();', 0);
 				},
 				'error' : function(){
 					$('#jt-seller-expand-textarea').hide();
 					$('#jt-seller-expand-shop-text').show();
+					setTimeout('jtown.seller.changeExpandTextIntro();', 0);
 					jtown.dialog('오류발생');
 				}
 			});
 		});
 	});
 
-	$('#jt-seller-expand-notice-cancle').unbind('click');
-	$('#jt-seller-expand-notice-cancle').bind('click', function() {
+	$('#jt-seller-expand-notice-cancle').unbind('click').bind('click', function() {
 		$('#jt-seller-expand-notice-update-tool').hide();
 		$('#jt-seller-expand-textarea').hide().val($('#jt-seller-expand-shop-text').html());
 		$('#jt-seller-expand-shop-text').show();
+		setTimeout('jtown.seller.changeExpandTextIntro();', 0);
 	});
 };
 
+jtown.seller.changeMainTextIntro = function(){
+	var height = Number($('#jt-seller-main-footer').height()) + 20;
+	$('.introjs-helperLayer').height(height);
+};
+
 jtown.seller.syncMainNotice = function() {
-	$('#jt-seller-main-footer').unbind('mouseover mouseout');
-	$('#jt-seller-main-footer').bind('mouseover mouseout', function(event) {
+	$('#jt-seller-main-footer').unbind('mouseover mouseout').bind('mouseover mouseout', function(event) {
 		var display = $('#jt-seller-main-notice-update-tool').css('display');
 		if (display == 'none') {
 			if (event.type == 'mouseover') {
 				$('#jt-seller-main-notice-hover-tool').show();
+				$(this).find('.question-mark-wrap').show();
 			} else if (event.type == 'mouseout') {
 				$('#jt-seller-main-notice-hover-tool').hide();
+				$(this).find('.question-mark-wrap').hide();
 			}
 		}
 	});
 
-	$('#jt-seller-main-notice-updateShow').unbind('click');
-	$('#jt-seller-main-notice-updateShow').bind('click', function() {
+	$('#jt-seller-main-notice-updateShow').unbind('click').bind('click', function() {
 		$('#jt-seller-main-notice-hover-tool').hide();
 		$('#jt-seller-main-footer-text').hide();
 		$('#jt-seller-main-notice-update-tool').show();
 		$('#jt-seller-main-textarea').show();
+		setTimeout('jtown.seller.changeMainTextIntro()');
 	});
 
-	$('#jt-seller-main-notice-update').unbind('click');
-	$('#jt-seller-main-notice-update').bind('click', function() {
+	$('#jt-seller-main-notice-update').unbind('click').bind('click', function() {
 		$('#jt-seller-main-notice-update-tool').hide();
 		var url = contextPath + 'ajax/seller/changeNotice.jt',
 			notice =  $('#jt-seller-main-textarea').val(),
@@ -241,54 +365,62 @@ jtown.seller.syncMainNotice = function() {
 				'success' : function(){
 					$('#jt-seller-main-textarea').hide();
 					$('#jt-seller-main-footer-text').html(notice).show();
+					setTimeout('jtown.seller.changeMainTextIntro()');
 				},
 				'error' : function(){
 					$('#jt-seller-main-textarea').hide();
 					$('#jt-seller-main-footer-text').show();
+					setTimeout('jtown.seller.changeMainTextIntro()');
 					jtown.dialog('오류발생');
 				}
 			});
 		});
 	});
 
-	$('#jt-seller-main-notice-cancle').unbind('click');
-	$('#jt-seller-main-notice-cancle').bind('click', function() {
+	$('#jt-seller-main-notice-cancle').unbind('click').bind('click', function() {
 		$('#jt-seller-main-notice-update-tool').hide();
 		$('#jt-seller-main-textarea').hide().val($('#jt-seller-main-footer-text').html());
 		$('#jt-seller-main-footer-text').show();
+		setTimeout('jtown.seller.changeMainTextIntro()');
 	});
 };
 
 jtown.seller.syncMainImage = function() {
-	$('#jt-seller-main-image').unbind('mouseover mouseout');
-	$('#jt-seller-main-image').bind('mouseover mouseout', function(event) {
+	$('#jt-seller-main-image').unbind('mouseover mouseout').bind('mouseover mouseout', function(event) {
 		var display = $('#jt-seller-main-image-update-tool').css('display');
 		if (display == 'none') {
 			if (event.type == 'mouseover') {
 				$('#jt-seller-main-image-hover-tool').show();
+				$(this).find('.question-mark-wrap').show();
 			} else if (event.type == 'mouseout') {
 				$('#jt-seller-main-image-hover-tool').hide();
+				$(this).find('.question-mark-wrap').hide();
 			}
 		}
 	});
 
-	$('#jt-seller-main-image-updateShow').unbind('click');
-	$('#jt-seller-main-image-updateShow').bind('click', function() {
+	$('#jt-seller-main-image-updateShow').unbind('click').bind('click', function() {
 		$('#jt-seller-main-image-hover-tool').hide();
 		$('#jt-seller-main-image-update-tool').show();
+		setTimeout('jtown.seller.changeMainBgHeight()', 0);
 	});
 
-	$('#jt-seller-main-image-update').unbind('click');
-	$('#jt-seller-main-image-update').bind('click', function() {
+	$('#jt-seller-main-image-update').unbind('click').bind('click', function() {
 		$('#jt-seller-main-image-update-tool').hide();
 		jtown.seller.mainImageUpdate();
 	});
 
-	$('#jt-seller-main-image-cancle').unbind('click');
-	$('#jt-seller-main-image-cancle').bind('click', function() {
+	$('#jt-seller-main-image-cancle').unbind('click').bind('click', function() {
 		$('#jt-seller-main-image-update-tool').hide();
 		jtown.seller.mainImageCancle();
 	});
+};
+
+jtown.seller.changeMainBgHeight = function(){
+	var height = $('#jt-seller-main-image').height();
+	$('#jt-seller-main-image-update-tool').height(height);
+	height = Number(height) + 20;
+	$('.introjs-helperLayer').height(height);
 };
 
 jtown.seller.mainImage = function(file) {
@@ -299,6 +431,8 @@ jtown.seller.mainImage = function(file) {
 	if(nullValueCheck(oldSrcObject)){
 		$('#jt-seller-main-image-area').attr('data-oldSrc', oldSrc);
 	}
+	
+	setTimeout('jtown.seller.changeMainBgHeight()', 100);
 };
 
 jtown.seller.mainImageUpdate = function(){
@@ -350,20 +484,20 @@ jtown.seller.syncEvent = function() {
 		if ($(this).children('.jt-home-expand-shop-event-update-wrap').css('display') == 'none') {
 			if (event.type == 'mouseover') {
 				$(this).children('.jt-home-expand-shop-event-tool').show();
+				$(this).find('.question-mark-wrap').show();
 			} else if (event.type == 'mouseout') {
 				$(this).children('.jt-home-expand-shop-event-tool').hide();
+				$(this).find('.question-mark-wrap').hide();
 			}
 		}
 	});
 
-	$('.jt-home-expand-shop-event-tool').unbind('click');
-	$('.jt-home-expand-shop-event-tool').bind('click', function() {
+	$('.jt-home-expand-shop-event-tool').unbind('click').bind('click', function() {
 		$(this).parents('.jt-home-expand-shop-event').children('.jt-home-expand-shop-event-tool').hide();
 		$(this).parents('.jt-home-expand-shop-event').children('.jt-home-expand-shop-event-update-wrap').show();
 	});
 	
-	$('.jt-home-expand-shop-event-update-cancle').unbind('click');
-	$('.jt-home-expand-shop-event-update-cancle').bind('click', function(){
+	$('.jt-home-expand-shop-event-update-cancle').unbind('click').bind('click', function(){
 		var $parent = $(this).parents('.jt-home-expand-shop-event');
 		var $img = $parent.find('img');
 		var oldSrc = $img.attr('data-oldSrc');
@@ -374,8 +508,7 @@ jtown.seller.syncEvent = function() {
 		$parent.children('.jt-home-expand-shop-event-update-wrap').hide();
 	});
 	
-	$('.jt-home-expand-shop-event-update-done').unbind('click');
-	$('.jt-home-expand-shop-event-update-done').bind('click', function(){
+	$('.jt-home-expand-shop-event-update-done').unbind('click').bind('click', function(){
 		var $parent = $(this).parents('.jt-home-expand-shop-event');
 		var $img = $parent.find('img'), imagePn = $img.attr('data-imagePn');
 		

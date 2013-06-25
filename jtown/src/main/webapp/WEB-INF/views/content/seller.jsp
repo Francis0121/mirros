@@ -15,7 +15,16 @@
 	</div>
 	<section class="jt-seller-content">
 		<section class="jt-seller-main">
-			<ul class="jt-seller-text-content">
+			<div class="jt-showHowWrap">
+				<a href="#none" id="showHow" class="jt-showhow-btn jt-btn-orange">
+					<span class="btnImage"></span>
+					<span class="btnText">Tutorial</span>
+				</a>
+			</div>
+			<ul class="jt-seller-text-content" id="step1">
+				<li class="question-mark-wrap" style="margin-left: 11px;">
+					<a class="question-mark" data-step="1">?</a>
+				</li>
 				<li>
 					<h3>ShopNo</h3>
 					<span><c:out value="${jtownUser.sixShopPn }"/></span>
@@ -44,8 +53,11 @@
 				<header>
 					<a href="http://${jtownUser.shopUrl }"target="_blank"><c:out value="${jtownUser.name }"/></a>
 				</header>
-				<div class="jt-home-shop-content">
+				<div class="jt-home-shop-content" id="step2">
 					<ul class="jt-home-shop-content-image" id="jt-seller-main-image">
+						<li class="question-mark-wrap">
+							<a class="question-mark" data-step="2">?</a>
+						</li>
 						<li id="jt-seller-main-image-hover-tool" class="jt-seller-main-image-hover-tool">
 							<div>
 								<a href="#none" class="jt-seller-main-image-updateShow jt-btn-white-small" id="jt-seller-main-image-updateShow">
@@ -92,6 +104,9 @@
 					</ul>
 				</div>
 				<div id="jt-seller-main-footer" class="jt-home-notice">
+					<div class="question-mark-wrap" style="width: 316px;">
+						<a class="question-mark" data-step="3">?</a>
+					</div>
 					<div class="jt-seller-main-notice-hover-tool" id="jt-seller-main-notice-hover-tool">
 						<div>
 							<a href="#none" id="jt-seller-main-notice-updateShow" class="jt-seller-main-notice-updateShow jt-btn-white-small">
@@ -115,7 +130,10 @@
 						</a>
 					</div>
 				</div>
-				<ul class="jt-home-shop-content-fn">
+				<ul class="jt-home-shop-content-fn" id="step4">
+					<li class="question-mark-wrap" style="width: 316px;">
+						<a class="question-mark" data-step="4">?</a>
+					</li>
 					<li>
 						<span class="jt-home-shop-view">VIEW</span>&nbsp;<span id="view-<c:out value="${jtownUser.pn}"/>"><c:out value="${jtownUser.viewCount eq null ? 0 : jtownUser.viewCount}"/></span>	
 					</li>
@@ -150,6 +168,9 @@
 		<section class="jt-seller-expand">
 			<div class="jt-home-expand-shop" id="jt-home-expand-shop" data-name="<c:out value="${jtownUser.name }"/>" data-spn="${jtownUser.pn }" data-size="${productSize }" data-nowPosition="${productSize}">
 				<div id="jt-home-expand-shop-notice">
+					<div class="question-mark-wrap" style="width: 620px;">
+						<a class="question-mark" data-step="5">?</a>
+					</div>
 					<div class="jt-seller-expand-notice-hover-tool" id="jt-seller-expand-notice-hover-tool">
 						<div>
 							<a href="#none" id="jt-seller-expand-notice-updateShow" class="jt-seller-expand-notice-updateShow jt-btn-white-small">
@@ -173,7 +194,10 @@
 						</a>
 					</div>
 				</div>
-				<ul class="jt-home-expand-shop-expandProducts">
+				<ul class="jt-home-expand-shop-expandProducts" id="step6">
+					<li class="question-mark-wrap" style="width: 620px;">
+						<a class="question-mark" data-step="6">?</a>
+					</li>
 					<li class="jt-home-expand-shop-leftArrow jt-home-expand-shop-arrow">
 						<a href="#none" id="jt-home-expand-shop-leftArrow">&lt;</a>
 					</li>
@@ -205,7 +229,10 @@
 						<a href="#none" id="jt-home-expand-shop-rigthArrow">&gt;</a>
 					</li>
 				</ul>
-				<div class="jt-home-expand-shop-products">
+				<div class="jt-home-expand-shop-products" id="step7">
+					<div class="question-mark-wrap" style="width: 620px;">
+						<a class="question-mark" data-step="7">?</a>
+					</div>
 					<ul id="jt-seller-slide-small">
 						<c:forEach items="${products }" var="product" varStatus="loop">
 							<li data-count="${productSize - loop.index }" data-ppn="${product.pn }">
@@ -226,6 +253,9 @@
 					</form>
 				</div>
 				<div class="jt-home-expand-shop-event" id="jt-seller-expand-event-first" data-epn="<c:out value="${event1.pn }"/>" data-bo="1">
+					<div class="question-mark-wrap" style="width: 310px;">
+						<a class="question-mark" data-step="8">?</a>
+					</div>
 					<c:if test="${jtownUser.bannerFirst < 8 }">
 						<div class="jt-home-expand-shop-event-new">
 							<div>
@@ -256,6 +286,9 @@
 					<img alt="First Event" src="${event1.saveName eq null ? blankEvent : imageEvent }" title="<c:out value="${jtownUser.name }"/> Event" id="jt-seller-expand-event-first-img"/>
 				</div>
 				<div class="jt-home-expand-shop-event" id="jt-seller-expand-event-second" data-epn="<c:out value="${event2.pn }"/>" data-bo="2">
+					<div class="question-mark-wrap" style="width: 310px;">
+						<a class="question-mark" data-step="9">?</a>
+					</div>
 					<c:if test="${jtownUser.bannerSecond < 8 }">
 					<div class="jt-home-expand-shop-event-new">
 						<div>
@@ -315,7 +348,7 @@
 							<c:forEach items="${null }" var="comment">
 								<li data-copn="<c:out value="${comment.commentPn }"/>" class="jt-home-expand-shop-comment-li">
 									<ul class="jt-home-expand-shop-text-wrap">
-										<li class="jt-home-expand-shop-comment-header">
+										<li class="jt-home-expand-shop-comment-header">	
 											<span class="jt-home-expand-shop-comment-best">BEST</span>
 										</li>
 										<li class="jt-home-expand-shop-comment-content">

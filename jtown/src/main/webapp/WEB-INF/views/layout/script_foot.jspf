@@ -30,6 +30,7 @@
 <script src="${cp}/resources/js/jquery.scroll.pagination.js"></script>
 <script src="${cp}/resources/uploadify/jquery.uploadify.min.js"></script>
 <%-- Custom --%>
+<script src="${cp}/resources/js/intro.js"></script>
 <script src="${cp}/resources/js/jtown.js"></script>
 <script src="${cp}/resources/js/util.js"></script>
 <script src="${cp}/resources/js/login.js"></script>
