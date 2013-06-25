@@ -207,7 +207,12 @@
 		SET
 			facebook_feed = #{facebookFeed}
 		WHERE
+		<if test="pn != null and pn != 0">
 			pn = #{pn}
+		</if>
+		<if test="username != null and username != ''">
+			id = #{username}
+		</if>
 	</update>
 	
 	<select id="selectFacebookFeed" parameterType="String" resultType="Boolean">

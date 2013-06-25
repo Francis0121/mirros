@@ -20,6 +20,7 @@ import javax.annotation.Resource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.social.ApiException;
+import org.springframework.social.OperationNotPermittedException;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.ConnectionFactory;
 import org.springframework.social.connect.web.ConnectInterceptor;
@@ -29,6 +30,7 @@ import org.springframework.social.facebook.api.FacebookProfile;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.context.request.WebRequest;
 
+import com.bg.jtown.security.JtownUser;
 import com.bg.jtown.security.LoginService;
 
 /**
@@ -56,17 +58,26 @@ public class PostToWallAfterSignInInterceptor implements
 			String username = fp.getEmail();
 			Boolean facebookFeed = loginService.selectFacebookFeed(username);
 			if (facebookFeed != null && facebookFeed) {
-				String message = fp.getName()
-						+ "님이 맛있는 쇼핑페이지 Mirros에 접속하셨습니다.";
+				String message = fp.getName() + "님이 쇼핑몰 타운 Mirros에 접속하셨습니다.";
 				String sex = fp.getGender().equals("male") ? "2" : "1";
 				FacebookLink link = new FacebookLink(
 						"https://www.mirros.net/cpn/" + sex + "/spn/0",
-						"Welcome To Mirros", "",
-						"맛있는 쇼핑페이지 Mirros에서 더 쉽고 간편하게,인터넷 쇼핑몰들을 체험하세요.");
+						"Let`s see", "",
+						"쇼핑몰 타운 Mirros에서 더 쉽고 간편하게,인터넷 쇼핑몰들을 체험하세요.");
 
-				facebook.feedOperations().postLink(message, link);
+				String result = facebook.feedOperations().postLink(message,
+						link);
+				logger.debug("Facebook SignIn result 2 [ " + result + " ]");
 			}
+		} catch (OperationNotPermittedException e) {
+			Facebook facebook = connection.getApi();
+			FacebookProfile fp = facebook.userOperations().getUserProfile();
+			String username = fp.getEmail();
+			JtownUser jtownUser = new JtownUser();
+			jtownUser.setUsername(username);
+			loginService.updateFacebookFeed(jtownUser);
 		} catch (ApiException e) {
+			e.printStackTrace();
 			logger.debug("PostConnect Catch");
 		}
 	}
