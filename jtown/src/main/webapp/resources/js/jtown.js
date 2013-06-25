@@ -75,7 +75,7 @@ jtown.header.resendEmailAddress = function() {
 	var url = contextPath + 'ajax/resendConfirmEmail.jt',
 		json = {},
 		option = { 	position : '.jt-header-warning-confirmEmail',
-					img	: contextPath+'/resources/images/jt-loading-02.gif' };
+					img	: contextPath+'resources/images/jt-loading-02.gif' };
 	$('#resendConfirmMail').unbind('click');
 	jtown.postJSON(url, json, option, function(){
 		jtown.dialog('E-mail을 재전송 하였습니다.');
