@@ -8,6 +8,6 @@
 <link rel="shortcut icon" href="${cp }/resources/images/favicon.ico" type="image/x-icon"/>
 </head>
 <body>
-<a href="${cp }/"><img alt="404 The page cannot be found" src="${cp }/resources/images/404.jpg" style="border: 0;"></a>
+<a href="${cp }/"><img alt="404 The page cannot be found" src="${cp }/resources/images/error/404.jpg" style="border: 0;"></a>
 </body>
 </html>

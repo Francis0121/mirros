@@ -8,6 +8,6 @@
 <link rel="shortcut icon" href="${cp }/resources/images/favicon.ico" type="image/x-icon"/>
 </head>
 <body>
-<a href="javascript:history.back();"><img alt="500 Internal server error" src="${cp }/resources/images/500.jpg" style="border: 0;"></a>
+<a href="javascript:history.back();"><img alt="500 Internal server error" src="${cp }/resources/images/error/500.jpg" style="border: 0;"></a>
 </body>
 </html>
