@@ -38,7 +38,7 @@ public final class SocialConnectionSignUp implements ConnectionSignUp {
 
 			jtownUser.setUsername(fp.getEmail());
 			jtownUser.setSex(fp.getGender().equals("male") ? true : false);
-			jtownUser.setName(fp.getName().trim());
+			jtownUser.setName(fp.getName().replace(" ", ""));
 
 			String date = fp.getBirthday();
 			String year = date.substring(6, 10);
