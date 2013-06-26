@@ -275,7 +275,7 @@
 					<div>
 					<form:form commandName="disactiveUser" action="${cp }/login/disactive.jt" htmlEscape="true">
 						<form:label path="password">비밀번호</form:label>
-						<form:password path="password" cssClass="jt-disactive-input" cssErrorClass="jt-disactive-input-error"/>
+						<form:password path="password" id="disactvice_password" cssClass="jt-disactive-input" cssErrorClass="jt-disactive-input-error"/>
 						<input type="button" value="삭제" class="jt-btn-orange jt-disactive-btn"/>
 						<div class="jt-disactive-content-error">	
 							<form:errors path="password" cssClass="commonError"></form:errors>

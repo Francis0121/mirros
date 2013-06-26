@@ -133,7 +133,7 @@ makeIntro = function(){
 };
 
 jtown.seller.syncIntro = function(){
-	$('.jt-seller-text-content').unbind('mouseover mouseout').bind('mouseover mouseout', function(){
+	$('.jt-seller-text-content').unbind('mouseover mouseout').bind('mouseover mouseout', function(event){
 		if(event.type =='mouseover'){
 			$(this).find('.question-mark-wrap').show();
 		}else if(event.type == 'mouseout'){
@@ -141,7 +141,7 @@ jtown.seller.syncIntro = function(){
 		}
 	});
 	
-	$('.jt-home-shop-content-fn').unbind('mouseover mouseout').bind('mouseover mouseout', function(){
+	$('.jt-home-shop-content-fn').unbind('mouseover mouseout').bind('mouseover mouseout', function(event){
 		if(event.type =='mouseover'){
 			$(this).find('.question-mark-wrap').show();
 		}else if(event.type == 'mouseout'){
@@ -149,7 +149,7 @@ jtown.seller.syncIntro = function(){
 		}
 	});
 	
-	$('.jt-home-expand-shop-expandProducts').unbind('mouseover mouseout').bind('mouseover mouseout', function(){
+	$('.jt-home-expand-shop-expandProducts').unbind('mouseover mouseout').bind('mouseover mouseout', function(event){
 		if(event.type =='mouseover'){
 			$(this).find('.question-mark-wrap').show();
 		}else if(event.type == 'mouseout'){
@@ -157,7 +157,7 @@ jtown.seller.syncIntro = function(){
 		}
 	});
 	
-	$('.jt-home-expand-shop-products').unbind('mouseover mouseout').bind('mouseover mouseout', function(){
+	$('.jt-home-expand-shop-products').unbind('mouseover mouseout').bind('mouseover mouseout', function(event){
 		if(event.type =='mouseover'){
 			$(this).find('.question-mark-wrap').show();
 		}else if(event.type == 'mouseout'){

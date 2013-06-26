@@ -14,8 +14,8 @@
 			<h2>Connected as Twitter <c:out value="${jtownUser.name }"/></h2>
 		</c:if>
 	</header>
-	<form:form commandName="jtownUser" action="${cp }/login/joinSubmit.jt" htmlEscape="true" method="post">
 	<article class="jt-join-user-article">
+	<form:form commandName="jtownUser" action="${cp }/login/joinSubmit.jt" htmlEscape="true" method="post">
 	<table class="jt-join-user-table">
 		<tbody>
 			<c:choose>

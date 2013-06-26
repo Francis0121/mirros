@@ -161,9 +161,16 @@ jtown.home.html = function(data) {
 		var seller = jtownUsers[i], spn = seller.pn, mainImages = images[spn];
 
 		var imageHtml = '';
+
+		if(mainImages.length == 0){
+			imageHtml +='<img alt="Blank" src="'+contextPath+'resources/images/jt-introduce-home-blank.png" title="'+ htmlChars(seller.name) + '"/>	';
+		}
 		for ( var j = 0, jLen = mainImages.length; j < jLen; j++) {
 			var mainImage = mainImages[j];
-			var imageSrc = contextPath + 'resources/uploadImage/'+ ((mainImage == null) ? '8.jpg' : mainImage);
+			var imageSrc = contextPath + 'resources/uploadImage/'+ mainImage;
+			if(nullValueCheck(imageSrc)){
+				imageSrc = contextPath + 'resources/images/jt-introduce-home-blank.png';
+			}
 			imageHtml += '<img alt="" src="' + imageSrc + '" title="'+ htmlChars(seller.name) + '"/>	';
 		}
 

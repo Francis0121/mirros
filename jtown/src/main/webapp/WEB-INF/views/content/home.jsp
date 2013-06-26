@@ -29,7 +29,7 @@
 						<li>
 							<c:choose>
 								<c:when test="${fn:length(mainImages) eq 0 }">
-									<img alt="blank" src="${cp }/resources/images/jt-introduce-home-blank.png" title="${jtownUser.name}" id="jt-seller-main-image-area"/>	
+									<img alt="blank" src="${cp }/resources/images/jt-introduce-home-blank.png" title="${jtownUser.name}"/>	
 								</c:when>
 								<c:otherwise>	
 									<c:forEach items="${mainImages }" var="mainImage">

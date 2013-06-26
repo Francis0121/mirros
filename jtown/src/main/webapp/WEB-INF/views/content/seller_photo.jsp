@@ -84,7 +84,7 @@ html{ overflow-y: hidden;}
 						</li>
 						<li>
 							<button type="button" class="jt-finish-insert-btn" id="jt-product-finish">
-								<img src="${cp }/resources/images/jt-confirm-icon.png" style="float:left; margin: 1px 7px 0 3px;"/><span style="float:left; ">입력완료</span>
+								<img alt="입력완료" src="${cp }/resources/images/jt-confirm-icon.png" style="float:left; margin: 1px 7px 0 3px;"/><span style="float:left; ">입력완료</span>
 							</button>
 						</li>
 						<li>상품 수정은 해당 상품을 클릭하시기 바랍니다.</li>

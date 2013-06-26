@@ -84,7 +84,7 @@
 					</tr>
 					<tr>
 						<th>
-							<form:label path="content">제안내용</form:label>
+							<label for="partnership_content">제안내용</label>
 						</th>
 						<td>
 							<form:textarea path="content" id="partnership_content" htmlEscape="true" maxlength="3000" cssClass="jt-partnership-textarea" cssErrorClass="jt-partnership-textarea-error" placeholder="쇼핑몰 입점을 희망하시거나, 기타 제안내용을 작성하여주세요."/>

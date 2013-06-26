@@ -6,11 +6,6 @@
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <%@ include file="../layout/home_header.jspf" %>
 <c:set var="cp" value="<%=request.getContextPath() %>"/>
-<style>
-<!--
-	.jt-content {min-height: 800px;}
--->
-</style>
 <c:set value="${fn:length(products) }" var="productSize"/>
 <article class="jt-url-content-wrap">
 	<div id="urlfolderBar">
