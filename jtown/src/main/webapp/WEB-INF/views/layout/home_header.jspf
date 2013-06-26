@@ -33,9 +33,8 @@
 	<section class="jt-body">
 		<header class="jt-header">
 			<sec:authorize access="hasRole('ROLE_USER') and !principal.confirmEmail">
-			<c:url value="/login/modifyEmailAddress" var="modifyEmailAddressUrl"/>
 			<div class="jt-header-warning-confirmEmail" >
-				<span>이메일을 인증해 주시기 바랍니다. 이메일을 받지 못하셨다면, <a href="${modifyEmailAddressUrl }" id="changeEmailAddress">이메일을 바꾸</a> 거나 <a href="#none" id="resendConfirmMail">재전송</a> 하시기 바랍니다.(스팸메일을 확인해 보시기 바랍니다.)</span>
+				<span>이메일을 인증해 주시기 바랍니다. 이메일을 받지 못하셨다면, <a href="${cp }/login/modifyEmailAddress" id="changeEmailAddress">이메일을 바꾸</a> 거나 <a href="#none" id="resendConfirmMail">재전송</a> 하시기 바랍니다.(스팸메일을 확인해 보시기 바랍니다.)</span>
 			</div>
 			</sec:authorize>
 			<div class="jt-header-title">

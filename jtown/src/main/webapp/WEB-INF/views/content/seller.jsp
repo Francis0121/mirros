@@ -73,7 +73,7 @@
 								</c:when>
 								<c:otherwise>
 									<c:forEach items="${mainImages }" var="mainImage" varStatus="loop" >
-										<c:url value="/resources/uploadImage/${mainImage }" var="image"/>
+										<c:set value="${cp }/resources/uploadImage/${mainImage }" var="image"/>
 										<img alt="" src="${image }" title="${jtownUser.name}" id="jt-seller-main-image-area"/>	
 									</c:forEach>
 								</c:otherwise>
@@ -207,7 +207,7 @@
 							<c:forEach items="${products }" var="product" varStatus="loop">
 								<div class="jt-home-expand-shop-expandProduct" id="jt-product-${productSize - loop.index }">
 									<c:set var="shopUrl" value="http://${jtownUser.shopUrl }" />
-									<a href="${product.url eq null ? shopUrl : product.url}" target="_blank"><img alt="상품" src="<c:url value="/resources/uploadImage/${product.saveName }"/>"/></a>
+									<a href="${product.url eq null ? shopUrl : product.url}" target="_blank"><img alt="상품" src="${cp }/resources/uploadImage/${product.saveName }"/></a>
 									<div class="jt-product-article-object-wrap jt-product-article-object-expand">
 										<c:choose>
 											<c:when test="${product.name eq null or product.commaPrice eq null }">
@@ -236,7 +236,7 @@
 					<ul id="jt-seller-slide-small">
 						<c:forEach items="${products }" var="product" varStatus="loop">
 							<li data-count="${productSize - loop.index }" data-ppn="${product.pn }">
-								<c:url value="/resources/uploadImage/${product.saveName }" var="image"/>
+								<c:set value="${cp }/resources/uploadImage/${product.saveName }" var="image"/>
 								<a href="#none" class="jt-product-list"><img alt="상품" src="${image }"/></a>
 							</li>
 						</c:forEach>
@@ -248,9 +248,6 @@
 						</li>
 						</c:if>
 					</ul>
-					<form action="<c:url value="/seller/dp.jt"/>" method="post" id="product" name="product">
-						<input type="hidden" id="pn" name="pn" value="pn"/>
-					</form>
 				</div>
 				<div class="jt-home-expand-shop-event" id="jt-seller-expand-event-first" data-epn="<c:out value="${event1.pn }"/>" data-bo="1">
 					<div class="question-mark-wrap" style="width: 310px;">

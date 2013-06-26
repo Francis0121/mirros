@@ -4,13 +4,14 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
-<c:url var="check" value="/cpn/${homeFilter.categoryPn }/spn/0"/>
+<c:set var="cp" value="<%=request.getContextPath() %>"/>
+<c:set var="check" value="${cp }/cpn/${homeFilter.categoryPn }/spn/0"/>
 <ul class="jt-header-nav-interestCategory">
 	<c:forEach var="interestCategory" items="${interestCategories }">
 		<c:set var="cpn" value="${interestCategory.categoryPn }"/>
 		<c:set var="interests" value="${interestMap[cpn] }"/>
 		<li class="jt-header-nav-interestCategory-li">
-			<c:url var="search" value="/cpn/${cpn }/spn/0"/>
+			<c:set var="search" value="${cp }/cpn/${cpn }/spn/0"/>
 			<c:choose>
 				<c:when test="${search eq check }">
 					<a href="${search }" class="jt-header-nav-interestCategory-realPath">
@@ -19,7 +20,7 @@
 								<span><c:out value="${interestCategory.name }"/></span>
 							</c:when>
 							<c:otherwise>
-								<c:out value="${interestCategory.name }"/>
+								<span><c:out value="${interestCategory.name }"/></span>
 <%-- 								<c:forEach var="interest" items="${interests }"> --%>
 <%-- 									<c:if test="${interest.sectionPn eq homeFilter.sectionPn }"> --%>
 <%-- 										<c:out value="${interest.name }"/>	 --%>
@@ -35,9 +36,9 @@
 			</c:choose>
 			<ul class="jt-header-nav-interest">
 				<li class="jt-header-nav-interest-li">
-				<c:url var="check" value="/cpn/${homeFilter.categoryPn }/spn/${homeFilter.sectionPn eq null ? 0 : homeFilter.sectionPn}"/>
+				<c:set var="check_sub" value="${cp }/cpn/${homeFilter.categoryPn }/spn/${homeFilter.sectionPn eq null ? 0 : homeFilter.sectionPn}"/>
 				<c:choose>
-					<c:when test="${search eq check }">
+					<c:when test="${search eq check_sub }">
 						<a href="${search }" class="jt-header-nav-interest-normal-realPath">ALL</a>
 					</c:when>
 					<c:otherwise>
@@ -48,9 +49,9 @@
 			<c:forEach var="interest" items="${interests }">
 				<c:set var="spn" value="${interest.sectionPn }"/>
 				<li class="jt-header-nav-interest-li">
-					<c:url var="search" value="/cpn/${cpn }/spn/${spn }"/>
+					<c:set var="search" value="${cp }/cpn/${cpn }/spn/${spn }"/>
 					<c:choose>
-						<c:when test="${search eq check }">
+						<c:when test="${search eq check_sub }">
 							<a class="jt-header-nav-interest-normal-realPath" href="${search }"><c:out value="${interest.name }"/></a>
 						</c:when>
 						<c:otherwise>

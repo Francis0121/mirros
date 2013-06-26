@@ -150,7 +150,7 @@
 						<th>${providerDisplayName}으로 로그인 하기</th>
 						<c:if test="${providerId eq 'twitter' }">
 						<td>
-							<form id="disconnect" action="<c:url value="/connect/twitter" />" method="post">
+							<form id="disconnect" action="${cp }/connect/twitter" method="post">
 								<input type="hidden" name="_method" value="delete" />
 								<button type="submit" class="jt-yes-btn" title="Disconnect"><span>Yes</span></button>	
 							</form>
@@ -158,7 +158,7 @@
 						</c:if>
 						<c:if test="${providerId eq 'facebook' }">
 						<td>
-							<form id="disconnect" action="<c:url value="/connect/facebook" />" method="post">
+							<form id="disconnect" action="${cp }/connect/facebook" method="post">
 								<input type="hidden" name="_method" value="delete" />
 								<button type="submit" class="jt-Yes-btn" title="Disconnect"><span class="jt-Yes-text">Yes</span><span class="jt-Yes-blank">&nbsp;</span></button>	
 							</form>
@@ -170,7 +170,7 @@
 						<td>
 							<sec:authentication var="feedBool" property="principal.facebookFeed"/>
 							<c:set var="feedValue" value="${feedBool eq true ? 'Yes' : 'No' }"/>
-							<form action="<c:url value="/login/modifyFacebookFeed.jt"/>"	method="POST">
+							<form action="${cp }/login/modifyFacebookFeed.jt" method="POST">
 								<button type="submit" class="jt-${feedValue }-btn" id="jt-modiy-facebookFeed" title="${feedValue }"><span class="jt-${feedValue }-text">${feedValue }</span><span class="jt-${feedValue }-blank">&nbsp;</span></button>
 							</form>	
 						</td>
@@ -181,7 +181,7 @@
 					<tr>
 						<th>Twitter로 로그인 하기</th>
 						<td>
-							<form action="<c:url value="/connect/twitter" />" method="POST">
+							<form action="${cp }/connect/twitter" method="POST">
 								<button type="submit" class="jt-No-btn"><span class="jt-No-text">No</span><span class="jt-No-blank">&nbsp;</span></button>
 							</form>
 						</td>
@@ -191,7 +191,7 @@
 					<tr>
 						<th>Facebook으로 로그인 하기</th>
 						<td>
-						<form action="<c:url value="/connect/facebook" />" method="POST">
+						<form action="${cp }/connect/facebook" method="POST">
 							<input type="hidden" name="scope" value="publish_stream,offline_access,email,user_birthday,user_likes" />
 							<button type="submit" class="jt-No-btn"><span class="jt-No-text">No</span><span class="jt-No-blank">&nbsp;</span></button>
 						</form>

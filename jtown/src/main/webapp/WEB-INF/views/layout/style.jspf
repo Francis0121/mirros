@@ -7,7 +7,7 @@
 <link rel="image_src" href="${cp }/resources/images/logo_mirros.png" />
 </c:if>
 <c:set var="facebookRealPath" value='<%=request.getAttribute("javax.servlet.forward.request_uri")%>'/>
-<c:url var="facebookNowPath" value="/mir/${facebookSellerPn }"/>
+<c:set var="facebookNowPath" value="${cp }/mir/${facebookSellerPn }"/>
 <c:if test="${facebookRealPath eq facebookNowPath }">
 <c:forEach items="${mainImages }" var="mainImage" varStatus="loop" >
 	<meta property="og:image" content="https://www.mirros.net/resources/uploadImage/${mainImage }"/>

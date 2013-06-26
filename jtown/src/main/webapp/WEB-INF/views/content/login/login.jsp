@@ -5,10 +5,10 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <%@ include file="../../layout/none_header.jspf" %>
+<c:set var="cp" value="<%=request.getContextPath() %>"/>
 <section id="jt-login-form-page">
-	<sec:authorize access="anonymous">	
-			<c:url value="/j_spring_security_check" var="loginUrl"/>
-			<form action="${loginUrl }" method="post" name="jtown-login-form">
+	<sec:authorize access="anonymous">
+		<form action="${cp }/j_spring_security_check" method="post" name="jtown-login-form">
 			<table class="jt-login-form-table-page">
 				<thead>
 					<tr>
@@ -34,8 +34,7 @@
 					</tr>
 					<tr>
 						<td colspan="2">
-							<c:url var="findPasswordUrl" value="/login/findPassword"/>
-							<input id="j_password_page" name="j_password" size="20" maxlength="50" type="password" class="jt-login-form-table-password"  placeholder="Password"/><button type="button" onclick="location.href='${findPasswordUrl}'" title="비밀번호를&nbsp;잊으셨나요?" class="jt-login-findPassword">?</button>
+							<input id="j_password_page" name="j_password" size="20" maxlength="50" type="password" class="jt-login-form-table-password"  placeholder="Password"/><button type="button" onclick="location.href='${cp}/login/findPassword'" title="비밀번호를&nbsp;잊으셨나요?" class="jt-login-findPassword">?</button>
 						</td>
 					</tr>
 				</tbody>
@@ -44,14 +43,13 @@
 			<ul class="jt-login-sign-wrap" >
 				<li>
 					<!-- FACEBOOK login -->
-					<form action="<c:url value="/signin/facebook" />" method="POST">
+					<form action="${cp }/signin/facebook" method="POST">
 						<input type="hidden" name="scope" value="publish_stream,offline_access,email,user_birthday,user_likes" />
 				    	<button class="jt-btn-fbLogin" type="submit"><span class="loginImage"></span><span class="loginText">페이스북으로&nbsp;로그인</span></button>
 					</form>							
 				</li>
 				<li>
-					<c:url value="/login/join" var="joinUrl"/>
-					<button class="jt-btn-orange jt-btn-emailLogin" onclick="location.href='${joinUrl }'" type="button"><span class="loginImage"></span><span class="loginText">이메일로&nbsp;간편&nbsp;가입</span></button>
+					<button class="jt-btn-orange jt-btn-emailLogin" onclick="location.href='${cp }/login/join'" type="button"><span class="loginImage"></span><span class="loginText">이메일로&nbsp;간편&nbsp;가입</span></button>
 				</li>
 			</ul>
 			<div class="jt-login-message-box">

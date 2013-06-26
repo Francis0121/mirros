@@ -24,7 +24,7 @@
 		});
 		
 		$('#jt-home-container').scrollPagination({
-			'contentPage'	: '<c:url value="/ajax/homePagination.jt"/>',
+			'contentPage'	: contextPath + 'ajax/homePagination.jt',
 			'contentData'	: { 	'categoryPn'	: 	Number('<c:out value="${homeFilter.categoryPn eq null ? 0 : homeFilter.categoryPn}"/>'),
 									'sectionPn'		: 	Number('<c:out value="${homeFilter.sectionPn eq null ? 0 : homeFilter.sectionPn}"/>')	},
 			'scrollTarget'	: $(window),

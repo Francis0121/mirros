@@ -4,22 +4,23 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
-<c:set var="realPath" value='<%=request.getAttribute("javax.servlet.forward.request_uri")%>'/>
+<c:set var="cp" value="<%=request.getContextPath() %>"/>
+<c:set var="rp" value='<%=request.getAttribute("javax.servlet.forward.request_uri")%>'/>
 <ul class="jt-header-nav-interestCategory-help">
 	<li class="jt-header-nav-interestCategory-li">
-		<c:url var="partnership" value="/help/partnership"/>
-		<a href="${partnership }" class="<c:out value="${realPath eq partnership ? 'jt-header-nav-interestCategory-realPath' : 'jt-header-nav-interestCategory-normal'}"/>"><span>Business</span></a>
+		<c:set var="partnership" value="${cp }/help/partnership"/>
+		<a href="${partnership }" class="<c:out value="${rp eq partnership ? 'jt-header-nav-interestCategory-realPath' : 'jt-header-nav-interestCategory-normal'}"/>"><span>Business</span></a>
 	</li>
 	<li class="jt-header-nav-interestCategory-li">
-		<c:url var="serviceGuide" value="/help/serviceGuide"/>
-		<a href="${serviceGuide }" class="<c:out value="${realPath eq serviceGuide ? 'jt-header-nav-interestCategory-realPath' : 'jt-header-nav-interestCategory-normal'}"/>"><span>About US</span></a>
+		<c:set var="serviceGuide" value="${cp }/help/serviceGuide"/>
+		<a href="${serviceGuide }" class="<c:out value="${rp eq serviceGuide ? 'jt-header-nav-interestCategory-realPath' : 'jt-header-nav-interestCategory-normal'}"/>"><span>About US</span></a>
 	</li>
 	<li class="jt-header-nav-interestCategory-li">
-		<c:url var="notice" value="/help/notice"/>
-		<a href="${notice }" class="<c:out value="${realPath eq notice ? 'jt-header-nav-interestCategory-realPath' : 'jt-header-nav-interestCategory-normal'}"/>"><span>Notice</span></a>
+		<c:set var="notice" value="${cp }/help/notice"/>
+		<a href="${notice }" class="<c:out value="${rp eq notice ? 'jt-header-nav-interestCategory-realPath' : 'jt-header-nav-interestCategory-normal'}"/>"><span>Notice</span></a>
 	</li>
 	<li class="jt-header-nav-interestCategory-li">
-		<c:url var="question" value="/help/question"/>
-		<a href="${question }" class="<c:out value="${realPath eq question ? 'jt-header-nav-interestCategory-realPath' : 'jt-header-nav-interestCategory-normal'}"/>"><span>FAQ</span></a>
+		<c:set var="question" value="${cp }/help/question"/>
+		<a href="${question }" class="<c:out value="${rp eq question ? 'jt-header-nav-interestCategory-realPath' : 'jt-header-nav-interestCategory-normal'}"/>"><span>FAQ</span></a>
 	</li>
 </ul>

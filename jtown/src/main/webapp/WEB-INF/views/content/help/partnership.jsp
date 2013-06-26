@@ -5,7 +5,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <%@ include file="../../layout/help_header.jspf" %>
-<c:url value="/help/partnership.jt" var="action"/>
+<c:set var="cp" value="<%=request.getContextPath() %>"/>
 <section class="jt-partnership-section">
 	
 	<header class="jt-partnership-header">
@@ -18,7 +18,7 @@
 	</header>
 	
 	<article class="jt-partnership-article">
-		<form:form commandName="partnership" htmlEscape="true" method="post" action="${action }">
+		<form:form commandName="partnership" htmlEscape="true" method="post" action="${cp }/help/partnership.jt">
 			<table class="jt-partnership-article-table">
 				<tbody>
 					<tr>

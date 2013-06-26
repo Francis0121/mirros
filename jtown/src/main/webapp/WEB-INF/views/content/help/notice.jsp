@@ -33,8 +33,7 @@ function goToPreviousPages() {
 </script>
 <section class="jt-help-notice-wrap">
 
-<c:url value="/help/notice" var="noticeUrl"/>
-<form:form commandName="boardFilter" action="${noticeUrl }" method="get">
+<form:form commandName="boardFilter" action="${cp }/help/notice" method="get">
 	<form:hidden path="page" value="${pagination.currentPage}"/>
 </form:form>
 <table class="jt-help-notice-table">
@@ -79,8 +78,7 @@ function goToPreviousPages() {
 		<c:forEach items="${noticeList }" var="notice" varStatus="i">
 			<tr class="jt-help-notice-content-tr">
 				<td><c:out value="${pagination.numItems - (pagination.currentPage - 1)* 10-i.count+1}"/></td>
-				<c:url value="/help/notice/content?pn=${notice.pn }&amp;page=${pagination.currentPage}" var="noticeUrl"/>
-				<td><a href="${noticeUrl }" class="jt-help-notice-content-title-a"><c:out value="${notice.title }"/></a></td>
+				<td><a href="${cp }/help/notice/content?pn=${notice.pn }&amp;page=${pagination.currentPage}" class="jt-help-notice-content-title-a"><c:out value="${notice.title }"/></a></td>
 				<td><c:out value="${fn:substring(notice.inputDate, 0, 19) }"/></td>
 				<td><c:out value="${notice.readCount eq null ? 0 : notice.readCount}"/></td>
 			</tr>

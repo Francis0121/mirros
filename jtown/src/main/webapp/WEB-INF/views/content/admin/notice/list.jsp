@@ -33,15 +33,13 @@ function goToPreviousPages() {
 </script>
 
 <section class="jt-admin-notice-section">
-<c:url value="/admin/notice" var="noticeUrl"/>
-<form:form commandName="boardFilter" action="${noticeUrl }" method="get">
+<form:form commandName="boardFilter" action="${cp }/admin/notice" method="get">
 	<form:hidden path="page" value="${pagination.currentPage}"/>
 </form:form>
 
 <ul class="jt-admin-notice-tool">
 	<li>
-		<c:url value="/admin/noticeWrite" var="write" />
-		<a href="${write }" class="jt-btn-white-small jt-admin-notice-tool-write">
+		<a href="${cp }/admin/noticeWrite" class="jt-btn-white-small jt-admin-notice-tool-write">
 			<span class="btnImage"></span>
 			<span class="btnText">작성</span>
 		</a>

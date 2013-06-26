@@ -4,6 +4,7 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
+<c:set var="cp" value="<%=request.getContextPath() %>"/>
 <div class="jt-header-search">
 	<input type="text" class="jt-header-search-input" id="jt-naturalLanguage-search" placeholder="어떤 쇼핑몰을 찾으시나요?"/>
 </div>
@@ -16,23 +17,19 @@
 			<a href="#none" class="jt-common-a-base"><sec:authentication property="principal.name" />&nbsp;<span class="jt-btn-underArrow">▼</span></a>
 			<ul class="jt-under-wrap" id="jt-mypage-wrap">
 				<li>
-					<c:url value="/login/modify" var="modifyUrl"/>
-					<a href="${modifyUrl }" class="jt-common-a-base" id="jt-modify">계정 설정</a>
+					<a href="${cp }/login/modify" class="jt-common-a-base" id="jt-modify">계정 설정</a>
 				</li>
 				<li>
-					<c:url value="/login/logout" var="logoutUrl"/>
-					<a href="${logoutUrl }" class="jt-common-a-base" id="jt-logout" data-cpn="<sec:authentication property="principal.pn" />">로그아웃</a>
+					<a href="${cp }/login/logout" class="jt-common-a-base" id="jt-logout" data-cpn="<sec:authentication property="principal.pn" />">로그아웃</a>
 				</li>
 				<sec:authorize access="hasRole('ROLE_SELLER')">
 				<li>
-					<c:url value="/seller" var="sellerUrl"/>
-					<a href="${sellerUrl }/<sec:authentication property="principal.pn" />" class="jt-common-a-base">판매자 페이지</a>
+					<a href="${cp }/seller/<sec:authentication property="principal.pn" />" class="jt-common-a-base">판매자 페이지</a>
 				</li>	
 				</sec:authorize>
 				<sec:authorize access="hasRole('ROLE_ADMIN')">
 				<li>
-					<c:url value="/admin" var="adminUrl"/>
-					<a href="${adminUrl }" class="jt-common-a-base">관리자 페이지</a>
+					<a href="${cp }/admin" class="jt-common-a-base">관리자 페이지</a>
 				</li>	
 				</sec:authorize>	
 			</ul>
@@ -43,28 +40,23 @@
 			<a href="#none" class="jt-common-a-base" id="jt-login-smartPopup">LOG IN</a>
 		</li>
 		<li>
-			<c:url var="joinUrl" value="/login/join"/>
-			<a href="${joinUrl }" class="jt-common-a-base">SIGN UP</a>
+			<a href="${cp }/login/join" class="jt-common-a-base">SIGN UP</a>
 		</li>
 	</sec:authorize>
 	<li id="jt-help">
-		<c:url var="questionUrl" value="/help/question"/>
-		<a href="${questionUrl }" class="jt-common-a-base">HELP&nbsp;<span class="jt-btn-underArrow">▼</span></a>
+		<a href="${cp }/help/question" class="jt-common-a-base">HELP&nbsp;<span class="jt-btn-underArrow">▼</span></a>
 		<ul class="jt-help-under-wrap" id="jt-help-wrap">
 			<li>
-				<c:url var="partnershipUrl" value="/help/partnership"/>
-				<a href="${partnershipUrl }" class="jt-common-a-base">Business</a>
+				<a href="${cp }/help/partnership" class="jt-common-a-base">Business</a>
 			</li>
 			<li>
-				<c:url var="serviceGuideUrl" value="/help/serviceGuide"/>
-				<a href="${serviceGuideUrl }" class="jt-common-a-base">About US</a>
+				<a href="${cp }/help/serviceGuide" class="jt-common-a-base">About US</a>
 			</li>
 			<li>
-				<c:url var="noticeUrl" value="/help/notice"/>
-				<a href="${noticeUrl }" class="jt-common-a-base">Notice</a>
+				<a href="${cp }/help/notice" class="jt-common-a-base">Notice</a>
 			</li>
 			<li>
-				<a href="${questionUrl }" class="jt-common-a-base">FAQ</a>
+				<a href="${cp }/help/question" class="jt-common-a-base">FAQ</a>
 			</li>
 		</ul>
 	</li>

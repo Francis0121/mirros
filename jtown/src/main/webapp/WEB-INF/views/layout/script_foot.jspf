@@ -78,15 +78,15 @@
 	<%--F5, CTRL + N, CTRL + R 시에는 result 메시지 안뜨도록 설정 --%>
 	<c:if test="${result eq 1 }">
 		<c:set var="alertText" value="접수 되었습니다."/>
-		<c:url value="/help/partnership" var="pageUrl"/>
+		<c:set value="${cp }/help/partnership" var="pageUrl"/>
 	</c:if>
 	<c:if test="${result eq 2 }">
 		<c:set var="alertText" value="변경 되었습니다."/>
-		<c:url value="/login/modify" var="pageUrl"/>
+		<c:set value="${cp }/login/modify" var="pageUrl"/>
 	</c:if>
 	<c:if test="${result eq 3 }">
 		<c:set var="alertText" value="이메일이 변경 되었습니다."/>
-		<c:url value="/login/modifyEmailAddress" var="pageUrl"/>
+		<c:set value="${cp }/login/modifyEmailAddress" var="pageUrl"/>
 	</c:if>
 	<c:if test="${result eq 4 }">
 		<c:set var="alertText" value="임시 비밀번호를 전송 하였습니다."/>

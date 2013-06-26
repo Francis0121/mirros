@@ -23,7 +23,7 @@
 						</c:when>
 						<c:otherwise>
 							<c:forEach items="${mainImages }" var="mainImage" varStatus="loop" >
-								<c:url value="/resources/uploadImage/${mainImage }" var="image"/>
+								<c:set value="${cp }/resources/uploadImage/${mainImage }" var="image"/>
 								<img alt="" src="${image }" id="jt-seller-main-image-area"/>	
 							</c:forEach>
 						</c:otherwise>
@@ -75,7 +75,7 @@
 							<c:forEach items="${products }" var="product" varStatus="loop">
 								<div class="jt-home-expand-shop-expandProduct" id="jt-product-${productSize - loop.index }">
 									<c:set var="shopUrl" value="http://${jtownUser.shopUrl }" />
-									<a href="${product.url eq null ? shopUrl : product.url}" target="_blank"  onclick="jtown.home.clickShop('${jtownUser.pn }');"><img alt="상품" src="<c:url value="/resources/uploadImage/${product.saveName }"/>"/></a>
+									<a href="${product.url eq null ? shopUrl : product.url}" target="_blank"  onclick="jtown.home.clickShop('${jtownUser.pn }');"><img alt="상품" src="${cp }/resources/uploadImage/${product.saveName }"/></a>
 									<div class="jt-product-article-object-wrap jt-product-article-object-expand">
 										<c:choose>
 											<c:when test="${product.name eq null or product.commaPrice eq null }">
@@ -103,14 +103,11 @@
 					<ul id="jt-seller-slide-small">
 						<c:forEach items="${products }" var="product" varStatus="loop">
 							<li data-count="${productSize - loop.index }" data-ppn="${product.pn }">
-								<c:url value="/resources/uploadImage/${product.saveName }" var="image"/>
+								<c:set value="${cp }/resources/uploadImage/${product.saveName }" var="image"/>
 								<a href="#none" class="jt-product-list"><img alt="상품" src="${image }"/></a>
 							</li>
 						</c:forEach>
 					</ul>
-					<form action="<c:url value="/seller/dp.jt"/>" method="post" id="product" name="product">
-						<input type="hidden" id="pn" name="pn" value="pn"/>
-					</form>
 				</div>
 				<div class="jt-home-expand-shop-event gotoPage" id="jt-seller-expand-event-first" title="클릭시 해당 쇼핑몰로 이동됩니다." data-epn="<c:out value="${event1.pn }"/>" data-bo="1">
 					<c:if test="${jtownUser.bannerFirst < 8 }">
