@@ -143,7 +143,6 @@ Mirros의 탄탄한 운영을 위해 활용할 예정입니다.
 				</ul>
 			</li>
 		</ul>
-	</section>
-	<c:url value="/resources/images/jt-about-us.png" var="aboutUsImageUrl"/>	
+	</section>	
 </div>
 <%@ include file="../../layout/help_footer.jspf" %>
