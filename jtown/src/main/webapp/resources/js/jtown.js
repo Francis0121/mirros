@@ -155,7 +155,7 @@ jtown.home.clickLove = function(spn) {
 jtown.home.html = function(data) {
 	var jtownUsers = data.jtownUsers;
 	var images = data.images;
-
+	
 	var html = '';
 	for ( var i = 0, len = jtownUsers.length; i < len; i++) {
 		var seller = jtownUsers[i], spn = seller.pn, mainImages = images[spn];
@@ -180,6 +180,14 @@ jtown.home.html = function(data) {
 		var loveHotCount = '<span class="jt-home-shop-love-hot">HOT</span>';
 		if (nullValueCheck(seller.loveHotCount)  || seller.loveHotCount == 0 ) {
 			loveHotCount = '';
+		}
+		
+		var browser = $.browser;
+		var msieHtml = '';
+		if(browser.msie){
+			if(browser.version == '7.0' || browser.version =='8.0' ){
+				msieHtml = '<div class="jt-home-shop-image-footer"></div>';
+			}
 		}
 
 		html += '	<div class="jt-home-shop" id="jt-home-shop-' + spn + '"  data-spn="' + spn + '">';
@@ -223,6 +231,7 @@ jtown.home.html = function(data) {
 		html += '			</div>';
 		html += '			</li>';
 		html += '		</ul>';
+		html += '		'+msieHtml;
 		html += '	</div>';
 	}
 	return html;

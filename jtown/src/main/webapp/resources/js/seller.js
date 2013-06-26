@@ -192,7 +192,7 @@ jtown.seller.markIntro = function(){
 
 jtown.seller.syncProduct = function() {
 	$('.jt-home-expand-shop-expandProduct').unbind('mouseover mouseout');
-	$('.jt-home-expand-shop-expandProduct').bind('mouseover mouseout', function(){
+	$('.jt-home-expand-shop-expandProduct').bind('mouseover mouseout', function(event){
 		if(event.type =='mouseover'){
 			$(this).find('.jt-product-article-object-wrap').show();
 		}else if(event.type == 'mouseout'){

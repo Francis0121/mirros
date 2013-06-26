@@ -19,7 +19,7 @@
 				<li>
 					<c:choose>
 						<c:when test="${fn:length(mainImages) eq 0 }">
-							<img alt="blank" src="${cp }/resources/images/jt-introduce-user-blank.png" title="${jtownUser.name}" id="jt-seller-main-image-area"/>	
+							<img alt="blank" src="${cp }/resources/images/jt-introduce-user-blank.png" title="${jtownUser.name}" />	
 						</c:when>
 						<c:otherwise>
 							<c:forEach items="${mainImages }" var="mainImage" varStatus="loop" >
@@ -57,7 +57,7 @@
 		</section>
 		<section class="jt-seller-expand">
 			<div class="jt-home-expand-shop" id="jt-home-expand-shop" data-name="<c:out value="${jtownUser.name }"/>" data-spn="${jtownUser.pn }" data-size="${productSize }" data-nowPosition="${productSize}" data-url="${jtownUser.shopUrl }">
-				<div id="jt-home-expand-shop-notice"  class="gotoPage" title="클릭시 해당 쇼핑몰로 이동됩니다.">
+				<div id="jt-home-expand-shop-notice" class="gotoPage" title="클릭시 해당 쇼핑몰로 이동됩니다.">
 					<span class="jt-home-expand-shop-firstQuotationMark"></span>
 					<pre id="jt-seller-expand-shop-text" class="jt-home-expand-shop-text"><c:out value="${jtownUser.longNotice}"/></pre>
 					<textarea id="jt-seller-expand-textarea" class="jt-seller-expand-textarea" maxlength="200"><c:out value="${jtownUser.longNotice}"/></textarea>
@@ -247,7 +247,7 @@
 											<input type="text" id="jt-comment-insert" placeholder="이 쇼핑몰에 대한 한마디를 남겨주세요. 상품 배송문의는 해당 쇼핑몰 고객센터로 남겨주세요." maxlength="100"/>
 										</c:when>
 										<c:otherwise>
-											<textarea id="jt-comment-insert" readonly="readonly" placeholder="판매자 아이디로는 이용하실 수 없습니다."/>
+											<input id="jt-comment-insert" readonly="readonly" placeholder="판매자 아이디로는 이용하실 수 없습니다."/>
 										</c:otherwise>
 									</c:choose>
 								</c:otherwise>

@@ -137,9 +137,9 @@ html{ overflow-y: hidden;}
 <script type="text/javascript">
 /* <![CDATA[ */ 
 	$(function(){
-		$('#name').placeholder();
-		$('#price').placeholder();
-		$('#url').placeholder();
+		$('#product #name').placeholder();
+		$('#product #price').placeholder();
+		$('#product #url').placeholder();
 	}); 
 	
 	$(window).unload(function(event){
