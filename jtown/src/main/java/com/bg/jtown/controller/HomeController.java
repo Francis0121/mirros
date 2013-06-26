@@ -83,19 +83,12 @@ public class HomeController {
 
 	@RequestMapping(value = "/mir/{sellerPn}", method = RequestMethod.GET)
 	public String showSellerPage(Model model, @PathVariable Integer sellerPn,
-			HttpSession session, SummaryUser summaryUser) {
-		if (session.getAttribute("interestCategories") == null) {
-			session.setAttribute("interestCategories",
-					homeService.selecInterestCategory());
-		}
-		if (session.getAttribute("interestMap") == null) {
-			session.setAttribute("interestMap",
-					homeService.selectInterest(null));
-		}
-		model.addAllAttributes(sellerService.selectAllInformation(sellerPn,
-				summaryUser.getPn()));
-		model.addAttribute("intervalCount",
-				sellerService.selectInterval7DayCount(sellerPn));
+			SummaryUser summaryUser) {
+		model.addAttribute("interestCategories",homeService.selecInterestCategory());
+		model.addAttribute("interestMap", homeService.selectInterest(null));
+		
+		model.addAllAttributes(sellerService.selectAllInformation(sellerPn, summaryUser.getPn()));
+		model.addAttribute("intervalCount", sellerService.selectInterval7DayCount(sellerPn));
 		model.addAttribute("facebookSellerPn", sellerPn);
 		return "mir";
 	}
@@ -110,14 +103,8 @@ public class HomeController {
 
 	private void getHomeModel(Model model, HttpSession session,
 			HomeFilter homeFilter, SummaryUser summaryUser) {
-		if (session.getAttribute("interestCategories") == null) {
-			session.setAttribute("interestCategories",
-					homeService.selecInterestCategory());
-		}
-		if (session.getAttribute("interestMap") == null) {
-			session.setAttribute("interestMap",
-					homeService.selectInterest(null));
-		}
+		model.addAttribute("interestCategories",homeService.selecInterestCategory());
+		model.addAttribute("interestMap", homeService.selectInterest(null));
 
 		List<Integer> randomPage = homeService.makeRandomCount(homeFilter);
 		session.setAttribute("randomPage", randomPage);
