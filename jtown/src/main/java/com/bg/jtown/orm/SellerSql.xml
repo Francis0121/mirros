@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="sellerMapper">
 
-	<resultMap type="com.bg.jtown.security.JtownUser" id="jtown-seller-map">
+	<resultMap type="JtownUser" id="jtown-seller-map">
 		<result column="pn" property="pn"/>
 		<result column="id" property="username"/>
 		<result column="name" property="name"/>
@@ -19,7 +19,7 @@
 		<result column="customer_pn" property="customerPn"/>
 	</resultMap>
 
-	<select id="selectSellerInformation" parameterType="java.util.HashMap" resultMap="jtown-seller-map">
+	<select id="selectSellerInformation" parameterType="HashMap" resultMap="jtown-seller-map">
 		SELECT
 			us.pn, u.id, u.name, us.shop_url, us.shop_pn, us.notice, us.long_notice, cvsp.view_count, clsp.love_count, ccsp.comment_count, bdl.banner_first, bdl.banner_second,
 			us.hot AS love_hot_count
@@ -47,7 +47,7 @@
 	</select>
 	
 	<!-- 해결해야될 쿼리 -->
-	<resultMap type="com.bg.jtown.business.Json" id="interval-7day-map">
+	<resultMap type="Json" id="interval-7day-map">
 		<result column="name" property="value"/>
 		<result column="count" property="key"/>
 	</resultMap>
@@ -87,7 +87,7 @@
 	
 	<!-- Seller Image -->
 	
-	<select id="selectSellerImage" parameterType="java.lang.Integer" resultType="java.lang.String">
+	<select id="selectSellerImage" parameterType="Integer" resultType="String">
 		SELECT
 			usin.save_name
 		FROM
@@ -98,7 +98,7 @@
 		</if>	
 	</select>
 	
-	<select id="selectSellerImageOne" parameterType="java.lang.Integer" resultType="java.lang.String">
+	<select id="selectSellerImageOne" parameterType="Integer" resultType="String">
 		SELECT
 			usin.save_name
 		FROM
@@ -113,7 +113,7 @@
 		</if>	
 	</select>
 	
-	<select id="selectSellerImageCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+	<select id="selectSellerImageCount" parameterType="Integer" resultType="Integer">
 		SELECT
 			COUNT(*)
 		FROM
@@ -124,7 +124,7 @@
 		</if>
 	</select>
 	
-	<insert id="insertSellerImage" parameterType="com.bg.jtown.util.FileVO">
+	<insert id="insertSellerImage" parameterType="File">
 		INSERT INTO
 			user_seller_image
 			(	seller_pn, image_pn, image_order	)
@@ -132,7 +132,7 @@
 			(	#{ownerPn}, #{imagePn}, 1	)
 	</insert>
 	
-	<update id="updateSellerImage" parameterType="com.bg.jtown.util.FileVO">
+	<update id="updateSellerImage" parameterType="File">
 		UPDATE 
 			user_seller_image
 		SET
@@ -143,7 +143,7 @@
 			image_order = 1
 	</update>
 	
-	<delete id="deleteSellerImage" parameterType="java.lang.Integer">
+	<delete id="deleteSellerImage" parameterType="Integer">
 		DELETE FROM
 			user_seller_image
 		<if test="properNumber != null">
@@ -154,7 +154,7 @@
 	
 	<!-- Notice -->
 	
-	<update id="updateSellerNotice" parameterType="com.bg.jtown.security.JtownUser">
+	<update id="updateSellerNotice" parameterType="JtownUser">
 		UPDATE
 			user_seller
 		SET
@@ -163,7 +163,7 @@
 			pn = #{pn}
 	</update>
 	
-	<update id="updateSellerLongNotice" parameterType="com.bg.jtown.security.JtownUser">
+	<update id="updateSellerLongNotice" parameterType="JtownUser">
 		UPDATE
 			user_seller
 		SET
@@ -174,7 +174,7 @@
 	
 	<!-- Event -->
 	
-	<resultMap type="com.bg.jtown.business.Event" id="jtown-event-map">
+	<resultMap type="Event" id="jtown-event-map">
 		<result column="pn" property="pn"/>
 		<result column="seller_pn" property="sellerPn"/>
 		<result column="banner_type" property="bannerType"/>
@@ -184,7 +184,7 @@
 		<result column="save_name" property="saveName"/>
 	</resultMap>
 	
-	<select id="selectEventList" parameterType="java.lang.Integer" resultMap="jtown-event-map">
+	<select id="selectEventList" parameterType="Integer" resultMap="jtown-event-map">
 		SELECT
 			usb.pn, usb.seller_pn, usb.banner_type, usb.image_pn, usb.content, usb.banner_order,
 			i.save_name
@@ -197,7 +197,7 @@
 		ORDER BY usb.banner_order
 	</select>
 	
-	<select id="selectEventOne" parameterType="java.lang.Integer" resultType="com.bg.jtown.business.Event">
+	<select id="selectEventOne" parameterType="Integer" resultType="Event">
 		SELECT
 			pn, seller_pn AS sellerPn, banner_type AS bannerType,
 			image_pn AS imagePn, content, banner_order AS bannerOrder
@@ -207,7 +207,7 @@
 			pn = #{eventPn}
 	</select>
 	
-	<select id="selectEventCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+	<select id="selectEventCount" parameterType="Integer" resultType="Integer">
 		SELECT
 			COUNT(pn)
 		FROM
@@ -216,7 +216,7 @@
 			seller_pn = #{userPn}
 	</select>
 		
-	<delete id="deleteEvent" parameterType="com.bg.jtown.business.Event">
+	<delete id="deleteEvent" parameterType="Event">
 		DELETE FROM
 			user_seller_banner
 		<if test="pn != null">
@@ -227,7 +227,7 @@
 		</if>
 	</delete>
 	
-	<insert id="insertSellerEvent" parameterType="com.bg.jtown.business.Event">
+	<insert id="insertSellerEvent" parameterType="Event">
 		INSERT INTO
 			user_seller_banner
 			(	seller_pn, banner_type, image_pn, content, banner_order, input_date)
@@ -238,7 +238,7 @@
 		</selectKey>	
 	</insert>
 	
-	<update id="updateSellerEvent" parameterType="com.bg.jtown.business.Event">
+	<update id="updateSellerEvent" parameterType="Event">
 		UPDATE
 			user_seller_banner
 		SET
@@ -254,7 +254,7 @@
 
 	<!-- Interest -->
 
-	<select id="selectSellerInterest" parameterType="java.lang.Integer" resultType="java.lang.String">
+	<select id="selectSellerInterest" parameterType="Integer" resultType="String">
 		SELECT
 			ise.name
 		FROM
@@ -352,7 +352,7 @@
 
 	<!-- LoveCount -->
 
-	<select id="selectLoveCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+	<select id="selectLoveCount" parameterType="Integer" resultType="Integer">
 		SELECT
 			COUNT(*)
 		FROM	

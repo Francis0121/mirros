@@ -23,7 +23,7 @@
 		]]>
 	</sql>
 
-	<resultMap type="com.bg.jtown.security.JtownUser" id="jtown-seller-map">
+	<resultMap type="JtownUser" id="jtown-seller-map">
 		<result column="pn" property="pn"/>
 		<result column="name" property="name"/>
 		<result column="shop_url" property="shopUrl"/>
@@ -33,10 +33,12 @@
 		<result column="comment_count" property="commentCount"/>
 		<result column="banner_first" property="bannerFirst"/>
 		<result column="banner_second" property="bannerSecond"/>
-		<collection property="images" column="pn" javaType="java.util.ArrayList" select="selectSellerImage" ofType="java.lang.String"/>
+		<result column="customer_pn" property="customerPn"/>
+		<result column="love_hot_count" property="loveHotCount"/>
+		<collection property="images" column="pn" javaType="ArrayList" select="selectSellerImage" ofType="String"/>
 	</resultMap>
 	
-	<select id="selectSellerImage" parameterType="java.lang.Integer" resultType="java.lang.String">
+	<select id="selectSellerImage" parameterType="Integer" resultType="String">
 		SELECT
 			usin.save_name
 		FROM
@@ -45,18 +47,22 @@
 			usin.seller_pn = #{properNumber}
 	</select>
 
-	<select id="selectFromInterestCategoryCount" parameterType="com.bg.jtown.business.search.HomeFilter" resultType="java.lang.Integer">
+	<select id="selectFromInterestCategoryCount" parameterType="HomeFilter" resultType="Integer">
 		SELECT
 			COUNT(*)
 		FROM	(
 				SELECT
 					us.pn
 				FROM
-					user_seller us,
+					user_seller us
+					LEFT OUTER JOIN users u
+					ON us.pn = u.pn,
 					user_seller_interest usi,
 					interest_section ise,
 					interest_category ic
 				WHERE
+					u.enable = 1
+				AND
 					us.pn = usi.seller_pn
 				AND
 					usi.section_pn = ise.pn
@@ -69,11 +75,15 @@
 			) t
 	</select>
 
-	<select id="selectFromInterestCategory" parameterType="com.bg.jtown.business.search.HomeFilter" resultMap="jtown-seller-map">
+	<select id="selectFromInterestCategory" parameterType="HomeFilter" resultMap="jtown-seller-map">
 		<include refid="paginationBefore"/>
 		SELECT
 			us.pn , u.name, us.shop_url, us.notice, 
-			cvsp.view_count, clsp.love_count, ccsp.comment_count, bdl.banner_first, bdl.banner_second
+			cvsp.view_count, clsp.love_count, ccsp.comment_count, bdl.banner_first, bdl.banner_second,
+			us.hot AS love_hot_count
+			<if test="customerPn != null">
+			, cl.customer_pn
+			</if>
 		FROM
 			user_seller us 
 			LEFT OUTER JOIN users u
@@ -85,12 +95,23 @@
 			LEFT OUTER JOIN banner_diff_least bdl
 			ON us.pn = bdl.seller_pn
 			LEFT OUTER JOIN count_view_seller_pn cvsp
-			ON us.pn = cvsp.seller_pn,
+			ON us.pn = cvsp.seller_pn
+			<if test="customerPn != null">
+			LEFT OUTER JOIN count_love cl
+			ON us.pn = cl.seller_pn AND cl.customer_pn = #{customerPn}
+			</if>,
 			user_seller_interest usi,
+			user_seller_contract_info usci,
 			interest_section ise,
 			interest_category ic
 		WHERE
+			u.enable = 1
+		AND
 			us.pn = usi.seller_pn
+		AND
+			us.pn = usci.seller_pn
+		AND
+			DATE_FORMAT(SYSDATE(), '%Y-%m-%d') BETWEEN usci.start_date AND usci.end_date
 		AND
 			usi.section_pn = ise.pn
 		AND
@@ -104,15 +125,19 @@
 		<include refid="paginationAfter"/>
 	</select>
 	
-	<select id="selectFromInterestCount" parameterType="com.bg.jtown.business.search.HomeFilter" resultType="java.lang.Integer">
+	<select id="selectFromInterestCount" parameterType="HomeFilter" resultType="Integer">
 		SELECT
 			COUNT(*)
 		FROM
-			user_seller us,
+			user_seller us
+			LEFT OUTER JOIN users u
+			ON us.pn = u.pn,
 			user_seller_interest usi,
 			interest_section ise,
 			interest_category ic
 		WHERE
+			u.enable = 1
+		AND
 			us.pn = usi.seller_pn
 		AND
 			usi.section_pn = ise.pn
@@ -124,11 +149,15 @@
 			us.pn
 	</select>
 	
-	<select id="selectFromInterest" parameterType="com.bg.jtown.business.search.HomeFilter" resultMap="jtown-seller-map">
+	<select id="selectFromInterest" parameterType="HomeFilter" resultMap="jtown-seller-map">
 		<include refid="paginationBefore"/>
 		SELECT
 			us.pn , u.name, us.shop_url, us.notice, 
-			cvsp.view_count, clsp.love_count, ccsp.comment_count, bdl.banner_first, bdl.banner_second
+			cvsp.view_count, clsp.love_count, ccsp.comment_count, bdl.banner_first, bdl.banner_second, 
+			us.hot AS love_hot_count
+			<if test="customerPn != null">	
+			, cl.customer_pn
+			</if>
 		FROM
 			user_seller us 
 			LEFT OUTER JOIN users u
@@ -140,12 +169,23 @@
 			LEFT OUTER JOIN banner_diff_least bdl
 			ON us.pn = bdl.seller_pn
 			LEFT OUTER JOIN count_view_seller_pn cvsp
-			ON us.pn = cvsp.seller_pn,
+			ON us.pn = cvsp.seller_pn
+			<if test="customerPn != null">
+			LEFT OUTER JOIN count_love cl
+			ON us.pn = cl.seller_pn AND cl.customer_pn = #{customerPn}
+			</if>,
 			user_seller_interest usi,
+			user_seller_contract_info usci,
 			interest_section ise,
 			interest_category ic
 		WHERE
+			u.enable = 1
+		AND
 			us.pn = usi.seller_pn
+		AND
+			us.pn = usci.seller_pn
+		AND
+			DATE_FORMAT(SYSDATE(), '%Y-%m-%d') BETWEEN usci.start_date AND usci.end_date
 		AND
 			usi.section_pn = ise.pn
 		AND
@@ -157,76 +197,9 @@
 		<include refid="paginationAfter"/>
 	</select>
 
-	<!-- Comment -->
 	
-	<resultMap type="com.bg.jtown.business.Comment" id="jtown-comment-map">
-		<result column="pn" property="commentPn"/>
-		<result column="customer_pn" property="customerPn"/>
-		<result column="name" property="customerName"/>
-		<result column="seller_pn" property="sellerPn"/>
-		<result column="comment" property="comment"/>
-		<result column="input_date" property="inputDate"/>
-	</resultMap>
 	
-	<select id="selectComment" parameterType="java.lang.Integer" resultMap="jtown-comment-map">
-		SELECT
-			ucc.pn, ucc.customer_pn, u.name, ucc.seller_pn, ucc.comment, 
-			DATE_FORMAT(ucc.input_date, '%Y년도 %c월 %d일 %k시%i분') AS input_date
-		FROM
-			user_customer_comment ucc,
-			user_customer uc
-			LEFT OUTER JOIN users u
-			ON uc.pn = u.pn
-		WHERE
-			ucc.customer_pn = uc.pn
-		AND
-			ucc.seller_pn = #{properNumber}
-	</select>
-	
-	<select id="selectCommentOne" parameterType="java.lang.Integer" resultMap="jtown-comment-map">
-		SELECT
-			ucc.pn, ucc.customer_pn, u.name, ucc.seller_pn, ucc.comment, DATE_FORMAT(ucc.input_date, '%Y년도 %c월 %d일 %k시%i분')
-		FROM
-			user_customer_comment ucc,
-			user_customer uc
-			LEFT OUTER JOIN users u
-			ON uc.pn = u.pn
-		WHERE
-			ucc.customer_pn = uc.pn
-		AND
-			ucc.pn = #{commentPn}
-	</select>
-	
-	<insert id="insertComment" parameterType="com.bg.jtown.business.Comment">
-		INSERT INTO
-			user_customer_comment
-			( customer_pn, seller_pn, COMMENT, input_date)
-		VALUES
-			( #{customerPn}, #{sellerPn}, #{comment}, SYSDATE())
-		<selectKey resultType="java.lang.Integer" keyProperty="commentPn">
-			SELECT LAST_INSERT_ID()
-		</selectKey>
-	</insert>
-	
-	<update id="updateComment" parameterType="com.bg.jtown.business.Comment">
-		UPDATE
-			user_customer_comment
-		SET
-			comment = #{comment}
-		WHERE
-			customer_pn = #{customerPn}
-		AND
-			pn = #{commentPn}
-	</update>
-
-	<delete id="deleteComment" parameterType="com.bg.jtown.business.Comment">
-		DELETE FROM
-			user_customer_comment
-		WHERE
-			pn = #{commentPn}
-	</delete>
-	
-	<select id="selectLoveCount" parameterType="com.bg.jtown.business.Count" resultType="java.lang.Integer">
+	<select id="selectLoveCount" parameterType="Count" resultType="Integer">
 		SELECT
 			COUNT(*)
 		FROM
@@ -237,7 +210,7 @@
 			seller_pn = #{sellerPn}
 	</select>
 	
-	<insert id="insertLoveCount" parameterType="com.bg.jtown.business.Count">
+	<insert id="insertLoveCount" parameterType="Count">
 		INSERT INTO
 			count_love
 			(customer_pn, seller_pn, input_date)
@@ -245,7 +218,7 @@
 			(	#{customerPn},	#{sellerPn}, SYSDATE() )
 	</insert>
 	
-	<delete id="deleteLoveCount" parameterType="com.bg.jtown.business.Count">
+	<delete id="deleteLoveCount" parameterType="Count">
 		DELETE FROM
 			count_love
 		WHERE
@@ -254,7 +227,7 @@
 			seller_pn = #{sellerPn}
 	</delete>
 
-	<resultMap type="com.bg.jtown.business.Interest" id="jtown-interest-category-map">
+	<resultMap type="Interest" id="jtown-interest-category-map">
 		<result column="pn" property="categoryPn"/>
 		<result column="name" property="name"/>
 	</resultMap>
@@ -266,13 +239,13 @@
 			interest_category
 	</select>
 	
-	<resultMap type="com.bg.jtown.business.Interest" id="jtown-interest-map">
+	<resultMap type="Interest" id="jtown-interest-map">
 		<result column="category_pn" property="categoryPn"/>
 		<result column="section_pn" property="sectionPn"/>
 		<result column="name" property="name"/>
 	</resultMap>
 
-	<select id="selectInterest" parameterType="java.lang.Integer" resultMap="jtown-interest-map">
+	<select id="selectInterest" parameterType="Integer" resultMap="jtown-interest-map">
 		<choose>
 			<when test="value != null">
 				SELECT
@@ -301,7 +274,7 @@
 		</choose>
 	</select>
 	
-	<select id="selectInterestSectionCount" parameterType="com.bg.jtown.business.Interest" resultType="java.lang.Integer">
+	<select id="selectInterestSectionCount" parameterType="Interest" resultType="Integer">
 		SELECT
 			COUNT(*)
 		FROM
@@ -312,7 +285,7 @@
 			section_pn = #{sectionPn}
 	</select>
 	
-	<insert id="insertInterest" parameterType="com.bg.jtown.business.Interest">
+	<insert id="insertInterest" parameterType="Interest">
 		INSERT	INTO
 			user_customer_interest
 			(customer_pn, section_pn)
@@ -320,7 +293,7 @@
 			(#{customerPn}, #{sectionPn})
 	</insert>
 	
-	<delete id="deleteInterest" parameterType="com.bg.jtown.business.Interest">
+	<delete id="deleteInterest" parameterType="Interest">
 		DELETE FROM
 			user_customer_interest
 		WHERE
@@ -329,12 +302,12 @@
 			section_pn = #{sectionPn}
 	</delete>
 	
-	<resultMap type="com.bg.jtown.business.Interest" id="jtown-interest-section-map">
+	<resultMap type="Interest" id="jtown-interest-section-map">
 		<result column="pn" property="sectionPn"/>
 		<result column="name" property="name"/>
 	</resultMap>
 	
-	<select id="selectInterestSection" parameterType="java.lang.Integer" resultMap="jtown-interest-section-map">
+	<select id="selectInterestSection" parameterType="Integer" resultMap="jtown-interest-section-map">
 		SELECT
 			pn, name
 		FROM
@@ -345,7 +318,7 @@
 			name
 	</select>
 
-	<select id="selectViewCountIp" parameterType="java.lang.String" resultType="java.lang.Integer">
+	<select id="selectViewCountIp" parameterType="String" resultType="Integer">
 		SELECT
 			COUNT(*)
 		FROM
@@ -353,18 +326,20 @@
 		WHERE
 			ip = #{remoteAddr}
 		AND
+			seller_pn = #{sellerPn}
+		AND
 			input_date = DATE_FORMAT(SYSDATE(), '%Y-%m-%d')
 	</select>
 	
-	<insert id="insertViewIp" parameterType="java.lang.String">
+	<insert id="insertViewIp" parameterType="String">
 		INSERT INTO
 			view_ip
-			(ip, input_date)
+			(ip, seller_pn, input_date)
 		VALUES
-			( #{remoteAddr}, SYSDATE() )
+			( #{remoteAddr}, #{sellerPn}, SYSDATE() )
 	</insert>
 	
-	<select id="selectViewDayCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+	<select id="selectViewDayCount" parameterType="Integer" resultType="Integer">
 		SELECT
 			COUNT(*)
 		FROM
@@ -375,7 +350,7 @@
 			count_date = DATE_FORMAT(SYSDATE(), '%Y-%m-%d')
 	</select>
 	
-	<insert id="insertViewDayCount" parameterType="java.lang.Integer">
+	<insert id="insertViewDayCount" parameterType="Integer">
 		INSERT INTO
 			view_ip_day
 			(	seller_pn, count_date, day_count)
@@ -383,7 +358,7 @@
 			(	#{sellerPn}, SYSDATE(), 1)
 	</insert>
 	
-	<update id="updateViewDayCount" parameterType="com.bg.jtown.business.Count">
+	<update id="updateViewDayCount" parameterType="Count">
 		UPDATE
 			view_ip_day
 		SET
@@ -394,7 +369,7 @@
 			count_date = DATE_FORMAT(SYSDATE(), '%Y-%m-%d')
 	</update>
 
-	<select id="selectViewTotalCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+	<select id="selectViewTotalCount" parameterType="Integer" resultType="Integer">
 		SELECT
 			view_count
 		FROM

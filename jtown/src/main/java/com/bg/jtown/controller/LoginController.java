@@ -38,7 +38,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
-import com.bg.jtown.controller.validator.LoginValidator;
+import com.bg.jtown.controller.validator.LoginValidatorImpl;
 import com.bg.jtown.security.Authority;
 import com.bg.jtown.security.Confirm;
 import com.bg.jtown.security.CustomJdbcUserDetailManager;
@@ -77,7 +77,7 @@ public class LoginController {
 	}
 
 	@Resource
-	private LoginValidator loginValidator;
+	private LoginValidatorImpl loginValidatorImpl;
 	@Resource
 	private UserAuthenticator userAuthenticator;
 	@Resource
@@ -238,7 +238,7 @@ public class LoginController {
 	public String formJoin(Model model, @ModelAttribute JtownUser jtownUser,
 			@RequestParam("confirmPassword") final String confirmPassword,
 			BindingResult result, WebRequest request) {
-		loginValidator.validate(jtownUser, result);
+		loginValidatorImpl.validate(jtownUser, result);
 		new Validator() {
 			@Override
 			public void validate(Object target, Errors errors) {

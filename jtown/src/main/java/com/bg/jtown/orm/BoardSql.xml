@@ -23,7 +23,7 @@
 		]]>
 	</sql>
 	
-	<resultMap type="Board" id="noticet-map">
+	<resultMap type="Board" id="jt-board-map">
 		<result column="pn" property="pn" />
 		<result column="title" property="title" />
 		<result column="content" property="content" />
@@ -31,7 +31,7 @@
 		<result column="input_date" property="inputDate" />
 	</resultMap>
 	
-	<select id="selectNoticeList" resultMap="noticet-map">
+	<select id="selectNoticeList" resultMap="jt-board-map">
 		<include refid="paginationBefore"/>
 			SELECT 
 				pn, title, content, read_count, DATE_FORMAT(input_date, '%Y-%m-%d') AS input_date
@@ -42,7 +42,7 @@
 		<include refid="paginationAfter"/>
 	</select>
 	
-	<select id="selectNoticeContent" parameterType="Board" resultMap="noticet-map">
+	<select id="selectNoticeContent" parameterType="Board" resultMap="jt-board-map">
 		SELECT 
 			pn, title, content, read_count, DATE_FORMAT(input_date, '%Y-%m-%d') AS input_date
 		FROM 
@@ -58,6 +58,26 @@
 			COUNT(*)
 		FROM	
 			notice
+	</select>
+	
+	<select id="selectBeforeAfterNotice" parameterType="Board" resultMap="jt-board-map">
+		<![CDATA[
+		SELECT 
+			pn, title, content, read_count, DATE_FORMAT(input_date, '%Y-%m-%d') AS input_date 
+		FROM 
+			notice 
+		WHERE 
+			pn IN ((SELECT MIN(pn) FROM notice WHERE pn > #{pn} ))
+			
+		UNION
+		
+		SELECT 
+			pn, title, content, read_count, DATE_FORMAT(input_date, '%Y-%m-%d') AS input_date 
+		FROM 
+			notice 
+		WHERE 
+			pn IN ((SELECT MAX(pn) FROM notice  WHERE pn <#{pn}))
+		]]>
 	</select>
 	
 	<insert id="insertNoticeWrite" parameterType="Board">
@@ -81,15 +101,6 @@
 			pn = #{pn}
 	</update>
 	
-	<delete id="deleteNotice" parameterType="Board">
-		DELETE FROM
-			notice
-		<if test="pn != null">
-		WHERE
-			pn = #{pn}
-		</if>
-	</delete>
-	
 	<update id="increaseReadCount" parameterType="Integer">
 		UPDATE
 			notice
@@ -98,16 +109,14 @@
 		WHERE
 			pn = #{pn}
 	</update>
-
-	<select id="selectBeforeAfterNotice" parameterType="Board" resultMap="noticet-map">
-		<![CDATA[
-		SELECT pn, title, content, read_count, DATE_FORMAT(input_date, '%Y-%m-%d') AS input_date 
-		FROM notice 
-		WHERE pn IN ((SELECT MIN(pn) FROM notice WHERE pn > #{pn} ))
-		UNION
-		SELECT pn, title, content, read_count, DATE_FORMAT(input_date, '%Y-%m-%d') AS input_date 
-		FROM notice WHERE pn IN ((SELECT MAX(pn) FROM notice  WHERE pn <#{pn}))
-		]]>
-	</select>
+	
+	<delete id="deleteNotice" parameterType="Board">
+		DELETE FROM
+			notice
+		<if test="pn != null">
+		WHERE
+			pn = #{pn}
+		</if>
+	</delete>
 
 </mapper>

@@ -1,4 +1,4 @@
-package com.bg.jtown.business;
+package com.bg.jtown.business.home;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -14,6 +14,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import com.bg.jtown.business.Count;
+import com.bg.jtown.business.Interest;
 import com.bg.jtown.business.search.HomeFilter;
 import com.bg.jtown.business.seller.SellerService;
 import com.bg.jtown.redis.Publisher;

@@ -10,7 +10,7 @@
 		SELECT id FROM groups WHERE group_name = #{group}
 	</select>
 	
-	<resultMap type="com.bg.jtown.security.JtownUser" id="jtown-customer-map">
+	<resultMap type="JtownUser" id="jtown-customer-map">
 		<result column="sex" property="sex"/>
 		<result column="year" property="year"/>
 		<result column="month" property="month"/>
@@ -92,7 +92,7 @@
 			id = #{username}
 	</update>
 	
-	<update id="updateUserCustomer" parameterType="com.bg.jtown.security.JtownUser">
+	<update id="updateUserCustomer" parameterType="JtownUser">
 		UPDATE 
 			users
 		SET	
@@ -108,7 +108,7 @@
 		</if>
 	</update>
 	
-	<update id="updateUserCustomerDetail" parameterType="com.bg.jtown.security.JtownUser">
+	<update id="updateUserCustomerDetail" parameterType="JtownUser">
 		UPDATE
 			user_customer
 		SET
@@ -120,7 +120,7 @@
 			pn = #{pn}
 	</update>
 	
-	<update id="updateUserCustomerEmail" parameterType="java.util.HashMap">
+	<update id="updateUserCustomerEmail" parameterType="HashMap">
 		UPDATE
 			users
 		SET
@@ -130,7 +130,7 @@
 			id = #{nowUserName}
 	</update>
 	
-	<update id="updateUsername" parameterType="java.util.HashMap">
+	<update id="updateUsername" parameterType="HashMap">
 		UPDATE
 			users
 		SET
@@ -170,7 +170,7 @@
 	</select>
 	
 	<!-- Confirm Email Address -->
-	<select id="selectEmailConfirm" parameterType="com.bg.jtown.security.Confirm" resultType="com.bg.jtown.security.Confirm">
+	<select id="selectEmailConfirm" parameterType="Confirm" resultType="Confirm">
 		SELECT
 			id, email_series AS series
 		FROM
@@ -179,11 +179,11 @@
 			id = #{id}	
 	</select>
 	
-	<insert id="insertEmailConfirm" parameterType="com.bg.jtown.security.Confirm">
+	<insert id="insertEmailConfirm" parameterType="Confirm">
 		INSERT INTO user_email_confirm ( id, email_series ) VALUES (#{id}, #{series})
 	</insert>
 	
-	<delete id="deleteEmailConfirm" parameterType="com.bg.jtown.security.Confirm">
+	<delete id="deleteEmailConfirm" parameterType="Confirm">
 		DELETE FROM
 			user_email_confirm
 		WHERE

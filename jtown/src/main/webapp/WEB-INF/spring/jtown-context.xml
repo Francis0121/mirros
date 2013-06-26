@@ -1,86 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:aop="http://www.springframework.org/schema/aop"
 	xsi:schemaLocation="
 		http://www.springframework.org/schema/beans 
 		http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context
-		http://www.springframework.org/schema/context/spring-context-3.0.xsd
-		http://www.springframework.org/schema/tx 
-  		http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
-  		http://www.springframework.org/schema/aop 
-  		http://www.springframework.org/schema/aop/spring-aop-3.1.xsd">
+		http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
 	<!-- Root Context: defines shared resources visible to all other web components -->
 
 	<!-- Component Bean Scanning Controller Exclude -->
 	<context:component-scan base-package="com.bg.jtown">
-		<context:exclude-filter type="annotation"
-			expression="org.springframework.stereotype.Controller" />
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
-
-	<!-- DBSetting -->
-	<bean id="propertyConfigurer"
-		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+	
+	<!-- Setting Properties -->
+	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="locations">
 			<list>
-				<value>classpath:/com/bg/jtown/properties/DBSetting.properties
-				</value>
-				<value>classpath:/com/bg/jtown/properties/RedisSetting.properties
-				</value>
+				<value>classpath:/com/bg/jtown/properties/DBSetting.properties</value>
+				<value>classpath:/com/bg/jtown/properties/RedisSetting.properties</value>
 			</list>
 		</property>
 	</bean>
+	
+	<import resource="jtown-orm.xml"/>
 
-	<!-- dataSource Setting -->
-	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
-		destroy-method="close">
-		<property name="driverClassName" value="${driverClassName}" />
-		<property name="url" value="${url}" />
-		<property name="username" value="${username}" />
-		<property name="password" value="${password}" />
-		<property name="maxActive" value="10" />
-		<property name="maxIdle" value="10" />
-		<property name="minIdle" value="2" />
-		<property name="maxWait" value="50000" />
-		<property name="timeBetweenEvictionRunsMillis" value="600000" />
-	</bean>
+	<import resource="jtown-redis.xml" />
 
-	<!-- TransactionManager -->
-	<bean id="transactionManager"
-		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-		<property name="dataSource" ref="dataSource" />
-	</bean>
-
-	<aop:config>
-		<aop:advisor advice-ref="txAdvice" pointcut="bean(*ServiceImpl)" />
-	</aop:config>
-
-	<tx:advice id="txAdvice" transaction-manager="transactionManager">
-		<tx:attributes>
-			<tx:method name="select*" read-only="true" propagation="REQUIRED" />
-			<tx:method name="*" propagation="REQUIRED" />
-		</tx:attributes>
-	</tx:advice>
-
-
-	<!-- define the SqlSessionFactory -->
-	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="dataSource" ref="dataSource" />
-		<property name="mapperLocations" value="classpath:/com/bg/jtown/orm/sql/*.xml" />
-		<property name="configLocation"
-			value="classpath:/com/bg/jtown/orm/mybatis-config.xml" />
-	</bean>
-
-	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
-		<constructor-arg ref="sqlSessionFactory" />
-	</bean>
+	<import resource="jtown-security.xml" />
 
 	<!-- Spring security error message config -->
-	<bean id="messageSource"
-		class="org.springframework.context.support.ResourceBundleMessageSource">
+	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
 		<property name="basenames">
 			<list>
 				<value>/com/bg/jtown/properties/message/messages</value>
@@ -92,19 +44,16 @@
 	<!-- 암호화 alogrithm 빈 -->
 	<bean id="seedCipher" class="com.bg.jtown.security.algorithm.SeedCipher" />
 
+	<!-- EmailSender -->
+	<bean id="emailSender" class="com.bg.jtown.security.EmailSender">
+		<property name="props" ref="jamesProperty" />
+	</bean>
+	
 	<!-- emailSender 빈 생성 Properties -->
-	<bean id="jamesProperty"
-		class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+	<bean id="jamesProperty" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
 		<property name="location">
 			<value>classpath:/com/bg/jtown/properties/Email.properties</value>
 		</property>
 	</bean>
 
-	<bean id="emailSender" class="com.bg.jtown.security.EmailSender">
-		<property name="props" ref="jamesProperty" />
-	</bean>
-
-	<import resource="jtown-redis.xml" />
-
-	<import resource="jtown-security.xml" />
 </beans>

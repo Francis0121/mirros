@@ -1,8 +1,10 @@
-package com.bg.jtown.business;
+package com.bg.jtown.business.home;
 
 import java.util.List;
 import java.util.Map;
 
+import com.bg.jtown.business.Count;
+import com.bg.jtown.business.Interest;
 import com.bg.jtown.business.search.HomeFilter;
 import com.bg.jtown.security.JtownUser;
 

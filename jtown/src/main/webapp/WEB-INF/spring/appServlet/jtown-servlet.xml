@@ -38,7 +38,7 @@
 		<property name="suffix" value=".jsp" />
 	</bean>
 	
-	<!-- 메시지 컨버터 -->
+	<!-- 메시지 컨버터 JSON -->
 	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" >
 		<property name="messageConverters">
 			<list>
@@ -47,6 +47,7 @@
 		</property>
 	</bean>
 
+	<!-- Spring social Connect -->
 	<bean id="connectSocial" class="com.bg.jtown.social.connect.SocialConnectionController">
 		<constructor-arg name="connectionFactoryLocator" ref="connectionFactoryLocator"/>
 		<constructor-arg name="usersConnectionRepository" ref="usersConnectionRepository"/>
@@ -58,6 +59,7 @@
 		</property>
 	</bean>
 	
+	<!-- Spring Social SignIn -->
 	<bean id="prodierSignInSocial" class="com.bg.jtown.social.signin.SocialProviderSignInController">
 		<constructor-arg name="usersConnectionRepository" ref="usersConnectionRepository"/>
 		<constructor-arg name="connectionFactoryLocator" ref="connectionFactoryLocator"/>
