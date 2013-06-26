@@ -93,6 +93,11 @@ public class LoginController {
 	@Resource
 	private ConnectionRepository connectionRepository;
 
+	@RequestMapping(value = "/signin", method = RequestMethod.GET)
+	public String showSigninRedirect(Model model) {
+		return "login/signin";
+	}
+
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String showLogin(Model model) {
 		return "login/login";
@@ -100,7 +105,8 @@ public class LoginController {
 
 	@PreAuthorize("hasRole('ROLE_USER')")
 	@RequestMapping(value = "/login/disactive.jt", method = RequestMethod.POST)
-	public String formDisactive(@ModelAttribute(value="disactiveUser") JtownUser jtownUser,
+	public String formDisactive(
+			@ModelAttribute(value = "disactiveUser") JtownUser jtownUser,
 			BindingResult result, HttpSession session, SummaryUser summaryUser,
 			Model model) {
 		Authority authority = summaryUser.getEnumAuthority();
@@ -136,8 +142,10 @@ public class LoginController {
 			model.addAllAttributes(loginService.selectDeleteUser(pn));
 			return "redirect:modify";
 		} else {
-			Map<String, List<Connection<?>>> connections = connectionRepository.findAllConnections();
-			model.addAttribute("providerIds", connectionFactoryLocator.registeredProviderIds());
+			Map<String, List<Connection<?>>> connections = connectionRepository
+					.findAllConnections();
+			model.addAttribute("providerIds",
+					connectionFactoryLocator.registeredProviderIds());
 			model.addAttribute("connectionMap", connections);
 
 			if (summaryUser.getEnumAuthority() == Authority.CUSTOMER) {
@@ -159,7 +167,8 @@ public class LoginController {
 
 	@PreAuthorize("hasRole('ROLE_USER')")
 	@RequestMapping(value = "/login/disactive.jt", method = RequestMethod.DELETE)
-	public String formDisactiveDelete(@ModelAttribute(value="disactiveUser") JtownUser jtownUser,
+	public String formDisactiveDelete(
+			@ModelAttribute(value = "disactiveUser") JtownUser jtownUser,
 			BindingResult result, HttpSession session, SummaryUser summaryUser,
 			Model model) {
 		Authority authority = summaryUser.getEnumAuthority();
@@ -194,8 +203,10 @@ public class LoginController {
 			loginService.deleteDeleteUser(pn);
 			return "redirect:modify";
 		} else {
-			Map<String, List<Connection<?>>> connections = connectionRepository.findAllConnections();
-			model.addAttribute("providerIds", connectionFactoryLocator.registeredProviderIds());
+			Map<String, List<Connection<?>>> connections = connectionRepository
+					.findAllConnections();
+			model.addAttribute("providerIds",
+					connectionFactoryLocator.registeredProviderIds());
 			model.addAttribute("connectionMap", connections);
 
 			if (summaryUser.getEnumAuthority() == Authority.CUSTOMER) {
@@ -287,17 +298,21 @@ public class LoginController {
 		setNoCache(request);
 		processFlash(request, model);
 		model.addAttribute("result", result);
-		
-		Map<String, List<Connection<?>>> connections = connectionRepository.findAllConnections();
-		model.addAttribute("providerIds", connectionFactoryLocator.registeredProviderIds());
+
+		Map<String, List<Connection<?>>> connections = connectionRepository
+				.findAllConnections();
+		model.addAttribute("providerIds",
+				connectionFactoryLocator.registeredProviderIds());
 		model.addAttribute("connectionMap", connections);
 
 		if (summaryUser.getEnumAuthority() == Authority.CUSTOMER) {
-			JtownUser jtownUser = loginService.selectCustomer(summaryUser.getPn());
+			JtownUser jtownUser = loginService.selectCustomer(summaryUser
+					.getPn());
 			jtownUser.setUsername(summaryUser.getUsername());
 			jtownUser.setName(summaryUser.getName());
 			model.addAttribute("jtownUser", jtownUser);
-			model.addAllAttributes(loginService.selectDeleteUser(summaryUser.getPn()));
+			model.addAllAttributes(loginService.selectDeleteUser(summaryUser
+					.getPn()));
 			model.addAttribute("disactiveUser", new JtownUser());
 		} else {
 			JtownUser jtownUser = new JtownUser();
@@ -428,9 +443,10 @@ public class LoginController {
 			model.addAttribute("providerIds",
 					connectionFactoryLocator.registeredProviderIds());
 			model.addAttribute("connectionMap", connections);
-			
-			if(authority.equals(Authority.CUSTOMER)){
-				model.addAllAttributes(loginService.selectDeleteUser(summaryUser.getPn()));
+
+			if (authority.equals(Authority.CUSTOMER)) {
+				model.addAllAttributes(loginService
+						.selectDeleteUser(summaryUser.getPn()));
 				model.addAttribute("disactiveUser", new JtownUser());
 			}
 			return "login/modify";
