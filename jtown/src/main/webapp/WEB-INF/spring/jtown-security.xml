@@ -36,7 +36,7 @@
 			authentication-failure-url="/login/?login_error=1"
 			default-target-url="/process"/>
 			
-		<logout logout-url="/login/logout"  />
+		<logout logout-url="/login/logout" invalidate-session="false" />
 		
 		<remember-me key="jtown-rmkey-xq9mKsOCF=Ika#KuDeXGLoPo-CMQJl" services-ref="ipPersistentTokenBasedRememberMeServicesBean"/>	
 	
