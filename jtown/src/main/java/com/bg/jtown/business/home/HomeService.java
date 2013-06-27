@@ -32,8 +32,10 @@ public interface HomeService {
 
 	// ~ count
 
-	void insertViewCount(Count count, String remoteAddr);
+	void insertViewCount(Count count);
 
+	void insertClickCount(Count count);
+	
 	void insertLoveCount(Count count);
 
 	Integer selectLoveCount(Count count);

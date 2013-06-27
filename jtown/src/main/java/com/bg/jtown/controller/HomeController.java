@@ -83,12 +83,19 @@ public class HomeController {
 
 	@RequestMapping(value = "/mir/{sellerPn}", method = RequestMethod.GET)
 	public String showSellerPage(Model model, @PathVariable Integer sellerPn,
-			SummaryUser summaryUser) {
-		model.addAttribute("interestCategories",homeService.selecInterestCategory());
+			SummaryUser summaryUser, HttpSession session) {
+		Count count = new Count();
+		count.setSellerPn(sellerPn);
+		checkSessionStatisticView(session, count, summaryUser);
+
+		model.addAttribute("interestCategories",
+				homeService.selecInterestCategory());
 		model.addAttribute("interestMap", homeService.selectInterest(null));
-		
-		model.addAllAttributes(sellerService.selectAllInformation(sellerPn, summaryUser.getPn()));
-		model.addAttribute("intervalCount", sellerService.selectInterval7DayCount(sellerPn));
+
+		model.addAllAttributes(sellerService.selectAllInformation(sellerPn,
+				summaryUser.getPn()));
+		model.addAttribute("intervalCount",
+				sellerService.selectInterval7DayCount(sellerPn));
 		model.addAttribute("facebookSellerPn", sellerPn);
 		return "mir";
 	}
@@ -103,7 +110,8 @@ public class HomeController {
 
 	private void getHomeModel(Model model, HttpSession session,
 			HomeFilter homeFilter, SummaryUser summaryUser) {
-		model.addAttribute("interestCategories",homeService.selecInterestCategory());
+		model.addAttribute("interestCategories",
+				homeService.selecInterestCategory());
 		model.addAttribute("interestMap", homeService.selectInterest(null));
 
 		List<Integer> randomPage = homeService.makeRandomCount(homeFilter);
@@ -209,11 +217,50 @@ public class HomeController {
 		return selectMap;
 	}
 
-	@RequestMapping(value = "/ajax/clickShop.jt", method = RequestMethod.POST)
+	@RequestMapping(value = "/ajax/clickView.jt", method = RequestMethod.POST)
 	@ResponseBody
-	public Count ajaxClickShop(@RequestBody Count count, SummaryUser summaryUser) {
-		homeService.insertViewCount(count, summaryUser.getRemoteIp());
-		return count;
+	public void ajaxClickShop(@RequestBody Count count, HttpSession session,
+			SummaryUser summaryUser) {
+		checkSessionStatisticView(session, count, summaryUser);
+	}
+
+	private void checkSessionStatisticView(HttpSession session, Count count,
+			SummaryUser summaryUser) {
+
+		Integer sellerPn = count.getSellerPn();
+
+		Authority authority = summaryUser.getEnumAuthority();
+		if (authority.equals(Authority.CUSTOMER)
+				|| authority.equals(Authority.NOT_LOGIN)) {
+
+			@SuppressWarnings("unchecked")
+			ArrayList<Integer> sellerPns = (ArrayList<Integer>) session
+					.getAttribute("statisticView");
+			if (sellerPns != null && sellerPns.size() != 0) {
+				boolean add = true;
+				for (Integer i : sellerPns) {
+					if (i.equals(sellerPn)) {
+						add = false;
+					}
+				}
+				if (add) {
+					sellerPns.add(sellerPn);
+					homeService.insertViewCount(count);
+				}
+			} else {
+				sellerPns = new ArrayList<Integer>();
+				sellerPns.add(sellerPn);
+				homeService.insertViewCount(count);
+			}
+
+			session.setAttribute("statisticView", sellerPns);
+		}
+	}
+
+	@RequestMapping(value = "/ajax/goHome.jt", method = RequestMethod.POST)
+	@ResponseBody
+	public void ajaxGoHome(@RequestBody Count count) {
+		homeService.insertClickCount(count);
 	}
 
 	@RequestMapping(value = "/ajax/clickLove.jt", method = RequestMethod.POST)

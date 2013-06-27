@@ -18,7 +18,7 @@
 			<div class="jt-showHowWrap">
 				<a href="#none" id="showHow" class="jt-showhow-btn jt-btn-orange">
 					<span class="btnImage"></span>
-					<span class="btnText">Tutorial</span>
+					<span class="btnText">살펴보기</span>
 				</a>
 			</div>
 			<ul class="jt-seller-text-content" id="step1">

@@ -4,9 +4,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.slf4j.Logger;
@@ -14,8 +12,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.social.facebook.api.Facebook;
 import org.springframework.stereotype.Component;
-import org.springframework.ui.Model;
-import org.springframework.validation.support.BindingAwareModelMap;
 
 import com.bg.jtown.business.seller.SellerService;
 import com.bg.jtown.security.JtownUser;

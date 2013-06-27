@@ -243,31 +243,28 @@ color: #808080;}
 /***********************
 	Love 확인 창
 ***********************/
-.jt-love-dialog{ background: #fff; padding:10px 10px 10px 30px; border: 2px solid #e6e6e6;
+.jt-love-dialog{ background: #fff; padding:10px 10px 10px 10px; border: 2px solid #e6e6e6;
 	box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box; -moz-box-sizing : border-box; -webkit-box-sizing : border-box;
-	box-shadow : 4px 4px 6px -4px #000;;
-	-moz-box-shadow : 4px 4px 6px -4px #000;;
-	-webkit-box-shadow : 4px 4px 6px -4px #000;;
+	box-shadow : 3px 3px 6px -4px #000;;
+	-moz-box-shadow : 3px 3px 6px -4px #000;;
+	-webkit-box-shadow : 3px 3px 6px -4px #000;;
 }
-.jt-love-dialog-content{ width: 80px !important; height : 70px; padding : 50px 0 !important; float: left;
+.jt-love-dialog-content{ width: 0 !important; height : 0; padding : 0 !important; float: left;
 	box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box; -moz-box-sizing : border-box; -webkit-box-sizing : border-box;
 }
-.jt-love-img{
-	height: 70px;
-}
-.jt-love-img img{
-	width: 80px;
-}
-.jt-love-dialog-ment{ margin-left:20px !important; width: 250px; float: left; height: 80px; line-height: 80px; text-align: center; font-size: 12px; font-weight: bold;  color: #333333; font-family: NanumGothic, Dotum, Gulim; font-weight: normal;
-	border-bottom: 2px solid #e6e6e6;
+.jt-love-dialog-ment{ margin-left: 0 !important; width: 250px; float: left; height: 50px; line-height: 22px; text-align: center; font-size: 12px; font-weight: bold;  color: #333333; font-family: NanumGothic, Dotum, Gulim; font-weight: normal;
+	border-bottom: 1px solid #e6e6e6;
 } 
-.jt-love-dialog-buttonpane{ width: 250px; height :50px; float: left; padding : 0 !important; margin: 0 0 0 20px !important;
+.jt-love-dialog-buttonpane{ width: 250px; height :40px; float: left; padding : 0 !important; margin: 0 !important;
 	box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box; -moz-box-sizing : border-box; -webkit-box-sizing : border-box;
 }
-.jt-love-dialog-buttonset{ padding: 0; float: none !important; height: 80px;}
-.jt-love-dialog-button{ font-family: Arial !important;  margin: 0 !important; background: #fff !important; border: 0px solid black !important; color: #ff870f !important; outline: 0 solid !important;
-	font-size: 45px !important; line-height: 80px; height: 80px; width: 125px; font-weight: bold;
-	text-shadow: 0 1px 1px rgba(150, 150, 150, 0.5);
+.jt-love-dialog-buttonset{ padding: 0; float: none !important; height: 40px;}
+.jt-love-dialog-button{ font-family: NanumGothic !important;  margin: 0 !important; background: #fff !important; border: 0px solid black !important; color: #ff870f !important; outline: 0 solid !important;
+	font-size: 18px !important; line-height: 50px; height: 50px; width: 125px; padding: 0 20px !important;
 }
+.jt-love-dialog-button>span{font-family: NanumGothic !important;}
+.jt-love-dialog-buttonset .jt-love-dialog-button:nth-child(1){text-align: right;}
+.jt-love-dialog-buttonset .jt-love-dialog-button:nth-child(2){text-align: left;}
+
 .jt-love-dialog-button:FOCUS { background: #fff !important; border: 0px solid black !important; color: #ff870f !important; }
 .jt-love-dialog-button:HOVER { background: #fff !important; border: 0px solid black !important; color: #ff6a00 !important;}

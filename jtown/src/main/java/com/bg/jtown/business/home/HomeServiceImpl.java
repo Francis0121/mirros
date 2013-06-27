@@ -20,6 +20,7 @@ import com.bg.jtown.business.search.HomeFilter;
 import com.bg.jtown.business.seller.SellerService;
 import com.bg.jtown.redis.Publisher;
 import com.bg.jtown.security.JtownUser;
+import com.bg.jtown.util.DateUtil;
 import com.bg.jtown.util.Pagination;
 
 /**
@@ -158,37 +159,77 @@ public class HomeServiceImpl extends SqlSessionDaoSupport implements
 				homeFilter);
 	}
 
-	// ~ comment
+	// ~ Count
 
 	@Override
-	public void insertViewCount(Count count, String remoteAddr) {
+	public void insertViewCount(Count count) {
 		Integer sellerPn = count.getSellerPn();
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("remoteAddr", remoteAddr);
-		map.put("sellerPn", sellerPn);
-		Integer ipCount = getSqlSession().selectOne(
-				"homeMapper.selectViewCountIp", map);
-		if (ipCount == 0) {
-			getSqlSession().insert("homeMapper.insertViewIp", map);
 
-			Integer dayCount = getSqlSession().selectOne(
-					"homeMapper.selectViewDayCount", sellerPn);
-			if (dayCount == 0) {
-				getSqlSession().insert("homeMapper.insertViewDayCount",
-						count.getSellerPn());
-				count.setCount(1);
-			} else {
-				count.setCount(dayCount + 1);
-				getSqlSession().update("homeMapper.updateViewDayCount", count);
-			}
-			count.setCount(selectViewTotalCount(sellerPn));
-			publisher.viewPublish(count);
+		Integer dayCount = selectStaisticView(sellerPn);
+		if (dayCount == null || dayCount == 0) {
+			insertStaisticView(sellerPn);
+		} else {
+			count.setCount(dayCount + 1);
+			updateStaisticView(count);
+		}
+
+		Integer sevenDayCount = selectSevenDayStatisticView(sellerPn);
+		count.setCount(sevenDayCount);
+
+		publisher.viewPublish(count);
+	}
+
+	private Integer selectSevenDayStatisticView(Integer sellerPn) {
+		String nowDate = DateUtil.getToday("YYYY-MM-DD");
+		String beforeDate = DateUtil.addYearMonthDay(nowDate, 0, 0, -7);
+		beforeDate = DateUtil.getDayString(beforeDate, "YYYY.MM.DD");
+		nowDate = nowDate.replace("-", ".");
+		Map<String, Object> selectMap = new HashMap<String, Object>();
+		selectMap.put("nowDate", nowDate);
+		selectMap.put("beforeDate", beforeDate);
+		selectMap.put("sellerPn", sellerPn);
+
+		return getSqlSession().selectOne(
+				"homeMapper.selectSevenDayStatisticView", selectMap);
+	}
+
+	private Integer selectStaisticView(Integer sellerPn) {
+		return getSqlSession().selectOne("homeMapper.selectStatisticView",
+				sellerPn);
+	}
+
+	private void insertStaisticView(Integer sellerPn) {
+		getSqlSession().insert("homeMapper.insertStatisticView", sellerPn);
+	}
+
+	private void updateStaisticView(Count count) {
+		getSqlSession().update("homeMapper.updateStatisticView", count);
+	}
+
+	@Override
+	public void insertClickCount(Count count) {
+		Integer sellerPn = count.getSellerPn();
+
+		Integer dayCount = selectStaisticClick(sellerPn);
+		if (dayCount == null || dayCount == 0) {
+			insertStaisticClick(sellerPn);
+		} else {
+			count.setCount(dayCount + 1);
+			updateStaisticClick(count);
 		}
 	}
 
-	private Integer selectViewTotalCount(Integer sellerPn) {
-		return getSqlSession().selectOne("homeMapper.selectViewTotalCount",
+	private Integer selectStaisticClick(Integer sellerPn) {
+		return getSqlSession().selectOne("homeMapper.selectStatisticClick",
 				sellerPn);
+	}
+
+	private void insertStaisticClick(Integer sellerPn) {
+		getSqlSession().insert("homeMapper.insertStatisticClick", sellerPn);
+	}
+
+	private void updateStaisticClick(Count count) {
+		getSqlSession().update("homeMapper.updateStatisticClick", count);
 	}
 
 	@Override

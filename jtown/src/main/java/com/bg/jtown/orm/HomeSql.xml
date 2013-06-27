@@ -79,7 +79,7 @@
 		<include refid="paginationBefore"/>
 		SELECT
 			us.pn , u.name, us.shop_url, us.notice, 
-			cvsp.view_count, clsp.love_count, ccsp.comment_count, bdl.banner_first, bdl.banner_second,
+			ssid.view_count, clsp.love_count, ccsp.comment_count, bdl.banner_first, bdl.banner_second,
 			us.hot AS love_hot_count
 			<if test="customerPn != null">
 			, cl.customer_pn
@@ -90,12 +90,12 @@
 			ON us.pn = u.pn
 			LEFT OUTER JOIN count_love_seller_pn clsp
 			ON us.pn = clsp.seller_pn
+			LEFT OUTER JOIN sum_statistic_interval_7day ssid
+			ON us.pn = ssid.seller_pn
 			LEFT OUTER JOIN count_comment_seller_pn ccsp
 			ON us.pn = ccsp.seller_pn
 			LEFT OUTER JOIN banner_diff_least bdl
 			ON us.pn = bdl.seller_pn
-			LEFT OUTER JOIN count_view_seller_pn cvsp
-			ON us.pn = cvsp.seller_pn
 			<if test="customerPn != null">
 			LEFT OUTER JOIN count_love cl
 			ON us.pn = cl.seller_pn AND cl.customer_pn = #{customerPn}
@@ -152,8 +152,8 @@
 	<select id="selectFromInterest" parameterType="HomeFilter" resultMap="jtown-seller-map">
 		<include refid="paginationBefore"/>
 		SELECT
-			us.pn , u.name, us.shop_url, us.notice, 
-			cvsp.view_count, clsp.love_count, ccsp.comment_count, bdl.banner_first, bdl.banner_second, 
+			us.pn , u.name, us.shop_url, us.notice,
+			ssid.view_count, clsp.love_count, ccsp.comment_count, bdl.banner_first, bdl.banner_second, 
 			us.hot AS love_hot_count
 			<if test="customerPn != null">	
 			, cl.customer_pn
@@ -164,12 +164,12 @@
 			ON us.pn = u.pn 
 			LEFT OUTER JOIN count_love_seller_pn clsp
 			ON us.pn = clsp.seller_pn
+			LEFT OUTER JOIN sum_statistic_interval_7day ssid
+			ON us.pn = ssid.seller_pn
 			LEFT OUTER JOIN count_comment_seller_pn ccsp
 			ON us.pn = ccsp.seller_pn
 			LEFT OUTER JOIN banner_diff_least bdl
 			ON us.pn = bdl.seller_pn
-			LEFT OUTER JOIN count_view_seller_pn cvsp
-			ON us.pn = cvsp.seller_pn
 			<if test="customerPn != null">
 			LEFT OUTER JOIN count_love cl
 			ON us.pn = cl.seller_pn AND cl.customer_pn = #{customerPn}
@@ -318,49 +318,28 @@
 			name
 	</select>
 
-	<select id="selectViewCountIp" parameterType="String" resultType="Integer">
+	<select id="selectStatisticClick" parameterType="Integer" resultType="Integer">
 		SELECT
-			COUNT(*)
+			day_count
 		FROM
-			view_ip
-		WHERE
-			ip = #{remoteAddr}
-		AND
-			seller_pn = #{sellerPn}
-		AND
-			input_date = DATE_FORMAT(SYSDATE(), '%Y-%m-%d')
-	</select>
-	
-	<insert id="insertViewIp" parameterType="String">
-		INSERT INTO
-			view_ip
-			(ip, seller_pn, input_date)
-		VALUES
-			( #{remoteAddr}, #{sellerPn}, SYSDATE() )
-	</insert>
-	
-	<select id="selectViewDayCount" parameterType="Integer" resultType="Integer">
-		SELECT
-			COUNT(*)
-		FROM
-			view_ip_day
+			statistic_click
 		WHERE
 			seller_pn = #{sellerPn}
 		AND
 			count_date = DATE_FORMAT(SYSDATE(), '%Y-%m-%d')
 	</select>
 	
-	<insert id="insertViewDayCount" parameterType="Integer">
+	<insert id="insertStatisticClick" parameterType="Integer">
 		INSERT INTO
-			view_ip_day
+			statistic_click
 			(	seller_pn, count_date, day_count)
 		VALUES
 			(	#{sellerPn}, SYSDATE(), 1)
 	</insert>
 	
-	<update id="updateViewDayCount" parameterType="Count">
+	<update id="updateStatisticClick" parameterType="Count">
 		UPDATE
-			view_ip_day
+			statistic_click
 		SET
 			day_count = #{count}
 		WHERE
@@ -368,14 +347,46 @@
 		AND
 			count_date = DATE_FORMAT(SYSDATE(), '%Y-%m-%d')
 	</update>
-
-	<select id="selectViewTotalCount" parameterType="Integer" resultType="Integer">
+	
+	<select id="selectStatisticView" parameterType="Integer" resultType="Integer">
 		SELECT
-			view_count
+			day_count
 		FROM
-			count_view_seller_pn
+			statistic_view
 		WHERE
 			seller_pn = #{sellerPn}
+		AND
+			count_date = DATE_FORMAT(SYSDATE(), '%Y-%m-%d')
+	</select>
+	
+	<insert id="insertStatisticView" parameterType="Integer">
+		INSERT INTO
+			statistic_view
+			(	seller_pn, count_date, day_count)
+		VALUES
+			(	#{sellerPn}, SYSDATE(), 1)
+	</insert>
+	
+	<update id="updateStatisticView" parameterType="Count">
+		UPDATE
+			statistic_view
+		SET
+			day_count = #{count}
+		WHERE
+			seller_pn = #{sellerPn}
+		AND
+			count_date = DATE_FORMAT(SYSDATE(), '%Y-%m-%d')
+	</update>
+	
+	<select id="selectSevenDayStatisticView" parameterType="HashMap" resultType="Integer">
+		SELECT
+			SUM(day_count) AS `count`
+		FROM
+			`statistic_view`
+		WHERE
+			seller_pn = #{sellerPn}
+		AND
+			count_date BETWEEN #{beforeDate} AND #{nowDate}
 	</select>
 
 </mapper>

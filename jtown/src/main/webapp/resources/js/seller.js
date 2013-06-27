@@ -93,7 +93,7 @@ makeIntro = function(){
         [
 			{
 				element: '#step1',
-				intro:  'ShopNo : 고객고유번호<br/> Seller : 회사명 <br/>Site : 홈페이지주소<br/>Tag : 관심사<br/>'+
+				intro:  'ShopNo : 고객고유번호<br/> Seller : 회사명 <br/>Site : 홈페이지주소<br/>Tag : 쇼핑몰 대표 테그<br/>'+
 						'<span style="color : #ff431e;">위 정보는 고유정보 임으로 바꾸시려면 <a href="'+contextPath+'help/question" style="text-decoration:underline; color:#ff431e;">고객센터</a>에 문의 해주시기 바랍니다.</span>'
 			},
 			{
@@ -117,7 +117,7 @@ makeIntro = function(){
 			{
 				element: '#step4',
 				intro: 	'<ul>'+
-						'	<li><span class="jt-home-shop-view jt-home-text-explain">VIEW</span> : 홈페이지 클릭 수</li>'+
+						'	<li><span class="jt-home-shop-view jt-home-text-explain">VIEW</span> : 마이 샵 클릭 수</li>'+
 						'	<li><span class="jt-home-shop-comment jt-home-text-explain jt-comment-text-explain">COMMENT</span> : 댓글 수</li>'+
 						'	<li><span class="jt-home-shop-love jt-home-text-explain jt-love-text-explain">♥</span> : 하트 클릭 수</li>'+
 						'</ul>'
@@ -133,12 +133,11 @@ makeIntro = function(){
 			},
 			{
 				element: '#step6',
-				intro:  '해당 상품을 클릭하면 상품 입력 창에서 입력한 URL로 이동됩니다. 입력되지 않았을 시에는 홈페이지로 이동됩니다.'
+				intro:  '소비자가 해당 상품을 클릭하면 입력된 상품 URL 로 이동됩니다. 입력되지 않았을 시에는 쇼핑몰 첫 페이지로 이동 됩니다. 입력은 다음 단계에서 간편하게 가능 합니다.'
 			},
 			{
 				element: '#step7',
-				intro:  '상품 입력 창은 \'+\' 버튼을 누르시면 됩니다.<br/>'+
-						'상품 입력, 수정, 삭제를 할 수 있습니다.'
+				intro:  '\'+\' 버튼을 누르시고 당신의 상품을 알려보세요.'
 			},
 			{
 				element: '#jt-seller-expand-event-first',

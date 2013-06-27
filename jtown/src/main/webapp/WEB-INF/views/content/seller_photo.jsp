@@ -87,32 +87,32 @@ html{ overflow-y: hidden;}
 								<img alt="입력완료" src="${cp }/resources/images/jt-confirm-icon.png" style="float:left; margin: 1px 7px 0 3px;"/><span style="float:left; ">입력완료</span>
 							</button>
 						</li>
-						<li>상품 수정은 해당 상품을 클릭하시기 바랍니다.</li>
-						<li>상품 삭제는 해당 상품에 마우스를 올릴시 좌측 상단에 뜨는 X 버튼을 클릭하시기 바랍니다.</li>
+						<li>1. 해당 상품을 클릭하시면 상세정보 (이름, 가격, 상품 URL) 입력이 가능합니다.</li>
+						<li>2. 상품 삭제는 해당 상품에 마우스를 올릴시 좌측 상단에 뜨는 X 버튼을 클릭하시기 바랍니다.</li>
 					</ul>
 					<div class="jt-product-article-update" style="display: ${update};">
 						<form:form commandName="product" action="${cp }/seller/form.jt" method="delete">
 							<form:hidden path="pn"/>
 							<form:hidden path="sellerPn"/>
 							<ul class="jt-product-article-update-input"> 
-								<li style="width: 130px;">
-									<form:label path="name" cssClass="jt-product-label">상품명</form:label>
+								<li>
+									<form:label path="name" cssClass="jt-product-label">이름</form:label>
 									<form:input path="name" cssClass="jt-product-input" cssErrorClass="jt-product-input-error" maxlength="15" placeholder="ex) T-Shirt"/>
 								</li>
-								<li style="width: 130px;">
+								<li>
 									<form:label path="price" cssClass="jt-product-label">가격</form:label>
-									<form:input path="price" cssClass="jt-product-input" cssErrorClass="jt-product-input-error" maxlength="10" placeholder="ex) 2000"/>
+									<form:input path="price" cssClass="jt-product-input" cssErrorClass="jt-product-input-error" maxlength="10" placeholder="ex) 20000"/>
 								</li>
-								<li style="width: 260px;">
-									<form:label path="url" cssClass="jt-product-label">주소</form:label>
-									<form:input path="url" cssClass="jt-product-input" cssErrorClass="jt-product-input-error" cssStyle="width: 210px;" maxlength="300" placeholder="ex) http://www.mirros.net/"/>
+								<li>
+									<form:label path="url" cssClass="jt-product-label">상품 URL</form:label>
+									<form:input path="url" cssClass="jt-product-input" cssErrorClass="jt-product-input-error" maxlength="300" placeholder="ex) http://www.myshop.net/shoes"/>
 								</li>
 								<li style="width: 260px; margin: 0;">
 									<div class="jt-product-error">
 										<form:errors path="*" cssClass="jt-product-error-text"/>
 									</div>
 								</li>
-								<li style="float: right;">
+								<li style="float: right; width: auto; margin-right: 8px;">
 									<button type="button" class="jt-btn-white-small jt-product-update-submit">
 										<span class="btnImage"></span>
 										<span class="btnText">저장</span>

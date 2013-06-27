@@ -38,8 +38,7 @@
 			<section class="jt-home-main-recently-wrap">
 				
 				<header>
-					<span class="jt-home-main-recently-mark">&nbsp;</span>
-					<h1>Recently</h1>
+					<h1>Date</h1>
 					<span class="jt-home-main-recently-date"><c:out value="${intervalCount.beforeDate }"/> ~ ${intervalCount.nowDate }</span>
 				</header>
 				<ul>
@@ -75,7 +74,7 @@
 							<c:forEach items="${products }" var="product" varStatus="loop">
 								<div class="jt-home-expand-shop-expandProduct" id="jt-product-${productSize - loop.index }">
 									<c:set var="shopUrl" value="http://${jtownUser.shopUrl }" />
-									<a href="${product.url eq null ? shopUrl : product.url}" target="_blank"  onclick="jtown.home.clickShop('${jtownUser.pn }');"><img alt="상품" src="${cp }/resources/uploadImage/${product.saveName }"/></a>
+									<a href="${product.url eq null ? shopUrl : product.url}" target="_blank"  onclick="jtown.home.goHome('${jtownUser.pn }');"><img alt="상품" src="${cp }/resources/uploadImage/${product.saveName }"/></a>
 									<div class="jt-product-article-object-wrap jt-product-article-object-expand">
 										<c:choose>
 											<c:when test="${product.name eq null or product.commaPrice eq null }">

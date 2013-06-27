@@ -21,7 +21,8 @@
 
 	<select id="selectSellerInformation" parameterType="HashMap" resultMap="jtown-seller-map">
 		SELECT
-			us.pn, u.id, u.name, us.shop_url, us.shop_pn, us.notice, us.long_notice, cvsp.view_count, clsp.love_count, ccsp.comment_count, bdl.banner_first, bdl.banner_second,
+			us.pn, u.id, u.name, us.shop_url, us.shop_pn, us.notice, us.long_notice, 
+			ssid.view_count, clsp.love_count, ccsp.comment_count, bdl.banner_first, bdl.banner_second,
 			us.hot AS love_hot_count
 			<if test="customerPn != null">
 			, cl.customer_pn
@@ -32,10 +33,10 @@
 			ON us.pn = u.pn 
 			LEFT OUTER JOIN count_love_seller_pn clsp
 			ON us.pn = clsp.seller_pn
+			LEFT OUTER JOIN sum_statistic_interval_7day ssid
+			ON us.pn = ssid.seller_pn
 			LEFT OUTER JOIN count_comment_seller_pn ccsp
 			ON us.pn = ccsp.seller_pn
-			LEFT OUTER JOIN count_view_seller_pn cvsp
-			ON us.pn = cvsp.seller_pn
 			LEFT OUTER JOIN banner_diff_least bdl
 			ON us.pn = bdl.seller_pn
 			<if test="customerPn != null">
@@ -60,20 +61,20 @@
 		WHERE
 			seller_pn = #{properNumber}
 		AND
-			input_date BETWEEN #{beforeDate} AND SYSDATE()
+			input_date BETWEEN #{beforeDate} AND #{nowDate}
 		
 		UNION
 		
 		SELECT
-			'view' AS name, COUNT(seller_pn) AS count
+			'view' AS name, SUM(day_count) AS count
 		FROM
-			view_ip_day
+			`statistic_view`
 		WHERE
 			seller_pn = #{properNumber}
 		AND
-			count_date BETWEEN #{beforeDate} AND SYSDATE()
-		
-		UNION
+			count_date BETWEEN #{beforeDate} AND #{nowDate}
+			
+		UNION	
 		
 		SELECT
 			'comment' AS name, COUNT(seller_pn) AS count
@@ -82,7 +83,7 @@
 		WHERE
 			seller_pn = #{properNumber}
 		AND
-			input_date BETWEEN #{beforeDate} AND SYSDATE()
+			input_date BETWEEN #{beforeDate} AND #{nowDate}
 	</select>
 	
 	<!-- Seller Image -->
