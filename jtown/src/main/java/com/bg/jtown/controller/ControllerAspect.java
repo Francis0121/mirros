@@ -84,23 +84,5 @@ public class ControllerAspect {
 			logger.info(signatureString + " 실행 시간 : " + (finish - start) + "ms");
 		}
 	}
-
-	@AfterReturning(value = "bean(*Controller)", returning = "view")
-	public void after(JoinPoint joinPoint, Object view) {
-		if (view.getClass() ==  String.class) {
-			String realView = (String) view;
-			logger.debug("viewName : " + realView);
-
-			Object[] param = joinPoint.getArgs();
-
-			for (int i = 0; i < param.length; i++) {
-				if (param[i] != null) {
-					if (param[i].getClass() == BindingAwareModelMap.class) {
-						Model model = (Model) param[i];
-						model.addAttribute("rv", realView);
-					}
-				}
-			}
-		}
-	}
+	
 }

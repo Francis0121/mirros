@@ -93,39 +93,70 @@ makeIntro = function(){
         [
 			{
 				element: '#step1',
-				intro: 'ShopNo : 고객 고유번호 입니다.<br/> Seller : 회사명 <br/> Site : 홈페이지 주소 <br/> Tag : 회사 관심사 테그 <br/> 고유정보로 바꾸시려면 연락 주시면 됩니다.'
+				intro:  'ShopNo : 고객고유번호<br/> Seller : 회사명 <br/>Site : 홈페이지주소<br/>Tag : 관심사<br/>'+
+						'<span style="color : #ff431e;">위 정보는 고유정보 임으로 바꾸시려면 <a href="'+contextPath+'help/question" style="text-decoration:underline; color:#ff431e;">고객센터</a>에 문의 해주시기 바랍니다.</span>'
 			},
 			{
 				element: '#step2',
-				intro: '1.수정버튼을 누른다.<br/> 2.사진업로드를 한다.<br/> 3.수정버튼을 누른다.'
+				intro: 	'<ol style="list-style: decimal; margin-left: 15px;">'+
+						'	<li>마우스를 사진 위에 올립니다.</li>'+
+						'	<li>수정 버튼을 클릭합니다.</li>'+
+						'	<li>사진 업로드 버튼을 클릭하여 사진을 업로드 합니다.</li>'+
+						'	<li>수정 버튼을 클릭합니다.</li>'+
+						'</ol>'
 			},
 			{
 				element: '#jt-seller-main-footer',
-				intro: '1.수정버튼을 누른다.<br/> 2.내용을 수정 한다.<br/> 3.수정버튼을 누른다.'
+				intro: 	'<ol style="list-style: decimal; margin-left: 15px;">'+
+						'	<li>마우스를 내용 위에 올립니다.</li>'+
+						'	<li>수정 버튼을 클릭합니다.</li>'+
+						'	<li>내용을 수정 합니다.</li>'+
+						'	<li>수정 버튼을 클릭합니다.</li>'+
+						'</ol>'
 			},
 			{
 				element: '#step4',
-				intro: '뷰, 댓글, 하트 수를 보여줍니다.'
+				intro: 	'<ul>'+
+						'	<li><span class="jt-home-shop-view jt-home-text-explain">VIEW</span> : 홈페이지 클릭 수</li>'+
+						'	<li><span class="jt-home-shop-comment jt-home-text-explain jt-comment-text-explain">COMMENT</span> : 댓글 수</li>'+
+						'	<li><span class="jt-home-shop-love jt-home-text-explain jt-love-text-explain">♥</span> : 하트 클릭 수</li>'+
+						'</ul>'
 			},
 			{
 				element: '#jt-home-expand-shop-notice',
-				intro: '1.수정버튼을 누른다.<br/> 2.내용을 수정 한다.<br/> 3.수정버튼을 누른다.'
+				intro: 	'<ol style="list-style: decimal; margin-left: 15px;">'+
+						'	<li>마우스를 내용 위에 올립니다.</li>'+
+						'	<li>수정 버튼을 클릭합니다.</li>'+
+						'	<li>내용을 수정 합니다.</li>'+
+						'	<li>수정 버튼을 클릭합니다.</li>'+
+						'</ol>'
 			},
 			{
 				element: '#step6',
-				intro: '상품을 크게 볼수 있는 화면 입니다.'
+				intro:  '해당 상품을 클릭하면 상품 입력 창에서 입력한 URL로 이동됩니다. 입력되지 않았을 시에는 홈페이지로 이동됩니다.'
 			},
 			{
 				element: '#step7',
-				intro: '+ 버튼을 누르시면 상품 입력창이 뜹니다.'
+				intro:  '상품 입력 창은 \'+\' 버튼을 누르시면 됩니다.<br/>'+
+						'상품 입력, 수정, 삭제를 할 수 있습니다.'
 			},
 			{
 				element: '#jt-seller-expand-event-first',
-				intro: '1.수정버튼을 누른다.<br/> 2.내용을 수정 한다.<br/> 3.수정버튼을 누른다.'
+				intro: 	'<ol style="list-style: decimal; margin-left: 15px;">'+
+						'	<li>마우스를 사진 위에 올립니다.</li>'+
+						'	<li>수정 버튼을 클릭합니다.</li>'+
+						'	<li>사진 업로드 버튼을 클릭하여 사진을 업로드 합니다.</li>'+
+						'	<li>수정 버튼을 클릭합니다.</li>'+
+						'</ol>'
 			},
 			{
 				element: '#jt-seller-expand-event-second',
-				intro: '1.수정버튼을 누른다.<br/> 2.내용을 수정 한다.<br/> 3.수정버튼을 누른다.'
+				intro: 	'<ol style="list-style: decimal; margin-left: 15px;">'+
+						'	<li>마우스를 사진 위에 올립니다.</li>'+
+						'	<li>수정 버튼을 클릭합니다.</li>'+
+						'	<li>사진 업로드 버튼을 클릭하여 사진을 업로드 합니다.</li>'+
+						'	<li>수정 버튼을 클릭합니다.</li>'+
+						'</ol>'
 			}
 		]
 	});

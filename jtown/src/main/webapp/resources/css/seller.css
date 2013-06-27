@@ -243,3 +243,8 @@ Product Insert btn
 
 .jt-product-footer{ padding: 5px; text-indent : 5px; width: 600px; height : 15px; background: #fff; border-top: 1px solid #bebebe;}
 .jt-product-footer span{  color: #666666; font-size: 11px; line-height: 15px;}
+
+
+.jt-home-text-explain{ margin:  0 5px 0 0; float: left; cursor: auto;}
+.jt-comment-text-explain:HOVER { background-position: 0 -60px; }
+.jt-love-text-explain:HOVER { background-position: 0 -30px;}

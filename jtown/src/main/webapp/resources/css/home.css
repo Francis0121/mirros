@@ -111,7 +111,7 @@ word-wrap: break-word; /* Internet Explorer 5.5+ */}
 .jt-home-expand-shop-expandProduct-slide{ min-width: 510px; min-height: 200px; float: left; overflow: hidden; cursor: pointer;}
 #jt-seller-slide-fake-dan{position: absolute; width: 510px; overflow: hidden; height: 190px;}
 #jt-seller-slide-content-dan{position: absolute; left: 0; }
-.jt-home-expand-shop-expandProduct{ width: 140px; padding: 20px 15px 30px 15px; margin-top:10px; float:left; position: relative;background: #fff;}
+.jt-home-expand-shop-expandProduct{ width: 140px; padding: 20px 15px 30px 15px; margin-top:10px; float:left; position: relative;background: transparent;}
 .jt-home-expand-shop-expandProduct img{ width: 140px; height: 140px; padding: 0px; float:left;}
 #jt-home-expand-shop-notice{ float: left; border-bottom: 1px solid #d1cdcd; width: 100%; cursor: pointer;}
 .jt-home-expand-shop-firstQuotationMark{ float: left; width: 15px; height:15px; 
