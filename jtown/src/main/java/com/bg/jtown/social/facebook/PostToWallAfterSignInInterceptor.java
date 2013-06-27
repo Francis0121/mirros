@@ -63,8 +63,8 @@ public class PostToWallAfterSignInInterceptor implements
 				String sex = fp.getGender().equals("male") ? "2" : "1";
 				FacebookLink link = new FacebookLink(
 						"https://www.mirros.net/cpn/" + sex + "/spn/0",
-						"Let`s see.", "",
-						"Mirros에서 더 쉽고 간편하게, 인터넷 쇼핑몰들을 체험하세요.");
+						"가장 특별한 쇼핑몰들이 모여있다.", "",
+						"더 쉽고 간편하게, 당신하게 맞는 쇼핑몰들을 체험하세요.");
 				facebook.feedOperations().postLink(message, link);
 			}
 		} catch (OperationNotPermittedException e) {

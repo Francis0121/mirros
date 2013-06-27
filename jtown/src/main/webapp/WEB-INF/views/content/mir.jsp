@@ -134,7 +134,7 @@
 				<div class="jt-home-expand-shop-content-wrpa">
 					<ul class="jt-home-expand-shop-content-fn">
 						<li class="jt-home-expand-shop-content-view-wrap">
-							<span class="jt-home-expand-shop-content-view">Look</span>&nbsp;<span id="view-expand-<c:out value="${jtownUser.pn }"/>"><c:out value="${jtownUser.viewCount eq null ? 0 : jtownUser.viewCount}"/></span>
+							<span class="jt-home-expand-shop-content-view" title="최근 일주일간 방문수">Look</span>&nbsp;<span id="view-expand-<c:out value="${jtownUser.pn }"/>"><c:out value="${jtownUser.viewCount eq null ? 0 : jtownUser.viewCount}"/></span>
 						</li>
 						<li class="jt-home-expand-shop-content-comment-wrap">
 							<span class="jt-home-expand-shop-content-comment"></span>&nbsp;Comment&nbsp;<span id="comment-expand-<c:out value="${jtownUser.pn }"/>" class="jt-home-expand-shop-content-comment-text"><c:out value="${jtownUser.commentCount eq null ? 0 : jtownUser.commentCount}"/></span>
@@ -158,7 +158,7 @@
 							<span id="love-<c:out value="${jtownUser.pn }"/>" 
 								class="${loveTextClick}"><c:out value="${jtownUser.loveCount eq null ? 0 : jtownUser.loveCount}"/></span>
 							<c:if test="${jtownUser.loveHotCount ne null and jtownUser.loveHotCount ne 0}">
-								<span class="jt-home-shop-love-hot">HOT</span>
+								<span class="jt-home-shop-love-hot" title="최근 뜨는 미니샵">HOT</span>
 							</c:if>
 							</div>
 						</li>

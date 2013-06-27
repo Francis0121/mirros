@@ -117,7 +117,7 @@ makeIntro = function(){
 			{
 				element: '#step4',
 				intro: 	'<ul>'+
-						'	<li><span class="jt-home-shop-view jt-home-text-explain">VIEW</span> : 마이 샵 클릭 수</li>'+
+						'	<li><span class="jt-home-shop-view jt-home-text-explain">VIEW</span> : 최근 일주일간 방문수</li>'+
 						'	<li><span class="jt-home-shop-comment jt-home-text-explain jt-comment-text-explain">COMMENT</span> : 댓글 수</li>'+
 						'	<li><span class="jt-home-shop-love jt-home-text-explain jt-love-text-explain">♥</span> : 하트 클릭 수</li>'+
 						'</ul>'

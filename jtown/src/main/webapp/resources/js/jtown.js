@@ -181,7 +181,7 @@ jtown.home.html = function(data) {
 		var loveClick = !nullValueCheck(seller.customerPn) ? 'jt-home-shop-love-click' : '';
 		var loveTextClick = !nullValueCheck(seller.customerPn) ? 'jt-home-shop-love-text-click' : '';
 
-		var loveHotCount = '<span class="jt-home-shop-love-hot">HOT</span>';
+		var loveHotCount = '<span class="jt-home-shop-love-hot" title="최근 뜨는 미니샵">HOT</span>';
 		if (nullValueCheck(seller.loveHotCount)  || seller.loveHotCount == 0 ) {
 			loveHotCount = '';
 		}
@@ -215,7 +215,7 @@ jtown.home.html = function(data) {
 		html += '		</div>';
 		html += '		<ul class="jt-home-shop-content-fn">';
 		html += '			<li>';
-		html += '				<span class="jt-home-shop-view">VIEW</span>&nbsp;<span id="view-'+ spn+ '">'+ (nullValueCheck(seller.viewCount) ? 0 : seller.viewCount)+ '</span>';
+		html += '				<span class="jt-home-shop-view" title="최근 일주일간 방문수">VIEW</span>&nbsp;<span id="view-'+ spn+ '">'+ (nullValueCheck(seller.viewCount) ? 0 : seller.viewCount)+ '</span>';
 		html += '			</li>';
 		html += '			<li>';
 		html += '				<span class="jt-home-shop-comment">COMMENT</span>&nbsp;<span id="comment-'+ spn+ '">'+ (nullValueCheck(seller.commentCount) ? 0 : seller.commentCount) + '</span>';

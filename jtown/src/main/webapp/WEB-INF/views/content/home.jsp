@@ -57,7 +57,7 @@
 				</div>
 				<ul class="jt-home-shop-content-fn">
 					<li>
-						<span class="jt-home-shop-view">VIEW</span>&nbsp;<span id="view-<c:out value="${spn }"/>"><c:out value="${seller.viewCount eq null ? 0 : seller.viewCount}"/></span>	
+						<span class="jt-home-shop-view" title="최근 일주일간 방문수" >VIEW</span>&nbsp;<span id="view-<c:out value="${spn }"/>"><c:out value="${seller.viewCount eq null ? 0 : seller.viewCount}"/></span>	
 					</li>
 					<li>
 						<span class="jt-home-shop-comment">COMMENT</span>&nbsp;<span id="comment-<c:out value="${spn }"/>"><c:out value="${seller.commentCount eq null ? 0 : seller.commentCount}"/></span>
@@ -79,7 +79,7 @@
 						<div class="jt-home-shop-content-love-text-wrap">
 							<span id="love-<c:out value="${spn }"/>" class="${loveTextClick}"><c:out value="${seller.loveCount eq null ? 0 : seller.loveCount}"/></span>
 							<c:if test="${seller.loveHotCount ne null and seller.loveHotCount ne 0}">
-							<span class="jt-home-shop-love-hot">HOT</span>
+							<span class="jt-home-shop-love-hot" title="최근 뜨는 미니샵">HOT</span>
 							</c:if>
 						</div>
 					</li>

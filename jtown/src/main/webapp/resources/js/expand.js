@@ -187,7 +187,7 @@ jtown.expand.makeInnerHtml = function(spn){
 		var loveClick = (!nullValueCheck(loveHave) && loveHave != 0 ) ? 'jt-home-shop-love-click' : '';
 		var loveTextClick =   (!nullValueCheck(loveHave) && loveHave != 0) ? 'jt-home-shop-love-text-click' : '';
 		
-		var loveHotCount ='<span class="jt-home-shop-love-hot">HOT</span>';
+		var loveHotCount ='<span class="jt-home-shop-love-hot" title="최근 뜨는 미니샵">HOT</span>';
 		if(nullValueCheck(jtownUser.loveHotCount) || jtownUser.loveHotCount == 0 ){
 			loveHotCount = '';
 		}
@@ -237,7 +237,7 @@ jtown.expand.makeInnerHtml = function(spn){
 		html +=	'	</div>';	
 		html += '	<ul class="jt-home-expand-shop-content-fn">';
 		html +=	'		<li class="jt-home-expand-shop-content-view-wrap">';
-		html +=	'			<span class="jt-home-expand-shop-content-view">Look</span>&nbsp;<span id="view-expand-'+spn+'">'+jtownUser.viewCount+'</span>';	
+		html +=	'			<span class="jt-home-expand-shop-content-view" title="최근 일주일간 방문수">Look</span>&nbsp;<span id="view-expand-'+spn+'">'+jtownUser.viewCount+'</span>';	
 		html +=	'		</li>';
 		html +=	'		<li class="jt-home-expand-shop-content-comment-wrap">';
 		html +=	'			<span class="jt-home-expand-shop-content-comment"></span>&nbsp;Comment&nbsp;<span id="comment-expand-'+spn+'" class="jt-home-expand-shop-content-comment-text">' + jtownUser.commentCount+'</span>';
