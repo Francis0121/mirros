@@ -1,0 +1,528 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="helpMapper">
+
+	<sql id="paginationBefore">
+		SELECT 
+			t.*
+		FROM 
+		( 
+			SELECT  
+				z.*, @RNUM := @RNUM + 1 AS rnum
+			FROM
+				(
+	</sql>
+	
+	<sql id="paginationAfter">
+		<![CDATA[
+				) z,  
+				( SELECT @RNUM := 0 ) R
+			WHERE @RNUM + 1 <=  #{pagination.itemSeqEnd}
+		) t
+		WHERE t.rnum >= #{pagination.itemSeqBegin}
+		]]>
+	</sql>
+	
+	<!-- Partnership -->
+	<resultMap type="Partnership" id="jt-help-partnership-map">
+		<result column="pn" property="pn"/>
+		<result column="name" property="name"/>
+		<result column="email" property="email"/>
+		<result column="phone_number" property="phoneNumber"/>
+		<result column="category_pn" property="categoryPn"/>
+		<result column="content" property="content"/>
+		<result column="process" property="process"/>
+		<result column="deposit" property="deposit"/>
+		<result column="input_date" property="inputDate"/>
+		<result column="update_date" property="updateDate"/>
+		<result column="note" property="note"/>
+		<result column="seller_pn" property="jtownUser.pn"/>
+		<result column="shop_url" property="jtownUser.shopUrl"/>
+		<result column="id" property="jtownUser.username"/>
+		<result column="enable" property="jtownUser.enabled"/>
+		<result column="salt" property="jtownUser.salt"/>
+		<result column="seller_name" property="jtownUser.name"/>
+		<result column="shop_pn" property="jtownUser.shopPn"/>
+		<result column="contract_end_date" property="jtownUser.contractEndDate"/>
+		<result column="begin_start_date" property="jtownUser.beginStartDate"/>
+		<result column="admin_pn" property="adminUser.pn"/>
+		<result column="admin_name" property="adminUser.name"/>
+	</resultMap>
+	
+	<select id="selectPartnerships" parameterType="PartnershipFilter" resultMap="jt-help-partnership-map">
+		<include refid="paginationBefore"/>
+		SELECT
+			p.pn, p.name, p.email, p.phone_number,
+			p.category_pn, p.content, p.process, p.deposit, p.input_date, p.update_date, p.note,
+			u.pn AS seller_pn, u.shop_pn, u.shop_url, u.id, u.enable, u.salt, u.name AS seller_name, 
+			u.begin_start_date, u.contract_end_date,
+			ua.pn AS admin_pn, ua.name AS admin_name
+		FROM
+			partnership p
+			LEFT OUTER JOIN ( 
+				SELECT 
+					us.pn, us.shop_pn, us.shop_url, u.id, u.enable, u.salt, u.name, 
+					uscie.contract_end_date, uscib.begin_start_date
+				FROM 
+					user_seller us
+					LEFT OUTER JOIN(
+						SELECT
+							seller_pn, end_date AS contract_end_date
+						FROM
+							user_seller_contract_info
+						WHERE
+							DATE_FORMAT(SYSDATE(), '%Y-%m-%d') BETWEEN start_date AND end_date
+					) uscie
+					ON us.pn = uscie.seller_pn
+					LEFT OUTER JOIN	(
+						<![CDATA[
+						SELECT
+							seller_pn, MIN(start_date) AS begin_start_date
+						FROM
+							user_seller_contract_info
+						WHERE
+							DATE_FORMAT(SYSDATE(), '%Y-%m-%d') < start_date
+						GROUP BY
+							seller_pn
+						]]>
+					) uscib
+					ON us.pn = uscib.seller_pn
+					, users u 
+				WHERE 
+					us.pn = u.pn 
+			) u
+			ON u.pn = p.seller_pn
+			LEFT OUTER JOIN ( SELECT u.pn, u.name FROM user_admin ua, users u WHERE ua.pn = u.pn AND u.enable = TRUE ) ua
+			ON ua.pn = p.admin_pn
+		WHERE
+			1 = 1
+		<if test="process != null">
+		AND	
+			process = #{process}	
+		</if>
+		<if test="deposit != null">
+		AND	
+			deposit = #{deposit}	
+		</if>
+		<if test="categoryPn != null">
+		AND
+			category_pn = #{categoryPn}
+		</if>
+		<if test="searchEmail != null and searchEmail != ''">
+		AND
+			email LIKE #{searchEmail}
+		</if>
+		<if test="searchPhoneNumber != null and searchPhoneNumber != ''">
+		AND
+			phone_number LIKE #{searchPhoneNumber}
+		</if>
+		<if test="searchSellerId != null and searchSellerId != ''">
+		AND
+			u.id LIKE #{searchSellerId}
+		</if>
+		<if test="searchShopUrl != null and searchShopUrl != '' ">
+		AND
+			u.shop_url LIKE #{searchShopUrl}
+		</if>
+		<if test="searchSellerName != null and searchSellerName != ''">
+		AND
+			u.name LIKE #{searchSellerName}
+		</if>
+		<if test="shopPnNo != null and shopPnNo != ''">
+		AND
+			u.shop_pn = #{shopPnNo}
+		</if>
+		<if test="enabled != null">
+		AND
+			u.enable = #{enabled}	
+		</if>
+		<if test="adminPn != null">
+			<choose>
+				<when test="adminPn == 0">
+					AND
+						admin_pn IS NULL
+				</when>
+				<otherwise>
+					AND
+						admin_pn = #{adminPn}
+				</otherwise>
+			</choose>
+		</if>
+		ORDER BY
+			p.pn DESC
+		<include refid="paginationAfter"/>
+	</select>
+	
+	<select id="selectPartnership" parameterType="Integer" resultMap="jt-help-partnership-map">
+		SELECT
+			p.pn, p.name, p.email, p.phone_number,
+			p.category_pn, p.content, p.process, p.deposit, p.input_date, p.update_date, p.note
+			<if test="pn != null">
+			,u.pn AS seller_pn, u.shop_pn, u.shop_url, u.id, u.enable, u.salt, u.name AS seller_name,
+			u.begin_start_date, u.contract_end_date,
+			ua.pn AS admin_pn, ua.name AS admin_name	
+			</if>
+		FROM
+			partnership p
+			<if test="pn != null">
+			LEFT OUTER JOIN ( 
+				SELECT 
+					us.pn, us.shop_pn, us.shop_url, u.id, u.enable, u.salt, u.name, 
+					uscie.contract_end_date, uscib.begin_start_date
+				FROM 
+					user_seller us
+					LEFT OUTER JOIN(
+						SELECT
+							seller_pn, end_date AS contract_end_date
+						FROM
+							user_seller_contract_info
+						WHERE
+							DATE_FORMAT(SYSDATE(), '%Y-%m-%d') BETWEEN start_date AND end_date
+					) uscie
+					ON us.pn = uscie.seller_pn
+					LEFT OUTER JOIN	(
+						<![CDATA[
+						SELECT
+							seller_pn, MIN(start_date) AS begin_start_date
+						FROM
+							user_seller_contract_info
+						WHERE
+							DATE_FORMAT(SYSDATE(), '%Y-%m-%d') < start_date
+						GROUP BY
+							seller_pn
+						]]>
+					) uscib
+					ON us.pn = uscib.seller_pn		
+					, users u 
+				WHERE 
+					us.pn = u.pn 
+			) u
+			ON u.pn = p.seller_pn
+			LEFT OUTER JOIN ( SELECT u.pn, u.name FROM user_admin ua, users u WHERE ua.pn = u.pn AND u.enable = TRUE ) ua
+			ON ua.pn = p.admin_pn
+			</if>
+		WHERE
+		<if test="pn != null">
+			p.pn = #{pn}		
+		</if>
+		<if test="email != null">
+			p.email = #{email}
+		AND
+			p.process = 1
+		</if>
+		<if test="phoneNumber != null">
+			p.phone_number = #{phoneNumber}
+		AND
+			p.process = 1
+		</if>
+	</select>
+	
+	<select id="selectPartnershipCategory" parameterType="Integer" resultType="Integer">
+		SELECT
+			category_pn AS categoryPn
+		FROM
+			partnership
+		WHERE
+			pn = #{pn}
+	</select>
+	
+	<select id="selectPartnershipCount" parameterType="PartnershipFilter" resultType="Integer">
+		SELECT
+			COUNT(*)
+		FROM
+			partnership p
+			LEFT OUTER JOIN ( 
+				SELECT 
+					us.pn, us.shop_pn, us.shop_url, u.id, u.enable, u.salt, u.name, 
+					uscie.contract_end_date, uscib.begin_start_date
+				FROM 
+					user_seller us
+					LEFT OUTER JOIN(
+						SELECT
+							seller_pn, end_date AS contract_end_date
+						FROM
+							user_seller_contract_info
+						WHERE
+							DATE_FORMAT(SYSDATE(), '%Y-%m-%d') BETWEEN start_date AND end_date
+					) uscie
+					ON us.pn = uscie.seller_pn
+					LEFT OUTER JOIN	(
+						<![CDATA[
+						SELECT
+							seller_pn, MIN(start_date) AS begin_start_date
+						FROM
+							user_seller_contract_info
+						WHERE
+							DATE_FORMAT(SYSDATE(), '%Y-%m-%d') < start_date
+						GROUP BY
+							seller_pn
+						]]>
+					) uscib
+					ON us.pn = uscib.seller_pn		
+					, users u 
+				WHERE 
+					us.pn = u.pn 
+			) u
+			ON u.pn = p.seller_pn
+			LEFT OUTER JOIN ( SELECT u.pn, u.name FROM user_admin ua, users u WHERE ua.pn = u.pn AND u.enable = TRUE ) ua
+			ON ua.pn = p.admin_pn
+		WHERE
+			1 = 1
+		<if test="process != null">
+		AND	
+			process = #{process}	
+		</if>
+		<if test="deposit != null">
+		AND	
+			deposit = #{deposit}	
+		</if>
+		<if test="categoryPn != null">
+		AND
+			category_pn = #{categoryPn}
+		</if>
+		<if test="searchEmail != null and searchEmail != ''">
+		AND
+			email LIKE #{searchEmail}
+		</if>
+		<if test="searchPhoneNumber != null and searchPhoneNumber != ''">
+		AND
+			phone_number LIKE #{searchPhoneNumber}
+		</if>
+		<if test="searchSellerId != null and searchSellerId != ''">
+		AND
+			u.id LIKE #{searchSellerId}
+		</if>
+		<if test="searchShopUrl != null and searchShopUrl != '' ">
+		AND
+			u.shop_url LIKE #{searchShopUrl}
+		</if>
+		<if test="searchSellerName != null and searchSellerName != ''">
+		AND
+			u.name LIKE #{searchSellerName}
+		</if>
+		<if test="shopPnNo != null and shopPnNo != ''">
+		AND
+			u.shop_pn = #{shopPnNo}
+		</if>
+		<if test="enabled != null">
+		AND
+			u.enable = #{enabled}	
+		</if>
+		<if test="adminPn != null">
+			<choose>
+				<when test="adminPn == 0">
+					AND
+						admin_pn IS NULL
+				</when>
+				<otherwise>
+					AND
+						admin_pn = #{adminPn}
+				</otherwise>
+			</choose>
+		</if>		
+	</select>
+	
+	<insert id="insertPartnership" parameterType="Partnership">
+		INSERT INTO
+			partnership
+			(	name,	email,	phone_number,	category_pn,	content,	process, deposit, input_date, update_date	)
+		VAlUES	
+			(	#{name},	#{email},	#{phoneNumber},	#{categoryPn},	#{content}, #{process}, #{deposit}, SYSDATE(), SYSDATE()	)
+		<selectKey keyProperty="pn" resultType="java.lang.Integer">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+	
+	<delete id="deletePartnership" parameterType="Partnership">
+		DELETE FROM
+			partnership
+		<if test="pn != null">
+		WHERE
+			pn = #{pn}
+		</if>
+	</delete>
+	
+	<update id="updatePatnership" parameterType="Partnership">
+		UPDATE
+			partnership
+		SET
+			update_date = SYSDATE(),
+			<if test="name != null and name !='' ">
+				name = #{name}
+			</if>
+			<if	test="email != null and email !='' ">
+				email = #{email}
+			</if>
+			<if test="phoneNumber != null and phoneNumber !='' ">
+				phone_number = #{phoneNumber}
+			</if>
+			<if test="process != null and process !='' ">
+				process = #{process}			
+			</if>
+			<if test="deposit != null and deposit != '' ">
+				deposit = #{deposit}
+			</if>
+			<if test="categoryPn != null and categoryPn != '' ">
+				category_pn = #{categoryPn}
+			</if>
+			<if test="note != null and note != ''">
+				note = #{note}
+			</if>
+		WHERE
+			pn = #{pn}
+	</update>
+		
+	<update id="updatePartnershipJsonA" parameterType="Json">
+		UPDATE
+			partnership
+		SET
+			update_date = SYSDATE(),
+			<choose>
+				<when test="value == null || value == ''">
+					admin_pn = null
+				</when>
+				<otherwise>
+					admin_pn = #{value}
+				</otherwise>
+			</choose>
+		WHERE
+			pn = #{key}
+	</update>
+	
+	<update id="updatePartnershipJsonS" parameterType="Json">
+		UPDATE
+			partnership
+		SET
+			update_date = SYSDATE(),
+			<choose>
+				<when test="value == null || value == ''">
+					seller_pn = null
+				</when>
+				<otherwise>
+					seller_pn = #{value}
+				</otherwise>
+			</choose>
+		WHERE
+			pn = #{key}
+	</update>
+	
+	<select id="selectAdminIdList" resultType="JtownUser">
+		SELECT
+			u.pn, u.name
+		FROM
+			user_admin ua,
+			users u
+		WHERE
+			ua.pn = u.pn
+		AND
+			u.enable = TRUE
+	</select>
+	
+	<!-- FAQ -->
+	
+	<resultMap type="Question" id="jt-help-question-map">
+		<result property="pn" column="pn"/>
+		<result property="questionSection.questionCategory.name" column="category_name"/>
+		<result property="questionSection.name" column="section_name"/>
+		<result property="name" column="name"/>
+		<result property="email" column="email"/>		
+		<result property="browser" column="browser"/>
+		<result property="title" column="title"/>
+		<result property="content" column="content"/>
+		<result property="inputDate" column="input_date"/>
+		<result property="shopPn" column="shop_pn"/>
+	</resultMap>
+	
+	<select id="selectQuestions" parameterType="QuestionFilter" resultMap="jt-help-question-map">
+		<include refid="paginationBefore"/>
+		SELECT
+			q.pn, qc.name AS category_name, qs.name AS section_name,  
+			q.name, q.email, q.browser, q.title, q.content, q.input_date
+		FROM
+			question q,
+			question_category qc,
+			question_section qs
+		WHERE
+			qc.pn = qs.category_pn	
+		AND
+			q.section = qs.pn
+		<if test="categoryPn != null">
+		AND
+			qc.pn = #{categoryPn}
+		</if>
+		<if test="sectionPn != null">
+		AND	
+			qs.pn = #{sectionPn}
+		</if>
+		ORDER BY
+		 	q.input_date DESC
+		<include refid="paginationAfter"/>	
+	</select>
+	
+	<select id="selectQuestion" parameterType="Integer" resultMap="jt-help-question-map">
+		SELECT
+			q.pn, qc.name AS category_name, qs.name AS section_name,  
+			q.name, q.email, q.browser, q.title, q.content, q.input_date, q.shop_pn
+		FROM
+			question q,
+			question_category qc,
+			question_section qs
+		WHERE
+			qc.pn = qs.category_pn	
+		AND
+			q.section = qs.pn
+		AND
+			q.pn = #{questionPn}
+	</select>
+	
+	<select id="selectQuestionCount" parameterType="QuestionFilter" resultType="Integer">
+		SELECT
+			COUNT(q.pn)
+		FROM
+			question q,
+			question_category qc,
+			question_section qs
+		WHERE
+			qc.pn = qs.category_pn	
+		AND
+			q.section = qs.pn
+		<if test="categoryPn != null">
+		AND
+			qc.pn = #{categoryPn}
+		</if>
+		<if test="sectionPn != null">
+		AND	
+			qs.pn = #{sectionPn}
+		</if>
+	</select>
+	
+	<resultMap type="QuestionSection" id="jt-question-section-map">
+		<result property="pn" column="pn"/>
+		<result property="name" column="name"/>
+	</resultMap>
+	
+	<select id="selectQuestionSections" parameterType="Integer" resultMap="jt-question-section-map">
+		SELECT
+			pn, name
+		FROM
+			question_section
+		WHERE
+			category_pn = #{categoryPn}
+	</select>	
+	
+	<select id="selectQuestionCategories" resultType="QuestionCategory">
+		SELECT
+			pn, name
+		FROM
+			question_category
+	</select>
+	
+	<insert id="insertQuestion" parameterType="Question">
+		INSERT INTO
+			question
+			( section, name, email, browser, title, content, input_date, shop_pn	)
+		VALUES
+			( #{questionSection.pn}, #{name}, #{email}, #{browser}, #{title}, #{content}, SYSDATE(), #{shopPn} )
+	</insert>
+	
+</mapper>

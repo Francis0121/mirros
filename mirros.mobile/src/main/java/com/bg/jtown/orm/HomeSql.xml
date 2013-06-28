@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="homeMapper">
+
+	<sql id="paginationBefore">
+		SELECT 
+			t.*
+		FROM 
+		( 
+			SELECT  
+				z.*, @RNUM := @RNUM + 1 AS rnum
+			FROM
+				(
+	</sql>
+	
+	<sql id="paginationAfter">
+		<![CDATA[
+				) z,  
+				( SELECT @RNUM := 0 ) R
+			WHERE @RNUM + 1 <=  #{pagination.itemSeqEnd}
+		) t
+		WHERE t.rnum >= #{pagination.itemSeqBegin}
+		]]>
+	</sql>
+
+	<resultMap type="JtownUser" id="jtown-seller-map">
+		<result column="pn" property="pn"/>
+		<result column="name" property="name"/>
+		<result column="shop_url" property="shopUrl"/>
+		<result column="notice" property="notice"/>
+		<result column="love_count" property="loveCount"/>
+		<result column="view_count" property="viewCount"/>
+		<result column="comment_count" property="commentCount"/>
+		<result column="banner_first" property="bannerFirst"/>
+		<result column="banner_second" property="bannerSecond"/>
+		<result column="customer_pn" property="customerPn"/>
+		<result column="love_hot_count" property="loveHotCount"/>
+		<collection property="images" column="pn" javaType="ArrayList" select="selectSellerImage" ofType="String"/>
+	</resultMap>
+	
+	<select id="selectSellerImage" parameterType="Integer" resultType="String">
+		SELECT
+			usin.save_name
+		FROM
+			user_seller_image_name usin
+		WHERE
+			usin.seller_pn = #{properNumber}
+	</select>
+
+	<select id="selectFromInterestCategoryCount" parameterType="HomeFilter" resultType="Integer">
+		SELECT
+			COUNT(*)
+		FROM	(
+				SELECT
+					us.pn
+				FROM
+					user_seller us
+					LEFT OUTER JOIN users u
+					ON us.pn = u.pn,
+					user_seller_interest usi,
+					interest_section ise,
+					interest_category ic
+				WHERE
+					u.enable = 1
+				AND
+					us.pn = usi.seller_pn
+				AND
+					usi.section_pn = ise.pn
+				AND
+					ise.category_pn = ic.pn
+				AND
+					ise.category_pn = #{categoryPn}
+				GROUP BY 
+					us.pn
+			) t
+	</select>
+
+	<select id="selectFromInterestCategory" parameterType="HomeFilter" resultMap="jtown-seller-map">
+		<include refid="paginationBefore"/>
+		SELECT
+			us.pn , u.name, us.shop_url, us.notice, 
+			ssid.view_count, clsp.love_count, ccsp.comment_count, bdl.banner_first, bdl.banner_second,
+			us.hot AS love_hot_count
+			<if test="customerPn != null">
+			, cl.customer_pn
+			</if>
+		FROM
+			user_seller us 
+			LEFT OUTER JOIN users u
+			ON us.pn = u.pn
+			LEFT OUTER JOIN count_love_seller_pn clsp
+			ON us.pn = clsp.seller_pn
+			LEFT OUTER JOIN sum_statistic_interval_7day ssid
+			ON us.pn = ssid.seller_pn
+			LEFT OUTER JOIN count_comment_seller_pn ccsp
+			ON us.pn = ccsp.seller_pn
+			LEFT OUTER JOIN banner_diff_least bdl
+			ON us.pn = bdl.seller_pn
+			<if test="customerPn != null">
+			LEFT OUTER JOIN count_love cl
+			ON us.pn = cl.seller_pn AND cl.customer_pn = #{customerPn}
+			</if>,
+			user_seller_interest usi,
+			user_seller_contract_info usci,
+			interest_section ise,
+			interest_category ic
+		WHERE
+			u.enable = 1
+		AND
+			us.pn = usi.seller_pn
+		AND
+			us.pn = usci.seller_pn
+		AND
+			DATE_FORMAT(SYSDATE(), '%Y-%m-%d') BETWEEN usci.start_date AND usci.end_date
+		AND
+			usi.section_pn = ise.pn
+		AND
+			ise.category_pn = ic.pn
+		AND
+			ise.category_pn = #{categoryPn}
+		GROUP BY 
+			us.pn
+		ORDER BY
+			us.pn
+		<include refid="paginationAfter"/>
+	</select>
+	
+	<select id="selectFromInterestCount" parameterType="HomeFilter" resultType="Integer">
+		SELECT
+			COUNT(*)
+		FROM
+			user_seller us
+			LEFT OUTER JOIN users u
+			ON us.pn = u.pn,
+			user_seller_interest usi,
+			interest_section ise,
+			interest_category ic
+		WHERE
+			u.enable = 1
+		AND
+			us.pn = usi.seller_pn
+		AND
+			usi.section_pn = ise.pn
+		AND
+			ise.category_pn = ic.pn
+		AND
+			ise.pn = #{sectionPn}
+		ORDER BY
+			us.pn
+	</select>
+	
+	<select id="selectFromInterest" parameterType="HomeFilter" resultMap="jtown-seller-map">
+		<include refid="paginationBefore"/>
+		SELECT
+			us.pn , u.name, us.shop_url, us.notice,
+			ssid.view_count, clsp.love_count, ccsp.comment_count, bdl.banner_first, bdl.banner_second, 
+			us.hot AS love_hot_count
+			<if test="customerPn != null">	
+			, cl.customer_pn
+			</if>
+		FROM
+			user_seller us 
+			LEFT OUTER JOIN users u
+			ON us.pn = u.pn 
+			LEFT OUTER JOIN count_love_seller_pn clsp
+			ON us.pn = clsp.seller_pn
+			LEFT OUTER JOIN sum_statistic_interval_7day ssid
+			ON us.pn = ssid.seller_pn
+			LEFT OUTER JOIN count_comment_seller_pn ccsp
+			ON us.pn = ccsp.seller_pn
+			LEFT OUTER JOIN banner_diff_least bdl
+			ON us.pn = bdl.seller_pn
+			<if test="customerPn != null">
+			LEFT OUTER JOIN count_love cl
+			ON us.pn = cl.seller_pn AND cl.customer_pn = #{customerPn}
+			</if>,
+			user_seller_interest usi,
+			user_seller_contract_info usci,
+			interest_section ise,
+			interest_category ic
+		WHERE
+			u.enable = 1
+		AND
+			us.pn = usi.seller_pn
+		AND
+			us.pn = usci.seller_pn
+		AND
+			DATE_FORMAT(SYSDATE(), '%Y-%m-%d') BETWEEN usci.start_date AND usci.end_date
+		AND
+			usi.section_pn = ise.pn
+		AND
+			ise.category_pn = ic.pn
+		AND
+			ise.pn = #{sectionPn}
+		ORDER BY
+			us.pn
+		<include refid="paginationAfter"/>
+	</select>
+
+	
+	
+	<select id="selectLoveCount" parameterType="Count" resultType="Integer">
+		SELECT
+			COUNT(*)
+		FROM
+			count_love
+		WHERE
+			customer_pn = #{customerPn}
+		AND
+			seller_pn = #{sellerPn}
+	</select>
+	
+	<insert id="insertLoveCount" parameterType="Count">
+		INSERT INTO
+			count_love
+			(customer_pn, seller_pn, input_date)
+		VALUES
+			(	#{customerPn},	#{sellerPn}, SYSDATE() )
+	</insert>
+	
+	<delete id="deleteLoveCount" parameterType="Count">
+		DELETE FROM
+			count_love
+		WHERE
+			customer_pn = #{customerPn}
+		AND
+			seller_pn = #{sellerPn}
+	</delete>
+
+	<resultMap type="Interest" id="jtown-interest-category-map">
+		<result column="pn" property="categoryPn"/>
+		<result column="name" property="name"/>
+	</resultMap>
+
+	<select id="selecInterestCategory" resultMap="jtown-interest-category-map">
+		SELECT
+			pn, name
+		FROM
+			interest_category
+	</select>
+	
+	<resultMap type="Interest" id="jtown-interest-map">
+		<result column="category_pn" property="categoryPn"/>
+		<result column="section_pn" property="sectionPn"/>
+		<result column="name" property="name"/>
+	</resultMap>
+
+	<select id="selectInterest" parameterType="Integer" resultMap="jtown-interest-map">
+		<choose>
+			<when test="value != null">
+				SELECT
+					ise.category_pn,  uci.section_pn,  ise.name
+				FROM
+					user_customer_interest uci,
+					interest_section ise,
+					interest_category ic
+				WHERE
+					uci.section_pn = ise.pn
+				AND
+					ic.pn = ise.category_pn
+				AND
+					uci.customer_pn = #{customerPn}
+				ORDER BY
+					category_pn, section_pn
+			</when>
+			<otherwise>
+				SELECT
+					pn AS section_pn, category_pn, NAME
+				FROM
+					interest_section
+				ORDER BY
+					category_pn, section_pn	
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="selectInterestSectionCount" parameterType="Interest" resultType="Integer">
+		SELECT
+			COUNT(*)
+		FROM
+			user_customer_interest
+		WHERE
+			customer_pn = #{customerPn}
+		AND
+			section_pn = #{sectionPn}
+	</select>
+	
+	<insert id="insertInterest" parameterType="Interest">
+		INSERT	INTO
+			user_customer_interest
+			(customer_pn, section_pn)
+		VALUES
+			(#{customerPn}, #{sectionPn})
+	</insert>
+	
+	<delete id="deleteInterest" parameterType="Interest">
+		DELETE FROM
+			user_customer_interest
+		WHERE
+			customer_pn = #{customerPn}
+		AND
+			section_pn = #{sectionPn}
+	</delete>
+	
+	<resultMap type="Interest" id="jtown-interest-section-map">
+		<result column="pn" property="sectionPn"/>
+		<result column="name" property="name"/>
+	</resultMap>
+	
+	<select id="selectInterestSection" parameterType="Integer" resultMap="jtown-interest-section-map">
+		SELECT
+			pn, name
+		FROM
+			interest_section
+		WHERE
+			category_pn = #{categoryPn}
+		ORDER BY
+			name
+	</select>
+
+	<select id="selectStatisticClick" parameterType="Integer" resultType="Integer">
+		SELECT
+			day_count
+		FROM
+			statistic_click
+		WHERE
+			seller_pn = #{sellerPn}
+		AND
+			count_date = DATE_FORMAT(SYSDATE(), '%Y-%m-%d')
+	</select>
+	
+	<insert id="insertStatisticClick" parameterType="Integer">
+		INSERT INTO
+			statistic_click
+			(	seller_pn, count_date, day_count)
+		VALUES
+			(	#{sellerPn}, SYSDATE(), 1)
+	</insert>
+	
+	<update id="updateStatisticClick" parameterType="Count">
+		UPDATE
+			statistic_click
+		SET
+			day_count = #{count}
+		WHERE
+			seller_pn = #{sellerPn}
+		AND
+			count_date = DATE_FORMAT(SYSDATE(), '%Y-%m-%d')
+	</update>
+	
+	<select id="selectStatisticView" parameterType="Integer" resultType="Integer">
+		SELECT
+			day_count
+		FROM
+			statistic_view
+		WHERE
+			seller_pn = #{sellerPn}
+		AND
+			count_date = DATE_FORMAT(SYSDATE(), '%Y-%m-%d')
+	</select>
+	
+	<insert id="insertStatisticView" parameterType="Integer">
+		INSERT INTO
+			statistic_view
+			(	seller_pn, count_date, day_count)
+		VALUES
+			(	#{sellerPn}, SYSDATE(), 1)
+	</insert>
+	
+	<update id="updateStatisticView" parameterType="Count">
+		UPDATE
+			statistic_view
+		SET
+			day_count = #{count}
+		WHERE
+			seller_pn = #{sellerPn}
+		AND
+			count_date = DATE_FORMAT(SYSDATE(), '%Y-%m-%d')
+	</update>
+	
+	<select id="selectSevenDayStatisticView" parameterType="HashMap" resultType="Integer">
+		SELECT
+			SUM(day_count) AS `count`
+		FROM
+			`statistic_view`
+		WHERE
+			seller_pn = #{sellerPn}
+		AND
+			count_date BETWEEN #{beforeDate} AND #{nowDate}
+	</select>
+
+</mapper>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+		<!-- Object -->
+		<typeAlias alias="Board" type="com.bg.jtown.business.board.Board" />
+		<typeAlias alias="Comment" type="com.bg.jtown.business.Comment"/>
+		<typeAlias alias="Confirm" type="com.bg.jtown.security.Confirm"/>
+		<typeAlias alias="Contract" type="com.bg.jtown.business.Contract"/>
+		<typeAlias alias="Count" type="com.bg.jtown.business.Count"/>
+		<typeAlias alias="Event" type="com.bg.jtown.business.Event"/>
+		<typeAlias alias="File" type="com.bg.jtown.util.FileVO"/>
+		<typeAlias alias="Interest" type="com.bg.jtown.business.Interest"/>
+		<typeAlias alias="JtownUser" type="com.bg.jtown.security.JtownUser"/>
+		<typeAlias alias="Json" type="com.bg.jtown.business.Json"/>
+		<typeAlias alias="Partnership" type="com.bg.jtown.business.Partnership"/>
+		<typeAlias alias="Product" type="com.bg.jtown.business.Product"/>
+		<typeAlias alias="Question" type="com.bg.jtown.business.Question"/>
+		<typeAlias alias="QuestionCategory" type="com.bg.jtown.business.QuestionCategory"/>
+		<typeAlias alias="QuestionSection" type="com.bg.jtown.business.QuestionSection"/>
+				
+		<!-- Search Filter -->		
+		<typeAlias alias="AdminCommentFilter" type="com.bg.jtown.business.search.AdminCommentFilter"/>
+		<typeAlias alias="AdministratorFilter" type="com.bg.jtown.business.search.AdministratorFilter"/>
+		<typeAlias alias="BoardFilter" type="com.bg.jtown.business.search.BoardFilter" />
+		<typeAlias alias="CommentFilter" type="com.bg.jtown.business.search.CommentFilter"/>
+		<typeAlias alias="ContractFilter" type="com.bg.jtown.business.search.ContractFilter"/>
+		<typeAlias alias="FileFilter" type="com.bg.jtown.business.search.FileFilter"/>
+		<typeAlias alias="HomeFilter" type="com.bg.jtown.business.search.HomeFilter"/>
+		<typeAlias alias="NaturalLanguageFilter" type="com.bg.jtown.business.search.NaturalLanguageFilter"/>
+		<typeAlias alias="PartnershipFilter" type="com.bg.jtown.business.search.PartnershipFilter"/>
+		<typeAlias alias="QuestionFilter" type="com.bg.jtown.business.search.QuestionFilter"/>
+		<typeAlias alias="UserFilter" type="com.bg.jtown.business.search.UserFilter"/>
+	</typeAliases>
+</configuration>

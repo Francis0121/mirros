@@ -1,0 +1,171 @@
+@CHARSET "UTF-8";
+/*************************
+*	공통적용
+**************************/
+.jt-common-a-base{color: #808080;}
+.jt-common-a-base:VISITED{ color: #808080; }
+.jt-common-a-base:HOVER{ color: #000; }
+.jt-common-a-base:ACTIVE{ color: #000; }
+
+.jt-common-a-gray{ color: #808080; }
+.jt-common-a-gray:VISITED{ color: #808080; }
+.jt-common-a-gray:HOVER{ color: #000; }
+.jt-common-a-gray:ACTIVE{ color: #000; }
+
+.jt-common-a-black, .jt-common-a-black:VISITED{color: #000;}
+.jt-common-a-black:HOVER{color: #000; text-decoration: underline;}
+
+.jt-btn-underArrow{ font-family: dotum, gullim; font-size: 10px; }
+.btnImage{ background: url("../images/jt-btn-image.png") no-repeat; background-position: 0 0; float: left; width: 16px; height: 12px;}
+.btnText{float: left; padding: 1px 0 0 2px;}
+
+.jt-btn-orange{
+	cursor:pointer;
+	padding: 10px 10px 10px 10px; 
+	border:1px solid #FF7E00; 
+	-webkit-border-radius: 5px; -moz-border-radius: 5px;border-radius: 5px;
+	font-family:NanumGothic, Dotum,Gulim; text-shadow: 1px 1px 0 rgba(209,109,0,0.3);font-weight:bold; text-align: center; color: #FFFFFF; background-color: #FB950F;
+ 	background-image: -webkit-gradient(linear, left top, left bottom, from(#FB950F), to(#FB950F));
+ 	background-image: -webkit-linear-gradient(top, #FB950F, #FB950F);
+ 	background-image: -moz-linear-gradient(top, #FB950F, #FB950F);
+ 	background-image: -ms-linear-gradient(top, #FB950F, #FB950F);
+ 	background-image: -o-linear-gradient(top, #FB950F, #FB950F);
+	background-image: linear-gradient(to bottom, #FB950F, #FB950F);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#FB950F, endColorstr=#FB950F);
+ 	
+}
+.jt-btn-orange:HOVER{
+	border:1px solid #FF7E00; 
+	background-color: #FFA01E;
+ 	background-image: -webkit-gradient(linear, left top, left bottom, from(#FFA01E), top(#FFA01E));
+ 	background-image: -webkit-linear-gradient(top, #FFA01E, #FFA01E);
+ 	background-image: -moz-linear-gradient(top, #FFA01E, #FFA01E);
+ 	background-image: -ms-linear-gradient(top, #FFA01E, #FFA01E);
+ 	background-image: -o-linear-gradient(top, #FFA01E, #FFA01E);
+ 	background-image: linear-gradient(to bottom, #FFA01E, #FFA01E);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#FFA01E, endColorstr=#FFA01E);
+}
+
+.jt-btn-white-small {
+	-moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
+	box-shadow:inset 0px 1px 0px 0px #ffffff;
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ffffff), color-stop(1, #f6f6f6) );
+	background:-moz-linear-gradient( center top, #ffffff 5%, #f6f6f6 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#f6f6f6');
+	background-color:#ffffff;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+	border:1px solid #dcdcdc;
+	display:inline-block;
+	color:#4d4d4d;
+	font-family:NanumGothic, Dotum, Gulim;
+	font-size:11px;
+	padding:6px 6px;
+	text-decoration:none;
+	text-shadow:1px 1px 0px #ffffff;
+	cursor: pointer;
+}
+
+.jt-btn-white-small:HOVER {
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #f6f6f6), color-stop(1, #ffffff) );
+	background:-moz-linear-gradient( center top, #f6f6f6 5%, #ffffff 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#f6f6f6', endColorstr='#ffffff');
+	background-color:#f6f6f6;
+}
+
+.jt-btn-white-small:active {
+	position:relative;
+	top:1px;
+}
+
+.jt-btn-silver{
+border:1px solid #e0e0e0; -webkit-border-radius: 3px; -moz-border-radius: 3px;border-radius: 3px;font-family: arial, helvetica, sans-serif; padding: 10px 10px 10px 10px; font-weight:bold; text-align: center; color: #808080;
+background-color: #f5f5f5;
+cursor: pointer;
+}
+
+.jt-btn-silver:hover{
+ border:1px solid #d1d1d1; background-color: #ebebeb;
+}
+
+.jt-btn-gray{
+	border:1px solid #797979; 
+	-webkit-border-radius: 3px; -moz-border-radius: 3px;border-radius: 3px;
+	font-family:NanumGothic, Dotum,Gulim; 
+	padding: 10px 10px 10px 10px; 
+	font-weight:bold; 
+	text-align: center; 
+	color: #fff; 
+	background-color: #8c8c8c;
+ 	cursor: pointer;
+}
+
+.jt-btn-gray:hover{
+ 	border:1px solid #636363; background-color: #797979;
+}
+
+.jt-btn-fbLogin .loginImage{
+	margin: -1px 0;
+	background: url("../images/jt-login-fb.png") no-repeat;
+	float : left;
+	width: 34px; height: 34px;
+	border-right: 1px solid #b9e1f7;
+}
+
+.jt-btn-fbLogin .loginText{
+	margin-top : -1px;
+	float: left;
+	height: 30px;
+	border-left: 1px solid #5c9ec7;
+	width:136px;
+	line-height: 30px;
+	padding: 2px 0;
+}
+
+.jt-btn-fbLogin{
+	cursor: pointer;
+	width:180px; padding: 0;
+	border:1px solid #5F9EC1; 
+	-webkit-border-radius: 5px; -moz-border-radius: 5px;border-radius: 5px;
+	font-family: Dotum,Gulim; text-shadow: 0px 1px 1px rgba(76,132,163,0.3); font-weight:bold; text-align: center; color: #FFFFFF; 
+	background-color: #75B6DB;
+ 	background-image: -webkit-gradient(linear, left top, left bottom, from(#75B6DB), to(#75B6DB));
+ 	background-image: -webkit-linear-gradient(top, #75B6DB, #75B6DB);
+ 	background-image: -moz-linear-gradient(top, #75B6DB, #75B6DB);
+ 	background-image: -ms-linear-gradient(top, #75B6DB, #75B6DB);
+ 	background-image: -o-linear-gradient(top, #75B6DB, #75B6DB);
+ 	background-image: linear-gradient(to bottom, #75B6DB, #75B6DB);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#75B6DB, endColorstr=#75B6DB);
+}
+
+.jt-btn-fbLogin:hover{
+ 	border:1px solid #6AADD4; 
+ 	background-color: #8DC6E8;
+ 	background-image: -webkit-gradient(linear, left top, left bottom, from(#8DC6E8), top(#8DC6E8));
+ 	background-image: -webkit-linear-gradient(top, #8DC6E8, #8DC6E8);
+ 	background-image: -moz-linear-gradient(top, #8DC6E8, #8DC6E8);
+ 	background-image: -ms-linear-gradient(top, #8DC6E8, #8DC6E8);
+	background-image: -o-linear-gradient(top, #8DC6E8, #8DC6E8);
+ 	background-image: linear-gradient(to bottom, #8DC6E8, #8DC6E8);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#8DC6E8, endColorstr=#8DC6E8);
+}
+
+.jt-btn-emailLogin .loginImage{
+	margin: -1px 0;
+	background: url("../images/jt-login-mail.png") no-repeat;
+	float : left;
+	width: 34px; height: 34px;
+	border-right: 1px solid #ffc582;
+}
+
+.jt-btn-emailLogin .loginText{
+	margin-top : -1px;
+	float: left;
+	height: 30px;
+	border-left: 1px solid #e06c01;
+	width:136px;
+	line-height: 30px;
+	padding: 2px 0;
+}
+
+.jt-btn-emailLogin{
+	width:180px; padding: 0;
+}

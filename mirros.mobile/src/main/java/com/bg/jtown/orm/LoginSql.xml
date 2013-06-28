@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="loginMapper">
+
+	<select id="checkExistEmail" parameterType="String" resultType="Integer">
+		SELECT count(*) FROM users WHERE id = #{id}
+	</select>
+	
+	<select id="findGroupId" parameterType="String" resultType="Integer">
+		SELECT id FROM groups WHERE group_name = #{group}
+	</select>
+	
+	<resultMap type="JtownUser" id="jtown-customer-map">
+		<result column="sex" property="sex"/>
+		<result column="year" property="year"/>
+		<result column="month" property="month"/>
+		<result column="day" property="day"/>
+	</resultMap>
+	
+	<select id="selectCustomer" parameterType="Integer" resultMap="jtown-customer-map">
+		SELECT
+			pn, sex, year, month, day
+		FROM
+			user_customer 
+		WHERE
+			pn = #{pn}
+	</select>
+	
+	<select id="selectUsername" parameterType="Integer" resultType="String">
+		SELECT
+			id
+		FROM
+			users
+		WHERE
+			pn = #{pn}
+	</select>
+	
+	<insert id="insertUsers" parameterType="JtownUser">
+		INSERT INTO
+			users
+			( id, password, enable, salt, name, confirm_email, upper_name, facebook_feed )
+		VALUES
+			( #{username}, #{password}, #{enabled}, #{salt}, #{name}, #{confirmEmail}, #{upperName}, #{facebookFeed} )
+		<selectKey keyProperty="pn" resultType="Integer">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+	
+	<insert id="insertUserCustomer" parameterType="JtownUser">
+		INSERT INTO
+			user_customer
+			( pn, sex, year, month, day )
+		VALUES
+			( #{pn}, #{sex}, #{year}, #{month}, #{day} )			
+	</insert>
+	
+	<insert id="insertUserSeller" parameterType="JtownUser">
+		INSERT
+			user_seller
+			( pn, shop_url, hot )		
+		VALUES
+			( #{pn}, '', 0 )
+		<selectKey keyProperty="shopPn" resultType="Integer">
+			SELECT LAST_INSERT_ID()
+		</selectKey>	
+	</insert>	
+		
+	<insert id="insertUserAdmin" parameterType="JtownUser">
+		INSERT
+			user_admin
+			(pn, email)
+		VALUES
+			(#{pn}, #{email})
+	</insert>
+		
+		
+	<insert id="addUserToGroup" parameterType="Map">
+		INSERT INTO
+			group_members
+			( group_id, user_pn )
+		VALUES
+			( #{groupId}, #{userPn} )
+	</insert>
+	
+	<update id="changePassword" parameterType="JtownUser">
+		UPDATE
+			users
+		SET
+			password = #{password},
+			salt = #{salt}
+		WHERE
+			id = #{username}
+	</update>
+	
+	<update id="updateUserCustomer" parameterType="JtownUser">
+		UPDATE 
+			users
+		SET	
+		<if test="name != null and name != ''">
+			name = #{name}
+		WHERE 
+			pn = #{pn}	
+		</if>
+		<if test="confirmEmail != null">
+			confirm_email = #{confirmEmail}
+		WHERE
+			id = #{username}
+		</if>
+	</update>
+	
+	<update id="updateUserCustomerDetail" parameterType="JtownUser">
+		UPDATE
+			user_customer
+		SET
+			sex = #{sex},
+			year = #{year},
+			month = #{month},
+			day = #{day}
+		WHERE
+			pn = #{pn}
+	</update>
+	
+	<update id="updateUserCustomerEmail" parameterType="HashMap">
+		UPDATE
+			users
+		SET
+			id = #{changeUserName},
+			confirm_email = 0
+		WHERE
+			id = #{nowUserName}
+	</update>
+	
+	<update id="updateUsername" parameterType="HashMap">
+		UPDATE
+			users
+		SET
+			id = #{changeUserName}
+		WHERE
+			id = #{nowUserName}
+	</update>
+	
+	<select id="selectDeleteUser" parameterType="Integer" resultType="String">
+		SELECT
+			register_date
+		FROM
+			user_delete
+		WHERE
+			pn = #{pn}
+	</select>
+	
+	<insert id="insertDeleteUser" parameterType="Integer">
+		INSERT INTO
+			user_delete
+			(pn, register_date)
+		VALUES
+			(#{pn}, SYSDATE());
+	</insert>
+	
+	<delete id="deleteDeleteUser" parameterType="Integer">
+		DELETE FROM user_delete WHERE pn = #{pn}	
+	</delete>
+		
+	<!-- Use Only TestCase -->
+	<delete id="deleteUserAll">
+		DELETE FROM users
+	</delete>
+	
+	<select id="selectUsersCount" resultType="Integer">
+		SELECT COUNT(*) FROM users
+	</select>
+	
+	<!-- Confirm Email Address -->
+	<select id="selectEmailConfirm" parameterType="Confirm" resultType="Confirm">
+		SELECT
+			id, email_series AS series
+		FROM
+			user_email_confirm
+		WHERE
+			id = #{id}	
+	</select>
+	
+	<insert id="insertEmailConfirm" parameterType="Confirm">
+		INSERT INTO user_email_confirm ( id, email_series ) VALUES (#{id}, #{series})
+	</insert>
+	
+	<delete id="deleteEmailConfirm" parameterType="Confirm">
+		DELETE FROM
+			user_email_confirm
+		WHERE
+			id = #{id}
+	</delete>
+	
+	<!-- Social -->
+	<select id="selectSocialProviderUserId" parameterType="Integer" resultType="String">
+		SELECT
+			providerUserId
+		FROM
+			UserConnection
+		WHERE
+			userId = #{properNumber}
+		AND
+			providerId = #{providerId}
+	</select>
+	
+	<update id="updateFacebookFeed" parameterType="JtownUser" >
+		UPDATE users
+		SET
+			facebook_feed = #{facebookFeed}
+		WHERE
+		<if test="pn != null and pn != 0">
+			pn = #{pn}
+		</if>
+		<if test="username != null and username != ''">
+			id = #{username}
+		</if>
+	</update>
+	
+	<select id="selectFacebookFeed" parameterType="String" resultType="Boolean">
+		SELECT
+			facebook_feed
+		FROM
+			users
+		WHERE
+			id = #{username}
+	</select>
+	
+	<!-- Admin -->
+	<select id="selectCheckExistAdminEmail" parameterType="String" resultType="String">
+		SELECT 
+			email
+		FROM	
+			user_admin
+		WHERE	
+			email = #{email}
+	</select>
+				
+	<select id="selectCheckExistAdminUsername" parameterType="String" resultType="String">
+		SELECT
+			id
+		FROM
+			users
+		WHERE
+			id = #{username}
+	</select>
+	
+	<select id="selectCheckExistSellerEmail" parameterType="String" resultType="Integer">
+		SELECT
+			p.pn
+		FROM
+			partnership p
+			LEFT OUTER JOIN users u
+			ON ( p.seller_pn = u.pn AND u.pn != NULL)
+		WHERE
+			p.email = #{username}
+	</select>
+	
+</mapper>

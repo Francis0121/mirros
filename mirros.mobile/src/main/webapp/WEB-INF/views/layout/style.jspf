@@ -1,0 +1,54 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<c:set var="cp" value="<%=request.getContextPath() %>"/>
+
+<c:set var="facebookMainImage" value="/cpn/${homeFilter.categoryPn }/spn/0"/>
+<c:if test="${facebookMainImage eq '/cpn/1/spn/0' or facebookMainImage eq '/cpn/2/spn/0' }">
+<link rel="image_src" href="${cp }/resources/images/logo_mirros.png" />
+</c:if>
+<c:set var="facebookRealPath" value='<%=request.getAttribute("javax.servlet.forward.request_uri")%>'/>
+<c:set var="facebookNowPath" value="${cp }/mir/${facebookSellerPn }"/>
+<c:if test="${facebookRealPath eq facebookNowPath }">
+<c:forEach items="${mainImages }" var="mainImage" varStatus="loop" >
+	<meta property="og:image" content="https://www.mirros.net/resources/uploadImage/${mainImage }"/>
+	<link rel="image_src" href="${cp }/resources/uploadImage/${mainImage }" />
+</c:forEach>
+</c:if>
+
+<link rel="shortcut icon" href="${cp }/resources/images/favicon.ico" type="image/x-icon"/>
+<%-- Jquery --%>
+<link rel="stylesheet" type="text/css" href="${cp}/resources/jquery/jquery-ui-1.10.2.custom.min.css" />
+<link rel="stylesheet" type="text/css" href="${cp}/resources/uploadify/uploadify.css" />
+<%-- Custom --%>
+<link rel="stylesheet" type="text/css" href="${cp}/resources/css/default.css" />
+<link rel="stylesheet" type="text/css" href="${cp}/resources/css/style.css" />
+<link rel="stylesheet" type="text/css" href="${cp}/resources/css/common.css" />
+<link rel="stylesheet" type="text/css" href="${cp}/resources/css/plugin.css" />
+<link rel="stylesheet" type="text/css" href="${cp}/resources/css/login.css" />
+<link rel="stylesheet" type="text/css" href="${cp}/resources/css/home.css" />
+<link rel="stylesheet" type="text/css" href="${cp}/resources/css/seller.css" />
+<link rel="stylesheet" type="text/css" href="${cp}/resources/css/addInterest.css" />
+<link rel="stylesheet" type="text/css" href="${cp}/resources/css/help.css" />
+<link rel="stylesheet" type="text/css" href="${cp}/resources/css/introjs.css" />
+
+<!--[if gte IE 9]>
+<style type="text/css">
+.gradient {  filter: none; }
+</style>
+<![endif]-->
+<!--[if IE 8]>
+<link rel="stylesheet" type="text/css" href="${cp}/resources/css/ie/8.css" />
+<![endif]-->
+<!--[if IE 7]>
+<link rel="stylesheet" type="text/css" href="${cp}/resources/css/ie/7.css" />
+<![endif]-->
+<!--[if IE 6]>
+<link rel="stylesheet" type="text/css" href="${cp}/resources/css/ie/6.css" />
+<![endif]-->
+
+<!--[if IE]>
+<style>
+	.jt-home-shop-content-image{ cursor: pointer; }
+	#smartPop{cursor: pointer;}
+</style>
+<![endif]-->

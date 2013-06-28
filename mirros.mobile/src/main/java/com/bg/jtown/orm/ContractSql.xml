@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="contractMapper">
+	
+	<sql id="paginationBefore">
+		SELECT 
+			t.*
+		FROM 
+		( 
+			SELECT  
+				z.*, @RNUM := @RNUM + 1 AS rnum
+			FROM
+				(
+	</sql>
+	
+	<sql id="paginationAfter">
+		<![CDATA[
+				) z,  
+				( SELECT @RNUM := 0 ) R
+			WHERE @RNUM + 1 <=  #{pagination.itemSeqEnd}
+		) t
+		WHERE t.rnum >= #{pagination.itemSeqBegin}
+		]]>
+	</sql>
+	
+	<resultMap type="Contract" id="jt-contract-map">
+		<result column="pn" property="pn"/>
+		<result column="seller_pn" property="sellerPn"/>
+		<result column="start_date" property="startDate"/>
+		<result column="end_date" property="endDate"/>
+		<result column="input_date" property="inputDate"/>
+		<result column="contract_end_date" property="contractEndDate"/>
+	</resultMap>
+	
+	<select id="selectContractList" parameterType="ContractFilter" resultMap="jt-contract-map">
+		<include refid="paginationBefore"/>
+		SELECT
+			pn, seller_pn, start_date, end_date, input_date
+		FROM
+			user_seller_contract_info
+		WHERE
+			seller_pn = #{sellerPn}
+		ORDER BY
+			input_date DESC
+		<include refid="paginationAfter"/>	
+	</select>
+	
+	<select id="selectContract" parameterType="Integer" resultMap="jt-contract-map">
+		SELECT
+			pn, seller_pn, start_date, end_date, input_date
+		FROM
+			user_seller_contract_info
+		WHERE
+			pn = #{contractPn}
+	</select>
+	
+	<select id="selectContractCount" parameterType="ContractFilter" resultType="Integer">
+		SELECT
+			COUNT(pn)
+		FROM
+			user_seller_contract_info
+		WHERE
+			seller_pn = #{sellerPn}
+	</select>
+	
+	<select id="selectContractPeroid" parameterType="Integer" resultMap="jt-contract-map">
+		SELECT
+			pn, seller_pn, start_date, end_date, input_date
+		FROM
+			user_seller_contract_info
+		WHERE
+			seller_pn = #{sellerPn}
+		AND
+			<![CDATA[
+			pn >=	(
+			]]>
+					SELECT pn 
+					FROM user_seller_contract_info 
+					WHERE seller_pn = #{sellerPn}
+					AND DATE_FORMAT(SYSDATE(), '%Y-%m-%d') BETWEEN start_date AND end_date
+				)
+		ORDER BY 
+			pn DESC
+	</select>
+	
+	<insert id="insertContract" parameterType="Contract">
+		INSERT INTO
+			user_seller_contract_info
+			( seller_pn, start_date, end_date, input_date )
+		VALUES
+			( #{sellerPn}, #{startDate}, #{endDate}, SYSDATE() )
+	</insert>	
+	
+	<delete id="deleteContract" parameterType="Integer">
+		DELETE FROM
+			user_seller_contract_info
+		WHERE
+			pn = #{contractPn}
+	</delete>
+	
+</mapper>

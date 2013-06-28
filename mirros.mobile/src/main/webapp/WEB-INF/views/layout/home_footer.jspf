@@ -1,0 +1,109 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
+		</section>
+	</section>
+	<footer class="jt-footer">
+		<div class="jt-scroll-top" onclick=" $('html, body').animate({scrollTop:0}, 'slow');">TOP</div>
+	</footer>
+	<%@ include file="login.jspf" %>
+	<%@ include file="script_foot.jspf" %>
+	<c:set var="maxPage" value="${homeFilter.pagination.numPages eq null ? 0 : homeFilter.pagination.numPages }"/>
+	<script type="text/javascript">
+	/* <![CDATA[ */   
+		var $container = $('#jt-home-container');
+		
+		$container.imagesLoaded(function(){
+			$container.masonry({
+				itemSelector : '.jt-home-shop',
+				columnWidth : 330
+			});
+		});
+		
+		$('#jt-home-container').scrollPagination({
+			'contentPage'	: contextPath + 'ajax/homePagination.jt',
+			'contentData'	: { 	'categoryPn'	: 	Number('<c:out value="${homeFilter.categoryPn eq null ? 0 : homeFilter.categoryPn}"/>'),
+									'sectionPn'		: 	Number('<c:out value="${homeFilter.sectionPn eq null ? 0 : homeFilter.sectionPn}"/>')	},
+			'scrollTarget'	: $(window),
+			'successCallback' : function(data){
+				var html = jtown.home.html(data);
+				var $boxes = $(html);
+				$('#jt-home-container').append($boxes).masonry('appended', $boxes);
+				setTimeout('jtown.expand.loadExpandShop()', 0);
+			},
+			'maxPage'		: <c:out value='${maxPage}'/>
+		});
+		
+		onResize = function(){
+			var clientWidth = Number(window.document.body.clientWidth),
+				widthItem = Math.floor(clientWidth/330);
+			
+			if(widthItem < 3 ) widthItem = 3;
+			
+			$('#jt-home-container').css({width : (widthItem*330), margin : 'auto'});	
+		};
+		
+		onResize();
+		
+		$(window).resize(onResize);
+		
+		$("#jt-comment-insert").placeholder();
+	/* ]]> */	
+	</script>
+	
+
+	
+	<c:if test="${one.jtownUsers ne null}">
+		<script type="text/javascript">
+			var scrollheight = { topHeight : '46px', downHeight : '1px'};	
+		</script>
+		<!--[if IE 8]>
+			<script type="text/javascript">
+				scrollheight = { topHeight : '50px', downHeight : '5px'};	
+			</script>
+		<![endif]-->
+		<!--[if IE 7]>
+			<script type="text/javascript">
+				scrollheight = { topHeight : '50px', downHeight : '5px'};	
+			</script>
+		<![endif]-->
+		<sec:authorize access="hasRole('ROLE_USER') and !principal.confirmEmail">
+			<script type="text/javascript">
+				scrollheight = { topHeight : '76px', downHeight : '31px'};	
+			</script>
+			<!--[if IE 8]>
+			<script type="text/javascript">
+				scrollheight = { topHeight : '80px', downHeight : '35px'};	
+			</script>
+			<![endif]-->
+			<!--[if IE 7]>
+			<script type="text/javascript">
+				scrollheight = { topHeight : '80px', downHeight : '35px'};	
+			</script>
+			<![endif]-->
+		</sec:authorize>
+		<script type="text/javascript">
+		/* <![CDATA[ */ 
+			$(window).scroll(function(){
+				var de = document.documentElement;
+				var b = document.body;
+				var scrollY = document.all ? (!de.scrollTop ? b.scrollTop : de.scrollTop) : (window.pageYOffset ? window.pageYOffset : window.scrollY);
+				if(scrollY == 0){
+					$('.jt-header-title').slideDown('fast');
+					setTimeout('$(\'.jt-header-nav-interestCategory\').css(\'top\', \''+scrollheight.topHeight+'\')');
+					setTimeout('$(".jt-footer").slideUp()',0);
+				}else{
+					$('.jt-header-title').slideUp('fast', function(){
+						$('.jt-header-nav-interestCategory').css('top', scrollheight.downHeight);
+						setTimeout('$(".jt-footer").slideDown()',0);
+					});
+				}
+			});
+		/* ]]> */	
+		</script>
+	</c:if>
+</body>
+</html>
