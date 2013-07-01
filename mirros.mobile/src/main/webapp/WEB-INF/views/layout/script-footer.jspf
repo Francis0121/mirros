@@ -7,11 +7,12 @@
 <script src="${cp}/resources/js/json.min.js"></script>
 <%-- Custom --%>
 <script src="${cp}/resources/js/mobile.mirros.js"></script>
+<script src="${cp}/resources/js/jquery.scroll.pagination.js"></script>
 <script src="${cp}/resources/js/util.js"></script>
 
 <%-- Node --%>
 <script src="${cp}/resources/js/real.time.js"></script>
-<script src="http://127.0.0.1:8000/socket.io/socket.io.js"></script>
+<script src="http://218.55.100.44:8000/socket.io/socket.io.js"></script>
 <!-- <script src="https://14.63.226.97:8000/socket.io/socket.io.js"></script> -->
 <!-- <script src="https://www.mirros.net:8000/socket.io/socket.io.js"></script> -->
 <script type="text/javascript">
