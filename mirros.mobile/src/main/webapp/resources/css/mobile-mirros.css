@@ -254,3 +254,48 @@
   font-family: Arial;
   margin-left: 20px;
 }
+
+/*********************************
+*	Mir 페이지
+***********************************/
+.mm-mir-header{ width: 100%; float: left; height: 40px; background:#f6f6f6; border-bottom: 1px solid #dbd9ca; line-height: 40px; text-align: center;
+	box-shadow : 0 1px 2px rgba(34,25,25,0.1); -moz-box-shadow : 0 1px 2px rgba(34,25,25,0.1); -webkit-box-shadow : 0 1px 2px rgba(34,25,25,0.1);
+}
+.mm-mir-header>a{ font-family: NanumGothic, Dotum, Gulim; font-size: 125%; color: #000; }
+.mm-mir-header>a:HOVER, .mm-mir-header>div>a:VISITED { color: #000; }
+.mm-mir-header-goHome{ position : absolute; top:0; right :0;  border-left: 1px solid #dbd9ca;}
+.mm-mir-header-goHome>a{ width: 40px; height: 40px; background: url("../images/mm-home-btn.png"); display: block; text-indent: -9999px;}
+
+.mm-mir-section{width: 100%; float: left;}
+.mm-mir-longNotice{ width : 100%; float: left; padding : 15px 10px 10px 10px; border-bottom: 1px solid #dbd9ca;
+	box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box; -moz-box-sizing : border-box; -webkit-box-sizing : border-box;      
+	box-shadow : 0 1px 2px rgba(34,25,25,0.1); -moz-box-shadow : 0 1px 2px rgba(34,25,25,0.1); -webkit-box-shadow : 0 1px 2px rgba(34,25,25,0.1);
+}
+.mm-mir-longNotice{ font-size: 75%; color: #979797; line-height: 17px;}
+
+.mm-mir-products{float: left;
+	width : 100%; padding : 20px 0 10px 0 ; border-bottom: 1px solid #dbd9ca; min-height : 200px;
+}
+#mm-mir-products-fake-dan{ 
+	position: absolute; width: 100%; overflow: hidden; height: 190px; 
+	box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box; -moz-box-sizing : border-box; -webkit-box-sizing : border-box;      
+}
+#mm-mir-products-dan{ position: absolute; left: 0; }
+#mm-mir-products-dan>div{ width: 140px; float:left; position: relative;background: transparent;}
+#mm-mir-products-dan>div img{ width: 140px; height: 140px; padding: 0px; float:left;}
+
+.mm-mir-events{width: 100%; float: left;}
+.mm-mir-events>div{ width: 50%; float: left;}
+.mm-mir-events>div>img{ width: 100%;}
+
+.mm-mir-events-new{ position: absolute; width: 50%;}
+.mm-mir-events-new-image{ text-indent: -99999px; margin-left: 2px; background: url("../images/jt-home-icon.png") no-repeat; background-position: -45px 0px; float:right; width: 43px; height: 43px;}
+
+.mm-mir-footer{float: left; width: 100%;}
+.mm-mir-footer{ width: 100%; float: left; }
+.mm-mir-footer>ul{ width: 100%; float: left; padding : 12px 6px 9px 6px; border-top: 1px solid #dbd9ca;
+	box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box; -moz-box-sizing : border-box; -webkit-box-sizing : border-box;  
+}
+.mm-mir-footer>ul>li{ width : 33.3%; float: left; text-align: center; }
+.mm-mir-footer>ul>li>div{ margin: 0 auto;}
+.mm-home-text{width:58px; float: left; margin-left:4px; font-size: 75%; font-weight: bold; color: #b2b2b2; line-height: 16px;}

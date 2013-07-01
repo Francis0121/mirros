@@ -93,7 +93,7 @@ mobile.homeHtml = function(data) {
 		html += '		<a href="http://' + seller.shopUrl + '" target="_blank">' + htmlChars(seller.name) + '</a>';
 		html += '	</header>';
 		html += '	<article>';
-		html += '		<ul class="jt-home-shop-content-image">';
+		html += '		<ul class="mm-home-mainImage">';
 		html += '			<li>';
 		html += '				' + imageHtml;
 		html += '				<div>';
