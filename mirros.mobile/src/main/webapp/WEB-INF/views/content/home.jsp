@@ -37,16 +37,16 @@
 					<span>Help</span>
 				</li>
 				<li>
-					<a><span>Business</span></a>
+					<a href="${cp }/help/partnership"><span>Business</span></a>
 				</li>
 				<li>
-					<a><span>About US</span></a>
+					<a href="${cp }/help/serviceGuide"><span>About US</span></a>
 				</li>
 				<li>
-					<a><span>Notice</span></a>
+					<a href="${cp }/help/notice"><span>Notice</span></a>
 				</li>
 				<li>
-					<a><span>FAQ</span></a>
+					<a href="${cp }/help/question"><span>FAQ</span></a>
 				</li>
 			</ul>
 		</li>

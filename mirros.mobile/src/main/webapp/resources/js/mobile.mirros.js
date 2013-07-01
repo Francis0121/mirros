@@ -7,6 +7,7 @@ $(function(){
 		$(this).parents('li').find('.mm-home-sub-nav').slideUp();
 	});
 	
+	
 	mobile.homeSync();
 });
 
