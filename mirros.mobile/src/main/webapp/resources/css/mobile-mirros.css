@@ -120,3 +120,125 @@
 	-webkit-animation-duration : .8s;
 	-webkit-animation-delay : 0;
 }
+/********************************************
+*	로그인 페이지
+*********************************************/
+.mm-login-table { width: 90%; margin : 50px 5% 0 5%;
+	box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box; -moz-box-sizing : border-box; -webkit-box-sizing : border-box;  
+}
+.mm-login-table td, .mm-login-table th{font-size: 75%; vertical-align: middle; padding: 10px 2px; width : 100%;
+	box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box; -moz-box-sizing : border-box; -webkit-box-sizing : border-box;  
+}
+.mm-login-table thead th{ font-family: Arial; font-size: 125%; text-align: left; color: #333333;}
+.mm-login-table tfoot th{ text-align: left; color: #010101; font-weight: normal;}
+.mm-login-table tbody td{ }
+
+.mm-login-table-input{ width: 100%; height: 33px; padding: 2px 3px; border: 1px solid #ad9c9c; 
+ 	 border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius:5px;
+ 	 box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box; -moz-box-sizing : border-box; -webkit-box-sizing : border-box;  
+}
+.mm-login-table-password{ width: 90%; height: 33px; padding: 2px 3px; border: 1px solid #ad9c9c;  float: left;
+ 	border-radius: 5px 0 0 5px; -moz-border-radius: 5px 0 0 5px; -webkit-border-radius: 5px 0 0 5px;
+ 	box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box; -moz-box-sizing : border-box; -webkit-box-sizing : border-box;  
+}
+.mm-login-findPassword{ 
+	border: 1px solid #ad9c9c; border-left :0; padding: 0; margin :0; width : 10%; height : 33px;  float: left;
+	border-radius: 0 5px 5px 0; -moz-border-radius: 0 5px 5px 0; -webkit-border-radius: 0 5px 5px 0;
+	box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box; -moz-box-sizing : border-box; -webkit-box-sizing : border-box;  
+    cursor: pointer; background: #fff; font-weight: bold; color: #ff8900; font-family: Arial;
+    font-size: 87.5%;
+}
+.mm-login-sign-wrap{width: 88%; padding: 8px 6%; }
+.mm-login-message-box{width: 90%; line-height: 1.7; margin-bottom: 10px; padding: 5px 5%; margin-left: 2px;
+	box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box; -moz-box-sizing : border-box; -webkit-box-sizing : border-box;  
+}
+.mm-login-message-box>h1{ font-size: 93.8%; color: #1a1a1a; font-family: Arial;}
+.mm-login-message-box>p{font-size: 75%;}
+
+.mm-btn-fbLogin .loginImage{
+	margin: -1px 0;
+	float : left;
+	width: 34px; height: 34px;
+	border-right: 1px solid #b9e1f7;
+	background: url("../images/jt-login-fb.png") no-repeat;
+}
+.mm-btn-fbLogin .loginBar{
+	margin-top : -1px;
+	float: left;
+	height: 30px;
+	border-left: 1px solid #5c9ec7;
+	width: 1px;
+	line-height: 30px;
+	padding: 2px 0;
+	text-align: center;
+}
+.mm-btn-fbLogin{
+	line-height : 32px;
+	cursor: pointer;
+	width: 100%; padding: 0;
+	border:1px solid #5F9EC1; 
+	-webkit-border-radius: 5px; -moz-border-radius: 5px;border-radius: 5px;
+	font-family: Dotum,Gulim; text-shadow: 0px 1px 1px rgba(76,132,163,0.3); font-weight:bold; text-align: center; color: #FFFFFF; 
+	background-color: #75B6DB;
+ 	background-image: -webkit-gradient(linear, left top, left bottom, from(#75B6DB), to(#75B6DB));
+ 	background-image: -webkit-linear-gradient(top, #75B6DB, #75B6DB);
+ 	background-image: -moz-linear-gradient(top, #75B6DB, #75B6DB);
+ 	background-image: -ms-linear-gradient(top, #75B6DB, #75B6DB);
+ 	background-image: -o-linear-gradient(top, #75B6DB, #75B6DB);
+ 	background-image: linear-gradient(to bottom, #75B6DB, #75B6DB);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#75B6DB, endColorstr=#75B6DB);
+}
+.mm-btn-fbLogin:hover{
+ 	border:1px solid #6AADD4; 
+ 	background-color: #8DC6E8;
+ 	background-image: -webkit-gradient(linear, left top, left bottom, from(#8DC6E8), top(#8DC6E8));
+ 	background-image: -webkit-linear-gradient(top, #8DC6E8, #8DC6E8);
+ 	background-image: -moz-linear-gradient(top, #8DC6E8, #8DC6E8);
+ 	background-image: -ms-linear-gradient(top, #8DC6E8, #8DC6E8);
+	background-image: -o-linear-gradient(top, #8DC6E8, #8DC6E8);
+ 	background-image: linear-gradient(to bottom, #8DC6E8, #8DC6E8);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#8DC6E8, endColorstr=#8DC6E8);
+}
+
+.mm-btn-emailLogin .loginImage{
+	margin: -1px 0;
+	background: url("../images/jt-login-mail.png") no-repeat;
+	float : left;
+	width: 34px; height: 34px;
+	border-right: 1px solid #ffc582;
+}
+.mm-btn-emailLogin .loginBar{
+	margin-top : -1px;
+	float: left;
+	height: 30px;
+	border-left: 1px solid #e06c01;
+	width: 1px;
+	padding: 2px 0;
+}
+.mm-btn-emailLogin{ width:100%; padding: 0; line-height: 32px; margin-top: 8px; }
+
+.mm-btn-orange{
+	cursor:pointer;
+	border:1px solid #FF7E00; 
+	-webkit-border-radius: 5px; -moz-border-radius: 5px;border-radius: 5px;
+	font-family:NanumGothic, Dotum,Gulim; text-shadow: 1px 1px 0 rgba(209,109,0,0.3);font-weight:bold; text-align: center; color: #FFFFFF; background-color: #FB950F;
+ 	background-image: -webkit-gradient(linear, left top, left bottom, from(#FB950F), to(#FB950F));
+ 	background-image: -webkit-linear-gradient(top, #FB950F, #FB950F);
+ 	background-image: -moz-linear-gradient(top, #FB950F, #FB950F);
+ 	background-image: -ms-linear-gradient(top, #FB950F, #FB950F);
+ 	background-image: -o-linear-gradient(top, #FB950F, #FB950F);
+	background-image: linear-gradient(to bottom, #FB950F, #FB950F);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#FB950F, endColorstr=#FB950F);
+ 	
+}
+.mm-btn-orange:HOVER{
+	border:1px solid #FF7E00; 
+	background-color: #FFA01E;
+ 	background-image: -webkit-gradient(linear, left top, left bottom, from(#FFA01E), top(#FFA01E));
+ 	background-image: -webkit-linear-gradient(top, #FFA01E, #FFA01E);
+ 	background-image: -moz-linear-gradient(top, #FFA01E, #FFA01E);
+ 	background-image: -ms-linear-gradient(top, #FFA01E, #FFA01E);
+ 	background-image: -o-linear-gradient(top, #FFA01E, #FFA01E);
+ 	background-image: linear-gradient(to bottom, #FFA01E, #FFA01E);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#FFA01E, endColorstr=#FFA01E);
+}
+.mm-btn-orange-login{font-family: Arial; border: 0; padding: 2px 0; background: transparent;cursor: pointer;color: #ff8900;}
+.mm-btn-orange-login:HOVER{text-decoration: underline;}
+
+.mm-login-error-box{font-size: 75%; color: #e95800; width : 90%;  padding: 0 5%; margin-bottom: 10px; line-height : 1.7; float: left;}}

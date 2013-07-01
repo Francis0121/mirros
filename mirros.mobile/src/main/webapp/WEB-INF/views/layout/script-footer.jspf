@@ -26,7 +26,7 @@
 			};
 // 		var socket = io.connect('https://www.mirros.net:8000', options);		
 // 		var socket = io.connect('https://14.63.226.97:8000',options);
-		var socket = io.connect('http://127.0.0.1:8000', options);
+		var socket = io.connect('http://218.55.100.44:8000', options);
 
 		socket.on('connect', function() {
 			socket.on('real_time', function(data){

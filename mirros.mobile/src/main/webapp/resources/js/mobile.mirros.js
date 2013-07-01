@@ -20,7 +20,7 @@ mobile.homeSync = function(){
 		$.postJSON(url, json, function(count) {
 			if (!nullValueCheck(count.message)) {
 				if(count.message == '1'){				
-					location.href = '';
+					location.href = contextPath+'/login';
 				}else{
 					alert('판매자는 불가능합니다');
 				}
@@ -28,12 +28,8 @@ mobile.homeSync = function(){
 				var crudType = count.crudType;
 				var background = parent.find('.mm-love-click-background');
 				if (crudType == 'insert') {
-					$('#love-image-' + spn).addClass('mm-home-love-click');
-					$('#love-' + spn).addClass('mm-home-love-number-click');
 					background.addClass('mm-love-animation');
 				} else if (crudType == 'delete') {
-					$('#love-image-' + spn).removeClass('mm-home-love-click');
-					$('#love-' + spn).removeClass('mm-home-love-number-click');
 					background.removeClass('mm-love-animation');
 				}
 			}

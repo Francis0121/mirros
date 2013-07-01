@@ -10,15 +10,29 @@
 		<li>
 			<a class="mm-home-nav-title"><span>Menu</span></a>
 			<ul class="mm-home-sub-nav">
-				<li class="mm-home-sub-nav-title">
-					<span>Account</span>
-				</li>
-				<li>
-					<a><span>Log In</span></a>
-				</li>
-				<li>
-					<a><span>Sign Up</span></a>
-				</li>
+				<sec:authorize access="hasRole('ROLE_USER')">
+					<li class="mm-home-sub-nav-title">
+						<span><sec:authentication property="principal.name" /></span>
+					</li>
+					<li>
+						<a href="${cp }/login/logout" id="jt-logout" data-cpn="<sec:authentication property="principal.pn" />"><span>로그아웃</span></a>
+					</li>
+					<li>
+						<a href="${cp }/login/modify"><span>계정 설정</span></a>
+					</li>
+				</sec:authorize>
+				<sec:authorize access="anonymous">
+					<li class="mm-home-sub-nav-title">
+						<span>Account</span>
+					</li>
+					<li>
+						<a href="${cp }/login"><span>Log In</span></a>
+					</li>
+					<li>
+						<a href="${cp }/login/join"><span>Sign Up</span></a>
+					</li>
+				</sec:authorize>
+	
 				<li class="mm-home-sub-nav-title">
 					<span>Help</span>
 				</li>
