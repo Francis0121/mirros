@@ -15,11 +15,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import com.bg.jtown.business.Board;
 import com.bg.jtown.business.Interest;
 import com.bg.jtown.business.Partnership;
 import com.bg.jtown.business.Question;
 import com.bg.jtown.business.QuestionSection;
-import com.bg.jtown.business.board.Board;
 import com.bg.jtown.business.board.BoardService;
 import com.bg.jtown.business.help.HelpService;
 import com.bg.jtown.business.home.HomeService;

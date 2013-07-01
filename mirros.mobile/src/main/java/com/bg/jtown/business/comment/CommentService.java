@@ -25,7 +25,7 @@ public interface CommentService {
 	Boolean selectExistComment(Comment comment);
 
 	Boolean selectExistLove(Count count);
-	
+
 	Comment insertComment(Comment comment);
 
 	Comment updateComment(Comment comment);
@@ -45,9 +45,7 @@ public interface CommentService {
 	void toggleCommentLove(Comment comment);
 
 	// ~ WarnComment
-	
+
 	void insertWarnComment(Comment comment);
-
-
 
 }

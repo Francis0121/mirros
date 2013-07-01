@@ -125,54 +125,6 @@
 		</if>
 	</select>
 	
-	<insert id="insertSellerImage" parameterType="File">
-		INSERT INTO
-			user_seller_image
-			(	seller_pn, image_pn, image_order	)
-		VALUES
-			(	#{ownerPn}, #{imagePn}, 1	)
-	</insert>
-	
-	<update id="updateSellerImage" parameterType="File">
-		UPDATE 
-			user_seller_image
-		SET
-			image_pn = #{imagePn} 
-		WHERE
-			seller_pn = #{ownerPn}
-		AND
-			image_order = 1
-	</update>
-	
-	<delete id="deleteSellerImage" parameterType="Integer">
-		DELETE FROM
-			user_seller_image
-		<if test="properNumber != null">
-		WHERE
-			seller_pn = #{properNumber}		
-		</if>
-	</delete>
-	
-	<!-- Notice -->
-	
-	<update id="updateSellerNotice" parameterType="JtownUser">
-		UPDATE
-			user_seller
-		SET
-			notice = #{notice}
-		WHERE
-			pn = #{pn}
-	</update>
-	
-	<update id="updateSellerLongNotice" parameterType="JtownUser">
-		UPDATE
-			user_seller
-		SET
-			long_notice = #{longNotice}
-		WHERE
-			pn = #{pn}
-	</update>
-	
 	<!-- Event -->
 	
 	<resultMap type="Event" id="jtown-event-map">
@@ -216,42 +168,6 @@
 		WHERE
 			seller_pn = #{userPn}
 	</select>
-		
-	<delete id="deleteEvent" parameterType="Event">
-		DELETE FROM
-			user_seller_banner
-		<if test="pn != null">
-		WHERE
-			pn = #{pn}
-		AND
-			seller_pn = #{sellerPn}
-		</if>
-	</delete>
-	
-	<insert id="insertSellerEvent" parameterType="Event">
-		INSERT INTO
-			user_seller_banner
-			(	seller_pn, banner_type, image_pn, content, banner_order, input_date)
-		VALUES
-			(	#{sellerPn}, #{bannerType}, #{imagePn}, #{content}, #{bannerOrder}, SYSDATE() )
-		<selectKey resultType="java.lang.Integer" keyProperty="pn">
-			SELECT LAST_INSERT_ID()
-		</selectKey>	
-	</insert>
-	
-	<update id="updateSellerEvent" parameterType="Event">
-		UPDATE
-			user_seller_banner
-		SET
-			banner_type = #{bannerType},
-			image_pn = #{imagePn},
-			content = #{content},
-			input_date = SYSDATE()
-		WHERE
-			pn = #{pn}
-		AND
-			seller_pn = #{sellerPn}
-	</update>
 
 	<!-- Interest -->
 
@@ -311,45 +227,6 @@
 		AND
 			pn = #{productPn}
 	</select>
-	
-	<delete id="deleteSellerProduct" parameterType="Product">
-		DELETE	FROM
-			user_seller_product
-		<if test="pn != null">
-		WHERE
-			pn = #{pn}
-		AND
-			seller_pn = #{sellerPn}		
-		</if>
-	</delete>
-	
-	<insert id="insertSellerProduct" parameterType="Product">
-		INSERT INTO
-			user_seller_product
-			(	seller_pn,	image_pn, `order`, input_date )
-		VALUES
-			(	
-				#{sellerPn}, #{imagePn}, 
-				(SELECT a.order FROM  (SELECT MAX(`order`) + 1 AS `order` FROM user_seller_product WHERE seller_pn = 8) a), 
-				 SYSDATE() 
-			)
-		<selectKey resultType="java.lang.Integer" keyProperty="pn">
-			SELECT LAST_INSERT_ID()
-		</selectKey>
-	</insert>
-	
-	<update id="updateSellerProduct" parameterType="Product">
-		UPDATE
-			user_seller_product
-		SET
-			name = #{name},
-			url = #{url},
-			price = #{price}
-		WHERE
-			pn = #{pn}
-		AND
-			seller_pn = #{sellerPn}
-	</update>
 
 	<!-- LoveCount -->
 

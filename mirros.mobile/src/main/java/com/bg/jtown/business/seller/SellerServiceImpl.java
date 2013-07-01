@@ -19,7 +19,6 @@ import com.bg.jtown.business.search.CommentFilter;
 import com.bg.jtown.redis.Publisher;
 import com.bg.jtown.security.JtownUser;
 import com.bg.jtown.util.DateUtil;
-import com.bg.jtown.util.FileVO;
 
 /**
  * @author Francis
@@ -173,56 +172,6 @@ public class SellerServiceImpl extends SqlSessionDaoSupport implements
 				properNumber);
 	}
 
-	@Override
-	public void insertSellerImage(FileVO fileVO) {
-		getSqlSession().insert("sellerMapper.insertSellerImage", fileVO);
-	}
-
-	@Override
-	public void updateSellerImage(FileVO fileVO) {
-		Integer count = selectSellerImageCount(fileVO.getOwnerPn());
-		Integer imagePn = fileVO.getImagePn();
-		if (imagePn == null || imagePn == 0)
-			return;
-
-		if (count != null && count != 0) {
-			getSqlSession().update("sellerMapper.updateSellerImage", fileVO);
-		} else {
-			insertSellerImage(fileVO);
-		}
-	}
-
-	@Override
-	public void deleteSellerImage(Integer properNumber) {
-		getSqlSession().delete("sellerMapper.deleteSellerImage", properNumber);
-	}
-
-	// ~ SellerNotice
-
-	@Override
-	public void updateSellerNotice(JtownUser jtownUser) {
-		String notice = jtownUser.getNotice();
-		if (notice.length() < 100) {
-			getSqlSession()
-					.update("sellerMapper.updateSellerNotice", jtownUser);
-		} else {
-			logger.error("=================> Notice Over Flow Character 100");
-			logger.error(jtownUser.getNotice());
-		}
-	}
-
-	@Override
-	public void updateSellerLongNotice(JtownUser jtownUser) {
-		String longNotice = jtownUser.getLongNotice();
-		if (longNotice.length() < 250) {
-			getSqlSession().update("sellerMapper.updateSellerLongNotice",
-					jtownUser);
-		} else {
-			logger.error("=================> Notice Over Flow Character 100");
-			logger.error(jtownUser.getLongNotice());
-		}
-	}
-
 	// ~ SellerEvent
 
 	@Override
@@ -257,31 +206,6 @@ public class SellerServiceImpl extends SqlSessionDaoSupport implements
 				userPn);
 	}
 
-	@Override
-	public void deleteEvent(Event event) {
-		getSqlSession().delete("sellerMapper.deleteEvent", event);
-	}
-
-	@Override
-	public void insertEvent(Event event) {
-		getSqlSession().insert("sellerMapper.insertSellerEvent", event);
-	}
-
-	@Override
-	public void updateEvent(Event event) {
-		getSqlSession().update("sellerMapper.updateSellerEvent", event);
-	}
-
-	@Override
-	public void updateAndInsertEvent(Event event) {
-		if (event.getPn() != null && !event.getPn().equals("")) {
-			updateEvent(event);
-		} else {
-			insertEvent(event);
-		}
-		publisher.eventPublish(event);
-	}
-
 	// ~ Seller Interest
 
 	@Override
@@ -308,45 +232,6 @@ public class SellerServiceImpl extends SqlSessionDaoSupport implements
 	public Product selectSellerProductOne(Integer productPn) {
 		return getSqlSession().selectOne("sellerMapper.selectSellerProductOne",
 				productPn);
-	}
-
-	@Override
-	public boolean deleteSellerProduct(Product product) {
-		Integer sellerPn = product.getSellerPn();
-		Integer count = selectSellerProductCount(sellerPn);
-		if (count < 4) {
-			product = null;
-			return false;
-		}
-		deleteProduct(product);
-		return true;
-	}
-
-	@Override
-	public void deleteProduct(Product product) {
-		getSqlSession().delete("sellerMapper.deleteSellerProduct", product);
-	}
-
-	@Override
-	public void insertSellerProduct(Product product) {
-		Integer sellerPn = product.getSellerPn();
-		Integer count = selectSellerProductCount(sellerPn);
-		if (count >= 10) {
-			product.setCount(count);
-			return;
-		}
-		insertProduct(product);
-		product.setCount(count);
-	}
-
-	@Override
-	public void insertProduct(Product product) {
-		getSqlSession().insert("sellerMapper.insertSellerProduct", product);
-	}
-
-	@Override
-	public void updateProduct(Product product) {
-		getSqlSession().update("sellerMapper.updateSellerProduct", product);
 	}
 
 	// ~ LoveCount

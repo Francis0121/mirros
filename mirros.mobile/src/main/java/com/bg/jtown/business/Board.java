@@ -1,4 +1,4 @@
-package com.bg.jtown.business.board;
+package com.bg.jtown.business;
 
 /**
  * @author 박광열
