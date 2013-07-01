@@ -1,0 +1,107 @@
+@CHARSET "UTF-8";
+/********************************************
+*	Home 메뉴 
+*********************************************/
+.mm-header{ width: 100%; position: fixed; top: 0; left: 0; height: 45px; background:#f6f6f6; border-bottom: 1px solid #dbd9ca; z-index: 9;}
+.mm-header>div{width: 93px; margin: 0 auto;}
+.mm-header>div>a{ width: 93px; height: 45px; display: block; text-indent: -9999px; background: url("../images/jt-main-banner.png") no-repeat; }
+/********************************************
+*	Home 메뉴 
+*********************************************/
+.mm-home-nav{position: fixed; top : 0; left: 0; width: 69px; height: 100%; padding-top: 45px; z-index : 5; border-right: 1px solid #dbd9ca; background:#f6f6f6; 
+	box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box; -moz-box-sizing : border-box; -webkit-box-sizing : border-box;
+	box-shadow : 0 0 3px rgba(34,25,25,0.2); -moz-box-shadow : 0 0 3px rgba(34,25,25,0.2); -webkit-box-shadow : 0 0 3px rgba(34,25,25,0.2);
+}
+.mm-home-nav>ul{ float: left; width: 100%;}
+.mm-home-nav>ul>li{float: left; width: 100%; height: 40px; text-align: center; line-height: 40px; border-bottom: 1px solid #dbd9ca;  }
+.mm-home-nav>ul>li>a>span{font-family: Arial; font-size: 75%;}
+.mm-home-nav>ul>li>a, .mm-home-nav>ul>li>a:VISITED, .mm-home-nav>ul>li>a:HOVER{color: #646464;}
+
+.mm-home-sub-nav{ position: fixed; width: 140px; top: 0; left: 0; padding-top: 45px; margin-left: 69px; 	background:#f6f6f6;
+	box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box; -moz-box-sizing : border-box; -webkit-box-sizing : border-box;
+	box-shadow : 0 1px 3px rgba(34,25,25,0.3); -moz-box-shadow : 0 1px 3px rgba(34,25,25,0.3); -webkit-box-shadow : 0 1px 3px rgba(34,25,25,0.3);
+	display: none;
+}
+.mm-home-sub-nav>li{text-align: left; padding-left: 5px; float: left; width: 65px; border-bottom: 1px solid #dbd9ca;
+	height: 40px; line-height : 40px; 
+}
+.mm-home-sub-nav-title{ width: 135px !important;}
+.mm-home-sub-nav>li>span{ font-family: Arial; font-size: 75%; font-weight: bold;}
+.mm-home-sub-nav>li>a>span{font-family: Arial; font-size: 75%;}
+.mm-home-sub-nav>li>a, .mm-home-sub-nav>ul>li>a:VISITED, .mm-home-sub-nav>ul>li>a:HOVER{color: #646464;}
+/********************************************
+*	Home 쇼핑몰 리스트 
+*********************************************/
+.mm-home-section{ width: 100%; float: left; padding : 45px 5px 0 76px;
+	box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box; -moz-box-sizing : border-box; -webkit-box-sizing : border-box;
+}
+.mm-home-section>header{width: 100%; float: left; text-align: center; padding: 15px 0 5px 0;
+	box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box; -moz-box-sizing : border-box; -webkit-box-sizing : border-box;
+}
+.mm-home-section>header>h1{ font-size: 125%; font-weight: normal; font-family: Arial;}
+
+.mm-home-article{ width: 100%; float: left;	margin-top : 15px; background: #fff;
+	box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box; -moz-box-sizing : border-box; -webkit-box-sizing : border-box;  
+	box-shadow : 0 1px 3px rgba(34,25,25,0.4); -moz-box-shadow : 0 1px 3px rgba(34,25,25,0.4); -webkit-box-shadow : 0 1px 3px rgba(34,25,25,0.4);
+}
+.mm-home-article>header{ width: 100%; float: left; }
+.mm-home-article>header{ width: 100%; height: 20px; padding: 3px 0; float: left; background: #f2f2f2; text-align: center; }
+.mm-home-article>header>a{ font-weight: bold; color: #4f4f4f; font-size: 75%;}
+
+.mm-home-article>article{ width: 100%; float: left; }
+.mm-home-article>article>ul{ width: 100%; float: left; }
+.mm-home-article>article>ul>li{ width: 100%; float: left; }
+.mm-home-article>article>ul>li>img{ width: 100%; float: left; }
+
+.mm-home-article>article>ul>li>div{ position: absolute; height: 0; width: 100%; margin : 3px 0 0 -84px;  }
+.mm-home-article>article>ul>li>div>span{ width: 43px; height: 43px; text-indent: -99999px; margin: -3px -3px 0 0; background: url("../images/jt-home-icon.png") no-repeat; background-position: -45px 0px; float:right; }
+
+.mm-home-article>article>div{width: 100%; float: left;}
+.mm-home-article-quotationmark-first{ float:left; width: 10%; margin-top: 5px; }
+.mm-home-article-quotationmark-first>span{ margin : 0 auto; display : block; width: 15px; height: 15px; background: url("../images/jt-home-icon.png") 0 0 no-repeat;  text-indent: -99999px;}
+.mm-home-article-notice{ float: left; width: 80%; min-height: 60px; padding: 15px 0; font-size: 75%; line-height: 1.5;
+	box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box; -moz-box-sizing : border-box; -webkit-box-sizing : border-box;  
+}
+.mm-home-article-quotationmark-last{ float: left; width: 10%; margin-top: 5px;}		
+.mm-home-article-quotationmark-last>span{ margin : 0 auto; display : block; width: 15px; height: 15px; background: url("../images/jt-home-icon.png") 0 -15px no-repeat;  text-indent: -99999px;}
+
+.mm-home-article>footer{ width: 100%; float: left; }
+.mm-home-article>footer>ul{ width: 100%; float: left; padding : 12px 6px 9px 6px; border-top: 1px solid #dbd9ca;
+	box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box; -moz-box-sizing : border-box; -webkit-box-sizing : border-box;  
+}
+.mm-home-article>footer>ul>li{ width : 33.3%; float: left; text-align: center; }
+.mm-home-article>footer>ul>li>div{ margin: 0 auto;}
+.mm-home-view{ width: 15px; height: 15px; float:left; background: url("../images/jt-home-icon.png") 0 -45px no-repeat; text-indent: -99999px;}
+.mm-home-comment{ width: 15px; height: 15px; float:left; background: url("../images/jt-home-icon.png") 0 -60px no-repeat; text-indent: -99999px; cursor: pointer; }
+.mm-home-comment:HOVER{ background-position: -15px -60px;}
+.mm-love-click-wrap{ float: left; width: 19px; height:19px; margin-top: -2px; }
+.mm-love-click-background{ position : absolute; opacity : 0; height : 19px; width : 19px;}
+.mm-love-click{position: absolute; height: 15px; width: 15px; margin: 2px;}
+.mm-home-love{ width: 15px; height: 15px; float: left; background: url("../images/jt-home-icon.png") 0 -30px no-repeat; text-indent: -99999px; cursor: pointer;}
+.mm-home-love:HOVER{ background-position: -15px -30px;}
+.mm-home-number{width: 20px; height: 15px; float: left; font-size: 75%; font-weight: bold; color: #b2b2b2; line-height: 16px;}
+.mm-home-hot{ width :27px; height: 15px; float: left; font-weight: bold; font-size: 75%; color: #e92f25;line-height: 16px;}
+
+@keyframes mm-love-click { from {opacity : 0;} to {opacity: 1;} }
+@-webkit-keyframes mm-love-click { from {opacity : 0;} to {opacity: 1;} }
+@-moz-keyframes mm-love-click { from {opacity : 0;} to {opacity: 1;} }
+.mm-love-animation{
+	animation-name : mm-love-click;
+	animation-timing-function : ease-in-out;
+	animation-iteration-count : 2;
+	animation-direction : alternate;
+	animation-duration : .8s;
+	animation-delay : 0;
+	-moz-animation-name : mm-love-click;
+	-moz-animation-timing-function : ease-in-out;
+	-moz-animation-iteration-count : 2;
+	-moz-animation-direction : alternate;
+	-moz-animation-duration : .8s;
+	-moz-animation-delay : 0;	
+	-webkit-animation-name : mm-love-click;
+	-webkit-animation-timing-function : ease-in-out;
+	-webkit-animation-iteration-count : 2;
+	-webkit-animation-direction : alternate;
+	-webkit-animation-duration : .8s;
+	-webkit-animation-delay : 0;
+}
