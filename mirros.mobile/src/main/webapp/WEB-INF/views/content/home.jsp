@@ -15,7 +15,7 @@
 						<span><sec:authentication property="principal.name" /></span>
 					</li>
 					<li>
-						<a href="${cp }/login/logout" id="jt-logout" data-cpn="<sec:authentication property="principal.pn" />"><span>로그아웃</span></a>
+						<a href="${cp }/login/logout"><span>로그아웃</span></a>
 					</li>
 					<li>
 						<a href="${cp }/login/modify"><span>계정 설정</span></a>
@@ -104,15 +104,15 @@
 					<li>
 						<c:choose>
 							<c:when test="${fn:length(mainImages) eq 0 }">
-								<img alt="Main Image Blank" src="${cp }/resources/images/jt-introduce-home-blank.png" title="${seller.name}"/>	
+								<div class="mm-home-mainImage-content"><img alt="Main Image Blank" src="${cp }/resources/images/jt-introduce-home-blank.png" title="${seller.name}"/></div>	
 							</c:when>
 							<c:otherwise>	
 								<c:forEach items="${mainImages }" var="mainImage">
-									<img alt="Main Image" src="${web }/resources/uploadImage/${mainImage}" title="${seller.name}"/>	
+									<div class="mm-home-mainImage-content"><img alt="Main Image" src="${web }/resources/uploadImage/${mainImage}" title="${seller.name}"/></div>
 								</c:forEach>
 							</c:otherwise>
 						</c:choose>
-						<div>
+						<div class="mm-home-mainImage-event">
 							<span id="new-${spn }" style="${seller.bannerDate ne null and seller.bannerDate < 8 ? 'display: block;' : 'display: none;'}">Event</span>
 						</div>
 					</li>

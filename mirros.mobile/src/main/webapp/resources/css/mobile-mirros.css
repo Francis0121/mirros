@@ -66,10 +66,12 @@
 .mm-home-article>article{ width: 100%; float: left; }
 .mm-home-article>article>ul{ width: 100%; float: left; }
 .mm-home-article>article>ul>li{ width: 100%; float: left; cursor: pointer;}
-.mm-home-article>article>ul>li>img{ width: 100%; float: left; }
+.mm-home-article>article>ul>li>.mm-home-mainImage-content{ width: 100%; float: left;}
+.mm-home-article>article>ul>li>.mm-home-mainImage-content>img{ width: 100%; max-width: 316px; display: block; margin: 0 auto;}
 
-.mm-home-article>article>ul>li>div{ position: absolute; height: 0; width: 100%; margin : 3px 0 0 -84px;  }
-.mm-home-article>article>ul>li>div>span{ width: 43px; height: 43px; text-indent: -99999px; margin: -3px -3px 0 0; background: url("../images/jt-home-icon.png") no-repeat; background-position: -45px 0px; float:right; }
+
+.mm-home-article>article>ul>li>.mm-home-mainImage-event{ position: absolute; height: 0; width: 100%; margin : 3px 0 0 -84px;  }
+.mm-home-article>article>ul>li>.mm-home-mainImage-event>span{ width: 43px; height: 43px; text-indent: -99999px; margin: -3px -3px 0 0; background: url("../images/jt-home-icon.png") no-repeat; background-position: -45px 0px; float:right; }
 
 .mm-home-article>article>div{width: 100%; float: left;}
 .mm-home-article-quotationmark-first{ float:left; width: 10%; margin-top: 5px; }
@@ -284,11 +286,12 @@
 #mm-mir-products-dan>div{ width: 140px; float:left; position: relative;background: transparent;}
 #mm-mir-products-dan>div img{ width: 140px; height: 140px; padding: 0px; float:left;}
 
-.mm-mir-events{width: 100%; float: left;}
-.mm-mir-events>div{ width: 50%; float: left;}
-.mm-mir-events>div>img{ width: 100%;}
+.mm-mir-events{width: 100%; float: left; background: #fff;}
+.mm-mir-events>div{ width: 50%; float: left; height: 20%;}
+.mm-mir-events>div>img{ width: 100%; height: 20%; max-width: 309px; max-height: 154px; margin: 0 auto; display: block;}
 
 .mm-mir-events-new{ position: absolute; width: 50%;}
+.mm-mir-events-new>div{width: 100%; max-width: 309px; margin: 0 auto; display: block;}
 .mm-mir-events-new-image{ text-indent: -99999px; margin-left: 2px; background: url("../images/jt-home-icon.png") no-repeat; background-position: -45px 0px; float:right; width: 43px; height: 43px;}
 
 .mm-mir-footer{float: left; width: 100%;}
@@ -298,4 +301,54 @@
 }
 .mm-mir-footer>ul>li{ width : 33.3%; float: left; text-align: center; }
 .mm-mir-footer>ul>li>div{ margin: 0 auto;}
-.mm-home-text{width:58px; float: left; margin-left:4px; font-size: 75%; font-weight: bold; color: #b2b2b2; line-height: 16px;}
+.mm-mir-comment{ width: 15px; height: 15px; float:left; background: url("../images/jt-home-icon.png") 0 -60px no-repeat; text-indent: -99999px; }
+.mm-mir-love{ width: 15px; height: 15px; float: left; background: url("../images/jt-home-icon.png") 0 -30px no-repeat; text-indent: -99999px; cursor: pointer;}
+.mm-mir-love:HOVER{ background-position: -15px -30px;}
+
+
+.mm-mir-comment-wrap{ 
+	color: #b2b2b2; padding: 5px 0; margin-top : -5px; border-top: 1px solid #d6d2d2; border-left: 1px solid #d6d2d2; border-right: 1px solid #d6d2d2; background: #fff;
+	box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box; -moz-box-sizing : border-box; -webkit-box-sizing : border-box;  
+    border-radius: 3px 3px 0 0; -moz-border-radius: 3px 3px 0 0; -webkit-border-radius: 3px 3px 0 0;    
+    box-shadow : 0 1px 3px rgba(34,25,25,0.4); -moz-box-shadow : 0 1px 3px rgba(34,25,25,0.4); -webkit-box-shadow : 0 1px 3px rgba(34,25,25,0.4);
+}
+.mm-mir-comment-wrap-hide{
+	position: absolute; border-top: 1px solid #fff; border-bottom: 1px solid #fff; border-left: 6px solid #d6d2d2; border-right: 6px solid #d6d2d2; width: 33.3%; left: 33.3%; margin-top: 19px !important;
+	box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box; -moz-box-sizing : border-box; -webkit-box-sizing : border-box;  
+}
+.mm-mir-comment-content{
+	float: left; width : 100%; padding: 5px; background: #fff; margin: -9px 0 10px 0;border-top: 1px solid #d6d2d2; border-bottom : 1px solid #d6d2d2;
+    box-shadow : 0 1px 3px rgba(34,25,25,0.4); -moz-box-shadow : 0 1px 3px rgba(34,25,25,0.4); -webkit-box-shadow : 0 1px 3px rgba(34,25,25,0.4);
+	box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box; -moz-box-sizing : border-box; -webkit-box-sizing : border-box;	  
+}
+.mm-mir-comment-insert{
+	width: 100%; border: 1px solid #d1cdcd; padding: 4px; font-size : 75%;
+	-webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px;
+	box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box; -moz-box-sizing : border-box; -webkit-box-sizing : border-box;  
+}
+
+.mm-mir-comment-text-wrap{ float: left; width: 100%; margin: 3px 0;}
+.mm-mir-comment-text-wrap>li{float: left;}
+
+.mm-mir-comment-text-header{ width: 100%; padding-top: 3px;}
+.mm-mir-comment-text-header-best{ color: #ff0000; font-weight: bold; text-indent: -99999px; display: block;  width : 40px; height : 12px;  background: url("../images/jt-home-icon.png") -45px -45px no-repeat; }
+.mm-mir-comment-text-content{ width: 100%; padding: 2px 0; line-height: 14px;
+	box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box; -moz-box-sizing : border-box; -webkit-box-sizing : border-box;  
+}
+.mm-mir-comment-text-content-name{ color: #010101; font-weight: bold; font-size: 81.3%; }
+.mm-mir-comment-text-content-text{ color: #000; font-size: 75%;}
+.mm-mir-comment-text-footer{ width: 100%; padding-bottom: 3px; color: #4d4d4d; border-bottom: 1px solid #cfcfcf;}
+.mm-mir-comment-text-footer-progress-date{ color: #999999; font-size: 68.75%; }
+.mm-mir-comment-text-footer-loveIt{ color: #ef912a; font-size: 68.75%; }
+.mm-mir-comment-text-footer-loveIt-count{ color: #ff7f38; font-size: 68.75%; }
+
+.mm-btn-silver{ padding: 5px; border:1px solid #e0e0e0; ont-weight:bold; text-align: center; color: #808080; background-color: #f5f5f5; cursor: pointer;
+	-webkit-border-radius: 3px; -moz-border-radius: 3px;border-radius: 3px; font-size: 75%; text-align: center; font-weight: bold;
+	box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box; -moz-box-sizing : border-box; -webkit-box-sizing : border-box;   
+}
+
+.mm-btn-silver:hover{
+ border:1px solid #d1d1d1; background-color: #ebebeb;
+}
+.mm-mir-comment-add{ width: 100%; margin : 5px 0; float: left; }
+.mm-mir-comment-add a {width: 100%; float: left; }

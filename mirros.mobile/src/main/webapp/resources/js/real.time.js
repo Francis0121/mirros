@@ -11,7 +11,7 @@ mobile.real.time = function(data) {
 		var count = obj.count;
 		$('#love-' + spn).html(count);
 		var cpn = obj.customerPn;
-		var nowcpn = $('#mm-logout').attr('data-cpn');
+		var nowcpn = $('body').attr('data-cpn');
 		
 		if(cpn == nowcpn){
 			var crudType = obj.crudType;

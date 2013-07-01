@@ -5,7 +5,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <c:set var="cp" value="<%=request.getContextPath() %>"/>
-<c:set var="web" value="http://218.55.100.44:8080/jtown/"/>
+<c:set var="web" value="http://localhost:8080/jtown/"/>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -13,4 +13,4 @@
 <%@ include file="style.jspf" %>
 <%@ include file="script-header.jspf" %>
 </head>
-<body>
+<body data-cpn="<sec:authentication property="principal.pn" />">
