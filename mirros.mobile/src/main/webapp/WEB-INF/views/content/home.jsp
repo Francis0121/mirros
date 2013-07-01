@@ -8,7 +8,7 @@
 <nav class="mm-home-nav">
 	<ul>
 		<li>
-			<a class="mm-home-nav-title"><span>Menu</span></a>
+			<a class="mm-home-nav-title mm-home-menu"><span>Menu</span></a>
 			<ul class="mm-home-sub-nav">
 				<sec:authorize access="hasRole('ROLE_USER')">
 					<li class="mm-home-sub-nav-title">
@@ -51,7 +51,7 @@
 			</ul>
 		</li>
 		<li>
-			<a class="mm-home-nav-title"><span>Search</span></a>
+			<a class="mm-home-nav-title mm-home-search"><span>Search</span></a>
 			<ul class="mm-home-sub-nav mm-home-search">
 				<li>
 					<input type="text" class="mm-home-search-input"  placeholder="어떤 쇼핑몰을 찾으시나요?"/>

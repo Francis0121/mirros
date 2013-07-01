@@ -12,6 +12,8 @@
 	box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box; -moz-box-sizing : border-box; -webkit-box-sizing : border-box;
 	box-shadow : 0 0 3px rgba(34,25,25,0.2); -moz-box-shadow : 0 0 3px rgba(34,25,25,0.2); -webkit-box-shadow : 0 0 3px rgba(34,25,25,0.2);
 }
+.mm-home-menu>span{ background: url("../images/mm-nav-btn.png") 0 -25px; display: block; width: 25px; height: 25px; text-indent: -9999px; margin: 8px auto 7px auto;}
+.mm-home-search>span{ background: url("../images/mm-nav-btn.png") 0 0; display: block; width: 25px; height: 25px; text-indent: -9999px; margin: 8px auto 7px auto;}
 .mm-home-nav>ul{ float: left; width: 100%;}
 .mm-home-nav>ul>li{float: left; width: 100%; height: 40px; text-align: center; line-height: 40px; border-bottom: 1px solid #dbd9ca;  }
 .mm-home-nav>ul>li>a>span{font-family: Arial; font-size: 75%; cursor: pointer;}
