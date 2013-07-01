@@ -8,7 +8,7 @@
 <nav class="mm-home-nav">
 	<ul>
 		<li>
-			<a href="#none"><span>Menu</span></a>
+			<a class="mm-home-nav-title"><span>Menu</span></a>
 			<ul class="mm-home-sub-nav">
 				<li class="mm-home-sub-nav-title">
 					<span>Account</span>
@@ -36,14 +36,21 @@
 				</li>
 			</ul>
 		</li>
-		<li><a href="#none"><span>Search</span></a></li>
+		<li>
+			<a class="mm-home-nav-title"><span>Search</span></a>
+			<ul class="mm-home-sub-nav mm-home-search">
+				<li>
+					<input type="text" class="mm-home-search-input"  placeholder="어떤 쇼핑몰을 찾으시나요?"/>
+				</li>
+			</ul>
+		</li>
 		<c:set var="homeFilterUrl" value="${cp }/cpn/${homeFilter.categoryPn }/spn/0" scope="request"/>
 		<c:forEach var="interestCategory" items="${interestCategories }">
 			<c:set var="interestCategoryPn" value="${interestCategory.categoryPn }"/>
 			<c:set var="interestSections" value="${interestMap[interestCategoryPn] }"/>
 			<li>
 				<c:set var="interestUrl" value="${cp }/cpn/${interestCategoryPn }/spn/0"/>
-				<a href="${interestUrl}" style="${interestUrl eq homeFilterUrl ? '' : ''}">
+				<a class="mm-home-nav-title" style="${interestUrl eq homeFilterUrl ? '' : ''}">
 					<span><c:out value="${interestCategory.name }"/></span>
 				</a>
 				<ul class="mm-home-sub-nav">
@@ -74,12 +81,12 @@
 	<c:forEach items="${jtownUsers }" var="seller">
 		<c:set value="${seller.pn }" var="spn"/>
 		<c:set value="${images[spn] }" var="mainImages"/>
-		<article class="mm-home-article">
-			<header>
+		<article class="mm-home-article" data-spn="<c:out value="${spn }"/>">
+			<header class="mm-home-article-header">
 				<a href="http://<c:out value="${seller.shopUrl }"/>" target="_blank"><c:out value="${seller.name }"/></a>
 			</header>
 			<article>
-				<ul>
+				<ul class="mm-home-mainImage">
 					<li>
 						<c:choose>
 							<c:when test="${fn:length(mainImages) eq 0 }">
@@ -92,7 +99,7 @@
 							</c:otherwise>
 						</c:choose>
 						<div>
-							<span style="${seller.bannerDate ne null and seller.bannerDate < 8 ? 'display: block;' : 'display: none;'}">Event</span>
+							<span id="new-${spn }" style="${seller.bannerDate ne null and seller.bannerDate < 8 ? 'display: block;' : 'display: none;'}">Event</span>
 						</div>
 					</li>
 				</ul>
@@ -106,27 +113,29 @@
 				<ul>
 					<li>
 						<div style="width: 35px;">
-							<span class="mm-home-view" title="최근 일주일간 방문수">View</span><span class="mm-home-number"><c:out value="${seller.viewCount eq null ? 0 : seller.viewCount}"/></span>
+							<span class="mm-home-view" title="최근 일주일간 방문수">View</span><span class="mm-home-number" id="view-${spn}"><c:out value="${seller.viewCount eq null ? 0 : seller.viewCount}"/></span>
 						</div>	
 					</li>
 					<li>
 						<div style="width: 35px;">
-							<span class="mm-home-comment">Comment</span><span class="mm-home-number"><c:out value="${seller.commentCount eq null ? 0 : seller.commentCount}"/></span>
+							<span class="mm-home-comment">Comment</span><span class="mm-home-number" id="comment-${spn }"><c:out value="${seller.commentCount eq null ? 0 : seller.commentCount}"/></span>
 						</div>
 					</li>
 					<li>
+						<c:set var="loveClick" value="${seller.customerPn ne null ? 'mm-home-love-click' : '' }"/>
+						<c:set var="loveNumberClick" value="${seller.customerPn ne null ? 'mm-home-love-number-click' : '' }"/>
 						<c:set var="loveWidth" value="${seller.loveHotCount ne null and seller.loveHotCount ne 0 ? '66' : '39' }"/>
 						<div style="width: ${loveWidth}px;">
 							<div class="mm-love-click-wrap">
 								<div class="mm-love-click-background">
-									<img alt="heart-background" src="${cp}/resources/images/heart-background.png">
+									<img alt="Love Background" src="${cp}/resources/images/heart-background.png">
 								</div>
 								<div class="mm-love-click">
-									<span class="mm-home-love">Love</span>
+									<span class="mm-home-love ${loveClick }" id="love-image-${spn }">Love</span>
 								</div>
 							</div>
 							<div>
-								<span class="mm-home-number"><c:out value="${seller.loveCount eq null ? 0 : seller.loveCount}"/></span>
+								<span class="mm-home-number ${loveNumberClick}" id="love-${spn }"><c:out value="${seller.loveCount eq null ? 0 : seller.loveCount}"/></span>
 							</div>
 							<c:if test="${seller.loveHotCount ne null and seller.loveHotCount ne 0}">
 								<span class="mm-home-hot" title="최근 뜨는 미니샵">HOT</span>

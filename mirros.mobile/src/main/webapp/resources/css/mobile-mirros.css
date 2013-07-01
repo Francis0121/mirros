@@ -14,7 +14,7 @@
 }
 .mm-home-nav>ul{ float: left; width: 100%;}
 .mm-home-nav>ul>li{float: left; width: 100%; height: 40px; text-align: center; line-height: 40px; border-bottom: 1px solid #dbd9ca;  }
-.mm-home-nav>ul>li>a>span{font-family: Arial; font-size: 75%;}
+.mm-home-nav>ul>li>a>span{font-family: Arial; font-size: 75%; cursor: pointer;}
 .mm-home-nav>ul>li>a, .mm-home-nav>ul>li>a:VISITED, .mm-home-nav>ul>li>a:HOVER{color: #646464;}
 
 .mm-home-sub-nav{ position: fixed; width: 140px; top: 0; left: 0; padding-top: 45px; margin-left: 69px; 	background:#f6f6f6;
@@ -29,6 +29,19 @@
 .mm-home-sub-nav>li>span{ font-family: Arial; font-size: 75%; font-weight: bold;}
 .mm-home-sub-nav>li>a>span{font-family: Arial; font-size: 75%;}
 .mm-home-sub-nav>li>a, .mm-home-sub-nav>ul>li>a:VISITED, .mm-home-sub-nav>ul>li>a:HOVER{color: #646464;}
+
+.mm-home-search{width: 213px;}
+.mm-home-search-input{
+	margin: 10px 0 0 0;
+    width: 150px;
+    background: url(../images/jt-search-white.png) no-repeat 8px 4px #fcfcfc;
+    border: 1px solid #c3c4c4;
+    font: 75% Arial,Helvetica,Sans-serif;
+    color: #737373;
+    padding: 4px 15px 4px 35px;
+    text-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15) inset; -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15) inset;     -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15) inset;
+}
 /********************************************
 *	Home 쇼핑몰 리스트 
 *********************************************/
@@ -50,7 +63,7 @@
 
 .mm-home-article>article{ width: 100%; float: left; }
 .mm-home-article>article>ul{ width: 100%; float: left; }
-.mm-home-article>article>ul>li{ width: 100%; float: left; }
+.mm-home-article>article>ul>li{ width: 100%; float: left; cursor: pointer;}
 .mm-home-article>article>ul>li>img{ width: 100%; float: left; }
 
 .mm-home-article>article>ul>li>div{ position: absolute; height: 0; width: 100%; margin : 3px 0 0 -84px;  }
@@ -74,11 +87,13 @@
 .mm-home-view{ width: 15px; height: 15px; float:left; background: url("../images/jt-home-icon.png") 0 -45px no-repeat; text-indent: -99999px;}
 .mm-home-comment{ width: 15px; height: 15px; float:left; background: url("../images/jt-home-icon.png") 0 -60px no-repeat; text-indent: -99999px; cursor: pointer; }
 .mm-home-comment:HOVER{ background-position: -15px -60px;}
-.mm-love-click-wrap{ float: left; width: 19px; height:19px; margin-top: -2px; }
+.mm-love-click-wrap{ float: left; width: 19px; height:19px; margin-top: -2px; margin-right: -2px;}
 .mm-love-click-background{ position : absolute; opacity : 0; height : 19px; width : 19px;}
 .mm-love-click{position: absolute; height: 15px; width: 15px; margin: 2px;}
 .mm-home-love{ width: 15px; height: 15px; float: left; background: url("../images/jt-home-icon.png") 0 -30px no-repeat; text-indent: -99999px; cursor: pointer;}
 .mm-home-love:HOVER{ background-position: -15px -30px;}
+.mm-home-love-click{ background: url("../images/jt-home-icon.png") -15px -30px no-repeat !important; }
+.mm-home-love-number-click{ color: #f59697 !important; }
 .mm-home-number{width: 20px; height: 15px; float: left; font-size: 75%; font-weight: bold; color: #b2b2b2; line-height: 16px;}
 .mm-home-hot{ width :27px; height: 15px; float: left; font-weight: bold; font-size: 75%; color: #e92f25;line-height: 16px;}
 
