@@ -1,7 +1,0 @@
-@CHARSET "UTF-8";
-
-#jt-addInterest-wrap{ width: 796px; height : 496px; border: 2px solid black; font-size : 12px; text-align: center; float: left;}
-.jt-addInterest-arrow{float: left; width: 43px; height: 496px; vertical-align: middle;}
-#jt-addInterest-leftArrow{}
-#jt-addInterest-rightArrow{}
-#jt-interest-tag{float: left; width: 700px; height: 496px; vertical-align: middle;}
