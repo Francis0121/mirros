@@ -38,6 +38,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.bg.jtown.business.search.HomeFilter;
 import com.bg.jtown.controller.validator.LoginValidatorImpl;
 import com.bg.jtown.security.Authority;
 import com.bg.jtown.security.Confirm;
@@ -55,7 +56,6 @@ import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
  * @author Francis, 박광열
  * 
  */
-@SuppressWarnings("restriction")
 @Controller
 public class LoginController {
 
@@ -102,6 +102,31 @@ public class LoginController {
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String showLogin(Model model) {
 		return "login/login";
+	}
+
+	@RequestMapping(value = "/noPermission", method = RequestMethod.GET)
+	public String showNoPermissionPage() {
+		return "login/noPermission";
+	}
+
+	@RequestMapping(value = "/process")
+	public String showProcessRedirect(HttpSession session,
+			HomeFilter homeFilter, SummaryUser summaryUser, Model model) {
+
+		Authority authority = summaryUser.getEnumAuthority();
+		if (authority.equals(Authority.ADMIN)
+				|| authority.equals(Authority.ROOT_ADMIN)) {
+			return "redirect:admin";
+		} else if (authority.equals(Authority.SELLER)) {
+			return "redirect:seller/" + summaryUser.getPn();
+		} else if (authority.equals(Authority.CUSTOMER)) {
+			// TODO 사용자 맞춤형k메뉴 검색시 추가
+			// session.setAttribute("interestMap",
+			// homeService.selectInterest(summaryUser.getPn()));
+			return "redirect:";
+		} else {
+			return "redirect:";
+		}
 	}
 
 	@PreAuthorize("hasRole('ROLE_USER')")

@@ -126,31 +126,6 @@ public class HomeController {
 		}
 	}
 
-	@RequestMapping(value = "/process")
-	public String showProcessRedirect(HttpSession session,
-			HomeFilter homeFilter, SummaryUser summaryUser, Model model) {
-
-		Authority authority = summaryUser.getEnumAuthority();
-		if (authority.equals(Authority.ADMIN)
-				|| authority.equals(Authority.ROOT_ADMIN)) {
-			return "redirect:admin";
-		} else if (authority.equals(Authority.SELLER)) {
-			return "redirect:seller/" + summaryUser.getPn();
-		} else if (authority.equals(Authority.CUSTOMER)) {
-			// TODO 사용자 맞춤형k메뉴 검색시 추가
-			// session.setAttribute("interestMap",
-			// homeService.selectInterest(summaryUser.getPn()));
-			return "redirect:";
-		} else {
-			return "redirect:";
-		}
-	}
-
-	@RequestMapping(value = "/noPermission", method = RequestMethod.GET)
-	public String showNoPermissionPage() {
-		return "login/noPermission";
-	}
-
 	// ~ AJAX
 
 	@RequestMapping(value = "/ajax/homePagination.jt", method = RequestMethod.POST)

@@ -16,7 +16,6 @@ import com.bg.jtown.security.LoginService;
 import com.bg.jtown.security.algorithm.SeedCipher;
 import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 
-@SuppressWarnings("restriction")
 @Component
 public class EmailSend {
 
