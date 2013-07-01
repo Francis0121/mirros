@@ -84,7 +84,7 @@
 		</c:forEach>
 	</ul>
 </nav>
-<section class="mm-home-section">
+<section class="mm-home-section" id="mm-home-container">
 	<header>
 		<h1>Let’s see your shop :</h1>
 	</header>
@@ -104,11 +104,11 @@
 					<li>
 						<c:choose>
 							<c:when test="${fn:length(mainImages) eq 0 }">
-								<img alt="Main Image Blank" src="${cp }/resources/images/jt-introduce-home-blank.png" title="${jtownUser.name}"/>	
+								<img alt="Main Image Blank" src="${cp }/resources/images/jt-introduce-home-blank.png" title="${seller.name}"/>	
 							</c:when>
 							<c:otherwise>	
 								<c:forEach items="${mainImages }" var="mainImage">
-									<img alt="Main Image" src="${web }/resources/uploadImage/${mainImage}" title="${jtownUser.name}"/>	
+									<img alt="Main Image" src="${web }/resources/uploadImage/${mainImage}" title="${seller.name}"/>	
 								</c:forEach>
 							</c:otherwise>
 						</c:choose>

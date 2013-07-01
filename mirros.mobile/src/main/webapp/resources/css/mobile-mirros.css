@@ -241,4 +241,14 @@
 .mm-btn-orange-login{font-family: Arial; border: 0; padding: 2px 0; background: transparent;cursor: pointer;color: #ff8900;}
 .mm-btn-orange-login:HOVER{text-decoration: underline;}
 
-.mm-login-error-box{font-size: 75%; color: #e95800; width : 90%;  padding: 0 5%; margin-bottom: 10px; line-height : 1.7; float: left;}}
+.mm-login-error-box{font-size: 75%; color: #e95800; width : 90%;  padding: 0 5%; margin-bottom: 10px; line-height : 1.7; float: left;}
+/*********************************
+*	Scroll Pagination 스타일
+***********************************/
+.mm-scrollpagingation{ text-align: center; z-index: 100; position: fixed; bottom: 10px; width: 60%; padding: 10px; background: #000;  opacity: 0.8;color: #FFF;
+  border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px;
+  box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box; -moz-box-sizing : border-box; -webkit-box-sizing : border-box;     
+  font-size: 75%;
+  font-family: Arial;
+  margin-left: 20px;
+}

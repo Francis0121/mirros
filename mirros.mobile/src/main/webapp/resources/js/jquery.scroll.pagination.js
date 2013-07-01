@@ -52,7 +52,6 @@
 							opts.afterLoad(objectsRendered);
 						}
 						opts.loading.finished();
-						$container.masonry('reload');
 					}else{
 						opts.errorCallback;
 					}
@@ -81,7 +80,7 @@
 		});
 		
 		opts.loading.selector = opts.loading.selector || $(obj);
-		opts.loading.msg = $('<div id="infscr-loading"><img alt="Loading..." src="'
+		opts.loading.msg = $('<div class="mm-scrollpagingation"><img alt="Loading..." src="'
 				+ opts.loading.img
 				+ '" /><div>'
 				+ opts.loading.msgText
@@ -116,7 +115,7 @@
 		loading : {
 			finished : undefined,
 			finishedMsg: 'No more pages to load.',
-			img: contextPath + 'resources/images/jt-loading-big.gif',
+			img: contextPath + '/resources/images/jt-loading-big.gif',
 			msg : null,
 			msgText : '<em>Loading the next set of posts...</em>',
 			selector : null,

@@ -2,6 +2,7 @@
 <script type="text/javascript">
 /* <![CDATA[ */
 	var contextPath = '<c:out value="${cp}"/>';
+	var webPath = '<c:out value="${web}"/>';
 	if (typeof mobile == 'undefined') { mobile = {}; }
 /* ]]> */
 </script>
