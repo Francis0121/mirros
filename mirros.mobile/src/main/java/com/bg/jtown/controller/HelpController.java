@@ -34,6 +34,7 @@ import com.bg.jtown.util.ValidationUtil;
  * 
  */
 @Controller
+@RequestMapping("/help")
 public class HelpController {
 
 	@Resource
@@ -50,7 +51,7 @@ public class HelpController {
 
 	// ~ Show
 
-	@RequestMapping(value = "/help/notice", method = RequestMethod.GET)
+	@RequestMapping(value = "/notice", method = RequestMethod.GET)
 	public String showNotice(Model model,
 			@ModelAttribute BoardFilter boardFilter) {
 		model.addAttribute("noticeList",
@@ -58,7 +59,7 @@ public class HelpController {
 		return "help/notice";
 	}
 
-	@RequestMapping(value = "/help/notice/content", method = RequestMethod.GET)
+	@RequestMapping(value = "/notice/content", method = RequestMethod.GET)
 	public String showNoticeContent(Model model, @ModelAttribute Board board) {
 		boardService.updateReadCount(board.getPn());
 		model.addAttribute("noticeContent",
@@ -68,7 +69,7 @@ public class HelpController {
 		return "help/noticeContent";
 	}
 
-	@RequestMapping(value = "/help/question", method = RequestMethod.GET)
+	@RequestMapping(value = "/question", method = RequestMethod.GET)
 	public String showQuestion(Model model,
 			@RequestParam(required = false) Integer result) {
 		model.addAttribute("result", result);
@@ -80,12 +81,12 @@ public class HelpController {
 		return "help/question";
 	}
 
-	@RequestMapping(value = "/help/serviceGuide", method = RequestMethod.GET)
+	@RequestMapping(value = "/serviceGuide", method = RequestMethod.GET)
 	public String showServiceGuide(Model model) {
 		return "help/serviceGuide";
 	}
 
-	@RequestMapping(value = "/help/partnership", method = RequestMethod.GET)
+	@RequestMapping(value = "/partnership", method = RequestMethod.GET)
 	public String showRule(Model model,
 			@RequestParam(required = false) Integer result) {
 		List<Interest> interests = homeService.selecInterestCategory();
@@ -97,7 +98,7 @@ public class HelpController {
 
 	// ~ Form
 
-	@RequestMapping(value = "/help/partnership.jt", method = RequestMethod.POST)
+	@RequestMapping(value = "/partnership.jt", method = RequestMethod.POST)
 	public String formSumbitPartnership(Model model,
 			@ModelAttribute Partnership partnership, BindingResult result) {
 		partnershipValidatorImpl.validate(partnership, result);
@@ -112,7 +113,7 @@ public class HelpController {
 		}
 	}
 
-	@RequestMapping(value = "/help/cQuestion.jt", method = RequestMethod.POST)
+	@RequestMapping(value = "/cQuestion.jt", method = RequestMethod.POST)
 	public String formCustomerQuestion(Model model,
 			@ModelAttribute(value = "cQuestion") Question question,
 			BindingResult result) {
@@ -130,7 +131,7 @@ public class HelpController {
 		}
 	}
 
-	@RequestMapping(value = "/help/sQuestion.jt", method = RequestMethod.POST)
+	@RequestMapping(value = "/sQuestion.jt", method = RequestMethod.POST)
 	public String formSellerQuestion(Model model,
 			@ModelAttribute(value = "sQuestion") Question question,
 			BindingResult result) {

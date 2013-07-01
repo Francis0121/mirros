@@ -26,6 +26,7 @@ import com.bg.jtown.security.JtownUser;
  * 
  */
 @Controller
+@RequestMapping("/natural")
 public class NaturalLanguageController {
 
 	private static Logger logger = LoggerFactory
@@ -34,7 +35,7 @@ public class NaturalLanguageController {
 	@Resource
 	private NaturalLanguageService naturalLanguageService;
 
-	@RequestMapping(value = "/ajax/natural/autocomplete.jt", method = RequestMethod.POST)
+	@RequestMapping(value = "/ajax/autocomplete.jt", method = RequestMethod.POST)
 	@ResponseBody
 	public Object ajaxAutoComplete(
 			@RequestBody NaturalLanguageFilter naturalLanguageFilter) {

@@ -20,6 +20,7 @@ import com.bg.jtown.security.Authority;
 import com.bg.jtown.security.SummaryUser;
 
 @Controller
+@RequestMapping("/home")
 public class CommentController {
 
 	@Resource
@@ -27,7 +28,7 @@ public class CommentController {
 
 	// ~ ajax
 
-	@RequestMapping(value = "/ajax/home/selectCommentBest.jt", method = RequestMethod.POST)
+	@RequestMapping(value = "/ajax/selectCommentBest.jt", method = RequestMethod.POST)
 	@ResponseBody
 	public List<Comment> ajaxSelectCommentTop(
 			@RequestBody CommentFilter commentFilter, SummaryUser summaryUser) {
@@ -37,7 +38,7 @@ public class CommentController {
 		return commentService.selectCommentTop(commentFilter);
 	}
 
-	@RequestMapping(value = "/ajax/home/selectComment.jt", method = RequestMethod.POST)
+	@RequestMapping(value = "/ajax/selectComment.jt", method = RequestMethod.POST)
 	@ResponseBody
 	public List<Comment> ajaxSelectComment(
 			@RequestBody CommentFilter commentFilter, SummaryUser summaryUser) {
@@ -47,7 +48,7 @@ public class CommentController {
 		return commentService.selectComment(commentFilter);
 	}
 
-	@RequestMapping(value = "/ajax/home/existComment.jt", method = RequestMethod.POST)
+	@RequestMapping(value = "/ajax/existComment.jt", method = RequestMethod.POST)
 	@ResponseBody
 	public Object ajaxExistComment(@RequestBody Comment comment,
 			SummaryUser summaryUser) {
@@ -63,7 +64,7 @@ public class CommentController {
 		return map;
 	}
 
-	@RequestMapping(value = "/ajax/home/existLove.jt", method = RequestMethod.POST)
+	@RequestMapping(value = "/ajax/existLove.jt", method = RequestMethod.POST)
 	@ResponseBody
 	public Boolean ajaxExistLove(@RequestBody Count count,
 			SummaryUser summaryUser) {
@@ -71,7 +72,7 @@ public class CommentController {
 		return commentService.selectExistLove(count);
 	}
 
-	@RequestMapping(value = "/ajax/home/insertComment.jt", method = RequestMethod.POST)
+	@RequestMapping(value = "/ajax/insertComment.jt", method = RequestMethod.POST)
 	@ResponseBody
 	public Comment ajaxInsertComment(@RequestBody Comment comment,
 			SummaryUser summaryUser) {
@@ -79,7 +80,7 @@ public class CommentController {
 		return commentService.insertComment(comment);
 	}
 
-	@RequestMapping(value = "/ajax/home/updateComment.jt", method = RequestMethod.POST)
+	@RequestMapping(value = "/ajax/updateComment.jt", method = RequestMethod.POST)
 	@ResponseBody
 	public Comment ajaxUpdateComment(@RequestBody Comment comment,
 			SummaryUser summaryUser) {
@@ -87,7 +88,7 @@ public class CommentController {
 		return commentService.updateComment(comment);
 	}
 
-	@RequestMapping(value = "/ajax/home/deleteComment.jt", method = RequestMethod.POST)
+	@RequestMapping(value = "/ajax/deleteComment.jt", method = RequestMethod.POST)
 	@ResponseBody
 	public void ajaxDeleteComment(@RequestBody Comment comment,
 			SummaryUser summaryUser) {
@@ -95,7 +96,7 @@ public class CommentController {
 		commentService.deleteComment(comment);
 	}
 
-	@RequestMapping(value = "/ajax/home/toggleCommentLove.jt", method = RequestMethod.POST)
+	@RequestMapping(value = "/ajax/toggleCommentLove.jt", method = RequestMethod.POST)
 	@ResponseBody
 	public Comment ajaxInsertCommentLove(@RequestBody Comment comment,
 			SummaryUser summaryUser) {
@@ -110,7 +111,7 @@ public class CommentController {
 		return comment;
 	}
 
-	@RequestMapping(value = "/ajax/home/warnCommentLove.jt", method = RequestMethod.POST)
+	@RequestMapping(value = "/ajax/warnCommentLove.jt", method = RequestMethod.POST)
 	@ResponseBody
 	public Comment ajaxWarnCommentLove(@RequestBody Comment comment,
 			SummaryUser summaryUser) {

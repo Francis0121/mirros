@@ -22,11 +22,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.bg.jtown.business.Comment;
 import com.bg.jtown.business.Count;
 import com.bg.jtown.business.comment.CommentService;
 import com.bg.jtown.business.home.HomeService;
-import com.bg.jtown.business.search.CommentFilter;
 import com.bg.jtown.business.search.HomeFilter;
 import com.bg.jtown.business.seller.SellerService;
 import com.bg.jtown.security.Authority;
@@ -61,7 +59,7 @@ public class HomeController {
 	@Resource
 	private LoginService loginService;
 
-	// ~ FORM
+	// ~ SHOW
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String showHome(Model model, HttpSession session,
@@ -176,44 +174,6 @@ public class HomeController {
 		}
 	}
 
-	@RequestMapping(value = "/ajax/home/expandShop.jt", method = RequestMethod.POST)
-	@ResponseBody
-	public Map<String, Object> ajaxExpandShop(@RequestBody JtownUser jtownUser,
-			SummaryUser summaryUser) {
-		Integer sellerPn = jtownUser.getPn();
-		Integer customerPn = summaryUser.getPn();
-
-		Map<String, Object> selectMap = homeService.selectExpandShop(sellerPn);
-
-		if (summaryUser.getEnumAuthority().equals(Authority.CUSTOMER)) {
-			selectMap.put("cpn", customerPn);
-			if (customerPn != null && customerPn != 0) {
-				int count = homeService.selectLoveCount(new Count(null,
-						customerPn, null, null, sellerPn, null));
-				selectMap.put("loveHave", count);
-			}
-		} else if (summaryUser.getEnumAuthority().equals(Authority.NOT_LOGIN)) {
-			selectMap.put("cpn", null);
-		} else {
-			selectMap.put("cpn", 0);
-		}
-
-		CommentFilter commentFilter = new CommentFilter();
-		commentFilter.setSellerPn(sellerPn);
-		commentFilter.setCustomerPn(customerPn);
-
-		List<Comment> commentTops = commentService
-				.selectCommentTop(commentFilter);
-		if (commentTops.size() == 0) {
-			selectMap.put("comments",
-					commentService.selectComment(commentFilter));
-		}
-		selectMap.put("commentTops", commentTops);
-		selectMap.put("commentFilter", commentFilter);
-
-		return selectMap;
-	}
-
 	@RequestMapping(value = "/ajax/clickView.jt", method = RequestMethod.POST)
 	@ResponseBody
 	public void ajaxClickShop(@RequestBody Count count, HttpSession session,
@@ -280,9 +240,8 @@ public class HomeController {
 					FacebookLink link = new FacebookLink(url, name, "",
 							loginNotice);
 
-					String message = summaryUser.getName()
-							+ "님이 미러스(Mirros)의 " + jtownUser.getName()
-							+ "을 좋아합니다.";
+					String message = summaryUser.getName() + "님이 미러스(Mirros)의 "
+							+ jtownUser.getName() + "을 좋아합니다.";
 
 					facebook.feedOperations().postLink(message, link);
 				}
