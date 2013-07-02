@@ -68,10 +68,10 @@ public class HomeServiceImpl extends SqlSessionDaoSupport implements
 		Integer categoryPn = homeFilter.getCategoryPn();
 		Integer sectionPn = homeFilter.getSectionPn();
 		int count = 0;
-		if (categoryPn != null && !categoryPn.equals(0)) {
-			count = selectFromInterestCategoryCount(homeFilter);
-		} else if (sectionPn != null && !sectionPn.equals(0)) {
+		if (sectionPn != null && !sectionPn.equals(0)) {
 			count = selectFromInterestCount(homeFilter);
+		} else if (categoryPn != null && !categoryPn.equals(0)) {
+			count = selectFromInterestCategoryCount(homeFilter);
 		} else {
 			homeFilter.setCategoryPn(CATEGORY_DEFAULT_FASION);
 			count = selectFromInterestCategoryCount(homeFilter);

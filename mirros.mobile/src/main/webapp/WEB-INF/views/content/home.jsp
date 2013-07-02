@@ -18,7 +18,7 @@
 						<a href="${cp }/login/logout"><span>로그아웃</span></a>
 					</li>
 					<li>
-						<a href="${cp }/login/modify"><span>계정 설정</span></a>
+						<a><span>&nbsp;</span></a>
 					</li>
 				</sec:authorize>
 				<sec:authorize access="anonymous">
@@ -29,25 +29,9 @@
 						<a href="${cp }/login"><span>Log In</span></a>
 					</li>
 					<li>
-						<a href="${cp }/login/join"><span>Sign Up</span></a>
+						<a><span>&nbsp;</span></a>
 					</li>
 				</sec:authorize>
-	
-				<li class="mm-home-sub-nav-title">
-					<span>Help</span>
-				</li>
-				<li>
-					<a href="${cp }/help/partnership"><span>Business</span></a>
-				</li>
-				<li>
-					<a href="${cp }/help/serviceGuide"><span>About US</span></a>
-				</li>
-				<li>
-					<a href="${cp }/help/notice"><span>Notice</span></a>
-				</li>
-				<li>
-					<a href="${cp }/help/question"><span>FAQ</span></a>
-				</li>
 			</ul>
 		</li>
 		<li>
@@ -79,6 +63,11 @@
 							<a href="${interestUrl }" style="${interestUrl eq homeFilterUrl ? '' : ''}"><span><c:out value="${interestSection.name }"/></span></a>
 						</li>
 					</c:forEach>
+					<c:if test="${(fn:length(interestSections) + 1 )%2 eq 1 }">
+						<li>
+							<a><span>&nbsp;</span></a>
+						</li>
+					</c:if>
 				</ul>
 			</li>
 		</c:forEach>
@@ -113,7 +102,16 @@
 							</c:otherwise>
 						</c:choose>
 						<div class="mm-home-mainImage-event">
-							<span id="new-${spn }" style="${seller.bannerDate ne null and seller.bannerDate < 3 ? 'display: block;' : 'display: none;'}">Event</span>
+							<c:set var="newProductStyle" value="${seller.newProduct > 0 ? 'display: block;' : 'display:none;'}"></c:set>
+							<c:set var="newBannerStyle" value="${seller.newBanner ? 'display: block;' : 'display:none;'}"></c:set>
+							
+							<div id="new-product-<c:out value="${seller.pn }"/>" class="mm-home-article-new-wrap" style="${newProductStyle}">
+								<span class="mm-home-article-product-new">New product</span>
+							</div>
+							
+							<div id="new-<c:out value="${seller.pn }"/>"  class="mm-home-article-new-wrap" style="${newBannerStyle}">
+								<span class="mm-home-article-event-new">New event</span>														
+							</div>
 						</div>
 					</li>
 				</ul>

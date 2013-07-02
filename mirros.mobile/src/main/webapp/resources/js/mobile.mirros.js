@@ -2,9 +2,9 @@ $(function(){
 	
 	$('.mm-home-nav-title').toggle(function(){
 		$('.mm-home-sub-nav').hide();
-		$(this).parents('li').find('.mm-home-sub-nav').slideDown();
+		$(this).parents('li').find('.mm-home-sub-nav').show();
 	}, function(){
-		$(this).parents('li').find('.mm-home-sub-nav').slideUp();
+		$(this).parents('li').find('.mm-home-sub-nav').hide();
 	});
 	
 	mobile.homeSync();
@@ -98,12 +98,16 @@ mobile.homeHtml = function(data) {
 		var imageHtml = '';
 
 		if(mainImages.length == 0){
-			imageHtml +='<img alt="Main Image Blank" src="'+contextPath+'/resources/images/jt-introduce-home-blank.png" title="'+ htmlChars(seller.name) + '"/>	';
+			imageHtml += '<div class="mm-home-mainImage-content">';	
+			imageHtml += '	<img alt="Main Image Blank" src="'+contextPath+'/resources/images/jt-introduce-home-blank.png" title="'+ htmlChars(seller.name) + '"/>	';
+			imageHtml += '</div>';
 		}
 		for ( var j = 0, jLen = mainImages.length; j < jLen; j++) {
 			var mainImage = mainImages[j];
 			var imageSrc = webPath + '/resources/uploadImage/'+ mainImage;
-			imageHtml += '<img alt="Main Image" src="' + imageSrc + '" title="'+ htmlChars(seller.name) + '"/>	';
+			imageHtml += '<div class="mm-home-mainImage-content">';	
+			imageHtml += '	<img alt="Main Image" src="' + imageSrc + '" title="'+ htmlChars(seller.name) + '"/>	';
+			imageHtml += '</div>';
 		}
 
 		var loveClick = !nullValueCheck(seller.customerPn) ? 'mm-home-love-click' : '';
@@ -115,6 +119,8 @@ mobile.homeHtml = function(data) {
 			loveHotCount = '';
 			loveWidth = '39';
 		}
+		var newProductStyle = seller.newProduct > 0 ? 'display: block;' : 'display:none;';
+		var newBannerStyle = seller.newBanner ? 'display: block;' : 'display:none;' ;
 		
 		html += '<article class="mm-home-article" data-spn="' + spn + '">';
 		html += '	<header class="mm-home-article-header">';
@@ -124,8 +130,13 @@ mobile.homeHtml = function(data) {
 		html += '		<ul class="mm-home-mainImage">';
 		html += '			<li>';
 		html += '				' + imageHtml;
-		html += '				<div>';
-		html += '					<span id="new-' + spn + '" style="'+((seller.bannerDate != null && Number(seller.bannerDate) < 3) ? "": "display:none;") +'">Event</span>';	
+		html += '				<div class="mm-home-mainImage-event">';
+		html += '					<div id="new-product-'+seller.pn+'" class="mm-home-article-new-wrap" style="'+newProductStyle+'">';
+		html += '						<span class="mm-home-article-product-new">New product</span>';
+		html += '					</div>';
+		html += '					<div id="new-'+seller.pn+'"  class="mm-home-article-new-wrap" style="'+newBannerStyle+'">';
+		html += '						<span class="mm-home-article-event-new">New event</span>';
+		html += '					</div>';
 		html += '				</div>';
 		html += '			</li>';
 		html += '		</ul>';
