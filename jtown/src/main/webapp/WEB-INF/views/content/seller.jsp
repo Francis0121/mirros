@@ -7,7 +7,7 @@
 <%@ include file="../layout/none_header.jspf" %>
 <c:set var="cp" value="<%=request.getContextPath() %>"/>
 <c:set value="${fn:length(products) }" var="productSize"/>
-<article class="jt-seller-content-wrap">
+<article class="jt-seller-content-wrap" id="jt-seller-body" data-spn="<sec:authentication property="principal.pn" />">
 	<div id="folderBar">
 		<div id="folderTabName">
 			<span id="digonalFolderImage">My Page</span>

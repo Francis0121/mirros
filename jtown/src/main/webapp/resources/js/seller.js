@@ -26,6 +26,7 @@ $(function() {
 	jtown.seller.syncExpandNotice();
 
 	$('#jt-event-second-image').uploadify({
+		'formData' : {'pn' : $('#jt-seller-body').attr('data-spn')},
 		'buttonText' : '사진 업로드',
 		'fileTypeDesc' : 'Image Files',
         'fileTypeExts' : '*.gif; *.jpg; *.png',
@@ -39,6 +40,7 @@ $(function() {
 	});
 	
 	$('#jt-event-first-image').uploadify({
+		'formData' : {'pn' : $('#jt-seller-body').attr('data-spn')},
 		'buttonText' : '사진 업로드',
 		'fileTypeDesc' : 'Image Files',
         'fileTypeExts' : '*.gif; *.jpg; *.png',
@@ -52,6 +54,7 @@ $(function() {
 	});
 	
 	$('#jt-represent-image').uploadify({
+		'formData' : {'pn' : $('#jt-seller-body').attr('data-spn')},
 		'buttonText' : '사진 업로드',
 		'fileTypeDesc' : 'Image Files',
         'fileTypeExts' : '*.gif; *.jpg; *.png',
@@ -65,6 +68,7 @@ $(function() {
 	});
 	
 	$('#jt-product-file').uploadify({
+		'formData' : {'pn' : $('body').attr('data-spn')},
 		'buttonClass' : 'uploadify-plus-insert-btn',
 		'buttonText' : '<img src="'+ contextPath + 'resources/images/jt-cloth-icon.png'+'" style="float:left; margin:9px 7px 0 10px"/><span style="float:left; ">상품추가</span>',
 		'height' : '30',

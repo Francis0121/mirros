@@ -50,10 +50,9 @@ public class FileController {
 	@RequestMapping(value = "/file/upload.jt")
 	@ResponseBody
 	public void ajaxUpload(@ModelAttribute MultipartFile multipartFile,
-			BindingResult result, HttpServletRequest request,
+			Integer pn, BindingResult result, HttpServletRequest request,
 			HttpServletResponse response, SummaryUser summaryUser)
 			throws IOException {
-
 		@SuppressWarnings("deprecation")
 		String saveDirectory = request.getRealPath("resources/uploadImage");
 		PrintWriter writer = response.getWriter();
@@ -80,9 +79,12 @@ public class FileController {
 						IOUtils.copy(commonsMultipartFile.getInputStream(),
 								new FileOutputStream(new File(saveDirectory,
 										saveName)));
+						Integer sellerPn = summaryUser.getPn();
+						if (sellerPn == null) {
+							sellerPn = pn;
+						}
 						FileVO fileVO = new FileVO(null, orginalName, saveName,
-								summaryUser.getPn(),
-								(int) commonsMultipartFile.getSize());
+								sellerPn, (int) commonsMultipartFile.getSize());
 						fileService.insertFile(fileVO);
 
 						Gson gson = new Gson();
@@ -132,21 +134,21 @@ public class FileController {
 		model.addAttribute("files", files);
 		return "upload_photo";
 	}
-	
+
 	@RequestMapping(value = "/admin/file", method = RequestMethod.DELETE)
 	public String formUploadDelete(@ModelAttribute FileFilter fileFilter,
 			Model model) {
 		Integer pn = fileFilter.getPn();
-		
+
 		FileVO file = fileService.selectFile(pn);
 		String saveName = file.getSaveName();
 		FileUtil.fileDelete(saveName);
-		
+
 		fileService.deleteFile(pn);
 		model.addAttribute("fileFilter", fileFilter);
 		return "redirect:file";
 	}
-	
+
 	@RequestMapping(value = "/admin/file/upload.jt")
 	@ResponseBody
 	public void ajaxUpload(@ModelAttribute MultipartFile multipartFile,

@@ -15,7 +15,7 @@
 html{ overflow-y: hidden;}
 </style>
 </head>
-<body onunload="closePage(event);">
+<body onunload="closePage(event);" data-spn="<sec:authentication property="principal.pn" />">
 	<section class="jt-product-section">
 		<header class="jt-product-header">
 			<ul>
