@@ -125,7 +125,7 @@ mobile.homeHtml = function(data) {
 		html += '			<li>';
 		html += '				' + imageHtml;
 		html += '				<div>';
-		html += '					<span id="new-' + spn + '" style="'+((seller.bannerDate != null && Number(seller.bannerDate) < 8) ? "": "display:none;") +'">Event</span>';	
+		html += '					<span id="new-' + spn + '" style="'+((seller.bannerDate != null && Number(seller.bannerDate) < 3) ? "": "display:none;") +'">Event</span>';	
 		html += '				</div>';
 		html += '			</li>';
 		html += '		</ul>';

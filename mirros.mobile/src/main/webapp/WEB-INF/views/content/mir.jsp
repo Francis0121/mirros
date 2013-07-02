@@ -36,7 +36,7 @@
 	</section>
 	<section class="mm-mir-events">
 		<div title="클릭시 해당 쇼핑몰로 이동됩니다.">
-			<c:if test="${jtownUser.bannerFirst < 8 }">
+			<c:if test="${jtownUser.bannerFirst < 3 }">
 				<div class="mm-mir-events-new">
 					<div>
 						<span class="mm-mir-events-new-image">Event</span>
@@ -48,7 +48,7 @@
 			<img alt="First Event" src="${event1.saveName eq null ? blankEvent : imageEvent }"/>
 		</div>
 		<div title="클릭시 해당 쇼핑몰로 이동됩니다.">
-			<c:if test="${jtownUser.bannerSecond < 8 }">
+			<c:if test="${jtownUser.bannerSecond < 3 }">
 				<div class="mm-mir-events-new">
 					<div>
 						<span class="mm-mir-events-new-image">Event</span>

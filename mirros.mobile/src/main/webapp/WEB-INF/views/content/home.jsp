@@ -113,7 +113,7 @@
 							</c:otherwise>
 						</c:choose>
 						<div class="mm-home-mainImage-event">
-							<span id="new-${spn }" style="${seller.bannerDate ne null and seller.bannerDate < 8 ? 'display: block;' : 'display: none;'}">Event</span>
+							<span id="new-${spn }" style="${seller.bannerDate ne null and seller.bannerDate < 3 ? 'display: block;' : 'display: none;'}">Event</span>
 						</div>
 					</li>
 				</ul>
