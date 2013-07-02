@@ -203,11 +203,11 @@ jtown.home.html = function(data) {
 		html += '				<li>';
 		html += '					' + imageHtml;
 		html += '					<div class="jt-home-shop-new-event">';
-		html += '						<div class="jt-home-shop-new-event-div" style="'+( (seller.newProduct > 0 ) ? "display: block;": "display:none;") +'">';
-		html += ' 							<span id="new-product-' + spn + '" class="jt-home-shop-product-new-image">New arrive</span>';	
+		html += '						<div id="new-product-' + spn + '" class="jt-home-shop-new-event-div" style="'+( (seller.newProduct > 0 ) ? "display: block;": "display:none;") +'">';
+		html += ' 							<span class="jt-home-shop-product-new-image">New arrive</span>';	
 		html += '						</div>';
-		html += '						<div class="jt-home-shop-new-event-div" style="'+(seller.newBanner ? "display: block;": "display:none;") +'">';
-		html += ' 							<span id="new-' + spn + '" class="jt-home-shop-event-new-image">New event</span>';	
+		html += '						<div id="new-' + spn + '" class="jt-home-shop-new-event-div" style="'+(seller.newBanner ? "display: block;": "display:none;") +'">';
+		html += ' 							<span class="jt-home-shop-event-new-image">New event</span>';	
 		html += '						</div>';
 		html += '					</div>';
 		html += '				</li>';
