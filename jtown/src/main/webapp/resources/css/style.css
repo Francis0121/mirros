@@ -80,14 +80,10 @@
 	margin: 10px 0 0 0;
     background: url(../images/jt-search-white.png) no-repeat 8px 4px #fcfcfc;
     border: 1px solid #c3c4c4;
-    font: 12px Arial,Helvetica,Sans-serif;
+    font: 12px Dotum, Gulim;
     color: #737373;
     width: 150px;
     padding: 4px 15px 4px 35px;
-    text-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
-    -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15) inset;
-    -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15) inset;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15) inset;
 }
 /***************************
 *	NaturalLanguage Search
