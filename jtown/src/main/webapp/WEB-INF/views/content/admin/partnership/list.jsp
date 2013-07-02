@@ -96,7 +96,7 @@ function goToPreviousPages() {
 			<th rowspan="2">담당자</th>
 			</sec:authorize>
 			<th colspan="7">문의사항정보</th>
-			<th colspan="7">판매자정보</th>
+			<th colspan="8">판매자정보</th>
 			<th colspan="2">계약정보</th>
 			<th rowspan="2">비고</th>
 		</tr>
@@ -109,6 +109,7 @@ function goToPreviousPages() {
 			<th>사업아이템</th>
 			<th>처리상황</th>
 			<th>입금현황</th>
+			<th>기본입력현황</th>
 			<th>아이디정보</th>
 			<th>ShopNo</th>
 			<th>홈페이지</th>
@@ -221,6 +222,16 @@ function goToPreviousPages() {
 							</c:choose>
 						</c:forEach> 
 					</select>
+				</td>
+				<td class="jt-partnership-baseInputStatus">
+					<c:choose>
+						<c:when test="${baseStatusMap[userInfo.pn] }">
+							<span style="color: #003cff;">완료</span>
+						</c:when>
+						<c:otherwise>
+							<span style="color: #ff4621;">미완료</span>
+						</c:otherwise>
+					</c:choose>
 				</td>
 				<c:choose>
 					<c:when test="${userInfo.username ne null and userInfo.username ne ''}">

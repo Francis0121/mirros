@@ -525,4 +525,55 @@
 			( #{questionSection.pn}, #{name}, #{email}, #{browser}, #{title}, #{content}, SYSDATE(), #{shopPn} )
 	</insert>
 	
+	<resultMap type="SellerBaseInfo" id="jt-base-info-map">
+		<result column="pn" property="sellerPn"/>
+		<result column="notice" property="notice"/>
+		<result column="long_notice" property="longNotice"/>
+		<result column="ibc" property="imageBoolCount"/>
+		<result column="pbc" property="productBoolCount"/>
+		<result column="bbc" property="bannerBoolCount"/>
+	</resultMap>
+	
+	<select id="selectBaseInputStatus" parameterType="ArrayList" resultMap="jt-base-info-map" >
+		SELECT
+			pn, notice, long_notice, image_bool.count AS ibc, product_bool.count AS pbc, banner_bool.count AS bbc
+		FROM
+			user_seller us
+			LEFT OUTER JOIN
+			(
+				SELECT
+					seller_pn, COUNT(image_pn) AS`count`
+				FROM
+					user_seller_image
+				GROUP BY
+					seller_pn
+			) image_bool
+			ON us.pn = image_bool.seller_pn
+			LEFT OUTER JOIN
+			(
+				SELECT
+					seller_pn, COUNT(pn) AS `count`
+				FROM
+					user_seller_product
+				GROUP BY
+					seller_pn
+			) product_bool
+			ON us.pn = product_bool.seller_pn
+			LEFT OUTER JOIN
+			(
+				SELECT
+					seller_pn, COUNT(banner_order) AS `count`
+				FROM
+					user_seller_banner
+				GROUP BY
+					seller_pn
+			) banner_bool
+			ON us.pn = banner_bool.seller_pn
+		WHERE
+			us.pn IN
+		<foreach collection="list" item="item" index="index"  open="(" separator="," close=")">
+			#{item}
+		</foreach>	
+	</select>
+	
 </mapper>

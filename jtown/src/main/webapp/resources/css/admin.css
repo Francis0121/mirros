@@ -157,8 +157,8 @@ body{background: #f6f4f5;}
  	float: left; margin-top: 6px;
 }
 
-.jt-partnership-table { width: 2420px;}
-.jt-partnership-root-table{ width: 2520px;}
+.jt-partnership-table { width: 2520px;}
+.jt-partnership-root-table{ width: 2620px;}
 .jt-partnership-table-content {display: none;}
 .jt-partnership-table-content td{ text-align : left; }
 
@@ -171,6 +171,7 @@ body{background: #f6f4f5;}
 .jt-partnership-adminPn{width: 100px;}
 .jt-partnership-process{width: 100px;}
 .jt-partnership-deposit{width: 100px;}
+.jt-partnership-baseInputStatus{width: 100px;}
 .jt-partnership-insert-date{width: 100px;}
 .jt-partnership-username{width: 200px; text-align: left !important;}
 .jt-partnership-username a, .jt-partnership-username a:VISITED{color: black;}

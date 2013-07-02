@@ -16,6 +16,7 @@ import com.bg.jtown.business.Partnership;
 import com.bg.jtown.business.Question;
 import com.bg.jtown.business.QuestionCategory;
 import com.bg.jtown.business.QuestionSection;
+import com.bg.jtown.business.SellerBaseInfo;
 import com.bg.jtown.business.admin.AdminService;
 import com.bg.jtown.business.home.HomeService;
 import com.bg.jtown.business.search.PartnershipFilter;
@@ -70,7 +71,35 @@ public class HelpServiceImpl extends SqlSessionDaoSupport implements
 		List<JtownUser> jtownUsers = getSqlSession().selectList(
 				"helpMapper.selectAdminIdList");
 		selectMap.put("usersAdmin", jtownUsers);
+
+		List<SellerBaseInfo> sellerBaseInfos = selectBaseInputStatus(pnList);
+		Map<Integer, Boolean> baseStatusMap = new HashMap<Integer, Boolean>();
+		if (sellerBaseInfos != null) {
+			for (SellerBaseInfo sbi : sellerBaseInfos) {
+				Boolean bool = true;
+				if ((sbi.getNotice() == null || sbi.getNotice().trim()
+						.equals(""))
+						|| (sbi.getLongNotice() == null || sbi.getLongNotice()
+								.trim().equals(""))
+						|| (sbi.getImageBoolCount() == null || sbi
+								.getImageBoolCount().equals(0))
+						|| (sbi.getProductBoolCount() == null || sbi
+								.getProductBoolCount() < 3)
+						|| (sbi.getBannerBoolCount() == null || !sbi
+								.getBannerBoolCount().equals(2))) {
+					bool = false;
+				}
+				baseStatusMap.put(sbi.getSellerPn(), bool);
+			}
+			selectMap.put("baseStatusMap", baseStatusMap);
+		}
+
 		return selectMap;
+	}
+
+	private List<SellerBaseInfo> selectBaseInputStatus(List<Integer> pnList) {
+		return getSqlSession().selectList("helpMapper.selectBaseInputStatus",
+				pnList);
 	}
 
 	@Override

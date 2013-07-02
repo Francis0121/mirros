@@ -18,6 +18,7 @@
 		<typeAlias alias="Question" type="com.bg.jtown.business.Question"/>
 		<typeAlias alias="QuestionCategory" type="com.bg.jtown.business.QuestionCategory"/>
 		<typeAlias alias="QuestionSection" type="com.bg.jtown.business.QuestionSection"/>
+		<typeAlias alias="SellerBaseInfo" type="com.bg.jtown.business.SellerBaseInfo"/>
 				
 		<!-- Search Filter -->		
 		<typeAlias alias="AdminCommentFilter" type="com.bg.jtown.business.search.AdminCommentFilter"/>
