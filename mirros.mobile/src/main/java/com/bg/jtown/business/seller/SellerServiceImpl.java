@@ -58,7 +58,8 @@ public class SellerServiceImpl extends SqlSessionDaoSupport implements
 	@Override
 	public Map<String, Object> selectAllInformation(Integer properNumber,
 			Integer customerPn) {
-		CommentFilter commentFilter = new CommentFilter(properNumber);
+		CommentFilter commentFilter = new CommentFilter(properNumber,
+				customerPn);
 		Map<String, Object> selectMap = new HashMap<String, Object>();
 
 		selectMap.put("jtownUser",
@@ -67,8 +68,9 @@ public class SellerServiceImpl extends SqlSessionDaoSupport implements
 		selectMap.putAll(selectSellerEvent(properNumber));
 		selectMap.put("interestes", selectSellerInterest(properNumber));
 		selectMap.put("products", selectSellerProduct(properNumber));
-		selectMap.put("comments",
+		selectMap.put("commentTops",
 				commentService.selectCommentTop(commentFilter));
+		selectMap.put("comments", commentService.selectComment(commentFilter));
 		selectMap.put("commentFilter", commentFilter);
 
 		logger.debug(selectMap.toString());

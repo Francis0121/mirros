@@ -4,5 +4,6 @@
 
 <link rel="shortcut icon" href="<c:out value="${cp }"/>/resources/images/favicon.ico" type="image/x-icon"/>
 
+<link rel="stylesheet" type="text/css" href="<c:out value="${cp }"/>/resources/jquery/jquery-ui-1.10.2.custom.min.css" />
 <link rel="stylesheet" type="text/css" href="<c:out value="${cp }"/>/resources/css/default.css" />
 <link rel="stylesheet" type="text/css" href="<c:out value="${cp }"/>/resources/css/mobile-mirros.css" />

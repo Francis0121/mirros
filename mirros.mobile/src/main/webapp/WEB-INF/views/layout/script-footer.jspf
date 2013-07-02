@@ -5,6 +5,7 @@
 <%-- Plug in --%>
 <script src="${cp}/resources/js/jquery.form.js"></script>
 <script src="${cp}/resources/js/json.min.js"></script>
+<script src="${cp}/resources/js/jquery.plugin.js"></script>
 <%-- Custom --%>
 <script src="${cp}/resources/js/mobile.mirros.js"></script>
 <script src="${cp}/resources/js/jquery.scroll.pagination.js"></script>

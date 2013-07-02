@@ -5,7 +5,6 @@ if (typeof mobile.real == 'undefined') {
 mobile.real.time = function(data) {
 
 	var obj = eval('('+data+')');
-	// love, view, event
 	if (obj.redisType == 'love_count') {
 		var spn = obj.sellerPn;
 		var count = obj.count;
@@ -34,14 +33,23 @@ mobile.real.time = function(data) {
 		var spn = obj.sellerPn;
 		var count = obj.count;
 		$('#comment-' + spn).html(count);
+		mobile.comment(obj, 'first');
+		setTimeout('mobile.commentSync()', 0);
 	} else if (obj.redisType == 'delete_comment') {
 		var spn = obj.sellerPn;
 		var count = obj.count;
 		$('#comment-' + spn).html(count);
+		$('.mm-mir-comment-content>ul>li[data-copn='+obj.commentPn+']').remove();
 	} else if (obj.redisType == 'update_comment') {
 		
-	}  else if(obj.redisType == 'love_comment'){
-	
+		var commentLi = $('.mm-mir-comment-content>ul>li[data-copn='+obj.commentPn+']');
+		if(!nullValueCheck(commentLi.html()))
+			commentLi.find('.mm-mir-comment-text-content-text').html(htmlChars(obj.comment));
+		
+	} else if(obj.redisType == 'love_comment'){
+		var copn = obj.commentPn;
+		var count = obj.commentLoveCount;
+		$('.comment-love-'+copn+' .mm-mir-comment-text-footer-loveIt-count').html(count == 0 ? '': count);
 	}
 };
 

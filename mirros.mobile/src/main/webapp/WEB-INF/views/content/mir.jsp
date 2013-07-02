@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../layout/home-header.jspf" %>
+<sec:authorize access="hasRole('ROLE_USER')">
+	<sec:authentication property="principal.pn" var="cpn"/>				
+</sec:authorize>
+<sec:authorize access="anonymous">
+	<c:set var="cpn" value=""/>
+</sec:authorize>
 <header class="mm-mir-header">
 	<a href="http://${jtownUser.shopUrl }" target="_blank" ><c:out value="${jtownUser.name }"/></a>
 	<div class="mm-mir-header-goHome">
@@ -60,7 +66,7 @@
 		</div>
 	</section>
 </section>
-<footer class="mm-mir-footer" data-spn="<c:out value="${jtownUser.pn }"/>">
+<footer class="mm-mir-footer" data-spn="<c:out value="${jtownUser.pn }"/>" data-name="<c:out value="${jtownUser.name }"/>">
 	<ul>
 		<li>
 			<div style="width: 35px;">
@@ -97,8 +103,8 @@
 	</ul>
 	<div class="mm-mir-comment-content">
 		<ul>
-			<c:forEach items="${null }" var="comment">
-				<li data-copn="<c:out value="${comment.commentPn }"/>">
+			<c:forEach items="${commentTops }" var="comment">
+				<li data-copn="<c:out value="${comment.commentPn }"/>" class="mm-mir-comment-content-text">
 					<ul class="mm-mir-comment-text-wrap">
 						<li class="mm-mir-comment-text-header">
 							<span class="mm-mir-comment-text-header-best">BEST</span>
@@ -107,61 +113,95 @@
 							<span class="mm-mir-comment-text-content-name"><c:out value="${comment.customerName }"/></span>
 							<span class="mm-mir-comment-text-content-text"><c:out value="${comment.comment }"/></span>
 						</li>
-						<li class="mm-mir-comment-text-footer">
+						<li class="mm-mir-comment-text-footer comment-love-<c:out value="${comment.commentPn }"/>">
 							<span class="mm-mir-comment-text-footer-progress-date"><c:out value="${comment.inputDate}"/></span>
 							<span class="mm-mir-comment-text-footer-loveIt">LOVE</span>
 							<span class="mm-mir-comment-text-footer-loveIt-count"><c:out value="${comment.commentLoveCount eq null ? '' : comment.commentLoveCount }"/></span>
+							<c:if test="${comment.commentCustomerPn ne null}">
+								<span class="mm-mir-comment-text-footer-loveIt-cancle">취소</span>
+							</c:if>
+							<c:choose>
+								<c:when test="${comment.customerPn ne cpn }">
+									<c:choose>
+										<c:when test="${comment.warnCustomerPn eq null }">
+											<span class="mm-warn-active" title="신고">WARN</span>
+										</c:when>
+										<c:otherwise>
+											<span class="mm-warn-disactive" title="신고">WARN</span>
+										</c:otherwise>
+									</c:choose>
+								</c:when>
+								<c:otherwise>
+									<span class="mm-comment-delete">삭제</span>
+									<span class="mm-comment-update">수정</span>
+								</c:otherwise>
+							</c:choose>
 						</li>
 					</ul>
-					<c:choose>
-						<c:when test="${comment.customerPn eq jtownUser.pn }">
-							<div>
-								<input type="text" maxlength="100" value="${comment.comment}"/><br/>
-								<span>esc를 누르시면 수정이 취소 됩니다.</span>
-							</div>
-							<div>
-								<a href="#none">
-									<span class="btnImage"></span>
-								</a>
-								<a href="#none">
-									<span class="btnImage"></span>
-								</a>
-							</div>
-						</c:when>
-						<c:otherwise>
-							<div>
-								<a href="#none">
-									<span class="btnImage"></span>
-								</a>
-							</div>
-						</c:otherwise>
-					</c:choose>
+					<c:if test="${comment.customerPn eq cpn}">
+						<div class="mm-comment-update-wrap">
+							<input type="text" maxlength="100" value="${comment.comment}" class="mm-mir-comment-update"/><br/>
+							<button type="button" class="mm-btn-orange mm-commnet-cancle-btn">취소</button>
+							<button type="button" class="mm-btn-orange mm-commnet-update-btn">수정</button>
+						</div>
+					</c:if>
+				</li>
+			</c:forEach>
+			<c:forEach items="${comments }" var="comment">
+				<li data-copn="<c:out value="${comment.commentPn }"/>" class="mm-mir-comment-content-text comment-not-best">
+					<ul class="mm-mir-comment-text-wrap">
+						<li class="mm-mir-comment-text-content">
+							<span class="mm-mir-comment-text-content-name"><c:out value="${comment.customerName }"/></span>
+							<span class="mm-mir-comment-text-content-text"><c:out value="${comment.comment }"/></span>
+						</li>
+						<li class="mm-mir-comment-text-footer comment-love-<c:out value="${comment.commentPn }"/>">
+							<span class="mm-mir-comment-text-footer-progress-date"><c:out value="${comment.inputDate}"/></span>
+							<span class="mm-mir-comment-text-footer-loveIt">LOVE</span>
+							<span class="mm-mir-comment-text-footer-loveIt-count"><c:out value="${comment.commentLoveCount eq null ? '' : comment.commentLoveCount }"/></span>
+							<c:if test="${comment.commentCustomerPn ne null }">
+								<span class="mm-mir-comment-text-footer-loveIt-cancle">취소</span>
+							</c:if>
+							<c:choose>
+								<c:when test="${comment.customerPn ne cpn }">
+									<c:choose>
+										<c:when test="${comment.warnCustomerPn eq null }">
+											<span class="mm-warn-active" title="신고">WARN</span>
+										</c:when>
+										<c:otherwise>
+											<span class="mm-warn-disactive" title="신고">WARN</span>
+										</c:otherwise>
+									</c:choose>
+								</c:when>
+								<c:otherwise>
+									<span class="mm-comment-delete">삭제</span>
+									<span class="mm-comment-update">수정</span>
+								</c:otherwise>
+							</c:choose>
+						</li>
+					</ul>
+					<c:if test="${comment.customerPn eq cpn }">
+						<div class="mm-comment-update-wrap">
+							<input type="text" maxlength="100" value="${comment.comment}" class="mm-mir-comment-update"/><br/>
+							<button type="button" class="mm-btn-orange mm-commnet-cancle-btn">취소</button>
+							<button type="button" class="mm-btn-orange mm-commnet-update-btn">수정</button>
+						</div>
+					</c:if>
 				</li>
 			</c:forEach>
 			<c:set var="pagination" value="${commentFilter.pagination }"/>
-			<c:if test="${pagination.numItems ne 0 }">
-				<c:choose>
-					<c:when test="${fn:length(comments) > 0 }">
-						<li class="mm-mir-comment-add">
-							<a href="#none" class="mm-btn-silver" data-spn="${jtownUser.pn }">베스트 리플보기</a>
-						</li>
-						<li class="mm-mir-comment-add" style="display: none;">
-					</c:when>
-					<c:otherwise>
-						<li class="mm-mir-comment-add">									
-					</c:otherwise>
-				</c:choose>
+			<c:if test="${pagination.numItems > pagination.numItemsPerPage }">
+				<li class="mm-mir-comment-add">									
 					<a href="#none" class="mm-btn-silver" id="comment-add-btn" 
 						data-spn="${jtownUser.pn }" 
-						data-page="0" 
+						data-page="1" 
 						data-ni="<c:out value='${pagination.numItems }'/>"
 						data-nipp="<c:out value='${pagination.numItemsPerPage }'/>">
-						댓글 더 보기 <span id="comment-now-count"><c:out value="${pagination.numItemsPerPage * 0 }"/></span>/<c:out value="${pagination.numItems}"/>
+						댓글 더 보기 <span id="comment-now-count"><c:out value="${pagination.numItemsPerPage}"/></span>/<c:out value="${pagination.numItems}"/>
 					</a>
 				</li>
 			</c:if>
 		</ul>
-		<div>
+		<div class="mm-mir-comment-insert-wrap">
 			<sec:authorize access="hasRole('ROLE_USER')">
 				<sec:authentication property="principal.groupName" var="groupName"/>
 			</sec:authorize>
@@ -172,7 +212,8 @@
 				<c:otherwise>
 					<c:choose>
 						<c:when test="${groupName eq 'Customer' }">
-							<input type="text" class="mm-mir-comment-insert" placeholder="이 쇼핑몰에 대한 한마디를 남겨주세요. 상품 배송문의는 해당 쇼핑몰 고객센터로 남겨주세요." maxlength="100"/>
+							<input type="text" class="mm-mir-comment-insert" placeholder="이 쇼핑몰에 대한 한마디를 남겨주세요." maxlength="100"/>
+							<button type="button" class="mm-btn-orange mm-mir-comment-insert-btn">댓글 달기</button>
 						</c:when>
 						<c:otherwise>
 							<input type="text" class="mm-mir-comment-insert" readonly="readonly" placeholder="판매자 아이디로는 이용하실 수 없습니다."/>

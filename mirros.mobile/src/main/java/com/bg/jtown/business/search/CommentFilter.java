@@ -37,6 +37,11 @@ public class CommentFilter extends AbstractListFilter {
 	public CommentFilter(Integer sellerPn) {
 		this.sellerPn = sellerPn;
 	}
+	
+	public CommentFilter(Integer sellerPn, Integer customerPn) {
+		this.sellerPn = sellerPn;
+		this.customerPn = customerPn;
+	}
 
 	public Integer getCustomerPn() {
 		return customerPn;
