@@ -38,14 +38,16 @@
 								</c:otherwise>
 							</c:choose>
 							<div class="jt-home-shop-new-event">
-							<c:choose>
-								<c:when test="${seller.bannerDate ne null and seller.bannerDate < 3  }">
-									<span id="new-<c:out value="${seller.pn }"/>" class="jt-home-shop-event-new-image"  style="display: block;">Event</span>
-								</c:when>
-								<c:otherwise>
-									<span id="new-<c:out value="${seller.pn }"/>" class="jt-home-shop-event-new-image" style="display: none;">Event</span>
-								</c:otherwise>
-							</c:choose>
+								<c:set var="newBannerStyle" value="${seller.newBanner ? 'display: block;' : 'display:none;'}"></c:set>
+								<c:set var="newProductStyle" value="${seller.newProduct > 0 ? 'display: block;' : 'display:none;'}"></c:set>
+								
+								<div class="jt-home-shop-new-event-div" style="${newProductStyle}">
+									<span id="new-product-<c:out value="${seller.pn }"/>" class="jt-home-shop-product-new-image">New product</span>
+								</div>
+								
+								<div class="jt-home-shop-new-event-div" style="${newBannerStyle}">
+									<span id="new-<c:out value="${seller.pn }"/>" class="jt-home-shop-event-new-image">New event</span>														
+								</div>
 							</div>
 						</li>
 					</ul>

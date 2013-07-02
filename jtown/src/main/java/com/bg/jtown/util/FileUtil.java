@@ -31,7 +31,9 @@ public class FileUtil {
 				|| type.equals("sqljsp")) {
 			result = false;
 		} else if (type.equals("jpg") || type.equals("bmp")
-				|| type.equals("png") || type.equals("JPG")) {
+				|| type.equals("png") || type.equals("JPG")
+				|| type.equals("PNG") || type.equals("BMP")
+				|| type.equals("gif") || type.equals("GIF")) {
 			result = true;
 		} else {
 			result = false;

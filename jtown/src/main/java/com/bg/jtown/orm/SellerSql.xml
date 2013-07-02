@@ -17,12 +17,14 @@
 		<result column="banner_second" property="bannerSecond"/>
 		<result column="love_hot_count" property="loveHotCount"/>
 		<result column="customer_pn" property="customerPn"/>
+		<result column="new_product" property="newProduct"/>
 	</resultMap>
 
 	<select id="selectSellerInformation" parameterType="HashMap" resultMap="jtown-seller-map">
 		SELECT
 			us.pn, u.id, u.name, us.shop_url, us.shop_pn, us.notice, us.long_notice, 
 			ssid.view_count, clsp.love_count, ccsp.comment_count, bdl.banner_first, bdl.banner_second,
+			pnb.new_product,
 			us.hot AS love_hot_count
 			<if test="customerPn != null">
 			, cl.customer_pn
@@ -39,6 +41,8 @@
 			ON us.pn = ccsp.seller_pn
 			LEFT OUTER JOIN banner_diff_least bdl
 			ON us.pn = bdl.seller_pn
+			LEFT OUTER JOIN product_new_bool pnb
+			ON us.pn = pnb.seller_pn
 			<if test="customerPn != null">
 			LEFT OUTER JOIN count_love cl
 			ON us.pn = cl.seller_pn AND cl.customer_pn = #{customerPn}
@@ -283,7 +287,7 @@
 	<select id="selectSellerProduct" parameterType="Integer" resultMap="jt-product-map">
 		SELECT
 			i.pn AS image_pn, i.save_name, 
-			usp.pn, usp.name, usp.url, usp.price, usp.order, usp.input_date
+			usp.pn, usp.name, usp.url, usp.price, usp.order, DATE_FORMAT(usp.input_date, '%Y%m%d') AS input_date
 		FROM
 			user_seller_product usp,
 			image i

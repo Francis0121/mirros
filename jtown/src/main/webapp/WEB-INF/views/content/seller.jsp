@@ -79,14 +79,16 @@
 								</c:otherwise>
 							</c:choose>
 							<div class="jt-home-shop-new-event">
-							<c:choose>
-								<c:when test="${jtownUser.bannerDate ne null and jtownUser.bannerDate < 3 }">
-									<span id="new-<c:out value="${jtownUser.pn }"/>" class="jt-home-shop-event-new-image"  style="display: block;">event</span>
-								</c:when>
-								<c:otherwise>
-									<span id="new-<c:out value="${jtownUser.pn }"/>" class="jt-home-shop-event-new-image" style="display: none;">event</span>
-								</c:otherwise>
-							</c:choose>
+								<c:set var="newBannerStyle" value="${jtownUser.newBanner ? 'display: block;' : 'display:none;'}"></c:set>
+								<c:set var="newProductStyle" value="${jtownUser.newProduct > 0 ? 'display: block;' : 'display:none;'}"></c:set>
+								
+								<div class="jt-home-shop-new-event-div" style="${newProductStyle}">
+									<span id="new-product-<c:out value="${jtownUser.pn }"/>" class="jt-home-shop-product-new-image">New product</span>
+								</div>
+								
+								<div class="jt-home-shop-new-event-div" style="${newBannerStyle}">
+									<span id="new-<c:out value="${jtownUser.pn }"/>" class="jt-home-shop-event-new-image">New event</span>														
+								</div>
 							</div>
 						</li>
 						<li id="jt-seller-main-image-update-tool" class="jt-seller-main-image-update-tool">
@@ -236,6 +238,14 @@
 					<ul id="jt-seller-slide-small">
 						<c:forEach items="${products }" var="product" varStatus="loop">
 							<li data-count="${productSize - loop.index }" data-ppn="${product.pn }">
+								<c:choose>
+									<c:when test="${product.newProduct }">
+										<span>New</span>	
+									</c:when>
+									<c:otherwise>
+										<span>&nbsp;</span>	
+									</c:otherwise>
+								</c:choose>
 								<c:set value="${cp }/resources/uploadImage/${product.saveName }" var="image"/>
 								<a href="#none" class="jt-product-list"><img alt="상품" src="${image }"/></a>
 							</li>

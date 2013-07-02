@@ -28,6 +28,18 @@
 							</c:forEach>
 						</c:otherwise>
 					</c:choose>
+					<div class="jt-home-shop-new-event">
+						<c:set var="newBannerStyle" value="${jtownUser.newBanner ? 'display: block;' : 'display:none;'}"></c:set>
+						<c:set var="newProductStyle" value="${jtownUser.newProduct > 0 ? 'display: block;' : 'display:none;'}"></c:set>
+						
+						<div class="jt-home-shop-new-event-div" style="${newProductStyle}">
+							<span id="new-product-<c:out value="${jtownUser.pn }"/>" class="jt-home-shop-product-new-image">New product</span>
+						</div>
+						
+						<div class="jt-home-shop-new-event-div" style="${newBannerStyle}">
+							<span id="new-<c:out value="${jtownUser.pn }"/>" class="jt-home-shop-event-new-image">New event</span>														
+						</div>
+					</div>
 				</li>
 			</ul>
 			<div class="jt-home-main-url-notice">
@@ -102,6 +114,14 @@
 					<ul id="jt-seller-slide-small">
 						<c:forEach items="${products }" var="product" varStatus="loop">
 							<li data-count="${productSize - loop.index }" data-ppn="${product.pn }">
+								<c:choose>
+									<c:when test="${product.newProduct }">
+										<span>New</span>	
+									</c:when>
+									<c:otherwise>
+										<span>&nbsp;</span>	
+									</c:otherwise>
+								</c:choose>
 								<c:set value="${cp }/resources/uploadImage/${product.saveName }" var="image"/>
 								<a href="#none" class="jt-product-list"><img alt="상품" src="${image }"/></a>
 							</li>

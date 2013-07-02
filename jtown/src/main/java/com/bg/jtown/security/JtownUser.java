@@ -39,6 +39,7 @@ public class JtownUser extends AbstractUser {
 	private Integer bannerDate;
 	private Integer bannerFirst;
 	private Integer bannerSecond;
+	private Integer newProduct;
 	private List<String> images;
 	private Integer customerPn;
 	private String interestCategory;
@@ -84,6 +85,14 @@ public class JtownUser extends AbstractUser {
 			}
 		}
 		return bannerDate;
+	}
+	
+	public boolean getNewBanner(){
+		Integer bannerDate = getBannerDate();
+		if(bannerDate != null && bannerDate < 3){
+			return true;
+		}
+		return false;
 	}
 	
 	public String getSixShopPn(){
@@ -287,6 +296,14 @@ public class JtownUser extends AbstractUser {
 	public void setBeginStartDate(String beginStartDate) {
 		this.beginStartDate = beginStartDate;
 	}
+	
+	public Integer getNewProduct() {
+		return newProduct;
+	}
+
+	public void setNewProduct(Integer newProduct) {
+		this.newProduct = newProduct;
+	}
 
 	@Override
 	public String toString() {
@@ -314,6 +331,7 @@ public class JtownUser extends AbstractUser {
 		sb.append("CustomerPn : ").append(this.customerPn).append(";");
 		sb.append("interestCategory : ").append(this.interestCategory).append("; ");
 		sb.append("interestSectionList : ").append(this.interestSectionList).append("; ");
+		sb.append("newProduct : ").append(this.newProduct).append("; ");
 		sb.append(" ] ");
 		sb.append("Admin : [ ");
 		sb.append("email : ").append(this.email).append("; ");

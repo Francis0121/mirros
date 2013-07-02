@@ -74,7 +74,13 @@ jtown.expand.makeInnerHtml = function(spn){
 			bigProductHtml += '</div>';
 			bigProductHtml += '</div>';
 			
+			var smallProductNewHtml = '<span>&nbsp;</span>';
+			if(product.newProduct){
+				smallProductNewHtml = '<span>New</span>';
+			}
+			
 			smallProductHtml += '<li data-count="'+index+'">';
+			smallProductHtml += '	'+smallProductNewHtml;
 			smallProductHtml += '	<a href="#none" class="jt-product-list"><img alt="상품" src="'+path+product.saveName+'"/></a>';
 			smallProductHtml += '</li>';
 		}

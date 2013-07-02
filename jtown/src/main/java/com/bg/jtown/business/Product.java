@@ -2,6 +2,8 @@ package com.bg.jtown.business;
 
 import java.text.DecimalFormat;
 
+import com.bg.jtown.util.DateUtil;
+
 /**
  * @author Francis
  * 
@@ -68,6 +70,24 @@ public class Product {
 		}
 		DecimalFormat format = new DecimalFormat("#,###");
 		return format.format(Integer.parseInt(this.price));
+	}
+
+	public boolean getNewProduct() {
+		if (this.inputDate == null || this.inputDate.equals("")) {
+			return false;
+		}
+
+		try {
+			long diffDays = DateUtil.diffOfDate(this.inputDate,
+					DateUtil.getToday("YYYYMMDD"));
+			if (diffDays < 3) {
+				return true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return false;
 	}
 
 	public Integer getCount() {

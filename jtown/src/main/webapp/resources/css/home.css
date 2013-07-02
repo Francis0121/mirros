@@ -76,6 +76,7 @@ word-wrap: break-word; /* Internet Explorer 5.5+ */}
 .jt-home-shop-love-text-click{color: #f59697 !important;}
 
 .jt-home-shop-new-event{position: absolute; width: 313px; padding-top: 3px; height: 0;}
+.jt-home-shop-new-event-div{float: right; width: 60%;}
 /**
 *
 *	@author Francis
@@ -128,16 +129,18 @@ color: #808080;}
 
 .jt-home-expand-shop-products{ width : 100%; min-height: 80px; float: left; border-bottom: 1px solid #d1cdcd;}
 .jt-home-expand-shop-products>ul{ float: left; padding: 15px 15px;  min-width: 165px; max-width: 550px; margin: auto auto; }
-.jt-home-expand-shop-products>ul>li{ float: left; margin-right: 5px;}
-.jt-home-expand-shop-products>ul>li>a{ float: left; display: block; width: 50px; height: 50px;}
+.jt-home-expand-shop-products>ul>li{ float: left; margin-right: 5px; height: 63px; width: 50px;}
+.jt-home-expand-shop-products>ul>li>span{ float: left; font-family : Arial; color: #ffbf63; font-size: 11px; text-align: right; width: 50px; height: 10px; margin-bottom: 3px;}
+.jt-home-expand-shop-products>ul>li>a{ float: left; width: 50px; height: 50px;}
 .jt-home-expand-shop-products>ul>li>a>img{ float: left; width: 50px; height: 50px;}
 .jt-home-expand-shop-event{ width : 309px; height: 154px; float: left; border-right: 1px solid #999999; cursor: pointer;}
 .jt-home-expand-shop-event>img{width: 309px; height: 154px; }
 .jt-home-expand-shop-event-new{float : left; position: absolute;  font-size: 13px; color: #fe6009; font-weight: bold; margin: 5px; width: 305px;}
 .jt-home-expand-shop-event-new>div{float: right; width: 305px; text-indent: -999999px;}
 .jt-home-expand-shop-event-new-image{ text-indent: -99999px; margin: -5px 1px 0 0; background: url("../images/jt-home-icon.png") no-repeat; background-position: -45px 0px; float:right; width: 43px; height: 43px;}
-.jt-home-shop-event-new-image{ text-indent: -99999px; margin: -3px -3px 0 0; background: url("../images/jt-home-icon.png") no-repeat; background-position: -45px 0px; float:right; width: 43px; height: 43px;}
-
+.jt-home-shop-event-new-image{ text-indent: -99999px; margin: 5px -3px 0 0; background: url("../images/jt-home-icon.png") no-repeat; background-position: 0px -160px; float:right; width: 75px; height: 18px;}
+.jt-home-shop-product-new-image{ text-indent: -99999px; margin: 5px -3px 0 0; background: url("../images/jt-home-icon.png") no-repeat; background-position: 0px -178px; float:right; width: 75px; height: 18px;}
+#jt-seller-product-insert-wrap{ padding-top: 13px;}
 
 .jt-home-expand-shop-content-wrpa{float: left; width: 100%; background: #f9f9f9;}
 
