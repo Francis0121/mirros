@@ -80,7 +80,6 @@ public class FileController {
 						IOUtils.copy(commonsMultipartFile.getInputStream(),
 								new FileOutputStream(new File(saveDirectory,
 										saveName)));
-						logger.debug(summaryUser.toString());
 						FileVO fileVO = new FileVO(null, orginalName, saveName,
 								summaryUser.getPn(),
 								(int) commonsMultipartFile.getSize());
