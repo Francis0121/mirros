@@ -109,7 +109,7 @@
 					</ul>
 				</div>
 				<div class="jt-home-expand-shop-event gotoPage" id="jt-seller-expand-event-first" title="클릭시 해당 쇼핑몰로 이동됩니다." data-epn="<c:out value="${event1.pn }"/>" data-bo="1">
-					<c:if test="${jtownUser.bannerFirst < 8 }">
+					<c:if test="${jtownUser.bannerFirst < 3 }">
 						<div class="jt-home-expand-shop-event-new">
 							<div>
 								<span class="jt-home-expand-shop-event-new-image">NEW</span>
@@ -121,7 +121,7 @@
 					<img alt="First Event" src="${event1.saveName eq null ? blankEvent : imageEvent }" id="jt-seller-expand-event-first-img"/>
 				</div>
 				<div class="jt-home-expand-shop-event gotoPage" id="jt-seller-expand-event-second" title="클릭시 해당 쇼핑몰로 이동됩니다." data-epn="<c:out value="${event2.pn }"/>" data-bo="2">
-					<c:if test="${jtownUser.bannerSecond < 8 }">
+					<c:if test="${jtownUser.bannerSecond < 3 }">
 					<div class="jt-home-expand-shop-event-new">
 						<div>
 							<span class="jt-home-expand-shop-event-new-image">NEW</span>

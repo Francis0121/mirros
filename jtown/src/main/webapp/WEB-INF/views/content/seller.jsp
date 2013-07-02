@@ -80,7 +80,7 @@
 							</c:choose>
 							<div class="jt-home-shop-new-event">
 							<c:choose>
-								<c:when test="${jtownUser.bannerDate ne null and jtownUser.bannerDate < 8 }">
+								<c:when test="${jtownUser.bannerDate ne null and jtownUser.bannerDate < 3 }">
 									<span id="new-<c:out value="${jtownUser.pn }"/>" class="jt-home-shop-event-new-image"  style="display: block;">event</span>
 								</c:when>
 								<c:otherwise>
@@ -253,7 +253,7 @@
 					<div class="question-mark-wrap" style="width: 310px;">
 						<a class="question-mark" data-step="8">?</a>
 					</div>
-					<c:if test="${jtownUser.bannerFirst < 8 }">
+					<c:if test="${jtownUser.bannerFirst < 3 }">
 						<div class="jt-home-expand-shop-event-new">
 							<div>
 								<span class="jt-home-expand-shop-event-new-image">NEW</span>
@@ -286,7 +286,7 @@
 					<div class="question-mark-wrap" style="width: 310px;">
 						<a class="question-mark" data-step="9">?</a>
 					</div>
-					<c:if test="${jtownUser.bannerSecond < 8 }">
+					<c:if test="${jtownUser.bannerSecond < 3 }">
 					<div class="jt-home-expand-shop-event-new">
 						<div>
 							<span class="jt-home-expand-shop-event-new-image">NEW</span>

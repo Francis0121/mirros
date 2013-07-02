@@ -228,11 +228,11 @@ jtown.expand.makeInnerHtml = function(spn){
 		html += '		</ul>';
 		html += '	</div>';
 		html += '	<div class="jt-home-expand-shop-event gotoPage" id="jt-seller-expand-event-first" title="클릭시 해당 쇼핑몰로 이동됩니다.">';
-		html += '		'+ ( (jtownUser.bannerFirst != null && Number(jtownUser.bannerFirst) < 8 ) ? newEventHtml : '');
+		html += '		'+ ( (jtownUser.bannerFirst != null && Number(jtownUser.bannerFirst) < 3 ) ? newEventHtml : '');
 		html += '		<img alt="First Event" src="'+eventImage1 +'"/>';
 		html += '	</div>';
 		html += '	<div class="jt-home-expand-shop-event gotoPage" id="jt-seller-expand-event-second" title="클릭시 해당 쇼핑몰로 이동됩니다.">';
-		html += '		'+ ( (jtownUser.bannerSecond != null && Number(jtownUser.bannerSecond) < 8)? newEventHtml : '');
+		html += '		'+ ( (jtownUser.bannerSecond != null && Number(jtownUser.bannerSecond) < 3 )? newEventHtml : '');
 		html +=	'		<img alt="Second Event" src="'+eventImage2 +'"/>';
 		html +=	'	</div>';	
 		html += '	<ul class="jt-home-expand-shop-content-fn">';
