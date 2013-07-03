@@ -18,13 +18,26 @@ $(function(){
 		var form = document.forms['jtownUser'];
 		form.submit();
 	});
+
+	$('.mm-mir-header>a').bind('click', function(){
+		var thiz = $(this),
+			spn = thiz.attr('data-spn');
+		$.postJSON(contextPath + '/ajax/goHome.jt', { sellerPn : spn }, function() { });
+	});
 	
 	mobile.homeSync();
 	
 	mobile.mirSync();
 	
 	mobile.commentSync();
+
 });
+
+mobile.product = function(spn, href){
+	var open = window.open('about:blank');
+	open.location.href = href;
+	$.postJSON(contextPath + '/ajax/goHome.jt', { sellerPn : spn }, function() { });
+};
 
 mobile.mirSync = function(){
 	$('.mm-mir-love').bind('click', function(){

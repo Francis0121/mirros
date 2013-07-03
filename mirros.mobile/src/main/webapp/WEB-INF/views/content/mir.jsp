@@ -7,7 +7,7 @@
 	<c:set var="cpn" value=""/>
 </sec:authorize>
 <header class="mm-mir-header">
-	<a href="http://${jtownUser.shopUrl }" target="_blank" ><c:out value="${jtownUser.name }"/></a>
+	<a href="http://${jtownUser.shopUrl }" target="_blank" data-spn="${jtownUser.pn }"><c:out value="${jtownUser.name }"/></a>
 	<div class="mm-mir-header-goHome">
 		<a href="${cp }">Home</a>
 	</div>
@@ -23,7 +23,9 @@
 					<c:forEach items="${products }" var="product" varStatus="i">
 						<c:set var="shopUrl" value="http://${jtownUser.shopUrl }" />
 						<li>
-							<img alt="${product.name eq null ? 'Product' : product.name }" src="${web }/resources/uploadImage/${product.saveName }"/>
+							<a href="javascript:mobile.product('${jtownUser.pn }', '${product.url eq null ? shopUrl : product.url}');">
+								<img alt="${product.name eq null ? 'Product' : product.name }" src="${web }/resources/uploadImage/${product.saveName }" >
+							</a>
 							<p>
 								<c:choose>
 									<c:when test="${product.name eq null or product.commaPrice eq null }">
