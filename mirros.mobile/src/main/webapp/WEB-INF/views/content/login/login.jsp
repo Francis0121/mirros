@@ -61,7 +61,7 @@
 		</c:if>	
 </sec:authorize>	
 <sec:authorize access="hasRole('ROLE_USER')">
-	<span style="font-size: 12px; "><sec:authentication property="principal.name" />님 반갑습니다.</span>
+	<span style="font-size: 75%; "><sec:authentication property="principal.name" />님 반갑습니다.</span>
 </sec:authorize>
 
 <%@ include file="../../layout/home-footer.jspf" %>

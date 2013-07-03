@@ -421,3 +421,46 @@
 .mm-love-dialog-button>span{font-family: NanumGothic, Dotum, Gulim; cursor: pointer;}
 .mm-love-dialog-button:FOCUS { color: #ff870f; }
 .mm-love-dialog-button:HOVER { color: #ff6a00;}
+
+/************************
+*	비밀번호 찾는 페이지
+************************/
+#mm-findpassword-page-section { width: 100%; padding : 45px 10px 20px 10px;
+	box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box; -moz-box-sizing : border-box; -webkit-box-sizing : border-box;
+}
+#mm-findpassword-page-section>header{ width : 100%; margin-top: 20px;}
+#mm-findpassword-page-section>header>h2{ margin-left : 10px; font-family: NanumGothic, Dotum, Gulim; font-size: 125%; color: #524d4d;
+text-shadow : 1px 2px 4px #e3e3e3,0 0 0 #000,1px 2px 4px #e3e3e3,0 1px 0 #fff;}
+#mm-findpassword-page-section>footer{ width : 100%; font-size: 75%; color:#e95800; margin-top: 20px;}
+#mm-findpassword-page-section>footer ul { width: 100%;}
+#mm-findpassword-page-section>footer ul li { margin-left : 10px; font-family: NanumGothic, Dotum, Gulim;}
+.mm-findpassword-page { width : 100%; border: 1px solid #cccccc; padding: 20px 15px 0 15px; margin-top: 20px;
+	border: 1px solid #cccccc; background : #fcfcfc;
+	box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box; -moz-box-sizing : border-box; -webkit-box-sizing : border-box;
+	border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; 
+	box-shadow: inset 3px 3px 8px -5px #cccccc, 4px 4px 6px -4px #cccccc;
+	-moz-box-shadow: inset 3px 3px 8px -5px #cccccc, 4px 4px 6px -4px #cccccc;
+	-webkit-box-shadow: inset 3px 3px 8px -5px #cccccc, 4px 4px 6px -4px #cccccc;
+}
+
+.mm-findpassword-page>header{ width: 100%; }
+.mm-findpassword-page>header>div{ width : 100%; margin-bottom: 20px;}
+.mm-findpassword-page>header>div>h1{ font-size: 100%; color: #524d4d; font-family: NanumGothic, Dotum, Gulim;}
+.mm-findpassword-page>header>ul{ width:100%; font-size: 75%; color:#303030; margin-bottom: 10px; }
+.mm-findpassword-page>header>ul>li{ margin: 8px 0; width: 100%; font-family: NanumGothic, Dotum, Gulim; line-height: 17px;}
+.mm-findpassword-page>section{width: 100%; margin-bottom: 20px; text-align: center;}
+
+.mm-findpassword-submit-btn{padding: 7px 10px; margin-top: 10px;}
+
+.mm-findpassword-input { width: 100%; padding: 2px 3px; border: 1px solid #ad9c9c; height: 29px;
+   	border-radius: 5px;	-webkit-border-radius: 5px; -moz-border-radius: 5px;
+   	box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box; -moz-box-sizing : border-box; -webkit-box-sizing : border-box;
+}
+.mm-findpassword-input:FOCUS{	border: 1px solid #ff8a00; }
+.mm-findpassword-input-error { width: 100%; padding: 2px 3px; border: 1px solid #ff8a00; height: 29px;
+    border-radius: 5px;	-webkit-border-radius: 5px; -moz-border-radius: 5px;
+    box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box; -moz-box-sizing : border-box; -webkit-box-sizing : border-box;
+}
+.mm-findpassword-error:FOCUS{ border: 1px solid #ff0000;  }
+
+.mm-join-user-error{font-size: 68.75%; margin: 5px 0 0 5px; line-height: 1.2; color: #ff3c00; width: 100%; text-align: left;}

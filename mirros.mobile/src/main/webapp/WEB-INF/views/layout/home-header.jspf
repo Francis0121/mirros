@@ -7,6 +7,8 @@
 <c:set var="cp" value="<%=request.getContextPath() %>"/>
 <c:set var="rootIp" value="218.55.100.44"/>
 <c:set var="web" value="http://${rootIp }:8080/jtown/"/>
+<c:set var="rp" value='<%=request.getAttribute("javax.servlet.forward.request_uri")%>'/>
+	
 <!DOCTYPE HTML>
 <html>
 <head>
