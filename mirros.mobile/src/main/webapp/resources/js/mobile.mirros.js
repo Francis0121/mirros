@@ -7,6 +7,13 @@ $(function(){
 		$(this).parents('li').find('.mm-home-sub-nav').hide();
 	});
 	
+	$('#mm-carousel').infiniteCarousel({
+	    transitionSpeed : 1000,
+	    displayTime : 2000,
+	    displayThumbnails  : false,
+	    displayProgressBar : false
+	});
+	
 	mobile.homeSync();
 	
 	mobile.mirSync();

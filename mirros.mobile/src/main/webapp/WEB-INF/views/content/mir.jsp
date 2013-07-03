@@ -17,29 +17,38 @@
 		<pre>"&nbsp;<c:out value="${jtownUser.longNotice}"/>&nbsp;"</pre>
 	</section>
 	<section class="mm-mir-products">
-		<div id="mm-mir-products-fake-dan">
-			<div style="width :${fn:length(products) * 170}px;" id="mm-mir-products-dan">
-				<c:forEach items="${products }" var="product" varStatus="i">
-					<div>
+		<div class="mm-mir-products-fake">
+			<div id="mm-carousel" data-length="${fn:length(products)}">
+				<ul>
+					<c:forEach items="${products }" var="product" varStatus="i">
 						<c:set var="shopUrl" value="http://${jtownUser.shopUrl }" />
-						<a href="${product.url eq null ? shopUrl : product.url}" target="_blank" title="클릭시 상품 페이지로 이동됩니다." ><img alt="${product.name eq null ? 'Product' : product.name }" src="${web }/resources/uploadImage/${product.saveName }"/></a>
-						<div class="mm-mir-product-notice">
-							<div class="mm-mir-product-notice-arrow">▲</div>
-							<div class="mm-mir-product-notice-txt">
+						<li>
+							<img alt="${product.name eq null ? 'Product' : product.name }" src="${web }/resources/uploadImage/${product.saveName }"/>
+							<p>
 								<c:choose>
 									<c:when test="${product.name eq null or product.commaPrice eq null }">
-										<span>상품 정보가 아직</span>
-										<span>입력되지 않았습니다.</span>
+										<span class="mm-carousel-text">상품 정보가 아직</span>
+										<span class="mm-carousel-text">
+											입력되지 않았습니다.
+											<c:if test="${product.newProduct }">
+											</c:if>
+										</span>
+										<span class="mm-mir-products-new">New</span>	
 									</c:when>
 									<c:otherwise>
-										<span><c:out value="${product.name }"/></span>
-										<span><c:out value="${product.commaPrice }"/></span>
+										<span class="mm-carousel-text"><c:out value="${product.name }"/></span>
+										<span class="mm-carousel-text">
+											<c:out value="${product.commaPrice }"/>
+											<c:if test="${product.newProduct }">
+												<span class="mm-mir-products-new">New</span>	
+											</c:if>
+										</span>
 									</c:otherwise>
 								</c:choose>
-							</div>
-						</div>
-					</div>
-				</c:forEach>
+							</p>
+						</li>
+					</c:forEach>
+				</ul>
 			</div>
 		</div>
 	</section>
@@ -80,7 +89,6 @@
 			<div style="width: 35px;">
 				<span class="mm-mir-comment">Comment</span><span class="mm-home-number" id="comment-<c:out value="${jtownUser.pn }"/>"><c:out value="${jtownUser.commentCount eq null ? 0 : jtownUser.commentCount}"/></span>
 			</div>
-			<div class="mm-mir-comment-wrap-hide"></div>
 		</li>
 		<li>
 			<c:set var="loveClick" value="${jtownUser.customerPn ne null ? 'mm-home-love-click' : '' }"/>
