@@ -286,6 +286,10 @@
 #mm-mir-products-dan{ position: absolute; left: 0; }
 #mm-mir-products-dan>div{ width: 140px; float:left; position: relative;background: transparent;}
 #mm-mir-products-dan>div img{ width: 140px; height: 140px; padding: 0px; float:left;}
+.mm-mir-product-notice{ width:140px; position: absolute; height: 55px; background: rgba(0,0,0, 0.5); }
+.mm-mir-product-notice-arrow{ height: 10px; width: 140px; height: 15px; text-align: center; font-size: 75%; color: #fff; line-height: 15px;}
+.mm-mir-product-notice-txt{ height: 40px; width: 140px; text-align: center;}
+.mm-mir-product-notice-txt>span{font-size: 75%; color: #fff; width: 140px; text-align: center; display: block; height: 20px; line-height: 20px;}
 
 .mm-mir-events{width: 100%; float: left; background: #fff;}
 .mm-mir-events>div{ width: 50%; float: left; height: 20%; }

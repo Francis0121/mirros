@@ -23,17 +23,20 @@
 					<div>
 						<c:set var="shopUrl" value="http://${jtownUser.shopUrl }" />
 						<a href="${product.url eq null ? shopUrl : product.url}" target="_blank" title="클릭시 상품 페이지로 이동됩니다." ><img alt="${product.name eq null ? 'Product' : product.name }" src="${web }/resources/uploadImage/${product.saveName }"/></a>
-						<div>
-							<c:choose>
-								<c:when test="${product.name eq null or product.commaPrice eq null }">
-									<span>상품 정보가 아직</span>
-									<span>입력되지 않았습니다.</span>
-								</c:when>
-								<c:otherwise>
-									<span><c:out value="${product.name }"/></span>
-									<span><c:out value="${product.commaPrice }"/></span>
-								</c:otherwise>
-							</c:choose>
+						<div class="mm-mir-product-notice">
+							<div class="mm-mir-product-notice-arrow">▲</div>
+							<div class="mm-mir-product-notice-txt">
+								<c:choose>
+									<c:when test="${product.name eq null or product.commaPrice eq null }">
+										<span>상품 정보가 아직</span>
+										<span>입력되지 않았습니다.</span>
+									</c:when>
+									<c:otherwise>
+										<span><c:out value="${product.name }"/></span>
+										<span><c:out value="${product.commaPrice }"/></span>
+									</c:otherwise>
+								</c:choose>
+							</div>
 						</div>
 					</div>
 				</c:forEach>
