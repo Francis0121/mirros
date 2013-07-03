@@ -6,6 +6,8 @@ package com.bg.jtown.business;
  */
 public class Interest {
 
+	private String categoryName;
+
 	private Integer categoryPn;
 
 	private Integer customerPn;
@@ -28,6 +30,17 @@ public class Interest {
 		this.categoryPn = categoryPn;
 		this.sectionPn = sectionPn;
 		this.name = name;
+	}
+	
+	public String getNaturalName() {
+		if (this.categoryName != null && this.name != null) {
+			return this.categoryName + " - " + this.name;
+		}
+		return null;
+	}
+
+	public String getCategoryName() {
+		return categoryName;
 	}
 
 	public Integer getCategoryPn() {
@@ -58,6 +71,10 @@ public class Interest {
 		return name.toUpperCase();
 	}
 
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
+	}
+
 	public void setCategoryPn(Integer categoryPn) {
 		this.categoryPn = categoryPn;
 	}
@@ -84,10 +101,11 @@ public class Interest {
 
 	@Override
 	public String toString() {
-		return "Interest [categoryPn=" + categoryPn + ", customerPn="
-				+ customerPn + ", interestSectionList=" + interestSectionList
-				+ ", name=" + name + ", sectionPn=" + sectionPn + ", sellerPn="
-				+ sellerPn + "]";
+		return "Interest [categoryName=" + categoryName + ", categoryPn="
+				+ categoryPn + ", customerPn=" + customerPn
+				+ ", interestSectionList=" + interestSectionList + ", name="
+				+ name + ", sectionPn=" + sectionPn + ", sellerPn=" + sellerPn
+				+ "]";
 	}
 
 }

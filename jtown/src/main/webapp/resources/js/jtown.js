@@ -284,7 +284,7 @@ jtown.naturalLanguage.autocomplete = function(){
 				}
 				for(var i=0, len = interests.length, size = jtownUsers.length ; i< len; i++){
 					var interest = interests[i];
-					data[i+size] = { label : interest.name , value : interest.name, categoryPn : interest.categoryPn, spn : interest.sectionPn, category : 'CATEGORY'};
+					data[i+size] = { label : interest.naturalName , value : interest.naturalName, categoryPn : interest.categoryPn, spn : interest.sectionPn, category : 'CATEGORY'};
 				}
 				response( data );
 			});
