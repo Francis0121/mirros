@@ -29,7 +29,7 @@
 						<a href="${cp }/login"><span>Log In</span></a>
 					</li>
 					<li>
-						<a><span>&nbsp;</span></a>
+						<a href="${cp }/login/join"><span>Sign In</span></a>
 					</li>
 				</sec:authorize>
 			</ul>

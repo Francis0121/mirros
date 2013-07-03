@@ -14,6 +14,11 @@ $(function(){
 	    displayProgressBar : false
 	});
 	
+	$('.mm-join-submit').bind('click', function() {
+		var form = document.forms['jtownUser'];
+		form.submit();
+	});
+	
 	mobile.homeSync();
 	
 	mobile.mirSync();

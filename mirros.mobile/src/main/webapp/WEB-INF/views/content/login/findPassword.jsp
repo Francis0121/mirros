@@ -26,7 +26,7 @@
 			<form:form commandName="jtownUser" method="post" action="${cp }/login/findUserPassword.jt" htmlEscape="true">
 				<form:input id="username_findPassword" path="username" cssClass="mm-findpassword-input" cssErrorClass="mm-findpassword-input-error" placeholder="Email Address"/>
 				<input type="submit" value="보내기" class="mm-btn-orange mm-findpassword-submit-btn"/>
-				<div class="mm-join-user-error">
+				<div class="mm-findpassword-user-error">
 					<form:errors path="username" cssClass="commonError"></form:errors>
 				</div>
 			</form:form>				
@@ -49,7 +49,7 @@
 			<form:form commandName="sellerUser" method="post" action="${cp }/login/findSellerPassword.jt" htmlEscape="true">
 				<form:input id="username_findSellerPassword" path="username" cssClass="mm-findpassword-input" cssErrorClass="mm-findpassword-input-error" placeholder="Email Address"/>
 				<input type="submit" value="보내기" class="mm-btn-orange mm-findpassword-submit-btn"/>
-				<div class="mm-join-user-error">
+				<div class="mm-findpassword-user-error">
 					<form:errors path="username" cssClass="commonError"></form:errors>
 				</div>
 			</form:form>				
@@ -89,5 +89,4 @@
 /* ]]> */	            
 </script>
 </c:if>
-
 <%@ include file="../../layout/home-footer.jspf" %>

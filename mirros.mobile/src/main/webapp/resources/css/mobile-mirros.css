@@ -463,4 +463,63 @@ text-shadow : 1px 2px 4px #e3e3e3,0 0 0 #000,1px 2px 4px #e3e3e3,0 1px 0 #fff;}
 }
 .mm-findpassword-error:FOCUS{ border: 1px solid #ff0000;  }
 
-.mm-join-user-error{font-size: 68.75%; margin: 5px 0 0 5px; line-height: 1.2; color: #ff3c00; width: 100%; text-align: left;}
+.mm-findpassword-user-error{font-size: 68.75%; margin: 5px 0 0 5px; line-height: 1.2; color: #ff3c00; width: 100%; text-align: left; }
+/*********************
+*	회원가입 페이지
+*********************/
+.jt-btn-orange-login{font-family: Arial; border: 0; padding: 2px 0; background: transparent;cursor: pointer;color: #ff8900;}
+.jt-btn-orange-login:HOVER{text-decoration: underline;}
+.jt-join-user-header{ width: 990px; margin: auto auto; height: 75px; }
+.jt-join-user-login, .jt-join-user-login:VISITED{ font-size: 12px; float: right; color: #808080; margin-top: 60px;}
+.jt-join-user-login:HOVER, .jt-join-user-login:ACTIVE{color: #000;}
+.mm-join-user-wrap{ width : 100%; padding: 45px 10px 20px 10px;
+ 	box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box; -moz-box-sizing : border-box; -webkit-box-sizing : border-box;
+}
+.mm-join-user-info{ width: 100%; margin-top: 20px;}
+.mm-join-user-info>h1{ margin-left : 10px; font-family: NanumGothic, Dotum, Gulim; font-size: 125%; color: #524d4d;
+	text-shadow : 1px 2px 4px #e3e3e3,0 0 0 #000,1px 2px 4px #e3e3e3,0 1px 0 #fff;}
+.mm-join-user-articel{width: 100%; margin-top: 20px;}
+.mm-join-user-table{ width: 100%; }
+.mm-join-user-table th, .mm-join-user-table td{ padding: 5px 3px; vertical-align: middle;font-family: NanumGothic, Dotum, Gulim; 
+	box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box; -moz-box-sizing : border-box; -webkit-box-sizing : border-box;
+}
+.mm-join-user-table th label, .mm-join-user-table td label{ font-family: NanumGothic, Dotum, Gulim; }
+.mm-join-user-table th{ width: 100%; color: #8c827e;  text-align: left; font-size: 87.5%; font-weight: normal;}
+.mm-join-user-table td{ width: 100%; font-size: 75%;}
+.mm-join-user-table tfoot th, .jt-join-user-table tfoot td { text-align: center;}
+.mm-join-user-input { width: 100%; padding: 2px 3px; border: 1px solid #ad9c9c; height: 29px;
+ 	border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; 
+ 	box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box; -moz-box-sizing : border-box; -webkit-box-sizing : border-box;
+}
+.mm-join-user-input:FOCUS{	border: 1px solid #ff8a00; }
+.mm-join-user-input-error { width: 100%; padding: 2px 3px; border: 1px solid #ff8a00; height: 29px; 
+ 	border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; 
+ 	box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box; -moz-box-sizing : border-box; -webkit-box-sizing : border-box;
+}
+.mm-join-user-input-error:FOCUS{ border: 1px solid #ff0000;  }
+.mm-join-user-select{width: 100%; padding: 2px 3px; border: 1px solid #ad9c9c; height: 30px;
+ 	border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; 
+ 	box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box; -moz-box-sizing : border-box; -webkit-box-sizing : border-box;
+ 	
+}
+.mm-join-user-select-error{width: 100%; padding: 2px 3px; border: 1px solid #ff8a00; height: 30px;
+ 	border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; 
+ 	box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box; -moz-box-sizing : border-box; -webkit-box-sizing : border-box;
+}
+.mm-join-user-select:FOCUS{ border: 1px solid #ff8a00;}
+.mm-join-user-select-error:FOCUS{ border: 1px solid #ff0000;}
+.mm-join-user-select-year{width: 30%;}
+.mm-join-user-select-month{width: 30%;}
+.mm-join-user-select-day{width: 30%;}
+
+.mm-join-submit{padding: 7px 10px;}
+
+.mm-join-user-footer{ width :100%; color: #7a7a7a; margin: 20px 0 0 0;}
+.mm-join-user-footer div { width: 100%; text-align: center; margin-bottom: 15px;}
+.mm-join-user-footer ul {width1 :100%; margin-left: 20px;}
+.mm-join-user-footer>ul>li{ width:100%; padding: 5px 0; list-style-type: circle; font-size: 68.75%; font-family: NanumGothic, Dotum, Gulim; line-height: 17px;}
+.mm-join-user-footer>ul>li>a, .jt-join-user-warning>ul>li>a:VISITED{ color: #7a7a7a; text-decoration: underline; font-family: NanumGothic, Dotum, Gulim; }
+.mm-join-user-footer>ul>li>a:HOVER{ color: #7a7a7a; }
+
+.mm-join-user-error{ margin: 5px 0 0 5px; line-height: 1.4; color: #ff3c00; width: 100%; text-align: left; }
+.mm-join-date-error{ width: 100%; display: block;}
