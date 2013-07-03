@@ -32,19 +32,19 @@
 										<span class="mm-carousel-text">상품 정보가 아직</span>
 										<span class="mm-carousel-text">
 											입력되지 않았습니다.
-											<c:if test="${product.newProduct }">
-											</c:if>
 										</span>
-										<span class="mm-mir-products-new">New</span>	
+										<c:if test="${product.newProduct }">
+											<span class="mm-mir-products-new">New</span>	
+										</c:if>
 									</c:when>
 									<c:otherwise>
 										<span class="mm-carousel-text"><c:out value="${product.name }"/></span>
 										<span class="mm-carousel-text">
 											<c:out value="${product.commaPrice }"/>
-											<c:if test="${product.newProduct }">
-												<span class="mm-mir-products-new">New</span>	
-											</c:if>
 										</span>
+										<c:if test="${product.newProduct }">
+											<span class="mm-mir-products-new">New</span>	
+										</c:if>
 									</c:otherwise>
 								</c:choose>
 							</p>
