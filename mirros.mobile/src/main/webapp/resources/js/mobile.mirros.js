@@ -31,7 +31,72 @@ $(function(){
 	
 	mobile.commentSync();
 
+	mobile.autocomplete();
 });
+
+mobile.autocomplete = function(){
+	$.widget( "custom.catcomplete", $.ui.autocomplete, {
+	    _renderMenu: function( ul, items ) {
+	      var that = this,
+	        currentCategory = "";
+	      $.each( items, function( index, item ) {
+	        if ( item.category != currentCategory ) {
+	          ul.append( '<li class="ui-autocomplete-category"><span class="ui-autocomplete-category-span">' + item.category + '</span></li>' );
+	          currentCategory = item.category;
+	        }
+	        
+	        that._renderItem = function( ul, item ) {
+	            return $('<li>').append( '<a class="ui-catcomplete-menu-item">' + item.label + '</a>' ).appendTo( ul );
+	        };
+	        
+	        that._renderItemData( ul, item );
+	      });
+	    }
+	 });
+	
+	$('#mm-naturalLanguage-search').catcomplete({
+		source : function(request, response){
+			var url = contextPath + '/natural/ajax/autocomplete.jt',
+				json = {	searchName : request.term  };
+			
+			$.postJSON(url, json, function(map){
+				var jtownUsers = map.jtownUsers, interests = map.interests, data = [];
+				
+				for(var i=0, len = jtownUsers.length ; i< len; i++){
+					var jtownUser = jtownUsers[i];
+					data[i] = { label : jtownUser.name , value : jtownUser.name, pn : jtownUser.pn,  category : 'SHOP'};
+				}
+				for(var i=0, len = interests.length, size = jtownUsers.length ; i< len; i++){
+					var interest = interests[i];
+					data[i+size] = { label : interest.naturalName , value : interest.naturalName, categoryPn : interest.categoryPn, spn : interest.sectionPn, category : 'CATEGORY'};
+				}
+				response( data );
+			});
+		},
+		minLength : 1,
+		select : function(event, ui){
+			var item = ui.item;
+			if(item.category =='SHOP'){				
+				location.href = contextPath + '/mir/'+item.pn;
+			}else if(item.category =='CATEGORY'){
+				location.href = contextPath + '/cpn/'+item.categoryPn+'/spn/'+item.spn;
+			}
+		},
+		focus : function(event, ui){
+			$('.ui-state-focus').removeClass('ui-corner-all').removeClass('ui-state-focus');
+		},
+		open :function(){
+			$('.ui-autocomplete').removeClass('ui-widget-content').addClass('ui-catcomplete-content');
+			$(this).addClass('ui-catcomplete-input');
+			$('.ui-menu').css({padding : 0});
+		},
+		close : function(){
+			$(this).removeClass('ui-catcomplete-input');
+			$('#mm-naturalLanguage-search').val('');
+		}
+	});
+	
+};
 
 mobile.product = function(spn, href){
 	var open = window.open('about:blank');

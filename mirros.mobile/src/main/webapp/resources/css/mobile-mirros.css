@@ -523,3 +523,43 @@ text-shadow : 1px 2px 4px #e3e3e3,0 0 0 #000,1px 2px 4px #e3e3e3,0 1px 0 #fff;}
 
 .mm-join-user-error{ margin: 5px 0 0 5px; line-height: 1.4; color: #ff3c00; width: 100%; text-align: left; }
 .mm-join-date-error{ width: 100%; display: block;}
+/***************************
+*	NaturalLanguage Search
+****************************/
+.ui-autocomplete-category {
+    font-weight: bold;
+    line-height: 1.5;
+    font-family: NanumGothic, Dotum, Gulim; 
+}
+
+.ui-autocomplete-category-span{
+	display: block;
+	padding: 6px 10px;
+	background: #fcfcfc;
+	min-height: 0;
+	line-height: 1.5;
+	font-family: NanumGothic, Dotum, Gulim; 
+}
+
+.ui-catcomplete-input{
+	-webkit-border-radius: 4px 4px 0 0;
+    -moz-border-radius: 4px 4px 0 0;
+    border-radius: 4px 4px 0 0;	
+}
+
+.ui-catcomplete-content{
+	border: 1px solid #ad9c9c; cursor: default; background: #fff; padding:2px !important;
+    border-radius: 0 0 4px 4px; -moz-border-radius: 0 0 4px 4px; -webkit-border-radius: 0 0 4px 4px;
+}
+
+.ui-catcomplete-menu-item{
+	padding: 4px 8px !important;
+	margin : 2px 2px;
+	font-family: NanumGothic, Dotum, Gulim; 
+}
+
+.ui-catcomplete-menu-item:HOVER{
+	background : #f7a300;
+	color: #fff;
+	border : 0;
+}
