@@ -15,10 +15,10 @@
 						<span><sec:authentication property="principal.name" /></span>
 					</li>
 					<li>
-						<a href="${cp }/login/logout"><span>로그아웃</span></a>
+						<a href="${cp }/login/logout"><span>Log out</span></a>
 					</li>
 					<li>
-						<a><span>&nbsp;</span></a>
+						<a href="${web }"><span>PC Version</span></a>
 					</li>
 				</sec:authorize>
 				<sec:authorize access="anonymous">
@@ -31,17 +31,24 @@
 					<li>
 						<a href="${cp }/login/join"><span>Sign In</span></a>
 					</li>
+					<li>
+						<a href="${web }"><span>PC Version</span></a>
+					</li>
+					<li>
+						<a><span>&nbsp;</span></a>
+					</li>
 				</sec:authorize>
 			</ul>
 		</li>
-		<li>
-			<a class="mm-home-nav-title mm-home-search"><span>Search</span></a>
-			<ul class="mm-home-sub-nav mm-home-search">
-				<li>
-					<input type="text" class="mm-home-search-input" id="mm-naturalLanguage-search"  placeholder="어떤 쇼핑몰을 찾으시나요?"/>
-				</li>
-			</ul>
-		</li>
+<!-- 추후에 다시 적용 mobile 에서 실행 X -->
+<!-- 		<li> -->
+<!-- 			<a class="mm-home-nav-title mm-home-search"><span>Search</span></a> -->
+<!-- 			<ul class="mm-home-sub-nav mm-home-search"> -->
+<!-- 				<li> -->
+<!-- 					<input type="text" class="mm-home-search-input" id="mm-naturalLanguage-search"  placeholder="어떤 쇼핑몰을 찾으시나요?"/> -->
+<!-- 				</li> -->
+<!-- 			</ul> -->
+<!-- 		</li> -->
 		<c:set var="homeFilterUrl" value="${cp }/cpn/${homeFilter.categoryPn }/spn/0" scope="request"/>
 		<c:forEach var="interestCategory" items="${interestCategories }">
 			<c:set var="interestCategoryPn" value="${interestCategory.categoryPn }"/>
