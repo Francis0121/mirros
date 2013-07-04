@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:batch="http://www.springframework.org/schema/batch"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/batch http://www.springframework.org/schema/batch/spring-batch-2.1.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+		
+	<!--  Initialise the database before every test case: -->
+	<bean id="dataSourceInitializer"
+		class="com.bg.mirros.batch.DataSourceInitializer">
+		<property name="initialize" value="${batch.data.source.init}" />
+		<property name="dataSource" ref="dataSource" />
+		<property name="destroyScript" value="${batch.drop.script}" />
+		<property name="initScripts">
+			<list>
+				<value>${batch.schema.script}</value>
+				<value>${batch.business.schema.script}</value>
+			</list>
+		</property>
+	</bean>
+	
+	<import resource="execution-context.xml"/>
+		
+	<bean id="simpleJob" class="org.springframework.batch.core.job.SimpleJob"
+		abstract="true">
+		<property name="jobRepository" ref="jobRepository" />
+		<property name="restartable" value="true" />
+	</bean>
+
+	<bean id="simpleStep"
+		class="org.springframework.batch.core.step.item.SimpleStepFactoryBean"
+		abstract="true">
+		<property name="transactionManager" ref="mybatisTransactionManager" />
+		<property name="jobRepository" ref="jobRepository" />
+		<property name="startLimit" value="3" />
+		<property name="commitInterval" value="10" />
+		<property name="allowStartIfComplete" value="true"/>
+	</bean>
+	
+	<import resource="job/hot-context.xml" />
+	
+	<import resource="job/user-context.xml" />
+	
+</beans>
