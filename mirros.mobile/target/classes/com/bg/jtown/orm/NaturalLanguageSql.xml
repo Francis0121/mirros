@@ -59,19 +59,23 @@
 	<resultMap type="Interest" id="jt-natural-search-interest-map">
 		<result column="pn" property="sectionPn"/>
 		<result column="category_pn" property="categoryPn"/>
+		<result column="category_name" property="categoryName"/>
 		<result column="name" property="name"/>
 	</resultMap>
 	
 	<select id="selectSearchInterestSection" parameterType="NaturalLanguageFilter" resultMap="jt-natural-search-interest-map">
 		<include refid="paginationBefore"/>
 			SELECT
-				pn, category_pn, name
+				ise.pn, ise.category_pn, ic.name AS category_name, ise.name AS name
 			FROM
-				interest_section
+				interest_section ise,
+				interest_category ic
 			WHERE
-				upper_name LIKE #{upperSearchName}
+				ise.category_pn = ic.pn
+			AND
+				ise.upper_name LIKE #{upperSearchName}
 			ORDER BY
-				name
+				ic.name, ise.name
 		<include refid="paginationAfter"/>
 	</select>
 	

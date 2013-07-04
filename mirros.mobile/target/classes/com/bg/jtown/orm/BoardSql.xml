@@ -80,27 +80,6 @@
 		]]>
 	</select>
 	
-	<insert id="insertNoticeWrite" parameterType="Board">
-		INSERT INTO
-			notice
-			( title, content, read_count, input_date )			
-		VALUES
-			( #{title}, #{content}, 0, SYSDATE() )
-		<selectKey keyProperty="pn" resultType="Integer">
-			SELECT LAST_INSERT_ID()
-		</selectKey>	
-	</insert>
-	
-	<update id="updateNotice" parameterType="Board">
-		UPDATE
-			notice
-		SET
-			title = #{title},
-			content = #{content}
-		WHERE
-			pn = #{pn}
-	</update>
-	
 	<update id="increaseReadCount" parameterType="Integer">
 		UPDATE
 			notice
@@ -109,14 +88,5 @@
 		WHERE
 			pn = #{pn}
 	</update>
-	
-	<delete id="deleteNotice" parameterType="Board">
-		DELETE FROM
-			notice
-		<if test="pn != null">
-		WHERE
-			pn = #{pn}
-		</if>
-	</delete>
 
 </mapper>
