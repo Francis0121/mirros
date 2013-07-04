@@ -17,27 +17,31 @@
 	
 	<!-- 3rdparty Loggers -->
 	<logger name="org.springframework.core">
-		<level value="info" />
+		<level value="error" />
 	</logger>
 	
 	<logger name="org.springframework.beans">
-		<level value="info" />
+		<level value="error" />
 	</logger>
 	
 	<logger name="org.springframework.context">
-		<level value="info" />
+		<level value="error" />
 	</logger>
 
 	<logger name="org.springframework.web">
-		<level value="info" />
+		<level value="error" />
 	</logger>
 	
 	<logger name="org.springframework.security">
-		<level value="info" />
+		<level value="error" />
+	</logger>
+	
+	<logger name="org.springframework">
+		<level value="error" />
 	</logger>
 	
 	<logger name="com.bg.jtown.controller.interceptor">
-		<level value="info"/>
+		<level value="error"/>
 	</logger>	
 
 	<!-- Root Logger -->
@@ -45,5 +49,9 @@
 		<priority value="debug" />
 		<appender-ref ref="console" />
 	</root>
+	
+	<logger name="org.springframework.social">
+		<level value="info" />
+	</logger>
 	
 </log4j:configuration>
