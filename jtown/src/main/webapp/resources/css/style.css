@@ -99,6 +99,7 @@
 	background: #fcfcfc;
 	min-height: 0;
 	line-height: 1.5;
+	font-family: NanumGothic, Dotum, Gulim; 
 }
 
 .ui-catcomplete-input{
@@ -123,6 +124,7 @@
 .ui-catcomplete-menu-item{
 	padding: 4px 8px !important;
 	margin : 2px 2px;
+	font-family: NanumGothic, Dotum, Gulim; 
 }
 
 .ui-catcomplete-menu-item:HOVER{
