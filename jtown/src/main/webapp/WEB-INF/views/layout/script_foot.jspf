@@ -29,6 +29,8 @@
 <script src="${cp}/resources/js/jquery.plugin.js"></script>
 <script src="${cp}/resources/js/jquery.scroll.pagination.js"></script>
 <script src="${cp}/resources/uploadify/jquery.uploadify.min.js"></script>
+<script src="${cp}/resources/js/jquery.cookie.js"></script>
+
 <%-- Custom --%>
 <script src="${cp}/resources/js/intro.js"></script>
 <script src="${cp}/resources/js/jtown.js"></script>
