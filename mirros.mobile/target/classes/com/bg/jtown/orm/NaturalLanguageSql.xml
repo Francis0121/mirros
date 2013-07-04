@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="naturalLanguageMapper">
+	
+	<sql id="paginationBefore">
+		SELECT 
+			t.*
+		FROM 
+		( 
+			SELECT  
+				z.*, @RNUM := @RNUM + 1 AS rnum
+			FROM
+				(
+	</sql>
+	
+	<sql id="paginationAfter">
+		<![CDATA[
+				) z,  
+				( SELECT @RNUM := 0 ) R
+			WHERE @RNUM + 1 <=  #{pagination.itemSeqEnd}
+		) t
+		WHERE t.rnum >= #{pagination.itemSeqBegin}
+		]]>
+	</sql>
+	
+	<resultMap type="JtownUser" id="jt-natural-search-name-map">
+		<result column="pn" property="pn"/>
+		<result column="name" property="name"/>
+	</resultMap>
+	
+	<select id="selectSearchShopName" parameterType="NaturalLanguageFilter" resultMap="jt-natural-search-name-map">
+		<include refid="paginationBefore"/>
+			SELECT
+				us.pn, u.name
+			FROM
+				user_seller us
+				LEFT OUTER JOIN users u
+				ON us.pn = u.pn
+			WHERE
+				u.upper_name LIKE #{upperSearchName}
+			AND	
+				u.enable = 1
+			ORDER BY
+				u.name
+		<include refid="paginationAfter"/>
+	</select>
+	
+	<select id="selectSearchShopNameCount" parameterType="NaturalLanguageFilter" resultType="Integer">
+		SELECT
+			COUNT(us.pn)
+		FROM
+			user_seller us
+			LEFT OUTER JOIN users u
+			ON us.pn = u.pn
+		WHERE
+			u.upper_name LIKE #{upperSearchName}
+	</select>
+	
+	<resultMap type="Interest" id="jt-natural-search-interest-map">
+		<result column="pn" property="sectionPn"/>
+		<result column="category_pn" property="categoryPn"/>
+		<result column="name" property="name"/>
+	</resultMap>
+	
+	<select id="selectSearchInterestSection" parameterType="NaturalLanguageFilter" resultMap="jt-natural-search-interest-map">
+		<include refid="paginationBefore"/>
+			SELECT
+				pn, category_pn, name
+			FROM
+				interest_section
+			WHERE
+				upper_name LIKE #{upperSearchName}
+			ORDER BY
+				name
+		<include refid="paginationAfter"/>
+	</select>
+	
+	<select id="selectSearchInterestSectionCount" parameterType="NaturalLanguageFilter" resultType="Integer">
+		SELECT
+			COUNT(pn)
+		FROM
+			interest_section
+		WHERE
+			upper_name LIKE #{upperSearchName}
+		ORDER BY
+			name
+	</select>	
+
+</mapper>

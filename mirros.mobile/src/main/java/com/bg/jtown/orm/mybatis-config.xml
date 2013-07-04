@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+		<!-- Object -->
+		<typeAlias alias="Board" type="com.bg.jtown.business.Board" />
+		<typeAlias alias="Comment" type="com.bg.jtown.business.Comment"/>
+		<typeAlias alias="Confirm" type="com.bg.jtown.security.Confirm"/>
+		<typeAlias alias="Count" type="com.bg.jtown.business.Count"/>
+		<typeAlias alias="Event" type="com.bg.jtown.business.Event"/>
+		<typeAlias alias="Interest" type="com.bg.jtown.business.Interest"/>
+		<typeAlias alias="JtownUser" type="com.bg.jtown.security.JtownUser"/>
+		<typeAlias alias="Json" type="com.bg.jtown.business.Json"/>
+		<typeAlias alias="Partnership" type="com.bg.jtown.business.Partnership"/>
+		<typeAlias alias="Product" type="com.bg.jtown.business.Product"/>
+		<typeAlias alias="Question" type="com.bg.jtown.business.Question"/>
+		<typeAlias alias="QuestionCategory" type="com.bg.jtown.business.QuestionCategory"/>
+		<typeAlias alias="QuestionSection" type="com.bg.jtown.business.QuestionSection"/>
+				
+		<!-- Search Filter -->		
+		<typeAlias alias="BoardFilter" type="com.bg.jtown.business.search.BoardFilter" />
+		<typeAlias alias="CommentFilter" type="com.bg.jtown.business.search.CommentFilter"/>
+		<typeAlias alias="HomeFilter" type="com.bg.jtown.business.search.HomeFilter"/>
+		<typeAlias alias="NaturalLanguageFilter" type="com.bg.jtown.business.search.NaturalLanguageFilter"/>
+	</typeAliases>
+</configuration>

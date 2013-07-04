@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="boardMapper">
+	
+	<sql id="paginationBefore">
+		SELECT 
+			t.*
+		FROM 
+		( 
+			SELECT  
+				z.*, @RNUM := @RNUM + 1 AS rnum
+			FROM
+				(
+	</sql>
+	
+	<sql id="paginationAfter">
+		<![CDATA[
+				) z,  
+				( SELECT @RNUM := 0 ) R
+			WHERE @RNUM + 1 <=  #{pagination.itemSeqEnd}
+		) t
+		WHERE t.rnum >= #{pagination.itemSeqBegin}
+		]]>
+	</sql>
+	
+	<resultMap type="Board" id="jt-board-map">
+		<result column="pn" property="pn" />
+		<result column="title" property="title" />
+		<result column="content" property="content" />
+		<result column="read_count" property="readCount" />
+		<result column="input_date" property="inputDate" />
+	</resultMap>
+	
+	<select id="selectNoticeList" resultMap="jt-board-map">
+		<include refid="paginationBefore"/>
+			SELECT 
+				pn, title, content, read_count, DATE_FORMAT(input_date, '%Y-%m-%d') AS input_date
+			FROM 
+				notice
+			ORDER BY
+				pn desc
+		<include refid="paginationAfter"/>
+	</select>
+	
+	<select id="selectNoticeContent" parameterType="Board" resultMap="jt-board-map">
+		SELECT 
+			pn, title, content, read_count, DATE_FORMAT(input_date, '%Y-%m-%d') AS input_date
+		FROM 
+			notice
+		WHERE
+			pn = #{pn}
+		ORDER BY
+			pn desc
+	</select>
+	
+	<select id="selectNoticeCount" parameterType="BoardFilter" resultType="Integer">
+		SELECT	
+			COUNT(*)
+		FROM	
+			notice
+	</select>
+	
+	<select id="selectBeforeAfterNotice" parameterType="Board" resultMap="jt-board-map">
+		<![CDATA[
+		SELECT 
+			pn, title, content, read_count, DATE_FORMAT(input_date, '%Y-%m-%d') AS input_date 
+		FROM 
+			notice 
+		WHERE 
+			pn IN ((SELECT MIN(pn) FROM notice WHERE pn > #{pn} ))
+			
+		UNION
+		
+		SELECT 
+			pn, title, content, read_count, DATE_FORMAT(input_date, '%Y-%m-%d') AS input_date 
+		FROM 
+			notice 
+		WHERE 
+			pn IN ((SELECT MAX(pn) FROM notice  WHERE pn <#{pn}))
+		]]>
+	</select>
+	
+	<update id="increaseReadCount" parameterType="Integer">
+		UPDATE
+			notice
+		SET
+			read_count = (select * from(select max(read_count) + 1 from notice where pn = #{pn}) a)
+		WHERE
+			pn = #{pn}
+	</update>
+
+</mapper>

@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="commentMapper">
+
+	<sql id="paginationBefore">
+		SELECT 
+			t.*
+		FROM 
+		( 
+			SELECT  
+				z.*, @RNUM := @RNUM + 1 AS rnum
+			FROM
+				(
+	</sql>
+	
+	<sql id="paginationAfter">
+		<![CDATA[
+				) z,  
+				( SELECT @RNUM := 0 ) R
+			WHERE @RNUM + 1 <=  #{pagination.itemSeqEnd}
+		) t
+		WHERE t.rnum >= #{pagination.itemSeqBegin}
+		]]>
+	</sql>
+
+	<!-- Comment -->
+
+	<resultMap type="Comment" id="jtown-comment-map">
+		<result column="pn" property="commentPn"/>
+		<result column="customer_pn" property="customerPn"/>
+		<result column="name" property="customerName"/>
+		<result column="seller_pn" property="sellerPn"/>
+		<result column="comment" property="comment"/>
+		<result column="input_date" property="inputDate"/>
+		<result column="comment_love_count" property="commentLoveCount"/>
+		<result column="comment_customer_pn" property="commentCustomerPn"/>
+		<result column="warn_customer_pn" property="warnCustomerPn"/>
+	</resultMap>
+	
+	<select id="selectCommentCount" parameterType="CommentFilter" resultType="Integer">
+		SELECT
+			comment_count
+		FROM	
+			count_comment_seller_pn
+		WHERE
+			seller_pn = #{sellerPn}
+	</select>
+	
+	<select id="selectCommentTop" parameterType="CommentFilter" resultMap="jtown-comment-map">	
+		SELECT
+			p.pn, p.customer_pn, p.name, p.seller_pn, p.comment, p.comment_love_count, 
+			DATE_FORMAT(p.input_date, '%Y년 %c월 %d일') AS input_date
+			<if test="customerPn != null">
+			, uccl.customer_pn AS comment_customer_pn
+			, uccw.customer_pn AS warn_customer_pn
+			</if>
+		FROM
+		(
+		<![CDATA[
+		SELECT
+			ucc.pn, ucc.customer_pn, u.name, ucc.seller_pn, ucc.comment,
+			CASE 
+				WHEN TO_DAYS(SYSDATE()) - TO_DAYS(ucc.input_date) < #{peroid} THEN 1
+				ELSE 0
+			END AS diff,
+			cclcp.comment_love_count, ucc.input_date
+		FROM
+			(
+				SELECT 
+					ucc.*, IFNULL(ccwcp.comment_warn_count, 0) AS comment_warn_count
+				FROM
+					user_customer_comment ucc
+					LEFT OUTER JOIN count_comment_warn_comment_pn ccwcp
+					ON ucc.pn = ccwcp.comment_pn  
+			) ucc
+			LEFT OUTER JOIN count_comment_love_comment_pn cclcp
+			ON ucc.pn = cclcp.comment_pn
+			LEFT OUTER JOIN count_comment_warn_comment_pn ccwcp
+			ON ucc.pn = ccwcp.comment_pn AND ccwcp.comment_warn_count < 5,
+			user_customer uc
+			LEFT OUTER JOIN users u
+			ON uc.pn = u.pn
+		WHERE
+			ucc.customer_pn = uc.pn
+		AND
+			ucc.seller_pn = #{sellerPn}
+		AND
+			comment_love_count > 0
+		AND
+			ucc.comment_warn_count < 5
+		ORDER BY
+			diff DESC, cclcp.comment_love_count DESC, ucc.input_date DESC 
+		) p
+		]]>
+		<if test="customerPn != null">
+		LEFT OUTER JOIN user_customer_comment_love uccl
+		ON p.pn = uccl.comment_pn AND uccl.customer_pn = #{customerPn}
+		LEFT OUTER JOIN user_customer_comment_warn uccw
+		ON p.pn = uccw.comment_pn AND uccw.customer_pn = #{customerPn}
+		</if>
+		WHERE
+			diff = 1
+		LIMIT #{topItemNum}
+	</select>
+	
+	<select id="selectComment" parameterType="CommentFilter" resultMap="jtown-comment-map">
+		<include refid="paginationBefore"/>
+		SELECT
+			ucc.pn, ucc.customer_pn, u.name, ucc.seller_pn, ucc.comment, cclcp.comment_love_count,
+			DATE_FORMAT(ucc.input_date, '%Y년 %c월 %d일') AS input_date
+			<if test="customerPn != null">
+			, uccl.customer_pn AS comment_customer_pn
+			, uccw.customer_pn AS warn_customer_pn
+			</if>
+		FROM
+			(
+				SELECT 
+					ucc.*, IFNULL(ccwcp.comment_warn_count, 0) AS comment_warn_count
+				FROM
+					user_customer_comment ucc
+					LEFT OUTER JOIN count_comment_warn_comment_pn ccwcp
+					ON ucc.pn = ccwcp.comment_pn  
+			) ucc
+			LEFT OUTER JOIN count_comment_love_comment_pn cclcp
+			ON ucc.pn = cclcp.comment_pn
+			<if test="customerPn != null">
+			LEFT OUTER JOIN user_customer_comment_love uccl
+			ON ucc.pn = uccl.comment_pn AND uccl.customer_pn = #{customerPn}
+			LEFT OUTER JOIN user_customer_comment_warn uccw
+			ON ucc.pn = uccw.comment_pn AND uccw.customer_pn = #{customerPn}
+			</if>
+			,
+			user_customer uc
+			LEFT OUTER JOIN users u
+			ON uc.pn = u.pn
+		WHERE
+			ucc.customer_pn = uc.pn
+		<![CDATA[
+		AND
+			ucc.comment_warn_count < 5
+		]]>		
+		AND
+			ucc.seller_pn = #{sellerPn}
+		ORDER BY
+			input_date DESC 
+		<include refid="paginationAfter"/>
+	</select>
+	
+	<select id="selectCommentOne" parameterType="Integer" resultMap="jtown-comment-map">
+		SELECT
+			ucc.pn, ucc.customer_pn, u.name, ucc.seller_pn, ucc.comment, cclcp.comment_love_count, 
+			DATE_FORMAT(ucc.input_date, '%Y년 %c월 %d일') AS input_date
+		FROM
+			user_customer_comment ucc
+			LEFT OUTER JOIN count_comment_love_comment_pn cclcp
+			ON ucc.pn = cclcp.comment_pn,
+			user_customer uc
+			LEFT OUTER JOIN users u
+			ON uc.pn = u.pn
+		WHERE
+			ucc.customer_pn = uc.pn
+		AND
+			ucc.pn = #{commentPn}
+	</select>
+	
+	<select id="selectExistComment" parameterType="Comment" resultType="Comment">
+		SELECT
+			pn
+		FROM
+			user_customer_comment
+		WHERE
+			customer_pn = #{customerPn}
+		AND
+			seller_pn = #{sellerPn}
+		AND
+			DATE_FORMAT(input_date, "%Y-%m-%d") = #{inputDate}
+	</select>
+	
+	<select id="selectExistLove" parameterType="Count" resultType="Count">
+		SELECT
+			seller_pn AS sellerPn
+		FROM
+			count_love
+		WHERE
+			customer_pn = #{customerPn}
+		AND
+			seller_pn = #{sellerPn}
+	</select>
+	
+	<insert id="insertComment" parameterType="Comment">
+		INSERT INTO
+			user_customer_comment
+			( customer_pn, seller_pn, COMMENT, input_date)
+		VALUES
+			( #{customerPn}, #{sellerPn}, #{comment}, SYSDATE())
+		<selectKey resultType="java.lang.Integer" keyProperty="commentPn">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+	
+	<update id="updateComment" parameterType="Comment">
+		UPDATE
+			user_customer_comment
+		SET
+			comment = #{comment}
+		WHERE
+			customer_pn = #{customerPn}
+		AND
+			pn = #{commentPn}
+	</update>
+
+	<delete id="deleteComment" parameterType="Comment">
+		DELETE FROM
+			user_customer_comment
+		WHERE
+			customer_pn = #{customerPn}
+		AND
+			pn = #{commentPn}
+	</delete>
+	
+	<!-- Comment Love -->
+	<select id="selectCommentLove" parameterType="Comment" resultType="Comment">
+		SELECT
+			comment_pn AS commentPn, customer_pn AS customerPn, input_date AS inputDate
+		FROM
+			user_customer_comment_love
+		<if test="commentPn != null">
+			WHERE
+				comment_pn = #{commentPn}
+			<if test="customerPn != null">	
+				AND
+					customer_pn = #{customerPn}		
+			</if>
+		</if>
+	</select>
+	
+	<select id="selectCommentLoveCount" parameterType="Comment" resultType="Integer">
+		SELECT
+			COUNT(comment_pn)
+		FROM
+			user_customer_comment_love
+		<if test="commentPn != null">
+			WHERE
+				comment_pn = #{commentPn}
+			<if test="customerPn != null">	
+				AND
+					customer_pn = #{customerPn}		
+			</if>
+		</if>
+	</select>
+	
+	<insert id="insertCommentLove" parameterType="Comment">
+		INSERT INTO
+			user_customer_comment_love
+			( comment_pn, customer_pn, input_date )
+		VALUES
+			( #{commentPn}, #{customerPn}, SYSDATE() )
+	</insert>
+	
+	<delete id="deleteCommentLove" parameterType="Comment">
+		DELETE FROM
+			user_customer_comment_love
+		WHERE
+			comment_pn = #{commentPn}
+		<if test="customerPn != null">
+		AND
+			customer_pn = #{customerPn}
+		</if>
+	</delete>
+	
+	<!-- Comment Warn -->
+	<insert id="insertWarnComment" parameterType="Comment">
+		INSERT
+			user_customer_comment_warn
+			( comment_pn, customer_pn, input_date )
+		VALUES
+			( #{commentPn}, #{customerPn}, SYSDATE() )
+	</insert>
+	
+</mapper>

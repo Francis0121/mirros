@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:aop="http://www.springframework.org/schema/aop" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/mvc
+		 http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context.xsd
+  		http://www.springframework.org/schema/aop 
+  		http://www.springframework.org/schema/aop/spring-aop-3.1.xsd">
+
+	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
+	<context:component-scan base-package="com.bg.jtown.controller" use-default-filters="false">
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+	</context:component-scan>
+	
+	<aop:aspectj-autoproxy />
+	
+	<!-- Enables the Spring MVC @Controller programming model -->
+	<mvc:annotation-driven />
+
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
+	<mvc:resources mapping="/resources/**" location="/resources/" />
+
+	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/views/content/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+	
+	<!-- 메시지 컨버터 JSON -->
+	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" >
+		<property name="messageConverters">
+			<list>
+				<bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter" />
+			</list>
+		</property>
+	</bean>
+
+	<!-- Spring social Connect -->
+	<bean id="connectSocial" class="com.bg.jtown.social.connect.SocialConnectionController">
+		<constructor-arg name="connectionFactoryLocator" ref="connectionFactoryLocator"/>
+		<constructor-arg name="usersConnectionRepository" ref="usersConnectionRepository"/>
+		<property name="interceptors">
+			<list>
+				<bean class="com.bg.jtown.social.facebook.PostToWallAfterConnectInterceptor" />
+				<bean class="com.bg.jtown.social.twitter.TweetAfterConnectInterceptor" />
+			</list>
+		</property>
+	</bean>
+	
+	<!-- Spring Social SignIn -->
+	<bean id="prodierSignInSocial" class="com.bg.jtown.social.signin.SocialProviderSignInController">
+		<constructor-arg name="usersConnectionRepository" ref="usersConnectionRepository"/>
+		<constructor-arg name="connectionFactoryLocator" ref="connectionFactoryLocator"/>
+		<constructor-arg name="signInAdapter" ref="socialSignInAdapter"/>
+		<property name="signUpUrl" value="/login/join"/>
+		<property name="interceptors">
+			<list>
+				<bean class="com.bg.jtown.social.facebook.PostToWallAfterSignInInterceptor" />
+				<bean class="com.bg.jtown.social.twitter.TweetAfterSignInInterceptor" />
+			</list>
+		</property>
+	</bean>
+	
+</beans>
