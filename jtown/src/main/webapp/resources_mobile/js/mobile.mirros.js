@@ -483,11 +483,16 @@ mobile.comment = function(comment, position){
 	commentHtml +=	'	</div>';
 	}
 	commentHtml += 	'</li>';
-	
-	if(position == 'last'){
-		$('.comment-not-best:last').after(commentHtml);		
-	}else if(position == 'first'){
-		$('.comment-not-best:first').before(commentHtml);
+
+	var contentWrap = $('.mm-mir-comment-content>ul');
+	if(!nullValueCheck(contentWrap.html().trim())){	
+		if(position == 'last'){
+			$('.comment-not-best:last').after(commentHtml);		
+		}else if(position == 'first'){
+			$('.comment-not-best:first').before(commentHtml);
+		}
+	}else{
+		contentWrap.html(commentHtml);
 	}
 };
 
