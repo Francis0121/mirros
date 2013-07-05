@@ -34,6 +34,44 @@ $(function(){
 	mobile.autocomplete();
 });
 
+function onLoginSubmit(name){
+	var $form = $('#'+name);
+	
+	jQuery.ajax({
+		'type' : 'POST',
+		'url' : webPath + '/j_spring_security_check',
+		'data' : $form.serialize(),
+		'dataType' : 'text',
+		'success' : function(data) {
+			mobile.loginControl(data, name);
+		}
+	});	
+}
+
+mobile.loginControl = function(data, name){
+	
+	var map = eval('('+data+')'),
+		result = map.result;
+	
+	if(result == 'success'){
+		$.postJSON(contextPath + "/securityLogin", { token : map.ser, remember : map.remember }, function(mobileData){
+			var mobileResult = mobileData.result;
+			if(mobileResult == 'success'){
+				location.href = contextPath + '/';
+			}else if(mobileResult =='error'){
+				location.href= contextPath + '/login/?error=1';
+				$('.jt-login-error-box').html('로그인에 실패하였습니다.');
+			}
+		});	
+		return;
+	}else if(result == 'error'){
+		location.href= contextPath + '/login/?error=1';
+		$('.jt-login-error-box').html('로그인에 실패하였습니다.');
+		return;
+	}
+
+};
+
 mobile.autocomplete = function(){
 	$.widget( "custom.catcomplete", $.ui.autocomplete, {
 	    _renderMenu: function( ul, items ) {

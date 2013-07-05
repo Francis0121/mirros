@@ -41,13 +41,28 @@ public class UserAuthenticator {
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 	}
 
-	public void onApplicationEvent(String username, HttpServletRequest request, HttpServletResponse response) {
+	public void onApplicationEvent(String username, HttpServletRequest request,
+			HttpServletResponse response) {
 		Authentication authentication = SecurityContextHolder.getContext()
 				.getAuthentication();
 		ipPersistentTokenBasedRememberMeServices.logout(request, response,
 				authentication);
 		SecurityContextHolder.getContext().setAuthentication(
 				createNewAuthentication(authentication, username));
+	}
+
+	public void onApplicationRemeberMe(String username,
+			HttpServletRequest request, HttpServletResponse response) {
+		Authentication authentication = SecurityContextHolder.getContext()
+				.getAuthentication();
+		ipPersistentTokenBasedRememberMeServices.logout(request, response,
+				authentication);
+		Authentication successfulAuthentication = createNewAuthentication(
+				authentication, username);
+		SecurityContextHolder.getContext().setAuthentication(
+				successfulAuthentication);
+		ipPersistentTokenBasedRememberMeServices.onLoginSuccess(request,
+				response, successfulAuthentication);
 	}
 
 	protected Authentication createNewAuthentication(

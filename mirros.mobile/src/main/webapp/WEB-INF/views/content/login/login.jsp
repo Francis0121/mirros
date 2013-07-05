@@ -1,12 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../../layout/home-header.jspf" %>
+<script>
+function onPopupLoginSubmit(){
+	onLoginSubmit('mm-page-login-form');
+}
+</script>
 <header class="mm-header">
 	<div>
 		<a href="${cp }">Mirros</a>
 	</div>
 </header>
 <sec:authorize access="anonymous">
-	<form action="${cp }/j_spring_security_check" method="post">
+	<form method="post" id="mm-page-login-form" action="http://test1.mirros.net:8080/jtown/j_spring_security_check"  onsubmit="onPopupLoginSubmit(); return false;">
 		<table class="mm-login-table">
 			<tfoot>
 				<tr>
@@ -34,7 +39,7 @@
 		<ul class="mm-login-sign-wrap" >
 			<li>
 				<!-- FACEBOOK login -->
-				<form action="${cp }/signin/facebook" method="POST">
+				<form action="${web }/signin/facebook" method="POST">
 					<input type="hidden" name="scope" value="publish_stream,offline_access,email,user_birthday,user_likes" />
 			    	<button class="mm-btn-fbLogin" type="submit"><span class="loginImage"></span><span class="loginBar"></span><span>페이스북으로&nbsp;로그인</span></button>
 				</form>							
@@ -52,13 +57,11 @@
 			</p>
 		</div>
 		
-		<c:if test="${not empty param.login_error}">  
 		<div class="mm-login-error-box">
-	        <spring:message code="login.error.message"/>
-	        <br/>
-	        <c:out value="${SPRING_SECURITY_LAST_EXCEPTION.message}"/>
-	    </div>
-		</c:if>	
+		    <c:if test="${login_error eq 1 }">
+				로그인에 실패하였습니다.
+			</c:if>
+	    </div>	
 </sec:authorize>	
 <sec:authorize access="hasRole('ROLE_USER')">
 	<span style="font-size: 75%; "><sec:authentication property="principal.name" />님 반갑습니다.</span>

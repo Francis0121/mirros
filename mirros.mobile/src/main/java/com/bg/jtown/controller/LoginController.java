@@ -1,6 +1,8 @@
 package com.bg.jtown.controller;
 
 import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -28,6 +30,7 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -38,7 +41,6 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
-import com.bg.jtown.business.search.HomeFilter;
 import com.bg.jtown.controller.validator.LoginValidatorImpl;
 import com.bg.jtown.security.Authority;
 import com.bg.jtown.security.Confirm;
@@ -100,7 +102,9 @@ public class LoginController {
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String showLogin(Model model) {
+	public String showLogin(Model model,
+			@RequestParam(required = false) String error) {
+		model.addAttribute("login_error", error);
 		return "login/login";
 	}
 
@@ -109,24 +113,64 @@ public class LoginController {
 		return "login/noPermission";
 	}
 
-	@RequestMapping(value = "/process")
-	public String showProcessRedirect(HttpSession session,
-			HomeFilter homeFilter, SummaryUser summaryUser, Model model) {
+	private static final String COOKIE_KEY = "q7bjvdqbe83lt0aj";
 
-		Authority authority = summaryUser.getEnumAuthority();
-		if (authority.equals(Authority.ADMIN)
-				|| authority.equals(Authority.ROOT_ADMIN)) {
-			return "redirect:admin";
-		} else if (authority.equals(Authority.SELLER)) {
-			return "redirect:seller/" + summaryUser.getPn();
-		} else if (authority.equals(Authority.CUSTOMER)) {
-			// TODO 사용자 맞춤형k메뉴 검색시 추가
-			// session.setAttribute("interestMap",
-			// homeService.selectInterest(summaryUser.getPn()));
-			return "redirect:";
-		} else {
-			return "redirect:";
+	@RequestMapping(value = "/securityLogin")
+	@ResponseBody
+	public Object ajaxSecurityLogin(@RequestBody Object param,
+			SummaryUser summaryUser, HttpServletRequest request,
+			HttpServletResponse response) {
+		@SuppressWarnings("unchecked")
+		LinkedHashMap<String, Object> hashMap = (LinkedHashMap<String, Object>) param;
+		byte[] encryptbytes = Base64.decode((String) hashMap.get("token"));
+		String decryptText = "";
+		try {
+			decryptText = seedCipher.decryptAsString(encryptbytes,
+					COOKIE_KEY.getBytes(), "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			logger.error("Error in Confimr Email Address Encoding");
+			decryptText = null;
 		}
+		Map<String, String> map = new HashMap<String, String>();
+		if (decryptText == null) {
+			map.put("result", "error");
+		} else {
+			String[] tokenArrayStr = decryptText.split("~");
+			String tokenUsername = tokenArrayStr[0];
+			String tokenIp = tokenArrayStr[1];
+			if (tokenIp.equals(summaryUser.getRemoteIp())) {
+				if ((Boolean) hashMap.get("remember")) {
+					userAuthenticator.onApplicationRemeberMe(tokenUsername,
+							request, response);
+				} else {
+					userAuthenticator.onApplicationEvent(tokenUsername,
+							request, response);
+				}
+				map.put("result", "success");
+			} else {
+				map.put("result", "error");
+			}
+		}
+		return map;
+	}
+
+	@RequestMapping(value = "/loginProcess")
+	@ResponseBody
+	public Object showProcessRedirect(HttpSession session,
+			HttpServletResponse response, HttpServletRequest request,
+			SummaryUser summaryUser, Model model) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("result", "success");
+		return map;
+	}
+
+	@RequestMapping(value = "/loginError")
+	@ResponseBody
+	public Object error(HttpSession session, HttpServletResponse response,
+			HttpServletRequest request, SummaryUser summaryUser, Model model) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("result", "error");
+		return map;
 	}
 
 	@PreAuthorize("hasRole('ROLE_USER')")
