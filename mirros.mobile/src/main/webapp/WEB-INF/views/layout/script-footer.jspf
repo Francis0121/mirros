@@ -8,7 +8,7 @@
 <script src="${cp}/resources/js/jquery.plugin.js"></script>
 <script src="${cp}/resources/js/jquery.infinitecarousel.js"></script>
 <script src="${cp}/resources/js/jquery.cookie.js"></script>
-
+<script> $.cookie.defaults.domain = '.mirros.net';	</script>
 <%-- Custom --%>
 <script src="${cp}/resources/js/mobile.mirros.js"></script>
 <script src="${cp}/resources/js/jquery.scroll.pagination.js"></script>
