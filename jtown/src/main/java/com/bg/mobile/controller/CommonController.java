@@ -1,21 +1,18 @@
-package com.bg.jtown.controller;
+package com.bg.mobile.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-@Controller
+@Controller(value = "mobileCommonController")
+@RequestMapping("/m")
 public class CommonController {
 
-	// ~ Variable
-
-	private String prefixView = "views/content/";
+	private String prefixView = "views_mobile/content/";
 
 	public void setPrefixView(String prefixView) {
 		this.prefixView = prefixView;
 	}
-
-	// ~ Show
 
 	@RequestMapping(value = "/individual", method = RequestMethod.GET)
 	public String showIndividual() {

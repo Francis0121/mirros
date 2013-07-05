@@ -48,6 +48,16 @@ import com.bg.jtown.util.ValidationUtil;
 @RequestMapping("/admin")
 public class AdminController {
 
+	// ~ Variable
+
+	private String prefixView = "views/content/admin/";
+
+	public void setPrefixView(String prefixView) {
+		this.prefixView = prefixView;
+	}
+
+	// ~ Dynamic Injection
+
 	@Resource
 	private AdminService adminService;
 	@Resource
@@ -61,28 +71,18 @@ public class AdminController {
 	@Resource
 	private FileService fileService;
 
-	private String prefiexUrl = "admin";
-
-	public String getPrefiexUrl() {
-		return prefiexUrl;
-	}
-
-	public void setPrefiexUrl(String prefiexUrl) {
-		this.prefiexUrl = prefiexUrl;
-	}
-
 	// ~ SHOW
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String showAdmin(Model model) {
-		return prefiexUrl + "/main";
+		return prefixView + "main";
 	}
 
 	@RequestMapping(value = "/customer", method = RequestMethod.GET)
 	public String showCustomerPage(Model model,
 			@ModelAttribute UserFilter userFilter) {
 		model.addAllAttributes(adminService.selectCustomerModelMap(userFilter));
-		return prefiexUrl + "/customer";
+		return prefixView + "customer";
 	}
 
 	@RequestMapping(value = "/administrator", method = RequestMethod.GET)
@@ -90,13 +90,13 @@ public class AdminController {
 			@ModelAttribute AdministratorFilter administratorFilter) {
 		model.addAllAttributes(adminService
 				.selectAdminModelMap(administratorFilter));
-		return prefiexUrl + "/user/list";
+		return prefixView + "user/list";
 	}
 
 	@RequestMapping(value = "/createAdministrator", method = RequestMethod.GET)
 	public String showCreateAdministrator(Model model) {
 		model.addAttribute("jtownUser", new JtownUser());
-		return prefiexUrl + "/user/create";
+		return prefixView + "user/create";
 	}
 
 	@RequestMapping(value = "/partnership", method = RequestMethod.GET)
@@ -110,7 +110,7 @@ public class AdminController {
 		}
 		model.addAllAttributes(helpService.selectObject(partnershipFilter));
 
-		return prefiexUrl + "/partnership/list";
+		return prefixView + "partnership/list";
 	}
 
 	@RequestMapping(value = "/contract", method = RequestMethod.GET)
@@ -126,7 +126,7 @@ public class AdminController {
 		Integer sellerPn = contractFilter.getSellerPn();
 		Contract contract = contractService.selectContractPeroid(sellerPn);
 		model.addAttribute("contract", contract);
-		return prefiexUrl + "/partnership/contract";
+		return prefixView + "partnership/contract";
 	}
 
 	@RequestMapping(value = "/comment", method = RequestMethod.GET)
@@ -134,7 +134,7 @@ public class AdminController {
 			@ModelAttribute AdminCommentFilter adminCommentFilter) {
 		model.addAttribute("comments",
 				adminService.selectAllCommentList(adminCommentFilter));
-		return prefiexUrl + "/comment";
+		return prefixView + "comment";
 	}
 
 	@RequestMapping(value = "/questions", method = RequestMethod.GET)
@@ -144,7 +144,7 @@ public class AdminController {
 		model.addAllAttributes(helpService
 				.selectQuestionCategoriesList(questionFilter));
 		model.addAttribute("questions", questions);
-		return prefiexUrl + "/question/list";
+		return prefixView + "question/list";
 	}
 
 	@RequestMapping(value = "/question", method = RequestMethod.GET)
@@ -152,7 +152,7 @@ public class AdminController {
 			@RequestParam(value = "qpn") Integer questionPn) {
 		Question question = helpService.selectQuestion(questionPn);
 		model.addAttribute("question", question);
-		return prefiexUrl + "/question/content";
+		return prefixView + "question/content";
 	}
 
 	// ~ FORM
@@ -182,7 +182,7 @@ public class AdminController {
 		}.validate(jtownUser, result);
 
 		if (result.hasErrors()) {
-			return prefiexUrl + "/user/create";
+			return prefixView + "user/create";
 		} else {
 			adminService.insertAdmin(jtownUser);
 			return "redirect:administrator";
@@ -216,7 +216,7 @@ public class AdminController {
 			List<Contract> contracts = contractService
 					.selectContractList(contractFilter);
 			model.addAttribute("contracts", contracts);
-			return prefiexUrl + "/partnership/contract";
+			return prefixView + "partnership/contract";
 		} else {
 			contractService.insertCaculatePeroidContract(contract);
 			return "redirect:contract?result=1&sellerPn=" + sellerPn;

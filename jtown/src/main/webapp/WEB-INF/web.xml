@@ -6,7 +6,7 @@
 	<!-- The definition of the Root Spring Container shared by all Servlets and Filters -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>/WEB-INF/spring/jtown-context.xml</param-value>
+		<param-value>/WEB-INF/spring/mirros-context.xml</param-value>
 	</context-param>
 	
 	<!-- Creates the Spring Container shared by all Servlets and Filters -->
@@ -16,37 +16,24 @@
 
 	<!-- Processes application requests -->
 	<servlet>
-		<servlet-name>jtown</servlet-name>
+		<servlet-name>mirros</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
-			<param-value>/WEB-INF/spring/appServlet/jtown-servlet.xml</param-value>
+			<param-value>/WEB-INF/spring/appServlet/mirros-servlet.xml</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 		
 	<servlet-mapping>
-		<servlet-name>jtown</servlet-name>
+		<servlet-name>mirros</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 	
 	<servlet-mapping>
-		<servlet-name>jtown</servlet-name>
+		<servlet-name>mirros</servlet-name>
 		<url-pattern>*.jt</url-pattern>
 	</servlet-mapping>
-	
-	
-	<!-- CORS Filter ajax Cross Domain -->
-	<filter>
-		<filter-name>CORSFilter</filter-name>
-		<filter-class>com.bg.jtown.controller.CORSFilter</filter-class>
-	</filter>
-	
-	<filter-mapping>
-		<filter-name>CORSFilter</filter-name>
-		<servlet-name>jtown</servlet-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>
 	
 	<!-- HttpMethod Filter Setting POST, GET, DELETE, PUT method adjust-->
 	<filter>
@@ -58,7 +45,7 @@
 	
 	<filter-mapping>
 		<filter-name>httpMethodFilter</filter-name>
-		<servlet-name>jtown</servlet-name>
+		<servlet-name>mirros</servlet-name>
 	</filter-mapping>
 		
 	<!-- UTF-8 Encoding Filter Setting -->

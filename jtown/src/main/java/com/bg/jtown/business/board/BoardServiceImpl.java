@@ -6,6 +6,7 @@ import java.util.List;
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.springframework.stereotype.Service;
 
+import com.bg.jtown.business.Board;
 import com.bg.jtown.business.search.BoardFilter;
 import com.bg.jtown.util.Pagination;
 

@@ -15,11 +15,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import com.bg.jtown.business.Board;
 import com.bg.jtown.business.Interest;
 import com.bg.jtown.business.Partnership;
 import com.bg.jtown.business.Question;
 import com.bg.jtown.business.QuestionSection;
-import com.bg.jtown.business.board.Board;
 import com.bg.jtown.business.board.BoardService;
 import com.bg.jtown.business.help.HelpService;
 import com.bg.jtown.business.home.HomeService;
@@ -35,6 +36,16 @@ import com.bg.jtown.util.ValidationUtil;
 @Controller
 public class HelpController {
 
+	// ~ Variable
+
+	private String prefixView = "views/content/";
+
+	public void setPrefixView(String prefixView) {
+		this.prefixView = prefixView;
+	}
+
+	// ~ Dynamic Injection
+
 	@Resource
 	private HelpService helpService;
 	@Resource
@@ -43,7 +54,6 @@ public class HelpController {
 	private HomeService homeService;
 	@Resource
 	private PartnershipValidatorImpl partnershipValidatorImpl;
-
 	@Resource
 	private QuestionValidatorImpl questionValidatorImpl;
 
@@ -54,7 +64,7 @@ public class HelpController {
 			@ModelAttribute BoardFilter boardFilter) {
 		model.addAttribute("noticeList",
 				boardService.selectNoticeList(boardFilter));
-		return "help/notice";
+		return prefixView + "help/notice";
 	}
 
 	@RequestMapping(value = "/help/notice/content", method = RequestMethod.GET)
@@ -64,7 +74,7 @@ public class HelpController {
 				boardService.selectNoticeContent(board));
 		model.addAttribute("noticeList",
 				boardService.selectBeforeAfterNotice(board));
-		return "help/noticeContent";
+		return prefixView + "help/noticeContent";
 	}
 
 	@RequestMapping(value = "/help/question", method = RequestMethod.GET)
@@ -76,12 +86,12 @@ public class HelpController {
 		model.addAttribute("questionCategoryMap", questionCategoryMap);
 		model.addAttribute("cQuestion", new Question());
 		model.addAttribute("sQuestion", new Question());
-		return "help/question";
+		return prefixView + "help/question";
 	}
 
 	@RequestMapping(value = "/help/serviceGuide", method = RequestMethod.GET)
 	public String showServiceGuide(Model model) {
-		return "help/serviceGuide";
+		return prefixView + "help/serviceGuide";
 	}
 
 	@RequestMapping(value = "/help/partnership", method = RequestMethod.GET)
@@ -91,7 +101,7 @@ public class HelpController {
 		model.addAttribute("interest", interests);
 		model.addAttribute("partnership", new Partnership());
 		model.addAttribute("result", result);
-		return "help/partnership";
+		return prefixView + "help/partnership";
 	}
 
 	// ~ Form
@@ -107,7 +117,7 @@ public class HelpController {
 		} else {
 			List<Interest> interests = homeService.selecInterestCategory();
 			model.addAttribute("interest", interests);
-			return "help/partnership";
+			return prefixView + "help/partnership";
 		}
 	}
 
@@ -122,7 +132,7 @@ public class HelpController {
 					.selectQuestionCategoriesMap();
 			model.addAttribute("questionCategoryMap", questionCategoryMap);
 			model.addAttribute("sQuestion", new Question());
-			return "help/question";
+			return prefixView + "help/question";
 		} else {
 			helpService.insertQuestion(question);
 			return "redirect:question?result=7";
@@ -167,7 +177,7 @@ public class HelpController {
 					.selectQuestionCategoriesMap();
 			model.addAttribute("questionCategoryMap", questionCategoryMap);
 			model.addAttribute("cQuestion", new Question());
-			return "help/question";
+			return prefixView + "help/question";
 		} else {
 			helpService.insertQuestion(question);
 			return "redirect:question?result=7";

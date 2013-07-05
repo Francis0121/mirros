@@ -61,25 +61,27 @@ import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 @Controller
 public class LoginController {
 
+	// ~ Static
+
 	private static final Logger logger = LoggerFactory
 			.getLogger(LoginController.class);
-
 	private static final String COOKIE_KEY = "q7bjvdqbe83lt0aj";
 
-	private UserCache userCache = new NullUserCache();
+	// ~ Variable
 
-	/**
-	 * Optionally sets the UserCache if one is in use in the application. This
-	 * allows the user to be removed from the cache after updates have taken
-	 * place to avoid stale data.
-	 * 
-	 * @param userCache
-	 *            the cache used by the AuthenticationManager.
-	 */
+	private UserCache userCache = new NullUserCache();
+	private String prefixView = "views/content/";
+
+	public void setPrefixView(String prefixView) {
+		this.prefixView = prefixView;
+	}
+
 	public void setUserCache(UserCache userCache) {
 		Assert.notNull(userCache, "userCache cannot be null");
 		this.userCache = userCache;
 	}
+
+	// ~ Dynamic Injection
 
 	@Resource
 	private LoginValidatorImpl loginValidatorImpl;
@@ -98,21 +100,23 @@ public class LoginController {
 	@Resource
 	private ConnectionRepository connectionRepository;
 
+	// ~ Show
+
 	@RequestMapping(value = "/signin", method = RequestMethod.GET)
 	public String showSigninRedirect(Model model) {
-		return "login/signin";
+		return prefixView + "login/signin";
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String showLogin(Model model,
 			@RequestParam(required = false) String error) {
 		model.addAttribute("login_error", error);
-		return "login/login";
+		return prefixView + "login/login";
 	}
 
 	@RequestMapping(value = "/loginProcess")
 	@ResponseBody
-	public Object showProcessRedirect(HttpSession session,
+	public Object ajaxProcessRedirect(HttpSession session,
 			HttpServletResponse response, HttpServletRequest request,
 			SummaryUser summaryUser, Model model) {
 		String url = "";
@@ -153,7 +157,7 @@ public class LoginController {
 
 	@RequestMapping(value = "/loginError")
 	@ResponseBody
-	public Object error(HttpSession session, HttpServletResponse response,
+	public Object ajaxError(HttpSession session, HttpServletResponse response,
 			HttpServletRequest request, SummaryUser summaryUser, Model model) {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("result", "error");
@@ -162,7 +166,7 @@ public class LoginController {
 
 	@RequestMapping(value = "/noPermission", method = RequestMethod.GET)
 	public String showNoPermissionPage() {
-		return "login/noPermission";
+		return prefixView + "login/noPermission";
 	}
 
 	@PreAuthorize("hasRole('ROLE_USER')")
@@ -223,7 +227,7 @@ public class LoginController {
 				user.setUsername(summaryUser.getUsername());
 				model.addAttribute("jtownUser", user);
 			}
-			return "login/modify";
+			return prefixView + "login/modify";
 		}
 	}
 
@@ -284,7 +288,7 @@ public class LoginController {
 				user.setUsername(summaryUser.getUsername());
 				model.addAttribute("jtownUser", user);
 			}
-			return "login/modify";
+			return prefixView + "login/modify";
 		}
 	}
 
@@ -304,7 +308,7 @@ public class LoginController {
 		String referer = request.getHeader("referer") == null ? "../" : request
 				.getHeader("referer");
 		request.setAttribute("beforJoinUrl", referer, WebRequest.SCOPE_SESSION);
-		return "login/join";
+		return prefixView + "login/join";
 	}
 
 	@RequestMapping(value = "/login/joinSubmit.jt", method = RequestMethod.POST)
@@ -348,7 +352,7 @@ public class LoginController {
 					"beforJoinUrl", WebRequest.SCOPE_SESSION);
 			return "redirect:" + beforeAddress;
 		} else {
-			return "login/join";
+			return prefixView + "login/join";
 		}
 	}
 
@@ -381,7 +385,7 @@ public class LoginController {
 			jtownUser.setUsername(summaryUser.getUsername());
 			model.addAttribute("jtownUser", jtownUser);
 		}
-		return "login/modify";
+		return prefixView + "login/modify";
 	}
 
 	@PreAuthorize("hasRole('ROLE_USER')")
@@ -511,7 +515,7 @@ public class LoginController {
 						.selectDeleteUser(summaryUser.getPn()));
 				model.addAttribute("disactiveUser", new JtownUser());
 			}
-			return "login/modify";
+			return prefixView + "login/modify";
 		}
 	}
 
@@ -521,7 +525,7 @@ public class LoginController {
 			@ModelAttribute JtownUser jtownUser,
 			@RequestParam(required = false) Integer result) {
 		model.addAttribute("result", result);
-		return "login/modifyEmailAddress";
+		return prefixView + "login/modifyEmailAddress";
 	}
 
 	@PreAuthorize("hasRole('ROLE_USER')")
@@ -568,7 +572,7 @@ public class LoginController {
 			userAuthenticator.login(username, password);
 			return "redirect:modifyEmailAddress/?result=3";
 		} else {
-			return "login/modifyEmailAddress";
+			return prefixView + "login/modifyEmailAddress";
 		}
 	}
 
@@ -586,7 +590,7 @@ public class LoginController {
 	public String formConfirmEmailAddress(Model model,
 			@RequestParam(required = false) Integer confirm) {
 		model.addAttribute("confirm", confirm);
-		return "login/confirmEmaillAddress";
+		return prefixView + "login/confirmEmaillAddress";
 	}
 
 	@RequestMapping(value = "/confirmEmailAddress", method = RequestMethod.GET)
@@ -636,7 +640,7 @@ public class LoginController {
 		model.addAttribute("jtownUser", new JtownUser());
 		model.addAttribute("sellerUser", new JtownUser());
 		model.addAttribute("result", result);
-		return "login/findPassword";
+		return prefixView + "login/findPassword";
 	}
 
 	@RequestMapping(value = "/login/findUserPassword.jt", method = RequestMethod.POST)
@@ -670,7 +674,7 @@ public class LoginController {
 			return "redirect:findPassword/?result=4";
 		} else {
 			model.addAttribute("sellerUser", new JtownUser());
-			return "login/findPassword";
+			return prefixView + "login/findPassword";
 		}
 	}
 
@@ -706,7 +710,7 @@ public class LoginController {
 			return "redirect:findPassword/?result=4";
 		} else {
 			model.addAttribute("jtownUser", new JtownUser());
-			return "login/findPassword";
+			return prefixView + "login/findPassword";
 		}
 	}
 

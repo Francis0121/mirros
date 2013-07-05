@@ -41,11 +41,67 @@ import com.google.gson.Gson;
 @Controller
 public class FileController {
 
+	// ~ Static
 	private static Logger logger = LoggerFactory
 			.getLogger(FileController.class);
 
+	// ~ Variabel
+
+	private String prefixView = "views/content/";
+
+	public void setPrefixView(String prefixView) {
+		this.prefixView = prefixView;
+	}
+
+	// ~ Dynamic Injection
 	@Resource
 	private FileService fileService;
+
+	// ~ Show
+
+	@RequestMapping(value = "/admin/file", method = RequestMethod.GET)
+	@SuppressWarnings("deprecation")
+	public String showUpload(@ModelAttribute FileFilter fileFilter,
+			Model model, HttpServletRequest request) {
+
+		String saveDirectory = request.getRealPath("resources/uploadAdmin");
+		List<FileVO> files = fileService.selectFiles(fileFilter);
+
+		for (FileVO file : files) {
+			try {
+				String directory = saveDirectory + "/" + file.getSaveName();
+				BufferedImage bi = ImageIO.read(new java.io.File(directory));
+				int width = bi.getWidth();
+				int height = bi.getHeight();
+
+				file.setWidth(width);
+				file.setHeight(height);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
+		model.addAttribute("files", files);
+		return prefixView + "upload_photo";
+	}
+
+	// ~ Form
+
+	@RequestMapping(value = "/admin/file", method = RequestMethod.DELETE)
+	public String formUploadDelete(@ModelAttribute FileFilter fileFilter,
+			Model model) {
+		Integer pn = fileFilter.getPn();
+
+		FileVO file = fileService.selectFile(pn);
+		String saveName = file.getSaveName();
+		FileUtil.fileDelete(saveName);
+
+		fileService.deleteFile(pn);
+		model.addAttribute("fileFilter", fileFilter);
+		return "redirect:file";
+	}
+
+	// ~ Ajax
 
 	@RequestMapping(value = "/file/upload.jt")
 	@ResponseBody
@@ -107,46 +163,6 @@ public class FileController {
 		}
 		writer.flush();
 		writer.close();
-	}
-
-	@RequestMapping(value = "/admin/file", method = RequestMethod.GET)
-	@SuppressWarnings("deprecation")
-	public String showUpload(@ModelAttribute FileFilter fileFilter,
-			Model model, HttpServletRequest request) {
-
-		String saveDirectory = request.getRealPath("resources/uploadAdmin");
-		List<FileVO> files = fileService.selectFiles(fileFilter);
-
-		for (FileVO file : files) {
-			try {
-				String directory = saveDirectory + "/" + file.getSaveName();
-				BufferedImage bi = ImageIO.read(new java.io.File(directory));
-				int width = bi.getWidth();
-				int height = bi.getHeight();
-
-				file.setWidth(width);
-				file.setHeight(height);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-
-		model.addAttribute("files", files);
-		return "upload_photo";
-	}
-
-	@RequestMapping(value = "/admin/file", method = RequestMethod.DELETE)
-	public String formUploadDelete(@ModelAttribute FileFilter fileFilter,
-			Model model) {
-		Integer pn = fileFilter.getPn();
-
-		FileVO file = fileService.selectFile(pn);
-		String saveName = file.getSaveName();
-		FileUtil.fileDelete(saveName);
-
-		fileService.deleteFile(pn);
-		model.addAttribute("fileFilter", fileFilter);
-		return "redirect:file";
 	}
 
 	@RequestMapping(value = "/admin/file/upload.jt")

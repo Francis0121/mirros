@@ -35,12 +35,12 @@
 		</property>
 	</bean>
 	
-	<import resource="jtown-orm.xml"/>
+	<import resource="mirros-orm.xml"/>
 
-	<import resource="jtown-redis.xml" />
+	<import resource="mirros-redis.xml" />
 
-	<import resource="jtown-security.xml" />
+	<import resource="mirros-security.xml" />
 
-	<import resource="jtown-email.xml"/>
+	<import resource="mirros-email.xml"/>
 
 </beans>

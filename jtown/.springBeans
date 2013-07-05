@@ -7,8 +7,10 @@
 	</configSuffixes>
 	<enableImports><![CDATA[true]]></enableImports>
 	<configs>
-		<config>src/main/webapp/WEB-INF/spring/jtown-redis.xml</config>
-		<config>src/main/webapp/WEB-INF/spring/jtown-security.xml</config>
+		<config>src/main/webapp/WEB-INF/spring/appServlet/mirros-servlet.xml</config>
+		<config>src/main/webapp/WEB-INF/spring/mirros-context.xml</config>
+		<config>src/main/webapp/WEB-INF/spring/mirros-security.xml</config>
+		<config>src/main/webapp/WEB-INF/spring/mirros-redis.xml</config>
 	</configs>
 	<configSets>
 	</configSets>

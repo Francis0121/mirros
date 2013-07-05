@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.bg.jtown.business.board.Board;
+import com.bg.jtown.business.Board;
 import com.bg.jtown.business.board.BoardService;
 import com.bg.jtown.business.search.BoardFilter;
 
@@ -23,14 +23,10 @@ public class BoardController {
 	@Resource
 	private BoardService boardService;
 
-	private String prefiexUrl = "admin";
+	private String prefiexView = "views/content/admin/";
 
-	public String getPrefiexUrl() {
-		return prefiexUrl;
-	}
-
-	public void setPrefiexUrl(String prefiexUrl) {
-		this.prefiexUrl = prefiexUrl;
+	public void setPrefiexView(String prefiexView) {
+		this.prefiexView = prefiexView;
 	}
 
 	@RequestMapping(value = "/notice", method = RequestMethod.GET)
@@ -38,7 +34,7 @@ public class BoardController {
 			@ModelAttribute BoardFilter boardFilter) {
 		model.addAttribute("noticeList",
 				boardService.selectNoticeList(boardFilter));
-		return prefiexUrl + "/notice/list";
+		return prefiexView + "notice/list";
 	}
 
 	@RequestMapping(value = "/noticeWrite", method = RequestMethod.GET)
@@ -47,7 +43,7 @@ public class BoardController {
 		if (pn != null && !pn.equals(0)) {
 			model.addAttribute("board", boardService.selectNoticeContent(board));
 		}
-		return prefiexUrl + "/notice/write";
+		return prefiexView + "notice/write";
 	}
 
 	@RequestMapping(value = "/noticeWrite", method = RequestMethod.POST)
@@ -68,17 +64,17 @@ public class BoardController {
 		}.validate(board, result);
 
 		if (result.hasErrors()) {
-			return prefiexUrl + "/notice/write";
+			return prefiexView + "notice/write";
 		} else {
 			boardService.insertNoticeWrite(board);
-			return "redirect:/" + prefiexUrl + "/notice";
+			return "redirect:/" + prefiexView + "notice";
 		}
 	}
 
 	@RequestMapping(value = "/noticeWrite", method = RequestMethod.DELETE)
 	public String formNoticeDelete(Model model, @ModelAttribute Board board) {
 		boardService.deleteBoard(board);
-		return "redirect:/" + prefiexUrl + "/notice";
+		return "redirect:/" + prefiexView + "notice";
 	}
 
 	@RequestMapping(value = "/noticeContent", method = RequestMethod.GET)
@@ -86,7 +82,7 @@ public class BoardController {
 		model.addAttribute("notice", boardService.selectNoticeContent(board));
 		model.addAttribute("noticeList",
 				boardService.selectBeforeAfterNotice(board));
-		return prefiexUrl + "/notice/content";
+		return prefiexView + "notice/content";
 	}
 
 	@RequestMapping(value = "/noticeWrite", method = RequestMethod.PUT)
@@ -106,7 +102,7 @@ public class BoardController {
 			}
 		}.validate(board, result);
 		if (result.hasErrors()) {
-			return prefiexUrl + "/notice/write";
+			return prefiexView + "notice/write";
 		} else {
 			boardService.updateNotice(board);
 			model.addAttribute("notice",

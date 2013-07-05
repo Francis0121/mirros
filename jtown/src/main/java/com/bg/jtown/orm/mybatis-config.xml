@@ -3,7 +3,7 @@
 <configuration>
 	<typeAliases>
 		<!-- Object -->
-		<typeAlias alias="Board" type="com.bg.jtown.business.board.Board" />
+		<typeAlias alias="Board" type="com.bg.jtown.business.Board" />
 		<typeAlias alias="Comment" type="com.bg.jtown.business.Comment"/>
 		<typeAlias alias="Confirm" type="com.bg.jtown.security.Confirm"/>
 		<typeAlias alias="Contract" type="com.bg.jtown.business.Contract"/>

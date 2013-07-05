@@ -35,8 +35,20 @@ import com.bg.jtown.business.seller.SellerService;
 @Controller
 public class SellerController {
 
+	// ~ Static
+
 	private static final Logger logger = LoggerFactory
 			.getLogger(SellerController.class);
+
+	// ~ Variable
+
+	private String prefixView = "views/content/";
+
+	public void setPrefixView(String prefixView) {
+		this.prefixView = prefixView;
+	}
+
+	// ~ Dynamic Injection
 
 	@Resource
 	private SellerService sellerService;
@@ -60,7 +72,7 @@ public class SellerController {
 		if (error != null) {
 			model.addAttribute("error", error);
 		}
-		return "seller";
+		return prefixView + "seller";
 	}
 
 	@PreAuthorize("hasRole('ROLE_SELLER')")
@@ -83,7 +95,7 @@ public class SellerController {
 		Product product = new Product();
 		product.setSellerPn(sellerPn);
 		model.addAttribute("product", product);
-		return "seller_photo";
+		return prefixView + "seller_photo";
 	}
 
 	// ~ Form
@@ -130,7 +142,7 @@ public class SellerController {
 		if (result.hasErrors()) {
 			model.addAttribute("products",
 					sellerService.selectSellerProduct(nowPn));
-			return "seller_photo";
+			return prefixView + "seller_photo";
 		} else {
 			Integer sellerPn = product.getSellerPn();
 			product.setSellerPn(sellerPn);

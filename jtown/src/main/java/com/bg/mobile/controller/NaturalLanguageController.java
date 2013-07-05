@@ -1,4 +1,4 @@
-package com.bg.jtown.controller;
+package com.bg.mobile.controller;
 
 import java.util.HashMap;
 import java.util.List;
@@ -25,22 +25,17 @@ import com.bg.jtown.security.JtownUser;
  * @author Francis
  * 
  */
-@Controller
+@Controller(value = "mobileNaturalLanguageController")
+@RequestMapping("/m/natural")
 public class NaturalLanguageController {
-
-	// ~ Static
 
 	private static Logger logger = LoggerFactory
 			.getLogger(NaturalLanguageController.class);
 
-	// ~ Dynamic Injection
-
 	@Resource
 	private NaturalLanguageService naturalLanguageService;
 
-	// ~ Ajax
-
-	@RequestMapping(value = "/ajax/natural/autocomplete.jt", method = RequestMethod.POST)
+	@RequestMapping(value = "/ajax/autocomplete.jt", method = RequestMethod.POST)
 	@ResponseBody
 	public Object ajaxAutoComplete(
 			@RequestBody NaturalLanguageFilter naturalLanguageFilter) {

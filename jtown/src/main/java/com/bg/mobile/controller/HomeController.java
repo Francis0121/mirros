@@ -1,7 +1,6 @@
-package com.bg.jtown.controller;
+package com.bg.mobile.controller;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -10,7 +9,6 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.social.ApiException;
 import org.springframework.social.facebook.api.Facebook;
 import org.springframework.social.facebook.api.FacebookLink;
@@ -24,25 +22,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.bg.jtown.business.Comment;
 import com.bg.jtown.business.Count;
-import com.bg.jtown.business.Interest;
 import com.bg.jtown.business.comment.CommentService;
 import com.bg.jtown.business.home.HomeService;
-import com.bg.jtown.business.search.CommentFilter;
 import com.bg.jtown.business.search.HomeFilter;
 import com.bg.jtown.business.seller.SellerService;
 import com.bg.jtown.security.Authority;
 import com.bg.jtown.security.JtownUser;
 import com.bg.jtown.security.LoginService;
 import com.bg.jtown.security.SummaryUser;
-import com.bg.jtown.security.algorithm.SeedCipher;
 
 /**
- * @author Francis, 박광열
+ * @author Francis
  * 
  */
-@Controller
+@Controller(value = "mobileHomeController")
+@RequestMapping("/m")
 public class HomeController {
 
 	// ~ Static
@@ -54,7 +49,7 @@ public class HomeController {
 
 	// ~ Variable
 
-	private String prefixView = "views/content/";
+	private String prefixView = "views_mobile/content/";
 
 	public void setPrefixView(String prefixView) {
 		this.prefixView = prefixView;
@@ -74,8 +69,6 @@ public class HomeController {
 	private SellerService sellerService;
 	@Resource
 	private LoginService loginService;
-	@Resource
-	private SeedCipher seedCipher;
 
 	// ~ SHOW
 
@@ -167,44 +160,6 @@ public class HomeController {
 		}
 	}
 
-	@RequestMapping(value = "/ajax/home/expandShop.jt", method = RequestMethod.POST)
-	@ResponseBody
-	public Map<String, Object> ajaxExpandShop(@RequestBody JtownUser jtownUser,
-			SummaryUser summaryUser) {
-		Integer sellerPn = jtownUser.getPn();
-		Integer customerPn = summaryUser.getPn();
-
-		Map<String, Object> selectMap = homeService.selectExpandShop(sellerPn);
-
-		if (summaryUser.getEnumAuthority().equals(Authority.CUSTOMER)) {
-			selectMap.put("cpn", customerPn);
-			if (customerPn != null && customerPn != 0) {
-				int count = homeService.selectLoveCount(new Count(null,
-						customerPn, null, null, sellerPn, null));
-				selectMap.put("loveHave", count);
-			}
-		} else if (summaryUser.getEnumAuthority().equals(Authority.NOT_LOGIN)) {
-			selectMap.put("cpn", null);
-		} else {
-			selectMap.put("cpn", 0);
-		}
-
-		CommentFilter commentFilter = new CommentFilter();
-		commentFilter.setSellerPn(sellerPn);
-		commentFilter.setCustomerPn(customerPn);
-
-		List<Comment> commentTops = commentService
-				.selectCommentTop(commentFilter);
-		if (commentTops.size() == 0) {
-			selectMap.put("comments",
-					commentService.selectComment(commentFilter));
-		}
-		selectMap.put("commentTops", commentTops);
-		selectMap.put("commentFilter", commentFilter);
-
-		return selectMap;
-	}
-
 	@RequestMapping(value = "/ajax/clickView.jt", method = RequestMethod.POST)
 	@ResponseBody
 	public void ajaxClickShop(@RequestBody Count count, HttpSession session,
@@ -285,102 +240,6 @@ public class HomeController {
 			count.setMessage("2");
 		}
 		return count;
-	}
-
-	// ~ Custom Navigation - 2013.04.16 사용 X
-
-	@RequestMapping(value = "/ajax/getNavInterest.jt", method = RequestMethod.POST)
-	@ResponseBody
-	public Map<String, Object> ajaxGetNavInterest(@RequestBody Interest interest) {
-		return homeService.selectInterestDataMap(interest.getCategoryPn());
-	}
-
-	@RequestMapping(value = "/ajax/navInterestDelete.jt", method = RequestMethod.POST)
-	@ResponseBody
-	public void ajaxClickLove(@RequestBody Interest interest,
-			HttpSession session) {
-		try {
-			JtownUser user = (JtownUser) SecurityContextHolder.getContext()
-					.getAuthentication().getPrincipal();
-			logger.debug(user.toString());
-			if (user.getGroupName().equals("Customer")) {
-				interest.setCustomerPn(user.getPn());
-				homeService.deleteInterest(interest);
-			} else {
-				logger.debug("판매자 사용불가");
-			}
-		} catch (ClassCastException e) {
-			logger.debug("로그인하지않은 사용자");
-		}
-		@SuppressWarnings("unchecked")
-		Map<Integer, List<Interest>> interestMap = (Map<Integer, List<Interest>>) session
-				.getAttribute("interestMap");
-		logger.debug(interestMap.toString());
-		Integer categoryPn = interest.getCategoryPn();
-		List<Interest> interests = interestMap.get(categoryPn);
-		logger.debug(interests.toString());
-		List<Interest> newInterests = new ArrayList<Interest>();
-		if (interests != null) {
-			for (Interest i : interests) {
-				if (!i.getSectionPn().equals(interest.getSectionPn()))
-					newInterests.add(i);
-			}
-		}
-		interestMap.put(categoryPn, newInterests);
-		session.setAttribute("interestMap", interestMap);
-	}
-
-	@RequestMapping(value = "/ajax/navInterestInsert.jt", method = RequestMethod.POST)
-	@ResponseBody
-	public void navInterestInsert(@RequestBody Interest interest,
-			HttpSession session) {
-		try {
-			JtownUser user = (JtownUser) SecurityContextHolder.getContext()
-					.getAuthentication().getPrincipal();
-			logger.debug(user.toString());
-			if (user.getGroupName().equals("Customer")) {
-				interest.setCustomerPn(user.getPn());
-				homeService.insertInterest(interest);
-			} else {
-				logger.debug("판매자 사용불가");
-			}
-		} catch (ClassCastException e) {
-			logger.debug("로그인하지않은 사용자");
-		}
-
-		@SuppressWarnings("unchecked")
-		Map<Integer, List<Interest>> interestMap = (Map<Integer, List<Interest>>) session
-				.getAttribute("interestMap");
-		Integer categoryPn = interest.getCategoryPn();
-		if (interestMap == null) {
-			Map<Integer, List<Interest>> newInterestMap = new HashMap<Integer, List<Interest>>();
-			List<Interest> newInterest = new ArrayList<Interest>();
-			newInterest.add(interest);
-			newInterestMap.put(categoryPn, newInterest);
-			session.setAttribute("interestMap", newInterestMap);
-			logger.debug(newInterestMap.toString());
-		} else {
-			List<Interest> interests = interestMap.get(categoryPn);
-			boolean result = true;
-			if (interests == null) {
-				interests = new ArrayList<Interest>();
-			} else {
-				for (Interest i : interests) {
-					Integer addSectionPn = interest.getSectionPn();
-					Integer innerSectionPn = i.getSectionPn();
-					if (addSectionPn.equals(innerSectionPn)) {
-						result = false;
-						break;
-					}
-				}
-			}
-			if (result) {
-				interests.add(interest);
-				interestMap.put(categoryPn, interests);
-				logger.debug(interestMap.toString());
-				session.setAttribute("interestMap", interestMap);
-			}
-		}
 	}
 
 }
