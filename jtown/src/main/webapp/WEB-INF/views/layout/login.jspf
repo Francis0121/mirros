@@ -10,6 +10,7 @@
 <div id="jt-login-form-wrap">
 	<div id="jt-login-form">
 		<form action="${cp }/j_spring_security_check" method="post" name="jtown-login-form">
+			<input type="hidden" id="redirect" name="redirect" value="webpage"/>
 		<table class="jt-login-form-table">
 			<thead>
 				<tr>

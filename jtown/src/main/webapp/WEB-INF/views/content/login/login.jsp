@@ -6,9 +6,25 @@
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <%@ include file="../../layout/none_header.jspf" %>
 <c:set var="cp" value="<%=request.getContextPath() %>"/>
+<script>
+function onSubmit() {
+	var $form = $("form#mainLoginForm");
+	
+	jQuery.ajax({
+		'type' : 'POST',
+		'url' : $form.attr("action"),
+		'data' : $form.serialize(),
+		'dataType' : 'text',
+		'success' : function(data) {
+			alert(data);
+		}
+	});
+}
+</script>
+
 <section id="jt-login-form-page">
 	<sec:authorize access="anonymous">
-		<form action="${cp }/j_spring_security_check" method="post" name="jtown-login-form">
+		<form action="${cp }/j_spring_security_check" method="post" id="mainLoginForm" name="jtown-login-form" onsubmit="onSubmit(); return false;">
 			<table class="jt-login-form-table-page">
 				<thead>
 					<tr>
