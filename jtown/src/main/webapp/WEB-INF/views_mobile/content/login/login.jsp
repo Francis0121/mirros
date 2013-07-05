@@ -39,7 +39,7 @@ function onPopupLoginSubmit(){
 		<ul class="mm-login-sign-wrap" >
 			<li>
 				<!-- FACEBOOK login -->
-				<form action="${web }/signin/facebook" method="POST">
+				<form action="${cp }/signin/facebook" method="POST">
 					<input type="hidden" name="scope" value="publish_stream,offline_access,email,user_birthday,user_likes" />
 			    	<button class="mm-btn-fbLogin" type="submit"><span class="loginImage"></span><span class="loginBar"></span><span>페이스북으로&nbsp;로그인</span></button>
 				</form>							
