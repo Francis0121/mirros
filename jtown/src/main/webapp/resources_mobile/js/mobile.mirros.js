@@ -22,7 +22,7 @@ $(function(){
 	$('.mm-mir-header>a').bind('click', function(){
 		var thiz = $(this),
 			spn = thiz.attr('data-spn');
-		$.postJSON(contextPath + '/ajax/goHome.jt', { sellerPn : spn }, function() { });
+		$.postJSON(mobileContextPath + '/ajax/goHome.jt', { sellerPn : spn }, function() { });
 	});
 	
 	mobile.homeSync();
@@ -94,7 +94,7 @@ mobile.autocomplete = function(){
 	
 	$('#mm-naturalLanguage-search').catcomplete({
 		source : function(request, response){
-			var url = contextPath + '/natural/ajax/autocomplete.jt',
+			var url = mobileContextPath + '/natural/ajax/autocomplete.jt',
 				json = {	searchName : request.term  };
 			
 			$.postJSON(url, json, function(map){
@@ -115,9 +115,9 @@ mobile.autocomplete = function(){
 		select : function(event, ui){
 			var item = ui.item;
 			if(item.category =='SHOP'){				
-				location.href = contextPath + '/mir/'+item.pn;
+				location.href = mobileContextPath + '/mir/'+item.pn;
 			}else if(item.category =='CATEGORY'){
-				location.href = contextPath + '/cpn/'+item.categoryPn+'/spn/'+item.spn;
+				location.href = mobileContextPath + '/cpn/'+item.categoryPn+'/spn/'+item.spn;
 			}
 		},
 		focus : function(event, ui){
@@ -139,20 +139,20 @@ mobile.autocomplete = function(){
 mobile.product = function(spn, href){
 	var open = window.open('about:blank');
 	open.location.href = href;
-	$.postJSON(contextPath + '/ajax/goHome.jt', { sellerPn : spn }, function() { });
+	$.postJSON(mobileContextPath + '/ajax/goHome.jt', { sellerPn : spn }, function() { });
 };
 
 mobile.mirSync = function(){
 	$('.mm-mir-love').bind('click', function(){
 		var parent = $(this).parents('.mm-mir-footer');
 		var spn = parent.attr('data-spn');
-		var url = contextPath + '/ajax/clickLove.jt', 
+		var url = mobileContextPath + '/ajax/clickLove.jt', 
 			json = { sellerPn : spn };
 		
 		$.postJSON(url, json, function(count) {
 			if (!nullValueCheck(count.message)) {
 				if(count.message == '1'){				
-					location.href = contextPath+'/login';
+					location.href = mobileContextPath+'/login';
 				}else{
 					alert('판매자는 불가능합니다');
 				}
@@ -175,7 +175,7 @@ mobile.mirSync = function(){
 			numItemsPerPage = me.attr('data-nipp'),
 			numItems = me.attr('data-ni');
 
-		var url = contextPath + '/home/ajax/selectComment.jt';
+		var url = mobileContextPath + '/home/ajax/selectComment.jt';
 		var json = { 	page  		: 	page,
 						sellerPn	:	me.attr('data-spn')	};
 		
@@ -203,7 +203,7 @@ mobile.mirSync = function(){
 				spn = footer.attr('data-spn'),
 				name = footer.attr('data-name');
 			
-			var url = contextPath + '/home/ajax/existComment.jt',
+			var url = mobileContextPath + '/home/ajax/existComment.jt',
 				json = { sellerPn : spn	};
 			
 			$.postJSON(url, json, function(map){
@@ -236,11 +236,11 @@ mobile.mirSync = function(){
 		if(nullValueCheck(comment)){ return ; }
 		
 		var url, json = { 	'sellerPn' 	: spn };
-		url = contextPath + '/home/ajax/existLove.jt';
+		url = mobileContextPath + '/home/ajax/existLove.jt';
 		$.postJSON(url, json, function(result){
 		
 			postComment = function(){
-				url = contextPath + '/home/ajax/insertComment.jt';
+				url = mobileContextPath + '/home/ajax/insertComment.jt';
 				json.comment = comment;
 				$.postJSON(url, json, function(comment){
 					insert.val('');
@@ -251,13 +251,13 @@ mobile.mirSync = function(){
 			if(!result){
 				mobile.loveConfirm(
 					function(){
-						url = contextPath + '/ajax/clickLove.jt';
+						url = mobileContextPath + '/ajax/clickLove.jt';
 						json = { sellerPn : spn };
 						
 						$.postJSON(url, json, function(count) {
 							if (!nullValueCheck(count.message)) {
 								if(count.message == '1'){				
-									location.href = contextPath+'/login';
+									location.href = mobileContextPath+'/login';
 								}else{
 									alert('판매자는 불가능합니다');
 								}
@@ -323,7 +323,7 @@ mobile.commentSync = function(){
 			parents = thiz.parents('.mm-mir-comment-content-text'),
 			commentPn = parents.attr('data-copn');
 		
-		var url = contextPath + '/home/ajax/warnCommentLove.jt';
+		var url = mobileContextPath + '/home/ajax/warnCommentLove.jt';
 		var json = {	commentPn	:	commentPn 	};
 		
 		$.postJSON(url, json, function(comment){
@@ -340,7 +340,7 @@ mobile.commentSync = function(){
 			parents = thiz.parents('.mm-mir-comment-content-text'),
 			footer = thiz.parents('.mm-mir-footer');
 		
-		var url = contextPath + '/home/ajax/toggleCommentLove.jt';
+		var url = mobileContextPath + '/home/ajax/toggleCommentLove.jt';
 		var json = {	commentPn	:	parents.attr('data-copn'),
 						sellerPn	:	footer.attr('data-spn') 		};
 		
@@ -348,7 +348,7 @@ mobile.commentSync = function(){
 			if(!nullValueCheck(comment.message)){
 				switch (Number(comment.message)) {
 				case 1:
-					location.href= contextPath + '/login';				
+					location.href= mobileContextPath + '/login';				
 					break;
 				case 2:
 					alert('판매자는 불가능 합니다.');
@@ -374,13 +374,13 @@ mobile.commentSync = function(){
 				parents = thiz.parents('.mm-mir-comment-content-text'),
 				footer = thiz.parents('.mm-mir-footer');
 			
-			var url = contextPath + '/home/ajax/toggleCommentLove.jt';
+			var url = mobileContextPath + '/home/ajax/toggleCommentLove.jt';
 			var json = {	commentPn	:	parents.attr('data-copn'),
 							sellerPn	:	footer.attr('data-spn') 		};
 			
 			$.postJSON(url, json, function(comment){
 				if(!nullValueCheck(comment.message)){
-					location.href = contextPath + '/login';
+					location.href = mobileContextPath + '/login';
 				}else{
 					var crudType = comment.crudType;
 					if(crudType == 'delete'){
@@ -400,7 +400,7 @@ mobile.commentSync = function(){
 			comment = thiz.parents('.mm-mir-comment-content-text'),
 			commentPn = comment.attr('data-copn');
 		
-		var url = contextPath + '/home/ajax/deleteComment.jt',
+		var url = mobileContextPath + '/home/ajax/deleteComment.jt',
 			json = {	'commentPn' : commentPn,
 						'sellerPn'	: spn		};
 		$.postJSON(url, json, function(){ });
@@ -435,7 +435,7 @@ mobile.commentSync = function(){
 			commentWrap = comment.find('.mm-mir-comment-text-wrap'),
 			txt = updateWrap.find('.mm-mir-comment-update').val();
 		
-		var url = contextPath + '/home/ajax/updateComment.jt',
+		var url = mobileContextPath + '/home/ajax/updateComment.jt',
 			json = {	'commentPn' : comment.attr('data-copn'),
 						'comment'	: txt	};
 		if(nullValueCheck(txt)){
@@ -501,13 +501,13 @@ mobile.homeSync = function(){
 	$('.mm-home-love').unbind('click').bind('click', function(){
 		var parent = $(this).parents('.mm-home-article');
 		var spn = parent.attr('data-spn');
-		var url = contextPath + '/ajax/clickLove.jt', 
+		var url = mobileContextPath + '/ajax/clickLove.jt', 
 			json = { sellerPn : spn };
 		
 		$.postJSON(url, json, function(count) {
 			if (!nullValueCheck(count.message)) {
 				if(count.message == '1'){				
-					location.href = contextPath+'/login';
+					location.href = mobileContextPath+'/login';
 				}else{
 					alert('판매자는 불가능합니다');
 				}
@@ -527,21 +527,21 @@ mobile.homeSync = function(){
 		var parent = $(this).parents('.mm-home-article');
 		var spn = parent.attr('data-spn');
 		
-		$.postJSON(contextPath + '/ajax/goHome.jt', { sellerPn : spn }, function() { });
+		$.postJSON(mobileContextPath + '/ajax/goHome.jt', { sellerPn : spn }, function() { });
 	});
 	
 	$('.mm-home-mainImage').unbind('click').bind('click', function(){
 		var parent = $(this).parents('.mm-home-article');
 		var spn = parent.attr('data-spn');
 
-		location.href= contextPath + '/mir/'+spn;
+		location.href= mobileContextPath + '/mir/'+spn;
 	});
 	
 	$('.mm-home-comment').unbind('click').bind('click', function(){
 		var parent = $(this).parents('.mm-home-article');
 		var spn = parent.attr('data-spn');
 
-		location.href= contextPath + '/mir/'+spn;
+		location.href= mobileContextPath + '/mir/'+spn;
 	});
 };
 

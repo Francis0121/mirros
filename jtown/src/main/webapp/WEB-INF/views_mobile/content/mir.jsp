@@ -9,7 +9,7 @@
 <header class="mm-mir-header">
 	<a href="http://${jtownUser.shopUrl }" target="_blank" data-spn="${jtownUser.pn }"><c:out value="${jtownUser.name }"/></a>
 	<div class="mm-mir-header-goHome">
-		<a href="${cp }">Home</a>
+		<a href="${mcp }/">Home</a>
 	</div>
 </header>
 <section class="mm-mir-section">

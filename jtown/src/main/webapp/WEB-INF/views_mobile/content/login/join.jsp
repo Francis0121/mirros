@@ -2,7 +2,7 @@
 <%@ include file="../../layout/home-header.jspf" %>
 <header class="mm-header">
 	<div>
-		<a href="${cp }">Mirros</a>
+		<a href="${mcp }/">Mirros</a>
 	</div>
 </header>
 <section class="mm-join-user-wrap">
@@ -10,7 +10,7 @@
 		<h1>회원가입</h1>
 	</header>
 	<article class="mm-join-user-articel">
-	<form:form commandName="jtownUser" action="${cp }/login/joinSubmit.jt" htmlEscape="true" method="post">
+	<form:form commandName="jtownUser" action="${mcp }/login/joinSubmit.jt" htmlEscape="true" method="post">
 	<table class="mm-join-user-table">
 		<tbody>
 			<tr>
@@ -120,7 +120,7 @@
 			<button type="button" class="mm-join-submit mm-btn-orange">가입하기</button>
 		</div>
 		<ul>
-			<li>‘가입하기’를&nbsp;누르면&nbsp;<a href="${cp }/individual">이용약관</a>&nbsp;및&nbsp;<a href="${cp }/agreement">개인정보취급방침</a>에&nbsp;동의한&nbsp;것으로&nbsp;간주합니다.</li>
+			<li>‘가입하기’를&nbsp;누르면&nbsp;<a href="${mcp }/individual">이용약관</a>&nbsp;및&nbsp;<a href="${mcp }/agreement">개인정보취급방침</a>에&nbsp;동의한&nbsp;것으로&nbsp;간주합니다.</li>
 			<li>판매자&nbsp;회원가입은&nbsp;고객센터로&nbsp;문의주시기&nbsp;바랍니다.</li>
 		</ul>
 	</footer>

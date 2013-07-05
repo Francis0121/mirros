@@ -2,7 +2,7 @@
 <%@ include file="../layout/home-header.jspf" %>
 <header class="mm-header">
 	<div>
-		<a href="${cp }">Mirros</a>
+		<a href="${mcp }/">Mirros</a>
 	</div>
 </header>
 <nav class="mm-home-nav">
@@ -15,7 +15,7 @@
 						<span><sec:authentication property="principal.name" /></span>
 					</li>
 					<li>
-						<a href="${cp }/login/logout"><span>Log out</span></a>
+						<a href="${mcp }/login/logout"><span>Log out</span></a>
 					</li>
 					<li>
 						<a href="${web }"><span>PC Version</span></a>
@@ -26,10 +26,10 @@
 						<span>Account</span>
 					</li>
 					<li>
-						<a href="${cp }/login"><span>Log In</span></a>
+						<a href="${mcp }/login"><span>Log In</span></a>
 					</li>
 					<li>
-						<a href="${cp }/login/join"><span>Sign In</span></a>
+						<a href="${mcp }/login/join"><span>Sign In</span></a>
 					</li>
 					<li>
 						<a href="${web }"><span>PC Version</span></a>
@@ -49,23 +49,23 @@
 <!-- 				</li> -->
 <!-- 			</ul> -->
 <!-- 		</li> -->
-		<c:set var="homeFilterUrl" value="${cp }/cpn/${homeFilter.categoryPn }/spn/0" scope="request"/>
+		<c:set var="homeFilterUrl" value="${mcp }/cpn/${homeFilter.categoryPn }/spn/0" scope="request"/>
 		<c:forEach var="interestCategory" items="${interestCategories }">
 			<c:set var="interestCategoryPn" value="${interestCategory.categoryPn }"/>
 			<c:set var="interestSections" value="${interestMap[interestCategoryPn] }"/>
 			<li>
-				<c:set var="interestUrl" value="${cp }/cpn/${interestCategoryPn }/spn/0"/>
+				<c:set var="interestUrl" value="${mcp }/cpn/${interestCategoryPn }/spn/0"/>
 				<a class="mm-home-nav-title" style="${interestUrl eq homeFilterUrl ? '' : ''}">
 					<span><c:out value="${interestCategory.name }"/></span>
 				</a>
 				<ul class="mm-home-sub-nav">
-					<c:set var="homeFilterUrl" value="${cp }/cpn/${homeFilter.categoryPn }/spn/${homeFilter.sectionPn eq null ? 0 : homeFilter.sectionPn}" scope="request"/>
+					<c:set var="homeFilterUrl" value="${mcp }/cpn/${homeFilter.categoryPn }/spn/${homeFilter.sectionPn eq null ? 0 : homeFilter.sectionPn}" scope="request"/>
 					<li>
 						<a href="${interestUrl }" style="${interestUrl eq homeFilterUrl ? '' : ''}"><span>ALL</span></a>
 					</li>
 					<c:forEach var="interestSection" items="${interestSections }">
 						<c:set var="interestSectionPn" value="${interestSection.sectionPn }"/>
-						<c:set var="interestUrl" value="${cp }/cpn/${interestCategoryPn }/spn/${interestSectionPn }"/>
+						<c:set var="interestUrl" value="${mcp }/cpn/${interestCategoryPn }/spn/${interestSectionPn }"/>
 						<li>
 							<a href="${interestUrl }" style="${interestUrl eq homeFilterUrl ? '' : ''}"><span><c:out value="${interestSection.name }"/></span></a>
 						</li>

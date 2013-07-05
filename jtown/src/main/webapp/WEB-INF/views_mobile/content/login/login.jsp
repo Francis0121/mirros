@@ -7,7 +7,7 @@ function onPopupLoginSubmit(){
 </script>
 <header class="mm-header">
 	<div>
-		<a href="${cp }">Mirros</a>
+		<a href="${mcp }/">Mirros</a>
 	</div>
 </header>
 <sec:authorize access="anonymous">
@@ -30,7 +30,7 @@ function onPopupLoginSubmit(){
 				</tr>
 				<tr>
 					<td colspan="2">
-						<input id="j_password_page" name="j_password" size="20" maxlength="50" type="password" class="mm-login-table-password"  placeholder="Password"/><button type="button" onclick="location.href='${cp}/login/findPassword'" title="비밀번호를&nbsp;잊으셨나요?" class="mm-login-findPassword">?</button>
+						<input id="j_password_page" name="j_password" size="20" maxlength="50" type="password" class="mm-login-table-password"  placeholder="Password"/><button type="button" onclick="location.href='${mcp}/login/findPassword'" title="비밀번호를&nbsp;잊으셨나요?" class="mm-login-findPassword">?</button>
 					</td>
 				</tr>
 			</tbody>
@@ -45,7 +45,7 @@ function onPopupLoginSubmit(){
 				</form>							
 			</li>
 			<li>
-				<button class="mm-btn-orange mm-btn-emailLogin" onclick="location.href='${cp }/login/join'" type="button"><span class="loginImage"></span><span class="loginBar"></span><span>이메일로&nbsp;간편&nbsp;가입</span></button>
+				<button class="mm-btn-orange mm-btn-emailLogin" onclick="location.href='${mcp }/login/join'" type="button"><span class="loginImage"></span><span class="loginBar"></span><span>이메일로&nbsp;간편&nbsp;가입</span></button>
 			</li>
 		</ul>
 		<div class="mm-login-message-box">

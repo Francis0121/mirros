@@ -30,7 +30,6 @@
 <script src="${cp}/resources/js/jquery.scroll.pagination.js"></script>
 <script src="${cp}/resources/uploadify/jquery.uploadify.min.js"></script>
 <script src="${cp}/resources/js/jquery.cookie.js"></script>
-<script> $.cookie.defaults.domain = '.mirros.net'; </script>
 
 <%-- Custom --%>
 <script src="${cp}/resources/js/intro.js"></script>

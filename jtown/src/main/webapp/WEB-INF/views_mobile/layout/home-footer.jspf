@@ -11,7 +11,7 @@
 /* <![CDATA[ */
 $(function(){
 	$('#mm-home-container').scrollPagination({
-		'contentPage'	: contextPath + '/ajax/homePagination.jt',
+		'contentPage'	: mobileContextPath + '/ajax/homePagination.jt',
 		'contentData'	: { 	'categoryPn'	: 	Number('<c:out value="${homeFilter.categoryPn eq null ? 0 : homeFilter.categoryPn}"/>'),
 								'sectionPn'		: 	Number('<c:out value="${homeFilter.sectionPn eq null ? 0 : homeFilter.sectionPn}"/>')	},
 		'scrollTarget'	: $(window),
