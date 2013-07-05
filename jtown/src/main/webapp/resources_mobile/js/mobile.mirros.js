@@ -39,7 +39,7 @@ function onLoginSubmit(name){
 	
 	jQuery.ajax({
 		'type' : 'POST',
-		'url' : webPath + '/j_spring_security_check',
+		'url' : contextPath + '/j_spring_security_check',
 		'data' : $form.serialize(),
 		'dataType' : 'text',
 		'success' : function(data) {
@@ -51,22 +51,16 @@ function onLoginSubmit(name){
 mobile.loginControl = function(data, name){
 	
 	var map = eval('('+data+')'),
-		result = map.result;
-	
+		result = map.result;	
+
 	if(result == 'success'){
-		$.postJSON(contextPath + "/securityLogin", { token : map.ser, remember : map.remember }, function(mobileData){
-			var mobileResult = mobileData.result;
-			if(mobileResult == 'success'){
-				location.href = contextPath + '/';
-			}else if(mobileResult =='error'){
-				location.href= contextPath + '/login/?error=1';
-				$('.jt-login-error-box').html('로그인에 실패하였습니다.');
-			}
-		});	
+		location.href= mobileContextPath + "/";		
 		return;
 	}else if(result == 'error'){
-		location.href= contextPath + '/login/?error=1';
-		$('.jt-login-error-box').html('로그인에 실패하였습니다.');
+		if(name == 'jt-popup-login-form'){
+			location.href= mobileContextPath + 'login/?error=1';
+		}
+		$('.mm-login-error-box').html('로그인에 실패하였습니다.');
 		return;
 	}
 

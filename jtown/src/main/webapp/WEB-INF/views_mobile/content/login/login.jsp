@@ -11,7 +11,7 @@ function onPopupLoginSubmit(){
 	</div>
 </header>
 <sec:authorize access="anonymous">
-	<form method="post" id="mm-page-login-form" action="http://test1.mirros.net:8080/jtown/j_spring_security_check"  onsubmit="onPopupLoginSubmit(); return false;">
+	<form method="post" id="mm-page-login-form" onsubmit="onPopupLoginSubmit(); return false;">
 		<table class="mm-login-table">
 			<tfoot>
 				<tr>

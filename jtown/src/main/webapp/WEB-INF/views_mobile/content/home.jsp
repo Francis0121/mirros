@@ -15,7 +15,7 @@
 						<span><sec:authentication property="principal.name" /></span>
 					</li>
 					<li>
-						<a href="${mcp }/login/logout"><span>Log out</span></a>
+						<a href="${cp }/login/logout"><span>Log out</span></a>
 					</li>
 					<li>
 						<a href="${web }"><span>PC Version</span></a>

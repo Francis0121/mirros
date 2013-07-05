@@ -1,7 +1,6 @@
 package com.bg.jtown.controller;
 
 import java.io.UnsupportedEncodingException;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -49,7 +48,6 @@ import com.bg.jtown.security.LoginService;
 import com.bg.jtown.security.SummaryUser;
 import com.bg.jtown.security.UserAuthenticator;
 import com.bg.jtown.security.algorithm.SeedCipher;
-import com.bg.jtown.util.CookieUtil;
 import com.bg.jtown.util.StringUtil;
 import com.bg.jtown.util.ValidationUtil;
 import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
@@ -65,7 +63,6 @@ public class LoginController {
 
 	private static final Logger logger = LoggerFactory
 			.getLogger(LoginController.class);
-	private static final String COOKIE_KEY = "q7bjvdqbe83lt0aj";
 
 	// ~ Variable
 
@@ -131,28 +128,7 @@ public class LoginController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("result", "success");
 		map.put("url", url);
-		map.put("ser", makeSeries(summaryUser));
-		map.put("remember", CookieUtil.checkRememberme(request));
 		return map;
-	}
-
-	private String makeSeries(SummaryUser summaryUser) {
-		String username = summaryUser.getUsername();
-		String ip = summaryUser.getRemoteIp();
-
-		String series = username + "~" + ip + "~" + new Date().getTime();
-
-		String key = COOKIE_KEY;
-		String encryptText = "";
-		try {
-			encryptText = Base64.encode(seedCipher.encrypt(series,
-					key.getBytes(), "UTF-8"));
-			return encryptText;
-		} catch (UnsupportedEncodingException e) {
-			encryptText = null;
-			logger.error("Web Login Error [ Make series ]");
-		}
-		return null;
 	}
 
 	@RequestMapping(value = "/loginError")
