@@ -229,7 +229,7 @@
 							<c:set var="pagination" value="${commentFilter.pagination }"/>
 							<c:if test="${pagination.numItems ne 0 }">
 								<c:choose>
-									<c:when test="${fn:length(comments) > 0 }">
+									<c:when test="${fn:length(commentTops) > 0 }">
 										<li class="jt-home-expand-shop-comment-add">
 											<a href="#none" class="jt-btn-silver" data-spn="${jtownUser.pn }"  id="comment-add-btn-best">베스트 리플보기</a>
 										</li>
