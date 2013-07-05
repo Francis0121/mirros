@@ -68,8 +68,9 @@ public class SellerServiceImpl extends SqlSessionDaoSupport implements
 		selectMap.putAll(selectSellerEvent(properNumber));
 		selectMap.put("interestes", selectSellerInterest(properNumber));
 		selectMap.put("products", selectSellerProduct(properNumber));
-		selectMap.put("comments",
+		selectMap.put("commentTops",
 				commentService.selectCommentTop(commentFilter));
+		selectMap.put("comments", commentService.selectComment(commentFilter));
 		selectMap.put("commentFilter", commentFilter);
 
 		logger.debug(selectMap.toString());
