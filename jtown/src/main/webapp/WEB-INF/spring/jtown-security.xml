@@ -23,7 +23,7 @@
 	<beans:bean class="org.springframework.security.authentication.dao.ReflectionSaltSource" id="saltSource">
 		<beans:property name="userPropertyToUse" value="salt"/>
 	</beans:bean>
-
+	
 	<http auto-config="true" use-expressions="true">
 		<intercept-url pattern="/login/*" access="permitAll" requires-channel="any"/>
 		<intercept-url pattern="/help/*" access="permitAll" requires-channel="any"/>
@@ -33,15 +33,18 @@
 		<form-login 
 			login-page="/login/"
 			always-use-default-target="true"
-			authentication-failure-url="/login/?login_error=1"
-			default-target-url="/process"/>
+			authentication-failure-url="/loginerror"
+			default-target-url="/process"
+			/>
 			
 		<logout logout-url="/login/logout" invalidate-session="false" />
 		
 		<remember-me key="jtown-rmkey-xq9mKsOCF=Ika#KuDeXGLoPo-CMQJl" services-ref="ipPersistentTokenBasedRememberMeServicesBean"/>	
 	
 		<access-denied-handler error-page="/noPermission" />
+
 	</http>
+
 
 	<beans:bean id="ipPersistentTokenBasedRememberMeServicesBean" class="com.bg.jtown.security.IPPersistentTokenBasedRememberMeServices"> 
 		<beans:property name="key">
