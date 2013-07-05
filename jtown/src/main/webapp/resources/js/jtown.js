@@ -88,14 +88,17 @@ jtown.header.resendEmailAddress = function() {
 
 jtown.header.showLoginForm = function(){
 	var inner = $('#jt-login-form-wrap'),
+		form = inner.find('form[name=jt-popup-login-form]'),
 		j_username = inner.find('input[name=j_username]'),
 		j_password = inner.find('input[name=j_password]');
 	
+	form.attr('id', 'jt-popup-login-form');
 	j_username.attr('id', 'j_username');
 	j_password.attr('id', 'j_password');
 	
 	$.smartPop.open({ width : 430, height : 350, html : inner.html(), effect : null });	
 	
+	form.attr('id', '');
 	j_username.attr('id', '');
 	j_password.attr('id', '');
 	

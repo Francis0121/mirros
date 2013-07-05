@@ -19,9 +19,43 @@ $(function() {
 	jtown.login.confirmId();
 });
 
+
+function onLoginSubmit(name){
+	var $form = $('#'+name);
+	
+	jQuery.ajax({
+		'type' : 'POST',
+		'url' : contextPath + 'j_spring_security_check',
+		'data' : $form.serialize(),
+		'dataType' : 'text',
+		'success' : function(data) {
+			jtown.login.control(data, name);
+		}
+	});	
+}
+
 if (typeof jtown.login == 'undefined') {
 	jtown.login = {};
 }
+
+jtown.login.control = function(data, name){
+	
+	var map = eval('('+data+')'),
+		result = map.result,
+		url = map.url;
+	
+	if(result == 'success'){
+		location.href= contextPath + url;		
+		return;
+	}else if(result == 'error'){
+		if(name == 'jt-popup-login-form'){
+			location.href= contextPath + 'login/?error=1';
+		}
+		$('.jt-login-error-box').html('로그인에 실패하였습니다.');
+		return;
+	}
+
+};
 
 jtown.login.confirmEmail = function() {
 	$('input[data-type=create]').keyup(

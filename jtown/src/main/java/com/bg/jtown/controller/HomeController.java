@@ -1,22 +1,15 @@
 package com.bg.jtown.controller;
 
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
-import javax.servlet.ServletRequest;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.social.ApiException;
 import org.springframework.social.facebook.api.Facebook;
@@ -44,7 +37,6 @@ import com.bg.jtown.security.JtownUser;
 import com.bg.jtown.security.LoginService;
 import com.bg.jtown.security.SummaryUser;
 import com.bg.jtown.security.algorithm.SeedCipher;
-import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 
 /**
  * @author Francis, 박광열
@@ -74,8 +66,6 @@ public class HomeController {
 	private LoginService loginService;
 	@Resource
 	private SeedCipher seedCipher;
-	@Autowired
-	private HttpServletRequest httpServletRequest;
 
 	// ~ FORM
 
@@ -142,73 +132,6 @@ public class HomeController {
 			Map<String, Object> two = homeService.selectHome(homeFilter);
 			model.addAttribute("two", two);
 		}
-	}
-
-	@RequestMapping(value = "/process")
-	@ResponseBody
-	public String showProcessRedirect(HttpSession session,
-			HttpServletResponse response, HttpServletRequest request,
-			HomeFilter homeFilter, SummaryUser summaryUser, Model model) {
-
-		String redirect = (String) httpServletRequest.getParameter("redirect");
-		logger.debug("Redirect " + redirect);
-
-		Cookie cookie = makeCookie(summaryUser);
-		response.addCookie(cookie);
-
-		Authority authority = summaryUser.getEnumAuthority();
-		if (authority.equals(Authority.ADMIN)
-				|| authority.equals(Authority.ROOT_ADMIN)) {
-			return "redirect:admin";
-		} else if (authority.equals(Authority.SELLER)) {
-			return "redirect:seller/" + summaryUser.getPn();
-		} else if (authority.equals(Authority.CUSTOMER)) {
-			// TODO 사용자 맞춤형k메뉴 검색시 추가
-			// session.setAttribute("interestMap",
-			// homeService.selectInterest(summaryUser.getPn()));
-			return "redirect:";
-		} else {
-			return "redirect:";
-		}
-	}
-	@RequestMapping(value = "/loginerror")
-	@ResponseBody
-	public String error(HttpSession session,
-			HttpServletResponse response, HttpServletRequest request,
-			HomeFilter homeFilter, SummaryUser summaryUser, Model model) {
-
-		return "error";
-	}
-
-	private static final String COOKIE_KEY = "q7bjvdqbe83lt0aj";
-	private static final String COOKIE_NAME = "MIRROS_USER";
-
-	private Cookie makeCookie(SummaryUser summaryUser) {
-		String username = summaryUser.getUsername();
-		String ip = summaryUser.getRemoteIp();
-
-		String series = username + "~" + ip + "~" + new Date().getTime();
-
-		String key = COOKIE_KEY;
-		String encryptText = "";
-		try {
-			encryptText = Base64.encode(seedCipher.encrypt(series,
-					key.getBytes(), "UTF-8"));
-		} catch (UnsupportedEncodingException e) {
-			encryptText = null;
-			return null;
-		}
-
-		Cookie cookie = new Cookie(COOKIE_NAME, encryptText);
-		// cookie.setPath("");
-		cookie.setDomain(".mirros.net");
-		cookie.setMaxAge(60 * 60 * 24);
-		return cookie;
-	}
-
-	@RequestMapping(value = "/noPermission", method = RequestMethod.GET)
-	public String showNoPermissionPage() {
-		return "login/noPermission";
 	}
 
 	// ~ AJAX

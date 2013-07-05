@@ -33,8 +33,8 @@
 		<form-login 
 			login-page="/login/"
 			always-use-default-target="true"
-			authentication-failure-url="/loginerror"
-			default-target-url="/process"
+			authentication-failure-url="/loginError/?login_error=1"
+			default-target-url="/loginProcess"
 			/>
 			
 		<logout logout-url="/login/logout" invalidate-session="false" />

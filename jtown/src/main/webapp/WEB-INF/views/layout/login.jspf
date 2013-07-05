@@ -7,10 +7,14 @@
 <%-- 로그인 Form SmartPopup--%>
 <c:set var="cp" value="<%=request.getContextPath() %>"/>
 <sec:authorize access="anonymous">
+<script>
+function onPopupLoginSubmit(){
+	onLoginSubmit('jt-popup-login-form');
+}
+</script>
 <div id="jt-login-form-wrap">
 	<div id="jt-login-form">
-		<form action="${cp }/j_spring_security_check" method="post" name="jtown-login-form">
-			<input type="hidden" id="redirect" name="redirect" value="webpage"/>
+		<form action="${cp }/j_spring_security_check" method="post" name="jt-popup-login-form" onsubmit="onPopupLoginSubmit(); return false;">
 		<table class="jt-login-form-table">
 			<thead>
 				<tr>

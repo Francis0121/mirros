@@ -7,24 +7,13 @@
 <%@ include file="../../layout/none_header.jspf" %>
 <c:set var="cp" value="<%=request.getContextPath() %>"/>
 <script>
-function onSubmit() {
-	var $form = $("form#mainLoginForm");
-	
-	jQuery.ajax({
-		'type' : 'POST',
-		'url' : $form.attr("action"),
-		'data' : $form.serialize(),
-		'dataType' : 'text',
-		'success' : function(data) {
-			alert(data);
-		}
-	});
+function onPageLoginSubmit() {
+	onLoginSubmit('jt-page-login-form');
 }
 </script>
-
 <section id="jt-login-form-page">
 	<sec:authorize access="anonymous">
-		<form action="${cp }/j_spring_security_check" method="post" id="mainLoginForm" name="jtown-login-form" onsubmit="onSubmit(); return false;">
+		<form action="${cp }/j_spring_security_check" method="post" id="jt-page-login-form" onsubmit="onPageLoginSubmit(); return false;">
 			<table class="jt-login-form-table-page">
 				<thead>
 					<tr>
@@ -76,14 +65,12 @@ function onSubmit() {
 					인터넷 쇼핑몰들을 체험하세요.
 				</p>
 			</div>
-			
-			<c:if test="${not empty param.login_error}">  
+			  
 			<div class="jt-login-error-box">
-		        <spring:message code="login.error.message"/>
-		        <br/>
-		        <c:out value="${SPRING_SECURITY_LAST_EXCEPTION.message}"/>
-		    </div>
-			</c:if>	
+				<c:if test="${login_error eq 1 }">
+					로그인에 실패하였습니다.
+				</c:if>
+		    </div>	
 	</sec:authorize>	
 	<sec:authorize access="hasRole('ROLE_USER')">
 		<span style="font-size: 12px; "><sec:authentication property="principal.name" />님 반갑습니다.</span>

@@ -1,6 +1,8 @@
 package com.bg.jtown.controller;
 
 import java.io.UnsupportedEncodingException;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -47,6 +49,7 @@ import com.bg.jtown.security.LoginService;
 import com.bg.jtown.security.SummaryUser;
 import com.bg.jtown.security.UserAuthenticator;
 import com.bg.jtown.security.algorithm.SeedCipher;
+import com.bg.jtown.util.CookieUtil;
 import com.bg.jtown.util.StringUtil;
 import com.bg.jtown.util.ValidationUtil;
 import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
@@ -60,6 +63,8 @@ public class LoginController {
 
 	private static final Logger logger = LoggerFactory
 			.getLogger(LoginController.class);
+
+	private static final String COOKIE_KEY = "q7bjvdqbe83lt0aj";
 
 	private UserCache userCache = new NullUserCache();
 
@@ -99,8 +104,65 @@ public class LoginController {
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String showLogin(Model model) {
+	public String showLogin(Model model,
+			@RequestParam(required = false) String error) {
+		model.addAttribute("login_error", error);
 		return "login/login";
+	}
+
+	@RequestMapping(value = "/loginProcess")
+	@ResponseBody
+	public Object showProcessRedirect(HttpSession session,
+			HttpServletResponse response, HttpServletRequest request,
+			SummaryUser summaryUser, Model model) {
+		String url = "";
+		Authority authority = summaryUser.getEnumAuthority();
+		if (authority.equals(Authority.ROOT_ADMIN)
+				|| authority.equals(Authority.ADMIN)) {
+			url = "admin";
+		} else if (authority.equals(Authority.SELLER)) {
+			url = "seller/" + summaryUser.getPn();
+		}
+
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("result", "success");
+		map.put("url", url);
+		map.put("ser", makeSeries(summaryUser));
+		map.put("remember", CookieUtil.checkRememberme(request));
+		return map;
+	}
+
+	private String makeSeries(SummaryUser summaryUser) {
+		String username = summaryUser.getUsername();
+		String ip = summaryUser.getRemoteIp();
+
+		String series = username + "~" + ip + "~" + new Date().getTime();
+
+		String key = COOKIE_KEY;
+		String encryptText = "";
+		try {
+			encryptText = Base64.encode(seedCipher.encrypt(series,
+					key.getBytes(), "UTF-8"));
+			return encryptText;
+		} catch (UnsupportedEncodingException e) {
+			encryptText = null;
+			logger.error("Web Login Error [ Make series ]");
+		}
+		return null;
+	}
+
+	@RequestMapping(value = "/loginError")
+	@ResponseBody
+	public Object error(HttpSession session, HttpServletResponse response,
+			HttpServletRequest request, SummaryUser summaryUser, Model model) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("result", "error");
+		return map;
+	}
+
+	@RequestMapping(value = "/noPermission", method = RequestMethod.GET)
+	public String showNoPermissionPage() {
+		return "login/noPermission";
 	}
 
 	@PreAuthorize("hasRole('ROLE_USER')")
