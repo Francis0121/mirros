@@ -115,7 +115,7 @@ public class HomeController {
 		if (BrowserUtil.isMobile(request)) {
 			String value = CookieUtil.isCookie("SEE_PC_VERSION", request);
 			if (value == null || !value.equals("T")) {
-				model.addAttribute("isMobile", true);
+				return "redirect:/m/mir/" + sellerPn;
 			} else {
 				model.addAttribute("isMobie", "T");
 			}
