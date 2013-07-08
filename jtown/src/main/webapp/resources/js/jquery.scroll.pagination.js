@@ -52,6 +52,9 @@
 							opts.afterLoad(objectsRendered);
 						}
 						opts.loading.finished();
+						$container.imagesLoaded(function(){
+							$container.masonry('reload');
+						});
 						$container.masonry('reload');
 					}else{
 						opts.errorCallback;
