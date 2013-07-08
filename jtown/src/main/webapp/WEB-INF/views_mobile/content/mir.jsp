@@ -17,6 +17,9 @@
 		<pre>"&nbsp;<c:out value="${jtownUser.longNotice}"/>&nbsp;"</pre>
 	</section>
 	<section class="mm-mir-products">
+		<header>
+			<span>Display</span>
+		</header>
 		<div class="mm-mir-products-fake">
 			<div id="mm-carousel" data-length="${fn:length(products)}">
 				<ul>

@@ -68,9 +68,10 @@
 				$('#textholder'+randID).width(imgWidth-(correctTHWidth * 2)).height('40').css({'backgroundColor':'#000','opacity':'0.7'});
 				showtext($('li:eq(1) p', obj).html());
 				
-				// Prev/next button(img) 
-				html = '<div id="btn_rt'+randID+'" style="position:absolute;right:0;top:'+((imgHeight/2)-15)+'px"><a href="javascript:void(0);"><span class="mm-carousel-rt">&gt;</span></a></div>';
-				html += '<div id="btn_lt'+randID+'" style="position:absolute;left:0;top:'+((imgHeight/2)-15)+'px"><a href="javascript:void(0);"><span class="mm-carousel-lt">&lt;</span></a></div>';
+				// Prev/next button(img)
+				html = '';
+				//html += '<div id="btn_rt'+randID+'" style="position:absolute;right:0;top:'+((imgHeight/2)-15)+'px"><a href="javascript:void(0);"><span class="mm-carousel-rt">&gt;</span></a></div>';
+				//html += '<div id="btn_lt'+randID+'" style="position:absolute;left:0;top:'+((imgHeight/2)-15)+'px"><a href="javascript:void(0);"><span class="mm-carousel-lt">&lt;</span></a></div>';
 				$(obj).append(html);
 			
 				// Pause/play button(img)	
@@ -93,7 +94,8 @@
 					$('#play_btn'+randID).hide();
 					$('#textholder'+randID).height(40);
 					clearInt=setInterval(function(){anim('next');},o.displayTime+o.transitionSpeed);
-					setTimeout(function(){$('#pause_btn'+randID).show();$('#progress'+randID).fadeIn().width(imgWidth).height(5);},o.transitionSpeed);
+					$('#pause_btn'+randID).show();
+					//setTimeout(function(){$('#pause_btn'+randID).show();$('#progress'+randID).fadeIn().width(imgWidth).height(5);},o.transitionSpeed);
 				});
 				
 				// Left and right arrow image button actions

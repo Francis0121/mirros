@@ -265,7 +265,7 @@
 .mm-mir-header{ width: 100%; float: left; height: 40px; background:#f6f6f6; border-bottom: 1px solid #dbd9ca; line-height: 40px; text-align: center;
 	box-shadow : 0 1px 2px rgba(34,25,25,0.1); -moz-box-shadow : 0 1px 2px rgba(34,25,25,0.1); -webkit-box-shadow : 0 1px 2px rgba(34,25,25,0.1);
 }
-.mm-mir-header>a{ font-family: NanumGothic, Dotum, Gulim; font-size: 125%; color: #000; }
+.mm-mir-header>a{ font-family: NanumGothic, Dotum, Gulim; font-size: 125%; color: #000; font-weight: bold; }
 .mm-mir-header>a:HOVER, .mm-mir-header>div>a:VISITED { color: #000; }
 .mm-mir-header-goHome{ position : absolute; top:0; right :0;  border-left: 1px solid #dbd9ca;}
 .mm-mir-header-goHome>a{ width: 40px; height: 40px; background: url("../images/mm-home-btn.png"); display: block; text-indent: -9999px;}
@@ -278,19 +278,21 @@
 .mm-mir-longNotice{ font-size: 75%; color: #979797; line-height: 17px;}
 
 .mm-mir-products{float: left;
-	width : 100%; padding : 20px 5px 10px 5px ; border-bottom: 1px solid #dbd9ca; min-height : 170px; max-height: 330px;
+	width : 100%; padding : 15px 5px 10px 5px ; border-bottom: 1px solid #dbd9ca; min-height : 200px; max-height: 320px;
 	box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box; -moz-box-sizing : border-box; -webkit-box-sizing : border-box;      
 }
-.mm-mir-products-fake{ width: 100%; margin: 0 auto; display: block; max-height: 240px; min-height:140px; max-width: 288px; min-width: 175px; }
+.mm-mir-products>header{float: left; width: 100%; text-align: center; padding-bottom: 10px; }
+.mm-mir-products>header>span{font-family: NanumGothic, Dotum, Gulim; font-size: 100%; color: #737373;}
+.mm-mir-products-fake{ width: 100%; margin: 30px auto 0 auto; display: block; max-height: 260px; min-height:140px; max-width: 260px; min-width: 140px; }
 
-#mm-carousel{ width: 80% !important; padding: 0 10% !important;}
-#mm-carousel ul { margin: 0; padding: 0; position:relative; max-height: 240px; min-height: 140px;}
-#mm-carousel li { display:inline; float:left; }
-#mm-carousel li img{ min-width:140px; max-width: 240px; min-height: 140px; max-height: 240px;}
-.mm-carousel-rt{ margin-right: 5px; background: url("../images/infinitecarouse/rt.png"); width : 20px; height: 46px; display:block; text-indent: -999999px;}
-.mm-carousel-lt{ margin-left: 5px; background: url("../images/infinitecarouse/lt.png"); width : 20px; height: 46px; display:block; text-indent: -999999px;}
-.mm-carousel-pause{position:absolute;top:3px;right:3px;border:none; background: url("../images/infinitecarouse/pause.png"); width: 22px; height: 22px; text-indent: -99999px; display: block;}
-.mm-carousel-play{position:absolute;top:3px;right:3px;border:none; background: url("../images/infinitecarouse/play.png"); width: 22px; height: 22px; text-indent: -99999px; display: none;}
+#mm-carousel{ width: 100% !important; padding: 0 0 !important;}
+#mm-carousel ul { margin: 0; padding: 0; position:relative; max-height: 260px; min-height: 140px;}
+#mm-carousel li { display:inline; float:left; min-width:140px; max-width: 260px; min-height: 140px; max-height: 260px; }
+#mm-carousel li img{ min-width:140px; max-width: 260px; min-height: 140px; max-height: 260px;}
+.mm-carousel-rt{ display :none; margin-right: 5px; background: url("../images/infinitecarouse/rt.png"); width : 20px; height: 46px; display:block; text-indent: -999999px;}
+.mm-carousel-lt{ display :none; margin-left: 5px; background: url("../images/infinitecarouse/lt.png"); width : 20px; height: 46px; display:block; text-indent: -999999px;}
+.mm-carousel-pause{position:absolute;top:3px;right:3px;border:none; background: url("../images/infinitecarouse/pause.png"); width: 25px; height: 25px; text-indent: -99999px; display: block;}
+.mm-carousel-play{position:absolute;top:3px;right:3px;border:none; background: url("../images/infinitecarouse/play.png"); width: 25px; height: 25px; text-indent: -99999px; display: none;}
 .mm-carousel-down{ width: 100%; height: 10px; display: none; cursor: pointer;} 
 .mm-carousel-down>span{ margin: 0 auto; width: 12px; height: 7px; background: url("../images/infinitecarouse/down.png");  text-indent: -99999px; display: block;}
 .mm-carousel-up{ width: 100%; height: 10px; display: none; cursor: pointer;}
