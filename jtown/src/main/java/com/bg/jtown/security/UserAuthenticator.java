@@ -51,20 +51,6 @@ public class UserAuthenticator {
 				createNewAuthentication(authentication, username));
 	}
 
-	public void onApplicationRemeberMe(String username,
-			HttpServletRequest request, HttpServletResponse response) {
-		Authentication authentication = SecurityContextHolder.getContext()
-				.getAuthentication();
-		ipPersistentTokenBasedRememberMeServices.logout(request, response,
-				authentication);
-		Authentication successfulAuthentication = createNewAuthentication(
-				authentication, username);
-		SecurityContextHolder.getContext().setAuthentication(
-				successfulAuthentication);
-		ipPersistentTokenBasedRememberMeServices.onLoginSuccess(request,
-				response, successfulAuthentication);
-	}
-
 	protected Authentication createNewAuthentication(
 			Authentication currentAuth, String username) {
 		JtownDetails newPrincipal = (JtownDetails) customJdbcUserDetailManager
