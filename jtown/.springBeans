@@ -11,6 +11,8 @@
 		<config>src/main/webapp/WEB-INF/spring/mirros-context.xml</config>
 		<config>src/main/webapp/WEB-INF/spring/mirros-security.xml</config>
 		<config>src/main/webapp/WEB-INF/spring/mirros-redis.xml</config>
+		<config>src/main/webapp/WEB-INF/spring/mirros-email.xml</config>
+		<config>src/main/webapp/WEB-INF/spring/mirros-orm.xml</config>
 	</configs>
 	<configSets>
 	</configSets>
