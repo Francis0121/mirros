@@ -92,7 +92,7 @@
 		(new Image()).src = opts.loading.img;
 		opts.loading.start = opts.loading.start
 				|| function() {
-					opts.loading.msg.appendTo(opts.loading.selector).show(opts.loading.speed);
+					opts.loading.msg.appendTo(opts.loading.selector).show();
 				};
 		opts.loading.finished = opts.loading.finished || function() {
 			opts.loading.msg.fadeOut('normal');
