@@ -29,6 +29,10 @@ $(function(){
 		$.cookie('SEE_PC_VERSION', 'T', {expires : 1, path : '/' });
 	});
 	
+	$('.mm-home-refresh').bind('click', function(){
+		location.reload();
+	});
+	
 	mobile.homeSync();
 	
 	mobile.mirSync();
@@ -55,11 +59,16 @@ function onLoginSubmit(name){
 mobile.loginControl = function(data, name){
 	
 	var map = eval('('+data+')'),
-		result = map.result;	
+		result = map.result,
+		referer = map.referer;	
 
 	if(result == 'success'){
-		location.href= mobileContextPath + "/";		
-		return;
+		if(nullValueCheck(referer)){
+			location.href = mobileContextPath + "/";		
+		}else{
+			location.href = referer;
+		}
+		return;			
 	}else if(result == 'error'){
 		if(name == 'jt-popup-login-form'){
 			location.href= mobileContextPath + 'login/?error=1';
@@ -205,9 +214,12 @@ mobile.mirSync = function(){
 				json = { sellerPn : spn	};
 			
 			$.postJSON(url, json, function(map){
-				var result = map.result, authoriy = map.authority;
+				var result = map.result, authority = map.authority;
 				
-				if(authoriy != 'CUSTOMER'){
+				if(authority == 'NOT_LOGIN'){
+					location.href = mobileContextPath + '/login';
+					return;
+				}else if(authority != 'CUSTOMER'){
 					thiz.unbind('click'); 
 					return;
 				}
@@ -461,7 +473,7 @@ mobile.comment = function(comment, position){
 	}
 	
 	var commentHtml ='';
-	commentHtml += 	'<li data-copn="'+comment.commentPn+'" class="mm-mir-comment-content-text">';
+	commentHtml += 	'<li data-copn="'+comment.commentPn+'" class="mm-mir-comment-content-text comment-not-best">';
 	commentHtml +=	'	<ul class="mm-mir-comment-text-wrap">';
 	commentHtml += 	'		<li class="mm-mir-comment-text-content">';
 	commentHtml += 	'			<span class="mm-mir-comment-text-content-name">'+htmlChars(comment.customerName)+'</span>';

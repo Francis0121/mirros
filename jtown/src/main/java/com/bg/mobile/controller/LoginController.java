@@ -1,7 +1,11 @@
 package com.bg.mobile.controller;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.ConnectionFactoryLocator;
 import org.springframework.social.connect.ConnectionRepository;
@@ -37,6 +41,10 @@ import com.bg.jtown.util.ValidationUtil;
 @RequestMapping("/m")
 public class LoginController {
 
+	// ~ Static
+	private static Logger logger = LoggerFactory
+			.getLogger(LoginController.class);
+
 	// ~ Variable
 
 	private String prefixView = "views_mobile/content/";
@@ -71,8 +79,13 @@ public class LoginController {
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String showLogin(Model model,
-			@RequestParam(required = false) String error) {
+			@RequestParam(required = false) String error,
+			HttpServletRequest request, HttpSession session) {
 		model.addAttribute("login_error", error);
+		String referer = request.getHeader("referer") == null ? "../" : request
+				.getHeader("referer");
+		logger.debug(" Referer [ " + referer + " ] ");
+		session.setAttribute("beforeLoginUrl", referer);
 		return prefixView + "login/login";
 	}
 

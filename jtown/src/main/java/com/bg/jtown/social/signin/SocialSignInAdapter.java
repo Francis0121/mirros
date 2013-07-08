@@ -11,6 +11,7 @@ import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.web.SignInAdapter;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.NativeWebRequest;
+import org.springframework.web.context.request.RequestAttributes;
 
 import com.bg.jtown.security.IPPersistentTokenBasedRememberMeServices;
 import com.bg.jtown.security.LoginService;
@@ -39,16 +40,27 @@ public class SocialSignInAdapter implements SignInAdapter {
 	@Override
 	public String signIn(String localUserId, Connection<?> connection,
 			NativeWebRequest request) {
-		String username = loginService.selectUsername(Integer.parseInt(localUserId));
+		String username = loginService.selectUsername(Integer
+				.parseInt(localUserId));
 		Authentication authentication = userAuthenticator.signInUser(username);
-		logger.debug("Signin : username [ " + localUserId + " ] , Authentication [ " + authentication.getPrincipal() + " ] ");
+		logger.debug("Signin : username [ " + localUserId
+				+ " ] , Authentication [ " + authentication.getPrincipal()
+				+ " ] ");
 
-		ipPersistentTokenBasedRememberMeServices.setAlwaysRemember(true);		
+		ipPersistentTokenBasedRememberMeServices.setAlwaysRemember(true);
 		ipPersistentTokenBasedRememberMeServices.loginSuccess(
 				(HttpServletRequest) request.getNativeRequest(),
 				(HttpServletResponse) request.getNativeResponse(),
 				authentication);
 
+		String referer = (String) request.getAttribute("beforeLoginUrl",
+				RequestAttributes.SCOPE_SESSION);
+		logger.debug(" Social Referer " + referer);
+		if (referer != null) {
+			request.setAttribute("beforeLoginUrl", null,
+					RequestAttributes.SCOPE_SESSION);
+			return referer;
+		}
 		return null;
 	}
 

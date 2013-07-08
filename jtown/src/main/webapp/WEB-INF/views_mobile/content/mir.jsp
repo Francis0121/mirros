@@ -225,7 +225,7 @@
 				<c:otherwise>
 					<c:choose>
 						<c:when test="${groupName eq 'Customer' }">
-							<input type="text" class="mm-mir-comment-insert" placeholder="이 쇼핑몰에 대한 한마디를 남겨주세요." maxlength="100"/>
+							<input type="text" class="mm-mir-comment-insert" placeholder="쇼핑몰에 대한 한마디를 남겨보세요." maxlength="100"/>
 							<button type="button" class="mm-btn-orange mm-mir-comment-insert-btn">댓글 달기</button>
 						</c:when>
 						<c:otherwise>

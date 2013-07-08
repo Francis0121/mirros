@@ -178,7 +178,7 @@ jtown.expand.makeInnerHtml = function(spn){
 		if(cpn == 0){
 			commentInputHtml += '<input id="jt-comment-insert" readonly="readonly" placeholder="판매자 아이디로는 이용하실 수 없습니다."/>';	
 		}else if(!nullValueCheck(cpn)){			 
-			commentInputHtml += '<input type="text" id="jt-comment-insert" placeholder="이 쇼핑몰에 대한 한마디를 남겨주세요. 상품 배송문의는 해당 쇼핑몰 고객센터로 남겨주세요." maxlength="100"/>';
+			commentInputHtml += '<input type="text" id="jt-comment-insert" placeholder="쇼핑몰에 대한 한마디를 남겨보세요. 상품 배송문의는 해당 쇼핑몰 고객센터로 남겨주세요." maxlength="100"/>';
 		}else{
 			commentInputHtml += '<input id="jt-comment-insert" readonly="readonly" placeholder="로그인한 사용자만 사용할 수 있습니다."/>';
 		}

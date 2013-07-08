@@ -124,10 +124,16 @@ public class LoginController {
 		} else if (authority.equals(Authority.SELLER)) {
 			url = "seller/" + summaryUser.getPn();
 		}
-
+		String referer = (String) session.getAttribute("beforeLoginUrl");
+		logger.debug(" Before Login Url " + referer);
+		if (referer != null) {
+			url = referer;
+			session.setAttribute("beforeLoginUrl", null);
+		}
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("result", "success");
 		map.put("url", url);
+		map.put("referer", referer);
 		return map;
 	}
 

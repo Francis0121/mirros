@@ -64,7 +64,9 @@ function onPopupLoginSubmit(){
 	    </div>	
 </sec:authorize>	
 <sec:authorize access="hasRole('ROLE_USER')">
-	<span style="font-size: 75%; "><sec:authentication property="principal.name" />님 반갑습니다.</span>
+<script>
+	location.href= mobileContextPath + '/';
+</script>
 </sec:authorize>
 
 <%@ include file="../../layout/home-footer.jspf" %>

@@ -72,8 +72,10 @@ function onPageLoginSubmit() {
 				</c:if>
 		    </div>	
 	</sec:authorize>	
-	<sec:authorize access="hasRole('ROLE_USER')">
-		<span style="font-size: 12px; "><sec:authentication property="principal.name" />님 반갑습니다.</span>
-	</sec:authorize>
 </section>
+<sec:authorize access="hasRole('ROLE_USER')">
+<script>
+	location.href = contextPath;
+</script>
+</sec:authorize>
 <%@ include file="../../layout/none_footer.jspf" %>

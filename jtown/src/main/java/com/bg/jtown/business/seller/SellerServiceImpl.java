@@ -59,7 +59,7 @@ public class SellerServiceImpl extends SqlSessionDaoSupport implements
 	@Override
 	public Map<String, Object> selectAllInformation(Integer properNumber,
 			Integer customerPn) {
-		CommentFilter commentFilter = new CommentFilter(properNumber);
+		CommentFilter commentFilter = new CommentFilter(properNumber, customerPn);
 		Map<String, Object> selectMap = new HashMap<String, Object>();
 
 		selectMap.put("jtownUser",

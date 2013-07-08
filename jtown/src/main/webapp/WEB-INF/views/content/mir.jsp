@@ -260,7 +260,7 @@
 								<c:otherwise>
 									<c:choose>
 										<c:when test="${groupName eq 'Customer' }">
-											<input type="text" id="jt-comment-insert" placeholder="이 쇼핑몰에 대한 한마디를 남겨주세요. 상품 배송문의는 해당 쇼핑몰 고객센터로 남겨주세요." maxlength="100"/>
+											<input type="text" id="jt-comment-insert" placeholder="쇼핑몰에 대한 한마디를 남겨보세요. 상품 배송문의는 해당 쇼핑몰 고객센터로 남겨주세요." maxlength="100"/>
 										</c:when>
 										<c:otherwise>
 											<input id="jt-comment-insert" readonly="readonly" placeholder="판매자 아이디로는 이용하실 수 없습니다."/>

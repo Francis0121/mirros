@@ -84,7 +84,7 @@
 					clearTimeout(clearInt);
 					$('#pause_btn'+randID).fadeOut(250);
 					$('#play_btn'+randID).fadeIn(250);
-					showminmax();
+					//showminmax();
 				});
 				$('#play_btn'+randID).css('opacity','.5').hover(function(){$(this).animate({opacity:'1'},250)},function(){$(this).animate({opacity:'.5'},250)});
 				$('#play_btn'+randID).click(function(){
@@ -165,8 +165,9 @@
 					// the text will always be the text of the second list item (if it exists)
 					if(t != null)
 					{
-						$('#textholder'+randID).html(t).animate({marginBottom:'0px'},500); // Raise textholder
-						showminmax();
+						//$('#textholder'+randID).html(t).animate({marginBottom:'0px'},500); // Raise textholder
+						$('#textholder'+randID).html(t).show().css('margin-bottom','0px');
+						//showminmax();
 					}
 				}
 				function showminmax()
@@ -174,7 +175,7 @@
 						if(!autopilot)
 						{
 							html = '<div class="mm-carousel-down" id="min"><span>Down</span></div><div class="mm-carousel-up" id="max"><span>Up</span></div>';
-							$('#textholder'+randID).prepend(html).css('height', '50px');
+							$('#textholder'+randID).prepend(html).css('height', '40px');
 							$('#min').fadeIn(250).click(function(){$('#textholder'+randID).animate({marginBottom:'-40px'},500,function(){$("#min,#max").toggle();});});
 							$('#max').click(function(){$('#textholder'+randID).animate({marginBottom:'0px'},500,function(){$("#min,#max").toggle();});});
 							$('#close').fadeIn(250).click(function(){$('#textholder'+randID).animate({marginBottom: '0px'},500);});
@@ -193,10 +194,11 @@
 					
 					// animate textholder out of frame
 					var height = 40;
-					if(!autopilot){
-						height = 50;
-					}
-					$('#textholder'+randID).animate({marginBottom: '-'+height+'px'},500);					
+					//if(!autopilot){
+					//	height = 50;
+					//}
+					//$('#textholder'+randID).animate({marginBottom: '-'+height+'px'},500);					
+					$('#textholder'+randID).show();
 
 					//?? Fade out play/pause?
 					$('#pause_btn'+randID).fadeOut(250);

@@ -117,7 +117,7 @@
 			finishedMsg: 'No more pages to load.',
 			img: contextPath + '/resources/images/jt-loading-big.gif',
 			msg : null,
-			msgText : '<em>Loading the next set of posts...</em>',
+			msgText : '<em>Loading...</em>',
 			selector : null,
 			speed : 'slow',
 			start : undefined
