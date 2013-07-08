@@ -17,7 +17,10 @@ function trim(character) {
  * @returns
  */
 function htmlChars(character) {
-
+	if(nullValueCheck(character)){
+		return "";
+	}
+	
 	var str = ((character.replace('"', '&amp;')).replace('"', '&quot;'))
 			.replace('\'', '&#39;');
 
