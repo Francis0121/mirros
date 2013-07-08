@@ -564,3 +564,9 @@ text-shadow : 1px 2px 4px #e3e3e3,0 0 0 #000,1px 2px 4px #e3e3e3,0 1px 0 #fff;}
 	color: #fff;
 	border : 0;
 }
+/************************
+	Common Text
+************************/
+.mm-common-section{padding: 55px 10px 20px 10px;}
+.mm-common-section>h1{ font-size: 81.25%; font-family: Dotum, Gulim; margin-bottom: 10px;}
+.mm-common-section>pre{ font-size: 75%; font-family: Dotum, Gulim;  }
