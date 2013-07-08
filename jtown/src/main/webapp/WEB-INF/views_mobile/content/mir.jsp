@@ -18,7 +18,7 @@
 	</section>
 	<section class="mm-mir-products">
 		<header>
-			<span>Display</span>
+			<span>display</span>
 		</header>
 		<div class="mm-mir-products-fake">
 			<div id="mm-carousel" data-length="${fn:length(products)}">

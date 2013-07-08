@@ -55,7 +55,6 @@
 						$container.imagesLoaded(function(){
 							$container.masonry('reload');
 						});
-						$container.masonry('reload');
 					}else{
 						opts.errorCallback;
 					}
