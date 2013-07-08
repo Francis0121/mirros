@@ -281,12 +281,12 @@
 	width : 100%; padding : 20px 5px 10px 5px ; border-bottom: 1px solid #dbd9ca; min-height : 170px; max-height: 330px;
 	box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box; -moz-box-sizing : border-box; -webkit-box-sizing : border-box;      
 }
-.mm-mir-products-fake{ width: 100%; margin: 0 auto; display: block; max-height: 300px; min-height:140px; max-width: 375px; min-width: 175px; }
+.mm-mir-products-fake{ width: 100%; margin: 0 auto; display: block; max-height: 240px; min-height:140px; max-width: 288px; min-width: 175px; }
 
 #mm-carousel{ width: 80% !important; padding: 0 10% !important;}
-#mm-carousel ul { margin: 0; padding: 0; position:relative; max-height: 300px; min-height: 140px;}
+#mm-carousel ul { margin: 0; padding: 0; position:relative; max-height: 240px; min-height: 140px;}
 #mm-carousel li { display:inline; float:left; }
-#mm-carousel li img{ min-width:140px; max-width: 300px; min-height: 140px; max-height: 300px;}
+#mm-carousel li img{ min-width:140px; max-width: 240px; min-height: 140px; max-height: 240px;}
 .mm-carousel-rt{ margin-right: 5px; background: url("../images/infinitecarouse/rt.png"); width : 20px; height: 46px; display:block; text-indent: -999999px;}
 .mm-carousel-lt{ margin-left: 5px; background: url("../images/infinitecarouse/lt.png"); width : 20px; height: 46px; display:block; text-indent: -999999px;}
 .mm-carousel-pause{position:absolute;top:3px;right:3px;border:none; background: url("../images/infinitecarouse/pause.png"); width: 22px; height: 22px; text-indent: -99999px; display: block;}

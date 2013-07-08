@@ -189,8 +189,8 @@
 				function anim(direction,dist)
 				{
 					// Fade left/right arrows out when transitioning
-					$('#btn_rt'+randID).fadeOut(500);
-					$('#btn_lt'+randID).fadeOut(500);
+					//$('#btn_rt'+randID).fadeOut(500);
+					//$('#btn_lt'+randID).fadeOut(500);
 					
 					// animate textholder out of frame
 					var height = 40;
@@ -201,8 +201,8 @@
 					$('#textholder'+randID).show();
 
 					//?? Fade out play/pause?
-					$('#pause_btn'+randID).fadeOut(250);
-					$('#play_btn'+randID).fadeOut(250);
+					//$('#pause_btn'+randID).fadeOut(250);
+					//$('#play_btn'+randID).fadeOut(250);
 
 					if(direction == "next")
 					{
@@ -218,9 +218,9 @@
 									$('li:first', obj).clone().insertAfter($('li:last', obj));
 									$('li:first', obj).remove();
 								}
-								$('#btn_rt'+randID).fadeIn(500);
-								$('#btn_lt'+randID).fadeIn(500);
-								$('#play_btn'+randID).fadeIn(250);
+								//$('#btn_rt'+randID).fadeIn(500);
+								//$('#btn_lt'+randID).fadeIn(500);
+								//$('#play_btn'+randID).fadeIn(250);
 								showtext($('li:eq(1) p', obj).html());
 								$(this).css({'left':-imgWidth});
 								curr = curr+dist;
@@ -238,9 +238,9 @@
 								.animate({left:-imgWidth*2},o.transitionSpeed,function(){
 									$('li:first', obj).remove();
 									$('ul', obj).css('left',-imgWidth+'px');
-									$('#btn_rt'+randID).fadeIn(500);
-									$('#btn_lt'+randID).fadeIn(500);
-									if(autopilot) $('#pause_btn'+randID).fadeIn(250);
+									//$('#btn_rt'+randID).fadeIn(500);
+									//$('#btn_lt'+randID).fadeIn(500);
+									//if(autopilot) $('#pause_btn'+randID).fadeIn(250);
 									showtext($('li:eq(1) p', obj).html());
 									if(autopilot)
 									{
