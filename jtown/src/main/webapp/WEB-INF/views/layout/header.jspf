@@ -31,7 +31,7 @@
 				<li>
 					<a href="${cp }/admin" class="jt-common-a-base">관리자 페이지</a>
 				</li>	
-				</sec:authorize>	
+				</sec:authorize>
 			</ul>
 		</li>
 	</sec:authorize>

@@ -25,6 +25,10 @@ $(function(){
 		$.postJSON(mobileContextPath + '/ajax/goHome.jt', { sellerPn : spn }, function() { });
 	});
 	
+	$('#mm-pc-version-btn').bind('click', function(){
+		$.cookie('SEE_PC_VERSION', 'T', {expires : 1, path : '/' });
+	});
+	
 	mobile.homeSync();
 	
 	mobile.mirSync();

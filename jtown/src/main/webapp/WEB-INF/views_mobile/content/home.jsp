@@ -18,7 +18,7 @@
 						<a href="${cp }/login/logout"><span>Log out</span></a>
 					</li>
 					<li>
-						<a href="${web }"><span>PC Version</span></a>
+						<a href="${web }" id="mm-pc-version-btn"><span>PC Version</span></a>
 					</li>
 				</sec:authorize>
 				<sec:authorize access="anonymous">
@@ -32,7 +32,7 @@
 						<a href="${mcp }/login/join"><span>Sign In</span></a>
 					</li>
 					<li>
-						<a href="${web }"><span>PC Version</span></a>
+						<a href="${web }" id="mm-pc-version-btn"><span>PC Version</span></a>
 					</li>
 					<li>
 						<a><span>&nbsp;</span></a>
@@ -82,7 +82,7 @@
 </nav>
 <section class="mm-home-section" id="mm-home-container">
 	<header>
-		<h1>Let’s see your shop :</h1>
+		<h1>Let’s see, your shop</h1>
 	</header>
 <c:forEach begin="1" end="2" varStatus="i">
 	<c:set var="jtownUsers" value="${ i.count eq 1 ? one.jtownUsers : two.jtownUsers }"/>

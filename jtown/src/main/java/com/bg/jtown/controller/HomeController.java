@@ -1,11 +1,13 @@
 package com.bg.jtown.controller;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -37,6 +39,8 @@ import com.bg.jtown.security.JtownUser;
 import com.bg.jtown.security.LoginService;
 import com.bg.jtown.security.SummaryUser;
 import com.bg.jtown.security.algorithm.SeedCipher;
+import com.bg.jtown.util.BrowserUtil;
+import com.bg.jtown.util.CookieUtil;
 
 /**
  * @author Francis, 박광열
@@ -81,7 +85,17 @@ public class HomeController {
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String showHome(Model model, HttpSession session,
-			@ModelAttribute HomeFilter homeFilter, SummaryUser summaryUser) {
+			@ModelAttribute HomeFilter homeFilter, SummaryUser summaryUser,
+			HttpServletRequest request) throws UnsupportedEncodingException {
+		if (BrowserUtil.isMobile(request)) {
+			String value = CookieUtil.isCookie("SEE_PC_VERSION", request);
+			if (value == null || !value.equals("T")) {
+				return "redirect:/m/";
+			} else {
+				model.addAttribute("isMobile", true);
+			}
+		}
+
 		if (summaryUser.getPn() != null
 				&& summaryUser.getEnumAuthority().equals(Authority.CUSTOMER)) {
 			JtownUser jtownUser = loginService.selectCustomer(summaryUser
@@ -96,7 +110,16 @@ public class HomeController {
 
 	@RequestMapping(value = "/mir/{sellerPn}", method = RequestMethod.GET)
 	public String showSellerPage(Model model, @PathVariable Integer sellerPn,
-			SummaryUser summaryUser, HttpSession session) {
+			SummaryUser summaryUser, HttpSession session,
+			HttpServletRequest request) throws UnsupportedEncodingException {
+		if (BrowserUtil.isMobile(request)) {
+			String value = CookieUtil.isCookie("SEE_PC_VERSION", request);
+			if (value == null || !value.equals("T")) {
+				model.addAttribute("isMobile", true);
+			} else {
+				model.addAttribute("isMobie", "T");
+			}
+		}
 		Count count = new Count();
 		count.setSellerPn(sellerPn);
 		checkSessionStatisticView(session, count, summaryUser);
@@ -116,8 +139,19 @@ public class HomeController {
 	@RequestMapping(value = "/cpn/{categoryPn}/spn/{sectionPn}", method = RequestMethod.GET)
 	public String showHomeSearch(Model model, Integer loginUserPn,
 			HttpSession session, @ModelAttribute HomeFilter homeFilter,
-			SummaryUser summaryUser) {
+			SummaryUser summaryUser, HttpServletRequest request)
+			throws UnsupportedEncodingException {
+		if (BrowserUtil.isMobile(request)) {
+			String value = CookieUtil.isCookie("SEE_PC_VERSION", request);
+			if (value == null || !value.equals("T")) {
+				return "redirect:/m/cpn/" + homeFilter.getCategoryPn()
+						+ "/spn/" + homeFilter.getSectionPn();
+			} else {
+				model.addAttribute("isMobile", true);
+			}
+		}
 		getHomeModel(model, session, homeFilter, summaryUser);
+
 		return prefixView + "home";
 	}
 
