@@ -40,15 +40,14 @@
 				</sec:authorize>
 			</ul>
 		</li>
-<!-- 추후에 다시 적용 mobile 에서 실행 X -->
-<!-- 		<li> -->
-<!-- 			<a class="mm-home-nav-title mm-home-search"><span>Search</span></a> -->
-<!-- 			<ul class="mm-home-sub-nav mm-home-search"> -->
-<!-- 				<li> -->
-<!-- 					<input type="text" class="mm-home-search-input" id="mm-naturalLanguage-search"  placeholder="어떤 쇼핑몰을 찾으시나요?"/> -->
-<!-- 				</li> -->
-<!-- 			</ul> -->
-<!-- 		</li> -->
+		<li>
+			<a class="mm-home-nav-title mm-home-search"><span>Search</span></a>
+			<ul class="mm-home-sub-nav mm-home-search">
+				<li>
+					<input type="text" class="mm-home-search-input" id="mm-naturalLanguage-search"  placeholder="어떤 쇼핑몰을 찾으시나요?"/>
+				</li>
+			</ul>
+		</li>
 		<li>
 			<a class="mm-home-nav-title mm-home-refresh"><span>refresh</span></a>
 		</li>
