@@ -117,7 +117,7 @@
 		'maxPage': 1,
 		loading : {
 			finished : undefined,
-			finishedMsg: 'No more pages to load.',
+			finishedMsg: 'Today end.',
 			img: contextPath + 'resources/images/jt-loading-big.gif',
 			msg : null,
 			msgText : '<em>Loading...</em>',
