@@ -40,9 +40,9 @@ $(function(){
 	mobile.commentSync();
 });
 
-$(document).on('pageinit', function(event){
-	mobile.autocomplete();
-});
+//$(document).on('pageinit', function(event){
+//	mobile.autocomplete();
+//});
 
 function onLoginSubmit(name){
 	var $form = $('#'+name);
