@@ -114,10 +114,10 @@
 		'maxPage': 1,
 		loading : {
 			finished : undefined,
-			finishedMsg: 'Today end.',
+			finishedMsg: 'Today end',
 			img: contextPath + '/resources/images/jt-loading-big.gif',
 			msg : null,
-			msgText : '<em>Loading...</em>',
+			msgText : 'Loading...',
 			selector : null,
 			speed : 'slow',
 			start : undefined
