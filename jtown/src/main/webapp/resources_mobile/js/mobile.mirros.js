@@ -38,11 +38,9 @@ $(function(){
 	mobile.mirSync();
 	
 	mobile.commentSync();
+	
+	mobile.autocomplete();
 });
-
-//$(document).on('pageinit', function(event){
-//	mobile.autocomplete();
-//});
 
 function onLoginSubmit(name){
 	var $form = $('#'+name);
