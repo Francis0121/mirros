@@ -338,8 +338,8 @@ jtown.expand.syncProductMove = function(){
 					parent = $('#jt-home-expand-shop'),
 					size = Number(parent.attr('data-size')),
 					np = Number(parent.attr('data-nowPosition'));
-				if(size > 3){
-					
+				
+				if(size > 3){	
 					dan.prepend(last.clone().wrapAll('<div/>').parent().html());
 					dan.css({left :  '-170px'}).animate({left :  '0px' }, '500', 'swing');
 					last.remove();
@@ -352,6 +352,7 @@ jtown.expand.syncProductMove = function(){
 			s = setTimeout('a()', 200);
 		});	
 	};
+	
 	activeLeftArrow();
 	
 	activeRightArrow = function(){
@@ -381,12 +382,16 @@ jtown.expand.syncProductMove = function(){
 			s = setTimeout('a()', 200);
 		});
 	};
+	
 	activeRightArrow();
 	
 	activeProductList = function(){
 		var s ;
 				
 		$('.jt-product-list').unbind('click').bind('click', function(){
+			$('.jt-product-list').unbind('click');
+			$('#jt-home-expand-shop-rigthArrow').unbind('click');
+			$('#jt-home-expand-shop-leftArrow').unbind('click');
 			clearTimeout(s);
 			var	count = Number($(this).parents('li').attr('data-count'));
 			
@@ -398,15 +403,21 @@ jtown.expand.syncProductMove = function(){
 					np = Number(parent.attr('data-nowPosition'));
 				
 				if((np == 1 && size == count) || (count != size && (count+1) == np )){
+					activeProductList();
+					activeLeftArrow();
+					activeRightArrow();
 					return ;
 				}
-				
 				if(size > 3){
 				
 					if(count != np){
 						setTimeout('a()', 500);
+					}else{
+						activeProductList();
+						activeLeftArrow();
+						activeRightArrow();
 					}
-					
+						
 					dan.prepend(last.clone().wrapAll('<div/>').parent().html());
 					dan.css({left :  '-170px'}).animate({left :  '0px' }, '500', 'swing');
 					last.remove();
