@@ -36,13 +36,15 @@
 .mm-home-search{width: 213px;}
 .mm-home-search>li{width: 208px;}
 .mm-home-search-input{
-	margin: 10px 0 0 0;
     width: 150px;
-    background: url(../images/jt-search-white.png) no-repeat 8px 4px #fcfcfc;
+    background: url(../images/jt-search-white.png) no-repeat 8px 6px #fcfcfc;
     border: 1px solid #c3c4c4;
     font: 75% Dotum, Gulim;
     color: #737373;
-    padding: 4px 15px 4px 35px;
+    float : left;
+    padding: 7px 15px 7px 35px;
+    margin-top: 6px;
+    font-size: 81.25%;
 }
 /********************************************
 *	Home 쇼핑몰 리스트 

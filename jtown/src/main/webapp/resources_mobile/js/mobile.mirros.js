@@ -38,7 +38,9 @@ $(function(){
 	mobile.mirSync();
 	
 	mobile.commentSync();
+});
 
+$(document).on('pageinit', function(event){
 	mobile.autocomplete();
 });
 
