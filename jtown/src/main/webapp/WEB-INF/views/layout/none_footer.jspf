@@ -7,48 +7,5 @@
 	</section>
 	<%@ include file="../layout/login.jspf" %>
 	<%@ include file="../layout/script_foot.jspf" %>
-	<script type="text/javascript">
-		$(function(){
-			$('#jt-comment-insert').placeholder();
-			$('#username_findPassword').placeholder();
-			$('#username_findSellerPassword').placeholder();
-			$('#j_username_page, #j_password_page').placeholder();
-		});
-	</script>
-	<c:if test="${error eq 1 }">
-		<c:set value="${cp }/seller/${jtownUser.pn}" var="sellerUrl"/>
-		<script type="text/javascript">
-		/* <![CDATA[ */  
-		    jtown.dialog('상품을 3개 이하로 삭제할 수 없습니다.');
-		
-		    document.onkeydown = checkKeycode;
-			
-		    function checkKeycode(e) {
-				var keycode = 0;
-				if (window.event) 
-					keycode = window.event.keyCode;
- 				else if (e) 
- 					keycode = e.which;
-				
-			    if (keycode == 116) {
-			    	keycode= 2;
-			        location.href='${sellerUrl}';
-			        return false;
-			    }else if(e.ctrlKey && (keycode==78 || keycode == 82)){
-			    	location.href='${sellerUrl}';
-			        return false;
-			    }
-			}
-		/* ]]> */	            
-		</script>
-	</c:if>
-	<c:if test="${disactiveError }">
-		<script type="text/javascript">
-		/* <![CDATA[ */ 
-		setTimeout("$('html, body').animate({scrollTop: $(document).height()}, 'slow')",0);             	
-		/* ]]> */	            
-		</script>            
-	</c:if>
-	
 </body>
 </html>

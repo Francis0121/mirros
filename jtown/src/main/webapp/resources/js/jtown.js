@@ -28,7 +28,26 @@ $(function() {
 		jtown.home.masonry.start();
 	}
 	
-	$("#jt-comment-insert").placeholder(); 
+	if(realPath == contextPath +'help/sQuestion.jt'){
+		 setTimeout("$('html, body').animate({scrollTop: '680px'}, 'slow')",0);
+	}else if(realPath == contextPath + 'help/cQuestion.jt'){
+		setTimeout("$('html, body').animate({scrollTop: '100px'}, 'slow')",0);
+	}else if(realPath == contextPath + 'login/disactive.jt'){
+		setTimeout("$('html, body').animate({scrollTop: $(document).height()}, 'slow')",0);
+	}
+	
+	$('#page-wrap').css('width', $('#page-wrap>div').width());
+	$('#jt-comment-insert').placeholder(); 
+	$('#username_findPassword').placeholder();
+	$('#username_findSellerPassword').placeholder();
+	$('#j_username_page, #j_password_page').placeholder();
+	$('#partnership_content').placeholder();
+	$('#cQuestion #name').placeholder();
+	$('#cQuestion #email').placeholder();
+	$('#sQuestion #shopPn').placeholder();
+	$('#sQuestion #name').placeholder();
+	$('#sQuestion #email').placeholder();
+	$('#sQuestion #content').placeholder();
 });
 
 jtown.postJSON = function(url, json, option, callback){
