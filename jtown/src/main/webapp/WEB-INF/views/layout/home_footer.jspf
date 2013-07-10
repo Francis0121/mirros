@@ -11,8 +11,5 @@
 	</footer>
 	<%@ include file="login.jspf" %>
 	<%@ include file="script_foot.jspf" %>
-	<script> 
-		$("#jt-comment-insert").placeholder(); 
-	</script>
 </body>
 </html>

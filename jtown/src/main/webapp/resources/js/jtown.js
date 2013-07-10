@@ -27,6 +27,8 @@ $(function() {
 	if(!nullValueCheck($container.html())){
 		jtown.home.masonry.start();
 	}
+	
+	$("#jt-comment-insert").placeholder(); 
 });
 
 jtown.postJSON = function(url, json, option, callback){
