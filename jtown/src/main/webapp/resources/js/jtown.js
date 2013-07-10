@@ -1,28 +1,32 @@
 $(function() {
 	
-	$('.jt-header-nav-interestCategory-li').unbind('mouseover mouseout').bind('mouseover mouseout', function(event) {
+	$('.jt-header-nav-interestCategory-li').bind('mouseover mouseout', function(event) {
 		jtown.header.showSubNavigation($(this).find('.jt-header-nav-interest'), event.type);
 	});
 	
-	$('#jt-login-smartPopup').unbind('click').bind('click', function(){
+	$('#jt-login-smartPopup').bind('click', function(){
 		jtown.header.showLoginForm();		
 	});
 
-	$('#jt-mypage').unbind('mouseover mouseout').bind('mouseover mouseout', function(event) {
+	$('#jt-mypage').bind('mouseover mouseout', function(event) {
 		jtown.header.showSubNavigation($('#jt-mypage-wrap'), event.type);
 	});
 
-	$('#jt-help').unbind('mouseover mouseout').bind('mouseover mouseout', function(event) {
+	$('#jt-help').bind('mouseover mouseout', function(event) {
 		jtown.header.showSubNavigation($('#jt-help-wrap'), event.type);
 	});
 
-	$('#resendConfirmMail').unbind('click').bind('click', function(){
+	$('#resendConfirmMail').bind('click', function(){
 		jtown.header.resendEmailAddress();
 	});
 	
 	$('#jt-naturalLanguage-search').placeholder();
 	
 	jtown.naturalLanguage.autocomplete();
+	
+	if(!nullValueCheck($container.html())){
+		jtown.home.masonry.start();
+	}
 });
 
 jtown.postJSON = function(url, json, option, callback){
@@ -108,6 +112,83 @@ jtown.header.showLoginForm = function(){
 if (typeof jtown.home == 'undefined') {
 	jtown.home = {};
 }
+
+var $container = $('#jt-home-container');
+
+jtown.home.masonry = {
+	start : function(){
+		$container.imagesLoaded(function(){
+			$container.masonry({
+				itemSelector : '.jt-home-shop',
+				columnWidth : 330
+			});
+		});
+		
+		this.pagination();
+		this.resize();
+		this.scrollTop();
+		$(window).scroll(this.move);
+		$(window).resize(this.resize);
+	},
+	pagination : function(){
+		$('#jt-home-container').scrollPagination({
+			'contentPage'	: contextPath + 'ajax/homePagination.jt',
+			'contentData'	: { 	'categoryPn'	: 	Number($('#jt-home-container').attr('data-cpn')),
+									'sectionPn'		: 	Number($('#jt-home-container').attr('data-spn'))	},
+			'scrollTarget'	: $(window),
+			'successCallback' : function(data){
+				var html = jtown.home.html(data), $boxes = $(html);
+				$('#jt-home-container').append($boxes).masonry('appended', $boxes);
+				setTimeout('jtown.expand.loadExpandShop()', 0);
+			},
+			'maxPage'		: $('#jt-home-container').attr('data-maxPage')
+		});
+	},
+	resize : function(){
+		var clientWidth = Number(window.document.body.clientWidth),
+		widthItem = Math.floor(clientWidth/330);
+	
+		if(widthItem < 3 ) widthItem = 3;
+		
+		$('#jt-home-container').css({width : (widthItem*330), margin : 'auto'});
+	},
+	scrollTop : function(){
+		$('#jt-scroll-top').bind('click', function(){
+			$('html, body').animate({scrollTop:0}, 'slow');
+		});
+	},
+	move : function(){
+		
+		var scrollheight = { topHeight : '46px', downHeight : '1px'}; 
+		var isEmail = $('.jt-footer').attr('data-isEmail');
+		BrowserDetect.init();
+		if(isEmail){
+			scrollheight = { topHeight : '76px', downHeight : '31px' }; 
+		}
+		if(!nullValueCheck(BrowserDetect.browser) && BrowserDetect.browser == 'Explorer'){
+			if(!nullValueCheck(BrowserDetect.version) && BrowserDetect.version < 9){
+				scrollheight = { topHeight : '50px', downHeight : '5px'}; 
+				if(isEmail){
+					scrollheight = { topHeight : '80px', downHeight : '35px'}; 
+				}
+			}
+		}
+		
+		var element = document.documentElement;
+		var body = document.body;
+		var scrollY = document.all ? (!element.scrollTop ? body.scrollTop : element.scrollTop) : (window.pageYOffset ? window.pageYOffset : window.scrollY);
+		if(scrollY == 0){
+			$('.jt-header-title').slideDown('fast');
+			setTimeout('$(".jt-header-nav-interestCategory").css("top", "'+scrollheight.topHeight+'")');
+			setTimeout('$(".jt-footer").slideUp()',0);
+		}else{
+			$('.jt-header-title').slideUp('fast', function(){
+				$('.jt-header-nav-interestCategory').css('top', scrollheight.downHeight);
+				setTimeout('$(".jt-footer").slideDown()',0);
+			});
+		}
+	}
+};
 
 jtown.home.clickShop = function(spn) {
 	var url = contextPath + 'ajax/clickView.jt', 

@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../layout/home_header.jspf" %>
-<div id="jt-home-container">
+<div id="jt-home-container" 
+	data-cpn="${homeFilter.categoryPn eq null ? 0 : homeFilter.categoryPn}" 
+	data-spn="${homeFilter.sectionPn eq null ? 0 : homeFilter.sectionPn}" 
+	data-maxPage="${homeFilter.pagination.numPages eq null ? 0 : homeFilter.pagination.numPages }">
 	<c:forEach begin="1" end="2" varStatus="i">
 		<c:set var="jtownUsers" value="${ i.count eq 1 ? one.jtownUsers : two.jtownUsers }"/>
 		<c:set var="images" value="${ i.count eq 1 ? one.images : two.images }"/>
