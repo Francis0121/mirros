@@ -1,45 +1,28 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <%@ include file="../../layout/none_header.jspf" %>
-<c:set var="cp" value="<%=request.getContextPath() %>"/>
 <c:set var="social" value="${jtownUser.social }" scope="request"/>
 <section class="jt-join-user-wrap">
 	<header class="jt-join-user-info">
 		<h1>회원가입</h1>
-		<c:if test="${social eq 'twitter' }">
-			<h2>Connected as Twitter <c:out value="${jtownUser.name }"/></h2>
-		</c:if>
 	</header>
 	<article class="jt-join-user-article">
 	<form:form commandName="jtownUser" action="${cp }/login/joinSubmit.jt" htmlEscape="true" method="post">
 	<table class="jt-join-user-table">
 		<tbody>
-			<c:choose>
-				<c:when test="${social eq 'twitter' }">
-					<form:hidden path="name"/>
-					<form:hidden path="social"/>
-				</c:when>
-				<c:otherwise>
-					<tr>
-						<th>
-							<form:label path="name">이름</form:label>
-						</th>
-						<td>
-							<div class="jt-join-user-vaild-wrap" id="nameLength">
-								<span class="jt-form-invalid">이름은&nbsp;20글자&nbsp;이하&nbsp;한글,영문,숫자&nbsp;이어야&nbsp;합니다.</span>
-							</div>
-							<form:input path="name" data-form="join" cssClass="jt-join-user-input" maxlength="20" cssErrorClass="jt-join-user-input-error"/>
-							<div class="jt-join-user-error">
-								<form:errors path="name" cssClass="commonError"></form:errors>
-							</div>
-						</td>
-					</tr>
-				</c:otherwise>
-			</c:choose>
+			<tr>
+				<th>
+					<form:label path="name">이름</form:label>
+				</th>
+				<td>
+					<div class="jt-join-user-vaild-wrap" id="nameLength">
+						<span class="jt-form-invalid">이름은&nbsp;20글자&nbsp;이하&nbsp;한글,영문,숫자&nbsp;이어야&nbsp;합니다.</span>
+					</div>
+					<form:input path="name" data-form="join" cssClass="jt-join-user-input" maxlength="20" cssErrorClass="jt-join-user-input-error"/>
+					<div class="jt-join-user-error">
+						<form:errors path="name" cssClass="commonError"></form:errors>
+					</div>
+				</td>
+			</tr>
 			<tr>
 				<th>
 					<form:label path="username" >이메일</form:label>
@@ -79,14 +62,6 @@
 					<input type="password" id="confirmPassword" name="confirmPassword" class="jt-join-user-input" maxlength="16"/>
 				</td>
 			</tr>
-			<c:if test="${social eq 'twitter' }">
-			<tr>
-				<th>&nbsp;</th>
-				<td>
-					<input type="checkbox" checked="checked" id="followSocial" name="followSocial"/><label for="followSocial">Follow recommended firends</label>
-				</td>
-			</tr>
-			</c:if>
 			<tr>
 				<th>
 					<label for="sex">성별</label>

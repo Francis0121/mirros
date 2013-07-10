@@ -1,24 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <%@ include file="../layout/home_header.jspf" %>
-<c:set var="cp" value="<%=request.getContextPath() %>"/>
 <div id="jt-home-container">
-	<c:forEach begin="1" end="2" varStatus="loop">
-		<c:if test="${loop.count eq 1 }">
-			<c:set var="jtownUsers" value="${one.jtownUsers }"/>
-			<c:set var="images" value="${one.images }"/>
-		</c:if>
-		<c:if test="${loop.count eq 2 }">
-			<c:set var="jtownUsers" value="${two.jtownUsers }"/>
-			<c:set var="images" value="${two.images }"/>
-		</c:if>
+	<c:forEach begin="1" end="2" varStatus="i">
+		<c:set var="jtownUsers" value="${ i.count eq 1 ? one.jtownUsers : two.jtownUsers }"/>
+		<c:set var="images" value="${ i.count eq 1 ? one.images : two.images }"/>
 		<c:forEach items="${jtownUsers }" var="seller">
 			<c:set value="${seller.pn }" var="spn"/>
-			<c:if test="${spn ne 0 and spn ne null }">
 			<c:set value="${images[spn] }" var="mainImages"/>
 			<div class="jt-home-shop" id="jt-home-shop-<c:out value="${spn }"/>" data-spn="<c:out value="${spn }"/>">
 				<header>
@@ -40,11 +27,9 @@
 							<div class="jt-home-shop-new-event">
 								<c:set var="newBannerStyle" value="${seller.newBanner ? 'display: block;' : 'display:none;'}"></c:set>
 								<c:set var="newProductStyle" value="${seller.newProduct > 0 ? 'display: block;' : 'display:none;'}"></c:set>
-								
 								<div id="new-product-<c:out value="${seller.pn }"/>" class="jt-home-shop-new-event-div" style="${newProductStyle}">
 									<span class="jt-home-shop-product-new-image">New product</span>
 								</div>
-								
 								<div id="new-<c:out value="${seller.pn }"/>"  class="jt-home-shop-new-event-div" style="${newBannerStyle}">
 									<span class="jt-home-shop-event-new-image">New event</span>														
 								</div>
@@ -72,7 +57,7 @@
 								<img alt="heart-background" src="${cp}/resources/images/heart-background.png">
 							</div>
 							<div class="jt-heart-click">
-								<a href="#none" 
+								<a 	href="#none" 
 									onclick="jtown.home.clickLove('<c:out value="${spn }"/>');" 
 									id="love-image-<c:out value="${spn }"/>" 
 									class="jt-home-shop-love ${loveClick }">♥</a>
@@ -93,7 +78,6 @@
 				<div class="jt-home-shop-image-footer"></div>
 				<![endif]-->
 			</div>
-			</c:if>	
 		</c:forEach>
 	</c:forEach>
 </div>

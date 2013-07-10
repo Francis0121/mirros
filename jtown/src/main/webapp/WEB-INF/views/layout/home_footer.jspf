@@ -7,7 +7,7 @@
 		</section>
 	</section>
 	<footer class="jt-footer">
-		<div class="jt-scroll-top" onclick=" $('html, body').animate({scrollTop:0}, 'slow');">TOP</div>
+		<div class="jt-scroll-top" onclick="$('html, body').animate({scrollTop:0}, 'slow');">TOP</div>
 	</footer>
 	<%@ include file="login.jspf" %>
 	<%@ include file="script_foot.jspf" %>
@@ -53,8 +53,6 @@
 		$("#jt-comment-insert").placeholder();
 	/* ]]> */	
 	</script>
-	
-
 	
 	<c:if test="${one.jtownUsers ne null}">
 		<script type="text/javascript">

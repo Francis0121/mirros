@@ -1,6 +1,30 @@
 if (typeof jtown.real == 'undefined') {
 	jtown.real = {};
 }
+$(function(){
+	jtown.real.start();
+});
+jtown.real.start = function(){
+	var options = {
+			secure : false,
+			'reconnect': true,
+			'reopen delay': 500,
+			'max reconnection attempts': 10,
+			'reconnection delay' : 500,
+			'connect timeout': 500
+		};	
+	
+	var socket = io.connect(nodePath, options);
+
+	socket.on('connect', function() {
+		socket.on('real_time', function(data){
+			jtown.real.time(data);
+		});		
+		socket.on('love_rank', function(data){
+			jtown.real.loveRank(data);
+		});
+	});
+};
 
 jtown.real.time = function(data) {
 

@@ -25,15 +25,12 @@
 </head>
 <body>
 	<section class="jt-body">
-	
 		<nav class="jt-left">
-		
 			<ul class="jt-login-info">
 				<li><sec:authentication property="principal.name"/></li>
 				<li><a href="${cp }/login/modify" class="jt-common-a-base">비밀번호변경</a></li>
 				<li><a href="${cp }/login/logout" class="jt-common-a-base">로그아웃</a></li>		
 			</ul>
-			
 			<ul class="jt-menu">
 				<c:set var="url" value="${cp }/admin"/>
 				<li><a href="${url}" class="<c:out value="${url eq rp ? 'jt-menu-hover' : '' }"/>">Home</a></li>
@@ -58,7 +55,5 @@
 					<a href="${cp }/admin/questions">Question</a>
 				</li>
 			</ul>
-			
 		</nav>
-		
 		<section class="jt-content">

@@ -5,6 +5,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <c:set var="cp" value="<%=request.getContextPath() %>"/>
+<c:set var="rp" value='<%=request.getAttribute("javax.servlet.forward.request_uri")%>'/>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -14,11 +15,11 @@
 <sec:authorize access="hasRole('ROLE_USER') and !principal.confirmEmail">
 <style type="text/css">
 	.jt-header-banner{ top: 30px; }
-	.jt-header-nav-interestCategory{ top:76px; }
+	.jt-header-nav-interestCategory{ top:76px; } 
 	.jt-content{ padding-top: 128px; }
 </style>
 <!--[if IE 8]>
-<style type="text/css">
+<style type="text/css"> 
 	.jt-header-nav-interestCategory{ top:80px; }
 </style>
 <![endif]-->

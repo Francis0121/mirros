@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<script type="text/javascript">
+<c:set var="webPath" value="https://www.mirros.net"/>
+<%--서버올릴시 제거 --%>
+<c:set var="webPath" value="http://127.0.0.1"/>
+<c:set var="nodePath" value="${webPath }:8000"/>
+<script>
 /* <![CDATA[ */
 (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -10,8 +14,9 @@ ga('create', 'UA-39852480-1', 'mirros.net');
 ga('send', 'pageview');         
 
 var contextPath = '<c:out value="${cp}"/>/';
+var webPath = '<c:out value="${webPath}"/>';
+var nodePath = '<c:out value="${nodePath}"/>';
 if (typeof jtown == 'undefined') {	jtown = {}; }
-
 /* ]]> */
 </script>
 <!--[if lt IE 9]>

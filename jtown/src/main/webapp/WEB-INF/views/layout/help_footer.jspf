@@ -11,7 +11,9 @@
 	<script>
 	$(function(){
 		$('#page-wrap').css('width', $('#page-wrap>div').width());
+		
 		$('#partnership_content').placeholder();
+		
 		$('#cQuestion #name').placeholder();
 		$('#cQuestion #email').placeholder();
 		

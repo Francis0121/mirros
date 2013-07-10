@@ -1,11 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <%@ include file="../layout/home_header.jspf" %>
-<c:set var="cp" value="<%=request.getContextPath() %>"/>
 <c:set value="${fn:length(products) }" var="productSize"/>
 <article class="jt-url-content-wrap">
 	<div id="urlfolderBar">
@@ -24,18 +18,16 @@
 						<c:otherwise>
 							<c:forEach items="${mainImages }" var="mainImage" varStatus="loop" >
 								<c:set value="${cp }/resources/uploadImage/${mainImage }" var="image"/>
-								<img alt="" src="${image }" id="jt-seller-main-image-area"/>	
+								<img alt="Main Image" src="${image }" id="jt-seller-main-image-area"/>	
 							</c:forEach>
 						</c:otherwise>
 					</c:choose>
 					<div class="jt-home-shop-new-event">
 						<c:set var="newBannerStyle" value="${jtownUser.newBanner ? 'display: block;' : 'display:none;'}"></c:set>
 						<c:set var="newProductStyle" value="${jtownUser.newProduct > 0 ? 'display: block;' : 'display:none;'}"></c:set>
-						
 						<div id="new-product-<c:out value="${jtownUser.pn }"/>" class="jt-home-shop-new-event-div" style="${newProductStyle}">
 							<span class="jt-home-shop-product-new-image">New product</span>
 						</div>
-						
 						<div id="new-<c:out value="${jtownUser.pn }"/>" class="jt-home-shop-new-event-div" style="${newBannerStyle}">
 							<span class="jt-home-shop-event-new-image">New event</span>														
 						</div>
@@ -48,7 +40,6 @@
 				<span class="jt-home-shop-footer-lastQuotationMark">"</span>
 			</div>
 			<section class="jt-home-main-recently-wrap">
-				
 				<header>
 					<h1>Date</h1>
 					<span class="jt-home-main-recently-date"><c:out value="${intervalCount.beforeDate }"/> ~ ${intervalCount.nowDate }</span>

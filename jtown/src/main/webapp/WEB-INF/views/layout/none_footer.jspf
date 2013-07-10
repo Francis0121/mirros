@@ -4,7 +4,6 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
-<c:set var="cp" value="<%=request.getContextPath() %>"/>
 	</section>
 	<%@ include file="../layout/login.jspf" %>
 	<%@ include file="../layout/script_foot.jspf" %>
@@ -17,7 +16,6 @@
 		});
 	</script>
 	<c:if test="${error eq 1 }">
-		<%--F5, CTRL + N, CTRL + R 시에는 error 메시지 안뜨도록 설정 --%>
 		<c:set value="${cp }/seller/${jtownUser.pn}" var="sellerUrl"/>
 		<script type="text/javascript">
 		/* <![CDATA[ */  
