@@ -8,6 +8,12 @@ $(document).ready(function() {
 	jtown.help.phoneNumberRd();
 	
 	jtown.help.questionSync();
+	
+	if(realPath == contextPath +'help/sQuestion.jt'){
+		 setTimeout("$('html, body').animate({scrollTop: '680px'}, 'slow')",0);
+	}else if(realPath == contextPath + 'help/cQuestion.jt'){
+		setTimeout("$('html, body').animate({scrollTop: '100px'}, 'slow')",0);
+	}
 });
 
 if (typeof jtown.help == 'undefined') {

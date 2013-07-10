@@ -24,6 +24,7 @@
 <%-- Node --%>
 <script src="${nodePath }/socket.io/socket.io.js"></script>
 <script src="${cp}/resources/js/real.time.js"></script>
+<%-- isFinish Message --%>
 <c:if test="${isFinish ne null && isFinish ne '' }">
 <script>
 /* <![CDATA[ */  
@@ -31,15 +32,6 @@
     document.onkeydown = checkKeycode;
 /* ]]> */	            
 </script>
-</c:if>
-
-<c:set var="cq" value="${cp }/help/cQuestion.jt"/>
-<c:if test="${rp eq cq }">
-	<script> /* <![CDATA[ */ setTimeout("$('html, body').animate({scrollTop: '100px'}, 'slow')",0); /* ]]> */ </script>
-</c:if>
-<c:set var="sq" value="${cp }/help/sQuestion.jt"/>
-<c:if test="${rp eq sq }">
-	<script> /* <![CDATA[ */  setTimeout("$('html, body').animate({scrollTop: '680px'}, 'slow')",0); /* ]]> */ </script>
 </c:if>
 
 <%-- Comming Soon Popup page ( Open시 삭제 ) --%>
