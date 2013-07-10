@@ -36,7 +36,8 @@ import com.bg.jtown.business.seller.SellerService;
 public class SellerController {
 
 	// ~ Static
-
+	private static final Integer FALSE = 0;
+	private static final Integer TRUE = 1;
 	private static final Logger logger = LoggerFactory
 			.getLogger(SellerController.class);
 
@@ -79,7 +80,15 @@ public class SellerController {
 	@RequestMapping(value = "/seller/products/{p}", method = RequestMethod.GET)
 	public String showProducts(@PathVariable(value = "p") Integer sellerPn,
 			Model model, SummaryUser summaryUser,
-			@RequestParam(required = false) Integer result) {
+			@RequestParam(required = false) Integer isFinish) {
+
+		if (isFinish != null) {
+			if (isFinish.equals(TRUE)) {
+				model.addAttribute("isFinish", "products.true");
+			} else if (isFinish.equals(FALSE)) {
+				model.addAttribute("isFinish", "products.false");
+			}
+		}
 
 		if (summaryUser.getEnumAuthority().equals(Authority.SELLER)) {
 			if (!summaryUser.getPn().equals(sellerPn)) {
@@ -89,7 +98,6 @@ public class SellerController {
 				return "redirect:../noPermission";
 			}
 		}
-		model.addAttribute("result", result);
 		model.addAttribute("products",
 				sellerService.selectSellerProduct(sellerPn));
 		Product product = new Product();
@@ -147,7 +155,7 @@ public class SellerController {
 			Integer sellerPn = product.getSellerPn();
 			product.setSellerPn(sellerPn);
 			sellerService.updateProduct(product);
-			model.addAttribute("result", 9);
+			model.addAttribute("isFinish", TRUE);
 			return "redirect:products/" + nowPn;
 		}
 	}
@@ -160,7 +168,7 @@ public class SellerController {
 		product.setSellerPn(summaryUser.getPn());
 		boolean result = sellerService.deleteSellerProduct(product);
 		if (!result) {
-			model.addAttribute("result", 8);
+			model.addAttribute("isFinish", FALSE);
 		}
 		return "redirect:products/" + nowPn;
 	}

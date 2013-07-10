@@ -2,7 +2,6 @@ package com.bg.jtown.controller;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -12,7 +11,6 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.social.ApiException;
 import org.springframework.social.facebook.api.Facebook;
 import org.springframework.social.facebook.api.FacebookLink;
@@ -28,7 +26,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bg.jtown.business.Comment;
 import com.bg.jtown.business.Count;
-import com.bg.jtown.business.Interest;
 import com.bg.jtown.business.comment.CommentService;
 import com.bg.jtown.business.home.HomeService;
 import com.bg.jtown.business.search.CommentFilter;
@@ -320,101 +317,4 @@ public class HomeController {
 		}
 		return count;
 	}
-
-	// ~ Custom Navigation - 2013.04.16 사용 X
-
-	@RequestMapping(value = "/ajax/getNavInterest.jt", method = RequestMethod.POST)
-	@ResponseBody
-	public Map<String, Object> ajaxGetNavInterest(@RequestBody Interest interest) {
-		return homeService.selectInterestDataMap(interest.getCategoryPn());
-	}
-
-	@RequestMapping(value = "/ajax/navInterestDelete.jt", method = RequestMethod.POST)
-	@ResponseBody
-	public void ajaxClickLove(@RequestBody Interest interest,
-			HttpSession session) {
-		try {
-			JtownUser user = (JtownUser) SecurityContextHolder.getContext()
-					.getAuthentication().getPrincipal();
-			logger.debug(user.toString());
-			if (user.getGroupName().equals("Customer")) {
-				interest.setCustomerPn(user.getPn());
-				homeService.deleteInterest(interest);
-			} else {
-				logger.debug("판매자 사용불가");
-			}
-		} catch (ClassCastException e) {
-			logger.debug("로그인하지않은 사용자");
-		}
-		@SuppressWarnings("unchecked")
-		Map<Integer, List<Interest>> interestMap = (Map<Integer, List<Interest>>) session
-				.getAttribute("interestMap");
-		logger.debug(interestMap.toString());
-		Integer categoryPn = interest.getCategoryPn();
-		List<Interest> interests = interestMap.get(categoryPn);
-		logger.debug(interests.toString());
-		List<Interest> newInterests = new ArrayList<Interest>();
-		if (interests != null) {
-			for (Interest i : interests) {
-				if (!i.getSectionPn().equals(interest.getSectionPn()))
-					newInterests.add(i);
-			}
-		}
-		interestMap.put(categoryPn, newInterests);
-		session.setAttribute("interestMap", interestMap);
-	}
-
-	@RequestMapping(value = "/ajax/navInterestInsert.jt", method = RequestMethod.POST)
-	@ResponseBody
-	public void navInterestInsert(@RequestBody Interest interest,
-			HttpSession session) {
-		try {
-			JtownUser user = (JtownUser) SecurityContextHolder.getContext()
-					.getAuthentication().getPrincipal();
-			logger.debug(user.toString());
-			if (user.getGroupName().equals("Customer")) {
-				interest.setCustomerPn(user.getPn());
-				homeService.insertInterest(interest);
-			} else {
-				logger.debug("판매자 사용불가");
-			}
-		} catch (ClassCastException e) {
-			logger.debug("로그인하지않은 사용자");
-		}
-
-		@SuppressWarnings("unchecked")
-		Map<Integer, List<Interest>> interestMap = (Map<Integer, List<Interest>>) session
-				.getAttribute("interestMap");
-		Integer categoryPn = interest.getCategoryPn();
-		if (interestMap == null) {
-			Map<Integer, List<Interest>> newInterestMap = new HashMap<Integer, List<Interest>>();
-			List<Interest> newInterest = new ArrayList<Interest>();
-			newInterest.add(interest);
-			newInterestMap.put(categoryPn, newInterest);
-			session.setAttribute("interestMap", newInterestMap);
-			logger.debug(newInterestMap.toString());
-		} else {
-			List<Interest> interests = interestMap.get(categoryPn);
-			boolean result = true;
-			if (interests == null) {
-				interests = new ArrayList<Interest>();
-			} else {
-				for (Interest i : interests) {
-					Integer addSectionPn = interest.getSectionPn();
-					Integer innerSectionPn = i.getSectionPn();
-					if (addSectionPn.equals(innerSectionPn)) {
-						result = false;
-						break;
-					}
-				}
-			}
-			if (result) {
-				interests.add(interest);
-				interestMap.put(categoryPn, interests);
-				logger.debug(interestMap.toString());
-				session.setAttribute("interestMap", interestMap);
-			}
-		}
-	}
-
 }

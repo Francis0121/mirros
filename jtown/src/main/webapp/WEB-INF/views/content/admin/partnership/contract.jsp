@@ -162,48 +162,31 @@ $(function(){
 /* ]]> */	
 </script>
 
-<%-- F5, CTRL + N, CTRL + R 시에는 result 메시지 안뜨도록 설정 --%>
-<c:if test="${result ne null }">
+<c:if test="${isFinish ne null && isFinish ne '' }">
+<script>
+/* <![CDATA[ */  
+    alert('<spring:message code="isFinish.${isFinish }.txt"/>');
+    var pageUrl = '${cp}/admin/contract?sellerPn=<c:out value="${contractFilter.sellerPn}"/>';
+    window.opener.document.location.reload();
 
-<script type="text/javascript">
-/* <![CDATA[ */
-var alertText = '';
-var pageUrl = '<c:out value="${rp }"/>';
-/* ]]> */	
-</script>
-
-<c:if test="${result eq 1 }">
-<script type="text/javascript">
-/* <![CDATA[ */
-alertText ='계약 되었습니다.';
-pageUrl += '?sellerPn=<c:out value="${contractFilter.sellerPn}"/>';
-window.opener.document.location.reload();
-/* ]]> */	
-</script>
-</c:if>
-
-<script type="text/javascript">
-/* <![CDATA[ */
-alert(alertText);
-
-document.onkeydown = checkKeycode;
-
-function checkKeycode(e) {
-	var keycode = 0;
-	if (window.event) 
-		keycode = window.event.keyCode;
-		else if (e) 
-			keycode = e.which;
+	document.onkeydown = checkKeycode;
 	
-    if (keycode == 116) {
-    	keycode= 2;
-        location.href=pageUrl;
-        return false;
-    }else if(e.ctrlKey && (keycode==78 || keycode == 82)){
-    	location.href=pageUrl;
-        return false;
-    }
-}
+	function checkKeycode(e) {
+		var keycode = 0;
+		if (window.event) 
+			keycode = window.event.keyCode;
+			else if (e) 
+				keycode = e.which;
+		
+	    if (keycode == 116) {
+	    	keycode= 2;
+	        location.href=pageUrl;
+	        return false;
+	    }else if(e.ctrlKey && (keycode==78 || keycode == 82)){
+	    	location.href=pageUrl;
+	        return false;
+	    }
+	}
 /* ]]> */	
 </script>
 </c:if>

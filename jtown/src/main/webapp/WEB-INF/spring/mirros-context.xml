@@ -31,6 +31,7 @@
 			<list>
 				<value>/com/bg/jtown/properties/message/messages</value>
 				<value>/com/bg/jtown/properties/message/messages_login</value>
+				<value>/com/bg/jtown/properties/message/messages_result</value>
 			</list>
 		</property>
 	</bean>

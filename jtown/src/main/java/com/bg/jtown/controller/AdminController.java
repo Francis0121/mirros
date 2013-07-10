@@ -48,6 +48,9 @@ import com.bg.jtown.util.ValidationUtil;
 @RequestMapping("/admin")
 public class AdminController {
 
+	// ~ Static
+	private static final Integer TRUE = 1;
+
 	// ~ Variable
 
 	private String prefixView = "views/content/admin/";
@@ -116,8 +119,10 @@ public class AdminController {
 	@RequestMapping(value = "/contract", method = RequestMethod.GET)
 	public String showContracPopup(Model model,
 			@ModelAttribute ContractFilter contractFilter,
-			@RequestParam(required = false) Integer result) {
-		model.addAttribute("result", result);
+			@RequestParam(required = false) Integer isFinish) {
+		if (isFinish != null && isFinish.equals(TRUE)) {
+			model.addAttribute("isFinish", "contract");
+		}
 
 		List<Contract> contracts = contractService
 				.selectContractList(contractFilter);
@@ -219,7 +224,9 @@ public class AdminController {
 			return prefixView + "partnership/contract";
 		} else {
 			contractService.insertCaculatePeroidContract(contract);
-			return "redirect:contract?result=1&sellerPn=" + sellerPn;
+			model.addAttribute("isFinish", TRUE);
+			model.addAttribute("sellerPn", sellerPn);
+			return "redirect:contract";
 		}
 	}
 

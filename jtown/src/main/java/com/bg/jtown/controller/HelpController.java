@@ -36,6 +36,9 @@ import com.bg.jtown.util.ValidationUtil;
 @Controller
 public class HelpController {
 
+	// ~ Static
+	private static final Integer TRUE = 1;
+
 	// ~ Variable
 
 	private String prefixView = "views/content/";
@@ -79,8 +82,10 @@ public class HelpController {
 
 	@RequestMapping(value = "/help/question", method = RequestMethod.GET)
 	public String showQuestion(Model model,
-			@RequestParam(required = false) Integer result) {
-		model.addAttribute("result", result);
+			@RequestParam(required = false) Integer isFinish) {
+		if (isFinish != null && isFinish.equals(TRUE)) {
+			model.addAttribute("isFinish", "question");
+		}
 		Map<String, List<QuestionSection>> questionCategoryMap = helpService
 				.selectQuestionCategoriesMap();
 		model.addAttribute("questionCategoryMap", questionCategoryMap);
@@ -96,11 +101,13 @@ public class HelpController {
 
 	@RequestMapping(value = "/help/partnership", method = RequestMethod.GET)
 	public String showRule(Model model,
-			@RequestParam(required = false) Integer result) {
+			@RequestParam(required = false) Integer isFinish) {
+		if (isFinish != null && isFinish.equals(TRUE)) {
+			model.addAttribute("isFinish", "partnership");
+		}
 		List<Interest> interests = homeService.selecInterestCategory();
 		model.addAttribute("interest", interests);
 		model.addAttribute("partnership", new Partnership());
-		model.addAttribute("result", result);
 		return prefixView + "help/partnership";
 	}
 
@@ -112,7 +119,7 @@ public class HelpController {
 		partnershipValidatorImpl.validate(partnership, result);
 		if (!result.hasErrors()) {
 			helpService.insertPartnership(partnership);
-			model.addAttribute("result", 1);
+			model.addAttribute("isFinish", TRUE);
 			return "redirect:partnership";
 		} else {
 			List<Interest> interests = homeService.selecInterestCategory();
@@ -127,15 +134,16 @@ public class HelpController {
 			BindingResult result) {
 		this.questionValidatorImpl.validate(question, result);
 
-		if (result.hasErrors()) {
+		if (!result.hasErrors()) {
+			helpService.insertQuestion(question);
+			model.addAttribute("isFinish", TRUE);
+			return "redirect:question";
+		} else {
 			Map<String, List<QuestionSection>> questionCategoryMap = helpService
 					.selectQuestionCategoriesMap();
 			model.addAttribute("questionCategoryMap", questionCategoryMap);
 			model.addAttribute("sQuestion", new Question());
 			return prefixView + "help/question";
-		} else {
-			helpService.insertQuestion(question);
-			return "redirect:question?result=7";
 		}
 	}
 
@@ -145,7 +153,6 @@ public class HelpController {
 			BindingResult result) {
 		this.questionValidatorImpl.validate(question, result);
 		new Validator() {
-
 			@Override
 			public void validate(Object target, Errors errors) {
 				Question question = (Question) target;
@@ -172,15 +179,16 @@ public class HelpController {
 			}
 		}.validate(question, result);
 
-		if (result.hasErrors()) {
+		if (!result.hasErrors()) {
+			helpService.insertQuestion(question);
+			model.addAttribute("isFinish", TRUE);
+			return "redirect:question";
+		} else {
 			Map<String, List<QuestionSection>> questionCategoryMap = helpService
 					.selectQuestionCategoriesMap();
 			model.addAttribute("questionCategoryMap", questionCategoryMap);
 			model.addAttribute("cQuestion", new Question());
 			return prefixView + "help/question";
-		} else {
-			helpService.insertQuestion(question);
-			return "redirect:question?result=7";
 		}
 	}
 }

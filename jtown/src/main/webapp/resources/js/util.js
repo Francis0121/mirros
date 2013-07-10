@@ -185,3 +185,27 @@ var BrowserDetect = {
 	} ]
 };
 
+
+/**
+ * F5, CTRL + N, CTRL + R 시에는 메시지 안뜨도록 설정
+ * 
+ * @param e
+ * 		EVENT
+ * @returns {Boolean}
+ */
+function checkKeycode(e) {
+	var keycode = 0;
+	if (window.event) 
+		keycode = window.event.keyCode;
+		else if (e) 
+			keycode = e.which;
+	
+    if (keycode == 116) {
+    	keycode= 2;
+        location.href = realPath;
+        return false;
+    }else if(e.ctrlKey && (keycode==78 || keycode == 82)){
+    	location.href = realPath;
+        return false;
+    }
+}

@@ -24,65 +24,13 @@
 <%-- Node --%>
 <script src="${nodePath }/socket.io/socket.io.js"></script>
 <script src="${cp}/resources/js/real.time.js"></script>
-
-<c:if test="${result ne null }">
-	<%--F5, CTRL + N, CTRL + R 시에는 result 메시지 안뜨도록 설정 --%>
-	<c:if test="${result eq 1 }">
-		<c:set var="alertText" value="접수 되었습니다."/>
-		<c:set value="${cp }/help/partnership" var="pageUrl"/>
-	</c:if>
-	<c:if test="${result eq 2 }">
-		<c:set var="alertText" value="변경 되었습니다."/>
-		<c:set value="${cp }/login/modify" var="pageUrl"/>
-	</c:if>
-	<c:if test="${result eq 3 }">
-		<c:set var="alertText" value="이메일이 변경 되었습니다."/>
-		<c:set value="${cp }/login/modifyEmailAddress" var="pageUrl"/>
-	</c:if>
-	<c:if test="${result eq 4 }">
-		<c:set var="alertText" value="임시 비밀번호를 전송 하였습니다."/>
-		<c:set value="${rp }" var="pageUrl"/>
-	</c:if>
-	<c:if test="${result eq 5 }">
-		<c:set var="alertText" value="이름이 변경되었습니다."/>
-		<c:set value="${rp }" var="pageUrl"/>
-	</c:if>
-	<c:if test="${result eq 7 }">
-		<c:set var="alertText" value="문의사항이 작성되었습니다."/>
-		<c:set value="${cp }/help/question" var="pageUrl"/>
-	</c:if>
-	<c:if test="${result eq 8 }">
-		<c:set var="alertText" value="3개 이하로 삭제하실 수 없습니다."/>
-		<c:set value="${rp}" var="pageUrl"/>
-	</c:if>
-	<c:if test="${result eq 9 }">
-		<c:set var="alertText" value="상품이 수정되었습니다."/>
-		<c:set value="${rp}" var="pageUrl"/>
-	</c:if>
-	<script type="text/javascript">
-	/* <![CDATA[ */  
-	    jtown.dialog('${alertText}');
-	
-	    document.onkeydown = checkKeycode;
-		
-	    function checkKeycode(e) {
-			var keycode = 0;
-			if (window.event) 
-				keycode = window.event.keyCode;
-				else if (e) 
-					keycode = e.which;
-			
-		    if (keycode == 116) {
-		    	keycode= 2;
-		        location.href='${pageUrl}';
-		        return false;
-		    }else if(e.ctrlKey && (keycode==78 || keycode == 82)){
-		    	location.href='${pageUrl}';
-		        return false;
-		    }
-		}
-	/* ]]> */	            
-	</script>
+<c:if test="${isFinish ne null && isFinish ne '' }">
+<script>
+/* <![CDATA[ */  
+    jtown.dialog('<spring:message code="isFinish.${isFinish }.txt"/>');
+    document.onkeydown = checkKeycode;
+/* ]]> */	            
+</script>
 </c:if>
 
 <c:set var="cq" value="${cp }/help/cQuestion.jt"/>

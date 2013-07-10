@@ -16,6 +16,7 @@ ga('send', 'pageview');
 var contextPath = '<c:out value="${cp}"/>/';
 var webPath = '<c:out value="${webPath}"/>';
 var nodePath = '<c:out value="${nodePath}"/>';
+var realPath = '<c:out value="${rp}"/>';
 if (typeof jtown == 'undefined') {	jtown = {}; }
 /* ]]> */
 </script>

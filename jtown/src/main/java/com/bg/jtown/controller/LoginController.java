@@ -60,6 +60,7 @@ import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 public class LoginController {
 
 	// ~ Static
+	private static final Integer TRUE = 1;
 
 	private static final Logger logger = LoggerFactory
 			.getLogger(LoginController.class);
@@ -341,11 +342,13 @@ public class LoginController {
 	@PreAuthorize("hasRole('ROLE_USER')")
 	@RequestMapping(value = "/login/modify", method = RequestMethod.GET)
 	public String showModify(Model model, SummaryUser summaryUser,
-			@RequestParam(required = false) Integer result,
+			@RequestParam(required = false) Integer isFinish,
 			NativeWebRequest request) {
 		setNoCache(request);
 		processFlash(request, model);
-		model.addAttribute("result", result);
+		if (isFinish != null && isFinish.equals(TRUE)) {
+			model.addAttribute("isFinish", "modify");
+		}
 
 		Map<String, List<Connection<?>>> connections = connectionRepository
 				.findAllConnections();
@@ -484,7 +487,8 @@ public class LoginController {
 			userCache.removeUserFromCache(jtownUser.getUsername());
 			userAuthenticator.onApplicationEvent(jtownUser.getUsername(),
 					request, response);
-			return "redirect:modify/?result=2";
+			model.addAttribute("isFinish", TRUE);
+			return "redirect:modify";
 		} else {
 			Map<String, List<Connection<?>>> connections = connectionRepository
 					.findAllConnections();
@@ -505,16 +509,18 @@ public class LoginController {
 	@RequestMapping(value = "/login/modifyEmailAddress", method = RequestMethod.GET)
 	public String showModifyEmailAddress(Model model,
 			@ModelAttribute JtownUser jtownUser,
-			@RequestParam(required = false) Integer result) {
-		model.addAttribute("result", result);
+			@RequestParam(required = false) Integer isFinish) {
+		if (isFinish != null && isFinish.equals(TRUE)) {
+			model.addAttribute("isFinish", "modifyEmailAddress");
+		}
 		return prefixView + "login/modifyEmailAddress";
 	}
 
 	@PreAuthorize("hasRole('ROLE_USER')")
 	@RequestMapping(value = "/login/modifyEmailAddress.jt", method = RequestMethod.POST)
-	public String formModifyEmailAddress(@ModelAttribute JtownUser jtownUser,
-			BindingResult result, HttpServletRequest request,
-			SummaryUser summaryUser) {
+	public String formModifyEmailAddress(Model model,
+			@ModelAttribute JtownUser jtownUser, BindingResult result,
+			HttpServletRequest request, SummaryUser summaryUser) {
 		new Validator() {
 			@Override
 			public void validate(Object target, Errors errors) {
@@ -552,7 +558,8 @@ public class LoginController {
 					summaryUser.getUsername());
 			emailSend.sendConfirmEmail(jtownUser.getUsername());
 			userAuthenticator.login(username, password);
-			return "redirect:modifyEmailAddress/?result=3";
+			model.addAttribute("isFinish", TRUE);
+			return "redirect:modifyEmailAddress";
 		} else {
 			return prefixView + "login/modifyEmailAddress";
 		}
@@ -618,10 +625,12 @@ public class LoginController {
 
 	@RequestMapping(value = "/login/findPassword", method = RequestMethod.GET)
 	public String showFindPassword(Model model,
-			@RequestParam(required = false) Integer result) {
+			@RequestParam(required = false) Integer isFinish) {
+		if (isFinish != null && isFinish.equals(TRUE)) {
+			model.addAttribute("isFinish", "findPassword");
+		}
 		model.addAttribute("jtownUser", new JtownUser());
 		model.addAttribute("sellerUser", new JtownUser());
-		model.addAttribute("result", result);
 		return prefixView + "login/findPassword";
 	}
 
@@ -653,7 +662,8 @@ public class LoginController {
 
 		if (!result.hasErrors()) {
 			emailSend.sendTempPasswordEmail(jtownUser.getUsername());
-			return "redirect:findPassword/?result=4";
+			model.addAttribute("isFinish", TRUE);
+			return "redirect:findPassword";
 		} else {
 			model.addAttribute("sellerUser", new JtownUser());
 			return prefixView + "login/findPassword";
@@ -689,7 +699,8 @@ public class LoginController {
 
 		if (!result.hasErrors()) {
 			emailSend.sendSellerTempPasswordEmail(pn);
-			return "redirect:findPassword/?result=4";
+			model.addAttribute("isFinish", TRUE);
+			return "redirect:findPassword";
 		} else {
 			model.addAttribute("jtownUser", new JtownUser());
 			return prefixView + "login/findPassword";
@@ -738,7 +749,7 @@ public class LoginController {
 	private static final String PROVIDER_ERROR_ATTRIBUTE = "social.provider.error";
 
 	@RequestMapping(value = "/login/modifyFacebookFeed.jt", method = RequestMethod.POST)
-	public String formModifyFacebookFeed(SummaryUser summaryUser,
+	public String formModifyFacebookFeed(Model model, SummaryUser summaryUser,
 			HttpServletRequest request, HttpServletResponse response) {
 		JtownUser jtownUser = new JtownUser();
 		jtownUser.setPn(summaryUser.getPn());
@@ -748,8 +759,8 @@ public class LoginController {
 
 		userAuthenticator.onApplicationEvent(summaryUser.getUsername(),
 				request, response);
-
-		return "redirect:modify/?result=2";
+		model.addAttribute("isFinish", TRUE);
+		return "redirect:modify";
 	}
 
 }
