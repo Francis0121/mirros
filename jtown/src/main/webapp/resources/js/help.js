@@ -14,6 +14,15 @@ $(document).ready(function() {
 	}else if(realPath == contextPath + 'help/cQuestion.jt'){
 		setTimeout("$('html, body').animate({scrollTop: '100px'}, 'slow')",0);
 	}
+	
+	$('#page-wrap').css('width', $('#page-wrap>div').width());
+	$('#partnership_content').placeholder();
+	$('#cQuestion #name').placeholder();
+	$('#cQuestion #email').placeholder();
+	$('#sQuestion #shopPn').placeholder();
+	$('#sQuestion #name').placeholder();
+	$('#sQuestion #email').placeholder();
+	$('#sQuestion #content').placeholder();
 });
 
 if (typeof jtown.help == 'undefined') {
