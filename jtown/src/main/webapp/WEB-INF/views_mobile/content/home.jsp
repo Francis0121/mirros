@@ -48,9 +48,11 @@
 				</li>
 			</ul>
 		</li>
+<!-- 
 		<li>
 			<a class="mm-home-nav-title mm-home-refresh"><span>refresh</span></a>
 		</li>
+ -->
 		<c:set var="homeFilterUrl" value="${mcp }/cpn/${homeFilter.categoryPn }/spn/0" scope="request"/>
 		<c:forEach var="interestCategory" items="${interestCategories }">
 			<c:set var="interestCategoryPn" value="${interestCategory.categoryPn }"/>
