@@ -19,6 +19,9 @@ $(function() {
 	jtown.login.confirmId();
 });
 
+function onPopupLoginSubmit(){
+	onLoginSubmit('jt-popup-login-form');
+}
 
 function onLoginSubmit(name){
 	var $form = $('#'+name);

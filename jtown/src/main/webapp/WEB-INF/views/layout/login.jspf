@@ -1,10 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <sec:authorize access="anonymous">
-<script>
-function onPopupLoginSubmit(){
-	onLoginSubmit('jt-popup-login-form');
-}
-</script>
 <div id="jt-login-form-wrap">
 	<div id="jt-login-form">
 		<form action="${cp }/j_spring_security_check" method="post" name="jt-popup-login-form" onsubmit="onPopupLoginSubmit(); return false;">
