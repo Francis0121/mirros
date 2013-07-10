@@ -33,6 +33,10 @@ $(function(){
 		location.reload();
 	});
 	
+	$('.mm-home-search').bind('click', function(){
+		$('#mm-naturalLanguage-search').focus();
+	});
+	
 	mobile.homeSync();
 	
 	mobile.mirSync();
