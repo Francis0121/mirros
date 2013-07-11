@@ -102,6 +102,10 @@ makeIntro = function(){
 			},
 			{
 				element: '#step2',
+				intro : 'tag입력'
+			},
+			{
+				element: '#step3',
 				intro: 	'<ol style="list-style: decimal; margin-left: 15px;">'+
 						'	<li>마우스를 사진 위에 올립니다.</li>'+
 						'	<li>수정 버튼을 클릭합니다.</li>'+
@@ -119,7 +123,7 @@ makeIntro = function(){
 						'</ol>'
 			},
 			{
-				element: '#step4',
+				element: '#step5',
 				intro: 	'<ul>'+
 						'	<li><span class="jt-home-shop-view jt-home-text-explain">VIEW</span> : 최근 일주일간 방문수</li>'+
 						'	<li><span class="jt-home-shop-comment jt-home-text-explain jt-comment-text-explain">COMMENT</span> : 댓글 수</li>'+
@@ -136,11 +140,11 @@ makeIntro = function(){
 						'</ol>'
 			},
 			{
-				element: '#step6',
+				element: '#step7',
 				intro:  '소비자가 해당 상품을 클릭하면 입력된 상품 URL 로 이동됩니다. 입력되지 않았을 시에는 쇼핑몰 첫 페이지로 이동 됩니다. 입력은 다음 단계에서 간편하게 가능 합니다.'
 			},
 			{
-				element: '#step7',
+				element: '#step8',
 				intro:  '\'+\' 버튼을 누르시고 당신의 상품을 알려보세요.'
 			},
 			{
@@ -192,6 +196,14 @@ jtown.seller.syncIntro = function(){
 	});
 	
 	$('.jt-home-expand-shop-products').unbind('mouseover mouseout').bind('mouseover mouseout', function(event){
+		if(event.type =='mouseover'){
+			$(this).find('.question-mark-wrap').show();
+		}else if(event.type == 'mouseout'){
+			$(this).find('.question-mark-wrap').hide();
+		}
+	});
+	
+	$('.jt-seller-tag').unbind('mouseover mouseout').bind('mouseover mouseout', function(event){
 		if(event.type =='mouseover'){
 			$(this).find('.question-mark-wrap').show();
 		}else if(event.type == 'mouseout'){

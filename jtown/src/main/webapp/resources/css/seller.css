@@ -53,13 +53,17 @@
 	-webkit-box-shadow :  inset 4px 4px 10px -5px #000, 4px 4px 6px -4px #000;
 }
 
-.jt-seller-text-content{width: 330px; margin: 8px 0 15px 0; float: left;}
+.jt-seller-text-content{width: 330px; margin-top: 8px; float: left;}
 .jt-seller-text-content>li{ float: left; width: 310px; padding: 8px 10px;}
 .jt-seller-text-content>li>h3{float: left; font-size: 13px; width: 70px; color: #1a1a1a; }
 .jt-seller-text-content>li>span{ float: left; font-size: 13px; width: 240px; color: #b2b2b2; }
 .jt-seller-text-content>li:nth-child(1){}
 .jt-seller-text-content>li:nth-child(2){}
 .jt-seller-text-content>li:nth-child(3){}
+.jt-seller-tag{width: 330px; float: left; margin-bottom: 15px;}
+.jt-seller-tag>li{ float: left; width: 310px; padding: 8px 10px;}
+.jt-seller-tag>li>h3{float: left; font-size: 13px; width: 70px; color: #1a1a1a; }
+.jt-seller-tag>li>span{ float: left; font-size: 13px; width: 240px; color: #b2b2b2; }
 /**
 *
 *	@author Francis
