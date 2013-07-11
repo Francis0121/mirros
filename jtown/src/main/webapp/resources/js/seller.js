@@ -90,7 +90,7 @@ $(function() {
 	});
 	
 	$('#jt-tag-update-btn').unbind('click').bind('click', function(){
-		$.smartPop.open({width : 400,height : 400, html : '<div style="color: #000;"></div>' });
+		
 	});
 });
 
