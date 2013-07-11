@@ -43,9 +43,7 @@
 						<c:forEach items="${interestes }" var="interest" varStatus="loop">
 							<span><c:out value="${interest }"/><c:if test="${loop.count ne fn:length(interestes) }">, </c:if></span>
 						</c:forEach><span>자동차, </span><span>자동차, </span><span>자동차, </span><span>자동차</span>
-						<a href="#none" class="jt-tag-update-btn" title="수정">
-							수정
-						</a>
+						<div id="jt-tag-update-btn" title="수정" >수정</div>
 					</div>
 				</li>
 			</ul>

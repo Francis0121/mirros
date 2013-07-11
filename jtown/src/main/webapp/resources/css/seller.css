@@ -65,7 +65,7 @@
 .jt-seller-tag>li>h3{float: left; font-size: 13px; width: 70px; color: #1a1a1a; }
 #jt-seller-tag-content{float: left; width: 220px; line-height: 17px;}
 #jt-seller-tag-content span{ float: left; font-size: 13px; width :auto; color: #b2b2b2; margin-right: 5px;}
-.jt-tag-update-btn{ margin-top :2px; float: left; font-size: 12px; width: 15px; height: 15px; background: url("../images/jt-tag-btn.png") no-repeat; text-indent: -99999px;}
+#jt-tag-update-btn{ margin-top :2px; float: left; font-size: 12px; width: 15px; height: 15px; background: url("../images/jt-tag-btn.png") no-repeat; text-indent: -99999px; cursor: pointer;}
 /**
 *
 *	@author Francis
