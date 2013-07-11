@@ -60,6 +60,10 @@ $(function(){
 	});
 });
 
+function onPopupLoginSubmit(){
+	onLoginSubmit('mm-page-login-form');
+}
+
 function onLoginSubmit(name){
 	var $form = $('#'+name);
 	
@@ -88,10 +92,7 @@ mobile.loginControl = function(data, name){
 		}
 		return;			
 	}else if(result == 'error'){
-		if(name == 'jt-popup-login-form'){
-			location.href= mobileContextPath + 'login/?error=1';
-		}
-		$('.mm-login-error-box').html('로그인에 실패하였습니다.');
+		location.href= mobileContextPath + '/login/?isFinish=0';
 		return;
 	}
 

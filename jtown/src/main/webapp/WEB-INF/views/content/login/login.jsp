@@ -59,10 +59,10 @@ function onPageLoginSubmit() {
 					인터넷 쇼핑몰들을 체험하세요.
 				</p>
 			</div>
-			  
 			<div class="jt-login-error-box">
-				<c:if test="${login_error eq 1 }">
-					로그인에 실패하였습니다.
+				<c:if test="${message ne null }">
+					로그인에 실패하였습니다.<br/>
+					<c:out value="${message }"/>
 				</c:if>
 		    </div>	
 	</sec:authorize>	

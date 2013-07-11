@@ -51,10 +51,7 @@ jtown.login.control = function(data, name){
 		location.href= contextPath + url;		
 		return;
 	}else if(result == 'error'){
-		if(name == 'jt-popup-login-form'){
-			location.href= contextPath + 'login/?error=1';
-		}
-		$('.jt-login-error-box').html('로그인에 실패하였습니다.');
+		location.href= contextPath + 'login/?isFinish=0';
 		return;
 	}
 

@@ -1,10 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../../layout/home-header.jspf" %>
-<script>
-function onPopupLoginSubmit(){
-	onLoginSubmit('mm-page-login-form');
-}
-</script>
 <header class="mm-header">
 	<div>
 		<a href="${mcp }/">Mirros</a>
@@ -58,8 +53,9 @@ function onPopupLoginSubmit(){
 		</div>
 		
 		<div class="mm-login-error-box">
-		    <c:if test="${login_error eq 1 }">
-				로그인에 실패하였습니다.
+			<c:if test="${message ne null }">
+				로그인에 실패하였습니다.<br/>
+				<c:out value="${message }"/>
 			</c:if>
 	    </div>	
 </sec:authorize>	

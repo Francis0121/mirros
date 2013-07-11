@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.ConnectionFactoryLocator;
 import org.springframework.social.connect.ConnectionRepository;
@@ -42,6 +43,8 @@ import com.bg.jtown.util.ValidationUtil;
 public class LoginController {
 
 	// ~ Static
+	private static final Integer FALSE = 0;
+
 	private static Logger logger = LoggerFactory
 			.getLogger(LoginController.class);
 
@@ -79,13 +82,25 @@ public class LoginController {
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String showLogin(Model model,
-			@RequestParam(required = false) String error,
+			@RequestParam(required = false) Integer isFinish,
 			HttpServletRequest request, HttpSession session) {
-		model.addAttribute("login_error", error);
 		String referer = request.getHeader("referer") == null ? "../" : request
 				.getHeader("referer");
 		logger.debug(" Referer [ " + referer + " ] ");
 		session.setAttribute("beforeLoginUrl", referer);
+		if (isFinish != null) {
+			if (isFinish.equals(FALSE)) {
+				BadCredentialsException badCredentialsException = (BadCredentialsException) session
+						.getAttribute("MIRROS_LOGIN_EXCEPTION");
+				if (badCredentialsException != null) {
+					model.addAttribute("message",
+							badCredentialsException.getMessage());
+					session.removeAttribute("MIRROS_LOGIN_EXCEPTION");
+				} else {
+					return "redirect:";
+				}
+			}
+		}
 		return prefixView + "login/login";
 	}
 
