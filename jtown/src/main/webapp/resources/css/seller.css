@@ -60,10 +60,12 @@
 .jt-seller-text-content>li:nth-child(1){}
 .jt-seller-text-content>li:nth-child(2){}
 .jt-seller-text-content>li:nth-child(3){}
-.jt-seller-tag{width: 330px; float: left; margin-bottom: 15px;}
+.jt-seller-tag{width: 330px; float: left; margin-bottom: 5px;}
 .jt-seller-tag>li{ float: left; width: 310px; padding: 8px 10px;}
 .jt-seller-tag>li>h3{float: left; font-size: 13px; width: 70px; color: #1a1a1a; }
-.jt-seller-tag>li>span{ float: left; font-size: 13px; width: 240px; color: #b2b2b2; }
+#jt-seller-tag-content{float: left; width: 220px; line-height: 17px;}
+#jt-seller-tag-content span{ float: left; font-size: 13px; width :auto; color: #b2b2b2; margin-right: 5px;}
+.jt-tag-update-btn{ margin-top :2px; float: left; font-size: 12px; width: 15px; height: 15px; background: url("../images/jt-tag-btn.png") no-repeat; text-indent: -99999px;}
 /**
 *
 *	@author Francis

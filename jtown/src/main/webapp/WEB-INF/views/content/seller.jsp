@@ -39,14 +39,14 @@
 				</li>
 				<li>
 					<h3>Tag</h3>
-					<span>
+					<div id="jt-seller-tag-content">
 						<c:forEach items="${interestes }" var="interest" varStatus="loop">
-							<c:out value="${interest }"/>
-							<c:if test="${loop.count ne fn:length(interestes) }">
-								,
-							</c:if>
-						</c:forEach>
-					</span>
+							<span><c:out value="${interest }"/><c:if test="${loop.count ne fn:length(interestes) }">, </c:if></span>
+						</c:forEach><span>자동차, </span><span>자동차, </span><span>자동차, </span><span>자동차</span>
+						<a href="#none" class="jt-tag-update-btn" title="수정">
+							수정
+						</a>
+					</div>
 				</li>
 			</ul>
 			<div class="jt-home-shop">
