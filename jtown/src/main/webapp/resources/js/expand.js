@@ -201,7 +201,7 @@ jtown.expand.makeInnerHtml = function(spn){
 			loveHotCount = '';
 		}
 		
-		var tagHtml = 'Shop&nbsp;Tag&nbsp;:&nbsp;';
+		var tagHtml = '<span class="tag-txt">';
 		for(var i = 0, iLength = interests.length ; i < iLength ; i++){
 			var interest = interests[i];
 			tagHtml += interest;
@@ -209,6 +209,7 @@ jtown.expand.makeInnerHtml = function(spn){
 				tagHtml += ',&nbsp;';
 			}
 		}
+		tagHtml +='</span><span class="tag-image">Tag</span>';
 		
 		html += '<header class="jt-home-expand-click-shop-header">';
 		html += '	<div>';
