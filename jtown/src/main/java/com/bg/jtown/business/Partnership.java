@@ -26,6 +26,11 @@ public class Partnership {
 	private String content;
 
 	/**
+	 * 입금현황
+	 */
+	private Integer deposit;
+
+	/**
 	 * 이메일주소
 	 */
 	private String email;
@@ -81,9 +86,14 @@ public class Partnership {
 	private Integer process;
 
 	/**
-	 * 입금현황
+	 * 회사명
 	 */
-	private Integer deposit;
+	private String shopName;
+
+	/**
+	 * 회사주소
+	 */
+	private String shopUrl;
 
 	/**
 	 * 수정날짜
@@ -109,6 +119,10 @@ public class Partnership {
 
 	public String getContent() {
 		return content;
+	}
+
+	public Integer getDeposit() {
+		return deposit;
 	}
 
 	public String getEmail() {
@@ -155,6 +169,14 @@ public class Partnership {
 		return process;
 	}
 
+	public String getShopName() {
+		return shopName;
+	}
+
+	public String getShopUrl() {
+		return shopUrl;
+	}
+
 	public String getUpdateDate() {
 		return updateDate;
 	}
@@ -174,6 +196,10 @@ public class Partnership {
 
 	public void setContent(String content) {
 		this.content = content;
+	}
+
+	public void setDeposit(Integer deposit) {
+		this.deposit = deposit;
 	}
 
 	public void setEmail(String email) {
@@ -220,28 +246,29 @@ public class Partnership {
 		this.process = process;
 	}
 
+	public void setShopName(String shopName) {
+		this.shopName = shopName;
+	}
+
+	public void setShopUrl(String shopUrl) {
+		this.shopUrl = shopUrl;
+	}
+
 	public void setUpdateDate(String updateDate) {
 		this.updateDate = updateDate;
-	}
-
-	public Integer getDeposit() {
-		return deposit;
-	}
-
-	public void setDeposit(Integer deposit) {
-		this.deposit = deposit;
 	}
 
 	@Override
 	public String toString() {
 		return "Partnership [adminUser=" + adminUser + ", categoryPn="
-				+ categoryPn + ", content=" + content + ", email=" + email
-				+ ", inputDate=" + inputDate + ", jtownUser=" + jtownUser
-				+ ", name=" + name + ", note=" + note + ", phoneNumber="
-				+ phoneNumber + ", phoneNumberNd=" + phoneNumberNd
-				+ ", phoneNumberRd=" + phoneNumberRd + ", phoneNumberSt="
-				+ phoneNumberSt + ", pn=" + pn + ", process=" + process
-				+ ", deposit=" + deposit + ", updateDate=" + updateDate + "]";
+				+ categoryPn + ", content=" + content + ", deposit=" + deposit
+				+ ", email=" + email + ", inputDate=" + inputDate
+				+ ", jtownUser=" + jtownUser + ", name=" + name + ", note="
+				+ note + ", phoneNumber=" + phoneNumber + ", phoneNumberNd="
+				+ phoneNumberNd + ", phoneNumberRd=" + phoneNumberRd
+				+ ", phoneNumberSt=" + phoneNumberSt + ", pn=" + pn
+				+ ", process=" + process + ", shopName=" + shopName
+				+ ", shopUrl=" + shopUrl + ", updateDate=" + updateDate + "]";
 	}
 
 }

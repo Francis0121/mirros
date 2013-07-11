@@ -260,14 +260,16 @@ function goToPreviousPages() {
 					</c:when>
 					<c:otherwise>
 						<td class="jt-seller-create">
-							<button type="button" class="jt-seller-create-btn jt-btn-white-small">
+							<button type="button" class="jt-seller-create-btn jt-btn-white-small"
+									data-shopUrl="<c:out value="${userInfo.shopUrl }"/>"
+									data-name="<c:out value="${userInfo.name }"/>">
 								<span class="btnImage"></span>
 								<span class="btnText">아이디 생성</span>
 							</button>
 						</td>
 						<td class="jt-seller-shopPn">&nbsp;</td>
-						<td class="jt-seller-shopUrl">&nbsp;</td>
-						<td class="jt-seller-name">&nbsp;</td>
+						<td class="jt-seller-shopUrl"><c:out value="${userInfo.shopUrl }"/></td>
+						<td class="jt-seller-name"><c:out value="${userInfo.name }"/></td>
 						<td class="jt-seller-interest">&nbsp;</td>
 						<td class="jt-seller-enabled">
 							<select class="jt-partnership-enabled-select" style="display: none;">

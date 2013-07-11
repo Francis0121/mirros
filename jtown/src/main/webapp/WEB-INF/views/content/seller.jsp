@@ -45,7 +45,7 @@
 			</ul>
 			<div class="jt-home-shop">
 				<header>
-					<a href="http://${jtownUser.shopUrl }" target="_blank"><c:out value="${jtownUser.name }"/></a>
+					<a href="${jtownUser.shopUrl }" target="_blank"><c:out value="${jtownUser.name }"/></a>
 				</header>
 				<div class="jt-home-shop-content" id="step2">
 					<ul class="jt-home-shop-content-image" id="jt-seller-main-image">
@@ -202,7 +202,7 @@
 							<div style="width :${fn:length(products) * 170}px;" id="jt-seller-slide-content-dan">
 							<c:forEach items="${products }" var="product" varStatus="loop">
 								<div class="jt-home-expand-shop-expandProduct" id="jt-product-${productSize - loop.index }">
-									<c:set var="shopUrl" value="http://${jtownUser.shopUrl }" />
+									<c:set var="shopUrl" value="${jtownUser.shopUrl }" />
 									<a href="${product.url eq null ? shopUrl : product.url}" target="_blank"><img alt="상품" src="${cp }/resources/uploadImage/${product.saveName }"/></a>
 									<div class="jt-product-article-object-wrap jt-product-article-object-expand">
 										<c:choose>

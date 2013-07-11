@@ -100,7 +100,7 @@
 		<c:set value="${images[spn] }" var="mainImages"/>
 		<article class="mm-home-article" data-spn="<c:out value="${spn }"/>">
 			<header class="mm-home-article-header">
-				<a href="http://<c:out value="${seller.shopUrl }"/>" target="_blank"><c:out value="${seller.name }"/></a>
+				<a href="<c:out value="${seller.shopUrl }"/>" target="_blank"><c:out value="${seller.name }"/></a>
 			</header>
 			<article>
 				<ul class="mm-home-mainImage">

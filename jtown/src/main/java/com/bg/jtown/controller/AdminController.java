@@ -380,14 +380,6 @@ public class AdminController {
 		if (!ValidationUtil.checkCharAndLength(name, 0, 30)) {
 			return new Json(1, messageSource.getMessage("seller.name.empty",
 					null, locale));
-		} else {
-			JtownUser lj = adminService.selectSeller(name);
-			if (lj != null) {
-				if (!lj.getPn().equals(jtownUser.getPn())) {
-					return new Json(1, messageSource.getMessage(
-							"seller.name.exist", null, locale));
-				}
-			}
 		}
 		adminService.updateSeller(jtownUser);
 		return new Json(0, name);

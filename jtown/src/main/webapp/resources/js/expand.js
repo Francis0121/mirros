@@ -71,7 +71,7 @@ jtown.expand.makeInnerHtml = function(spn){
 			}
 			
 			bigProductHtml += '<div class="jt-home-expand-shop-expandProduct">';
-			bigProductHtml += '<a href="'+ ( nullValueCheck(product.url) ? 'http://'+jtownUser.shopUrl : product.url  )+'" target="_blank" onclick="jtown.home.goHome('+spn+');"><img alt="상품" src="'+path+product.saveName+'"/></a>';
+			bigProductHtml += '<a href="'+ ( nullValueCheck(product.url) ? jtownUser.shopUrl : product.url  )+'" target="_blank" onclick="jtown.home.goHome('+spn+');"><img alt="상품" src="'+path+product.saveName+'"/></a>';
 			bigProductHtml += '<div class="jt-product-article-object-wrap jt-product-article-object-expand">';
 			bigProductHtml += detailProduct;
 			bigProductHtml += '</div>';
@@ -213,7 +213,7 @@ jtown.expand.makeInnerHtml = function(spn){
 		
 		html += '<header class="jt-home-expand-click-shop-header">';
 		html += '	<div>';
-		html += '		<a href="http://'+jtownUser.shopUrl+'" target="_blank" onclick="jtown.home.goHome(\''+spn+'\');" title="클릭시 해당 쇼핑몰로 이동됩니다.">'+htmlChars(jtownUser.name)+'</a>';
+		html += '		<a href="'+jtownUser.shopUrl+'" target="_blank" onclick="jtown.home.goHome(\''+spn+'\');" title="클릭시 해당 쇼핑몰로 이동됩니다.">'+htmlChars(jtownUser.name)+'</a>';
 		html += '	</div>';	
 		html += '</header>';
 		html += '<div class="jt-home-expand-shop jt-home-expand-click-shop" id="jt-home-expand-shop" data-name="'+htmlChars(jtownUser.name)+'" data-size="'+productSize+'" data-nowPosition="'+productSize+'" data-spn="'+jtownUser.pn+'" data-url="'+jtownUser.shopUrl+'">';
@@ -316,7 +316,7 @@ jtown.expand.gotoPage = function(){
 		var url = parent.attr('data-url');
 
 		var open = window.open('about:blank');
-		open.location.href = 'http://'+url;
+		open.location.href = url;
 		jtown.home.goHome(spn);
 	});
 };

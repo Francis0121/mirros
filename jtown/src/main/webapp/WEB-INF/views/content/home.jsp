@@ -12,7 +12,7 @@
 			<c:set value="${images[spn] }" var="mainImages"/>
 			<div class="jt-home-shop" id="jt-home-shop-<c:out value="${spn }"/>" data-spn="<c:out value="${spn }"/>">
 				<header>
-					<a href="http://<c:out value="${seller.shopUrl }"/>" target="_blank" onclick="jtown.home.goHome('<c:out value="${spn }"/>')"><c:out value="${seller.name }"/></a>
+					<a href="<c:out value="${seller.shopUrl }"/>" target="_blank" onclick="jtown.home.goHome('<c:out value="${spn }"/>')"><c:out value="${seller.name }"/></a>
 				</header>
 				<div class="jt-home-shop-content">
 					<ul class="jt-home-shop-content-image">

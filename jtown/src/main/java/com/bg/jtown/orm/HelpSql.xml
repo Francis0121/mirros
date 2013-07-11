@@ -54,7 +54,7 @@
 		SELECT
 			p.pn, p.name, p.email, p.phone_number,
 			p.category_pn, p.content, p.process, p.deposit, p.input_date, p.update_date, p.note,
-			u.pn AS seller_pn, u.shop_pn, u.shop_url, u.id, u.enable, u.salt, u.name AS seller_name, 
+			u.pn AS seller_pn, u.shop_pn, IFNULL(u.shop_url, p.shop_url) AS shop_url, u.id, u.enable, u.salt, IFNULL(u.name, p.shop_name) AS seller_name, 
 			u.begin_start_date, u.contract_end_date,
 			ua.pn AS admin_pn, ua.name AS admin_name
 		FROM
@@ -325,9 +325,9 @@
 	<insert id="insertPartnership" parameterType="Partnership">
 		INSERT INTO
 			partnership
-			(	name,	email,	phone_number,	category_pn,	content,	process, deposit, input_date, update_date	)
+			(	name,	email,	phone_number,	category_pn,	content,	process, deposit,  shop_name, shop_url, input_date, update_date	)
 		VAlUES	
-			(	#{name},	#{email},	#{phoneNumber},	#{categoryPn},	#{content}, #{process}, #{deposit}, SYSDATE(), SYSDATE()	)
+			(	#{name},	#{email},	#{phoneNumber},	#{categoryPn},	#{content}, #{process}, #{deposit}, #{shopName}, #{shopUrl}, SYSDATE(), SYSDATE()	)
 		<selectKey keyProperty="pn" resultType="java.lang.Integer">
 			SELECT LAST_INSERT_ID()
 		</selectKey>

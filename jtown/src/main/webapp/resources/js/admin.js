@@ -156,18 +156,21 @@ $(function() {
 
 jtown.admin.sellerCreate = function(){
 	$('.jt-seller-create-btn').unbind('click').bind('click', function(){
-		var parent = $(this).parents('.jt-partnership-info'),
+		var thiz = $(this),
+			parent = thiz.parents('.jt-partnership-info'),
 			pspn = parent.attr('data-pspn');
 		
 		var url = contextPath + 'admin/ajax/createSeller.jt';
-		var json =	{ 	pn		: pspn	};
+		var json =	{ 	pn		: pspn,
+						shopUrl : thiz.attr('data-shopUrl'),
+						name 	: thiz.attr('data-name') };
 		
 		$.postJSON(url, json, function(jtownUser){
 			parent.attr('data-spn', jtownUser.pn);
 			parent.find('.jt-seller-create').html('<a href="'+contextPath+'seller/'+jtownUser.pn+'">'+jtownUser.username+'</a>').removeClass('jt-seller-create').addClass('jt-partnership-username');
 			parent.find('.jt-seller-shopPn').text(jtownUser.sixShopPn).removeClass('jt-seller-shopPn').addClass('jt-partnership-shopPn');
-			parent.find('.jt-seller-shopUrl').text('').addClass('jt-partnership-shopUrl').removeClass('jt-seller-shopUrl');
-			parent.find('.jt-seller-name').text('').addClass('jt-partnership-sellerName').removeClass('jt-seller-name');
+			parent.find('.jt-seller-shopUrl').addClass('jt-partnership-shopUrl').removeClass('jt-seller-shopUrl');
+			parent.find('.jt-seller-name').addClass('jt-partnership-sellerName').removeClass('jt-seller-name');
 			parent.find('.jt-seller-enabled').addClass('jt-partnership-enabled').removeClass('jt-seller-enabled');
 			parent.find('.jt-partnership-enabled-select').css('display', 'block');
 			parent.find('.jt-seller-interest').text('').addClass('jt-partnership-interest').removeClass('jt-seller-interest');

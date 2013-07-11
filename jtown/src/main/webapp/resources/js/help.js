@@ -8,11 +8,56 @@ $(document).ready(function() {
 	jtown.help.phoneNumberRd();
 	
 	jtown.help.questionSync();
+	
+	jtown.help.confirmShopUrl();
+	
+	jtown.help.confirmShopName();
 });
 
 if (typeof jtown.help == 'undefined') {
 	jtown.help = {};
 }
+
+jtown.help.confirmShopName = function() {
+	$('input[name=shopName]').keyup(
+			function() {
+				var regExp = /^[0-9A-Za-z가-힣]*$/;
+				var shopName = $(this).val();				
+				
+				if (regExp.test(shopName)) {
+					$('#shopNameCheck>span').removeClass('jt-form-invalid').addClass('jt-form-valid');
+				} else {
+					$('#shopNameCheck>span').removeClass('jt-form-valid').addClass('jt-form-invalid');
+				}
+			}).focus(function() {
+		$('#shopNameCheck').show();
+	}).blur(function() {
+		$('#shopNameCheck').hide();
+	});
+};
+
+jtown.help.confirmShopUrl = function() {
+	$('input[name=shopUrl]').keyup(
+			function() {
+				var shopName = $(this).val();
+				
+				var regExp = /^http:\/\/.*$/;
+				var http = regExp.test(shopName);
+				
+				regExp = /^https:\/\/.*$/;
+				var https = regExp.test(shopName);
+				
+				if (http || https) {
+					$('#shopUrlCheck>span').removeClass('jt-form-invalid').addClass('jt-form-valid');
+				} else {
+					$('#shopUrlCheck>span').removeClass('jt-form-valid').addClass('jt-form-invalid');
+				}
+			}).focus(function() {
+		$('#shopUrlCheck').show();
+	}).blur(function() {
+		$('#shopUrlCheck').hide();
+	});
+};
 
 jtown.help.confirmEmail = function() {
 	$('input[name=email]').keyup(

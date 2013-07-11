@@ -59,7 +59,7 @@
 			user_seller
 			( pn, shop_url, hot )		
 		VALUES
-			( #{pn}, '', 0 )
+			( #{pn}, #{shopUrl}, 0 )
 		<selectKey keyProperty="shopPn" resultType="Integer">
 			SELECT LAST_INSERT_ID()
 		</selectKey>	

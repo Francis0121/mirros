@@ -616,7 +616,7 @@ mobile.homeHtml = function(data) {
 		
 		html += '<article class="mm-home-article" data-spn="' + spn + '">';
 		html += '	<header class="mm-home-article-header">';
-		html += '		<a href="http://' + seller.shopUrl + '" target="_blank">' + htmlChars(seller.name) + '</a>';
+		html += '		<a href="' + seller.shopUrl + '" target="_blank">' + htmlChars(seller.name) + '</a>';
 		html += '	</header>';
 		html += '	<article>';
 		html += '		<ul class="mm-home-mainImage">';

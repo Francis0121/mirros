@@ -20,7 +20,7 @@ public class PartnershipValidatorImpl implements Validator {
 	@Override
 	public void validate(Object object, Errors errors) {
 		Partnership partnership = (Partnership) object;
-		
+
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "categoryPn",
 				"partnership.categoryPn.empty");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "content",
@@ -29,6 +29,10 @@ public class PartnershipValidatorImpl implements Validator {
 				"partnership.email.empty");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name",
 				"partnership.name.empty");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "shopName",
+				"partnership.shopName.empty");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "shopUrl",
+				"partnership.shopUrl.empty");
 
 		String email = partnership.getEmail();
 		if (!ValidationUtil.checkNullAndBlank(email)) {
@@ -101,6 +105,19 @@ public class PartnershipValidatorImpl implements Validator {
 					"partnership.phoneNumberRd.check");
 		}
 
+		String shopName = partnership.getShopName();
+		if (!ValidationUtil.checkNullAndBlank(shopName)) {
+			if (!ValidationUtil.checkCharAndLength(shopName, 0, 30)) {
+				errors.rejectValue("shopName", "partnership.shopName.notAllow");
+			}
+		}
+
+		String shopUrl = partnership.getShopUrl();
+		if (ValidationUtil.lengthCheck(shopUrl, 0, 100)) {
+			if (!ValidationUtil.homepageFormCheck(shopUrl)) {
+				errors.rejectValue("shopUrl", "partnership.shopUrl.notAllow");
+			}
+		}
 	}
 
 	@Override

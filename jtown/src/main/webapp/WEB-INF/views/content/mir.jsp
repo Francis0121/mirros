@@ -4,7 +4,7 @@
 <article class="jt-url-content-wrap">
 	<div id="urlfolderBar">
 		<div id="urlfolderTabName">
-			<span id="urldigonalFolderImage"><a href="http://${jtownUser.shopUrl }" target="_blank" title="클릭시 해당 쇼핑몰로 이동됩니다."><c:out value="${jtownUser.name }"/></a></span>
+			<span id="urldigonalFolderImage"><a href="${jtownUser.shopUrl }" target="_blank" title="클릭시 해당 쇼핑몰로 이동됩니다."><c:out value="${jtownUser.name }"/></a></span>
 		</div>
 	</div>
 	<section class="jt-seller-content">
@@ -76,7 +76,7 @@
 							<div style="width :${fn:length(products) * 170}px;" id="jt-seller-slide-content-dan">
 							<c:forEach items="${products }" var="product" varStatus="loop">
 								<div class="jt-home-expand-shop-expandProduct" id="jt-product-${productSize - loop.index }">
-									<c:set var="shopUrl" value="http://${jtownUser.shopUrl }" />
+									<c:set var="shopUrl" value="${jtownUser.shopUrl }" />
 									<a href="${product.url eq null ? shopUrl : product.url}" target="_blank"  onclick="jtown.home.goHome('${jtownUser.pn }');"><img alt="상품" src="${cp }/resources/uploadImage/${product.saveName }"/></a>
 									<div class="jt-product-article-object-wrap jt-product-article-object-expand">
 										<c:choose>

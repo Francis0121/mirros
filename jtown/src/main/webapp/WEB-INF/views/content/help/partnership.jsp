@@ -44,6 +44,34 @@
 						</td>
 					</tr>
 					<tr>
+						<th>
+							<form:label path="shopName">회사명</form:label>
+						</th>
+						<td>
+							<div class="jt-partnership-wrap" id="shopNameCheck">
+								<span class="jt-form-invalid">한글,&nbsp;영문,&nbsp;숫자만&nbsp;가능합니다.</span>
+							</div>
+							<form:input path="shopName" htmlEscape="true" maxlength="30" cssClass="jt-partnership-input" cssErrorClass="jt-partnership-input-error" />
+							<div class="jt-partnership-error">
+								<form:errors path="shopName"/>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<th>
+							<form:label path="shopUrl">홈페이지주소</form:label>
+						</th>
+						<td>
+							<div class="jt-partnership-wrap" id="shopUrlCheck">
+								<span class="jt-form-invalid">형식에&nbsp;맞지&nbsp;않는&nbsp;이메일&nbsp;주소입니다.</span>
+							</div>
+							<form:input path="shopUrl" htmlEscape="true" maxlength="100" cssClass="jt-partnership-input" cssErrorClass="jt-partnership-input-error" placeholder="ex) http://www.homepage.com"/>
+							<div class="jt-partnership-error">
+								<form:errors path="shopUrl"/>
+							</div>
+						</td>
+					</tr>
+					<tr>
 						<th>연락처</th>
 						<td>
 							<div class="jt-partnership-wrap" id="confirmPhoneNumber">
@@ -70,7 +98,7 @@
 							<div class="jt-partnership-wrap" id="confirmEmail">
 								<span class="jt-form-invalid">정확한&nbsp;이메일&nbsp;주소를&nbsp;입력해&nbsp;주시기&nbsp;바랍니다.</span>
 							</div>
-							<form:input path="email" htmlEscape="true" maxlength="50" cssClass="jt-partnership-input" cssErrorClass="jt-partnership-input-error"/>
+							<form:input path="email" htmlEscape="true" maxlength="50" cssClass="jt-partnership-input" cssErrorClass="jt-partnership-input-error" placeholder="ex) abc@myemail.com"/>
 							<div class="jt-partnership-error">
 								<form:errors path="email"/>
 							</div>

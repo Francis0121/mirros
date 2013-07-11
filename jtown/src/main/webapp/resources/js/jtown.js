@@ -301,7 +301,7 @@ jtown.home.html = function(data) {
 
 		html += '	<div class="jt-home-shop" id="jt-home-shop-' + spn + '"  data-spn="' + spn + '">';
 		html += '		<header>';
-		html += '			<a href="http://' + seller.shopUrl + '" target="_blank" onclick="jtown.home.goHome(\'' + spn + '\')">' + htmlChars(seller.name) + '</a>';
+		html += '			<a href="' + seller.shopUrl + '" target="_blank" onclick="jtown.home.goHome(\'' + spn + '\')">' + htmlChars(seller.name) + '</a>';
 		html += '		</header>';
 		html += '		<div class="jt-home-shop-content">';
 		html += '			<ul class="jt-home-shop-content-image">';

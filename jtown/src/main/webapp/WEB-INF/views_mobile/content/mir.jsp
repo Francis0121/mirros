@@ -7,7 +7,7 @@
 	<c:set var="cpn" value=""/>
 </sec:authorize>
 <header class="mm-mir-header">
-	<a href="http://${jtownUser.shopUrl }" target="_blank" data-spn="${jtownUser.pn }"><c:out value="${jtownUser.name }"/></a>
+	<a href="${jtownUser.shopUrl }" target="_blank" data-spn="${jtownUser.pn }"><c:out value="${jtownUser.name }"/></a>
 	<div class="mm-mir-header-goHome">
 		<a href="${mcp }/">Home</a>
 	</div>
@@ -24,7 +24,7 @@
 			<div id="mm-carousel" data-length="${fn:length(products)}">
 				<ul>
 					<c:forEach items="${products }" var="product" varStatus="i">
-						<c:set var="shopUrl" value="http://${jtownUser.shopUrl }" />
+						<c:set var="shopUrl" value="${jtownUser.shopUrl }" />
 						<li>
 							<a href="javascript:mobile.product('${jtownUser.pn }', '${product.url eq null ? shopUrl : product.url}');">
 								<img alt="${product.name eq null ? 'Product' : product.name }" src="${cp }/resources/uploadImage/${product.saveName }" >
