@@ -158,6 +158,7 @@
 						to : this.opts.target,
 						className : "ui-effects-transfer"
 					};
+				jtown.expand.show = false;
 				$('#smartPop').hide();
 			}
 

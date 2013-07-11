@@ -245,7 +245,7 @@
 	
 	<select id="selectCheckExistSellerEmail" parameterType="String" resultType="Integer">
 		SELECT
-			p.pn
+			p.seller_pn
 		FROM
 			partnership p
 			LEFT OUTER JOIN users u

@@ -16,7 +16,7 @@
 	.jt-home-shop-content-image{cursor: default;}
 </style>
 </head>
-<body style="background: #f2f2f2;">
+<body>
 	<section class="jt-body">
 		<header class="jt-header">
 			<div class="jt-header-title jt-one-header-title">

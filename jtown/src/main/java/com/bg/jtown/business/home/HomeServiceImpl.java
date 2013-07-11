@@ -98,6 +98,8 @@ public class HomeServiceImpl extends SqlSessionDaoSupport implements
 		selectMap.putAll(sellerService.selectSellerEvent(properNumber));
 		selectMap.put("products",
 				sellerService.selectSellerProduct(properNumber));
+		selectMap.put("interestes",
+				sellerService.selectSellerInterest(properNumber));
 
 		logger.debug(selectMap.toString());
 

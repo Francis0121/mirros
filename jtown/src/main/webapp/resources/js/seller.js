@@ -497,7 +497,7 @@ jtown.seller.productImage = function(file){
 					'saveName': file.saveName };
 	
 	$.postJSON(url, json, function(product){
-		if(product.count >= 9){
+		if(product.count > 9){
 			jtown.dialog('상품은 10개 이하로 등록 가능합니다.');
 		}
 		var me = $('#jt-product-article-object-'+product.count);

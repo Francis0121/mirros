@@ -13,7 +13,7 @@
 <%@ include file="script_head.jspf" %>
 <%@ include file="style.jspf"%>
 </head>
-<body style="background: #f6f4f5;">
+<body>
 	<section class="jt-body">
 		<header class="jt-header">
 			<div class="jt-header-title">

@@ -128,11 +128,15 @@ color: #808080;}
 }
 
 .jt-home-expand-shop-products{ width : 100%; min-height: 80px; float: left; border-bottom: 1px solid #d1cdcd;}
-.jt-home-expand-shop-products>ul{ float: left; padding: 15px 15px;  min-width: 165px; max-width: 550px; margin: auto auto; }
-.jt-home-expand-shop-products>ul>li{ float: left; margin-right: 5px; height: 63px; width: 50px;}
+.jt-home-expand-shop-products>ul{ float: left; padding: 15px;  min-width: 165px; max-width: 580px; margin: auto auto; }
+.jt-home-expand-shop-products>ul>li{ float: left; margin-right: 8px; height: 63px; width: 50px;}
 .jt-home-expand-shop-products>ul>li>span{ float: left; font-family : Arial; color: #ffbf63; font-size: 11px; text-align: right; width: 50px; height: 10px; margin-bottom: 3px;}
 .jt-home-expand-shop-products>ul>li>a{ float: left; width: 50px; height: 50px;}
 .jt-home-expand-shop-products>ul>li>a>img{ float: left; width: 50px; height: 50px;}
+.jt-home-expand-shop-products>.jt-home-expand-shop-tag{float: left; width: 100%; text-align: right; font-size: 12px; color: #808080; padding : 0 25px 10px 25px; margin-top:-3px;
+	box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box; -moz-box-sizing : border-box; -webkit-box-sizing : border-box;
+}
+
 .jt-home-expand-shop-event{ width : 309px; height: 154px; float: left; border-right: 1px solid #999999; cursor: pointer;}
 .jt-home-expand-shop-event>img{width: 309px; height: 154px; }
 .jt-home-expand-shop-event-new{float : left; position: absolute;  font-size: 13px; color: #fe6009; font-weight: bold; margin: 5px; width: 305px;}

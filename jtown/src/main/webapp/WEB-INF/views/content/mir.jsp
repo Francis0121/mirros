@@ -118,6 +118,9 @@
 							</li>
 						</c:forEach>
 					</ul>
+					<div class="jt-home-expand-shop-tag">
+						Shop&nbsp;Tag&nbsp;:&nbsp;<c:forEach items="${interestes }" var="interest" varStatus="loop"><c:out value="${interest }"/><c:if test="${loop.count ne fn:length(interestes) }">,&nbsp;</c:if></c:forEach>
+					</div>
 				</div>
 				<div class="jt-home-expand-shop-event gotoPage" id="jt-seller-expand-event-first" title="클릭시 해당 쇼핑몰로 이동됩니다." data-epn="<c:out value="${event1.pn }"/>" data-bo="1">
 					<c:if test="${jtownUser.bannerFirst < 3 }">
