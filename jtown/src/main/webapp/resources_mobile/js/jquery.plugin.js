@@ -26,6 +26,8 @@
 
 			if (this.opts.log)
 				$('#smartPop_log').show();
+			
+			$('body').bind('touchmove', function(e){e.preventDefault();});
 		},
 		resize : function() {
 			this.log(this.opts.width + ' x ' + this.opts.height);
@@ -170,6 +172,7 @@
 				$('#smartPop_overlay').fadeOut(500);
 			}
 			this.opts.categoryFn();
+			$('body').unbind('touchmove');
 		},
 		log : function(msg) {
 			var log = $('#smartPop_log').html();
