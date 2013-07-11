@@ -2,6 +2,31 @@ if (typeof mobile.real == 'undefined') {
 	mobile.real = {};
 }
 
+$(function(){
+	mobile.real.start();
+});
+mobile.real.start = function(){
+	var options = {
+			secure : false,
+			'reconnect': true,
+			'reopen delay': 500,
+			'max reconnection attempts': 10,
+			'reconnection delay' : 500,
+			'connect timeout': 500
+		};	
+	
+	var socket = io.connect(nodePath, options);
+
+	socket.on('connect', function() {
+		socket.on('real_time', function(data){
+			mobile.real.time(data);
+		});		
+		socket.on('love_rank', function(data){
+			mobile.real.loveRank(data);
+		});
+	});
+};
+
 mobile.real.time = function(data) {
 
 	var obj = eval('('+data+')');

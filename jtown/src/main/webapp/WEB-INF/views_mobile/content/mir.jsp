@@ -27,7 +27,7 @@
 						<c:set var="shopUrl" value="http://${jtownUser.shopUrl }" />
 						<li>
 							<a href="javascript:mobile.product('${jtownUser.pn }', '${product.url eq null ? shopUrl : product.url}');">
-								<img alt="${product.name eq null ? 'Product' : product.name }" src="${web }/resources/uploadImage/${product.saveName }" >
+								<img alt="${product.name eq null ? 'Product' : product.name }" src="${cp }/resources/uploadImage/${product.saveName }" >
 							</a>
 							<p>
 								<c:choose>
@@ -67,7 +67,7 @@
 				</div>
 			</c:if>
 			<c:set var="blankEvent" value="${cp }/resources/images/jt-event-user-blank.png"/>
-			<c:set var="imageEvent" value="${web }/resources/uploadImage/${event1.saveName }"/>
+			<c:set var="imageEvent" value="${cp }/resources/uploadImage/${event1.saveName }"/>
 			<img alt="First Event" src="${event1.saveName eq null ? blankEvent : imageEvent }"/>
 		</div>
 		<div title="클릭시 해당 쇼핑몰로 이동됩니다.">
@@ -78,7 +78,7 @@
 					</div>
 				</div>
 			</c:if>
-			<c:set var="imageEvent" value="${web }/resources/uploadImage/${event2.saveName }"/>
+			<c:set var="imageEvent" value="${cp }/resources/uploadImage/${event2.saveName }"/>
 			<img alt="Second Event" src="${event2.saveName eq null ? blankEvent : imageEvent }"/>
 		</div>
 	</section>

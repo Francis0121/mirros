@@ -18,7 +18,7 @@
 						<a href="${cp }/login/logout"><span>Log out</span></a>
 					</li>
 					<li>
-						<a href="${web }" id="mm-pc-version-btn"><span>PC Version</span></a>
+						<a href="${cp }/" id="mm-pc-version-btn"><span>PC Version</span></a>
 					</li>
 				</sec:authorize>
 				<sec:authorize access="anonymous">
@@ -32,7 +32,7 @@
 						<a href="${mcp }/login/join"><span>Sign In</span></a>
 					</li>
 					<li>
-						<a href="${web }" id="mm-pc-version-btn"><span>PC Version</span></a>
+						<a href="${cp }/" id="mm-pc-version-btn"><span>PC Version</span></a>
 					</li>
 					<li>
 						<a><span>&nbsp;</span></a>
@@ -84,7 +84,10 @@
 		</c:forEach>
 	</ul>
 </nav>
-<section class="mm-home-section" id="mm-home-container">
+<section class="mm-home-section" id="mm-home-container" 
+	data-cpn="${homeFilter.categoryPn eq null ? 0 : homeFilter.categoryPn}" 
+	data-spn="${homeFilter.sectionPn eq null ? 0 : homeFilter.sectionPn}" 
+	data-maxPage="${homeFilter.pagination.numPages eq null ? 0 : homeFilter.pagination.numPages }">
 	<header>
 		<h1>Let’s see, your shop</h1>
 	</header>
@@ -108,7 +111,7 @@
 							</c:when>
 							<c:otherwise>	
 								<c:forEach items="${mainImages }" var="mainImage">
-									<div class="mm-home-mainImage-content"><img alt="Main Image" src="${web }/resources/uploadImage/${mainImage}" title="${seller.name}"/></div>
+									<div class="mm-home-mainImage-content"><img alt="Main Image" src="${cp }/resources/uploadImage/${mainImage}" title="${seller.name}"/></div>
 								</c:forEach>
 							</c:otherwise>
 						</c:choose>

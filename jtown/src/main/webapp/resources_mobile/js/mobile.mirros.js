@@ -44,6 +44,20 @@ $(function(){
 	mobile.commentSync();
 	
 	mobile.autocomplete();
+	
+	$('#mm-home-container').scrollPagination({
+		'contentPage'	: mobileContextPath + '/ajax/homePagination.jt',
+		'contentData'	: { 	'categoryPn'	: 	Number($('#mm-home-container').attr('data-cpn')),
+								'sectionPn'		: 	Number($('#mm-home-container').attr('data-spn'))	},
+		'scrollTarget'	: $(window),
+		'successCallback' : function(data){
+			var html = mobile.homeHtml(data);
+			var $boxes = $(html);
+			$('#mm-home-container').append($boxes);
+			setTimeout('mobile.homeSync();', 0);
+		},
+		'maxPage'		: $('#mm-home-container').attr('data-maxPage')
+	});
 });
 
 function onLoginSubmit(name){
@@ -581,7 +595,7 @@ mobile.homeHtml = function(data) {
 		}
 		for ( var j = 0, jLen = mainImages.length; j < jLen; j++) {
 			var mainImage = mainImages[j];
-			var imageSrc = webPath + '/resources/uploadImage/'+ mainImage;
+			var imageSrc = contextPath + '/resources/uploadImage/'+ mainImage;
 			imageHtml += '<div class="mm-home-mainImage-content">';	
 			imageHtml += '	<img alt="Main Image" src="' + imageSrc + '" title="'+ htmlChars(seller.name) + '"/>	';
 			imageHtml += '</div>';
