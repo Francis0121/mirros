@@ -176,7 +176,11 @@ makeIntro = function(){
 			},
 			{
 				element: '#step2',
-				intro : 'tag입력'
+				intro : '<ol>'+
+						'	<li><span class="jt-intro-order">1.</span><span class="jt-tag-update-intro">수정</span> 을 클릭합니다.</li>'+
+						'	<li><span class="jt-intro-order">2.</span>자신이 원하는 Tag을 체크합니다.</li>'+
+						'	<li><span class="jt-intro-order">3.</span>수정 버튼을 클릭합니다.</li>'+
+						'</ol>'
 			},
 			{
 				element: '#step3',
