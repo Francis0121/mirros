@@ -89,10 +89,80 @@ $(function() {
 		window.close();
 	});
 	
-	$('#jt-tag-update-btn').unbind('click').bind('click', function(){
-		
+	$('#jt-tag-update-show-btn').toggle(function(){
+		var url = contextPath + 'ajax/seller/selectInterestes.jt',
+			json = {};	
+		$.postJSON(url, json, function(interestes){
+			var html = '';
+			for(var i=0, iLen = interestes.length ; i < iLen ; i++){
+				var interest = interestes[i];
+				var checked = nullValueCheck(interest.sellerPn) ? '' : 'checked="checked"';
+				html += '<li><input type="checkbox" '+checked+' name="jt-tag-check" class="jt-tag-check" value="'+interest.sectionPn+'"/><label for="jt-tag-check">'+htmlChars(interest.name)+'</label></li>';
+			}
+			$('#jt-tag-checkBox-section>ul').html(html);
+			$('#jt-tag-checkBox').show();
+			setTimeout('jtown.seller.changeTag()', 0);
+			setTimeout('jtown.seller.changeTagIntro();', 0);
+		});		
+	}, function(){
+		$('#jt-tag-checkBox').hide();
+		setTimeout('jtown.seller.changeTagIntro();', 0);
 	});
+	
+	
 });
+
+jtown.seller.changeTag = function(){
+	$('.jt-tag-check').unbind('click').bind('click', function(){
+		var checkedList = $('input:checkbox[name=jt-tag-check]:checked');
+		if(checkedList.length > 5){
+			$(this).each(function(){
+				this.checked = false;
+			});
+			$('#jt-checkBox-header-text').css('color','#ff3600');
+		}else{
+			$('#jt-checkBox-header-text').css('color','#808080');
+		}
+	});
+	
+	$('#jt-tag-update-btn').unbind('click').bind('click', function(){
+		var checkedList = $('input:checkbox[name=jt-tag-check]:checked');
+		var spnList = new Array(checkedList.length);
+		for(var i=0, cLen = checkedList.length; i < cLen; i++){
+			var checked = checkedList[i];
+			spnList[i] = checked.value;
+		}
+		
+		var url = contextPath + 'ajax/seller/updateSellerInterestes.jt';
+		var json = { spnList : spnList };
+		
+		$.postJSON(url, json, function(interestes){	
+			$('#jt-seller-tag-content>span').remove();
+			var html = '';
+			for(var i=0, iLen = interestes.length ; i< iLen ;i++){
+				var interest = interestes[i];
+				html +='<span>'+interest.name;
+				if((i+1) != iLen){
+					html += ', ';
+				}
+				html +='</span>';
+			}
+			$('#jt-tag-update-show-btn').before(html);
+			$('#jt-tag-checkBox').hide();
+			setTimeout('jtown.seller.changeTagIntro();', 0);
+		});		
+	});
+		
+	$('#jt-tag-cancle-btn').unbind('click').bind('click', function(){
+		$('#jt-tag-checkBox').hide();
+		setTimeout('jtown.seller.changeTagIntro();', 0);
+	});
+};
+
+jtown.seller.changeTagIntro = function(){
+	var height = Number($('#step2').height())+20;
+	$('.introjs-helperLayer').height(height);
+};
 
 makeIntro = function(){
 	var intro = introJs();

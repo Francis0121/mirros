@@ -204,7 +204,7 @@ jtown.expand.makeInnerHtml = function(spn){
 		var tagHtml = '<span class="tag-txt">';
 		for(var i = 0, iLength = interests.length ; i < iLength ; i++){
 			var interest = interests[i];
-			tagHtml += interest;
+			tagHtml += interest.name;
 			if((i+1) != iLength){
 				tagHtml += ',&nbsp;';
 			}

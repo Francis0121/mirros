@@ -1,5 +1,7 @@
 package com.bg.jtown.business;
 
+import java.util.Arrays;
+
 /**
  * @author Francis
  * 
@@ -20,6 +22,12 @@ public class Interest {
 
 	private Integer sellerPn;
 
+	/**
+	 * Ajax를 통해 리스트 받아오는 용
+	 * 
+	 */
+	private Integer[] spnList;
+
 	public Interest() {
 		super();
 	}
@@ -30,13 +38,6 @@ public class Interest {
 		this.categoryPn = categoryPn;
 		this.sectionPn = sectionPn;
 		this.name = name;
-	}
-	
-	public String getNaturalName() {
-		if (this.categoryName != null && this.name != null) {
-			return this.categoryName + " - " + this.name;
-		}
-		return null;
 	}
 
 	public String getCategoryName() {
@@ -57,6 +58,13 @@ public class Interest {
 
 	public String getName() {
 		return name;
+	}
+
+	public String getNaturalName() {
+		if (this.categoryName != null && this.name != null) {
+			return this.categoryName + " - " + this.name;
+		}
+		return null;
 	}
 
 	public Integer getSectionPn() {
@@ -99,13 +107,21 @@ public class Interest {
 		this.sellerPn = sellerPn;
 	}
 
+	public Integer[] getSpnList() {
+		return spnList;
+	}
+
+	public void setSpnList(Integer[] spnList) {
+		this.spnList = spnList;
+	}
+
 	@Override
 	public String toString() {
 		return "Interest [categoryName=" + categoryName + ", categoryPn="
 				+ categoryPn + ", customerPn=" + customerPn
 				+ ", interestSectionList=" + interestSectionList + ", name="
 				+ name + ", sectionPn=" + sectionPn + ", sellerPn=" + sellerPn
-				+ "]";
+				+ ", spnList=" + Arrays.toString(spnList) + "]";
 	}
 
 }

@@ -108,7 +108,7 @@ function goToPreviousPages() {
 			<th>ShopNo</th>
 			<th>홈페이지</th>
 			<th>회사명</th>
-			<th>관심사</th>
+			<th>Tag</th>
 			<th>활성화</th>
 			<th>기간</th>
 			<th>조회</th>

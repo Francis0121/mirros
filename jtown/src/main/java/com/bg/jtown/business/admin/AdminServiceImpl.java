@@ -41,7 +41,8 @@ public class AdminServiceImpl extends SqlSessionDaoSupport implements
 		getSqlSession().insert("adminMapper.insertInterestSection", interest);
 	}
 
-	private void insertSellerInterest(Interest interest) {
+	@Override
+	public void insertSellerInterest(Interest interest) {
 		getSqlSession().insert("adminMapper.insertSellerInterest", interest);
 	}
 
@@ -57,8 +58,8 @@ public class AdminServiceImpl extends SqlSessionDaoSupport implements
 
 	@Override
 	public List<Interest> selectInterestCategoryList() {
-		return getSqlSession()
-				.selectList("adminMapper.selectInterestCategoryList");
+		return getSqlSession().selectList(
+				"adminMapper.selectInterestCategoryList");
 	}
 
 	@Override
@@ -101,12 +102,12 @@ public class AdminServiceImpl extends SqlSessionDaoSupport implements
 		return getSqlSession().selectOne("adminMapper.selectAdminCount",
 				administartorFilter);
 	}
-	
+
 	@Override
 	public void insertAdmin(JtownUser jtownUser) {
 		customJdbcUserDetailManager.createUserAdminAndAuthority(jtownUser);
 	}
-	
+
 	@Override
 	public void updateAdminPassword(JtownUser jtownUser) {
 		jtownUser.setNewPassword("1q2w3e4r!");
@@ -139,7 +140,7 @@ public class AdminServiceImpl extends SqlSessionDaoSupport implements
 	public JtownUser selectSeller(String name) {
 		return getSqlSession().selectOne("adminMapper.selectSeller", name);
 	}
-	
+
 	@Override
 	public void insertSeller(JtownUser jtownUser) {
 		customJdbcUserDetailManager.createUserSellerAndAuthority(jtownUser);

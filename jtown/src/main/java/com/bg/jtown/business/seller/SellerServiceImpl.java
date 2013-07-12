@@ -12,8 +12,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.bg.jtown.business.Event;
+import com.bg.jtown.business.Interest;
 import com.bg.jtown.business.Json;
 import com.bg.jtown.business.Product;
+import com.bg.jtown.business.admin.AdminService;
 import com.bg.jtown.business.comment.CommentService;
 import com.bg.jtown.business.search.CommentFilter;
 import com.bg.jtown.redis.Publisher;
@@ -36,6 +38,8 @@ public class SellerServiceImpl extends SqlSessionDaoSupport implements
 	private Publisher publisher;
 	@Resource
 	private CommentService commentService;
+	@Resource
+	private AdminService adminService;
 
 	@Override
 	public Map<String, Object> selectAllInformation(Integer properNumber) {
@@ -59,7 +63,8 @@ public class SellerServiceImpl extends SqlSessionDaoSupport implements
 	@Override
 	public Map<String, Object> selectAllInformation(Integer properNumber,
 			Integer customerPn) {
-		CommentFilter commentFilter = new CommentFilter(properNumber, customerPn);
+		CommentFilter commentFilter = new CommentFilter(properNumber,
+				customerPn);
 		Map<String, Object> selectMap = new HashMap<String, Object>();
 
 		selectMap.put("jtownUser",
@@ -286,9 +291,31 @@ public class SellerServiceImpl extends SqlSessionDaoSupport implements
 	// ~ Seller Interest
 
 	@Override
-	public List<String> selectSellerInterest(Integer properNumber) {
+	public List<Interest> selectSellerInterest(Integer properNumber) {
 		return getSqlSession().selectList("sellerMapper.selectSellerInterest",
 				properNumber);
+	}
+
+	@Override
+	public List<Interest> selectInterestes(Integer properNumber) {
+		return getSqlSession().selectList("sellerMapper.selectInterestes",
+				properNumber);
+	}
+
+	@Override
+	public void updateSellerInterestes(Interest interest) {
+		adminService.deleteSellerInterest(interest);
+
+		Integer[] spnList = interest.getSpnList();
+		Interest insertInterest = new Interest(interest.getSellerPn(), null,
+				interest.getSectionPn(), null);
+		for (int i = 0; i < spnList.length; i++) {
+			Integer spn = spnList[i];
+			if (spn != null && !spn.equals("0")) {
+				insertInterest.setSectionPn(spn);
+				adminService.insertSellerInterest(insertInterest);
+			}
+		}
 	}
 
 	// ~ Seller Product

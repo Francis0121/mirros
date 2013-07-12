@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.bg.jtown.business.Event;
+import com.bg.jtown.business.Interest;
 import com.bg.jtown.business.Product;
 import com.bg.jtown.security.JtownUser;
 import com.bg.jtown.util.FileVO;
@@ -16,12 +17,13 @@ public interface SellerService {
 
 	Map<String, Object> selectAllInformation(Integer properNumber);
 
-	Map<String, Object> selectAllInformation(Integer properNumber, Integer customerPn);
-	
+	Map<String, Object> selectAllInformation(Integer properNumber,
+			Integer customerPn);
+
 	// ~ Seller Information
 
 	JtownUser selectSellerInformation(Integer properNumber);
-	
+
 	JtownUser selectSellerInformation(Integer properNumber, Integer customerPn);
 
 	Map<String, Object> selectInterval7DayCount(Integer properNumber);
@@ -66,7 +68,11 @@ public interface SellerService {
 
 	// ~ SellerInterest
 
-	List<String> selectSellerInterest(Integer properNumber);
+	List<Interest> selectSellerInterest(Integer properNumber);
+
+	List<Interest> selectInterestes(Integer properNumber);
+
+	void updateSellerInterestes(Interest interest);
 
 	// ~ SellerProduct
 
@@ -83,14 +89,11 @@ public interface SellerService {
 	void insertProduct(Product product);
 
 	void insertSellerProduct(Product product);
-	
+
 	void updateProduct(Product product);
 
 	// ~ LoveCount
 
 	Integer selectLoveCount(Integer properNumber);
-
-
-
 
 }

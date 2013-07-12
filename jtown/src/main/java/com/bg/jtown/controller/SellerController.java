@@ -1,5 +1,7 @@
 package com.bg.jtown.controller;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.slf4j.Logger;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.bg.jtown.business.Interest;
 import com.bg.jtown.business.Product;
 import com.bg.jtown.security.Authority;
 import com.bg.jtown.security.JtownUser;
@@ -174,6 +177,25 @@ public class SellerController {
 	}
 
 	// ~ Ajax
+
+	@PreAuthorize("hasRole('ROLE_SELLER')")
+	@RequestMapping(value = "/ajax/seller/selectInterestes.jt", method = RequestMethod.POST)
+	@ResponseBody
+	public List<Interest> ajaxSelectInterestes(SummaryUser summaryUser) {
+		return sellerService.selectInterestes(summaryUser.getPn());
+	}
+
+	@PreAuthorize("hasRole('ROLE_SELLER')")
+	@RequestMapping(value = "/ajax/seller/updateSellerInterestes.jt", method = RequestMethod.POST)
+	@ResponseBody
+	public List<Interest> ajaxUpdateSellerInterestes(
+			@RequestBody Interest interest, SummaryUser summaryUser) {
+		logger.debug(interest.toString());
+		Integer pn = summaryUser.getPn();
+		interest.setSellerPn(pn);
+		sellerService.updateSellerInterestes(interest);
+		return sellerService.selectSellerInterest(pn);
+	}
 
 	@PreAuthorize("hasRole('ROLE_SELLER')")
 	@RequestMapping(value = "/ajax/seller/insertProduct.jt", method = RequestMethod.POST)

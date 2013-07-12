@@ -41,9 +41,28 @@
 					<h3>Tag</h3>
 					<div id="jt-seller-tag-content">
 						<c:forEach items="${interestes }" var="interest" varStatus="loop">
-							<span><c:out value="${interest }"/><c:if test="${loop.count ne fn:length(interestes) }">, </c:if></span>
-						</c:forEach><span>자동차, </span><span>자동차, </span><span>자동차, </span><span>자동차</span>
-						<div id="jt-tag-update-btn" title="수정" >수정</div>
+							<span><c:out value="${interest.name }"/><c:if test="${loop.count ne fn:length(interestes) }">, </c:if></span>
+						</c:forEach>
+						<div id="jt-tag-update-show-btn" title="수정" >수정</div>
+					</div>
+				</li>
+				<li id="jt-tag-checkBox">
+					<div id="jt-tag-checkBox-section">
+						<div id="jt-tag-checkBox-header">
+							<span id="jt-checkBox-header-icon"></span><span id="jt-checkBox-header-text">최대 5개 까지 입력 가능합니다.</span>
+						</div>
+						<ul>		
+						</ul>
+						<div id="jt-tag-checkBox-footer">
+							<a href="#none" class="jt-btn-white-small" id="jt-tag-update-btn">
+								<span class="btnImage"></span>
+								<span class="btnText">수정</span>
+							</a>
+							<a href="#none" class="jt-btn-white-small" id="jt-tag-cancle-btn">
+								<span class="btnImage"></span>
+								<span class="btnText">취소</span>
+							</a>
+						</div>
 					</div>
 				</li>
 			</ul>

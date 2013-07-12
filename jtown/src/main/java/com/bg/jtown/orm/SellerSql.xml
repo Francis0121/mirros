@@ -258,10 +258,16 @@
 	</update>
 
 	<!-- Interest -->
-
-	<select id="selectSellerInterest" parameterType="Integer" resultType="String">
+	
+	<resultMap type="Interest" id="jt-interest-map">
+		<result column="pn" property="sectionPn"/>
+		<result column="name" property="name"/>
+		<result column="seller_pn" property="sellerPn"/>
+	</resultMap>
+	
+	<select id="selectSellerInterest" parameterType="Integer" resultMap="jt-interest-map">
 		SELECT
-			ise.name
+			ise.name, ise.pn
 		FROM
 			user_seller_interest usi,
 			interest_section ise
@@ -269,6 +275,17 @@
 			usi.seller_pn = #{properNumber}
 		AND
 			usi.section_pn  = pn 
+	</select>
+
+	<select id="selectInterestes" parameterType="Integer" resultMap="jt-interest-map">
+		SELECT
+			ise.pn, ise.name, usi.seller_pn
+		FROM
+			interest_section ise
+			LEFT OUTER JOIN user_seller_interest usi
+			ON ( usi.seller_pn = #{properNumber} AND ise.pn = usi.section_pn )
+		WHERE
+			ise.category_pn = ( SELECT category_pn FROM partnership WHERE seller_pn = #{properNumber})
 	</select>
 
 	<!-- Product -->

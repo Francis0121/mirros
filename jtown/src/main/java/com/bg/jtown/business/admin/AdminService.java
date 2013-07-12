@@ -48,6 +48,8 @@ public interface AdminService {
 
 	void updateInterest(Interest interest);
 
+	void insertSellerInterest(Interest interest);
+	
 	// ~ Customer
 	
 	Map<String, Object> selectCustomerModelMap(UserFilter userFilter);
