@@ -122,7 +122,9 @@ public class EmailSend {
 	public void sendSellerTempPasswordEmail(Integer pn) {
 
 		Partnership partnership = new Partnership();
-		partnership.setPn(pn);
+		JtownUser ju = new JtownUser();
+		ju.setPn(pn);
+		partnership.setJtownUser(ju);
 		Partnership lp = helpService.selectPartnership(partnership);
 		String email = lp.getEmail();
 
