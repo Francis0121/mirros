@@ -157,14 +157,14 @@
 		SELECT
 			p.pn, p.name, p.email, p.phone_number,
 			p.category_pn, p.content, p.process, p.deposit, p.input_date, p.update_date, p.note
-			<if test="jtownUser.pn != null">
+			<if test="jtownUser.pn != null and jtownUser.pn != 0 ">
 			,u.pn AS seller_pn, u.shop_pn, u.shop_url, u.id, u.enable, u.salt, u.name AS seller_name,
 			u.begin_start_date, u.contract_end_date,
 			ua.pn AS admin_pn, ua.name AS admin_name	
 			</if>
 		FROM
 			partnership p
-			<if test="jtownUser.pn != null">
+			<if test="jtownUser.pn != null and jtownUser.pn != 0 ">
 			LEFT OUTER JOIN ( 
 				SELECT 
 					us.pn, us.shop_pn, us.shop_url, u.id, u.enable, u.salt, u.name, 
@@ -215,7 +215,7 @@
 		AND
 			p.process = 1
 		</if>
-		<if test="jtownUser.pn != null">
+		<if test="jtownUser.pn != null and jtownUser.pn != 0">
 			p.seller_pn = #{jtownUser.pn}
 		</if>
 	</select>
