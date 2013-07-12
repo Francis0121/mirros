@@ -60,6 +60,18 @@ public class SellerController {
 	// ~ Show
 
 	@PreAuthorize("hasRole('ROLE_SELLER')")
+	@RequestMapping(value = "/seller", method = RequestMethod.GET)
+	public String showNoneSeller() {
+		return prefixView + "error/404";
+	}
+
+	@PreAuthorize("hasRole('ROLE_SELLER')")
+	@RequestMapping(value = "/seller/products", method = RequestMethod.GET)
+	public String showNoneSellerProduct() {
+		return prefixView + "error/404";
+	}
+
+	@PreAuthorize("hasRole('ROLE_SELLER')")
 	@RequestMapping(value = "/seller/{p}", method = RequestMethod.GET)
 	public String showSeller(@PathVariable(value = "p") Integer sellerPn,
 			@RequestParam(required = false) Integer error, Model model,

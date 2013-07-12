@@ -56,6 +56,7 @@ $(function() {
 	$('#jt-represent-image').uploadify({
 		'formData' : {'pn' : $('#jt-seller-body').attr('data-spn')},
 		'buttonText' : '사진 업로드',
+		'method' : 'post',
 		'fileTypeDesc' : 'Image Files',
         'fileTypeExts' : '*.gif; *.jpg; *.png',
 		'multi'	: false,
