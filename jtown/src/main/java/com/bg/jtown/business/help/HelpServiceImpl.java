@@ -86,7 +86,9 @@ public class HelpServiceImpl extends SqlSessionDaoSupport implements
 						|| (sbi.getProductBoolCount() == null || sbi
 								.getProductBoolCount() < 3)
 						|| (sbi.getBannerBoolCount() == null || !sbi
-								.getBannerBoolCount().equals(2))) {
+								.getBannerBoolCount().equals(2))
+						|| (sbi.getTagBoolCount() == null || sbi
+								.getTagBoolCount().equals(0))) {
 					bool = false;
 				}
 				baseStatusMap.put(sbi.getSellerPn(), bool);

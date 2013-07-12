@@ -38,6 +38,11 @@ public class SellerBaseInfo {
 	 */
 	private Integer sellerPn;
 
+	/**
+	 * Tag 개수
+	 */
+	private Integer tagBoolCount;
+
 	public SellerBaseInfo() {
 		super();
 	}
@@ -66,6 +71,10 @@ public class SellerBaseInfo {
 		return sellerPn;
 	}
 
+	public Integer getTagBoolCount() {
+		return tagBoolCount;
+	}
+
 	public void setBannerBoolCount(Integer bannerBoolCount) {
 		this.bannerBoolCount = bannerBoolCount;
 	}
@@ -90,12 +99,17 @@ public class SellerBaseInfo {
 		this.sellerPn = sellerPn;
 	}
 
+	public void setTagBoolCount(Integer tagBoolCount) {
+		this.tagBoolCount = tagBoolCount;
+	}
+
 	@Override
 	public String toString() {
 		return "SellerBaseInfo [bannerBoolCount=" + bannerBoolCount
 				+ ", imageBoolCount=" + imageBoolCount + ", longNotice="
 				+ longNotice + ", notice=" + notice + ", productBoolCount="
-				+ productBoolCount + ", sellerPn=" + sellerPn + "]";
+				+ productBoolCount + ", sellerPn=" + sellerPn
+				+ ", tagBoolCount=" + tagBoolCount + "]";
 	}
 
 }

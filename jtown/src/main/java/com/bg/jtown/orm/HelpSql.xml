@@ -532,11 +532,12 @@
 		<result column="ibc" property="imageBoolCount"/>
 		<result column="pbc" property="productBoolCount"/>
 		<result column="bbc" property="bannerBoolCount"/>
+		<result column="tbc" property="tagBoolCount"/>
 	</resultMap>
 	
 	<select id="selectBaseInputStatus" parameterType="ArrayList" resultMap="jt-base-info-map" >
 		SELECT
-			pn, notice, long_notice, image_bool.count AS ibc, product_bool.count AS pbc, banner_bool.count AS bbc
+			pn, notice, long_notice, image_bool.count AS ibc, product_bool.count AS pbc, banner_bool.count AS bbc, interest_bool.count AS tbc
 		FROM
 			user_seller us
 			LEFT OUTER JOIN
@@ -569,6 +570,16 @@
 					seller_pn
 			) banner_bool
 			ON us.pn = banner_bool.seller_pn
+			LEFT OUTER JOIN
+			(
+				SELECT
+					seller_pn, COUNT(section_pn) AS `count`
+				FROM
+					user_seller_interest
+				GROUP BY
+					seller_pn
+			) interest_bool
+			ON us.pn = interest_bool.seller_pn
 		WHERE
 			us.pn IN
 		<foreach collection="list" item="item" index="index"  open="(" separator="," close=")">
