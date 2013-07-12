@@ -118,6 +118,11 @@ public class HelpController {
 			@ModelAttribute Partnership partnership, BindingResult result) {
 		partnershipValidatorImpl.validate(partnership, result);
 		if (!result.hasErrors()) {
+			String shopUrl = partnership.getShopUrl();
+			if (!ValidationUtil.homepageFormCheck(shopUrl)) {
+				partnership.setShopUrl("http://" + shopUrl);
+			}
+
 			helpService.insertPartnership(partnership);
 			model.addAttribute("isFinish", TRUE);
 			return "redirect:partnership";

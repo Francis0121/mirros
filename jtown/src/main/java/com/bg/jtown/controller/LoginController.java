@@ -13,7 +13,6 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UserCache;
 import org.springframework.security.core.userdetails.cache.NullUserCache;
 import org.springframework.social.connect.Connection;
@@ -112,15 +111,7 @@ public class LoginController {
 			@RequestParam(required = false) Integer isFinish) {
 		if (isFinish != null) {
 			if (isFinish.equals(FALSE)) {
-				BadCredentialsException badCredentialsException = (BadCredentialsException) session
-						.getAttribute("MIRROS_LOGIN_EXCEPTION");
-				if (badCredentialsException != null) {
-					model.addAttribute("message",
-							badCredentialsException.getMessage());
-					session.removeAttribute("MIRROS_LOGIN_EXCEPTION");
-				} else {
-					return "redirect:";
-				}
+				model.addAttribute("message", "아이디 또는 비밀번호가 잘못되었습니다.");
 			}
 		}
 		return prefixView + "login/login";
@@ -157,9 +148,6 @@ public class LoginController {
 			HttpServletRequest request, SummaryUser summaryUser, Model model) {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("result", "error");
-		BadCredentialsException badCredentialsException = (BadCredentialsException) session
-				.getAttribute("SPRING_SECURITY_LAST_EXCEPTION");
-		session.setAttribute("MIRROS_LOGIN_EXCEPTION", badCredentialsException);
 		return map;
 	}
 

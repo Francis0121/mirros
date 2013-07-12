@@ -9,7 +9,7 @@ $(document).ready(function() {
 	
 	jtown.help.questionSync();
 	
-	jtown.help.confirmShopUrl();
+//	jtown.help.confirmShopUrl();
 	
 	jtown.help.confirmShopName();
 });

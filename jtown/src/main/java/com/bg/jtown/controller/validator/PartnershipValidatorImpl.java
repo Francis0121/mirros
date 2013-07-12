@@ -114,9 +114,9 @@ public class PartnershipValidatorImpl implements Validator {
 
 		String shopUrl = partnership.getShopUrl();
 		if (ValidationUtil.lengthCheck(shopUrl, 0, 100)) {
-			if (!ValidationUtil.homepageFormCheck(shopUrl)) {
-				errors.rejectValue("shopUrl", "partnership.shopUrl.notAllow");
-			}
+//			if (!ValidationUtil.homepageFormCheck(shopUrl)) {
+//				errors.rejectValue("shopUrl", "partnership.shopUrl.notAllow");
+//			}
 		}
 	}
 

@@ -63,7 +63,7 @@
 						</th>
 						<td>
 							<div class="jt-partnership-wrap" id="shopUrlCheck">
-								<span class="jt-form-invalid">'http://' 또는 'https://를 반드시 입력해 주시기 바랍니다.</span>
+								<span class="jt-form-invalid">ex) http://www.homepage.com</span>
 							</div>
 							<form:input path="shopUrl" htmlEscape="true" maxlength="100" cssClass="jt-partnership-input" cssErrorClass="jt-partnership-input-error" placeholder="ex) http://www.homepage.com"/>
 							<div class="jt-partnership-error">
