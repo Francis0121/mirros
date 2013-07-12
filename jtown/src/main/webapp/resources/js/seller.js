@@ -172,12 +172,13 @@ makeIntro = function(){
         [
 			{
 				element: '#step1',
-				intro:  'ShopNo : 고객고유번호<br/> Seller : 회사명 <br/>Site : 홈페이지주소<br/>Tag : 쇼핑몰 대표 테그<br/>'+
+				intro:  'ShopNo : 고객고유번호<br/> Seller : 회사명 <br/>Site : 홈페이지주소<br/>'+
 						'<span style="color : #ff431e;">위 정보는 고유정보 임으로 바꾸시려면 <a href="'+contextPath+'help/question" style="text-decoration:underline; color:#ff431e;">고객센터</a>에 문의 해주시기 바랍니다.</span>'
 			},
 			{
 				element: '#step2',
 				intro : '<ol>'+
+						'	<li>쇼핑몰 대표 태그 입니다.</li>'+
 						'	<li><span class="jt-intro-order">1.</span><span class="jt-tag-update-intro">수정</span> 을 클릭합니다.</li>'+
 						'	<li><span class="jt-intro-order">2.</span>자신이 원하는 Tag을 체크합니다.</li>'+
 						'	<li><span class="jt-intro-order">3.</span>수정 버튼을 클릭합니다.</li>'+

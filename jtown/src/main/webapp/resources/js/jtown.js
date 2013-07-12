@@ -48,6 +48,8 @@ $(function() {
 	$('#sQuestion #name').placeholder();
 	$('#sQuestion #email').placeholder();
 	$('#sQuestion #content').placeholder();
+	$('#partnership #shopUrl').placeholder();
+	$('#partnership #email').placeholder();
 });
 
 jtown.postJSON = function(url, json, option, callback){
