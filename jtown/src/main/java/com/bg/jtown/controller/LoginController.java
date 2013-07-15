@@ -111,7 +111,14 @@ public class LoginController {
 			@RequestParam(required = false) Integer isFinish) {
 		if (isFinish != null) {
 			if (isFinish.equals(FALSE)) {
-				model.addAttribute("message", "아이디 또는 비밀번호가 잘못되었습니다.");
+				Exception exception = (Exception) session
+						.getAttribute("MIRROS_LOGIN_EXCEPTION");
+				if (exception != null) {
+					model.addAttribute("message", exception.getMessage());
+					session.removeAttribute("MIRROS_LOGIN_EXCEPTION");
+				} else {
+					return "redirect:";
+				}
 			}
 		}
 		return prefixView + "login/login";
@@ -148,6 +155,9 @@ public class LoginController {
 			HttpServletRequest request, SummaryUser summaryUser, Model model) {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("result", "error");
+		Exception exception = (Exception) session
+				.getAttribute("SPRING_SECURITY_LAST_EXCEPTION");
+		session.setAttribute("MIRROS_LOGIN_EXCEPTION", exception);
 		return map;
 	}
 
