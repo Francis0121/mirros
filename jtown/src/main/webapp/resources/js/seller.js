@@ -646,21 +646,14 @@ jtown.seller.syncEvent = function() {
 							'bannerOrder'	:	$parent.attr('data-bo')		};
 			
 			$.postJSON(url, json, function(){
-				return jQuery.ajax({
-					'success' : function(){
-						$img.attr('data-oldSrc', '').attr('data-imagePn', '');
-						$parent.children('.jt-home-expand-shop-event-update-wrap').hide();
-						var html = 	'<div class="jt-home-expand-shop-event-new">'+
-										'<div>'+
-											'<span class="jt-home-expand-shop-event-new-image">NEW</span>'+
-										'</div>'+
-									'</div>';
-						$parent.prepend(html);
-					},
-					'error' : function(){
-						jtown.dialog("오류 발생!");
-					}
-				});
+				$img.attr('data-oldSrc', '').attr('data-imagePn', '');
+				$parent.children('.jt-home-expand-shop-event-update-wrap').hide();
+				var html = 	'<div class="jt-home-expand-shop-event-new">'+
+								'<div>'+
+									'<span class="jt-home-expand-shop-event-new-image">NEW</span>'+
+								'</div>'+
+							'</div>';
+				$parent.prepend(html);
 			});
 		}else{
 			$img.attr('data-oldSrc', '').attr('data-imagePn', '');
