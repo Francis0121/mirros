@@ -431,8 +431,14 @@ public class LoginController {
 						boolean exist = loginService
 								.selectCheckExistEmail(changeUsername);
 						if (exist) {
-							errors.rejectValue("username",
-									"join.username.exist");
+							if (authority.equals(Authority.CUSTOMER)) {
+								errors.rejectValue("username",
+										"join.username.exist");
+							} else if (authority.equals(Authority.SELLER)
+									|| authority.equals(Authority.ADMIN)) {
+								errors.rejectValue("username",
+										"join.username.sellerExist");
+							}
 						}
 					}
 				}
