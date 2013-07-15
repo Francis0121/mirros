@@ -77,14 +77,7 @@
 							<div class="jt-partnership-wrap" id="confirmPhoneNumber">
 								<span class="jt-form-invalid">연락처는&nbsp;숫자만&nbsp;입력&nbsp;가능합니다.</span>
 							</div>
-							<form:select path="phoneNumberSt" htmlEscape="true" cssClass="jt-partnership-select jt-partnership-select-phone" cssErrorClass="jt-partnership-select-error">
-								<form:option value="010">010</form:option>
-								<form:option value="011">011</form:option>
-								<form:option value="016">016</form:option>
-								<form:option value="017">017</form:option>
-								<form:option value="018">018</form:option>
-								<form:option value="019">019</form:option>
-							</form:select>&nbsp;-&nbsp;<form:input path="phoneNumberNd" htmlEscape="true" maxlength="4" cssClass="jt-partnership-input jt-partnership-select-phone" cssErrorClass="jt-partnership-input-error jt-partnership-select-phone"/>&nbsp;-&nbsp;<form:input path="phoneNumberRd" htmlEscape="true" maxlength="4" cssClass="jt-partnership-input jt-partnership-select-phone" cssErrorClass="jt-partnership-input-error jt-partnership-select-phone"/>
+							<form:input path="phoneNumberSt" htmlEscape="true" maxlength="4" cssClass="jt-partnership-input jt-partnership-select-phone" cssErrorClass="jt-partnership-input-error jt-partnership-select-phone"/>&nbsp;-&nbsp;<form:input path="phoneNumberNd" htmlEscape="true" maxlength="4" cssClass="jt-partnership-input jt-partnership-select-phone" cssErrorClass="jt-partnership-input-error jt-partnership-select-phone"/>&nbsp;-&nbsp;<form:input path="phoneNumberRd" htmlEscape="true" maxlength="4" cssClass="jt-partnership-input jt-partnership-select-phone" cssErrorClass="jt-partnership-input-error jt-partnership-select-phone"/>
 							<div class="jt-partnership-error">
 								<form:errors path="phoneNumber"/>
 							</div>

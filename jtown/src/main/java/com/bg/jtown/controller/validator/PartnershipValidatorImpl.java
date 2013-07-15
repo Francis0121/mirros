@@ -55,19 +55,21 @@ public class PartnershipValidatorImpl implements Validator {
 			}
 		}
 
-		String phoneNumberNd = partnership.getPhoneNumberNd();
-		if (!ValidationUtil.checkNullAndBlank(phoneNumberNd)) {
-			if (!ValidationUtil.onlyNumber(phoneNumberNd)) {
+		String phoneNumberSt = partnership.getPhoneNumberSt();
+		if (!ValidationUtil.checkNullAndBlank(phoneNumberSt)) {
+			if (!ValidationUtil.onlyNumber(phoneNumberSt)) {
 				errors.rejectValue("phoneNumber",
 						"partnership.phoneNumber.notAllow");
+				errors.rejectValue("phoneNumberSt",
+						"partnership.phoneNumberSt.check");
 				errors.rejectValue("phoneNumberNd",
 						"partnership.phoneNumberNd.check");
 				errors.rejectValue("phoneNumberRd",
 						"partnership.phoneNumberRd.check");
 			} else {
-				String phoneNumberRd = partnership.getPhoneNumberRd();
-				if (!ValidationUtil.checkNullAndBlank(phoneNumberRd)) {
-					if (!ValidationUtil.onlyNumber(phoneNumberRd)) {
+				String phoneNumberNd = partnership.getPhoneNumberNd();
+				if (!ValidationUtil.checkNullAndBlank(phoneNumberNd)) {
+					if (!ValidationUtil.onlyNumber(phoneNumberNd)) {
 						errors.rejectValue("phoneNumber",
 								"partnership.phoneNumber.notAllow");
 						errors.rejectValue("phoneNumberNd",
@@ -75,13 +77,39 @@ public class PartnershipValidatorImpl implements Validator {
 						errors.rejectValue("phoneNumberRd",
 								"partnership.phoneNumberRd.check");
 					} else {
-						partnership.makePhoneNumber();
-						Partnership loadPartnership = helpService
-								.selectPartnership(new Partnership(null,
-										partnership.getPhoneNumber()));
-						if (loadPartnership != null) {
+						String phoneNumberRd = partnership.getPhoneNumberRd();
+						if (!ValidationUtil.checkNullAndBlank(phoneNumberRd)) {
+							if (!ValidationUtil.onlyNumber(phoneNumberRd)) {
+								errors.rejectValue("phoneNumber",
+										"partnership.phoneNumber.notAllow");
+								errors.rejectValue("phoneNumberSt",
+										"partnership.phoneNumberSt.check");
+								errors.rejectValue("phoneNumberNd",
+										"partnership.phoneNumberNd.check");
+								errors.rejectValue("phoneNumberRd",
+										"partnership.phoneNumberRd.check");
+							} else {
+								partnership.makePhoneNumber();
+								Partnership loadPartnership = helpService
+										.selectPartnership(new Partnership(
+												null, partnership
+														.getPhoneNumber()));
+								if (loadPartnership != null) {
+									errors.rejectValue("phoneNumber",
+											"partnership.phoneNumber.exist");
+									errors.rejectValue("phoneNumberSt",
+											"partnership.phoneNumberSt.check");
+									errors.rejectValue("phoneNumberNd",
+											"partnership.phoneNumberNd.check");
+									errors.rejectValue("phoneNumberRd",
+											"partnership.phoneNumberRd.check");
+								}
+							}
+						} else {
 							errors.rejectValue("phoneNumber",
-									"partnership.phoneNumber.exist");
+									"partnership.phoneNumber.empty");
+							errors.rejectValue("phoneNumberSt",
+									"partnership.phoneNumberSt.check");
 							errors.rejectValue("phoneNumberNd",
 									"partnership.phoneNumberNd.check");
 							errors.rejectValue("phoneNumberRd",
@@ -91,6 +119,8 @@ public class PartnershipValidatorImpl implements Validator {
 				} else {
 					errors.rejectValue("phoneNumber",
 							"partnership.phoneNumber.empty");
+					errors.rejectValue("phoneNumberSt",
+							"partnership.phoneNumberSt.check");
 					errors.rejectValue("phoneNumberNd",
 							"partnership.phoneNumberNd.check");
 					errors.rejectValue("phoneNumberRd",
@@ -99,6 +129,8 @@ public class PartnershipValidatorImpl implements Validator {
 			}
 		} else {
 			errors.rejectValue("phoneNumber", "partnership.phoneNumber.empty");
+			errors.rejectValue("phoneNumberSt",
+					"partnership.phoneNumberSt.check");
 			errors.rejectValue("phoneNumberNd",
 					"partnership.phoneNumberNd.check");
 			errors.rejectValue("phoneNumberRd",
@@ -114,9 +146,9 @@ public class PartnershipValidatorImpl implements Validator {
 
 		String shopUrl = partnership.getShopUrl();
 		if (ValidationUtil.lengthCheck(shopUrl, 0, 100)) {
-//			if (!ValidationUtil.homepageFormCheck(shopUrl)) {
-//				errors.rejectValue("shopUrl", "partnership.shopUrl.notAllow");
-//			}
+			// if (!ValidationUtil.homepageFormCheck(shopUrl)) {
+			// errors.rejectValue("shopUrl", "partnership.shopUrl.notAllow");
+			// }
 		}
 	}
 

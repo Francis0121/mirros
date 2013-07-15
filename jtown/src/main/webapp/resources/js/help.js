@@ -3,6 +3,8 @@ $(document).ready(function() {
 	
 	jtown.help.name();
 	
+	jtown.help.phoneNumberSt();
+	
 	jtown.help.phoneNumberNd();
 	
 	jtown.help.phoneNumberRd();
@@ -93,6 +95,22 @@ jtown.help.name = function() {
 	});
 };
 
+jtown.help.phoneNumberSt = function() {
+	$('input[name=phoneNumberSt]').keyup(
+			function() {
+				var regExp = /^[0-9]*$/;
+				var username = $(this).val();
+				if (regExp.test(username)) {
+					$('#confirmPhoneNumber>span').removeClass('jt-form-invalid').addClass('jt-form-valid');
+				} else {
+					$('#confirmPhoneNumber>span').removeClass('jt-form-valid').addClass('jt-form-invalid');
+				}
+			}).focus(function() {
+		$('#confirmPhoneNumber').show();
+	}).blur(function() {
+		$('#confirmPhoneNumber').hide();
+	});
+};
 
 jtown.help.phoneNumberNd = function() {
 	$('input[name=phoneNumberNd]').keyup(
