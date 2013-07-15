@@ -67,8 +67,8 @@ html{ overflow-y: hidden;}
 						</div>
 						<img alt="Blank" src="${cp }/resources/images/jt-product-blank.png">
 						<div class="jt-product-article-object-wrap">
-							<span><c:out value="${product.name }"/></span>
-							<span><c:out value="${product.price }"/></span>
+							<span>상품 정보가 아직</span>
+							<span>입력되지 않았습니다.</span>
 						</div>
 					</li>
 				</c:forEach>
