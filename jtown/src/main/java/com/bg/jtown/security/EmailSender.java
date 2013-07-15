@@ -5,7 +5,6 @@ import java.util.Properties;
 
 import javax.mail.Authenticator;
 import javax.mail.Message;
-import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
@@ -42,17 +41,17 @@ public class EmailSender {
 
 		try {
 			Message msg = new MimeMessage(session);
-
-			msg.setFrom(new InternetAddress(SENDER_EMAIL_ADDRESS));
+			msg.setFrom(new InternetAddress(SENDER_EMAIL_ADDRESS, "Mirros",
+					"UTF-8"));
 			logger.debug(msg.getFrom()[0].toString());
 			// Recipients 받는사람
-			InternetAddress[] address = {new InternetAddress(to)}; 
+			InternetAddress[] address = { new InternetAddress(to) };
 			msg.setRecipients(Message.RecipientType.TO, address);
 			msg.setSubject(subject);
 			msg.setContent(content, "text/html; charset=UTF-8");
 			msg.setSentDate(new Date());
 			Transport.send(msg);
-		} catch (MessagingException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
