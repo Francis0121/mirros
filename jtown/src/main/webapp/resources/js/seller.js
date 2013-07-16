@@ -30,6 +30,7 @@ $(function() {
 		'buttonText' : '사진 업로드',
 		'fileTypeDesc' : 'Image Files',
         'fileTypeExts' : '*.gif; *.jpg; *.png',
+        'fileSizeLimit' : '5MB',
 		'multi'	: false,
 		'swf' : contextPath + 'resources/uploadify/uploadify.swf',
 		'uploader' : contextPath + 'file/upload.jt',
@@ -44,6 +45,7 @@ $(function() {
 		'buttonText' : '사진 업로드',
 		'fileTypeDesc' : 'Image Files',
         'fileTypeExts' : '*.gif; *.jpg; *.png',
+        'fileSizeLimit' : '5MB',
 		'multi'	: false,
 		'swf' : contextPath + 'resources/uploadify/uploadify.swf',
 		'uploader' : contextPath + 'file/upload.jt',
@@ -59,6 +61,7 @@ $(function() {
 		'method' : 'post',
 		'fileTypeDesc' : 'Image Files',
         'fileTypeExts' : '*.gif; *.jpg; *.png',
+        'fileSizeLimit' : '5MB',
 		'multi'	: false,
 		'swf' : contextPath + 'resources/uploadify/uploadify.swf',
 		'uploader' : contextPath + 'file/upload.jt',
@@ -76,10 +79,11 @@ $(function() {
 		'width' : '90',
 		'fileTypeDesc' : 'Image Files',
         'fileTypeExts' : '*.gif; *.jpg; *.png',
-        'fileSizeLimit' : '15MB',
+        'fileSizeLimit' : '5MB',
 		'swf' : contextPath + 'resources/uploadify/uploadify.swf',
 		'uploader' : contextPath + 'file/upload.jt',
 		'itemTemplate' : '<div></div>',
+		'errorMsg' : '',
 		'onUploadSuccess' : function(file, data, response){
 			jtown.seller.productImage(eval('('+data+')'));
 		}
