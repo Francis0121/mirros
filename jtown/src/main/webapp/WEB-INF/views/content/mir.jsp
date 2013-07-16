@@ -49,7 +49,7 @@
 						<span>Love</span><span><c:out value="${intervalCount.love }"/></span>						
 					</li>
 					<li>
-						<span>View</span><span><c:out value="${intervalCount.view }"/></span>
+						<span>View</span><span><c:out value="${intervalCount.view eq null ? 0 : intervalCount.view }"/></span>
 					</li>	
 					<li>
 						<span>Comment</span><span><c:out value="${intervalCount.comment }"/></span>
