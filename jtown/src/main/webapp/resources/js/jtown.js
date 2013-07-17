@@ -55,10 +55,10 @@ $(function() {
 jtown.postJSON = function(url, json, option, callback){
 	jtown.loading = {
 		start : function(){
-			$(option.position).append('<div id="jtown-loading"><img alt="Loading.." src="'+option.img+'" /></div>');
+			$('#loading-popup').fadeIn();
 		},
 		finish : function(){
-			$('#jtown-loading').remove();
+			$('#loading-popup').fadeOut();
 		}
 	};
 	jtown.loading.start();

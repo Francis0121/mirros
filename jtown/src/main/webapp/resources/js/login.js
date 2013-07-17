@@ -17,6 +17,24 @@ $(function() {
 	jtown.login.disactiveUser();
 	
 	jtown.login.confirmId();
+	
+	$('#jt-findUserPassword-btn').bind('click', function(){
+		var form = document.forms['jtownUser'];
+		$('#loading-popup').fadeIn();
+		form.submit();
+	});
+	
+	$('#jt-findSellerPassword-btn').bind('click', function(){
+		var form = document.forms['sellerUser'];
+		$('#loading-popup').fadeIn();
+		form.submit();
+	});
+	
+	$('#jt-emailAddress-user-btn').bind('click', function(){
+		$('#loading-popup').fadeIn();
+		var form = document.forms['jtownUser'];
+		form.submit();
+	});
 });
 
 function onPopupLoginSubmit(){
@@ -174,6 +192,7 @@ jtown.login.nickNameLength = function(){
 jtown.login.joinFormSubmit = function() {
 	$('.jt-join-submit').unbind('click');
 	$('.jt-join-submit').bind('click', function() {
+		$('#loading-popup').fadeIn();
 		var form = document.forms['jtownUser'];
 		form.submit();
 	});
@@ -181,6 +200,7 @@ jtown.login.joinFormSubmit = function() {
 
 jtown.login.changeUserSubmit = function(){
 	$('.jt-change-user-btn').unbind('click').bind('click', function(){
+		$('#loading-popup').fadeIn();
 		var form = document.forms['jtownUser'];
 		form.action = contextPath + 'login/modify.jt';
 		form.submit();

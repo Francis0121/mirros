@@ -11,7 +11,7 @@
 			<tfoot>
 				<tr>
 					<td colspan="2" style="text-align: center;">
-						<button type="submit" class="jt-btn-orange jt-emailAddress-user-btn">변경</button>	
+						<button type="button" class="jt-btn-orange jt-emailAddress-user-btn" id="jt-emailAddress-user-btn">변경</button>	
 					</td>
 				</tr>
 			</tfoot>

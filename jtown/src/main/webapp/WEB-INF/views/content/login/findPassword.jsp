@@ -20,7 +20,7 @@
 		<section>
 			<form:form commandName="jtownUser" method="post" action="${cp }/login/findUserPassword.jt" htmlEscape="true">
 				<form:input id="username_findPassword" path="username" cssClass="jt-findpassword-input" cssErrorClass="jt-findpassword-input-error" placeholder="Email Address"/>
-				<input type="submit" value="보내기" class="jt-btn-orange jt-findpassword-submit-btn"/>
+				<input type="button" value="보내기" class="jt-btn-orange jt-findpassword-submit-btn" id="jt-findUserPassword-btn"/>
 				<div class="jt-join-user-error">
 					<form:errors path="username" cssClass="commonError"></form:errors>
 				</div>
@@ -43,7 +43,7 @@
 		<section>
 			<form:form commandName="sellerUser" method="post" action="${cp }/login/findSellerPassword.jt" htmlEscape="true">
 				<form:input id="username_findSellerPassword" path="username" cssClass="jt-findpassword-input" cssErrorClass="jt-findpassword-input-error" placeholder="Email Address"/>
-				<input type="submit" value="보내기" class="jt-btn-orange jt-findpassword-submit-btn"/>
+				<input type="button" value="보내기" class="jt-btn-orange jt-findpassword-submit-btn" id="jt-findSellerPassword-btn"/>
 				<div class="jt-join-user-error">
 					<form:errors path="username" cssClass="commonError"></form:errors>
 				</div>

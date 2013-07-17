@@ -14,6 +14,12 @@ $(document).ready(function() {
 //	jtown.help.confirmShopUrl();
 	
 	jtown.help.confirmShopName();
+	
+	$('#jt-partnership-btn').bind('click', function(){
+		var form = document.forms['partnership'];
+		$('#loading-popup').fadeIn();
+		form.submit();
+	});
 });
 
 if (typeof jtown.help == 'undefined') {
@@ -149,6 +155,7 @@ jtown.help.phoneNumberRd = function() {
 jtown.help.questionSync = function(){
 	
 	$('.jt-cQuestion-btn').bind('click',function(){
+		$('#loading-popup').fadeIn();
 		var form = document.forms['cQuestion'];
 		BrowserDetect.init();
 		form.browser.value = BrowserDetect.browser +'-'+ BrowserDetect.version + ' [ '+ BrowserDetect.OS + ' ] ';
@@ -156,6 +163,7 @@ jtown.help.questionSync = function(){
 	});
 	
 	$('.jt-sQuestion-btn').bind('click',function(){
+		$('#loading-popup').fadeIn();
 		var form = document.forms['sQuestion'];
 		BrowserDetect.init();
 		form.browser.value = BrowserDetect.browser +'-'+ BrowserDetect.version + ' [ '+ BrowserDetect.OS + ' ] ';
