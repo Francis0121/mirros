@@ -3,17 +3,20 @@
 <script src="${cp}/resources_mobile/jquery/jquery-1.8.2.min.js"></script>
 <script src="${cp}/resources_mobile/jquery/jquery-ui-1.10.0.custom.js"></script>
 <%-- Plug in --%>
+<%-- <script src="${cp}/resources_mobile/js/mobile.jquery.plugin.js"></script> --%>
 <script src="${cp}/resources_mobile/js/jquery.form.js"></script>
 <script src="${cp}/resources_mobile/js/json.min.js"></script>
 <script src="${cp}/resources_mobile/js/jquery.plugin.js"></script>
 <script src="${cp}/resources_mobile/js/jquery.infinitecarousel.js"></script>
 <script src="${cp}/resources_mobile/js/jquery.cookie.js"></script>
-<%-- Custom --%>
-<script src="${cp}/resources_mobile/js/mobile.mirros.js"></script>
 <script src="${cp}/resources_mobile/js/jquery.scroll.pagination.js"></script>
+<%-- Custom --%>
+<%-- <script src="${cp}/resources_mobile/js/mobile.all.js"></script> --%>
+<script src="${cp}/resources_mobile/js/mobile.mirros.js"></script>
 <script src="${cp}/resources_mobile/js/util.js"></script>
 
 <%-- Node --%>
+<%-- <script src="${cp}/resources_mobile/js/mobile.real.time.js"></script> --%>
 <script src="${cp}/resources_mobile/js/real.time.js"></script>
 <script src="${nodePath }/socket.io/socket.io.js"></script>
 
