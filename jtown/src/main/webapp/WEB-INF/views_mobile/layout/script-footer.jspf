@@ -16,3 +16,8 @@
 <%-- Node --%>
 <script src="${cp}/resources_mobile/js/real.time.js"></script>
 <script src="${nodePath }/socket.io/socket.io.js"></script>
+
+<%-- Loading Page --%>
+<div id="loading-popup">
+	<div><img alt="Loading" src="${cp }/resources/images/jt-loading.gif"></div>
+</div>

@@ -19,14 +19,14 @@ $(function() {
 	jtown.login.confirmId();
 	
 	$('#jt-findUserPassword-btn').bind('click', function(){
-		var form = document.forms['jtownUser'];
 		$('#loading-popup').fadeIn();
+		var form = document.forms['jtownUser'];
 		form.submit();
 	});
 	
 	$('#jt-findSellerPassword-btn').bind('click', function(){
-		var form = document.forms['sellerUser'];
 		$('#loading-popup').fadeIn();
+		var form = document.forms['sellerUser'];
 		form.submit();
 	});
 	

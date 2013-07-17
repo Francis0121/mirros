@@ -15,6 +15,9 @@ $(function(){
 	});
 	
 	$('.mm-join-submit').bind('click', function() {
+		$('body').bind('touchmove', function(e){e.preventDefault();});
+		$('html').css('overflow', 'hidden');
+		$('#loading-popup').fadeIn();
 		var form = document.forms['jtownUser'];
 		form.submit();
 	});
@@ -57,6 +60,22 @@ $(function(){
 			setTimeout('mobile.homeSync();', 0);
 		},
 		'maxPage'		: $('#mm-home-container').attr('data-maxPage')
+	});
+	
+	$('#mm-userFindPassword-btn').bind('click', function(){
+		$('body').bind('touchmove', function(e){e.preventDefault();});
+		$('html').css('overflow', 'hidden');
+		$('#loading-popup').fadeIn();
+		var form = document.forms['jtownUser'];
+		form.submit();
+	});
+	
+	$('#mm-findSellerPassword-btn').bind('click', function(){
+		$('body').bind('touchmove', function(e){e.preventDefault();});
+		$('html').css('overflow', 'hidden');
+		$('#loading-popup').fadeIn();
+		var form = document.forms['sellerUser'];
+		form.submit();
 	});
 });
 

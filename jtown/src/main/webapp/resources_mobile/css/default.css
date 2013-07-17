@@ -84,3 +84,6 @@ pre{
 }
 
 body{ background: #f6f6f6; }
+
+#loading-popup{ position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #fff; opacity : .7; display: none; z-index: 99999;}
+#loading-popup>div{position: absolute; top: 50%; left: 50%; width: 50px; height: 50px; margin-left: -25px;}

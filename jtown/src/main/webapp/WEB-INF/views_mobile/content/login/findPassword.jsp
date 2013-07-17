@@ -25,7 +25,7 @@
 		<section>
 			<form:form commandName="jtownUser" method="post" action="${mcp }/login/findUserPassword.jt" htmlEscape="true">
 				<form:input id="username_findPassword" path="username" cssClass="mm-findpassword-input" cssErrorClass="mm-findpassword-input-error" placeholder="Email Address"/>
-				<input type="submit" value="보내기" class="mm-btn-orange mm-findpassword-submit-btn"/>
+				<input type="button" value="보내기" class="mm-btn-orange mm-findpassword-submit-btn" id="mm-userFindPassword-btn"/>
 				<div class="mm-findpassword-user-error">
 					<form:errors path="username" cssClass="commonError"></form:errors>
 				</div>
@@ -48,7 +48,7 @@
 		<section>
 			<form:form commandName="sellerUser" method="post" action="${mcp }/login/findSellerPassword.jt" htmlEscape="true">
 				<form:input id="username_findSellerPassword" path="username" cssClass="mm-findpassword-input" cssErrorClass="mm-findpassword-input-error" placeholder="Email Address"/>
-				<input type="submit" value="보내기" class="mm-btn-orange mm-findpassword-submit-btn"/>
+				<input type="button" value="보내기" class="mm-btn-orange mm-findpassword-submit-btn" id="mm-findSellerPassword-btn"/>
 				<div class="mm-findpassword-user-error">
 					<form:errors path="username" cssClass="commonError"></form:errors>
 				</div>
