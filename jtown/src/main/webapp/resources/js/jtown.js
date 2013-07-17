@@ -161,10 +161,9 @@ jtown.home.masonry = {
 									'sectionPn'		: 	Number($('#jt-home-container').attr('data-spn'))	},
 			'scrollTarget'	: $(window),
 			'successCallback' : function(data){
-				var browser = $.browser;
-				if((browser.msie && browser.version == '7.0') || (browser.msie && browser.version =='8.0') ){
-					var html = jtown.home.html(data), $box = $(html);				
-					$('#jt-home-container').append($box).masonry('appended', $box);
+				if($.browser.msie && $.browser.version == '7.0'){
+					var html = jtown.home.html(data), $boxes = $(html);
+					$('#jt-home-container').append($boxes).masonry('appended', $boxes);
 					$container.imagesLoaded(function(){
 						$container.masonry('reload');
 					});
@@ -364,12 +363,11 @@ jtown.home.html = function(data) {
 		html += '		'+msieHtml;
 		html += '	</div>';
 		
-		if(!(browser.msie && browser.version == '7.0') && !(browser.msie && browser.version =='8.0') ){
+		if(!(browser.msie && browser.version == '7.0')){	
 			htmlArray[i] = $(html).get(0);
 			html = '';					
 		}
 	}
-	alert(html);
 	return htmlArray;
 };
 

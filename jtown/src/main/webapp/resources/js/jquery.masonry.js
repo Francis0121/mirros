@@ -10,7 +10,7 @@
 
 /*jshint browser: true, curly: true, eqeqeq: true, forin: false, immed: false, newcap: true, noempty: true, strict: true, undef: true */
 /*global jQuery: false */
-if(($.browser.msie && $.browser.version == '7.0') || ($.browser.msie && $.browser.version =='8.0') ){
+if(($.browser.msie && $.browser.version == '7.0')){
 (function( window, $, undefined ){
 
   'use strict';
