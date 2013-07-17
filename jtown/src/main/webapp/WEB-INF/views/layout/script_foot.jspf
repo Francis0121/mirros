@@ -4,12 +4,15 @@
 <script src="${cp}/resources/jquery/jquery-ui-1.10.0.custom.js"></script>
 <%-- Plug in --%>
 <script src="${cp}/resources/uploadify/jquery.uploadify.min.js"></script>
+<%-- <script src="${cp}/resources/js/jquery.masonry.js"></script> --%>
+<script src="${cp}/resources/js/masonry.min.js"></script>
+<script src="${cp}/resources/js/masonry.imagesloaded.min.js"></script>
+<script src="${cp}/resources/js/jquery.scroll.pagination.js"></script>
+
 <%-- <script src="${cp}/resources/js/mirros.jquery.plugin.js"></script> --%>
 <script src="${cp}/resources/js/jquery.form.js"></script>
 <script src="${cp}/resources/js/json.min.js"></script>
-<script src="${cp}/resources/js/jquery.masonry.js"></script>
 <script src="${cp}/resources/js/jquery.plugin.js"></script>
-<script src="${cp}/resources/js/jquery.scroll.pagination.js"></script>
 <script src="${cp}/resources/js/jquery.cookie.js"></script>
 <%-- Custom --%>
 <%-- <script src="${cp}/resources/js/mirros.all.js"></script> --%>

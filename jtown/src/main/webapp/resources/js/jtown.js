@@ -143,7 +143,8 @@ jtown.home.masonry = {
 		$container.imagesLoaded(function(){
 			$container.masonry({
 				itemSelector : '.jt-home-shop',
-				columnWidth : 330
+				columnWidth : 330,
+				transitionDuration: 0.
 			});
 		});
 		
@@ -160,8 +161,17 @@ jtown.home.masonry = {
 									'sectionPn'		: 	Number($('#jt-home-container').attr('data-spn'))	},
 			'scrollTarget'	: $(window),
 			'successCallback' : function(data){
-				var html = jtown.home.html(data), $boxes = $(html);
-				$('#jt-home-container').append($boxes).masonry('appended', $boxes);
+				var htmlArray = jtown.home.html(data);
+				$container.imagesLoaded(function(){
+					$container.append(htmlArray).masonry('appended',htmlArray).masonry();
+				});
+				
+//				var html = jtown.home.html(data), $box = $(html);				
+//				$('#jt-home-container').append($box).masonry('appended', $box);
+//				$container.imagesLoaded(function(){
+//					$container.masonry('reload');
+//				});
+				
 				setTimeout('jtown.expand.loadExpandShop()', 0);
 			},
 			'maxPage'		: $('#jt-home-container').attr('data-maxPage')
@@ -267,6 +277,7 @@ jtown.home.html = function(data) {
 	var jtownUsers = data.jtownUsers;
 	var images = data.images;
 	
+	var htmlArray = [];
 	var html = '';
 	for ( var i = 0, len = jtownUsers.length; i < len; i++) {
 		var seller = jtownUsers[i], spn = seller.pn, mainImages = images[spn];
@@ -349,8 +360,11 @@ jtown.home.html = function(data) {
 		html += '		</ul>';
 		html += '		'+msieHtml;
 		html += '	</div>';
+		
+		htmlArray[i] = $(html).get(0);
+		html = '';
 	}
-	return html;
+	return htmlArray;
 };
 
 if (typeof jtown.naturalLanguage == 'undefined') {
