@@ -17,6 +17,7 @@
 <link rel="stylesheet" type="text/css" href="${cp}/resources/jquery/jquery-ui-1.10.2.custom.min.css" />
 <link rel="stylesheet" type="text/css" href="${cp}/resources/uploadify/uploadify.css" />
 <%-- Custom --%>
+<%-- <link rel="stylesheet" type="text/css" href="${cp}/resources/css/mirros.min.css" /> --%>
 <link rel="stylesheet" type="text/css" href="${cp}/resources/css/default.css" />
 <link rel="stylesheet" type="text/css" href="${cp}/resources/css/style.css" />
 <link rel="stylesheet" type="text/css" href="${cp}/resources/css/common.css" />
