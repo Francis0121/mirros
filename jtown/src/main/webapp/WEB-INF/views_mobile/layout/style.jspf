@@ -5,5 +5,6 @@
 <link rel="shortcut icon" href="${cp }/resources_mobile/images/favicon.ico" type="image/x-icon"/>
 
 <link rel="stylesheet" type="text/css" href="${cp }/resources_mobile/jquery/jquery-ui-1.10.2.custom.min.css" />
+<%-- <link rel="stylesheet" type="text/css" href="${cp }/resources_mobile/css/mobile.min.css" /> --%>
 <link rel="stylesheet" type="text/css" href="${cp }/resources_mobile/css/default.css" />
 <link rel="stylesheet" type="text/css" href="${cp }/resources_mobile/css/mobile-mirros.css" />
