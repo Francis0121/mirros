@@ -61,5 +61,5 @@ if(nullValueCheck(commingSoon) || commingSoon != 'T'){
 </script>
 <%-- Loading Page --%>
 <div id="loading-popup">
-	<div><img alt="Loading" src="${cp }/resources/images/jt-loading.gif"></div>
+	<div><img alt="Loading" src="${cp }/resources/images/jt-loading-03.gif"></div>
 </div>
