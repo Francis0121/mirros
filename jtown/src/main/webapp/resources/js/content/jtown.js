@@ -163,13 +163,15 @@ jtown.home.masonry = {
 			'successCallback' : function(data){
 				if($.browser.msie && $.browser.version == '7.0'){
 					var html = jtown.home.html(data), $boxes = $(html);
+					$container.append($boxes).masonry('appended', $boxes);
 					$container.imagesLoaded(function(){
-						$container.append($boxes).masonry('appended', $boxes).masonry('reload');
+						$container.masonry('reload');
 					});
 				}else{
 					var htmlArray = jtown.home.html(data);
+					$container.append(htmlArray).masonry('appended',htmlArray);
 					$container.imagesLoaded(function(){
-						$container.append(htmlArray).masonry('appended',htmlArray).masonry();
+						$container.masonry();
 					});
 				}
 
