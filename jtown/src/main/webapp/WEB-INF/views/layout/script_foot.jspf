@@ -4,31 +4,32 @@
 <script src="${cp}/resources/jquery/jquery-ui-1.10.0.custom.js"></script>
 <%-- Plug in --%>
 <script src="${cp}/resources/uploadify/jquery.uploadify.min.js"></script>
-<script src="${cp}/resources/js/jquery.masonry.js"></script>
+<script src="${cp}/resources/js/masonry.min.old.js"></script>
 <script src="${cp}/resources/js/masonry.min.js"></script>
 <script src="${cp}/resources/js/masonry.imagesloaded.min.js"></script>
-<script src="${cp}/resources/js/jquery.scroll.pagination.js"></script>
+<%-- <script src="${cp}/resources/js/masonry.scollr.pagination.min.js"></script> --%>
+<script src="${cp}/resources/js/masonry.scroll.pagination.js"></script>
 
-<%-- <script src="${cp}/resources/js/mirros.jquery.plugin.js"></script> --%>
+<%-- <script src="${cp}/resources/js/jquery.plugin.min.js"></script> --%>
 <script src="${cp}/resources/js/jquery.form.js"></script>
-<script src="${cp}/resources/js/json.min.js"></script>
+<script src="${cp}/resources/js/jquery.json.js"></script>
 <script src="${cp}/resources/js/jquery.plugin.js"></script>
 <script src="${cp}/resources/js/jquery.cookie.js"></script>
 <%-- Custom --%>
 <%-- <script src="${cp}/resources/js/mirros.all.js"></script> --%>
-<script src="${cp}/resources/js/intro.js"></script>
-<script src="${cp}/resources/js/jtown.js"></script>
-<script src="${cp}/resources/js/util.js"></script>
-<script src="${cp}/resources/js/login.js"></script>
-<script src="${cp}/resources/js/admin.js"></script>
-<script src="${cp}/resources/js/seller.js"></script>
-<script src="${cp}/resources/js/expand.js"></script>
-<script src="${cp}/resources/js/comment.js"></script>
-<script src="${cp}/resources/js/board.js"></script>
-<script src="${cp}/resources/js/help.js"></script>
+<script src="${cp}/resources/js/content/intro.js"></script>
+<script src="${cp}/resources/js/content/jtown.js"></script>
+<script src="${cp}/resources/js/content/util.js"></script>
+<script src="${cp}/resources/js/content/login.js"></script>
+<script src="${cp}/resources/js/content/admin.js"></script>
+<script src="${cp}/resources/js/content/seller.js"></script>
+<script src="${cp}/resources/js/content/expand.js"></script>
+<script src="${cp}/resources/js/content/comment.js"></script>
+<script src="${cp}/resources/js/content/board.js"></script>
+<script src="${cp}/resources/js/content/help.js"></script>
 <%-- Node --%>
 <script src="${nodePath }/socket.io/socket.io.js"></script>
-<%-- <script src="${cp}/resources/js/mirros.real.time.js"></script> --%>
+<%-- <script src="${cp}/resources/js/real.time.min.js"></script> --%>
 <script src="${cp}/resources/js/real.time.js"></script>
 <%-- isFinish Message --%>
 <c:if test="${isFinish ne null && isFinish ne '' }">
