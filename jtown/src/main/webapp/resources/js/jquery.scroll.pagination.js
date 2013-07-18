@@ -41,11 +41,12 @@
 			var currentPage = $('#__current_page');
 			json.currentPage = currentPage.val();
 			
-			if(json.currentPage <= opts.maxPage ){
+			if(json.currentPage <= opts.maxPage ){		
+				currentPage.val(Number(json.currentPage)+1);
+
 				$.postJSON(url, json, function(data){
 					if(data){
 						opts.successCallback(data);
-						currentPage.val(Number(json.currentPage)+1);
 						
 						var objectsRendered 	= $(obj).children('[rel!=loaded]');
 						if (opts.afterLoad != null) {

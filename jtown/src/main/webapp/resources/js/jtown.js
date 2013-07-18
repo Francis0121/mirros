@@ -155,7 +155,7 @@ jtown.home.masonry = {
 		$(window).resize(this.resize);
 	},
 	pagination : function(){
-		$('#jt-home-container').scrollPagination({
+		$container.scrollPagination({
 			'contentPage'	: contextPath + 'ajax/homePagination.jt',
 			'contentData'	: { 	'categoryPn'	: 	Number($('#jt-home-container').attr('data-cpn')),
 									'sectionPn'		: 	Number($('#jt-home-container').attr('data-spn'))	},
@@ -163,9 +163,8 @@ jtown.home.masonry = {
 			'successCallback' : function(data){
 				if($.browser.msie && $.browser.version == '7.0'){
 					var html = jtown.home.html(data), $boxes = $(html);
-					$('#jt-home-container').append($boxes).masonry('appended', $boxes);
 					$container.imagesLoaded(function(){
-						$container.masonry('reload');
+						$container.append($boxes).masonry('appended', $boxes).masonry('reload');
 					});
 				}else{
 					var htmlArray = jtown.home.html(data);
@@ -278,7 +277,8 @@ jtown.home.clickLove = function(spn) {
 jtown.home.html = function(data) {
 	var jtownUsers = data.jtownUsers;
 	var images = data.images;
-
+	var browser = $.browser;
+	
 	var htmlArray = [];
 	var html = '';
 	for ( var i = 0, len = jtownUsers.length; i < len; i++) {
@@ -306,7 +306,6 @@ jtown.home.html = function(data) {
 			loveHotCount = '';
 		}
 		
-		var browser = $.browser;
 		var msieHtml = '';
 		if(browser.msie){
 			if(browser.version == '7.0' || browser.version =='8.0' ){
@@ -368,7 +367,11 @@ jtown.home.html = function(data) {
 			html = '';					
 		}
 	}
-	return htmlArray;
+	if(!(browser.msie && browser.version == '7.0')){
+		return htmlArray;		
+	}else{
+		return html;
+	}
 };
 
 if (typeof jtown.naturalLanguage == 'undefined') {
