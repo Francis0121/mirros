@@ -53,33 +53,20 @@
 			<a class="mm-home-nav-title mm-home-refresh"><span>refresh</span></a>
 		</li>
  -->
+ 		<li>
+ 			<a href="${mcp }/">
+ 				<span>All</span>
+ 			</a>
+ 		</li>
 		<c:set var="homeFilterUrl" value="${mcp }/cpn/${homeFilter.categoryPn }/spn/0" scope="request"/>
 		<c:forEach var="interestCategory" items="${interestCategories }">
 			<c:set var="interestCategoryPn" value="${interestCategory.categoryPn }"/>
 			<c:set var="interestSections" value="${interestMap[interestCategoryPn] }"/>
 			<li>
 				<c:set var="interestUrl" value="${mcp }/cpn/${interestCategoryPn }/spn/0"/>
-				<a class="mm-home-nav-title" style="${interestUrl eq homeFilterUrl ? '' : ''}">
+				<a href="${interestUrl }" style="${interestUrl eq homeFilterUrl ? '' : ''}">
 					<span><c:out value="${interestCategory.name }"/></span>
 				</a>
-				<ul class="mm-home-sub-nav">
-					<c:set var="homeFilterUrl" value="${mcp }/cpn/${homeFilter.categoryPn }/spn/${homeFilter.sectionPn eq null ? 0 : homeFilter.sectionPn}" scope="request"/>
-					<li>
-						<a href="${interestUrl }" style="${interestUrl eq homeFilterUrl ? '' : ''}"><span>ALL</span></a>
-					</li>
-					<c:forEach var="interestSection" items="${interestSections }">
-						<c:set var="interestSectionPn" value="${interestSection.sectionPn }"/>
-						<c:set var="interestUrl" value="${mcp }/cpn/${interestCategoryPn }/spn/${interestSectionPn }"/>
-						<li>
-							<a href="${interestUrl }" style="${interestUrl eq homeFilterUrl ? '' : ''}"><span><c:out value="${interestSection.name }"/></span></a>
-						</li>
-					</c:forEach>
-					<c:if test="${(fn:length(interestSections) + 1 )%2 eq 1 }">
-						<li>
-							<a><span>&nbsp;</span></a>
-						</li>
-					</c:if>
-				</ul>
 			</li>
 		</c:forEach>
 	</ul>
