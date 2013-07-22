@@ -543,6 +543,7 @@ jtown.seller.syncMainImage = function() {
 	$('#jt-seller-main-image-cancle').unbind('click').bind('click', function() {
 		$('#jt-seller-main-image-update-tool').hide();
 		jtown.seller.mainImageCancle();
+		setTimeout('jtown.seller.changeMainBgHeight()', 0);
 	});
 };
 
