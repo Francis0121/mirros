@@ -1,0 +1,28 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<c:set var="check_nav" value="${cp }/cpn/${homeFilter.categoryPn }/spn/0"/>
+<ul class="jt-header-nav-interestCategory">
+	<c:forEach var="interestCategory" items="${interestCategories }">
+		<c:set var="interestCategoryPn" value="${interestCategory.categoryPn }"/>
+		<c:set var="interestSections" value="${interestMap[interestCategoryPn] }"/>
+		<c:set var="now_nav" value="${cp }/cpn/${interestCategoryPn }/spn/0"/>
+		<c:set var="navPosition" value="${now_nav eq check_nav ? 'jt-header-nav-interestCategory-realPath' : 'jt-header-nav-interestCategory-normal' }"/>
+		<li class="jt-header-nav-interestCategory-li">
+			<a href="${now_nav }" class="${navPosition }"><span><c:out value="${interestCategory.name }"/></span></a>
+			<ul class="jt-header-nav-interest">
+				<c:set var="check_sub_nav" value="${cp }/cpn/${homeFilter.categoryPn }/spn/${homeFilter.sectionPn eq null ? 0 : homeFilter.sectionPn}"/>
+				<c:set var="navPosition_sub" value="${now_nav eq check_sub_nav ? 'jt-header-nav-interest-normal-realPath' : 'jt-header-nav-interest-normal' }" />
+				<li class="jt-header-nav-interest-li">
+					<a href="${now_nav }" class="${navPosition_sub }">ALL</a>
+				</li>
+			<c:forEach var="interest" items="${interestSections }">
+				<c:set var="interestSectionPn" value="${interest.sectionPn }"/>
+				<c:set var="now_nav" value="${cp }/cpn/${interestCategoryPn }/spn/${interestSectionPn }"/>
+				<c:set var="navPosition_sub" value="${now_nav eq check_sub_nav ? 'jt-header-nav-interest-normal-realPath' : 'jt-header-nav-interest-normal' }" />
+				<li class="jt-header-nav-interest-li">
+					<a class="${navPosition_sub }" href="${now_nav }"><c:out value="${interest.name }"/></a>
+				</li>
+			</c:forEach>
+			</ul>
+		</li>
+	</c:forEach>
+</ul>

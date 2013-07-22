@@ -29,6 +29,7 @@ import com.bg.jtown.security.SummaryUser;
 import com.bg.jtown.util.FileVO;
 import com.bg.jtown.util.ValidationUtil;
 import com.bg.jtown.business.Event;
+import com.bg.jtown.business.search.ProductFilter;
 import com.bg.jtown.business.seller.SellerService;
 
 /**
@@ -92,8 +93,8 @@ public class SellerController {
 	}
 
 	@PreAuthorize("hasRole('ROLE_SELLER')")
-	@RequestMapping(value = "/seller/products/{p}", method = RequestMethod.GET)
-	public String showProducts(@PathVariable(value = "p") Integer sellerPn,
+	@RequestMapping(value = "/seller/products/{sellerPn}", method = RequestMethod.GET)
+	public String showProducts(@ModelAttribute ProductFilter productFilter,
 			Model model, SummaryUser summaryUser,
 			@RequestParam(required = false) Integer isFinish) {
 
@@ -105,6 +106,12 @@ public class SellerController {
 			}
 		}
 
+		Integer sellerPn = productFilter.getSellerPn();
+
+		if (sellerPn == null) {
+			return prefixView + "error/404";
+		}
+
 		if (summaryUser.getEnumAuthority().equals(Authority.SELLER)) {
 			if (!summaryUser.getPn().equals(sellerPn)) {
 				logger.warn("Deny Seller page No Permission [ Access = "
@@ -114,7 +121,7 @@ public class SellerController {
 			}
 		}
 		model.addAttribute("products",
-				sellerService.selectSellerProduct(sellerPn));
+				sellerService.selectSellerProduct(productFilter));
 		Product product = new Product();
 		product.setSellerPn(sellerPn);
 		model.addAttribute("product", product);
@@ -162,16 +169,21 @@ public class SellerController {
 		}.validate(product, result);
 
 		Integer nowPn = product.getSellerPn();
+		Integer currentPage = product.getCurrentPage();
+		Integer sellerPn = summaryUser.getPn();
 		if (result.hasErrors()) {
+			ProductFilter productFilter = new ProductFilter();
+			productFilter.setPage(currentPage);
+			productFilter.setSellerPn(sellerPn);
 			model.addAttribute("products",
-					sellerService.selectSellerProduct(nowPn));
+					sellerService.selectSellerProduct(productFilter));
+			model.addAttribute("productFilter", productFilter);
 			return prefixView + "seller_photo";
 		} else {
-			Integer sellerPn = product.getSellerPn();
 			product.setSellerPn(sellerPn);
 			sellerService.updateProduct(product);
 			model.addAttribute("isFinish", TRUE);
-			return "redirect:products/" + nowPn;
+			return "redirect:products/" + nowPn + "?page=" + currentPage;
 		}
 	}
 
@@ -185,7 +197,12 @@ public class SellerController {
 		if (!result) {
 			model.addAttribute("isFinish", FALSE);
 		}
-		return "redirect:products/" + nowPn;
+		Integer page = product.getCurrentPage();
+		int count = sellerService.selectSellerProductCount(nowPn);
+		if (count <= 10) {
+			page = 1;
+		}
+		return "redirect:products/" + nowPn + "?page=" + page;
 	}
 
 	// ~ Ajax

@@ -30,7 +30,7 @@ $(function() {
 		'buttonText' : '사진 업로드',
 		'fileTypeDesc' : 'Image Files',
         'fileTypeExts' : '*.gif; *.jpg; *.png',
-        'fileSizeLimit' : '5MB',
+        'fileSizeLimit' : '2MB',
 		'multi'	: false,
 		'swf' : contextPath + 'resources/uploadify/uploadify.swf',
 		'uploader' : contextPath + 'file/upload.jt',
@@ -45,7 +45,7 @@ $(function() {
 		'buttonText' : '사진 업로드',
 		'fileTypeDesc' : 'Image Files',
         'fileTypeExts' : '*.gif; *.jpg; *.png',
-        'fileSizeLimit' : '5MB',
+        'fileSizeLimit' : '2MB',
 		'multi'	: false,
 		'swf' : contextPath + 'resources/uploadify/uploadify.swf',
 		'uploader' : contextPath + 'file/upload.jt',
@@ -61,7 +61,7 @@ $(function() {
 		'method' : 'post',
 		'fileTypeDesc' : 'Image Files',
         'fileTypeExts' : '*.gif; *.jpg; *.png',
-        'fileSizeLimit' : '5MB',
+        'fileSizeLimit' : '2MB',
 		'multi'	: false,
 		'swf' : contextPath + 'resources/uploadify/uploadify.swf',
 		'uploader' : contextPath + 'file/upload.jt',
@@ -79,7 +79,7 @@ $(function() {
 		'width' : '90',
 		'fileTypeDesc' : 'Image Files',
         'fileTypeExts' : '*.gif; *.jpg; *.png',
-        'fileSizeLimit' : '5MB',
+        'fileSizeLimit' : '2MB',
 		'swf' : contextPath + 'resources/uploadify/uploadify.swf',
 		'uploader' : contextPath + 'file/upload.jt',
 		'itemTemplate' : '<div></div>',
@@ -593,8 +593,13 @@ jtown.seller.productImage = function(file){
 					'saveName': file.saveName };
 	
 	$.postJSON(url, json, function(product){
+		if(product.count > 19){
+			jtown.dialog('상품은 20개 이하로 등록 가능합니다.');
+		}
 		if(product.count > 9){
-			jtown.dialog('상품은 10개 이하로 등록 가능합니다.');
+			$('.jt-photo-page-after').show();
+		}else{
+			$('.jt-photo-page-after').hide();
 		}
 		var me = $('#jt-product-article-object-'+product.count);
 		me.children('img').attr('src', contextPath+'resources/uploadImage/'+product.saveName);

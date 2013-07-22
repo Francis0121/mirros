@@ -1,8 +1,8 @@
 $(function() {
 	
-	$('.jt-header-nav-interestCategory-li').bind('mouseover mouseout', function(event) {
-		jtown.header.showSubNavigation($(this).find('.jt-header-nav-interest'), event.type);
-	});
+//	$('.jt-header-nav-interestCategory-li').bind('mouseover mouseout', function(event) {
+//		jtown.header.showSubNavigation($(this).find('.jt-header-nav-interest'), event.type);
+//	});
 	
 	$('#jt-login-smartPopup').bind('click', function(){
 		jtown.header.showLoginForm();		
@@ -414,7 +414,7 @@ jtown.naturalLanguage.autocomplete = function(){
 				}
 				for(var i=0, len = interests.length, size = jtownUsers.length ; i< len; i++){
 					var interest = interests[i];
-					data[i+size] = { label : interest.naturalName , value : interest.naturalName, categoryPn : interest.categoryPn, spn : interest.sectionPn, category : 'CATEGORY'};
+					data[i+size] = { label : interest.name , value : interest.name, categoryPn : interest.categoryPn, spn : interest.sectionPn, category : 'CATEGORY'};
 				}
 				response( data );
 			});

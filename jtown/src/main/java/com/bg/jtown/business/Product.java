@@ -60,6 +60,19 @@ public class Product {
 	 */
 	private String url;
 
+	/**
+	 * 현재페이지
+	 */
+	private Integer currentPage;
+
+	public Integer getCurrentPage() {
+		return currentPage;
+	}
+
+	public void setCurrentPage(Integer currentPage) {
+		this.currentPage = currentPage;
+	}
+
 	public Product() {
 		super();
 	}
@@ -175,7 +188,8 @@ public class Product {
 		return "Product [count=" + count + ", imagePn=" + imagePn
 				+ ", inputDate=" + inputDate + ", name=" + name + ", order="
 				+ order + ", pn=" + pn + ", price=" + price + ", saveName="
-				+ saveName + ", sellerPn=" + sellerPn + ", url=" + url + "]";
+				+ saveName + ", sellerPn=" + sellerPn + ", url=" + url
+				+ ", currentPage=" + currentPage + "]";
 	}
 
 }

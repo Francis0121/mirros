@@ -67,14 +67,14 @@
 	</select>
 	
 	<select id="selectInterestSectionFromName" parameterType="String" resultType="Integer">
-		SELECT pn FROM interest_section WHERE name = #{name} AND category_pn = #{categoryPn}
+		SELECT pn FROM interest_section WHERE name = #{name} AND category_pn = 1
 	</select>
 	
 	<insert id="insertInterestSection" parameterType="Interest">
 		INSERT INTO interest_section
 			( category_pn, name, upper_name)
 		VALUES
-			(#{categoryPn}, #{name}, #{upperName} )
+			( 1, #{name}, #{upperName} )
 		<selectKey keyProperty="sectionPn" resultType="Integer">
 			SELECT LAST_INSERT_ID()
 		</selectKey>			
@@ -100,7 +100,7 @@
 		FROM
 			interest_section
 		WHERE
-			category_pn = #{categoryPn}
+			category_pn = 1
 		AND
 			upper_name LIKE #{upperName}
 	</select>

@@ -1,5 +1,6 @@
 package com.bg.jtown.business.seller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,10 +19,12 @@ import com.bg.jtown.business.Product;
 import com.bg.jtown.business.admin.AdminService;
 import com.bg.jtown.business.comment.CommentService;
 import com.bg.jtown.business.search.CommentFilter;
+import com.bg.jtown.business.search.ProductFilter;
 import com.bg.jtown.redis.Publisher;
 import com.bg.jtown.security.JtownUser;
 import com.bg.jtown.util.DateUtil;
 import com.bg.jtown.util.FileVO;
+import com.bg.jtown.util.Pagination;
 
 /**
  * @author Francis
@@ -327,6 +330,25 @@ public class SellerServiceImpl extends SqlSessionDaoSupport implements
 	}
 
 	@Override
+	public List<Product> selectSellerProduct(ProductFilter productFilter) {
+		Pagination pagination = productFilter.getPagination();
+		int count = selectSellerProductCount(productFilter);
+		if (count == 0) {
+			return new ArrayList<Product>();
+		}
+		pagination.setNumItems(count);
+		return getSqlSession().selectList(
+				"sellerMapper.selectSellerProductFromProductFilter",
+				productFilter);
+	}
+
+	private Integer selectSellerProductCount(ProductFilter productFilter) {
+		return getSqlSession().selectOne(
+				"sellerMapper.selectSellerProductCountFromProductFilter",
+				productFilter);
+	}
+
+	@Override
 	public Integer selectSellerProductCount(Integer userPn) {
 		return getSqlSession().selectOne(
 				"sellerMapper.selectSellerProductCount", userPn);
@@ -359,7 +381,7 @@ public class SellerServiceImpl extends SqlSessionDaoSupport implements
 	public void insertSellerProduct(Product product) {
 		Integer sellerPn = product.getSellerPn();
 		Integer count = selectSellerProductCount(sellerPn);
-		if (count >= 10) {
+		if (count >= 20) {
 			product.setCount(count);
 			return;
 		}

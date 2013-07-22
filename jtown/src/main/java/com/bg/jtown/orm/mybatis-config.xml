@@ -30,6 +30,7 @@
 		<typeAlias alias="HomeFilter" type="com.bg.jtown.business.search.HomeFilter"/>
 		<typeAlias alias="NaturalLanguageFilter" type="com.bg.jtown.business.search.NaturalLanguageFilter"/>
 		<typeAlias alias="PartnershipFilter" type="com.bg.jtown.business.search.PartnershipFilter"/>
+		<typeAlias alias="ProductFilter" type="com.bg.jtown.business.search.ProductFilter"/>
 		<typeAlias alias="QuestionFilter" type="com.bg.jtown.business.search.QuestionFilter"/>
 		<typeAlias alias="UserFilter" type="com.bg.jtown.business.search.UserFilter"/>
 	</typeAliases>

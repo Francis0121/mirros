@@ -30,8 +30,8 @@ import com.bg.jtown.util.Pagination;
 @Service
 public class HomeServiceImpl extends SqlSessionDaoSupport implements
 		HomeService {
-
-	private static final Integer CATEGORY_DEFAULT_FASION = 1;
+//	Menu 변경으로 주석처리
+//	private static final Integer CATEGORY_DEFAULT_FASION = 1;
 
 	private static Logger logger = LoggerFactory
 			.getLogger(HomeServiceImpl.class);
@@ -73,7 +73,8 @@ public class HomeServiceImpl extends SqlSessionDaoSupport implements
 		} else if (categoryPn != null && !categoryPn.equals(0)) {
 			count = selectFromInterestCategoryCount(homeFilter);
 		} else {
-			homeFilter.setCategoryPn(CATEGORY_DEFAULT_FASION);
+//			Menu 변경으로 주석처리
+//			homeFilter.setCategoryPn(CATEGORY_DEFAULT_FASION);
 			count = selectFromInterestCategoryCount(homeFilter);
 		}
 		Pagination pagination = homeFilter.getPagination();
@@ -117,7 +118,8 @@ public class HomeServiceImpl extends SqlSessionDaoSupport implements
 		} else if (categoryPn != null && !categoryPn.equals(0)) {
 			return selectFromInterestCategory(homeFilter);
 		} else {
-			homeFilter.setCategoryPn(CATEGORY_DEFAULT_FASION);
+//			Menu 변경으로 주석처리
+//			homeFilter.setCategoryPn(CATEGORY_DEFAULT_FASION);
 			return selectFromInterestCategory(homeFilter);
 		}
 	}

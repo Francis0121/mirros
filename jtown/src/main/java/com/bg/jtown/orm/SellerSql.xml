@@ -2,6 +2,27 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="sellerMapper">
 
+	<sql id="paginationBefore">
+		SELECT 
+			t.*
+		FROM 
+		( 
+			SELECT  
+				z.*, @RNUM := @RNUM + 1 AS rnum
+			FROM
+				(
+	</sql>
+	
+	<sql id="paginationAfter">
+		<![CDATA[
+				) z,  
+				( SELECT @RNUM := 0 ) R
+			WHERE @RNUM + 1 <=  #{pagination.itemSeqEnd}
+		) t
+		WHERE t.rnum >= #{pagination.itemSeqBegin}
+		]]>
+	</sql>
+
 	<resultMap type="JtownUser" id="jtown-seller-map">
 		<result column="pn" property="pn"/>
 		<result column="id" property="username"/>
@@ -285,7 +306,7 @@
 			LEFT OUTER JOIN user_seller_interest usi
 			ON ( usi.seller_pn = #{properNumber} AND ise.pn = usi.section_pn )
 		WHERE
-			ise.category_pn = ( SELECT category_pn FROM partnership WHERE seller_pn = #{properNumber})
+			ise.category_pn = 1
 	</select>
 
 	<!-- Product -->
@@ -313,11 +334,32 @@
 		AND
 			usp.image_pn = i.pn
 		ORDER BY
-			usp.order ASC	
+			usp.order ASC, input_date ASC	
 	</select>
 	
 	<select id="selectSellerProductCount" parameterType="Integer" resultType="Integer">
 		SELECT COUNT(pn) FROM user_seller_product WHERE seller_pn = #{userPn}
+	</select>
+	
+	<select id="selectSellerProductFromProductFilter" parameterType="ProductFilter" resultMap="jt-product-map">
+		<include refid="paginationBefore"/>
+		SELECT
+			i.pn AS image_pn, i.save_name, 
+			usp.pn, usp.name, usp.url, usp.price, usp.order, DATE_FORMAT(usp.input_date, '%Y%m%d') AS input_date
+		FROM
+			user_seller_product usp,
+			image i
+		WHERE
+			usp.seller_pn = #{sellerPn}
+		AND
+			usp.image_pn = i.pn
+		ORDER BY
+			usp.order ASC, input_date ASC
+		<include refid="paginationAfter"/>	
+	</select>
+	
+	<select id="selectSellerProductCountFromProductFilter" parameterType="ProductFilter" resultType="Integer">
+		SELECT COUNT(pn) FROM user_seller_product WHERE seller_pn = #{sellerPn}
 	</select>
 	
 	<select id="selectSellerProductOne" parameterType="Integer" resultMap="jt-product-map">

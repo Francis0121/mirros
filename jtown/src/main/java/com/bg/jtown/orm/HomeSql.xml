@@ -58,24 +58,20 @@
 					user_seller us
 					LEFT OUTER JOIN users u
 					ON us.pn = u.pn,
-					user_seller_interest usi,
-					user_seller_contract_info usci,
-					interest_section ise,
-					interest_category ic
+					partnership p,
+					user_seller_contract_info usci
 				WHERE
 					u.enable = 1
 				AND
-					us.pn = usi.seller_pn
+					p.seller_pn = us.pn
 				AND
 					us.pn = usci.seller_pn
 				AND
 					DATE_FORMAT(SYSDATE(), '%Y-%m-%d') BETWEEN usci.start_date AND usci.end_date	
+				<if test="categoryPn != null and categoryPn != 0 ">	
 				AND
-					usi.section_pn = ise.pn
-				AND
-					ise.category_pn = ic.pn
-				AND
-					ise.category_pn = #{categoryPn}
+					p.category_pn = #{categoryPn}
+				</if>	
 				GROUP BY 
 					us.pn
 			) t
@@ -109,24 +105,20 @@
 			LEFT OUTER JOIN count_love cl
 			ON us.pn = cl.seller_pn AND cl.customer_pn = #{customerPn}
 			</if>,
-			user_seller_interest usi,
-			user_seller_contract_info usci,
-			interest_section ise,
-			interest_category ic
+			partnership p,
+			user_seller_contract_info usci
 		WHERE
 			u.enable = 1
 		AND
-			us.pn = usi.seller_pn
+			p.seller_pn = us.pn
 		AND
 			us.pn = usci.seller_pn
 		AND
 			DATE_FORMAT(SYSDATE(), '%Y-%m-%d') BETWEEN usci.start_date AND usci.end_date
+		<if test="categoryPn != null and categoryPn != 0">
 		AND
-			usi.section_pn = ise.pn
-		AND
-			ise.category_pn = ic.pn
-		AND
-			ise.category_pn = #{categoryPn}
+			p.category_pn = #{categoryPn}
+		</if>
 		GROUP BY 
 			us.pn
 		ORDER BY
@@ -143,8 +135,7 @@
 			ON us.pn = u.pn,
 			user_seller_interest usi,
 			user_seller_contract_info usci,
-			interest_section ise,
-			interest_category ic
+			interest_section ise
 		WHERE
 			u.enable = 1
 		AND
@@ -155,8 +146,6 @@
 			DATE_FORMAT(SYSDATE(), '%Y-%m-%d') BETWEEN usci.start_date AND usci.end_date	
 		AND
 			usi.section_pn = ise.pn
-		AND
-			ise.category_pn = ic.pn
 		AND
 			ise.pn = #{sectionPn}
 		ORDER BY
@@ -193,8 +182,7 @@
 			</if>,
 			user_seller_interest usi,
 			user_seller_contract_info usci,
-			interest_section ise,
-			interest_category ic
+			interest_section ise
 		WHERE
 			u.enable = 1
 		AND
@@ -205,8 +193,6 @@
 			DATE_FORMAT(SYSDATE(), '%Y-%m-%d') BETWEEN usci.start_date AND usci.end_date
 		AND
 			usi.section_pn = ise.pn
-		AND
-			ise.category_pn = ic.pn
 		AND
 			ise.pn = #{sectionPn}
 		ORDER BY
@@ -282,7 +268,7 @@
 			</when>
 			<otherwise>
 				SELECT
-					pn AS section_pn, category_pn, NAME
+					pn AS section_pn, category_pn, `name`
 				FROM
 					interest_section
 				ORDER BY
@@ -330,7 +316,7 @@
 		FROM
 			interest_section
 		WHERE
-			category_pn = #{categoryPn}
+			category_pn = 1
 		ORDER BY
 			name
 	</select>

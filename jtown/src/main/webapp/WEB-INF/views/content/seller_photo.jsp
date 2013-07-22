@@ -6,6 +6,7 @@
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <c:set var="cp" value="<%=request.getContextPath() %>"/>
 <c:set var="rp" value='<%=request.getAttribute("javax.servlet.forward.request_uri")%>'/>
+<c:set var="pagination" value="${productFilter.pagination }"/>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -21,7 +22,7 @@ html{ overflow-y: hidden;}
 		<header class="jt-product-header">
 			<ul>
 				<li><h1>상품 사진 올리기</h1></li>
-				<li><span class="jt-product-header-icon"></span><span class="jt-product-header-text">한 장당 5MB이하로, 상품은 총 10장 까지 가능합니다. (JPG, GIF, PNG)</span></li>
+				<li><span class="jt-product-header-icon"></span><span class="jt-product-header-text">한 장당 2MB이하로, 상품은 총 10장 까지 가능합니다. (JPG, GIF, PNG)</span></li>
 			</ul>
 		</header>
 		
@@ -29,7 +30,7 @@ html{ overflow-y: hidden;}
 			<ul>
 				<c:forEach items="${products }" var="product" varStatus="i">
 					<li class="jt-product-article-object jt-product-article-object-img" 
-						id="jt-product-article-object-<c:out value="${i.index }"/>"
+						id="jt-product-article-object-<c:out value="${((pagination.currentPage-1) * 10) + i.index }"/>"
 						data-ppn="${product.pn}"
 						data-name="<c:out value="${product.name }"/>"
 						data-price="<c:out value="${product.price }"/>"
@@ -57,7 +58,7 @@ html{ overflow-y: hidden;}
 					</li>
 				</c:forEach>
 				<c:forEach begin="${fn:length(products) }" end="9" varStatus="i">
-					<li class="jt-product-article-object" id="jt-product-article-object-<c:out value="${i.index }"/>">
+					<li class="jt-product-article-object" id="jt-product-article-object-<c:out value="${((pagination.currentPage-1) * 10) + i.index }"/>">
 						<div class="jt-seller-expand-product-delete-tool">	
 							<div>
 								<a href="#none" class="jt-seller-product-delete jt-btn-white-small">
@@ -88,6 +89,21 @@ html{ overflow-y: hidden;}
 								<img alt="입력완료" src="${cp }/resources/images/jt-confirm-icon.png" style="float:left; margin: 1px 7px 0 3px;"/><span style="float:left; ">입력완료</span>
 							</button>
 						</li>
+						<li>
+							
+							<c:choose>
+								<c:when test="${productFilter.page eq 2 }">
+									<button type="button" class="jt-photo-page-btn jt-photo-page-before" onclick="javascript:void(goToPage(1))">
+										<span class="page-image"></span><span class="page-text">이전</span>								
+									</button>
+								</c:when>
+								<c:otherwise>
+									<button type="button" class="jt-photo-page-btn jt-photo-page-after" style="display : <c:out value="${ pagination.numItems <= 10 ? 'none' : 'block'}"/>;" onclick="javascript:void(goToPage(2))">
+										<span class="page-text">다음</span><span class="page-image"></span>						
+									</button>
+								</c:otherwise>
+							</c:choose>
+						</li>
 						<li>1. 해당 상품을 클릭하시면 상세정보 (이름, 가격, 상품 URL) 입력이 가능합니다.</li>
 						<li>2. 상품 삭제는 해당 상품에 마우스를 올릴시 좌측 상단에 뜨는 X 버튼을 클릭하시기 바랍니다.</li>
 					</ul>
@@ -95,7 +111,8 @@ html{ overflow-y: hidden;}
 						<form:form commandName="product" action="${cp }/seller/form.jt" method="delete">
 							<form:hidden path="pn"/>
 							<form:hidden path="sellerPn"/>
-							<ul class="jt-product-article-update-input"> 
+							<input type="hidden" id="currentPage" name="currentPage" value="${pagination.currentPage }"/>
+							<ul class="jt-product-article-update-input">  
 								<li>
 									<form:label path="name" cssClass="jt-product-label">이름</form:label>
 									<form:input path="name" cssClass="jt-product-input" cssErrorClass="jt-product-input-error" maxlength="15" placeholder="ex) T-Shirt"/>
@@ -131,10 +148,14 @@ html{ overflow-y: hidden;}
 		</article>
 		
 		<footer class="jt-product-footer">
-			<span>저작권 및 타인의 권리 침해, 명예를 훼손하는 이미지는 이용약관 및 관련 법률에 의해 제재 받으실 수 있습니다.</span>
+			<span>저작권 및 타인의 권리 침해, 명예를 훼손하는 이미지는 이용약관 및 관련 법률에 의해 제재 받으실 수 있습니다. </span>
 		</footer>
-	</section>	
+	</section>
+	<form:form commandName="productFilter" action="${cp }/seller/products/${productFilter.sellerPn }" method="get">
+		<form:hidden path="page" value="${pagination.currentPage}"/>
+	</form:form>	
 	<%@ include file="../layout/script_foot.jspf" %>
+
 <script type="text/javascript">
 /* <![CDATA[ */ 
 	$(function(){
@@ -146,7 +167,27 @@ html{ overflow-y: hidden;}
 	$(window).unload(function(event){
 		window.opener.document.location.reload();
 	});
-/* ]]> */	
+	
+	var numPagesPerScreen = <c:out value='${pagination.numPagesPerScreen}'/>;
+	var page = <c:out value='${pagination.currentPage}'/>;
+	var numPages = <c:out value='${pagination.numPages}'/>;
+	
+	function goToNextPages() {
+		goToPage(Math.min(numPages, page + numPagesPerScreen));
+	}
+	
+	function goToPage(page) {
+		var input = document.getElementById('page');
+		input.value = page;
+		
+		var form = document.forms['productFilter'];	
+		form.submit();
+	}
+	
+	function goToPreviousPages() {
+		goToPage(Math.max(1, page - numPagesPerScreen));
+	}
+/* ]]> */
 </script>
 </body>
 </html>

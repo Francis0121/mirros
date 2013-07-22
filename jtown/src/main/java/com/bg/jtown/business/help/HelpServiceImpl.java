@@ -72,28 +72,30 @@ public class HelpServiceImpl extends SqlSessionDaoSupport implements
 				"helpMapper.selectAdminIdList");
 		selectMap.put("usersAdmin", jtownUsers);
 
-		List<SellerBaseInfo> sellerBaseInfos = selectBaseInputStatus(pnList);
-		Map<Integer, Boolean> baseStatusMap = new HashMap<Integer, Boolean>();
-		if (sellerBaseInfos != null) {
-			for (SellerBaseInfo sbi : sellerBaseInfos) {
-				Boolean bool = true;
-				if ((sbi.getNotice() == null || sbi.getNotice().trim()
-						.equals(""))
-						|| (sbi.getLongNotice() == null || sbi.getLongNotice()
-								.trim().equals(""))
-						|| (sbi.getImageBoolCount() == null || sbi
-								.getImageBoolCount().equals(0))
-						|| (sbi.getProductBoolCount() == null || sbi
-								.getProductBoolCount() < 3)
-						|| (sbi.getBannerBoolCount() == null || !sbi
-								.getBannerBoolCount().equals(2))
-						|| (sbi.getTagBoolCount() == null || sbi
-								.getTagBoolCount().equals(0))) {
-					bool = false;
+		if (pnList.size() != 0) {
+			List<SellerBaseInfo> sellerBaseInfos = selectBaseInputStatus(pnList);
+			Map<Integer, Boolean> baseStatusMap = new HashMap<Integer, Boolean>();
+			if (sellerBaseInfos != null) {
+				for (SellerBaseInfo sbi : sellerBaseInfos) {
+					Boolean bool = true;
+					if ((sbi.getNotice() == null || sbi.getNotice().trim()
+							.equals(""))
+							|| (sbi.getLongNotice() == null || sbi
+									.getLongNotice().trim().equals(""))
+							|| (sbi.getImageBoolCount() == null || sbi
+									.getImageBoolCount().equals(0))
+							|| (sbi.getProductBoolCount() == null || sbi
+									.getProductBoolCount() < 3)
+							|| (sbi.getBannerBoolCount() == null || !sbi
+									.getBannerBoolCount().equals(2))
+							|| (sbi.getTagBoolCount() == null || sbi
+									.getTagBoolCount().equals(0))) {
+						bool = false;
+					}
+					baseStatusMap.put(sbi.getSellerPn(), bool);
 				}
-				baseStatusMap.put(sbi.getSellerPn(), bool);
+				selectMap.put("baseStatusMap", baseStatusMap);
 			}
-			selectMap.put("baseStatusMap", baseStatusMap);
 		}
 
 		return selectMap;

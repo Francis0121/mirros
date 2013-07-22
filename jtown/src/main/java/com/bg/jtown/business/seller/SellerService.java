@@ -6,6 +6,7 @@ import java.util.Map;
 import com.bg.jtown.business.Event;
 import com.bg.jtown.business.Interest;
 import com.bg.jtown.business.Product;
+import com.bg.jtown.business.search.ProductFilter;
 import com.bg.jtown.security.JtownUser;
 import com.bg.jtown.util.FileVO;
 
@@ -78,6 +79,8 @@ public interface SellerService {
 
 	List<Product> selectSellerProduct(Integer userPn);
 
+	List<Product> selectSellerProduct(ProductFilter productFilter);
+
 	Integer selectSellerProductCount(Integer userPn);
 
 	Product selectSellerProductOne(Integer productPn);
@@ -95,5 +98,6 @@ public interface SellerService {
 	// ~ LoveCount
 
 	Integer selectLoveCount(Integer properNumber);
+
 
 }
