@@ -22,7 +22,7 @@ html{ overflow-y: hidden;}
 		<header class="jt-product-header">
 			<ul>
 				<li><h1>상품 사진 올리기</h1></li>
-				<li><span class="jt-product-header-icon"></span><span class="jt-product-header-text">한 장당 2MB이하로, 상품은 총 10장 까지 가능합니다. (JPG, GIF, PNG)</span></li>
+				<li><span class="jt-product-header-icon"></span><span class="jt-product-header-text">한 장당 2MB이하로, 상품은 총 20장 까지 가능합니다. (JPG, GIF, PNG)</span></li>
 			</ul>
 		</header>
 		
