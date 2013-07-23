@@ -10,16 +10,16 @@
 <%-- <script src="${cp}/resources/js/masonry.scollr.pagination.min.js"></script> --%>
 <script src="${cp}/resources/js/masonry.scroll.pagination.js"></script>
 <script src="${cp}/resources/js/jcarousellite_1.0.1.min.js"></script>
-<script src="${cp}/resources/js/jquery.mousewheel.js"></script>
 
 <%-- <script src="${cp}/resources/js/jquery.plugin.min.js"></script> --%>
+<script src="${cp}/resources/js/jquery.mousewheel.js"></script>
 <script src="${cp}/resources/js/jquery.form.js"></script>
 <script src="${cp}/resources/js/jquery.json.js"></script>
 <script src="${cp}/resources/js/jquery.plugin.js"></script>
 <script src="${cp}/resources/js/jquery.cookie.js"></script>
+<script src="${cp}/resources/js/jquery.intro.js"></script>
 <%-- Custom --%>
 <%-- <script src="${cp}/resources/js/mirros.all.js"></script> --%>
-<script src="${cp}/resources/js/content/intro.js"></script>
 <script src="${cp}/resources/js/content/jtown.js"></script>
 <script src="${cp}/resources/js/content/util.js"></script>
 <script src="${cp}/resources/js/content/login.js"></script>
