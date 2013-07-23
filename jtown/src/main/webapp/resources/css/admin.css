@@ -4,7 +4,7 @@
 *	최상단
 **************************/
 body{background: #f6f4f5;}
-.jt-body{ float: left; width: 100%; min-width: 1200px;}
+.jt-body{ float: left; width: 100%; min-width: 990px;}
 
 .jt-left{ position :fixed;  width: 190px;  height :100%; top: 0; left : 0; padding : 10px; border-right: 2px solid #bcbcbc; background : #f6f4f5;
 	box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box; -moz-box-sizing : border-box; -webkit-box-sizing : border-box;
