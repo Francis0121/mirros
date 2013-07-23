@@ -334,7 +334,7 @@
 		AND
 			usp.image_pn = i.pn
 		ORDER BY
-			usp.order ASC, input_date ASC	
+			usp.order ASC, usp.input_date ASC	
 	</select>
 	
 	<select id="selectSellerProductCount" parameterType="Integer" resultType="Integer">
@@ -354,7 +354,7 @@
 		AND
 			usp.image_pn = i.pn
 		ORDER BY
-			usp.order ASC, input_date ASC
+			usp.order ASC, usp.input_date ASC
 		<include refid="paginationAfter"/>	
 	</select>
 	
