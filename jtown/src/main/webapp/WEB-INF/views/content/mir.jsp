@@ -94,6 +94,13 @@
 									</div>
 								</li>
 							</c:forEach>
+							<c:if test="${fn:length(products) < 3 }">
+								<c:forEach begin="${fn:length(products) }" end="2">
+								<li class="jt-home-expand-shop-expandProduct">
+									<a href="${shopUrl }"><img alt="Empty Product" src="${cp }/resources/images/jt-product-blank.png"></a>
+								</li>
+								</c:forEach>
+							</c:if>
 						</ul>
 					</div>
 					<c:choose>
@@ -119,6 +126,14 @@
 								<span class="${loop.index } image" ><img alt="Product${loop.index }" src="${image }"/></span>
 							</div>
 						</c:forEach>
+						<c:if test="${fn:length(products) < 3 }">
+							<c:forEach begin="${fn:length(products) }" end="2">
+							<div class="thumbnail">
+								<span class="text">&nbsp;</span>
+								<span class="image" ><img alt="Product" src="${cp }/resources/images/jt-product-thumbnail-blank.png"/></span>
+							</div>
+							</c:forEach>
+						</c:if>
 						<div class="jt-home-expand-shop-tag">
 							<span class="tag-txt"><c:forEach items="${interestes }" var="interest" varStatus="loop"><c:out value="${interest.name }"/><c:if test="${loop.count ne fn:length(interestes) }">,&nbsp;</c:if></c:forEach></span><span class="tag-image">Tag</span>
 						</div>

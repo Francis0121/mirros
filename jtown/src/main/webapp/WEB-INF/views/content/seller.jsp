@@ -228,9 +228,9 @@
 					</c:choose>
 					<div class="jt-home-expand-shop-fake-dan" >
 						<ul class="jt-home-expand-shop-expandProduct-slide">
+							<c:set var="shopUrl" value="${jtownUser.shopUrl }" />
 							<c:forEach items="${products }" var="product" varStatus="loop">
 								<li class="jt-home-expand-shop-expandProduct" >
-									<c:set var="shopUrl" value="${jtownUser.shopUrl }" />
 									<a href="${product.url eq null ? shopUrl : product.url}" target="_blank"><img alt="상품" src="${cp }/resources/uploadImage/${product.saveName }"/></a>
 									<div class="jt-product-article-object-wrap jt-product-article-object-expand">
 										<c:choose>
@@ -246,6 +246,13 @@
 									</div>
 								</li>
 							</c:forEach>
+							<c:if test="${fn:length(products) < 3 }">
+								<c:forEach begin="${fn:length(products) }" end="2">
+								<li class="jt-home-expand-shop-expandProduct">
+									<a href="${shopUrl }"><img alt="Empty Product" src="${cp }/resources/images/jt-product-blank.png"></a>
+								</li>
+								</c:forEach>
+							</c:if>
 						</ul>
 					</div>
 					<c:choose>
@@ -273,8 +280,16 @@
 								</c:choose>
 								<c:set value="${cp }/resources/uploadImage/${product.saveName }" var="image"/>
 								<span class="${loop.index } image" ><img alt="Product${loop.index }" src="${image }"/></span>
-							</div>
+															</div>
 						</c:forEach>
+						<c:if test="${fn:length(products) < 3 }">
+							<c:forEach begin="${fn:length(products) }" end="2">
+							<div class="thumbnail">
+								<span class="text">&nbsp;</span>
+								<span class="image" ><img alt="Product" src="${cp }/resources/images/jt-product-thumbnail-blank.png"/></span>
+							</div>
+							</c:forEach>
+						</c:if>
 						<div id="jt-seller-product-insert-wrap">
 							<button type="button" id="jt-product-popup" data-pn="${jtownUser.pn }" class="jt-btn-white-small jt-product-plus-btn">
 								<img alt="plus" src="${cp }/resources/images/jt-plus-btn.png">

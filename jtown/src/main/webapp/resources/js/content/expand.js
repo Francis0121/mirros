@@ -87,6 +87,18 @@ jtown.expand.makeInnerHtml = function(spn){
 			smallProductHtml += '	<span class="'+i+' image" ><img alt="Product'+i+'" src="'+path+product.saveName+'"/></span>';
 			smallProductHtml += '</div>';
 		}
+		if(productSize < 3 ){
+			for(var i=productSize ; i< 3; i++){
+				bigProductHtml += '	<li class="jt-home-expand-shop-expandProduct">';
+				bigProductHtml += '		<a href="'+jtownUser.shopUrl+'"><img alt="Empty Product" src="'+contextPath+'resources/images/jt-product-blank.png"></a>';
+				bigProductHtml += ' </li>';
+				
+				smallProductHtml += '<div class="thumbnail">';
+				smallProductHtml += '	<span class="text">&nbsp;</span>';
+				smallProductHtml += '	<span class="image" ><img alt="Product" src="'+contextPath+'resources/images/jt-product-thumbnail-blank.png"/></span>';
+				smallProductHtml += '</div>';
+			}
+		}
 		
 		var eventImage1 = contextPath + 'resources/images/jt-event-user-blank.png', 
 			eventImage2 = contextPath + 'resources/images/jt-event-user-blank.png';
