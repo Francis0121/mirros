@@ -140,7 +140,8 @@ color: #808080;}
 }
 
 .jt-home-expand-shop-tag>.tag-txt{ float: right; height: 16px; line-height: 17px; color: #a6a6a6; font-size: 11px;}
-.jt-home-expand-shop-event{ width : 309px; height: 154px; float: left; border-right: 1px solid #999999; cursor: pointer;}
+.jt-home-expand-shop-event{ width : 309px; height: 154px; float: left; cursor: pointer;}
+#jt-seller-expand-event-first{border-right: 1px solid #d1cdcd;}
 .jt-home-expand-shop-event>img{width: 309px; height: 154px; }
 .jt-home-expand-shop-event-new{float : left; position: absolute;  font-size: 13px; color: #fe6009; font-weight: bold; margin: 5px; width: 305px;}
 .jt-home-expand-shop-event-new>div{float: right; width: 305px; text-indent: -999999px;}
