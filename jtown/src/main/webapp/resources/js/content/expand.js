@@ -70,22 +70,22 @@ jtown.expand.makeInnerHtml = function(spn){
 				detailProduct = '<span>상품 정보가 아직</span><span>입력되지 않았습니다.</span>';
 			}
 			
-			bigProductHtml += '<div class="jt-home-expand-shop-expandProduct">';
-			bigProductHtml += '<a href="'+ ( nullValueCheck(product.url) ? jtownUser.shopUrl : product.url  )+'" target="_blank" onclick="jtown.home.goHome('+spn+');"><img alt="상품" src="'+path+product.saveName+'"/></a>';
-			bigProductHtml += '<div class="jt-product-article-object-wrap jt-product-article-object-expand">';
-			bigProductHtml += detailProduct;
-			bigProductHtml += '</div>';
-			bigProductHtml += '</div>';
+			bigProductHtml += '	<li class="jt-home-expand-shop-expandProduct">';
+			bigProductHtml += '		<a href="'+ ( nullValueCheck(product.url) ? jtownUser.shopUrl : product.url  )+'" target="_blank" onclick="jtown.home.goHome('+spn+');"><img alt="상품" src="'+path+product.saveName+'"/></a>';
+			bigProductHtml += '		<div class="jt-product-article-object-wrap jt-product-article-object-expand">';
+			bigProductHtml += '			'+detailProduct;
+			bigProductHtml += '		</div>';
+			bigProductHtml += '	</li>';
 			
-			var smallProductNewHtml = '<span>&nbsp;</span>';
+			var smallProductNewHtml = '<span class="text">&nbsp;</span>';
 			if(product.newProduct){
-				smallProductNewHtml = '<span>New</span>';
+				smallProductNewHtml = '<span class="text">New</span>';
 			}
 			
-			smallProductHtml += '<li data-count="'+index+'">';
+			smallProductHtml += '<div class="thumbnail">';
 			smallProductHtml += '	'+smallProductNewHtml;
-			smallProductHtml += '	<a href="#none" class="jt-product-list"><img alt="상품" src="'+path+product.saveName+'"/></a>';
-			smallProductHtml += '</li>';
+			smallProductHtml += '	<span class="'+i+' image" ><img alt="Product'+i+'" src="'+path+product.saveName+'"/></span>';
+			smallProductHtml += '</div>';
 		}
 		
 		var eventImage1 = contextPath + 'resources/images/jt-event-user-blank.png', 
@@ -222,32 +222,28 @@ jtown.expand.makeInnerHtml = function(spn){
 		html += '		<pre id="jt-seller-expand-shop-text" class="jt-home-expand-shop-text">'+ ( nullValueCheck(jtownUser.longNotice) ? "쇼핑몰의 홍보문구를 입력해주세요." : jtownUser.longNotice ) +'</pre>';
 		html += '		<span class="jt-home-expand-shop-lastQuotationMark"></span>';				
 		html += '	</div>';
-		html += '	<ul class="jt-home-expand-shop-expandProducts">';
-		html += '		<li class="jt-home-expand-shop-leftArrow jt-home-expand-shop-arrow">';
+		html += '	<div class="jt-home-expand-shop-expandProducts">';
 		if(productSize > 3){
-		html += '			<a href="#none" id="jt-home-expand-shop-leftArrow">&lt;</a>';
+		html += '		<button class="jt-home-expand-shop-leftArrow jt-home-expand-shop-arrow"><span>&lt;</span></button>';
+		}else{
+		html += '		<button class="jt-home-expand-shop-arrow"></button>';	
 		}
-		html += '		</li>';
-		html += '		<li class="jt-home-expand-shop-expandProduct-slide" id="jt-seller-slide-big">';
-		html += '			<div id="jt-seller-slide-fake-dan">';
-		html += '				<div style="width : '+(Number(productSize)*170)+'px;" id="jt-seller-slide-content-dan">';
-		html +=	'					'+bigProductHtml;
-		html += '				</div>';
-		html += '			</div>';
-		html +=	'		</li>';
-		html +=	'		<li class="jt-home-expand-shop-rigthArrow jt-home-expand-shop-arrow">';
+		html += '		<div class="jt-home-expand-shop-fake-dan">';
+		html += '			<ul class="jt-home-expand-shop-expandProduct-slide">';
+		html +=	'				'+bigProductHtml;
+		html += '			</ul>';
+		html +=	'		</div>';
 		if(productSize > 3){
-		html +=	'			<a href="#none" id="jt-home-expand-shop-rigthArrow">&gt;</a>';
+		html +=	'		<button class="jt-home-expand-shop-rigthArrow jt-home-expand-shop-arrow"><span>&gt;</span></button>';
+		}else{
+		html += '		<button class="jt-home-expand-shop-arrow"></button>';		
 		}
-		html +=	'		</li>';
-		html += '	</ul>';
-		html += '	<div class="jt-home-expand-shop-products ">';
-		html += '		<ul id="jt-seller-slide-small">';
+		html += '		<div class="jt-home-expand-shop-products ">';
 		html += '			'+smallProductHtml;
-		html += '		</ul>';
-		html += '		<div class="jt-home-expand-shop-tag">';
-		html += '			'+tagHtml;
-		html += '		</div>';	
+		html += '			<div class="jt-home-expand-shop-tag">';
+		html += '				'+tagHtml;
+		html += '			</div>';	
+		html += '		</div>';
 		html += '	</div>';
 		html += '	<div class="jt-home-expand-shop-event gotoPage" id="jt-seller-expand-event-first" title="클릭시 해당 쇼핑몰로 이동됩니다.">';
 		html += '		'+ ( (jtownUser.bannerFirst != null && Number(jtownUser.bannerFirst) < 3 ) ? newEventHtml : '');
@@ -304,7 +300,19 @@ jtown.expand.setTimeout = function(){
 	jtown.expand.gotoPage();
 	jtown.seller.syncProduct();
 	$(function(){
-		$('#jt-comment-insert').placeholder(); 
+		$('#jt-comment-insert').placeholder();
+		
+		$('.jt-home-expand-shop-expandProducts').jCarouselLite({
+			btnNext: ".jt-home-expand-shop-leftArrow",
+			btnPrev: ".jt-home-expand-shop-rigthArrow",
+			mouseWheel: true,
+			speed : 300,
+			btnGo : ['.0', '.1', '.2', '.3', '.4', '.5', '.6', '.7', '.8', '.9',
+			         '.10', '.11', '.12', '.13', '.14', '.15', '.16', '.17', '.18', '.19',	],
+			afterEnd : function(e){
+				setTimeout('jtown.seller.syncProduct()', 0);
+			}
+		});
 	});
 };
 

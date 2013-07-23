@@ -50,6 +50,18 @@ $(function() {
 	$('#sQuestion #content').placeholder();
 	$('#partnership #shopUrl').placeholder();
 	$('#partnership #email').placeholder();
+	
+	$('.jt-home-expand-shop-expandProducts').jCarouselLite({
+		btnNext: ".jt-home-expand-shop-leftArrow",
+		btnPrev: ".jt-home-expand-shop-rigthArrow",
+		mouseWheel: true,
+		speed : 300,
+		btnGo : ['.0', '.1', '.2', '.3', '.4', '.5', '.6', '.7', '.8', '.9',
+		         '.10', '.11', '.12', '.13', '.14', '.15', '.16', '.17', '.18', '.19',	],
+		afterEnd : function(e){
+			setTimeout('jtown.seller.syncProduct()', 0);
+		}
+	});
 });
 
 jtown.postJSON = function(url, json, option, callback){

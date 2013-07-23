@@ -9,6 +9,8 @@
 <script src="${cp}/resources/js/masonry.imagesloaded.min.js"></script>
 <%-- <script src="${cp}/resources/js/masonry.scollr.pagination.min.js"></script> --%>
 <script src="${cp}/resources/js/masonry.scroll.pagination.js"></script>
+<script src="${cp}/resources/js/jcarousellite_1.0.1.min.js"></script>
+<script src="${cp}/resources/js/jquery.mousewheel.js"></script>
 
 <%-- <script src="${cp}/resources/js/jquery.plugin.min.js"></script> --%>
 <script src="${cp}/resources/js/jquery.form.js"></script>

@@ -271,7 +271,7 @@ jtown.seller.syncIntro = function(){
 		}
 	});
 	
-	$('.jt-home-expand-shop-expandProducts').unbind('mouseover mouseout').bind('mouseover mouseout', function(event){
+	$('.jt-home-expand-seller-fake').unbind('mouseover mouseout').bind('mouseover mouseout', function(event){
 		if(event.type =='mouseover'){
 			$(this).find('.question-mark-wrap').show();
 		}else if(event.type == 'mouseout'){

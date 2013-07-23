@@ -213,18 +213,23 @@
 						</a>
 					</div>
 				</div>
-				<ul class="jt-home-expand-shop-expandProducts" id="step7">
-					<li class="question-mark-wrap" style="width: 620px;">
-						<a class="question-mark" data-step="7">?</a>
-					</li>
-					<li class="jt-home-expand-shop-leftArrow jt-home-expand-shop-arrow">
-						<a href="#none" id="jt-home-expand-shop-leftArrow">&lt;</a>
-					</li>
-					<li class="jt-home-expand-shop-expandProduct-slide" id="jt-seller-slide-big">
-						<div id="jt-seller-slide-fake-dan">
-							<div style="width :${fn:length(products) * 170}px;" id="jt-seller-slide-content-dan">
+				<div class="jt-home-expand-shop-expandProducts" >
+					<div class="jt-home-expand-seller-fake" style="float: left;" id="step7">
+						<div class="question-mark-wrap" style="width: 620px;">
+							<a class="question-mark" data-step="7">?</a>
+						</div>
+					<c:choose>
+						<c:when test="${fn:length(products) > 3 }">
+							<button class="jt-home-expand-shop-leftArrow jt-home-expand-shop-arrow"><span>&lt;</span></button>
+						</c:when>
+						<c:otherwise>
+							<button class="jt-home-expand-shop-arrow"></button>
+						</c:otherwise>
+					</c:choose>
+					<div class="jt-home-expand-shop-fake-dan" >
+						<ul class="jt-home-expand-shop-expandProduct-slide">
 							<c:forEach items="${products }" var="product" varStatus="loop">
-								<div class="jt-home-expand-shop-expandProduct" id="jt-product-${productSize - loop.index }">
+								<li class="jt-home-expand-shop-expandProduct" >
 									<c:set var="shopUrl" value="${jtownUser.shopUrl }" />
 									<a href="${product.url eq null ? shopUrl : product.url}" target="_blank"><img alt="상품" src="${cp }/resources/uploadImage/${product.saveName }"/></a>
 									<div class="jt-product-article-object-wrap jt-product-article-object-expand">
@@ -239,40 +244,43 @@
 											</c:otherwise>
 										</c:choose>
 									</div>
-								</div>
+								</li>
 							</c:forEach>
-							</div>
-						</div>
-					</li>
-					<li class="jt-home-expand-shop-rigthArrow jt-home-expand-shop-arrow">
-						<a href="#none" id="jt-home-expand-shop-rigthArrow">&gt;</a>
-					</li>
-				</ul>
-				<div class="jt-home-expand-shop-products" id="step8">
-					<div class="question-mark-wrap" style="width: 620px;">
-						<a class="question-mark" data-step="8">?</a>
+						</ul>
 					</div>
-					<ul id="jt-seller-slide-small">
+					<c:choose>
+						<c:when test="${fn:length(products) > 3 }">
+							<button class="jt-home-expand-shop-rigthArrow jt-home-expand-shop-arrow"><span>&gt;</span></button>
+						</c:when>
+						<c:otherwise>
+							<button class="jt-home-expand-shop-arrow"></button>
+						</c:otherwise>
+					</c:choose>
+					</div>
+					<div class="jt-home-expand-shop-products" id="step8">
+						<div class="question-mark-wrap" style="width: 605px;">
+							<a class="question-mark" data-step="8">?</a>
+						</div>
 						<c:forEach items="${products }" var="product" varStatus="loop">
-							<li data-count="${productSize - loop.index }" data-ppn="${product.pn }">
+							<div class="thumbnail">
 								<c:choose>
 									<c:when test="${product.newProduct }">
-										<span>New</span>	
+										<span class="text">New</span>	
 									</c:when>
 									<c:otherwise>
-										<span>&nbsp;</span>	
+										<span class="text">&nbsp;</span>	
 									</c:otherwise>
 								</c:choose>
 								<c:set value="${cp }/resources/uploadImage/${product.saveName }" var="image"/>
-								<a href="#none" class="jt-product-list"><img alt="상품" src="${image }"/></a>
-							</li>
+								<span class="${loop.index } image" ><img alt="Product${loop.index }" src="${image }"/></span>
+							</div>
 						</c:forEach>
-						<li id="jt-seller-product-insert-wrap">
+						<div id="jt-seller-product-insert-wrap">
 							<button type="button" id="jt-product-popup" data-pn="${jtownUser.pn }" class="jt-btn-white-small jt-product-plus-btn">
 								<img alt="plus" src="${cp }/resources/images/jt-plus-btn.png">
 							</button>
-						</li>
-					</ul>
+						</div>
+					</div>
 				</div>
 				<div class="jt-home-expand-shop-event" id="jt-seller-expand-event-first" data-epn="<c:out value="${event1.pn }"/>" data-bo="1">
 					<div class="question-mark-wrap" style="width: 310px;">

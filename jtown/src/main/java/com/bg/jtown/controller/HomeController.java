@@ -305,7 +305,7 @@ public class HomeController {
 							loginNotice);
 
 					String message = summaryUser.getName() + "님이 미러스(Mirros)의 "
-							+ jtownUser.getName() + "을 좋아합니다.";
+							+ jtownUser.getName() + "을(를) 좋아합니다.";
 
 					facebook.feedOperations().postLink(message, link);
 				}

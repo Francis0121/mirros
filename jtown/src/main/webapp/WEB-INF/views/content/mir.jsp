@@ -65,17 +65,19 @@
 					<textarea id="jt-seller-expand-textarea" class="jt-seller-expand-textarea" maxlength="200"><c:out value="${jtownUser.longNotice}"/></textarea>
 					<span class="jt-home-expand-shop-lastQuotationMark"></span>
 				</div>
-				<ul class="jt-home-expand-shop-expandProducts">
-					<li class="jt-home-expand-shop-leftArrow jt-home-expand-shop-arrow">
-					<c:if test="${fn:length(products) > 3}">
-						<a href="#none" id="jt-home-expand-shop-leftArrow">&lt;</a>
-					</c:if>
-					</li>
-					<li class="jt-home-expand-shop-expandProduct-slide" id="jt-seller-slide-big">
-						<div id="jt-seller-slide-fake-dan">
-							<div style="width :${fn:length(products) * 170}px;" id="jt-seller-slide-content-dan">
+				<div class="jt-home-expand-shop-expandProducts">
+					<c:choose>
+						<c:when test="${fn:length(products) > 3 }">
+							<button class="jt-home-expand-shop-leftArrow jt-home-expand-shop-arrow"><span>&lt;</span></button>
+						</c:when>
+						<c:otherwise>
+							<button class="jt-home-expand-shop-arrow"></button>
+						</c:otherwise>
+					</c:choose>
+					<div class="jt-home-expand-shop-fake-dan">
+						<ul class="jt-home-expand-shop-expandProduct-slide">
 							<c:forEach items="${products }" var="product" varStatus="loop">
-								<div class="jt-home-expand-shop-expandProduct" id="jt-product-${productSize - loop.index }">
+								<li class="jt-home-expand-shop-expandProduct" >
 									<c:set var="shopUrl" value="${jtownUser.shopUrl }" />
 									<a href="${product.url eq null ? shopUrl : product.url}" target="_blank"  onclick="jtown.home.goHome('${jtownUser.pn }');"><img alt="상품" src="${cp }/resources/uploadImage/${product.saveName }"/></a>
 									<div class="jt-product-article-object-wrap jt-product-article-object-expand">
@@ -90,38 +92,39 @@
 											</c:otherwise>
 										</c:choose>
 									</div>
-								</div>
+								</li>
 							</c:forEach>
-							</div>
-						</div>
-					</li>
-					<li class="jt-home-expand-shop-rigthArrow jt-home-expand-shop-arrow">
-					<c:if test="${fn:length(products) > 3}">
-						<a href="#none" id="jt-home-expand-shop-rigthArrow">&gt;</a>
-					</c:if>
-					</li>
-				</ul>
-				<div class="jt-home-expand-shop-products">
-					<ul id="jt-seller-slide-small">
+						</ul>
+					</div>
+					<c:choose>
+						<c:when test="${fn:length(products) > 3 }">
+							<button class="jt-home-expand-shop-rigthArrow jt-home-expand-shop-arrow"><span>&gt;</span></button>
+						</c:when>
+						<c:otherwise>
+							<button class="jt-home-expand-shop-arrow"></button>
+						</c:otherwise>
+					</c:choose>
+					<div class="jt-home-expand-shop-products">
 						<c:forEach items="${products }" var="product" varStatus="loop">
-							<li data-count="${productSize - loop.index }" data-ppn="${product.pn }">
+							<div class="thumbnail">
 								<c:choose>
 									<c:when test="${product.newProduct }">
-										<span>New</span>	
+										<span class="text">New</span>	
 									</c:when>
 									<c:otherwise>
-										<span>&nbsp;</span>	
+										<span class="text">&nbsp;</span>	
 									</c:otherwise>
 								</c:choose>
 								<c:set value="${cp }/resources/uploadImage/${product.saveName }" var="image"/>
-								<a href="#none" class="jt-product-list"><img alt="상품" src="${image }"/></a>
-							</li>
+								<span class="${loop.index } image" ><img alt="Product${loop.index }" src="${image }"/></span>
+							</div>
 						</c:forEach>
-					</ul>
-					<div class="jt-home-expand-shop-tag">
-						<span class="tag-txt"><c:forEach items="${interestes }" var="interest" varStatus="loop"><c:out value="${interest.name }"/><c:if test="${loop.count ne fn:length(interestes) }">,&nbsp;</c:if></c:forEach></span><span class="tag-image">Tag</span>
+						<div class="jt-home-expand-shop-tag">
+							<span class="tag-txt"><c:forEach items="${interestes }" var="interest" varStatus="loop"><c:out value="${interest.name }"/><c:if test="${loop.count ne fn:length(interestes) }">,&nbsp;</c:if></c:forEach></span><span class="tag-image">Tag</span>
+						</div>
 					</div>
 				</div>
+				
 				<div class="jt-home-expand-shop-event gotoPage" id="jt-seller-expand-event-first" title="클릭시 해당 쇼핑몰로 이동됩니다." data-epn="<c:out value="${event1.pn }"/>" data-bo="1">
 					<c:if test="${jtownUser.bannerFirst < 3 }">
 						<div class="jt-home-expand-shop-event-new">
