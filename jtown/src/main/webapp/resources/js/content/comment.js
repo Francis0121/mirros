@@ -138,7 +138,7 @@ jtown.comment.syncComment = function(){
 			if(!nullValueCheck(comment.message)){
 				switch (Number(comment.message)) {
 				case 1:
-					jtown.header.showLoginForm();					
+					jtown.login.showLoginForm();					
 					break;
 				case 2:
 					jtown.dialog('판매자는 불가능 합니다.');
@@ -200,7 +200,7 @@ jtown.comment.loveCancle = function(){
 		
 		$.postJSON(url, json, function(comment){
 			if(!nullValueCheck(comment.message)){
-				jtown.header.showLoginForm();
+				jtown.login.showLoginForm();
 			}else{
 				var crudType = comment.crudType;
 				if(crudType == 'delete'){

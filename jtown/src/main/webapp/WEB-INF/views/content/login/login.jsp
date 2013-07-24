@@ -1,10 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../../layout/none_header.jspf" %>
-<script>
-function onPageLoginSubmit() {
-	onLoginSubmit('jt-page-login-form');
-}
-</script>
 <section id="jt-login-form-page">
 	<sec:authorize access="anonymous">
 		<form action="${cp }/j_spring_security_check" method="post" id="jt-page-login-form" onsubmit="onPageLoginSubmit(); return false;">

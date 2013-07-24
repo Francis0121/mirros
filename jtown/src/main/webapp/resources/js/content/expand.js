@@ -1,13 +1,3 @@
-$(function(){
-	jtown.expand.loadExpandShop();
-	
-	jtown.expand.syncProductMove();
-	
-	jtown.comment.syncComment();
-	
-	jtown.expand.gotoPage();
-});
-
 if (typeof jtown.expand == 'undefined') {
 	jtown.expand = {};
 }
@@ -60,8 +50,7 @@ jtown.expand.makeInnerHtml = function(spn){
 		var bigProductHtml = '';
 		var smallProductHtml = '';
 		for(var i=0; i<productSize; i++){
-			var product = products[i],
-				index = productSize-Number(i);
+			var product = products[i];
 			
 			var detailProduct  = '<span>'+htmlChars(nullValueCheck(product.name) ? '' : product.name)+'</span>';
 				detailProduct += '<span>'+htmlChars(nullValueCheck(product.commaPrice) ? '' : product.commaPrice)+'</span>';
@@ -306,7 +295,6 @@ jtown.expand.makeInnerHtml = function(spn){
 
 jtown.expand.setTimeout = function(){
 	jtown.expand.show = true;
-	jtown.expand.syncProductMove();
 	jtown.comment.syncComment();
 	jtown.expand.changeContainerHeight();
 	jtown.expand.gotoPage();
@@ -352,122 +340,4 @@ jtown.expand.changeContainerHeight = function(){
 		smartPopContainer.css('height', changeHeight+'px');
 		smartPopContent.css('height', changeHeight+'px');
 	}
-};
-
-jtown.expand.syncProductMove = function(){
-	
-	$('.jt-product-list').unbind('mouseover mouseout').bind('mouseover mouseout', function(event){
-		if(event.type == 'mouseover'){
-			$(this).css('opacity', '.7');
-		}else if(event.type == 'mouseout'){
-			$(this).css('opacity', '1');
-		}
-	});
-	
-	activeLeftArrow = function(){
-		var s ;
-
-		$('#jt-home-expand-shop-leftArrow').unbind('click').bind('click', function(){
-			clearTimeout(s);
-			a = function(){
-				var last = $('#jt-seller-slide-content-dan>div:last'),
-					dan = $('#jt-seller-slide-content-dan'),
-					parent = $('#jt-home-expand-shop'),
-					size = Number(parent.attr('data-size')),
-					np = Number(parent.attr('data-nowPosition'));
-				
-				if(size > 3){	
-					dan.prepend(last.clone().wrapAll('<div/>').parent().html());
-					dan.css({left :  '-170px'}).animate({left :  '0px' }, '500', 'swing');
-					last.remove();
-	
-					parent.attr('data-nowPosition', (np + 1) > size ? 1 : (np + 1) );
-					jtown.seller.syncProduct();
-				}
-			};
-			
-			s = setTimeout('a()', 200);
-		});	
-	};
-	
-	activeLeftArrow();
-	
-	activeRightArrow = function(){
-		var s ;
-		
-		$('#jt-home-expand-shop-rigthArrow').unbind('click').bind('click', function(){
-			clearTimeout(s);	
-			a = function(){
-				var first = $('#jt-seller-slide-content-dan>div:first'),
-					dan = $('#jt-seller-slide-content-dan'),
-					parent = $('#jt-home-expand-shop'),
-					size = Number(parent.attr('data-size')),
-					np = Number(parent.attr('data-nowPosition'));
-				if(size > 3){
-					
-					dan.animate({left : '-170px'}, '500', 'swing', function(){
-							dan.css({left : '0px'});
-							first.remove();
-						}
-					);
-					dan.append(first.clone().wrapAll('<div/>').parent().html());
-					parent.attr('data-nowPosition', (np - 1) <  1 ? size : (np - 1) );
-					jtown.seller.syncProduct();
-				}
-			};
-			
-			s = setTimeout('a()', 200);
-		});
-	};
-	
-	activeRightArrow();
-	
-	activeProductList = function(){
-		var s ;
-				
-		$('.jt-product-list').unbind('click').bind('click', function(){
-			$('.jt-product-list').unbind('click');
-			$('#jt-home-expand-shop-rigthArrow').unbind('click');
-			$('#jt-home-expand-shop-leftArrow').unbind('click');
-			clearTimeout(s);
-			var	count = Number($(this).parents('li').attr('data-count'));
-			
-			a = function(){
-				var last = $('#jt-seller-slide-content-dan>div:last'),
-					dan = $('#jt-seller-slide-content-dan'),
-					parent = $('#jt-home-expand-shop'),
-					size = Number(parent.attr('data-size')),
-					np = Number(parent.attr('data-nowPosition'));
-				
-				if((np == 1 && size == count) || (count != size && (count+1) == np )){
-					activeProductList();
-					activeLeftArrow();
-					activeRightArrow();
-					return ;
-				}
-				if(size > 3){
-				
-					if(count != np){
-						if(jtown.expand.show){							
-							setTimeout('a()', 500);
-						}
-					}else{
-						activeProductList();
-						activeLeftArrow();
-						activeRightArrow();
-					}
-						
-					dan.prepend(last.clone().wrapAll('<div/>').parent().html());
-					dan.css({left :  '-170px'}).animate({left :  '0px' }, '500', 'swing');
-					last.remove();
-		
-					parent.attr('data-nowPosition', (np + 1) > size ? 1 : (np + 1) );
-					jtown.seller.syncProduct();
-				}
-			};
-			
-			s = setTimeout('a()', 500);
-		});
-	};
-	activeProductList();
 };

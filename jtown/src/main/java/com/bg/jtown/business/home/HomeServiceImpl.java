@@ -185,7 +185,7 @@ public class HomeServiceImpl extends SqlSessionDaoSupport implements
 
 	private Integer selectSevenDayStatisticView(Integer sellerPn) {
 		String nowDate = DateUtil.getToday("YYYY-MM-DD");
-		String beforeDate = DateUtil.addYearMonthDay(nowDate, 0, 0, -7);
+		String beforeDate = DateUtil.addYearMonthDay(nowDate, 0, 0, -6);
 		beforeDate = DateUtil.getDayString(beforeDate, "YYYY.MM.DD");
 		nowDate = nowDate.replace("-", ".");
 		Map<String, Object> selectMap = new HashMap<String, Object>();

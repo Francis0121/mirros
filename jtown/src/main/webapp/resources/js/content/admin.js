@@ -2,7 +2,28 @@ if (typeof jtown.admin == 'undefined') {
 	jtown.admin = {};
 }
 
+var oEditors = [];
+
 $(function() {
+	
+	var boardContent = $('#board #content');
+	if(boardContent.html() != undefined){
+		nhn.husky.EZCreator.createInIFrame({
+			oAppRef : oEditors,
+			elPlaceHolder : "content",
+			sSkinURI : contextPath + "resources/se2/SmartEditor2Skin.html",
+			fCreator : "createSEditor2"
+		});
+	}
+	
+	$('#jt-admin-notice-delete').bind('click',function(){
+		
+		jtown.confirm('게시글을 삭제하시겠습니까?', function(){
+			var form = document.forms['board'];
+			form._method.value = 'delete';
+			form.submit();
+		}, function(){});
+	});
 	
 	jtown.admin.sellerCreate();
 	

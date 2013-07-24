@@ -1,28 +1,17 @@
-if (typeof jtown == 'undefined') {
-	jtown = {};
-}
-
 if (typeof jtown.seller == 'undefined') {
 	jtown.seller = {};
 }
 
 $(function() {
+	
 	jtown.seller.syncPopup();
-	
 	jtown.seller.startIntro();
-	
 	jtown.seller.markIntro();
-
 	jtown.seller.syncIntro();
-	
 	jtown.seller.syncMainNotice();
-
 	jtown.seller.syncMainImage();
-
 	jtown.seller.syncProduct();
-
 	jtown.seller.syncEvent();
-	
 	jtown.seller.syncExpandNotice();
 
 	$('#jt-event-second-image').uploadify({

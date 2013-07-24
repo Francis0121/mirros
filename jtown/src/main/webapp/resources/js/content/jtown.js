@@ -1,42 +1,96 @@
+/**************************
+ * 	jquery event sync
+ **************************/
 $(function() {
+	// ~ Home
 	
+//	Sub Navigation View	
 //	$('.jt-header-nav-interestCategory-li').bind('mouseover mouseout', function(event) {
-//		jtown.header.showSubNavigation($(this).find('.jt-header-nav-interest'), event.type);
-//	});
+//		jtown.toggleMouse($(this).find('.jt-header-nav-interest'), event.type);
+//	});	
 	
-	$('#jt-login-smartPopup').bind('click', function(){
-		jtown.header.showLoginForm();		
-	});
-
 	$('#jt-mypage').bind('mouseover mouseout', function(event) {
-		jtown.header.showSubNavigation($('#jt-mypage-wrap'), event.type);
+		jtown.toggleMouse($('#jt-mypage-wrap'), event.type);
 	});
 
 	$('#jt-help').bind('mouseover mouseout', function(event) {
-		jtown.header.showSubNavigation($('#jt-help-wrap'), event.type);
+		jtown.toggleMouse($('#jt-help-wrap'), event.type);
 	});
+	
+	jtown.home.masonry.start();
+	jtown.home.naturalLanguage();
+	
+	// ~ Expand
+	
+	jtown.expand.loadExpandShop();
+	jtown.comment.syncComment();
+	jtown.expand.gotoPage();
+	
+	// ~ Login
 
-	$('#resendConfirmMail').bind('click', function(){
-		jtown.header.resendEmailAddress();
+	$('#jt-login-smartPopup').bind('click', function(){
+		jtown.login.showLoginForm();		
 	});
 	
-	$('#jt-naturalLanguage-search').placeholder();
+	$('#resendConfirmMail').bind('click', function(){
+		jtown.login.resendEmailAddress();
+	});
 	
-	jtown.naturalLanguage.autocomplete();
+	$('#jt-findUserPassword-btn').bind('click', function(){
+		$('#loading-popup').fadeIn();
+		var form = document.forms['jtownUser'];
+		form.submit();
+	});
 	
-	if(!nullValueCheck($container.html())){
-		jtown.home.masonry.start();
-	}
+	$('#jt-findSellerPassword-btn').bind('click', function(){
+		$('#loading-popup').fadeIn();
+		var form = document.forms['sellerUser'];
+		form.submit();
+	});
 	
-	if(realPath == contextPath +'help/sQuestion.jt'){
-		 setTimeout("$('html, body').animate({scrollTop: '680px'}, 'slow')",0);
-	}else if(realPath == contextPath + 'help/cQuestion.jt'){
-		setTimeout("$('html, body').animate({scrollTop: '100px'}, 'slow')",0);
-	}else if(realPath == contextPath + 'login/disactive.jt'){
-		setTimeout("$('html, body').animate({scrollTop: $(document).height()}, 'slow')",0);
-	}
+	$('#jt-emailAddress-user-btn').bind('click', function(){
+		$('#loading-popup').fadeIn();
+		var form = document.forms['jtownUser'];
+		form.submit();
+	});
+	
+	jtown.regExp('email', 'input[data-type=create]', '#confirmEmail', 0, 50);
+	jtown.regExp('onlyChar', 'input[data-type=createId]', '#confirmEmail', 0, 20);
+	jtown.regExp('empty', 'input[data-form=joinPw]', '#passwordLength', 7, 16);
+	jtown.regExp('onlyChar', 'input[data-form=join]', '#nameLength', 0, 20);
+	jtown.regExp('empty', 'input[data-form=modify]', '#passwordLength', 7, 16);
+	jtown.login.confirmPassword();
+	jtown.login.joinFormSubmit();
+	jtown.login.changeUserSubmit();
+	jtown.login.disactiveUser();
+	
+	// ~ Help
+		
+	jtown.regExp('onlyChar', 'input[name=shopName]', '#shopNameCheck', 0, 30);
+	jtown.regExp('email', 'input[name=email]', '#confirmEmail', 0, 50);
+	jtown.regExp('euckr', 'input[data-form=partnership]', '#nameLength', 0, 10);
+	jtown.regExp('number', 'input[name=phoneNumberSt]', '#confirmPhoneNumber', 0, 4);
+	jtown.regExp('number', 'input[name=phoneNumberNd]', '#confirmPhoneNumber', 0, 4);
+	jtown.regExp('number', 'input[name=phoneNumberRd]', '#confirmPhoneNumber', 0, 4);
+	jtown.help.questionSync();
+	
+	$('#jt-partnership-btn').bind('click', function(){
+		var form = document.forms['partnership'];
+		$('#loading-popup').fadeIn();
+		form.submit();
+	});
+	
+	// ~ Board
+	
+	jtown.board.noticeWrite();
+	
+	// ~ Page
 	
 	$('#page-wrap').css('width', $('#page-wrap>div').width());
+	
+	// ~ Placeholder
+	
+	$('#jt-naturalLanguage-search').placeholder();
 	$('#jt-comment-insert').placeholder(); 
 	$('#username_findPassword').placeholder();
 	$('#username_findSellerPassword').placeholder();
@@ -51,6 +105,8 @@ $(function() {
 	$('#partnership #shopUrl').placeholder();
 	$('#partnership #email').placeholder();
 	
+	// ~ Seller
+	
 	$('.jt-home-expand-shop-expandProducts').jCarouselLite({
 		btnNext: ".jt-home-expand-shop-leftArrow",
 		btnPrev: ".jt-home-expand-shop-rigthArrow",
@@ -64,15 +120,17 @@ $(function() {
 	});
 });
 
-jtown.postJSON = function(url, json, option, callback){
-	jtown.loading = {
-		start : function(){
-			$('#loading-popup').fadeIn();
-		},
-		finish : function(){
-			$('#loading-popup').fadeOut();
-		}
-	};
+jtown.loading = {
+	start : function(){
+		$('#loading-popup').fadeIn();
+	},
+	finish : function(){
+		$('#loading-popup').fadeOut();
+	}
+};
+
+jtown.postJSON = function(url, json, callback){
+	
 	jtown.loading.start();
 	
 	$.postJSON(url, json, function() {
@@ -84,7 +142,13 @@ jtown.postJSON = function(url, json, option, callback){
 jtown.dialog = function(message){
 	var dialog = '<div style="text-align:center; margin-top: 15px; font-weight: bold; line-height : 16px;">'+message+'</div>';
 	$(dialog).dialog({
-		resizable: false, width: '300px', hegiht : '200px', modal : true, buttons : { 'Close' : function(){$(this).dialog('close'); } }
+		resizable: false, 
+		width: '300px',
+		hegiht : '200px', 
+		modal : true, 
+		buttons : { 
+			'Close' : function(){ $(this).dialog('close'); } 
+		}
 	});
 	$('.ui-dialog-titlebar').removeClass('ui-widget-header');
 	$('.ui-dialog-buttonset').css({'float' : 'none', 'text-align' : 'center'});
@@ -93,67 +157,77 @@ jtown.dialog = function(message){
 jtown.confirm = function(message, success, cancle){
 	var dialog = '<div style="text-align:center; margin-top: 25px; font-weight: bold;">'+message+'</div>';
 	$(dialog).dialog({
-		resizable: false, width: '300px', hegiht : '200px', modal : true, buttons : { '확인' : function(){ success(); $(this).dialog('close');  }, '취소' : function(){ cancle(); $(this).dialog('close');} }
+		resizable: false, 
+		width: '300px', 
+		hegiht : '200px', 
+		modal : true, 
+		buttons : { 
+			'확인' : function(){ success(); $(this).dialog('close');  }, 
+			'취소' : function(){ cancle(); $(this).dialog('close');} 
+		}
 	});
 	$('.ui-dialog-titlebar').removeClass('ui-widget-header');
 	$('.ui-dialog-buttonset').css({'float' : 'none', 'text-align' : 'center'});
 };
 
-if (typeof jtown.header == 'undefined') {
-	jtown.header = {};
-}
-
-jtown.header.showSubNavigation = function(object, eventType){
+jtown.toggleMouse = function(object, eventType){
 	if(eventType == 'mouseover')
 		object.show();
 	else if(eventType == 'mouseout')
 		object.hide();
 };
 
-jtown.header.resendEmailAddress = function() {
-	var url = contextPath + 'ajax/resendConfirmEmail.jt',
-		json = {},
-		option = { 	position : '.jt-header-warning-confirmEmail',
-					img	: contextPath+'resources/images/jt-loading-02.gif' };
-	$('#resendConfirmMail').unbind('click');
-	jtown.postJSON(url, json, option, function(){
-		jtown.dialog('E-mail을 재전송 하였습니다.');
-		
-		$('#resendConfirmMail').bind('click', function(){
-			jtown.header.resendEmailAddress();
-		});
+jtown.regExp = function(category, name, target, first, last){
+	if(nullValueCheck(category)) return;
+	
+	var regExp = null;
+	if(category == 'email'){
+		regExp = /^[-A-Za-z0-9_]+[-A-Za-z0-9_.]*[@]{1}[-A-Za-z0-9_]+[-A-Za-z0-9_.]*[.]{1}[A-Za-z]{2,5}$/;
+	}else if(category == 'onlyChar'){
+		regExp = /^[0-9A-Za-z가-힣]*$/;
+	}else if(category == 'empty'){
+		regExp = /^.*$/;
+	}else if(category == 'euckr'){
+		regExp = /^[가-힣]*$/;
+	}else if(category == 'number'){
+		regExp = /^[0-9]*$/;
+	}
+	
+	$(name).keyup(function() {
+		var value = $(this).val(), length = $(this).val().length;
+		if (regExp.test(value) && (length > first && length <= last)) {
+			$(target).children('span').removeClass('jt-form-invalid').addClass('jt-form-valid');
+		} else {
+			$(target).children('span').removeClass('jt-form-valid').addClass('jt-form-invalid');
+		}		
+	}).focus(function() {
+		var value = $(this).val(), length = $(this).val().length;
+		if (regExp.test(value) && (length > first && length <= last)) {
+			$(target).children('span').removeClass('jt-form-invalid').addClass('jt-form-valid');
+		} else {
+			$(target).children('span').removeClass('jt-form-valid').addClass('jt-form-invalid');
+		}
+		$(target).show();
+	}).blur(function() {
+		$(target).hide();
 	});
-};
-
-jtown.header.showLoginForm = function(){
-	var inner = $('#jt-login-form-wrap'),
-		form = inner.find('form[name=jt-popup-login-form]'),
-		j_username = inner.find('input[name=j_username]'),
-		j_password = inner.find('input[name=j_password]');
-	
-	form.attr('id', 'jt-popup-login-form');
-	j_username.attr('id', 'j_username');
-	j_password.attr('id', 'j_password');
-	
-	$.smartPop.open({ width : 430, height : 350, html : inner.html(), effect : null });	
-	
-	form.attr('id', '');
-	j_username.attr('id', '');
-	j_password.attr('id', '');
-	
-	setTimeout('$(function() { $(\'#j_username, #j_password\').placeholder(); });', 0);
 };
 
 if (typeof jtown.home == 'undefined') {
 	jtown.home = {};
 }
 
-var $container = $('#jt-home-container');
-
 jtown.home.masonry = {
+	object : { 
+		container : $('#jt-home-container')
+	},
 	start : function(){
-		$container.imagesLoaded(function(){
-			$container.masonry({
+		var $c = this.object.container;
+		if(nullValueCheck($c.html())){
+			return ;
+		}
+		$c.imagesLoaded(function(){
+			$c.masonry({
 				itemSelector : '.jt-home-shop',
 				columnWidth : 330,
 				transitionDuration: 0.
@@ -167,29 +241,30 @@ jtown.home.masonry = {
 		$(window).resize(this.resize);
 	},
 	pagination : function(){
-		$container.scrollPagination({
+		var $c = this.object.container;
+		$c.scrollPagination({
 			'contentPage'	: contextPath + 'ajax/homePagination.jt',
-			'contentData'	: { 	'categoryPn'	: 	Number($('#jt-home-container').attr('data-cpn')),
-									'sectionPn'		: 	Number($('#jt-home-container').attr('data-spn'))	},
+			'contentData'	: { 	'categoryPn'	: 	$c.attr('data-cpn'),
+									'sectionPn'		: 	$c.attr('data-spn')	},
 			'scrollTarget'	: $(window),
 			'successCallback' : function(data){
 				if($.browser.msie && $.browser.version == '7.0'){
-					var html = jtown.home.html(data), $boxes = $(html);
-					$container.append($boxes).masonry('appended', $boxes);
-					$container.imagesLoaded(function(){
-						$container.masonry('reload');
+					var html = $(jtown.home.html(data));
+					$c.append(html).masonry('appended', html);
+					$c.imagesLoaded(function(){
+						$c.masonry('reload');
 					});
 				}else{
 					var htmlArray = jtown.home.html(data);
-					$container.append(htmlArray).masonry('appended',htmlArray);
-					$container.imagesLoaded(function(){
-						$container.masonry();
+					$c.append(htmlArray).masonry('appended',htmlArray);
+					$c.imagesLoaded(function(){
+						$c.masonry();
 					});
 				}
 
 				setTimeout('jtown.expand.loadExpandShop()', 0);
 			},
-			'maxPage'		: $('#jt-home-container').attr('data-maxPage')
+			'maxPage'		: $c.attr('data-maxPage')
 		});
 	},
 	resize : function(){
@@ -206,124 +281,77 @@ jtown.home.masonry = {
 		});
 	},
 	move : function(){
+		var $header = $('.jt-header-title'), $footer =$('.jt-footer'), scrollheight = { },
+			isEmail = $footer.attr('data-isEmail'),
+			isBrowser = ($.browser.msie && $.browser.version == '7.0') || ($.browser.msie && $.browser.version == '8.0'),			
+			element = document.documentElement, body = document.body,
+			scrollY = document.all ? (!element.scrollTop ? body.scrollTop : element.scrollTop) : (window.pageYOffset ? window.pageYOffset : window.scrollY);	
+				
+		if(isBrowser)
+			scrollheight = isEmail ? { topHeight : '80px', downHeight : '35px'} : { topHeight : '50px', downHeight : '5px'}; 
+		else
+			scrollheight = isEmail ? { topHeight : '76px', downHeight : '31px'} : { topHeight : '46px', downHeight : '1px'};
 		
-		var scrollheight = { topHeight : '46px', downHeight : '1px'}; 
-		var isEmail = $('.jt-footer').attr('data-isEmail');
-		BrowserDetect.init();
-		if(isEmail){
-			scrollheight = { topHeight : '76px', downHeight : '31px' }; 
-		}
-		if(!nullValueCheck(BrowserDetect.browser) && BrowserDetect.browser == 'Explorer'){
-			if(!nullValueCheck(BrowserDetect.version) && BrowserDetect.version < 9){
-				scrollheight = { topHeight : '50px', downHeight : '5px'}; 
-				if(isEmail){
-					scrollheight = { topHeight : '80px', downHeight : '35px'}; 
-				}
-			}
-		}
-		
-		var element = document.documentElement;
-		var body = document.body;
-		var scrollY = document.all ? (!element.scrollTop ? body.scrollTop : element.scrollTop) : (window.pageYOffset ? window.pageYOffset : window.scrollY);
 		if(scrollY == 0){
-			$('.jt-header-title').slideDown('fast');
-			setTimeout('$(".jt-header-nav-interestCategory").css("top", "'+scrollheight.topHeight+'")');
-			setTimeout('$(".jt-footer").slideUp()',0);
+			$footer.slideUp('fast');
+			$header.slideDown('fast');
+			setTimeout('$(".jt-header-nav-interestCategory").css( { top : "'+scrollheight.topHeight+'" })', 0);
 		}else{
-			$('.jt-header-title').slideUp('fast', function(){
-				$('.jt-header-nav-interestCategory').css('top', scrollheight.downHeight);
-				setTimeout('$(".jt-footer").slideDown()',0);
+			$footer.slideDown('fast');
+			$header.slideUp('fast', function(){
+				$('.jt-header-nav-interestCategory').css({ top : scrollheight.downHeight});
 			});
 		}
 	}
 };
 
 jtown.home.clickShop = function(spn) {
-	var url = contextPath + 'ajax/clickView.jt', 
-	json = { sellerPn : spn };
-	$.postJSON(url, json, function() {	});
+	$.postJSON(contextPath + 'ajax/clickView.jt', { sellerPn : spn }, function(){} );
 };
 
 jtown.home.goHome = function(spn) {
-	var url = contextPath + 'ajax/goHome.jt', 
-	json = { sellerPn : spn };
-	$.postJSON(url, json, function() {	});
+	$.postJSON(contextPath + 'ajax/goHome.jt', { sellerPn : spn }, function(){} );
 };
 
 jtown.home.clickLove = function(spn) {
-	var url = contextPath + 'ajax/clickLove.jt', 
-	json = {
-		sellerPn : spn
-	};
-
-	$.postJSON(url, json, function(count) {
-		if (!nullValueCheck(count.message)) {
-			if(count.message == '1'){				
-				jtown.header.showLoginForm();
-			}else{
-				jtown.dialog('판매자는 불가능합니다');
-			}
-		} else {
-			var spn = count.sellerPn;
-			var crudType = count.crudType;
-			if (crudType == 'insert') {
-				$('#jt-heart-click-'+spn).addClass('jt-heart-animation');
-			} else if (crudType == 'delete') {
-				$('#jt-heart-click-'+spn).removeClass('jt-heart-animation');
-			}
-			
-			var expandShop = $('#jt-home-expand-shop');
-			if (!nullValueCheck(expandShop.html())) {
-				var expandSpn = expandShop.attr('data-spn');
-				if (spn == expandSpn){
-					if (crudType == 'insert') {
-						$('#jt-heart-expand-click-'+spn).addClass('jt-heart-animation');
-					} else if (crudType == 'delete') {
-						$('#jt-heart-expand-click-'+spn).removeClass('jt-heart-animation');
-					}
-				}
-			}
+	$.postJSON(contextPath + 'ajax/clickLove.jt', { sellerPn : spn }, function(count) {
+		var spn = count.sellerPn, crudType = count.crudType, message = count.message,
+			$small = $('#jt-heart-click-'+spn), $big = $('#jt-heart-expand-click-'+spn);
+		if (!nullValueCheck(message)) {
+			message == '1' ? jtown.login.showLoginForm() : jtown.dialog('판매자는 불가능합니다');
+			return;
+		} 
+		
+		if (crudType == 'insert') {
+			$small.addClass('jt-heart-animation');
+			$big.addClass('jt-heart-animation');
+		} else if (crudType == 'delete') {
+			$small.removeClass('jt-heart-animation');
+			$big.removeClass('jt-heart-animation');
 		}
 	});
-
 };
 
 jtown.home.html = function(data) {
-	var jtownUsers = data.jtownUsers;
-	var images = data.images;
-	var browser = $.browser;
+	var jtownUsers = data.jtownUsers, images = data.images, browser = $.browser,
+		isIe7 = browser.msie && browser.version == '7.0',
+		htmlArray = [], html = '';
 	
-	var htmlArray = [];
-	var html = '';
 	for ( var i = 0, len = jtownUsers.length; i < len; i++) {
-		var seller = jtownUsers[i], spn = seller.pn, mainImages = images[spn];
-
-		var imageHtml = '';
-
-		if(mainImages.length == 0){
-			imageHtml +='<img alt="Blank" src="'+contextPath+'resources/images/jt-introduce-home-blank.png" title="'+ htmlChars(seller.name) + '"/>	';
-		}
-		for ( var j = 0, jLen = mainImages.length; j < jLen; j++) {
-			var mainImage = mainImages[j];
-			var imageSrc = contextPath + 'resources/uploadImage/'+ mainImage;
-			if(nullValueCheck(imageSrc)){
-				imageSrc = contextPath + 'resources/images/jt-introduce-home-blank.png';
-			}
-			imageHtml += '<img alt="" src="' + imageSrc + '" title="'+ htmlChars(seller.name) + '"/>	';
-		}
-
-		var loveClick = !nullValueCheck(seller.customerPn) ? 'jt-home-shop-love-click' : '';
-		var loveTextClick = !nullValueCheck(seller.customerPn) ? 'jt-home-shop-love-text-click' : '';
-
-		var loveHotCount = '<span class="jt-home-shop-love-hot" title="최근 뜨는 미니샵">HOT</span>';
-		if (nullValueCheck(seller.loveHotCount)  || seller.loveHotCount == 0 ) {
-			loveHotCount = '';
-		}
+		var seller = jtownUsers[i], spn = seller.pn, mainImages = images[spn],
+			imageHtml = '',
+			msieHtml = (isIe7 || (browser.msie && browser.version =='8.0')) ? '<div class="jt-home-shop-image-footer"></div>' : '' ,
+			hotHtml = !(nullValueCheck(seller.loveHotCount) || seller.loveHotCount == 0 ) ? '<span class="jt-home-shop-love-hot" title="최근 뜨는 미니샵">HOT</span>' : '',
+			loveClick = !nullValueCheck(seller.customerPn) ? 'jt-home-shop-love-click' : '',
+			loveTextClick = !nullValueCheck(seller.customerPn) ? 'jt-home-shop-love-text-click' : '';
 		
-		var msieHtml = '';
-		if(browser.msie){
-			if(browser.version == '7.0' || browser.version =='8.0' ){
-				msieHtml = '<div class="jt-home-shop-image-footer"></div>';
+		if(mainImages.length == 0){
+			imageHtml = '<img alt="Blank" src="'+contextPath+'resources/images/jt-introduce-home-blank.png" title="'+ htmlChars(seller.name) + '"/>	';
+		}else{
+			for ( var j = 0, jLen = mainImages.length; j < jLen; j++) {
+				var mainImage = mainImages[j],
+					imageSrc = contextPath + 'resources/uploadImage/'+ mainImage;
+				imageHtml += '<img alt="" src="' + imageSrc + '" title="'+ htmlChars(seller.name) + '"/>	';
 			}
 		}
 
@@ -369,30 +397,22 @@ jtown.home.html = function(data) {
 		html += '			</div>';
 		html += '			<div class="jt-home-shop-content-love-text-wrap">';
 		html += '				<span id="love-' + spn + '" class="' + loveTextClick + '">' + (nullValueCheck(seller.loveCount) ? 0 : seller.loveCount) + '</span>';
-		html += '				' + loveHotCount;;
+		html += '				' + hotHtml;
 		html += '			</div>';
 		html += '			</li>';
 		html += '		</ul>';
 		html += '		'+msieHtml;
 		html += '	</div>';
 		
-		if(!(browser.msie && browser.version == '7.0')){	
+		if(!isIe7){	
 			htmlArray[i] = $(html).get(0);
 			html = '';					
 		}
 	}
-	if(!(browser.msie && browser.version == '7.0')){
-		return htmlArray;		
-	}else{
-		return html;
-	}
+	return !isIe7 ? htmlArray : html;
 };
 
-if (typeof jtown.naturalLanguage == 'undefined') {
-	jtown.naturalLanguage = {};
-}
-
-jtown.naturalLanguage.autocomplete = function(){
+jtown.home.naturalLanguage = function(){
 	$.widget( "custom.catcomplete", $.ui.autocomplete, {
 	    _renderMenu: function( ul, items ) {
 	      var that = this,
@@ -453,5 +473,4 @@ jtown.naturalLanguage.autocomplete = function(){
 			$('#jt-naturalLanguage-search').val('');
 		}
 	});
-	
 };

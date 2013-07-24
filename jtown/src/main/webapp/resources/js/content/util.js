@@ -1,16 +1,4 @@
 /**
- * 빈문자열 정리
- * 
- * @param character
- * @returns
- */
-function trim(character) {
-	character = character.replace(/^\s*/, '');
-	character = character.replace(/\s*$/, '');
-	return character;
-}
-
-/**
  * 특수문자 변환 메소드
  * 
  * @param character
@@ -27,35 +15,6 @@ function htmlChars(character) {
 	return (str.replace('<', '&lt;')).replace('>', '&gt;');
 
 }
-/**
- * 자바스크립트 3자리마다 , 찍기
- * 
- * @param n
- * @returns
- */
-function fmtNumber(number) {
-	var reg = /(^[+-]?\d+)(\d{3})/;
-	number += '';
-	while (reg.test(number))
-		number = number.replace(reg, '$1' + ',' + '$2');
-	return number;
-}
-
-/**
- * 업로드 된 파일 이름과 파일 고유번호 String을 형식에 맞게 변화해주는 메소드
- * 
- * @param character
- * @returns 변환된 문자열
- */
-function changeFileString(character) {
-	var changeChar = character.toString();
-
-	changeChar = changeChar.replace(/<PRE>/ig, '');
-	changeChar = changeChar.replace(/<\/PRE>/ig, '');
-
-	return changeChar;
-}
-
 /**
  * nullValue 값을 체크
  * 

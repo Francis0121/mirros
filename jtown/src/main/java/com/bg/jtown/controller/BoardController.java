@@ -67,14 +67,14 @@ public class BoardController {
 			return prefiexView + "notice/write";
 		} else {
 			boardService.insertNoticeWrite(board);
-			return "redirect:/" + prefiexView + "notice";
+			return "redirect:notice";
 		}
 	}
 
 	@RequestMapping(value = "/noticeWrite", method = RequestMethod.DELETE)
 	public String formNoticeDelete(Model model, @ModelAttribute Board board) {
 		boardService.deleteBoard(board);
-		return "redirect:/" + prefiexView + "notice";
+		return "redirect:notice";
 	}
 
 	@RequestMapping(value = "/noticeContent", method = RequestMethod.GET)

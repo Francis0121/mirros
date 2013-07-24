@@ -9,29 +9,5 @@
 	<%@ include file="login.jspf" %>
 	<%@ include file="script_foot.jspf" %>
 	<script src="${cp }/resources/se2/js/HuskyEZCreator.js"></script>
-	<script type="text/javascript">
-	<!--
-		$(function(){			
-			$('#page-wrap').css('width', $('#page-wrap>div').width());
-			
-			$('#jt-admin-notice-delete').bind('click',function(){
-				
-				jtown.confirm('게시글을 삭제하시겠습니까?', function(){
-					var form = document.forms['board'];
-					form._method.value = 'delete';
-					form.submit();
-				}, function(){});
-			});
-		});
-	
-		var oEditors = [];
-		nhn.husky.EZCreator.createInIFrame({
-			oAppRef : oEditors,
-			elPlaceHolder : "content",
-			sSkinURI : contextPath + "resources/se2/SmartEditor2Skin.html",
-			fCreator : "createSEditor2"
-		});
-	//-->
-	</script>
 </body>
 </html>
