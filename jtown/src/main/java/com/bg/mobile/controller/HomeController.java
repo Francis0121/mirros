@@ -44,8 +44,9 @@ public class HomeController {
 
 	private static final Logger logger = LoggerFactory
 			.getLogger(HomeController.class);
-	private static final Integer CATEGORY_WOMAN = 1;
-	private static final Integer CATEGORY_MAN = 2;
+//	Menu 변경으로 주석처리
+//	private static final Integer CATEGORY_WOMAN = 1;
+//	private static final Integer CATEGORY_MAN = 2;
 
 	// ~ Variable
 
@@ -75,13 +76,14 @@ public class HomeController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String showHome(Model model, HttpSession session,
 			@ModelAttribute HomeFilter homeFilter, SummaryUser summaryUser) {
-		if (summaryUser.getPn() != null
-				&& summaryUser.getEnumAuthority().equals(Authority.CUSTOMER)) {
-			JtownUser jtownUser = loginService.selectCustomer(summaryUser
-					.getPn());
-			Integer sex = jtownUser.getSex() ? CATEGORY_MAN : CATEGORY_WOMAN;
-			homeFilter.setCategoryPn(sex);
-		}
+//		Menu 변경으로 주석처리
+//		if (summaryUser.getPn() != null
+//				&& summaryUser.getEnumAuthority().equals(Authority.CUSTOMER)) {
+//			JtownUser jtownUser = loginService.selectCustomer(summaryUser
+//					.getPn());
+//			Integer sex = jtownUser.getSex() ? CATEGORY_MAN : CATEGORY_WOMAN;
+//			homeFilter.setCategoryPn(sex);
+//		}
 
 		getHomeModel(model, session, homeFilter, summaryUser);
 		return prefixView + "home";
@@ -118,6 +120,7 @@ public class HomeController {
 			HomeFilter homeFilter, SummaryUser summaryUser) {
 		model.addAttribute("interestCategories",
 				homeService.selecInterestCategory());
+		
 		model.addAttribute("interestMap", homeService.selectInterest(null));
 
 		List<Integer> randomPage = homeService.makeRandomCount(homeFilter);
