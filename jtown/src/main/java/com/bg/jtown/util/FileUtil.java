@@ -7,11 +7,17 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * @author Francis
  * 
  */
 public class FileUtil {
+
+	private static Logger logger = LoggerFactory.getLogger(FileUtil.class);
+
 	/**
 	 * 확장자 체크
 	 * 
@@ -84,9 +90,9 @@ public class FileUtil {
 	public static void fileDelete(String deleteFileName) {
 		File file = new File(deleteFileName);
 		if (file.delete()) {
-			System.out.println(2);
+			logger.info("File Delete Complete");
 		} else {
-			System.out.println(1);
+			logger.info("File Delete Not Complete");
 		}
 	}
 

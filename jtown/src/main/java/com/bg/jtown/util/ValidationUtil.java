@@ -40,9 +40,6 @@ public class ValidationUtil {
 		matcher = pattern.matcher(homepage);
 
 		boolean https = matcher.matches();
-
-		System.out.println(http);
-		System.out.println(https);
 		
 		if (http || https) {
 			return true;
