@@ -644,8 +644,9 @@ jtown.seller.syncEvent = function() {
 							'pn'			:	$parent.attr('data-epn'),
 							'bannerOrder'	:	$parent.attr('data-bo')		};
 			
-			$.postJSON(url, json, function(){
+			$.postJSON(url, json, function(event){
 				$img.attr('data-oldSrc', '').attr('data-imagePn', '');
+				$parent.attr('data-epn', event.pn);
 				$parent.children('.jt-home-expand-shop-event-update-wrap').hide();
 				var html = 	'<div class="jt-home-expand-shop-event-new">'+
 								'<div>'+

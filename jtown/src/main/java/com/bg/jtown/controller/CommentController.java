@@ -27,6 +27,12 @@ public class CommentController {
 
 	// ~ ajax
 
+	@RequestMapping(value = "/ajax/home/selectCommentOne.jt", method = RequestMethod.POST)
+	@ResponseBody
+	public Comment ajaxSelectCommentOne(@RequestBody Comment comment) {
+		return commentService.selectCommentDefaultOne(comment.getCommentPn());
+	}
+
 	@RequestMapping(value = "/ajax/home/selectCommentBest.jt", method = RequestMethod.POST)
 	@ResponseBody
 	public List<Comment> ajaxSelectCommentTop(

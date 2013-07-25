@@ -174,11 +174,14 @@ public class StringUtil {
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-
 		if (szText.getBytes().length < nLength)
 			return r_val;
 
 		return r_val + tail;
+	}
+
+	public static boolean isSplit(String str, int length) {
+		return !(str.getBytes().length < length);
 	}
 
 	/**

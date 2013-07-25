@@ -6,6 +6,12 @@ var oEditors = [];
 
 $(function() {
 	
+	$('#jt-search-partnership-btn').bind('click', function(){
+		var form = document.forms['partnershipFilter'];
+		form.page.value = 1;
+		form.submit();
+	});
+	
 	var boardContent = $('#board #content');
 	if(boardContent.html() != undefined){
 		nhn.husky.EZCreator.createInIFrame({

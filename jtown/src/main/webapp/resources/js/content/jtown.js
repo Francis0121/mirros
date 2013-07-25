@@ -17,6 +17,7 @@ $(function() {
 		jtown.toggleMouse($('#jt-help-wrap'), event.type);
 	});
 	
+	jtown.comment.home();
 	jtown.home.masonry.start();
 	jtown.home.naturalLanguage();
 	
@@ -263,6 +264,7 @@ jtown.home.masonry = {
 				}
 
 				setTimeout('jtown.expand.loadExpandShop()', 0);
+				setTimeout('jtown.comment.home()', 0);
 			},
 			'maxPage'		: $c.attr('data-maxPage')
 		});
@@ -333,13 +335,13 @@ jtown.home.clickLove = function(spn) {
 };
 
 jtown.home.html = function(data) {
-	var jtownUsers = data.jtownUsers, images = data.images, browser = $.browser,
+	var jtownUsers = data.jtownUsers, images = data.images, newComments = data.newComments, browser = $.browser,
 		isIe7 = browser.msie && browser.version == '7.0',
 		htmlArray = [], html = '';
 	
 	for ( var i = 0, len = jtownUsers.length; i < len; i++) {
-		var seller = jtownUsers[i], spn = seller.pn, mainImages = images[spn],
-			imageHtml = '',
+		var seller = jtownUsers[i], spn = seller.pn, mainImages = images[spn], comments = newComments[spn],
+			imageHtml = '', commentHtml = '',
 			msieHtml = (isIe7 || (browser.msie && browser.version =='8.0')) ? '<div class="jt-home-shop-image-footer"></div>' : '' ,
 			hotHtml = !(nullValueCheck(seller.loveHotCount) || seller.loveHotCount == 0 ) ? '<span class="jt-home-shop-love-hot" title="최근 뜨는 미니샵">HOT</span>' : '',
 			loveClick = !nullValueCheck(seller.customerPn) ? 'jt-home-shop-love-click' : '',
@@ -353,6 +355,11 @@ jtown.home.html = function(data) {
 					imageSrc = contextPath + 'resources/uploadImage/'+ mainImage;
 				imageHtml += '<img alt="" src="' + imageSrc + '" title="'+ htmlChars(seller.name) + '"/>	';
 			}
+		}
+		for(var j = 0, jLen = comments.length; j < jLen ; j++){
+			var comment = comments[j];
+			commentHtml +='<li class="jt-home-shop-comments-li" data-isSplit="'+comment.isSplit+'" data-copn="'+comment.commentPn+'">'+htmlChars(comment.splitHome);
+			commentHtml +='</li>';
 		}
 
 		html += '	<div class="jt-home-shop" id="jt-home-shop-' + spn + '"  data-spn="' + spn + '">';
@@ -401,6 +408,14 @@ jtown.home.html = function(data) {
 		html += '			</div>';
 		html += '			</li>';
 		html += '		</ul>';
+		if(comments.length > 0){
+		html += '		<div class="jt-home-shop-comments-bar" style="height: '+(comments.length * 20 + 20)+'px;" >';	
+		html += '			<div style="height: '+(comments.length*20)+'px;"></div>';
+		html +=	'		</div>';
+		html += '		<ul class="jt-home-shop-comments">';
+		html += '			'+commentHtml;
+		html += '		</ul>';
+		}
 		html += '		'+msieHtml;
 		html += '	</div>';
 		

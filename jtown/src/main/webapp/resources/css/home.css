@@ -64,6 +64,18 @@ word-wrap: break-word; /* Internet Explorer 5.5+ */}
 .jt-home-shop-content-fn>li>a{float: left; margin-right: 3px; font-weight: bold; color: #b2b2b2;}
 .jt-home-shop-content-fn>li>span:nth-child(1){float: left; margin-right: 3px; font-weight: bold; color: #b2b2b2;}
 .jt-home-shop-content-fn>li>span{float: left; font-weight: bold; color: #b2b2b2;}
+.jt-home-shop-comments-bar{ float: left; width: 27px; border-top : 1px solid #dbd9ca;}
+.jt-home-shop-comments-bar>div{ margin: 13px auto 0 auto; width: 3px; background: #e5e5e5; border-radius: 1px;}
+.jt-home-shop-comments{ width: 289px; float: left;  border-top : 1px solid #dbd9ca;
+	box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box; -moz-box-sizing : border-box; -webkit-box-sizing : border-box;
+}
+.jt-home-shop-comments-li{ width: 100%; float: left; font-size: 12px; padding: 14px 15px 14px 0; color : #b2b2b2; line-height : 20px; min-height : 29px;
+	box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box; -moz-box-sizing : border-box; -webkit-box-sizing : border-box;	
+}
+.jt-more-comment-wrap{ display: block; position: absolute; width: 316px; height:100px; background: rgba(63,63,63,.9); margin-left: -27px; margin-top: -85px; padding: 10px;
+	box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box; -moz-box-sizing : border-box; -webkit-box-sizing : border-box; color: #fff;	
+}
+
 .jt-home-shop-view{ float: left; margin-left: 50px; margin-top:-2px; width: 15px; height: 15px; background: url("../images/jt-home-icon.png") 0 -45px no-repeat; text-indent: -99999px;}
 .jt-home-shop-love-hot{float: left; margin-left: 8px; color: #e92f25 !important; cursor: default;}
 .jt-home-shop-love{ display: block; width: 15px; height: 15px; background: url("../images/jt-home-icon.png") 0 -30px no-repeat; text-indent: -99999px; }

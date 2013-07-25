@@ -266,11 +266,12 @@ public class SellerController {
 	@PreAuthorize("hasRole('ROLE_SELLER')")
 	@RequestMapping(value = "/ajax/seller/changeEvent.jt", method = RequestMethod.POST)
 	@ResponseBody
-	public void ajaxChangeEvent(@RequestBody Event event,
+	public Event ajaxChangeEvent(@RequestBody Event event,
 			SummaryUser summaryUser) {
 		event.setSellerPn(summaryUser.getPn());
 		event.setBannerType(1);
 		sellerService.updateAndInsertEvent(event);
+		return event;
 	}
 
 }

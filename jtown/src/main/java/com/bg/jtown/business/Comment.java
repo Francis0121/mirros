@@ -1,5 +1,7 @@
 package com.bg.jtown.business;
 
+import com.bg.jtown.util.StringUtil;
+
 /**
  * @author Francis
  * 
@@ -198,6 +200,17 @@ public class Comment {
 
 	public void setWarnCustomerPn(Integer warnCustomerPn) {
 		this.warnCustomerPn = warnCustomerPn;
+	}
+
+	public String getSplitHome() {
+		if (this.comment == null || this.comment.trim().equals("")) {
+			return "";
+		}
+		return StringUtil.strCut(this.comment.trim(), 40, "");
+	}
+	
+	public boolean getIsSplit(){
+		return StringUtil.isSplit(this.comment, 40);
 	}
 
 	@Override

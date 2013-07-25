@@ -179,9 +179,39 @@ jtown.comment.syncComment = function(){
 				me.removeClass('jt-warn-active').addClass('jt-warn-disactive').unbind('click');	
 			}
 		});
-	});
-	
+	});	
 };
+
+jtown.comment.home = function(){
+
+	
+	$('.jt-home-shop-comments-li').unbind('mouseover mouseout').bind('mouseover mouseout', function(event){
+		var thiz = $(this), copn = thiz.attr('data-copn'), isSplit = thiz.attr('data-isSplit');
+		
+		if(isSplit == 'true'){
+			if(event.type == 'mouseover'){
+				var more = thiz.find('.jt-more-comment-wrap');
+				if(!nullValueCheck(more.html())){
+					more.show();
+					return ;
+				}
+				$.postJSON(contextPath + 'ajax/home/selectCommentOne.jt', { commentPn : copn }, function(comment){
+					var html = '<div class="jt-more-comment-wrap">'+comment.comment+'</div>';
+					thiz.append(html);
+				});
+			}else if(event.type == 'mouseout'){
+				thiz.find('.jt-more-comment-wrap').hide();
+			}
+		}
+	});
+};
+
+jtown.comment.syncHeight = function(copn, height){
+	var $parent = $('#home-commentPn-'+copn).parents('.jt-home-shop');
+	$parent.find('.jt-home-shop-comments-bar').height((Number(height)+20));
+	$parent.find('.jt-home-shop-comments-bar').find('div').height(height);
+};
+
 
 jtown.comment.loveCancle = function(){
 	$('.jt-home-expand-shop-comment-loveIt-cancle').unbind('click').bind('click', function(){

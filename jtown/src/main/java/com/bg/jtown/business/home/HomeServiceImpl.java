@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import com.bg.jtown.business.Comment;
 import com.bg.jtown.business.Count;
 import com.bg.jtown.business.Interest;
 import com.bg.jtown.business.search.HomeFilter;
@@ -30,8 +31,8 @@ import com.bg.jtown.util.Pagination;
 @Service
 public class HomeServiceImpl extends SqlSessionDaoSupport implements
 		HomeService {
-//	Menu 변경으로 주석처리
-//	private static final Integer CATEGORY_DEFAULT_FASION = 1;
+	// Menu 변경으로 주석처리
+	// private static final Integer CATEGORY_DEFAULT_FASION = 1;
 
 	private static Logger logger = LoggerFactory
 			.getLogger(HomeServiceImpl.class);
@@ -53,14 +54,22 @@ public class HomeServiceImpl extends SqlSessionDaoSupport implements
 		selectMap.put("jtownUsers", jtownUsers);
 
 		Map<Integer, List<String>> homeMap = new HashMap<Integer, List<String>>();
+		Map<Integer, List<Comment>> commentsMap = new HashMap<Integer, List<Comment>>();
 		for (JtownUser jtownUser : jtownUsers) {
 			Integer pn = jtownUser.getPn();
 			homeMap.put(pn, jtownUser.getImages());
+			commentsMap.put(pn, selectNewComment(pn));
 		}
-		logger.debug(homeMap.toString());
+		selectMap.put("newComments", commentsMap);
 		selectMap.put("images", homeMap);
-
+		logger.debug(commentsMap.toString());
+		logger.debug(homeMap.toString());
+		logger.debug(selectMap.toString());
 		return selectMap;
+	}
+
+	private List<Comment> selectNewComment(Integer pn) {
+		return getSqlSession().selectList("homeMapper.selectNewComment", pn);
 	}
 
 	@Override
@@ -73,8 +82,8 @@ public class HomeServiceImpl extends SqlSessionDaoSupport implements
 		} else if (categoryPn != null && !categoryPn.equals(0)) {
 			count = selectFromInterestCategoryCount(homeFilter);
 		} else {
-//			Menu 변경으로 주석처리
-//			homeFilter.setCategoryPn(CATEGORY_DEFAULT_FASION);
+			// Menu 변경으로 주석처리
+			// homeFilter.setCategoryPn(CATEGORY_DEFAULT_FASION);
 			count = selectFromInterestCategoryCount(homeFilter);
 		}
 		Pagination pagination = homeFilter.getPagination();
@@ -118,8 +127,8 @@ public class HomeServiceImpl extends SqlSessionDaoSupport implements
 		} else if (categoryPn != null && !categoryPn.equals(0)) {
 			return selectFromInterestCategory(homeFilter);
 		} else {
-//			Menu 변경으로 주석처리
-//			homeFilter.setCategoryPn(CATEGORY_DEFAULT_FASION);
+			// Menu 변경으로 주석처리
+			// homeFilter.setCategoryPn(CATEGORY_DEFAULT_FASION);
 			return selectFromInterestCategory(homeFilter);
 		}
 	}

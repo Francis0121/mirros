@@ -163,6 +163,15 @@
 			ucc.pn = #{commentPn}
 	</select>
 	
+	<select id="selectCommentDefaultOne" parameterType="Integer" resultType="Comment">
+		SELECT
+			ucc.comment AS `comment`
+		FROM
+			user_customer_comment ucc
+		WHERE
+			ucc.pn = #{pn}
+	</select>
+	
 	<select id="selectExistComment" parameterType="Comment" resultType="Comment">
 		SELECT
 			pn

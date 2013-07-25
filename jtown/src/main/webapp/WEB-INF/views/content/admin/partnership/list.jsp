@@ -71,7 +71,7 @@ function goToPreviousPages() {
 			<form:label path="email">이메일</form:label><form:input path="email" cssClass="jt-admin-filter-input"/>	
 			<form:label path="phoneNumber">핸드폰번호</form:label><form:input path="phoneNumber" cssClass="jt-admin-filter-input"/>	
 			<form:label path="shopUrl">홈페이지</form:label><form:input path="shopUrl" cssClass="jt-admin-filter-input"/>
-			<button type="submit" class="jt-btn-white-small">
+			<button type="button" class="jt-btn-white-small" id="jt-search-partnership-btn">
 				<span class="btnText">검색</span>
 			</button>
 		</li>

@@ -83,6 +83,12 @@ public class CommentServiceImpl extends SqlSessionDaoSupport implements
 	}
 
 	@Override
+	public Comment selectCommentDefaultOne(Integer commentPn) {
+		return getSqlSession().selectOne(
+				"commentMapper.selectCommentDefaultOne", commentPn);
+	}
+
+	@Override
 	public Boolean selectExistComment(Comment comment) {
 		comment.setInputDate(DateUtil.getToday("YYYY-MM-DD"));
 		List<Comment> comments = getSqlSession().selectList(

@@ -22,6 +22,8 @@ public interface CommentService {
 
 	Comment selectCommentOne(Integer commentPn);
 
+	Comment selectCommentDefaultOne(Integer commentPn);
+
 	Boolean selectExistComment(Comment comment);
 
 	Boolean selectExistLove(Count count);
@@ -47,6 +49,7 @@ public interface CommentService {
 	// ~ WarnComment
 	
 	void insertWarnComment(Comment comment);
+
 
 
 

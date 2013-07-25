@@ -7,9 +7,11 @@
 	<c:forEach begin="1" end="2" varStatus="i">
 		<c:set var="jtownUsers" value="${ i.count eq 1 ? one.jtownUsers : two.jtownUsers }"/>
 		<c:set var="images" value="${ i.count eq 1 ? one.images : two.images }"/>
+		<c:set var="newComments" value="${ i.count eq 1 ? one.newComments : two.newComments }"/>
 		<c:forEach items="${jtownUsers }" var="seller">
 			<c:set value="${seller.pn }" var="spn"/>
 			<c:set value="${images[spn] }" var="mainImages"/>
+			<c:set value="${newComments[spn] }" var="comments"/>
 			<div class="jt-home-shop" id="jt-home-shop-<c:out value="${spn }"/>" data-spn="<c:out value="${spn }"/>">
 				<header>
 					<a href="<c:out value="${seller.shopUrl }"/>" target="_blank" onclick="jtown.home.goHome('<c:out value="${spn }"/>')"><c:out value="${seller.name }"/></a>
@@ -74,6 +76,16 @@
 						</div>
 					</li>
 				</ul>
+				<c:if test="${fn:length(comments) > 0}">
+					<div class="jt-home-shop-comments-bar" style="height: ${fn:length(comments)*20 + 20}px;" >
+						<div style="height: ${fn:length(comments)*20}px;"></div>
+					</div>
+					<ul class="jt-home-shop-comments" >
+						<c:forEach items="${comments }" var="comment" >
+							<li class="jt-home-shop-comments-li" data-isSplit="${comment.isSplit }" data-copn="${comment.commentPn }"><c:out value="${comment.splitHome }"/></li> 
+						</c:forEach>
+					</ul>
+				</c:if>
 				<!--[if IE 7]>
 				<div class="jt-home-shop-image-footer"></div>
 				<![endif]-->

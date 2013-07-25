@@ -122,11 +122,19 @@
 		</if>
 		<if test="searchShopUrl != null and searchShopUrl != '' ">
 		AND
+		(
 			u.shop_url LIKE #{searchShopUrl}
+		OR
+			p.shop_url LIKE #{searchShopUrl}
+		)
 		</if>
 		<if test="searchSellerName != null and searchSellerName != ''">
 		AND
+		(
 			u.name LIKE #{searchSellerName}
+		OR
+			p.shop_name LIKE #{searchSellerName}
+		)
 		</if>
 		<if test="shopPnNo != null and shopPnNo != ''">
 		AND
@@ -297,11 +305,19 @@
 		</if>
 		<if test="searchShopUrl != null and searchShopUrl != '' ">
 		AND
+		(
 			u.shop_url LIKE #{searchShopUrl}
+		OR
+			p.shop_url LIKE #{searchShopUrl}
+		)
 		</if>
 		<if test="searchSellerName != null and searchSellerName != ''">
 		AND
+		(
 			u.name LIKE #{searchSellerName}
+		OR
+			p.shop_name LIKE #{searchSellerName}
+		)
 		</if>
 		<if test="shopPnNo != null and shopPnNo != ''">
 		AND
