@@ -346,15 +346,13 @@ jtown.home.html = function(data) {
 			hotHtml = !(nullValueCheck(seller.loveHotCount) || seller.loveHotCount == 0 ) ? '<span class="jt-home-shop-love-hot" title="최근 뜨는 미니샵">HOT</span>' : '',
 			loveClick = !nullValueCheck(seller.customerPn) ? 'jt-home-shop-love-click' : '',
 			loveTextClick = !nullValueCheck(seller.customerPn) ? 'jt-home-shop-love-text-click' : '';
-	
-		var imageCp = 'http://www.mirros.net/';
 		
 		if(mainImages.length == 0){
-			imageHtml = '<img alt="Blank" src="'+imageCp+'resources/images/jt-introduce-home-blank.png" title="'+ htmlChars(seller.name) + '"/>	';
+			imageHtml = '<img alt="Blank" src="'+contextPath+'resources/images/jt-introduce-home-blank.png" title="'+ htmlChars(seller.name) + '"/>	';
 		}else{
 			for ( var j = 0, jLen = mainImages.length; j < jLen; j++) {
 				var mainImage = mainImages[j],
-					imageSrc = imageCp + 'resources/uploadImage/'+ mainImage;
+					imageSrc = contextPath + 'resources/uploadImage/'+ mainImage;
 				imageHtml += '<img alt="" src="' + imageSrc + '" title="'+ htmlChars(seller.name) + '"/>	';
 			}
 		}
