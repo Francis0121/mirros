@@ -239,7 +239,7 @@
 												<span>입력되지 않았습니다.</span>
 											</c:when>
 											<c:otherwise>
-												<span><c:out value="${product.name }"/></span>
+												<span title="<c:out value="${product.name }"/>"><c:out value="${product.name }"/></span>
 												<span><c:out value="${product.commaPrice }"/></span>
 											</c:otherwise>
 										</c:choose>

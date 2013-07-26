@@ -20,15 +20,15 @@
 <script src="${cp}/resources/js/jquery.intro.js"></script>
 <%-- Custom --%>
 <%-- <script src="${cp}/resources/js/mirros.all.js"></script> --%>
-<script src="${cp}/resources/js/content/jtown.js"></script>
-<script src="${cp}/resources/js/content/util.js"></script>
-<script src="${cp}/resources/js/content/login.js"></script>
-<script src="${cp}/resources/js/content/admin.js"></script>
-<script src="${cp}/resources/js/content/seller.js"></script>
-<script src="${cp}/resources/js/content/expand.js"></script>
-<script src="${cp}/resources/js/content/comment.js"></script>
-<script src="${cp}/resources/js/content/board.js"></script>
-<script src="${cp}/resources/js/content/help.js"></script>
+<script src="${cp}/resources/js/content/01_jtown.js"></script>
+<script src="${cp}/resources/js/content/02_util.js"></script>
+<script src="${cp}/resources/js/content/03_login.js"></script>
+<script src="${cp}/resources/js/content/04_admin.js"></script>
+<script src="${cp}/resources/js/content/05_seller.js"></script>
+<script src="${cp}/resources/js/content/06_expand.js"></script>
+<script src="${cp}/resources/js/content/07_comment.js"></script>
+<script src="${cp}/resources/js/content/08_board.js"></script>
+<script src="${cp}/resources/js/content/09_help.js"></script>
 <%-- Node --%>
 <script src="${nodePath }/socket.io/socket.io.js"></script>
 <%-- <script src="${cp}/resources/js/real.time.min.js"></script> --%>
