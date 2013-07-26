@@ -41,7 +41,7 @@
 			var currentPage = $('#__current_page');
 			json.currentPage = currentPage.val();
 			
-			if(json.currentPage <= opts.maxPage ){
+			if(Number(json.currentPage) <= Number(opts.maxPage) ){
 				$.postJSON(url, json, function(data){
 					if(data){
 						opts.successCallback(data);
