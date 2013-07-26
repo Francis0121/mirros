@@ -22,4 +22,6 @@
 .jt-product-article-object-wrap{background: #666666;}
 .jt-about-mirrosis-banner-bg{background: #666666;}
 .jt-help-notice-table thead tr{background: #e5e5e5;}
-.jt-home-shop-comments-li{min-height: 21px;}
+
+.jt-more-comment-wrap{ background: #3f3f3f; min-height: 22px; }
+.jt-home-shop-comments{ width: 289px; height : 21px;}

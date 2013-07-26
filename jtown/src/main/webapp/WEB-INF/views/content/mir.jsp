@@ -134,9 +134,16 @@
 							</div>
 							</c:forEach>
 						</c:if>
-						<div class="jt-home-expand-shop-tag">
-							<span class="tag-txt"><c:forEach items="${interestes }" var="interest" varStatus="loop"><c:out value="${interest.name }"/><c:if test="${loop.count ne fn:length(interestes) }">,&nbsp;</c:if></c:forEach></span><span class="tag-image">Tag</span>
-						</div>
+						<c:choose>
+							<c:when test="${fn:length(interestes) > 0 }">
+							<div class="jt-home-expand-shop-tag">
+								<span class="tag-txt"><c:forEach items="${interestes }" var="interest" varStatus="loop"><c:out value="${interest.name }"/><c:if test="${loop.count ne fn:length(interestes) }">,&nbsp;</c:if></c:forEach></span><span class="tag-image">Tag</span>
+							</div>
+							</c:when>
+							<c:otherwise>
+							<div style="padding-bottom: 15px; float:left; width: 100%;"></div>
+							</c:otherwise>
+						</c:choose>
 					</div>
 				</div>
 				

@@ -74,8 +74,8 @@
 
 .mm-home-article>article>ul>li>.mm-home-mainImage-event{ position: absolute; height: 0; width: 100%; margin : 3px 0 0 -84px;  }
 .mm-home-article-new-wrap{float: right; width: 60%;}
-.mm-home-article-event-new{ text-indent: -99999px; margin: 5px -3px 0 0; background: url("../images/jt-home-icon.png") no-repeat; background-position: 0px -160px; float:right; width: 75px; height: 18px;}
-.mm-home-article-product-new{ text-indent: -99999px; margin: 5px -3px 0 0; background: url("../images/jt-home-icon.png") no-repeat; background-position: 0px -178px; float:right; width: 75px; height: 18px;}
+.mm-home-article-event-new{ text-indent: -99999px; margin: 5px -3px 0 0; background: url("../images/jt-home-icon.png") no-repeat; background-position: 0px -160px; float:right; width: 100px; height: 24px;}
+.mm-home-article-product-new{ text-indent: -99999px; margin: 5px -3px 0 0; background: url("../images/jt-home-icon.png") no-repeat; background-position: -100px -160px; float:right; width: 100px; height: 24px;}
 
 .mm-home-article>article>div{width: 100%; float: left;}
 .mm-home-article-quotationmark-first{ float:left; width: 10%; margin-top: 5px; }
@@ -104,6 +104,14 @@
 .mm-home-love-number-click{ color: #f59697 !important; }
 .mm-home-number{width: 20px; height: 15px; float: left; font-size: 75%; font-weight: bold; color: #b2b2b2; line-height: 16px;}
 .mm-home-hot{ width :27px; height: 15px; float: left; font-weight: bold; font-size: 75%; color: #e92f25;line-height: 16px;}
+
+.mm-home-shop-comments-wrap{width: 100%; float: left; border-top : 1px solid #dbd9ca; padding: 14px 10px;
+	box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box; -moz-box-sizing : border-box; -webkit-box-sizing : border-box; 
+}
+.mm-home-shop-comments{ width: 100%; float: left;   font-size : 75%; padding-left: 8px; color : #b2b2b2; line-height : 21px;
+	border-left: 3px solid #e5e5e5;
+	box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box; -moz-box-sizing : border-box; -webkit-box-sizing : border-box; 
+}
 
 @keyframes mm-love-click { from {opacity : 0;} to {opacity: 1;} }
 @-webkit-keyframes mm-love-click { from {opacity : 0;} to {opacity: 1;} }
@@ -280,12 +288,13 @@
 .mm-mir-longNotice{ font-size: 75%; color: #979797; line-height: 17px;}
 
 .mm-mir-products{float: left;
-	width : 100%; padding : 15px 5px 10px 5px ; border-bottom: 1px solid #dbd9ca; min-height : 200px; max-height: 320px;
+	width : 100%; padding : 15px 5px 10px 5px ; border-bottom: 1px solid #dbd9ca; min-height : 220px; max-height: 340px;
 	box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box; -moz-box-sizing : border-box; -webkit-box-sizing : border-box;      
 }
 .mm-mir-products>header{float: left; width: 100%; text-align: center; padding-bottom: 10px; }
 .mm-mir-products>header>span{font-family: NanumGothic, Dotum, Gulim; font-size: 100%; color: #737373;}
 .mm-mir-products-fake{ width: 100%; margin: 30px auto 0 auto; display: block; max-height: 260px; min-height:140px; max-width: 260px; min-width: 140px; }
+.mm-mir-products>footer{float: left; width: 100%; height: 20px;}
 
 #mm-carousel{ width: 100% !important; padding: 0 0 !important;}
 #mm-carousel ul { margin: 0; padding: 0; position:relative; max-height: 260px; min-height: 140px;}
@@ -303,6 +312,13 @@
 .mm-mir-products-new{font-family : Arial; color: #ff9600; font-size: 68.75%; float: right; margin: -35px 5px 0 0;}
 .textholder{ font-size: 75%; height: 50px;}
 .textholder>.mm-carousel-text{width: 100%; height: 20px; display: block; text-align: center; line-height: 20px; color: #fff;}
+
+.mm-mir-tag{float: left; width: 100%; text-align: right; padding : 10px 25px 0 25px; margin-top:-3px;
+	box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box; -moz-box-sizing : border-box; -webkit-box-sizing : border-box;
+}
+.mm-mir-tag>.tag-image{float:right; text-indent: -99999px; background: url("../images/jt-shop-tag.png"); width: 35px; height: 16px; text-align: left; margin-right: 5px; }
+.mm-mir-tag>.tag-txt{ float: right; height: 16px; line-height: 17px; color: #a6a6a6; font-size: 68.75%;}
+
 
 .mm-mir-events{width: 100%; float: left; background: #fff;}
 .mm-mir-events>div{ width: 50%; float: left; height: 20%; }

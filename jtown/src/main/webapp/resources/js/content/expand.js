@@ -201,8 +201,10 @@ jtown.expand.makeInnerHtml = function(spn){
 		if(nullValueCheck(jtownUser.loveHotCount) || jtownUser.loveHotCount == 0 ){
 			loveHotCount = '';
 		}
-		
-		var tagHtml = '<span class="tag-txt">';
+		var tagHtml = '<div style="padding-bottom: 15px; float:left; width: 100%;"></div>';
+		if(interests.length > 0){
+		tagHtml += '<div class="jt-home-expand-shop-tag">';	
+		tagHtml += '<span class="tag-txt">';
 		for(var i = 0, iLength = interests.length ; i < iLength ; i++){
 			var interest = interests[i];
 			tagHtml += interest.name;
@@ -211,6 +213,8 @@ jtown.expand.makeInnerHtml = function(spn){
 			}
 		}
 		tagHtml +='</span><span class="tag-image">Tag</span>';
+		tagHtml +='</div>';
+		}
 		
 		html += '<header class="jt-home-expand-click-shop-header">';
 		html += '	<div>';
@@ -241,9 +245,7 @@ jtown.expand.makeInnerHtml = function(spn){
 		}
 		html += '		<div class="jt-home-expand-shop-products ">';
 		html += '			'+smallProductHtml;
-		html += '			<div class="jt-home-expand-shop-tag">';
-		html += '				'+tagHtml;
-		html += '			</div>';	
+		html += '			'+tagHtml;
 		html += '		</div>';
 		html += '	</div>';
 		html += '	<div class="jt-home-expand-shop-event gotoPage" id="jt-seller-expand-event-first" title="클릭시 해당 쇼핑몰로 이동됩니다.">';

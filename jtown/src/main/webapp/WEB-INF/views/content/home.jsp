@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../layout/home_header.jspf" %>
+<!-- 서버올릴시 제거 -->
+<c:set var="imageCp" value="http://www.mirros.net"/>
 <div id="jt-home-container" 
 	data-cpn="${homeFilter.categoryPn eq null ? 0 : homeFilter.categoryPn}" 
 	data-spn="${homeFilter.sectionPn eq null ? 0 : homeFilter.sectionPn}" 
@@ -21,11 +23,11 @@
 						<li>
 							<c:choose>
 								<c:when test="${fn:length(mainImages) eq 0 }">
-									<img alt="blank" src="${cp }/resources/images/jt-introduce-home-blank.png" title="${jtownUser.name}"/>	
+									<img alt="blank" src="${imageCp }/resources/images/jt-introduce-home-blank.png" title="${jtownUser.name}"/>	
 								</c:when>
 								<c:otherwise>	
 									<c:forEach items="${mainImages }" var="mainImage">
-										<img alt="" src="${cp }/resources/uploadImage/${mainImage}" title="${jtownUser.name}"/>	
+										<img alt="" src="${imageCp }/resources/uploadImage/${mainImage}" title="${jtownUser.name}"/>	
 									</c:forEach>
 								</c:otherwise>
 							</c:choose>
@@ -77,14 +79,14 @@
 					</li>
 				</ul>
 				<c:if test="${fn:length(comments) > 0}">
-					<div class="jt-home-shop-comments-bar" style="height: ${fn:length(comments)*20 + 20}px;" >
-						<div style="height: ${fn:length(comments)*20}px;"></div>
+				<div class="jt-home-shop-comments-wrap">
+					<div class="jt-home-shop-comments-bar"><div></div></div>
+					<c:forEach items="${comments }" var="comment" >
+					<div class="jt-home-shop-comments" data-isSplit="${comment.isSplit }" data-copn="${comment.commentPn }">
+						<c:out value="${comment.splitHome }"/>
 					</div>
-					<ul class="jt-home-shop-comments" >
-						<c:forEach items="${comments }" var="comment" >
-							<li class="jt-home-shop-comments-li" data-isSplit="${comment.isSplit }" data-copn="${comment.commentPn }"><c:out value="${comment.splitHome }"/></li> 
-						</c:forEach>
-					</ul>
+					</c:forEach>
+				</div>
 				</c:if>
 				<!--[if IE 7]>
 				<div class="jt-home-shop-image-footer"></div>

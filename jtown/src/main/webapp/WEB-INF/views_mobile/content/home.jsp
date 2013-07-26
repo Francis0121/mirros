@@ -53,18 +53,19 @@
 			<a class="mm-home-nav-title mm-home-refresh"><span>refresh</span></a>
 		</li>
  -->
+		<c:set var="homeFilterUrl" value="${mcp }/cpn/${homeFilter.categoryPn eq null ? 0 : homeFilter.categoryPn}/spn/0" scope="request"/>
+		<c:set var="interestUrl" value="${mcp }/cpn/0/spn/0"/>
  		<li>
- 			<a href="${mcp }/">
+ 			<a href="${mcp }/" style="${interestUrl eq homeFilterUrl ? 'font-weight : bold;' : ''}">
  				<span>All</span>
  			</a>
  		</li>
-		<c:set var="homeFilterUrl" value="${mcp }/cpn/${homeFilter.categoryPn }/spn/0" scope="request"/>
 		<c:forEach var="interestCategory" items="${interestCategories }">
 			<c:set var="interestCategoryPn" value="${interestCategory.categoryPn }"/>
 			<c:set var="interestSections" value="${interestMap[interestCategoryPn] }"/>
 			<li>
 				<c:set var="interestUrl" value="${mcp }/cpn/${interestCategoryPn }/spn/0"/>
-				<a href="${interestUrl }" style="${interestUrl eq homeFilterUrl ? '' : ''}">
+				<a href="${interestUrl }" style="${interestUrl eq homeFilterUrl ? 'font-weight : bold;' : ''}">
 					<span><c:out value="${interestCategory.name }"/></span>
 				</a>
 			</li>
@@ -81,10 +82,12 @@
 <c:forEach begin="1" end="2" varStatus="i">
 	<c:set var="jtownUsers" value="${ i.count eq 1 ? one.jtownUsers : two.jtownUsers }"/>
 	<c:set var="images" value="${ i.count eq 1 ? one.images : two.images }"/>
+	<c:set var="newComments" value="${ i.count eq 1 ? one.newComments : two.newComments }"/>
 	
 	<c:forEach items="${jtownUsers }" var="seller">
 		<c:set value="${seller.pn }" var="spn"/>
 		<c:set value="${images[spn] }" var="mainImages"/>
+		<c:set value="${newComments[spn] }" var="comments"/>
 		<article class="mm-home-article" data-spn="<c:out value="${spn }"/>">
 			<header class="mm-home-article-header">
 				<a href="<c:out value="${seller.shopUrl }"/>" target="_blank"><c:out value="${seller.name }"/></a>
@@ -156,6 +159,13 @@
 						</div>
 					</li>
 				</ul>
+				<c:if test="${fn:length(comments) > 0}">
+					<div class="mm-home-shop-comments-wrap">
+						<c:forEach items="${comments }" var="comment" >
+							<div class="mm-home-shop-comments"><c:out value="${comment.comment }"/></div>
+						</c:forEach>
+					</div>
+				</c:if>
 			</footer>
 		</article>
 	</c:forEach>

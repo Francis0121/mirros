@@ -77,6 +77,7 @@ $(function(){
 		var form = document.forms['sellerUser'];
 		form.submit();
 	});
+	
 });
 
 function onPopupLoginSubmit(){
@@ -601,10 +602,11 @@ mobile.homeSync = function(){
 mobile.homeHtml = function(data) {
 	var jtownUsers = data.jtownUsers;
 	var images = data.images;
+	var newComments = data.newComments;
 	
 	var html = '';
 	for ( var i = 0, len = jtownUsers.length; i < len; i++) {
-		var seller = jtownUsers[i], spn = seller.pn, mainImages = images[spn];
+		var seller = jtownUsers[i], spn = seller.pn, mainImages = images[spn], comments = newComments[spn];
 
 		var imageHtml = '';
 
@@ -632,6 +634,16 @@ mobile.homeHtml = function(data) {
 		}
 		var newProductStyle = seller.newProduct > 0 ? 'display: block;' : 'display:none;';
 		var newBannerStyle = seller.newBanner ? 'display: block;' : 'display:none;' ;
+		
+		var commentHtml = '';
+		if(comments.length > 0){
+			commentHtml += '<div class="mm-home-shop-comments-wrap">';
+			for(var j=0, jLen = comments.length; j < jLen ; j++){
+				var comment = comments[j];
+				commentHtml +='<div class="mm-home-shop-comments">'+htmlChars(comment.comment)+'</div>';
+			}
+			commentHtml += '</div>';
+		}
 		
 		html += '<article class="mm-home-article" data-spn="' + spn + '">';
 		html += '	<header class="mm-home-article-header">';
@@ -686,6 +698,7 @@ mobile.homeHtml = function(data) {
 		html += '				</div>';
 		html += '			</li>';
 		html += '		</ul>';
+		html +=	'		'+commentHtml;
 		html += '	</footer>';
 		html += '</article>';
 	}

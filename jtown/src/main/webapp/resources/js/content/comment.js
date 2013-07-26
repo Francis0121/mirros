@@ -184,24 +184,26 @@ jtown.comment.syncComment = function(){
 
 jtown.comment.home = function(){
 
-	
-	$('.jt-home-shop-comments-li').unbind('mouseover mouseout').bind('mouseover mouseout', function(event){
-		var thiz = $(this), copn = thiz.attr('data-copn'), isSplit = thiz.attr('data-isSplit');
+	$('.jt-home-shop-comments').unbind('mouseover').bind('mouseover', function(){
+		var thiz = $(this), $parent = thiz.parents('.jt-home-shop-comments-wrap'), 
+			copn = thiz.attr('data-copn'), isSplit = thiz.attr('data-isSplit');
+		thiz.unbind('mouseover');
 		
 		if(isSplit == 'true'){
-			if(event.type == 'mouseover'){
-				var more = thiz.find('.jt-more-comment-wrap');
-				if(!nullValueCheck(more.html())){
-					more.show();
-					return ;
-				}
-				$.postJSON(contextPath + 'ajax/home/selectCommentOne.jt', { commentPn : copn }, function(comment){
-					var html = '<div class="jt-more-comment-wrap">'+comment.comment+'</div>';
-					thiz.append(html);
+			
+			$.postJSON(contextPath + 'ajax/home/selectCommentOne.jt', { commentPn : copn }, function(comment){
+				var html = '<div class="jt-more-comment-wrap">'+comment.comment+'</div>';
+				thiz.after(html);
+				
+				$parent.find('.jt-more-comment-wrap').slideDown();
+				thiz.unbind('mouseover').bind('mouseover',function(){
+					var more = $(this).parents('.jt-home-shop-comments-wrap').find('.jt-more-comment-wrap');
+					more.slideDown();
 				});
-			}else if(event.type == 'mouseout'){
-				thiz.find('.jt-more-comment-wrap').hide();
-			}
+				$('.jt-more-comment-wrap').unbind('mouseout').bind('mouseout', function(){
+					$('.jt-more-comment-wrap').slideUp();
+				});
+			});
 		}
 	});
 };

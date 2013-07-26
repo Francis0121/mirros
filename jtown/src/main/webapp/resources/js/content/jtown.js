@@ -346,20 +346,22 @@ jtown.home.html = function(data) {
 			hotHtml = !(nullValueCheck(seller.loveHotCount) || seller.loveHotCount == 0 ) ? '<span class="jt-home-shop-love-hot" title="최근 뜨는 미니샵">HOT</span>' : '',
 			loveClick = !nullValueCheck(seller.customerPn) ? 'jt-home-shop-love-click' : '',
 			loveTextClick = !nullValueCheck(seller.customerPn) ? 'jt-home-shop-love-text-click' : '';
+	
+		var imageCp = 'http://www.mirros.net/';
 		
 		if(mainImages.length == 0){
-			imageHtml = '<img alt="Blank" src="'+contextPath+'resources/images/jt-introduce-home-blank.png" title="'+ htmlChars(seller.name) + '"/>	';
+			imageHtml = '<img alt="Blank" src="'+imageCp+'resources/images/jt-introduce-home-blank.png" title="'+ htmlChars(seller.name) + '"/>	';
 		}else{
 			for ( var j = 0, jLen = mainImages.length; j < jLen; j++) {
 				var mainImage = mainImages[j],
-					imageSrc = contextPath + 'resources/uploadImage/'+ mainImage;
+					imageSrc = imageCp + 'resources/uploadImage/'+ mainImage;
 				imageHtml += '<img alt="" src="' + imageSrc + '" title="'+ htmlChars(seller.name) + '"/>	';
 			}
 		}
 		for(var j = 0, jLen = comments.length; j < jLen ; j++){
 			var comment = comments[j];
-			commentHtml +='<li class="jt-home-shop-comments-li" data-isSplit="'+comment.isSplit+'" data-copn="'+comment.commentPn+'">'+htmlChars(comment.splitHome);
-			commentHtml +='</li>';
+			commentHtml +='<div class="jt-home-shop-comments" data-isSplit="'+comment.isSplit+'" data-copn="'+comment.commentPn+'">'+htmlChars(comment.splitHome);
+			commentHtml +='</div>';
 		}
 
 		html += '	<div class="jt-home-shop" id="jt-home-shop-' + spn + '"  data-spn="' + spn + '">';
@@ -409,12 +411,10 @@ jtown.home.html = function(data) {
 		html += '			</li>';
 		html += '		</ul>';
 		if(comments.length > 0){
-		html += '		<div class="jt-home-shop-comments-bar" style="height: '+(comments.length * 20 + 20)+'px;" >';	
-		html += '			<div style="height: '+(comments.length*20)+'px;"></div>';
-		html +=	'		</div>';
-		html += '		<ul class="jt-home-shop-comments">';
+		html += '		<div class="jt-home-shop-comments-wrap">';	
+		html += '			<div class="jt-home-shop-comments-bar"><div></div></div>';
 		html += '			'+commentHtml;
-		html += '		</ul>';
+		html += '		</div>';
 		}
 		html += '		'+msieHtml;
 		html += '	</div>';
