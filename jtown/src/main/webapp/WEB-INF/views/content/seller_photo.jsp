@@ -176,9 +176,9 @@ html{ overflow-y: hidden;}
 		$('#product #url').placeholder();
 	}); 
 	
-	$(window).unload(function(event){
-		window.opener.document.location.reload();
-	});
+// 	$(window).unload(function(event){
+// 		window.opener.document.location.reload();
+// 	});
 	
 	var numPagesPerScreen = <c:out value='${pagination.numPagesPerScreen}'/>;
 	var page = <c:out value='${pagination.currentPage}'/>;
