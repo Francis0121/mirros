@@ -335,9 +335,9 @@ public class SellerServiceImpl extends SqlSessionDaoSupport implements
 		int count = selectSellerProductCount(productFilter);
 		if (count == 0) {
 			return new ArrayList<Product>();
-		}else if(count <= 10){
+		}else if(count <= 10 && productFilter.getPage() == 2){
 			productFilter.setPage(1);
-		}else if(count <= 20){
+		}else if(count <= 20 && productFilter.getPage() == 3){
 			productFilter.setPage(2);
 		}
 		pagination.setNumItems(count);
