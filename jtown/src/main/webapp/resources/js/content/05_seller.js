@@ -75,6 +75,9 @@ $(function() {
 		'errorMsg' : '',
 		'onUploadSuccess' : function(file, data, response){
 			jtown.seller.productImage(eval('('+data+')'));
+		},
+		'onQueueComplete' : function(){
+			setTimeout('location.reload();', 0);
 		}
 	});
 	
@@ -321,7 +324,7 @@ jtown.seller.syncProduct = function() {
 	
 	$('#jt-product-popup').unbind('click').bind('click', function(){
 		var url = contextPath + 'seller/products/'+$(this).attr('data-pn');
-		var option = 'width=610, height=530, toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=no';
+		var option = 'width=610, height=550, toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=no';
 		
 		window.open(url, '', option);
 	});
@@ -591,14 +594,10 @@ jtown.seller.productImage = function(file){
 					'saveName': file.saveName };
 	
 	$.postJSON(url, json, function(product){
-		if(product.count > 19){
+		if(product.count > 29){
 			jtown.dialog('상품은 20개 이하로 등록 가능합니다.');
 		}
-		if(product.count > 9){
-			$('.jt-photo-page-after').show();
-		}else{
-			$('.jt-photo-page-after').hide();
-		}
+		
 		var me = $('#jt-product-article-object-'+product.count);
 		me.children('img').attr('src', contextPath+'resources/uploadImage/'+product.saveName);
 		me.addClass('jt-product-article-object-img');

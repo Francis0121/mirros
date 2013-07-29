@@ -22,7 +22,7 @@ html{ overflow-y: hidden;}
 		<header class="jt-product-header">
 			<ul>
 				<li><h1>상품 사진 올리기</h1></li>
-				<li><span class="jt-product-header-icon"></span><span class="jt-product-header-text">한 장당 2MB이하로, 상품은 총 20장 까지 가능합니다. (JPG, GIF, PNG)</span></li>
+				<li><span class="jt-product-header-icon"></span><span class="jt-product-header-text">한 장당 2MB이하로, 상품은 총 30장 까지 가능합니다. (JPG, GIF, PNG)</span></li>
 			</ul>
 		</header>
 		
@@ -89,21 +89,7 @@ html{ overflow-y: hidden;}
 								<img alt="입력완료" src="${cp }/resources/images/jt-confirm-icon.png" style="float:left; margin: 1px 7px 0 3px;"/><span style="float:left; ">입력완료</span>
 							</button>
 						</li>
-						<li>
-							
-							<c:choose>
-								<c:when test="${productFilter.page eq 2 }">
-									<button type="button" class="jt-photo-page-btn jt-photo-page-before" onclick="javascript:void(goToPage(1))">
-										<span class="page-image"></span><span class="page-text">이전</span>								
-									</button>
-								</c:when>
-								<c:otherwise>
-									<button type="button" class="jt-photo-page-btn jt-photo-page-after" style="display : <c:out value="${ pagination.numItems <= 10 ? 'none' : 'block'}"/>;" onclick="javascript:void(goToPage(2))">
-										<span class="page-text">다음</span><span class="page-image"></span>						
-									</button>
-								</c:otherwise>
-							</c:choose>
-						</li>
+						<li></li>
 						<li>1. 해당 상품을 클릭하시면 상세정보 (이름, 가격, 상품 URL) 입력이 가능합니다.</li>
 						<li>2. 상품 삭제는 해당 상품에 마우스를 올릴시 좌측 상단에 뜨는 X 버튼을 클릭하시기 바랍니다.</li>
 					</ul>
@@ -145,6 +131,32 @@ html{ overflow-y: hidden;}
 					</div>
 				</li>
 			</ul>
+			<div class="jt-sellerPop-page">
+				<div id="page-wrap" >
+					<div style="float: left;">
+						<a href="javascript:void(goToPage(1))" onfocus="blur();">
+							<img src="${cp }/resources/images/arrow/pageFirst_btn.png" alt="처음" title="First" style="vertical-align: middle; border: none;" />
+						</a>
+						<a href="javascript:void(goToPreviousPages())" onfocus="blur();" class="page-beforeafter">
+							<img src="${cp }/resources/images/arrow/prev_btn.png" alt="이전" title="Before" style="vertical-align: middle; border: none;  margin-top: -2px;" />&nbsp;&nbsp;<span>PREV</span>
+						</a>
+						<c:forEach var="i" begin="${pagination.pageBegin}" end="${pagination.pageEnd}">
+							<c:if test="${i == pagination.currentPage}">
+								<a class="page-link page-now">${i}</a>
+							</c:if>
+							<c:if test="${i != pagination.currentPage}">
+								<a class="page-link" href="javascript:void(goToPage(${i}))" onfocus="blur();">${i}</a>
+							</c:if>
+						</c:forEach>
+						<a href="javascript:void(goToNextPages())" onfocus="blur();" class="page-beforeafter">
+							<span>NEXT</span>&nbsp;&nbsp;<img src="${cp }/resources/images/arrow/next_btn.png" alt="다음" title="After" style="vertical-align: middle; border: none; margin-top: -2px;" />
+						</a>
+						<a href="javascript:void(goToPage(${pagination.numPages}))" onfocus="blur();">
+							<img src="${cp }/resources/images/arrow/pageLast_btn.png" alt="끝" title="Last" style="vertical-align: middle; border: none; " />
+						</a>
+					</div>
+				</div>
+			</div>	
 		</article>
 		
 		<footer class="jt-product-footer">

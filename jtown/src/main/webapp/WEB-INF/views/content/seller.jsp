@@ -281,7 +281,7 @@
 								</c:choose>
 								<c:set value="${cp }/resources/uploadImage/${product.saveName }" var="image"/>
 								<span class="${loop.index } image" ><img alt="Product${loop.index }" src="${image }"/></span>
-															</div>
+							</div>
 						</c:forEach>
 						<c:if test="${fn:length(products) < 3 }">
 							<c:forEach begin="${fn:length(products) }" end="2">

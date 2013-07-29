@@ -258,7 +258,7 @@ Product Insert btn
 .jt-product-header-icon{background: url('../images/jt-home-icon.png') -172px -27px; width: 12px; height: 12px; float: left; margin: 5px 5px 0 0;}
 .jt-product-header-text{ color: #808080; font-size: 11px; line-height: 25px; float: left;}
 
-.jt-product-article{ padding: 5px; width: 600px; height : 450px; background: #fafafa;}
+.jt-product-article{ padding: 5px; width: 600px; height : 470px; background: #fafafa;}
 .jt-product-article>ul{float: left; width: 100%; }
 .jt-product-article>ul>li{float: left;}
 .jt-product-article-object{ width: 150px; height: 150px; padding: 5px; 
@@ -315,3 +315,12 @@ Product Insert btn
 .jt-home-text-explain{ margin:  0 5px 0 0; float: left; cursor: auto;}
 .jt-comment-text-explain:HOVER { background-position: 0 -60px; }
 .jt-love-text-explain:HOVER { background-position: 0 -30px;}
+
+.jt-sellerPop-page{float: left; width: 100%;}
+.jt-sellerPop-page #page-wrap{ margin: 3px auto 0 auto; height: 20px;}
+.jt-sellerPop-page a{ margin: 0 3px; width: 10px; float: left; height: 16px; line-height: 16px;}
+.jt-sellerPop-page .page-beforeafter{ font-size: 10px; font-weight: bold; font-family: Arial; width: 45px; color: #5a5a5a;}
+.jt-sellerPop-page .page-link, .jt-help-notice-table tfoot td .page-link:VISITED{ color: #5a5a5a; font-size: 13px; }
+.jt-sellerPop-page .page-link:HOVER{ color: #5a5a5a; text-decoration: underline; font-weight: bold; }
+.jt-sellerPop-page .page-now{font-weight: bold;}
+.jt-sellerPop-page .page-now:HOVER{text-decoration: none;}
