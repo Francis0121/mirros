@@ -20,42 +20,39 @@
 		<header>
 			<span>Display</span>
 		</header>
-		<div class="mm-mir-products-fake">
-			<div id="mm-carousel" data-length="${fn:length(products)}">
-				<ul>
-					<c:forEach items="${products }" var="product" varStatus="i">
-						<c:set var="shopUrl" value="${jtownUser.shopUrl }" />
-						<li>
-							<a href="javascript:mobile.product('${jtownUser.pn }', '${product.url eq null ? shopUrl : product.url}');">
-								<img alt="${product.name eq null ? 'Product' : product.name }" src="${cp }/resources/uploadImage/${product.saveName }" >
-							</a>
+		<article>
+			<ul class="mm-mir-products-list">
+				<c:forEach items="${products }" var="product" varStatus="i">
+					<c:set var="shopUrl" value="${jtownUser.shopUrl }" />
+					<li>
+						<c:if test="${product.newProduct }">
+						<div class="mm-mir-products-new-wrap">
+							<span class="mm-mir-products-new">New</span>	
+						</div>
+						</c:if>
+						<div class="mm-mir-product-one">
+							<div class="mm-mir-product-one-image">
+								<a href="javascript:mobile.product('${jtownUser.pn }', '${product.url eq null ? shopUrl : product.url}');">
+									<img alt="${product.name eq null ? 'Product' : product.name }" src="${cp }/resources/uploadImage/${product.saveName }" >
+								</a>
+							</div>
 							<p>
 								<c:choose>
 									<c:when test="${product.name eq null or product.commaPrice eq null }">
-										<span class="mm-carousel-text">상품 정보가 아직</span>
-										<span class="mm-carousel-text">
-											입력되지 않았습니다.
-										</span>
-										<c:if test="${product.newProduct }">
-											<span class="mm-mir-products-new">New</span>	
-										</c:if>
+										<span>상품 정보가 아직</span>
+										<span>입력되지 않았습니다.</span>
 									</c:when>
 									<c:otherwise>
-										<span class="mm-carousel-text"><c:out value="${product.name }"/></span>
-										<span class="mm-carousel-text">
-											<c:out value="${product.commaPrice }"/>
-										</span>
-										<c:if test="${product.newProduct }">
-											<span class="mm-mir-products-new">New</span>	
-										</c:if>
+										<span><c:out value="${product.name }"/></span>
+										<span><c:out value="${product.commaPrice }"/></span>
 									</c:otherwise>
 								</c:choose>
 							</p>
-						</li>
-					</c:forEach>
-				</ul>
-			</div>
-		</div>
+						</div>
+					</li>
+				</c:forEach>
+			</ul>
+		</article>
 		<footer>
 			<c:choose>
 				<c:when test="${fn:length(interestes) > 0 }">

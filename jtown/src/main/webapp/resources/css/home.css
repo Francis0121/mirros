@@ -45,9 +45,10 @@
 	background: url("../images/jt-home-icon.png") 0 0 no-repeat; margin: 5px 10px 0 10px; text-indent: -99999px;
 }
 .jt-home-shop-footer-text{ float: left; width: 242px; padding: 15px 0 15px 0 ; text-align: left; font-size: 12px; min-height: 30px; line-height: 1.5;
-white-space: pre-wrap; /* CSS3*/
-white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
-word-wrap: break-word; /* Internet Explorer 5.5+ */}
+white-space: pre-wrap;
+white-space: -moz-pre-wrap;
+word-wrap: break-word; }
+.jt-home-shop-footer-text-isNull{color: #a9a9a9;}
 .jt-home-shop-footer-lastQuotationMark{ float: left; width: 15px; height: 15px;
 	background: url("../images/jt-home-icon.png") 0 -15px no-repeat; margin: 5px 10px 0 10px; text-indent: -99999px;
 }

@@ -91,6 +91,7 @@ $(function() {
 	
 	// ~ Placeholder
 	
+	$('#jt-seller-main-textarea').placeholder();
 	$('#jt-naturalLanguage-search').placeholder();
 	$('#jt-comment-insert').placeholder(); 
 	$('#username_findPassword').placeholder();

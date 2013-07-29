@@ -7,13 +7,6 @@ $(function(){
 		$(this).parents('li').find('.mm-home-sub-nav').hide();
 	});
 	
-	$('#mm-carousel').infiniteCarousel({
-	    transitionSpeed : 1000,
-	    displayTime : 2000,
-	    displayThumbnails  : false,
-	    displayProgressBar : false
-	});
-	
 	$('.mm-join-submit').bind('click', function() {
 		$('body').bind('touchmove', function(e){e.preventDefault();});
 		$('html').css('overflow', 'hidden');
@@ -78,6 +71,15 @@ $(function(){
 		form.submit();
 	});
 	
+	mirProductHeight = function(){
+		var imgWidth = $('.mm-mir-product-one-image').width();
+		$('.mm-mir-product-one-image>a').height(imgWidth);
+		$('.mm-mir-product-one-image>a>img').height(imgWidth);
+	};
+	
+	mirProductHeight();
+	
+	$(window).resize(mirProductHeight);
 });
 
 function onPopupLoginSubmit(){

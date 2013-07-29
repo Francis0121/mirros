@@ -135,8 +135,9 @@
 						</div>
 					</div>
 					<span class="jt-home-shop-footer-firstQuotationMark">"</span>
-					<pre id="jt-seller-main-footer-text" class="jt-home-shop-footer-text"><c:out value="${jtownUser.notice }"/></pre>
-					<textarea id="jt-seller-main-textarea" class="jt-seller-main-textarea" maxlength="80"><c:out value="${jtownUser.notice }"/></textarea>
+					<c:set var="mainTextIsNull" value="${( jtownUser.notice ne null ) and ( jtownUser.notice ne '')}" />
+					<pre id="jt-seller-main-footer-text" class="jt-home-shop-footer-text ${ !mainTextIsNull ? 'jt-home-shop-footer-text-isNull' : '' }" data-isNull="${ !mainTextIsNull }"><c:choose><c:when test="${mainTextIsNull}"><c:out value="${jtownUser.notice }"/></c:when><c:otherwise>쇼핑몰 소개 공간입니다. 쇼핑몰의 특징이나 최근 진행하는 이벤트를 적어보세요.</c:otherwise></c:choose></pre>				
+					<textarea id="jt-seller-main-textarea" class="jt-seller-main-textarea" maxlength="80" placeholder="쇼핑몰 소개 공간입니다. 쇼핑몰의 특징이나 최근 진행하는 이벤트를 적어보세요."><c:out value="${jtownUser.notice }"/></textarea>
 					<span class="jt-home-shop-footer-lastQuotationMark">"</span>
 					<div class="jt-seller-main-notice-update-tool" id="jt-seller-main-notice-update-tool">
 						<a href="#none" id="jt-seller-main-notice-update" class="jt-seller-main-notice-update jt-btn-white-small">

@@ -483,7 +483,12 @@ jtown.seller.syncMainNotice = function() {
 			return jQuery.ajax({
 				'success' : function(){
 					$('#jt-seller-main-textarea').hide();
-					$('#jt-seller-main-footer-text').html(notice).show();
+					if(nullValueCheck(notice)){
+						$('#jt-seller-main-textarea').hide();
+						$('#jt-seller-main-footer-text').html('쇼핑몰 소개 공간입니다. 쇼핑몰의 특징이나 최근 진행하는 이벤트를 적어보세요.').show().attr('data-isNull', 'true').addClass('jt-home-shop-footer-text-isNull');
+					}else{
+						$('#jt-seller-main-footer-text').html(notice).show().attr('data-isNull', 'false').removeClass('jt-home-shop-footer-text-isNull');						
+					}
 					setTimeout('jtown.seller.changeMainTextIntro()');
 				},
 				'error' : function(){
@@ -497,8 +502,11 @@ jtown.seller.syncMainNotice = function() {
 	});
 
 	$('#jt-seller-main-notice-cancle').unbind('click').bind('click', function() {
+		var isNull = $('#jt-seller-main-footer-text').attr('data-isNull'), html = $('#jt-seller-main-footer-text').html();
+		if(isNull == 'true'){ html = ''; }
+		
 		$('#jt-seller-main-notice-update-tool').hide();
-		$('#jt-seller-main-textarea').hide().val($('#jt-seller-main-footer-text').html());
+		$('#jt-seller-main-textarea').hide().val(html);
 		$('#jt-seller-main-footer-text').show();
 		setTimeout('jtown.seller.changeMainTextIntro()');
 	});

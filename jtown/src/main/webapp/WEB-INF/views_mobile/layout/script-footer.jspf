@@ -7,7 +7,6 @@
 <script src="${cp}/resources_mobile/js/jquery.form.js"></script>
 <script src="${cp}/resources_mobile/js/json.min.js"></script>
 <script src="${cp}/resources_mobile/js/jquery.plugin.js"></script>
-<script src="${cp}/resources_mobile/js/jquery.infinitecarousel.js"></script>
 <script src="${cp}/resources_mobile/js/jquery.cookie.js"></script>
 <script src="${cp}/resources_mobile/js/jquery.scroll.pagination.js"></script>
 <%-- Custom --%>
