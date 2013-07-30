@@ -123,7 +123,7 @@ word-wrap: break-word; }
 .jt-home-expand-shop-rigthArrow{}
 .jt-home-expand-shop-rigthArrow>span{ width: 20px; height: 53px; background: url("../images/jt-home-icon.png") -130px 0; display: block; text-indent: -9999px;}
 .jt-home-expand-shop-rigthArrow>span:HOVER{background-position: -151px 0;}
-.jt-home-expand-shop-fake-dan{ float: left; min-width: 510px; max-width: 510px; min-height: 200px; max-width: 510px; overflow: hidden; cursor: pointer; }
+.jt-home-expand-shop-fake-dan{ float: left; min-width: 510px; max-width: 510px; min-height: 200px; max-width: 510px; overflow: hidden; cursor: pointer; height: 200px;}
 .jt-home-expand-shop-products{ width : 100%; min-height: 80px; float: left; border-top: 1px solid #d1cdcd; padding : 10px 15px;
 	box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box; -moz-box-sizing : border-box; -webkit-box-sizing : border-box;
 }
