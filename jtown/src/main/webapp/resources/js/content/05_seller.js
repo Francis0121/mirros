@@ -570,7 +570,7 @@ jtown.seller.mainImageUpdate = function(){
 	var url = contextPath + 'ajax/seller/changeMainImage.jt',
 		json = { 'imagePn' : $('#jt-seller-main-image-area').attr('data-imagePn')};
 	
-	$.postJSON(url, json, function(){
+	$.postJSON(url, json, function(text){
 		return jQuery.ajax({
 			'success' : function(){
 				$('#jt-seller-main-image-area').attr('data-oldSrc', '').attr('data-imagePn', '');
@@ -595,7 +595,7 @@ jtown.seller.productImage = function(file){
 	
 	$.postJSON(url, json, function(product){
 		if(product.count > 29){
-			jtown.dialog('상품은 20개 이하로 등록 가능합니다.');
+			jtown.dialog('상품은 30개 이하로 등록 가능합니다.');
 		}
 		
 		var me = $('#jt-product-article-object-'+product.count);

@@ -211,7 +211,14 @@ public class SellerController {
 	@RequestMapping(value = "/ajax/seller/selectInterestes.jt", method = RequestMethod.POST)
 	@ResponseBody
 	public List<Interest> ajaxSelectInterestes(SummaryUser summaryUser) {
-		return sellerService.selectInterestes(summaryUser.getPn());
+		Authority authority = summaryUser.getEnumAuthority();
+		if (authority.equals(Authority.SELLER)) {
+			return sellerService.selectInterestes(summaryUser.getPn());
+		} else {
+			logger.info("[" + summaryUser.getAuthoirty() + "] "
+					+ summaryUser.getName());
+			return null;
+		}
 	}
 
 	@PreAuthorize("hasRole('ROLE_SELLER')")
@@ -219,11 +226,18 @@ public class SellerController {
 	@ResponseBody
 	public List<Interest> ajaxUpdateSellerInterestes(
 			@RequestBody Interest interest, SummaryUser summaryUser) {
-		logger.debug(interest.toString());
-		Integer pn = summaryUser.getPn();
-		interest.setSellerPn(pn);
-		sellerService.updateSellerInterestes(interest);
-		return sellerService.selectSellerInterest(pn);
+		Authority authority = summaryUser.getEnumAuthority();
+		if (authority.equals(Authority.SELLER)) {
+			logger.debug(interest.toString());
+			Integer pn = summaryUser.getPn();
+			interest.setSellerPn(pn);
+			sellerService.updateSellerInterestes(interest);
+			return sellerService.selectSellerInterest(pn);
+		} else {
+			logger.info("[" + summaryUser.getAuthoirty() + "] "
+					+ summaryUser.getName());
+			return null;
+		}
 	}
 
 	@PreAuthorize("hasRole('ROLE_SELLER')")
@@ -231,9 +245,16 @@ public class SellerController {
 	@ResponseBody
 	public Product ajaxChangeNotice(@RequestBody Product product,
 			SummaryUser summaryUser) {
-		product.setSellerPn(summaryUser.getPn());
-		sellerService.insertSellerProduct(product);
-		return product;
+		Authority authority = summaryUser.getEnumAuthority();
+		if (authority.equals(Authority.SELLER)) {
+			product.setSellerPn(summaryUser.getPn());
+			sellerService.insertSellerProduct(product);
+			return product;
+		} else {
+			logger.info("[" + summaryUser.getAuthoirty() + "] "
+					+ summaryUser.getName());
+			return null;
+		}
 	}
 
 	@PreAuthorize("hasRole('ROLE_SELLER')")
@@ -241,8 +262,14 @@ public class SellerController {
 	@ResponseBody
 	public void ajaxChangeMainImage(@RequestBody FileVO fileVO,
 			SummaryUser summaryUser) {
-		fileVO.setOwnerPn(summaryUser.getPn());
-		sellerService.updateSellerImage(fileVO);
+		Authority authority = summaryUser.getEnumAuthority();
+		if (authority.equals(Authority.SELLER)) {
+			fileVO.setOwnerPn(summaryUser.getPn());
+			sellerService.updateSellerImage(fileVO);
+		} else {
+			logger.info("[" + summaryUser.getAuthoirty() + "] "
+					+ summaryUser.getName());
+		}
 	}
 
 	@PreAuthorize("hasRole('ROLE_SELLER')")
@@ -250,8 +277,14 @@ public class SellerController {
 	@ResponseBody
 	public void ajaxChangeNotice(@RequestBody JtownUser jtownUser,
 			SummaryUser summaryUser) {
-		jtownUser.setPn(summaryUser.getPn());
-		sellerService.updateSellerNotice(jtownUser);
+		Authority authority = summaryUser.getEnumAuthority();
+		if (authority.equals(Authority.SELLER)) {
+			jtownUser.setPn(summaryUser.getPn());
+			sellerService.updateSellerNotice(jtownUser);
+		} else {
+			logger.info("[" + summaryUser.getAuthoirty() + "] "
+					+ summaryUser.getName());
+		}
 	}
 
 	@PreAuthorize("hasRole('ROLE_SELLER')")
@@ -259,8 +292,14 @@ public class SellerController {
 	@ResponseBody
 	public void ajaxChangeLongNotice(@RequestBody JtownUser jtownUser,
 			SummaryUser summaryUser) {
-		jtownUser.setPn(summaryUser.getPn());
-		sellerService.updateSellerLongNotice(jtownUser);
+		Authority authority = summaryUser.getEnumAuthority();
+		if (authority.equals(Authority.SELLER)) {
+			jtownUser.setPn(summaryUser.getPn());
+			sellerService.updateSellerLongNotice(jtownUser);
+		} else {
+			logger.info("[" + summaryUser.getAuthoirty() + "] "
+					+ summaryUser.getName());
+		}
 	}
 
 	@PreAuthorize("hasRole('ROLE_SELLER')")
@@ -268,10 +307,17 @@ public class SellerController {
 	@ResponseBody
 	public Event ajaxChangeEvent(@RequestBody Event event,
 			SummaryUser summaryUser) {
-		event.setSellerPn(summaryUser.getPn());
-		event.setBannerType(1);
-		sellerService.updateAndInsertEvent(event);
-		return event;
+		Authority authority = summaryUser.getEnumAuthority();
+		if (authority.equals(Authority.SELLER)) {
+			event.setSellerPn(summaryUser.getPn());
+			event.setBannerType(1);
+			sellerService.updateAndInsertEvent(event);
+			return event;
+		} else {
+			logger.info("[" + summaryUser.getAuthoirty() + "] "
+					+ summaryUser.getName());
+			return null;
+		}
 	}
 
 }
