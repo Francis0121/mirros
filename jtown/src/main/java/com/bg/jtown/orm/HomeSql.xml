@@ -2,27 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="homeMapper">
 
-	<sql id="paginationBefore">
-		SELECT 
-			t.*
-		FROM 
-		( 
-			SELECT  
-				z.*, @RNUM := @RNUM + 1 AS rnum
-			FROM
-				(
-	</sql>
-	
-	<sql id="paginationAfter">
-		<![CDATA[
-				) z,  
-				( SELECT @RNUM := 0 ) R
-			WHERE @RNUM + 1 <=  #{pagination.itemSeqEnd}
-		) t
-		WHERE t.rnum >= #{pagination.itemSeqBegin}
-		]]>
-	</sql>
-
 	<resultMap type="JtownUser" id="jtown-seller-map">
 		<result column="pn" property="pn"/>
 		<result column="name" property="name"/>
@@ -78,7 +57,6 @@
 	</select>
 
 	<select id="selectFromInterestCategory" parameterType="HomeFilter" resultMap="jtown-seller-map">
-		<include refid="paginationBefore"/>
 		SELECT
 			us.pn , u.name, us.shop_url, us.notice, 
 			ssid.view_count, clsp.love_count, ccsp.comment_count, bdl.banner_first, bdl.banner_second, 
@@ -123,7 +101,7 @@
 			us.pn
 		ORDER BY
 			us.pn
-		<include refid="paginationAfter"/>
+		LIMIT #{pagination.itemSeqBegin}, #{pagination.numItemsPerPage}
 	</select>
 	
 	<select id="selectFromInterestCount" parameterType="HomeFilter" resultType="Integer">
@@ -153,7 +131,6 @@
 	</select>
 	
 	<select id="selectFromInterest" parameterType="HomeFilter" resultMap="jtown-seller-map">
-		<include refid="paginationBefore"/>
 		SELECT
 			us.pn , u.name, us.shop_url, us.notice,
 			ssid.view_count, clsp.love_count, ccsp.comment_count, bdl.banner_first, bdl.banner_second,
@@ -197,7 +174,7 @@
 			ise.pn = #{sectionPn}
 		ORDER BY
 			us.pn
-		<include refid="paginationAfter"/>
+		LIMIT #{pagination.itemSeqBegin}, #{pagination.numItemsPerPage}
 	</select>
 
 	

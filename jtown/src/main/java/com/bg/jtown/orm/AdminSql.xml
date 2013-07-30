@@ -1,27 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="adminMapper">	
-
-	<sql id="paginationBefore">
-		SELECT 
-			t.*
-		FROM 
-		( 
-			SELECT  
-				z.*, @RNUM := @RNUM + 1 AS rnum
-			FROM
-				(
-	</sql>
-	
-	<sql id="paginationAfter">
-		<![CDATA[
-				) z,  
-				( SELECT @RNUM := 0 ) R
-			WHERE @RNUM + 1 <=  #{pagination.itemSeqEnd}
-		) t
-		WHERE t.rnum >= #{pagination.itemSeqBegin}
-		]]>
-	</sql>
 	
 	<resultMap type="JtownUser" id="jt-user-map">
 		<result property="pn" column="pn" />
@@ -117,7 +96,6 @@
 	<!-- Admin -->
 	
 	<select id="selectAdministratorList" parameterType="AdministratorFilter" resultMap="jt-user-map">
-		<include refid="paginationBefore"/>
 		SELECT
 			u.pn, u.id, u.name, u.salt, u.enable
 		FROM
@@ -128,8 +106,8 @@
 		AND
 			gm.group_id = 3
 		ORDER BY
-			salt DESC	
-		<include refid="paginationAfter"/>	
+			salt DESC		
+		LIMIT #{pagination.itemSeqBegin}, #{pagination.numItemsPerPage}
 	</select>
 	
 	<select id="selectAdminCount" parameterType="AdministratorFilter" resultType="Integer"> 
@@ -230,42 +208,40 @@
 	</select>
 	
 	<select id="selectAllCommentList" parameterType="AdminCommentFilter" resultMap="jt-admin-comment-map">
-		<include refid="paginationBefore"/>
-			SELECT
-				ucc.pn, ucc.customer_pn, u.id, ucc.seller_pn, ucc.comment, input_date
-			FROM
-				user_customer_comment ucc,
-				user_customer uc
-				LEFT OUTER JOIN users u
-				ON uc.pn = u.pn
-			WHERE
-				ucc.customer_pn = uc.pn	
-			ORDER BY
-				input_date DESC
-		<include refid="paginationAfter"/>
+		SELECT
+			ucc.pn, ucc.customer_pn, u.id, ucc.seller_pn, ucc.comment, input_date
+		FROM
+			user_customer_comment ucc,
+			user_customer uc
+			LEFT OUTER JOIN users u
+			ON uc.pn = u.pn
+		WHERE
+			ucc.customer_pn = uc.pn	
+		ORDER BY
+			input_date DESC
+		LIMIT #{pagination.itemSeqBegin}, #{pagination.numItemsPerPage}
 	</select>
 	
 	<select id="selectCustomerList" parameterType="UserFilter" resultMap="jt-user-map">
-		<include refid="paginationBefore"/>
-			SELECT
-				u.pn, u.id, u.name, u.enable, u.salt
-			FROM
-				user_customer uc,
-				users u 
-			WHERE
-				uc.pn = u.pn
-			<if test="enabled != null">
-			AND	u.enable = #{enabled}
-			</if>
-			<if test="name != null and name != ''">
-			AND	u.name = #{name}
-			</if>
-			<if test="userId != null and userId != ''">
-			AND	u.id = #{userId}
-			</if>	
-			ORDER BY
-				u.salt DESC	 	
-		<include refid="paginationAfter"/>
+		SELECT
+			u.pn, u.id, u.name, u.enable, u.salt
+		FROM
+			user_customer uc,
+			users u 
+		WHERE
+			uc.pn = u.pn
+		<if test="enabled != null">
+		AND	u.enable = #{enabled}
+		</if>
+		<if test="name != null and name != ''">
+		AND	u.name = #{name}
+		</if>
+		<if test="userId != null and userId != ''">
+		AND	u.id = #{userId}
+		</if>	
+		ORDER BY
+			u.salt DESC	
+		LIMIT #{pagination.itemSeqBegin}, #{pagination.numItemsPerPage}	 	
 	</select>
 	
 	<select id="selectCustomerCount" parameterType="UserFilter" resultType="Integer">

@@ -2,27 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="contractMapper">
 	
-	<sql id="paginationBefore">
-		SELECT 
-			t.*
-		FROM 
-		( 
-			SELECT  
-				z.*, @RNUM := @RNUM + 1 AS rnum
-			FROM
-				(
-	</sql>
-	
-	<sql id="paginationAfter">
-		<![CDATA[
-				) z,  
-				( SELECT @RNUM := 0 ) R
-			WHERE @RNUM + 1 <=  #{pagination.itemSeqEnd}
-		) t
-		WHERE t.rnum >= #{pagination.itemSeqBegin}
-		]]>
-	</sql>
-	
 	<resultMap type="Contract" id="jt-contract-map">
 		<result column="pn" property="pn"/>
 		<result column="seller_pn" property="sellerPn"/>
@@ -33,7 +12,6 @@
 	</resultMap>
 	
 	<select id="selectContractList" parameterType="ContractFilter" resultMap="jt-contract-map">
-		<include refid="paginationBefore"/>
 		SELECT
 			pn, seller_pn, start_date, end_date, input_date
 		FROM
@@ -42,7 +20,7 @@
 			seller_pn = #{sellerPn}
 		ORDER BY
 			input_date DESC
-		<include refid="paginationAfter"/>	
+		LIMIT #{pagination.itemSeqBegin}, #{pagination.numItemsPerPage}	
 	</select>
 	
 	<select id="selectContract" parameterType="Integer" resultMap="jt-contract-map">

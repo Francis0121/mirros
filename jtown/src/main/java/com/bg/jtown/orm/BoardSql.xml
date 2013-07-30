@@ -2,27 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="boardMapper">
 	
-	<sql id="paginationBefore">
-		SELECT 
-			t.*
-		FROM 
-		( 
-			SELECT  
-				z.*, @RNUM := @RNUM + 1 AS rnum
-			FROM
-				(
-	</sql>
-	
-	<sql id="paginationAfter">
-		<![CDATA[
-				) z,  
-				( SELECT @RNUM := 0 ) R
-			WHERE @RNUM + 1 <=  #{pagination.itemSeqEnd}
-		) t
-		WHERE t.rnum >= #{pagination.itemSeqBegin}
-		]]>
-	</sql>
-	
 	<resultMap type="Board" id="jt-board-map">
 		<result column="pn" property="pn" />
 		<result column="title" property="title" />
@@ -32,14 +11,13 @@
 	</resultMap>
 	
 	<select id="selectNoticeList" resultMap="jt-board-map">
-		<include refid="paginationBefore"/>
-			SELECT 
-				pn, title, content, read_count, DATE_FORMAT(input_date, '%Y-%m-%d') AS input_date
-			FROM 
-				notice
-			ORDER BY
-				pn desc
-		<include refid="paginationAfter"/>
+		SELECT 
+			pn, title, content, read_count, DATE_FORMAT(input_date, '%Y-%m-%d') AS input_date
+		FROM 
+			notice
+		ORDER BY
+			pn desc
+		LIMIT #{pagination.itemSeqBegin}, #{pagination.numItemsPerPage}
 	</select>
 	
 	<select id="selectNoticeContent" parameterType="Board" resultMap="jt-board-map">

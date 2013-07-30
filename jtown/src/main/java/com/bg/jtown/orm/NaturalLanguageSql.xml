@@ -2,47 +2,25 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="naturalLanguageMapper">
 	
-	<sql id="paginationBefore">
-		SELECT 
-			t.*
-		FROM 
-		( 
-			SELECT  
-				z.*, @RNUM := @RNUM + 1 AS rnum
-			FROM
-				(
-	</sql>
-	
-	<sql id="paginationAfter">
-		<![CDATA[
-				) z,  
-				( SELECT @RNUM := 0 ) R
-			WHERE @RNUM + 1 <=  #{pagination.itemSeqEnd}
-		) t
-		WHERE t.rnum >= #{pagination.itemSeqBegin}
-		]]>
-	</sql>
-	
 	<resultMap type="JtownUser" id="jt-natural-search-name-map">
 		<result column="pn" property="pn"/>
 		<result column="name" property="name"/>
 	</resultMap>
 	
 	<select id="selectSearchShopName" parameterType="NaturalLanguageFilter" resultMap="jt-natural-search-name-map">
-		<include refid="paginationBefore"/>
-			SELECT
-				us.pn, u.name
-			FROM
-				user_seller us
-				LEFT OUTER JOIN users u
-				ON us.pn = u.pn
-			WHERE
-				u.upper_name LIKE #{upperSearchName}
-			AND	
-				u.enable = 1
-			ORDER BY
-				u.name
-		<include refid="paginationAfter"/>
+		SELECT
+			us.pn, u.name
+		FROM
+			user_seller us
+			LEFT OUTER JOIN users u
+			ON us.pn = u.pn
+		WHERE
+			u.upper_name LIKE #{upperSearchName}
+		AND	
+			u.enable = 1
+		ORDER BY
+			u.name
+		LIMIT #{pagination.itemSeqBegin}, #{pagination.numItemsPerPage}
 	</select>
 	
 	<select id="selectSearchShopNameCount" parameterType="NaturalLanguageFilter" resultType="Integer">
@@ -64,7 +42,6 @@
 	</resultMap>
 	
 	<select id="selectSearchInterestSection" parameterType="NaturalLanguageFilter" resultMap="jt-natural-search-interest-map">
-		<include refid="paginationBefore"/>
 			SELECT
 				ise.pn, ise.category_pn, ic.name AS category_name, ise.name AS name
 			FROM
@@ -76,7 +53,7 @@
 				ise.upper_name LIKE #{upperSearchName}
 			ORDER BY
 				ic.name, ise.name
-		<include refid="paginationAfter"/>
+			LIMIT #{pagination.itemSeqBegin}, #{pagination.numItemsPerPage}
 	</select>
 	
 	<select id="selectSearchInterestSectionCount" parameterType="NaturalLanguageFilter" resultType="Integer">

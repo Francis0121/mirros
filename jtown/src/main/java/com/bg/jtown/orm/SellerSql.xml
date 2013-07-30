@@ -2,27 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="sellerMapper">
 
-	<sql id="paginationBefore">
-		SELECT 
-			t.*
-		FROM 
-		( 
-			SELECT  
-				z.*, @RNUM := @RNUM + 1 AS rnum
-			FROM
-				(
-	</sql>
-	
-	<sql id="paginationAfter">
-		<![CDATA[
-				) z,  
-				( SELECT @RNUM := 0 ) R
-			WHERE @RNUM + 1 <=  #{pagination.itemSeqEnd}
-		) t
-		WHERE t.rnum >= #{pagination.itemSeqBegin}
-		]]>
-	</sql>
-
 	<resultMap type="JtownUser" id="jtown-seller-map">
 		<result column="pn" property="pn"/>
 		<result column="id" property="username"/>
@@ -342,7 +321,6 @@
 	</select>
 	
 	<select id="selectSellerProductFromProductFilter" parameterType="ProductFilter" resultMap="jt-product-map">
-		<include refid="paginationBefore"/>
 		SELECT
 			i.pn AS image_pn, i.save_name, 
 			usp.pn, usp.name, usp.url, usp.price, usp.order, DATE_FORMAT(usp.input_date, '%Y%m%d') AS input_date
@@ -355,7 +333,7 @@
 			usp.image_pn = i.pn
 		ORDER BY
 			usp.order ASC, usp.input_date ASC
-		<include refid="paginationAfter"/>	
+		LIMIT #{pagination.itemSeqBegin}, #{pagination.numItemsPerPage}	
 	</select>
 	
 	<select id="selectSellerProductCountFromProductFilter" parameterType="ProductFilter" resultType="Integer">

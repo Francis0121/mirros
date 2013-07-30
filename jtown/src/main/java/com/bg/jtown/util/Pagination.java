@@ -48,7 +48,7 @@ public class Pagination {
 	public int getItemSeqBegin() {
 		int page = getRequestedPage();
 		int ipp = getNumItemsPerPage();
-		return (page - 1) * ipp + 1;
+		return (page - 1) * ipp;
 	}
 
 	/**
