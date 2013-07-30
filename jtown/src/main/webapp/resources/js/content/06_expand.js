@@ -73,7 +73,7 @@ jtown.expand.makeInnerHtml = function(spn){
 			
 			smallProductHtml += '<div class="thumbnail">';
 			smallProductHtml += '	'+smallProductNewHtml;
-			smallProductHtml += '	<span class="'+i+' image" ><img alt="Product'+i+'" src="'+path+product.saveName+'"/></span>';
+			smallProductHtml += '	<span class="'+(i == 0 ? (productSize - 1) : (i-1))+' image" ><img alt="Product'+i+'" src="'+path+product.saveName+'"/></span>';
 			smallProductHtml += '</div>';
 		}
 		if(productSize < 3 ){

@@ -123,7 +123,7 @@
 									</c:otherwise>
 								</c:choose>
 								<c:set value="${cp }/resources/uploadImage/${product.saveName }" var="image"/>
-								<span class="${loop.index } image" ><img alt="Product${loop.index }" src="${image }"/></span>
+								<span class="${loop.index eq 0 ? fn:length(products)-1 : loop.index-1 } image" ><img alt="Product${loop.index }" src="${image }"/></span>
 							</div>
 						</c:forEach>
 						<c:if test="${fn:length(products) < 3 }">
