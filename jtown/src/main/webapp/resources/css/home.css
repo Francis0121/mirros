@@ -57,7 +57,7 @@ word-wrap: break-word; }
 #jt-home-center{}
 #jt-home-container{ margin: auto;}
 .jt-home-shop-content{ float: left; width: 100%; font-size: 12px;}
-.jt-home-shop-content-image{ float: left; width: 100%;  cursor: -webkit-zoom-in; cursor: -moz-zoom-in; }
+.jt-home-shop-content-image{ float: left; width: 100%;  cursor: pointer; cursor: -webkit-zoom-in; cursor: -moz-zoom-in;}
 .jt-home-shop-content-image>li{ float: left; width: 316px; }
 .jt-home-shop-content-image>li>img{ float: left; width: 100%; }
 .jt-home-shop-content-fn{ width: 100%; float:left; font-size: 12px; font-family: Arial; border-top: 1px solid #dbd9ca;}
