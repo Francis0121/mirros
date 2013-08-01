@@ -88,5 +88,5 @@ pre{
 }
 
 .placeholder { color: #aaa; }
-#loading-popup{ position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #fff; opacity : .7; display: none; z-index: 99999;}
+#loading-popup{ position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #fff; opacity : .7; display: none; z-index: 99999999;}
 #loading-popup>div{position: absolute; top: 50%; left: 50%; width: 120px; height: 115px; margin-left: -50px; margin-top: -50px;}
