@@ -32,8 +32,12 @@
 						</c:if>
 						<div class="mm-mir-product-one">
 							<div class="mm-mir-product-one-image">
+								<c:set value="${cp }/photo/original/${product.saveName }_image.${product.imageType }" var="image"/>
+								<c:if test="${product.imageCategory eq 0 }">
+									<c:set value="${cp }/resources/uploadImage/${product.saveName }" var="image"/>
+								</c:if>
 								<a href="javascript:mobile.product('${jtownUser.pn }', '${product.url eq null ? shopUrl : product.url}');">
-									<img alt="${product.name eq null ? 'Product' : product.name }" src="${cp }/resources/uploadImage/${product.saveName }" >
+									<img alt="${product.name eq null ? 'Product' : product.name }" src="${image }" >
 								</a>
 							</div>
 							<p>
@@ -76,7 +80,10 @@
 				</div>
 			</c:if>
 			<c:set var="blankEvent" value="${cp }/resources/images/jt-event-user-blank.png"/>
-			<c:set var="imageEvent" value="${cp }/resources/uploadImage/${event1.saveName }"/>
+			<c:set var="imageEvent" value="${cp }/photo/thumbnail/${event1.saveName }event.${event1.imageType }"/>
+			<c:if test="${event1.imageCategory eq 0}">
+				<c:set var="imageEvent" value="${cp }/resources/uploadImage/${event1.saveName }"/>
+			</c:if>
 			<img alt="First Event" src="${event1.saveName eq null ? blankEvent : imageEvent }"/>
 		</div>
 		<div title="클릭시 해당 쇼핑몰로 이동됩니다.">
@@ -87,7 +94,10 @@
 					</div>
 				</div>
 			</c:if>
-			<c:set var="imageEvent" value="${cp }/resources/uploadImage/${event2.saveName }"/>
+			<c:set var="imageEvent" value="${cp }/photo/thumbnail/${event2.saveName }event.${event2.imageType }"/>
+			<c:if test="${event2.imageCategory eq 0}">
+				<c:set var="imageEvent" value="${cp }/resources/uploadImage/${event2.saveName }"/>
+			</c:if>
 			<img alt="Second Event" src="${event2.saveName eq null ? blankEvent : imageEvent }"/>
 		</div>
 	</section>

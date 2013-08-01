@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.List;
 
@@ -12,6 +13,8 @@ import javax.annotation.Resource;
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import net.coobird.thumbnailator.Thumbnails;
 
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
@@ -106,13 +109,13 @@ public class FileController {
 	@RequestMapping(value = "/file/upload.jt")
 	@ResponseBody
 	public void ajaxUpload(@ModelAttribute MultipartFile multipartFile,
-			Integer pn, BindingResult result, HttpServletRequest request,
-			HttpServletResponse response, SummaryUser summaryUser)
+			Integer pn, String category, 
+			BindingResult result, HttpServletResponse response, SummaryUser summaryUser)
 			throws IOException {
-		@SuppressWarnings("deprecation")
-		String saveDirectory = request.getRealPath("resources/uploadImage");
+		logger.debug(" SellerPn : " + pn + ", Category : " + category);
 		PrintWriter writer = response.getWriter();
 		response.setContentType("text/plain");
+
 		if (result.hasErrors()) {
 			for (ObjectError error : result.getAllErrors()) {
 				logger.error("Error in uploading" + error.getCode() + " - "
@@ -120,32 +123,41 @@ public class FileController {
 			}
 			writer.print("{ 'result' : 'error' }");
 		} else {
-			CommonsMultipartFile commonsMultipartFile = multipartFile
-					.getFiledata();
+			CommonsMultipartFile cmFile = multipartFile.getFiledata();
+			if (cmFile.getSize() > 0) {
 
-			String orginalName = commonsMultipartFile.getOriginalFilename();
-			String type = orginalName.substring(
-					orginalName.lastIndexOf(".") + 1, orginalName.length());
-			String saveName = System.currentTimeMillis() + "_image." + type;
-
-			if (FileUtil.checkContentType(type)) {
-
-				if (commonsMultipartFile.getSize() > 0) {
+				String name = cmFile.getOriginalFilename();
+				String type = FileUtil.getContentType(name);
+				if (FileUtil.checkContentType(type)) {
 					try {
-						IOUtils.copy(commonsMultipartFile.getInputStream(),
-								new FileOutputStream(new File(saveDirectory,
-										saveName)));
-						Integer sellerPn = summaryUser.getPn();
-						if (sellerPn == null) {
-							sellerPn = pn;
+						long time = System.currentTimeMillis();
+						Integer sellerPn = summaryUser.getPn() == null ? pn : summaryUser.getPn();
+						
+						String saveName = time + "_image."+type;
+						String thumbnailName = time + category+"."+type;
+						
+						File save = new File(FileUtil.ORGINAL_DIRECOTRY + saveName);
+						IOUtils.copy(cmFile.getInputStream(), new FileOutputStream(save));
+						if(type.equals("jpg")){
+							OutputStream os = new FileOutputStream(FileUtil.THUMBNAIL_DIRECTORTY + thumbnailName);
+							int width = FileUtil.getCategoryWidth(category);
+							Thumbnails.of(save).width(width).outputQuality(1.0d).outputFormat(type).toOutputStream(os);							
+							if(category.equals("product")){
+								OutputStream pos = new FileOutputStream(FileUtil.THUMBNAIL_DIRECTORTY + time + category +"Small."+type);
+								Thumbnails.of(save).width(50).outputQuality(1.0d).outputFormat(type).toOutputStream(pos);
+							}
+						}else{
+							IOUtils.copy(cmFile.getInputStream(), new FileOutputStream(new File(FileUtil.THUMBNAIL_DIRECTORTY + thumbnailName)));
+							if(category.equals("product")){
+								IOUtils.copy(cmFile.getInputStream(), new FileOutputStream(new File(FileUtil.THUMBNAIL_DIRECTORTY + time + category +"Small."+type)));
+							}
 						}
-						FileVO fileVO = new FileVO(null, orginalName, saveName,
-								sellerPn, (int) commonsMultipartFile.getSize());
+						
+						FileVO fileVO = new FileVO(FileUtil.getCategoryNum(category), null, (int) cmFile.getSize(), name, sellerPn, String.valueOf(time), type);
 						fileService.insertFile(fileVO);
 
 						Gson gson = new Gson();
 						String json = gson.toJson(fileVO);
-
 						logger.debug(json);
 						writer.print(json);
 					} catch (FileNotFoundException e) {
@@ -155,10 +167,10 @@ public class FileController {
 						e.printStackTrace();
 						writer.print("{ 'result' : 'error' }");
 					}
+				} else {
+					logger.error("Error in uploading : 허용할수 없는 확장자 입니다.");
+					writer.print("{ 'result' : 'error' }");
 				}
-			} else {
-				logger.error("Error in uploading : 허용할수 없는 확장자 입니다.");
-				writer.print("{ 'result' : 'error' }");
 			}
 		}
 		writer.flush();

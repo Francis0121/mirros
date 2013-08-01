@@ -31,9 +31,9 @@ public interface SellerService {
 
 	// ~ SellerImage
 
-	List<String> selectSellerImage(Integer properNumber);
+	List<FileVO> selectSellerImage(Integer properNumber);
 
-	String selectSellerImageOne(Integer properNumber, Integer imagePn);
+	FileVO selectSellerImageOne(Integer properNumber, Integer imagePn);
 
 	Integer selectSellerImageCount(Integer properNumber);
 

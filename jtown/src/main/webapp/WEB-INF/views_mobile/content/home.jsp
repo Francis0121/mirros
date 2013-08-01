@@ -101,7 +101,14 @@
 							</c:when>
 							<c:otherwise>	
 								<c:forEach items="${mainImages }" var="mainImage">
-									<div class="mm-home-mainImage-content"><img alt="Main Image" src="${cp }/resources/uploadImage/${mainImage}" title="${seller.name}"/></div>
+									<c:forEach items="${mainImages }" var="mainImage">
+									<c:set var="image" value="${cp }/photo/thumbnail/${mainImage.saveName}represent.${mainImage.type }"/>
+										<c:if test="${mainImage.category eq 0 }">
+											<c:set value="${cp }/resources/uploadImage/${mainImage.saveName }" var="image"/>
+										</c:if>
+										<div class="mm-home-mainImage-content"><img alt="Main Image" src="${image}" title="${seller.name}"/></div>
+									</c:forEach>
+									
 								</c:forEach>
 							</c:otherwise>
 						</c:choose>

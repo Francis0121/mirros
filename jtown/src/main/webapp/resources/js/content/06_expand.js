@@ -33,7 +33,6 @@ jtown.expand.makeInnerHtml = function(spn){
 
 	$.postJSON(url, json, function(selectMap){
 		var html ='';
-		var path = contextPath + 'resources/uploadImage/';
 		var event1 = selectMap.event1, 
 			event2 = selectMap.event2, 
 			products = selectMap.products, 
@@ -58,9 +57,12 @@ jtown.expand.makeInnerHtml = function(spn){
 			if(nullValueCheck(product.name) || nullValueCheck(product.commaPrice)){
 				detailProduct = '<span>상품 정보가 아직</span><span>입력되지 않았습니다.</span>';
 			}
-			
+			var image = contextPath + 'photo/thumbnail/'+product.saveName+'product.'+product.imageType;
+			if(product.imageCategory == '0'){
+				image = contextPath + 'resources/uploadImage/'+product.saveName;
+			}
 			bigProductHtml += '	<li class="jt-home-expand-shop-expandProduct">';
-			bigProductHtml += '		<a href="'+ ( nullValueCheck(product.url) ? jtownUser.shopUrl : product.url  )+'" target="_blank" onclick="jtown.home.goHome('+spn+');"><img alt="상품" src="'+path+product.saveName+'"/></a>';
+			bigProductHtml += '		<a href="'+ ( nullValueCheck(product.url) ? jtownUser.shopUrl : product.url  )+'" target="_blank" onclick="jtown.home.goHome('+spn+');"><img alt="상품" src="'+image+'"/></a>';
 			bigProductHtml += '		<div class="jt-product-article-object-wrap jt-product-article-object-expand">';
 			bigProductHtml += '			'+detailProduct;
 			bigProductHtml += '		</div>';
@@ -71,9 +73,13 @@ jtown.expand.makeInnerHtml = function(spn){
 				smallProductNewHtml = '<span class="text">New</span>';
 			}
 			
+			image = contextPath + 'photo/thumbnail/'+product.saveName+'productSmall.'+product.imageType;
+			if(product.imageCategory == '0'){
+				image = contextPath + 'resources/uploadImage/'+product.saveName;
+			}
 			smallProductHtml += '<div class="thumbnail">';
 			smallProductHtml += '	'+smallProductNewHtml;
-			smallProductHtml += '	<span class="'+(i == 0 ? (productSize - 1) : (i-1))+' image" ><img alt="Product'+i+'" src="'+path+product.saveName+'"/></span>';
+			smallProductHtml += '	<span class="'+(i == 0 ? (productSize - 1) : (i-1))+' image" ><img alt="Product'+i+'" src="'+image+'"/></span>';
 			smallProductHtml += '</div>';
 		}
 		if(productSize < 3 ){
@@ -93,11 +99,17 @@ jtown.expand.makeInnerHtml = function(spn){
 			eventImage2 = contextPath + 'resources/images/jt-event-user-blank.png';
 		
 		if(!nullValueCheck(event1)){
-			eventImage1 = path + event1.saveName;
+			eventImage1 = contextPath + 'photo/thumbnail/'+event1.saveName+'event.'+event1.imageType;
+			if(event1.imageCategory == '0'){
+				eventImage1 = contextPath + 'resources/uploadImage/' + event1.saveName;
+			}
 		}
 		
 		if(!nullValueCheck(event2)){
-			eventImage2 = path + event2.saveName;
+			eventImage2 = contextPath + 'photo/thumbnail/'+event2.saveName+'event.'+event2.imageType;
+			if(event2.imageCategory == '0'){
+				eventImage2 = contextPath + 'resources/uploadImage/' + event2.saveName;
+			}
 		}
 		
 		var commentHtml = '';

@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.security.core.GrantedAuthority;
 
 import com.bg.jtown.util.DateUtil;
+import com.bg.jtown.util.FileVO;
 
 /**
  * @author Francis
@@ -40,7 +41,7 @@ public class JtownUser extends AbstractUser {
 	private Integer bannerFirst;
 	private Integer bannerSecond;
 	private Integer newProduct;
-	private List<String> images;
+	private List<FileVO> images;
 	private Integer customerPn;
 	private String interestCategory;
 	private String interestSectionList;
@@ -229,11 +230,11 @@ public class JtownUser extends AbstractUser {
 		this.bannerSecond = bannerSecond;
 	}
 
-	public List<String> getImages() {
+	public List<FileVO> getImages() {
 		return images;
 	}
 
-	public void setImages(List<String> images) {
+	public void setImages(List<FileVO> images) {
 		this.images = images;
 	}
 

@@ -7,6 +7,11 @@ package com.bg.jtown.util;
 public class FileVO {
 
 	/**
+	 * 이미지 입력 칸 분류
+	 */
+	private Integer category;
+
+	/**
 	 * 세로크기
 	 */
 	private Integer height;
@@ -37,6 +42,11 @@ public class FileVO {
 	private String saveName;
 
 	/**
+	 * 파일 타입
+	 */
+	private String type;
+
+	/**
 	 * 가로크기
 	 */
 	private Integer width;
@@ -53,6 +63,22 @@ public class FileVO {
 		this.saveName = saveName;
 		this.ownerPn = ownerPn;
 		this.memorySize = memorySize;
+	}
+
+	public FileVO(Integer category, Integer imagePn, Integer memorySize,
+			String originalName, Integer ownerPn, String saveName, String type) {
+		super();
+		this.category = category;
+		this.imagePn = imagePn;
+		this.memorySize = memorySize;
+		this.originalName = originalName;
+		this.ownerPn = ownerPn;
+		this.saveName = saveName;
+		this.type = type;
+	}
+
+	public Integer getCategory() {
+		return category;
 	}
 
 	public Integer getHeight() {
@@ -79,8 +105,16 @@ public class FileVO {
 		return saveName;
 	}
 
+	public String getType() {
+		return type;
+	}
+
 	public Integer getWidth() {
 		return width;
+	}
+
+	public void setCategory(Integer category) {
+		this.category = category;
 	}
 
 	public void setHeight(Integer height) {
@@ -107,8 +141,28 @@ public class FileVO {
 		this.saveName = saveName;
 	}
 
+	public void setType(String type) {
+		this.type = type;
+	}
+
 	public void setWidth(Integer width) {
 		this.width = width;
+	}
+
+	public String getStrCategory() {
+		if (this.category == null || this.category.equals(0)) {
+			return null;
+		}
+
+		if (this.category.equals(1)) {
+			return "represent";
+		} else if (this.category.equals(2)) {
+			return "event";
+		} else if (this.category.equals(3)) {
+			return "product";
+		} else {
+			return null;
+		}
 	}
 
 	@Override

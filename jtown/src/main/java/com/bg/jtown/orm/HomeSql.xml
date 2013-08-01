@@ -15,12 +15,12 @@
 		<result column="customer_pn" property="customerPn"/>
 		<result column="love_hot_count" property="loveHotCount"/>
 		<result column="new_product" property="newProduct"/>
-		<collection property="images" column="pn" javaType="ArrayList" select="selectSellerImage" ofType="String"/>
+		<collection property="images" column="pn" javaType="ArrayList" select="selectSellerImage" ofType="File"/>
 	</resultMap>
 	
-	<select id="selectSellerImage" parameterType="Integer" resultType="String">
+	<select id="selectSellerImage" parameterType="Integer" resultType="File">
 		SELECT
-			usin.save_name
+			usin.category AS category, usin.save_name AS saveName, usin.content_type AS type
 		FROM
 			user_seller_image_name usin
 		WHERE

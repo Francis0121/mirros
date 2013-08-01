@@ -48,6 +48,16 @@ public class Event {
 	 */
 	private Integer sellerPn;
 
+	/**
+	 * 이미지 분류
+	 */
+	private Integer imageCategory;
+
+	/**
+	 * 이미지 타입
+	 */
+	private String imageType;
+
 	public Event() {
 		super();
 	}
@@ -125,12 +135,29 @@ public class Event {
 		this.sellerPn = sellerPn;
 	}
 
+	public Integer getImageCategory() {
+		return imageCategory;
+	}
+
+	public void setImageCategory(Integer imageCategory) {
+		this.imageCategory = imageCategory;
+	}
+
+	public String getImageType() {
+		return imageType;
+	}
+
+	public void setImageType(String imageType) {
+		this.imageType = imageType;
+	}
+
 	@Override
 	public String toString() {
 		return "Event [bannerOrder=" + bannerOrder + ", bannerType="
 				+ bannerType + ", content=" + content + ", imagePn=" + imagePn
 				+ ", pn=" + pn + ", redisType=" + redisType + ", saveName="
-				+ saveName + ", sellerPn=" + sellerPn + "]";
+				+ saveName + ", sellerPn=" + sellerPn + ", imageCategory="
+				+ imageCategory + ", imageType=" + imageType + "]";
 	}
 
 }

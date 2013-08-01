@@ -6,15 +6,17 @@
 		<result property="imagePn" column="pn"/>
 		<result property="saveName" column="save_name"/>
 		<result property="originalName" column="original_name"/>
+		<result property="type" column="content_type"/>
+		<result property="category" column="category"/>
 	</resultMap>
 	
 	<select id="selectFileCount" parameterType="FileFilter" resultType="Integer">
-		SELECT COUNT(*) FROM image WHERE owner_pn = 1
+		SELECT COUNT(pn) FROM image WHERE owner_pn = 1
 	</select>
 	
 	<select id="selectFiles" parameterType="FileFilter" resultMap="jt-file-map">
 		SELECT
-			pn, save_name, original_name
+			pn, save_name, original_name, content_type, category
 		FROM
 			image
 		WHERE
@@ -26,7 +28,7 @@
 	
 	<select id="selectFile" parameterType="Integer" resultMap="jt-file-map">
 		SELECT
-			pn, save_name, original_name
+			pn, save_name, original_name, content_type, category
 		FROM
 			image
 		WHERE
@@ -38,9 +40,9 @@
 	<insert id="insertFile" parameterType="File">
 		INSERT INTO
 			image
-			( save_name, original_name, owner_pn, memory_size)
+			( save_name, content_type, category,  original_name, owner_pn, memory_size)
 		VALUES
-			( #{saveName}, #{originalName}, #{ownerPn}, #{memorySize} )
+			( #{saveName}, #{type}, #{category}, #{originalName}, #{ownerPn}, #{memorySize} )
 		<selectKey resultType="java.lang.Integer" keyProperty="imagePn">
 			SELECT LAST_INSERT_ID()
 		</selectKey>

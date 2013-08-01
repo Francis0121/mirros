@@ -356,7 +356,10 @@ jtown.home.html = function(data) {
 		}else{
 			for ( var j = 0, jLen = mainImages.length; j < jLen; j++) {
 				var mainImage = mainImages[j],
-					imageSrc = contextPath + 'resources/uploadImage/'+ mainImage;
+					imageSrc = contextPath + 'photo/thumbnail/'+mainImage.saveName+'represent.'+mainImage.type;
+				if(mainImage.category == '0'){
+					imageSrc = contextPath + 'resources/uploadImage/'+ mainImage.saveName;					
+				}
 				imageHtml += '<img alt="" src="' + imageSrc + '" title="'+ htmlChars(seller.name) + '"/>	';
 			}
 		}

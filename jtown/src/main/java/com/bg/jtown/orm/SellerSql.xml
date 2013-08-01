@@ -92,9 +92,15 @@
 	
 	<!-- Seller Image -->
 	
-	<select id="selectSellerImage" parameterType="Integer" resultType="String">
+	<resultMap type="File" id="jt-represent-map">
+		<result column="category" property="category"/>
+		<result column="save_name" property="saveName"/>
+		<result column="content_type" property="type"/>
+	</resultMap>
+	
+	<select id="selectSellerImage" parameterType="Integer" resultMap="jt-represent-map">
 		SELECT
-			usin.save_name
+			usin.category, usin.save_name, usin.content_type
 		FROM
 			user_seller_image_name usin
 		<if test="value != null">
@@ -103,9 +109,9 @@
 		</if>	
 	</select>
 	
-	<select id="selectSellerImageOne" parameterType="Integer" resultType="String">
+	<select id="selectSellerImageOne" parameterType="Integer" resultMap="jt-represent-map">
 		SELECT
-			usin.save_name
+			usin.category, usin.save_name, usin.content_type
 		FROM
 			user_seller_image_name usin
 		<if test="properNumber != null">
@@ -187,12 +193,14 @@
 		<result column="content" property="content"/>
 		<result column="banner_order" property="bannerOrder"/>
 		<result column="save_name" property="saveName"/>
+		<result column="category" property="imageCategory"/>
+		<result column="content_type" property="imageType"/>
 	</resultMap>
 	
 	<select id="selectEventList" parameterType="Integer" resultMap="jtown-event-map">
 		SELECT
 			usb.pn, usb.seller_pn, usb.banner_type, usb.image_pn, usb.content, usb.banner_order,
-			i.save_name
+			i.save_name, i.category, i.content_type
 		FROM
 			user_seller_banner usb 
 			LEFT OUTER JOIN image i
@@ -293,6 +301,8 @@
 	<resultMap type="Product" id="jt-product-map">
 		<result column="image_pn" property="imagePn"/>
 		<result column="save_name" property="saveName" />
+		<result column="category" property="imageCategory" />
+		<result column="content_type" property="imageType" />
 		<result column="pn" property="pn"/>
 		<result column="name" property="name"/>
 		<result column="url" property="url"/>
@@ -303,7 +313,7 @@
 
 	<select id="selectSellerProduct" parameterType="Integer" resultMap="jt-product-map">
 		SELECT
-			i.pn AS image_pn, i.save_name, 
+			i.pn AS image_pn, i.save_name, i.category, i.content_type, 
 			usp.pn, usp.name, usp.url, usp.price, usp.order, DATE_FORMAT(usp.input_date, '%Y%m%d') AS input_date
 		FROM
 			user_seller_product usp,
@@ -322,7 +332,7 @@
 	
 	<select id="selectSellerProductFromProductFilter" parameterType="ProductFilter" resultMap="jt-product-map">
 		SELECT
-			i.pn AS image_pn, i.save_name, 
+			i.pn AS image_pn, i.save_name, i.category, i.content_type, 
 			usp.pn, usp.name, usp.url, usp.price, usp.order, DATE_FORMAT(usp.input_date, '%Y%m%d') AS input_date
 		FROM
 			user_seller_product usp,

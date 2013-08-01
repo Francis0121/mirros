@@ -619,7 +619,10 @@ mobile.homeHtml = function(data) {
 		}
 		for ( var j = 0, jLen = mainImages.length; j < jLen; j++) {
 			var mainImage = mainImages[j];
-			var imageSrc = contextPath + '/resources/uploadImage/'+ mainImage;
+			var imageSrc = contextPath + '/photo/thumbnail/'+mainImage.saveName+'represent.'+mainImage.type;
+			if(mainImage.category == '0'){
+				imageSrc = contextPath + '/resources/uploadImage/'+ mainImage.saveName;					
+			}
 			imageHtml += '<div class="mm-home-mainImage-content">';	
 			imageHtml += '	<img alt="Main Image" src="' + imageSrc + '" title="'+ htmlChars(seller.name) + '"/>	';
 			imageHtml += '</div>';

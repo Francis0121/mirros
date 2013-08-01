@@ -16,9 +16,24 @@ public class Product {
 	private Integer count;
 
 	/**
+	 * 현재페이지
+	 */
+	private Integer currentPage;
+
+	/**
+	 * 이미지 분류
+	 */
+	private Integer imageCategory;
+
+	/**
 	 * 이미지 고유번호
 	 */
 	private Integer imagePn;
+
+	/**
+	 * 이미지 타입
+	 */
+	private String imageType;
 
 	/**
 	 * 입력날짜
@@ -60,19 +75,6 @@ public class Product {
 	 */
 	private String url;
 
-	/**
-	 * 현재페이지
-	 */
-	private Integer currentPage;
-
-	public Integer getCurrentPage() {
-		return currentPage;
-	}
-
-	public void setCurrentPage(Integer currentPage) {
-		this.currentPage = currentPage;
-	}
-
 	public Product() {
 		super();
 	}
@@ -83,6 +85,34 @@ public class Product {
 		}
 		DecimalFormat format = new DecimalFormat("#,###");
 		return format.format(Integer.parseInt(this.price));
+	}
+
+	public Integer getCount() {
+		return count;
+	}
+
+	public Integer getCurrentPage() {
+		return currentPage;
+	}
+
+	public Integer getImageCategory() {
+		return imageCategory;
+	}
+
+	public Integer getImagePn() {
+		return imagePn;
+	}
+
+	public String getImageType() {
+		return imageType;
+	}
+
+	public String getInputDate() {
+		return inputDate;
+	}
+
+	public String getName() {
+		return name;
 	}
 
 	public boolean getNewProduct() {
@@ -101,22 +131,6 @@ public class Product {
 		}
 
 		return false;
-	}
-
-	public Integer getCount() {
-		return count;
-	}
-
-	public Integer getImagePn() {
-		return imagePn;
-	}
-
-	public String getInputDate() {
-		return inputDate;
-	}
-
-	public String getName() {
-		return name;
 	}
 
 	public Integer getOrder() {
@@ -147,8 +161,20 @@ public class Product {
 		this.count = count;
 	}
 
+	public void setCurrentPage(Integer currentPage) {
+		this.currentPage = currentPage;
+	}
+
+	public void setImageCategory(Integer imageCategory) {
+		this.imageCategory = imageCategory;
+	}
+
 	public void setImagePn(Integer imagePn) {
 		this.imagePn = imagePn;
+	}
+
+	public void setImageType(String imageType) {
+		this.imageType = imageType;
 	}
 
 	public void setInputDate(String inputDate) {
@@ -186,10 +212,11 @@ public class Product {
 	@Override
 	public String toString() {
 		return "Product [count=" + count + ", imagePn=" + imagePn
-				+ ", inputDate=" + inputDate + ", name=" + name + ", order="
-				+ order + ", pn=" + pn + ", price=" + price + ", saveName="
-				+ saveName + ", sellerPn=" + sellerPn + ", url=" + url
-				+ ", currentPage=" + currentPage + "]";
+				+ ", imageCategory=" + imageCategory + ", imageType="
+				+ imageType + ", inputDate=" + inputDate + ", name=" + name
+				+ ", order=" + order + ", pn=" + pn + ", price=" + price
+				+ ", saveName=" + saveName + ", sellerPn=" + sellerPn
+				+ ", url=" + url + ", currentPage=" + currentPage + "]";
 	}
 
 }

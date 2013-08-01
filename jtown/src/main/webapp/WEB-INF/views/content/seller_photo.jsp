@@ -42,7 +42,11 @@ html{ overflow-y: hidden;}
 								</a>
 							</div>
 						</div>
-						<img alt="${product.name }" src="${cp }/resources/uploadImage/${product.saveName }"/>
+						<c:set value="${cp }/photo/thumbnail/${product.saveName }product.${product.imageType }" var="image"/>
+						<c:if test="${product.imageCategory eq 0 }">
+							<c:set value="${cp }/resources/uploadImage/${product.saveName }" var="image"/>
+						</c:if>
+						<img alt="${product.name }" src="${image}"/>
 						<div class="jt-product-article-object-wrap">
 							<c:choose>
 								<c:when test="${product.name eq null or product.commaPrice eq null }">

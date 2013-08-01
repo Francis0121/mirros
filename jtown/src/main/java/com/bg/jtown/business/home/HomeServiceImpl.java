@@ -22,6 +22,7 @@ import com.bg.jtown.business.seller.SellerService;
 import com.bg.jtown.redis.Publisher;
 import com.bg.jtown.security.JtownUser;
 import com.bg.jtown.util.DateUtil;
+import com.bg.jtown.util.FileVO;
 import com.bg.jtown.util.Pagination;
 
 /**
@@ -53,7 +54,7 @@ public class HomeServiceImpl extends SqlSessionDaoSupport implements
 		Collections.shuffle(jtownUsers, random);
 		selectMap.put("jtownUsers", jtownUsers);
 
-		Map<Integer, List<String>> homeMap = new HashMap<Integer, List<String>>();
+		Map<Integer, List<FileVO>> homeMap = new HashMap<Integer, List<FileVO>>();
 		Map<Integer, List<Comment>> commentsMap = new HashMap<Integer, List<Comment>>();
 		for (JtownUser jtownUser : jtownUsers) {
 			Integer pn = jtownUser.getPn();

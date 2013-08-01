@@ -17,6 +17,15 @@ import org.slf4j.LoggerFactory;
 public class FileUtil {
 
 	private static Logger logger = LoggerFactory.getLogger(FileUtil.class);
+// TODO 서버일때는 변경
+	private static final String PHOTO_DIRECTORY = "C:/Users/User2/Desktop/uploadImage";
+//	private static final String PHOTO_DIRECTORY = "/uploadImage";
+
+	public static final String ORGINAL_DIRECOTRY = PHOTO_DIRECTORY
+			+ "/original/";
+
+	public static final String THUMBNAIL_DIRECTORTY = PHOTO_DIRECTORY
+			+ "/thumbnail/";
 
 	/**
 	 * 확장자 체크
@@ -31,21 +40,41 @@ public class FileUtil {
 	 */
 	public static boolean checkContentType(String type) {
 
-		boolean result = true;
+		boolean result = false;
 
-		if (type.equals("jsp") || type.equals("php") || type.equals("html")
-				|| type.equals("sqljsp")) {
-			result = false;
-		} else if (type.equals("jpg") || type.equals("bmp")
-				|| type.equals("png") || type.equals("JPG")
-				|| type.equals("PNG") || type.equals("BMP")
-				|| type.equals("gif") || type.equals("GIF")) {
+		if (type.equals("jpg") || type.equals("bmp") || type.equals("png")
+				|| type.equals("gif")) {
 			result = true;
-		} else {
-			result = false;
 		}
 
 		return result;
+	}
+
+	public static String getContentType(String fileName) {
+		return fileName.substring(fileName.lastIndexOf(".") + 1,
+				fileName.length()).toLowerCase();
+	}
+
+	public static int getCategoryWidth(String category) {
+		if (category.equals("represent")) {
+			return 316;
+		} else if (category.equals("event")) {
+			return 309;
+		} else if (category.equals("product")) {
+			return 140;
+		}
+		return 0;
+	}
+
+	public static int getCategoryNum(String category) {
+		if (category.equals("represent")) {
+			return 1;
+		} else if (category.equals("event")) {
+			return 2;
+		} else if (category.equals("product")) {
+			return 3;
+		}
+		return 0;
 	}
 
 	/**

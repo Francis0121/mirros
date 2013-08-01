@@ -15,7 +15,7 @@ $(function() {
 	jtown.seller.syncExpandNotice();
 
 	$('#jt-event-second-image').uploadify({
-		'formData' : {'pn' : $('#jt-seller-body').attr('data-spn')},
+		'formData' : {'pn' : $('#jt-seller-body').attr('data-spn'), 'category' : 'event'},
 		'buttonText' : '사진 업로드',
 		'fileTypeDesc' : 'Image Files',
         'fileTypeExts' : '*.gif; *.jpg; *.png',
@@ -24,13 +24,17 @@ $(function() {
 		'swf' : contextPath + 'resources/uploadify/uploadify.swf',
 		'uploader' : contextPath + 'file/upload.jt',
 		'itemTemplate' : '<div></div>',
+		'onUploadStart' : function(){
+			jtown.loading.start();
+		},
 		'onUploadSuccess' : function(file, data, response){
 			jtown.seller.secondEvent(eval('('+data+')'));
+			setTimeout('jtown.loading.finish()');
 		}
 	});
 	
 	$('#jt-event-first-image').uploadify({
-		'formData' : {'pn' : $('#jt-seller-body').attr('data-spn')},
+		'formData' : {'pn' : $('#jt-seller-body').attr('data-spn'), 'category' : 'event'},
 		'buttonText' : '사진 업로드',
 		'fileTypeDesc' : 'Image Files',
         'fileTypeExts' : '*.gif; *.jpg; *.png',
@@ -39,13 +43,17 @@ $(function() {
 		'swf' : contextPath + 'resources/uploadify/uploadify.swf',
 		'uploader' : contextPath + 'file/upload.jt',
 		'itemTemplate' : '<div></div>',
+		'onUploadStart' : function(){
+			jtown.loading.start();
+		},
 		'onUploadSuccess' : function(file, data, response){
 			jtown.seller.firstEvent(eval('('+data+')'));
+			setTimeout('jtown.loading.finish()', 0);
 		}
 	});
 	
 	$('#jt-represent-image').uploadify({
-		'formData' : {'pn' : $('#jt-seller-body').attr('data-spn')},
+		'formData' : {'pn' : $('#jt-seller-body').attr('data-spn'), 'category' : 'represent'},
 		'buttonText' : '사진 업로드',
 		'method' : 'post',
 		'fileTypeDesc' : 'Image Files',
@@ -55,13 +63,17 @@ $(function() {
 		'swf' : contextPath + 'resources/uploadify/uploadify.swf',
 		'uploader' : contextPath + 'file/upload.jt',
 		'itemTemplate' : '<div></div>',
+		'onUploadStart' : function(){
+			jtown.loading.start();
+		},
 		'onUploadSuccess' : function(file, data, response){
 			jtown.seller.mainImage(eval('('+data+')'));
+			setTimeout('jtown.loading.finish()', 0);
 		}
 	});
 	
 	$('#jt-product-file').uploadify({
-		'formData' : {'pn' : $('body').attr('data-spn')},
+		'formData' : {'pn' : $('body').attr('data-spn'), 'category' : 'product'},
 		'buttonClass' : 'uploadify-plus-insert-btn',
 		'buttonText' : '<img src="'+ contextPath + 'resources/images/jt-cloth-icon.png'+'" style="float:left; margin:9px 7px 0 10px"/><span style="float:left; ">상품추가</span>',
 		'height' : '30',
@@ -73,11 +85,15 @@ $(function() {
 		'uploader' : contextPath + 'file/upload.jt',
 		'itemTemplate' : '<div></div>',
 		'errorMsg' : '',
+		'onUploadStart' : function(){
+			jtown.loading.start();
+		},
 		'onUploadSuccess' : function(file, data, response){
 			jtown.seller.productImage(eval('('+data+')'));
 		},
 		'onQueueComplete' : function(){
-			setTimeout('location.reload();', 0);
+			setTimeout('jtown.loading.finish()', 1000);
+			setTimeout('location.reload();', 1000);
 		}
 	});
 	
@@ -556,7 +572,7 @@ jtown.seller.changeMainBgHeight = function(){
 
 jtown.seller.mainImage = function(file) {
 	var oldSrc = $('#jt-seller-main-image-area').attr('src'),
-		newSrc = contextPath+'resources/uploadImage/'+file.saveName,
+		newSrc = contextPath+'photo/thumbnail/'+file.saveName+'represent.'+file.type,
 		oldSrcObject = $('#jt-seller-main-image-area').attr('data-oldSrc');
 	$('#jt-seller-main-image-area').attr('src', newSrc).attr('data-imagePn', file.imagePn);
 	if(nullValueCheck(oldSrcObject)){
@@ -599,7 +615,7 @@ jtown.seller.productImage = function(file){
 		}
 		
 		var me = $('#jt-product-article-object-'+product.count);
-		me.children('img').attr('src', contextPath+'resources/uploadImage/'+product.saveName);
+		me.children('img').attr('src', contextPath+'photo/thumbnail/'+product.saveName+'product.'+file.type);
 		me.addClass('jt-product-article-object-img');
 		me.attr('data-ppn', product.pn);
 		
@@ -672,7 +688,7 @@ jtown.seller.syncEvent = function() {
 
 jtown.seller.firstEvent = function(file){
 	var oldSrc = $('#jt-seller-expand-event-first-img').attr('src'),
-		newSrc = contextPath+'resources/uploadImage/'+file.saveName,
+		newSrc = contextPath+'photo/thumbnail/'+file.saveName+'event.'+file.type,
 		oldSrcObject = $('#jt-seller-expand-event-first-img').attr('data-oldSrc');
 	
 	$('#jt-seller-expand-event-first-img').attr('src', newSrc).attr('data-imagePn', file.imagePn);
@@ -683,7 +699,7 @@ jtown.seller.firstEvent = function(file){
 
 jtown.seller.secondEvent = function(file){
 	var oldSrc = $('#jt-seller-expand-event-second-img').attr('src'),
-		newSrc = contextPath+'resources/uploadImage/'+file.saveName,
+		newSrc = contextPath+'photo/thumbnail/'+file.saveName+'event.'+file.type,
 		oldSrcObject = $('#jt-seller-expand-event-second-img').attr('data-oldSrc');
 
 	$('#jt-seller-expand-event-second-img').attr('src', newSrc).attr('data-imagePn', file.imagePn);
