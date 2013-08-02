@@ -89,6 +89,9 @@ var server = http.createServer().listen(serverPort);
  * 	8000 Socket.io 
  *************************/
 var io = socketio.listen(server);
+io.enable('browser client minification');  // send minified client
+io.enable('browser client etag');          // apply etag caching logic based on version number
+io.enable('browser client gzip');          // gzip the file
 io.set('log level', 2);
 io.sockets.on('connection', function(socket){
 	socket.log.info('Connection Socket');
