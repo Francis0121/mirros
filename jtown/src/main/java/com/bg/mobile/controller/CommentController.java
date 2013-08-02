@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bg.jtown.business.Comment;
+import com.bg.jtown.business.CommentAjax;
 import com.bg.jtown.business.Count;
 import com.bg.jtown.business.comment.CommentService;
 import com.bg.jtown.business.search.CommentFilter;
@@ -98,17 +99,19 @@ public class CommentController {
 
 	@RequestMapping(value = "/ajax/toggleCommentLove.jt", method = RequestMethod.POST)
 	@ResponseBody
-	public Comment ajaxInsertCommentLove(@RequestBody Comment comment,
+	public CommentAjax ajaxInsertCommentLove(@RequestBody Comment comment,
 			SummaryUser summaryUser) {
+		CommentAjax commentAjax = new CommentAjax();
 		if (summaryUser.getEnumAuthority().equals(Authority.CUSTOMER)) {
 			comment.setCustomerPn(summaryUser.getPn());
 			commentService.toggleCommentLove(comment);
+			commentAjax.setCrudType(comment.getCrudType());
 		} else if (summaryUser.getEnumAuthority().equals(Authority.NOT_LOGIN)) {
-			comment.setMessage("1");
+			commentAjax.setMessage("1");
 		} else {
-			comment.setMessage("2");
+			commentAjax.setMessage("2");
 		}
-		return comment;
+		return commentAjax;
 	}
 
 	@RequestMapping(value = "/ajax/warnCommentLove.jt", method = RequestMethod.POST)

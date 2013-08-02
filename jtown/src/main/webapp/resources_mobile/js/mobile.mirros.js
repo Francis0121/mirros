@@ -389,7 +389,8 @@ mobile.commentSync = function(){
 	$('.mm-mir-comment-text-footer-loveIt').unbind('click').bind('click', function(){
 		var thiz = $(this),
 			parents = thiz.parents('.mm-mir-comment-content-text'),
-			footer = thiz.parents('.mm-mir-footer');
+			footer = thiz.parents('.mm-mir-footer'),
+			commentPn = parents.attr('data-copn');;
 		
 		var url = mobileContextPath + '/home/ajax/toggleCommentLove.jt';
 		var json = {	commentPn	:	parents.attr('data-copn'),
@@ -410,10 +411,10 @@ mobile.commentSync = function(){
 			}else{
 				var crudType = comment.crudType;
 				if(crudType == 'insert'){
-					$('.comment-love-'+comment.commentPn+' .mm-mir-comment-text-footer-loveIt-count').after('<span class="mm-mir-comment-text-footer-loveIt-cancle">&nbsp;취소</a>');
+					$('.comment-love-'+commentPn+' .mm-mir-comment-text-footer-loveIt-count').after('<span class="mm-mir-comment-text-footer-loveIt-cancle">&nbsp;취소</a>');
 					commentLoveCancle();
 				}else if(crudType == 'delete'){
-					$('.comment-love-'+comment.commentPn).find('.mm-mir-comment-text-footer-loveIt-cancle').remove();
+					$('.comment-love-'+commentPn).find('.mm-mir-comment-text-footer-loveIt-cancle').remove();
 				}
 			}
 		});
@@ -423,10 +424,11 @@ mobile.commentSync = function(){
 		$('.mm-mir-comment-text-footer-loveIt-cancle').unbind('click').bind('click', function(){
 			var thiz = $(this),
 				parents = thiz.parents('.mm-mir-comment-content-text'),
-				footer = thiz.parents('.mm-mir-footer');
+				footer = thiz.parents('.mm-mir-footer'),
+				commentPn = parents.attr('data-copn');
 			
 			var url = mobileContextPath + '/home/ajax/toggleCommentLove.jt';
-			var json = {	commentPn	:	parents.attr('data-copn'),
+			var json = {	commentPn	:	commentPn,
 							sellerPn	:	footer.attr('data-spn') 		};
 			
 			$.postJSON(url, json, function(comment){
@@ -435,7 +437,7 @@ mobile.commentSync = function(){
 				}else{
 					var crudType = comment.crudType;
 					if(crudType == 'delete'){
-						$('.comment-love-'+comment.commentPn).find('.mm-mir-comment-text-footer-loveIt-cancle').remove();
+						$('.comment-love-'+commentPn).find('.mm-mir-comment-text-footer-loveIt-cancle').remove();
 					}
 				}
 			});

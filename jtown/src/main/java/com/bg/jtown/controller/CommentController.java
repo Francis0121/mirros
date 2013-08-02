@@ -6,6 +6,8 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bg.jtown.business.Comment;
+import com.bg.jtown.business.CommentAjax;
 import com.bg.jtown.business.Count;
 import com.bg.jtown.business.comment.CommentService;
 import com.bg.jtown.business.search.CommentFilter;
@@ -21,6 +24,11 @@ import com.bg.jtown.security.SummaryUser;
 
 @Controller
 public class CommentController {
+
+	// ~ static
+
+	private static Logger logger = LoggerFactory
+			.getLogger(CommentController.class);
 
 	@Resource
 	private CommentService commentService;
@@ -103,19 +111,22 @@ public class CommentController {
 
 	@RequestMapping(value = "/ajax/home/toggleCommentLove.jt", method = RequestMethod.POST)
 	@ResponseBody
-	public Comment ajaxInsertCommentLove(@RequestBody Comment comment,
+	public CommentAjax ajaxInsertCommentLove(@RequestBody Comment comment,
 			SummaryUser summaryUser) {
+		CommentAjax commentAjax = new CommentAjax();
 		if (summaryUser.getEnumAuthority().equals(Authority.CUSTOMER)) {
 			comment.setCustomerPn(summaryUser.getPn());
 			commentService.toggleCommentLove(comment);
+			commentAjax.setCrudType(comment.getCrudType());
 		} else if (summaryUser.getEnumAuthority().equals(Authority.NOT_LOGIN)) {
-			comment.setMessage("1");
+			commentAjax.setMessage("1");
 		} else {
-			comment.setMessage("2");
+			commentAjax.setMessage("2");
 		}
-		return comment;
+		logger.debug(commentAjax.toString());
+		return commentAjax;
 	}
-
+	
 	@RequestMapping(value = "/ajax/home/warnCommentLove.jt", method = RequestMethod.POST)
 	@ResponseBody
 	public Comment ajaxWarnCommentLove(@RequestBody Comment comment,
