@@ -137,6 +137,11 @@ Mirros의 탄탄한 운영을 위해 활용할 예정입니다.
 				</ul>
 			</li>
 		</ul>
-	</section>	
+	</section>
+	<img alt="bar" src="${cp }/resources/images/about/jt-about-bar.jpg" class="jt-about-bar">
+	<section class="jt-about-footer">
+		<header>&copy; 2013 Peoplegate. All rights reserved.</header>
+		<footer><a href="http://peoplegate.net">피플게이트 홈페이지로 이동</a></footer>
+	</section>
 </div>
 <%@ include file="../../layout/help_footer.jspf" %>

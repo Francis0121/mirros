@@ -17,9 +17,9 @@
 					<li>
 						<a href="${cp }/login/logout"><span>Log out</span></a>
 					</li>
-					<li>
+					<!-- <li>
 						<a href="${cp }/" id="mm-pc-version-btn"><span>PC Version</span></a>
-					</li>
+					</li> -->
 				</sec:authorize>
 				<sec:authorize access="anonymous">
 					<li class="mm-home-sub-nav-title">
@@ -31,9 +31,9 @@
 					<li>
 						<a href="${mcp }/login/join"><span>Sign In</span></a>
 					</li>
-					<li>
+					<!-- <li>
 						<a href="${cp }/" id="mm-pc-version-btn"><span>PC Version</span></a>
-					</li>
+					</li> -->
 					<li>
 						<a><span>&nbsp;</span></a>
 					</li>

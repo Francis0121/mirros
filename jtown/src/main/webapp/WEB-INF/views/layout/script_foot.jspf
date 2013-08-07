@@ -43,21 +43,21 @@
 </script>
 </c:if>
 
-<%-- Comming Soon Popup page ( Open시 삭제 ) --%>
+<%-- Coming Soon Popup page ( Open시 삭제 ) --%>
 <div id="temp" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #fff; opacity: 0.95; z-index: 9999; display: none;">
 	<div style="width: 990px; margin: auto;">
-		<img alt="Comming Soon. Open 8.15. Mirros." src="${cp }/resources/images/jt-open.png" style="width: 990px;">
+		<img alt="Coming Soon. Open 8.15. Mirros." src="${cp }/resources/images/jt-open.png" style="width: 990px;">
 	</div>
 </div>
 <script>
 /* <![CDATA[ */ 
-var commingSoon = $.cookie('commingSoon');
-if(nullValueCheck(commingSoon) || commingSoon != 'T'){
+var comingSoon = $.cookie('comingSoon');
+if(nullValueCheck(comingSoon) || comingSoon != 'T'){
 	$('#temp').fadeIn();
 	$('html').css('overflow-y', 'hidden');
 	$('#temp').bind('click', function(){
 		$(this).fadeOut();
-		$.cookie('commingSoon', 'T');
+		$.cookie('comingSoon', 'T');
 		$('html').css('overflow-y', 'scroll');
 	});
 }
