@@ -21,7 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
  * 
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "../spring-context.xml")
+@ContextConfiguration(locations = {"../spring-context.xml", "../mirros-email.xml", "../mirros-orm.xml", "../mirros-security.xml"})
 @Transactional
 @TransactionConfiguration(defaultRollback = true)
 public class UserSellerTest {

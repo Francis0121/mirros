@@ -10,8 +10,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.security.authentication.dao.SaltSource;
-import org.springframework.security.authentication.encoding.PasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
@@ -24,7 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
  * 
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "../spring-context.xml")
+@ContextConfiguration(locations = {"../spring-context.xml", "../mirros-email.xml", "../mirros-orm.xml", "../mirros-security.xml"})
 @Transactional
 @TransactionConfiguration(defaultRollback = true)
 public class UserCustomerTest {
@@ -37,10 +35,10 @@ public class UserCustomerTest {
 	private CustomJdbcUserDetailManager customJdbcUserDetailManager;
 	@Resource
 	private LoginService loginService;
-	@Resource
-	private PasswordEncoder passwordEncoder;
-	@Resource
-	private SaltSource saltSource;
+//	@Resource
+//	private PasswordEncoder passwordEncoder;
+//	@Resource
+//	private SaltSource saltSource;
 
 	// ~ Variable
 	private JtownUser jtownUser = new JtownUser();
@@ -61,6 +59,7 @@ public class UserCustomerTest {
 		jtownUser.setYear(1991);
 		jtownUser.setMonth(1);
 		jtownUser.setDay(1);
+		jtownUser.setPn(1);
 
 		jtownUser2.setName("User2");
 		jtownUser2.setUsername("user2@jtown.com");
@@ -115,6 +114,7 @@ public class UserCustomerTest {
 		int count = loginService.selectUsersCount();
 		assertThat(count, is(2));
 		jtownUser.setName("UpdateUser");
+		jtownUser.setConfirmEmail( null );
 		loginService.updateUserCustomer(jtownUser);
 
 		JtownUser customerUser = loginService.selectCustomer(jtownUser.getPn());

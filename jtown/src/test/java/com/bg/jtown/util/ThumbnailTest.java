@@ -1,14 +1,9 @@
 package com.bg.jtown.util;
 
-import static org.junit.Assert.*;
-
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-
-import javax.imageio.ImageIO;
 
 import net.coobird.thumbnailator.Thumbnails;
 
@@ -19,7 +14,7 @@ import org.slf4j.LoggerFactory;
 public class ThumbnailTest {
 
 	private static Logger logger = LoggerFactory.getLogger(ThumbnailTest.class);
-	private static String directory = "C:/Users/User2/Desktop/";
+	private static String directory = "/Users/hayoung/Desktop/";
 
 	@Test
 	public void test() {

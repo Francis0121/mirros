@@ -27,53 +27,12 @@
         class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations">
             <list>
-                <value>classpath:/com/bg/jtown/orm/DBSetting.properties</value>
-                <value>classpath:/com/bg/jtown/redis/RedisSetting.properties</value>
+                <value>classpath:/com/bg/jtown/properties/DBSetting.properties</value>
+                <value>classpath:/com/bg/jtown/properties/RedisSetting.properties</value>
             </list>
         </property>
     </bean>
 
-	<!-- dataSource Setting -->
-	<bean id="dataSource"  class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
-		<property name="driverClassName" 		value="${driverClassName}"/>
-		<property name="url" 					value="${url}" />
-		<property name="username" 				value="${username}"/>
-		<property name="password" 				value="${password}"/>
-		<property name="testOnBorrow" 			value="true" />
-        <property name="validationQuery" 		value="select 1" />
-        <property name="maxActive" 				value="10" />
-        <property name="maxWait" 				value="50000" />
-        <property name="initialSize" 			value="0" />        
-        <property name="poolPreparedStatements" value="true" />
-	</bean>
-
-	<!-- TransactionManager -->
-	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-		<property name="dataSource" ref="dataSource"/>
-	</bean>
-	
-	<aop:config>
-		<aop:advisor advice-ref="txAdvice" pointcut="bean(*ServiceImpl)"/>
-	</aop:config>
-	
-	<tx:advice id="txAdvice" transaction-manager="transactionManager">
-		<tx:attributes>
-			<tx:method name="select*" read-only="true" propagation="REQUIRED"/>
-			<tx:method name="*" propagation="REQUIRED"/>
-		</tx:attributes>
-	</tx:advice>
-	
- 	<!-- define the SqlSessionFactory -->
-    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-        <property name="dataSource" ref="dataSource" />
-        <property name="mapperLocations" value="classpath:/com/bg/jtown/orm/sql/*.xml" /> 	
-        <property name="configLocation" value="classpath:/com/bg/jtown/orm/mybatis-config.xml" /> 
-    </bean>
-    
-    <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
-    	<constructor-arg ref="sqlSessionFactory"/>
-    </bean>
-    
     <!-- Redis -->
     <bean id="connectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
 		<property name="hostName" value="${redis.serverIp}" />  
@@ -84,33 +43,6 @@
 	<bean id="publishTemplate" class="org.springframework.data.redis.core.StringRedisTemplate">
 		<property name="connectionFactory" ref="connectionFactory" />
 	</bean>
-	
-	<!-- Spring Security -->
-	<sec:global-method-security pre-post-annotations="enabled" />
-	
-	<!-- PasswordEncoder -->	
-	<bean class="org.springframework.security.authentication.encoding.ShaPasswordEncoder" id="passwordEncoder"/>
-	
-	<!-- PasswordEncoder에 Salt (비밀번호 보안을 위해 추가적인 작업)을 추가 -->
-	<bean class="org.springframework.security.authentication.dao.ReflectionSaltSource" id="saltSource">
-		<property name="userPropertyToUse" value="salt"/>
-	</bean>
-
-	<sec:http auto-config="true" use-expressions="true">
-		<sec:intercept-url pattern="/login/*" access="permitAll" requires-channel="any"/>
-		<sec:intercept-url pattern="/admin/*" access="hasRole('ROLE_ADMIN')" requires-channel="any" />
-		<sec:intercept-url pattern="/*" access="permitAll" requires-channel="any"/>
-		
-		<sec:form-login 
-			login-page=""
-			always-use-default-target="true"
-			authentication-failure-url=""
-			default-target-url="/process"/>
-			
-		<sec:logout logout-url="/login/logout"  />
-			
-		<sec:access-denied-handler error-page="/noPermission" />
-	</sec:http>
 	
 	<bean id="jdbcUserDetailsManager" class="com.bg.jtown.security.CustomJdbcUserDetailManager">
 		<property name="dataSource" ref="dataSource" />		
@@ -125,5 +57,7 @@
 			</sec:password-encoder>
 		</sec:authentication-provider>
 	</sec:authentication-manager>
+    
+    <bean id="httpServletRequest" class="org.springframework.mock.web.MockHttpServletRequest" />
     
 </beans>

@@ -20,19 +20,16 @@ import org.springframework.transaction.annotation.Transactional;
  * 
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "../spring-context.xml")
+@ContextConfiguration(locations = {"../spring-context.xml", "../mirros-email.xml", "../mirros-orm.xml", "../mirros-security.xml"})
 @Transactional
 @TransactionConfiguration(defaultRollback = true)
-public class UserAdminTest {
+public class UserAdminTest{
 
-	private static Logger logger = LoggerFactory
-			.getLogger(UserCustomerTest.class);
+	private static Logger logger = LoggerFactory.getLogger( UserCustomerTest.class );
 
 	// ~ Dynamic Injection
-	@Resource
-	private CustomJdbcUserDetailManager customJdbcUserDetailManager;
-	@Resource
-	private LoginService loginService;
+	@Resource private CustomJdbcUserDetailManager customJdbcUserDetailManager;
+	@Resource private LoginService loginService;
 
 	// ~ Variable
 	private JtownUser jtownUser = new JtownUser();
@@ -40,22 +37,27 @@ public class UserAdminTest {
 	// ~ Method
 
 	@Before
-	public void BEFORE_TEST() throws Exception {
+	public void BEFORE_TEST() throws Exception{
 		loginService.deleteUserAll();
 		int count = loginService.selectUsersCount();
-		assertThat(count, is(0));
+		assertThat( count, is( 0 ) );
 
-		jtownUser.setUsername("admin01");
-		jtownUser.setPassword("1q2w3e4r!");
+		jtownUser.setName("Admin");
+		jtownUser.setUsername( "admin01" );
+		jtownUser.setPassword( "1q2w3e4r!" );
+		jtownUser.setSex(true);
+		jtownUser.setYear(1990);
+		jtownUser.setMonth(4);
+		jtownUser.setDay(3);
+		jtownUser.setEmail( "admin01@mirros.net" );
 	}
 
 	@Test
-	public void 관리자_생성() throws Exception {
-		customJdbcUserDetailManager.createUserAdminAndAuthority(jtownUser);
+	public void 관리자_생성() throws Exception{
+		customJdbcUserDetailManager.createUserAdminAndAuthority( jtownUser );
 		int count = loginService.selectUsersCount();
-		assertThat(count, is(1));
-		JtownUser loadJtownUser = (JtownUser) customJdbcUserDetailManager
-				.loadUserByUsername(jtownUser.getUsername());
-		logger.debug(loadJtownUser.toString());
+		assertThat( count, is( 1 ) );
+		JtownUser loadJtownUser = (JtownUser)customJdbcUserDetailManager.loadUserByUsername( jtownUser.getUsername() );
+		logger.debug( loadJtownUser.toString() );
 	}
 }
