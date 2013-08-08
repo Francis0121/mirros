@@ -70,7 +70,7 @@ public class PostToWallAfterConnectInterceptor implements
 			Boolean facebookFeed = loginService.selectFacebookFeed(username);
 			if (facebookFeed != null && facebookFeed) {
 				String message = fp.getName()
-						+ "님이 미러스(Mirros) :: 쇼핑몰 타운을 방문하셨습니다.";
+						+ "님이 [미러스(Mirros) :: 여자가 예뻐지는 공간]을 방문하셨습니다.";
 				String sex = fp.getGender().equals("male") ? "2" : "1";
 				FacebookLink link = new FacebookLink(
 						"https://www.mirros.net/cpn/" + sex + "/spn/0",
