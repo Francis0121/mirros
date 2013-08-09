@@ -9,7 +9,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>MIRROS :: 여자가 예뻐지는 공간</title>
+<title>Mirros :: 여자가 예뻐지는 공간</title>
 <%@ include file="script_head.jspf" %>
 <%@ include file="style.jspf"%>
 <sec:authorize access="hasRole('ROLE_USER') and !principal.confirmEmail">

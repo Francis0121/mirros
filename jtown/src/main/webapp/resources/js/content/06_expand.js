@@ -27,10 +27,9 @@ jtown.expand.loadExpandShop = function(){
 };
 
 jtown.expand.makeInnerHtml = function(spn){
-	
 	var url = contextPath + 'ajax/home/expandShop.jt',
 		json = { 'pn' : spn };
-
+	
 	$.postJSON(url, json, function(selectMap){
 		var html ='';
 		var event1 = selectMap.event1, 
@@ -45,6 +44,12 @@ jtown.expand.makeInnerHtml = function(spn){
 			best = false,
 			loveHave = selectMap.loveHave;
 		
+		var userName = htmlChars(jtownUser.name);
+		ga('send', 'pageview', {
+			  'page': '/ajax/home/expandShop.jt?pn=' + spn,
+			  'title': userName
+			});
+
 		var productSize = Number(products.length);
 		var bigProductHtml = '';
 		var smallProductHtml = '';
@@ -62,7 +67,7 @@ jtown.expand.makeInnerHtml = function(spn){
 				image = contextPath + 'resources/uploadImage/'+product.saveName;
 			}
 			bigProductHtml += '	<li class="jt-home-expand-shop-expandProduct">';
-			bigProductHtml += '		<a href="'+ ( nullValueCheck(product.url) ? jtownUser.shopUrl : product.url  )+'" target="_blank" onclick="jtown.home.goHome('+spn+');"><img alt="상품" src="'+image+'"/></a>';
+			bigProductHtml += '		<a href="'+ ( nullValueCheck(product.url) ? jtownUser.shopUrl : product.url  )+'" target="_blank" onclick="jtown.home.clickProduct('+spn+',\''+userName+': '+product.name+'\');"><img alt="상품" src="'+image+'"/></a>';
 			bigProductHtml += '		<div class="jt-product-article-object-wrap jt-product-article-object-expand">';
 			bigProductHtml += '			'+detailProduct;
 			bigProductHtml += '		</div>';
@@ -230,10 +235,10 @@ jtown.expand.makeInnerHtml = function(spn){
 		
 		html += '<header class="jt-home-expand-click-shop-header">';
 		html += '	<div>';
-		html += '		<a href="'+jtownUser.shopUrl+'" target="_blank" onclick="jtown.home.goHome(\''+spn+'\');" title="클릭시 해당 쇼핑몰로 이동됩니다.">'+htmlChars(jtownUser.name)+'</a>';
+		html += '		<a href="'+jtownUser.shopUrl+'" target="_blank" onclick="jtown.home.goHome(\''+spn+'\');" title="클릭시 해당 쇼핑몰로 이동됩니다.">'+userName+'</a>';
 		html += '	</div>';	
 		html += '</header>';
-		html += '<div class="jt-home-expand-shop jt-home-expand-click-shop" id="jt-home-expand-shop" data-name="'+htmlChars(jtownUser.name)+'" data-size="'+productSize+'" data-nowPosition="'+productSize+'" data-spn="'+jtownUser.pn+'" data-url="'+jtownUser.shopUrl+'">';
+		html += '<div class="jt-home-expand-shop jt-home-expand-click-shop" id="jt-home-expand-shop" data-name="'+userName+'" data-size="'+productSize+'" data-nowPosition="'+productSize+'" data-spn="'+jtownUser.pn+'" data-url="'+jtownUser.shopUrl+'">';
 		html += '	<div id="jt-home-expand-shop-notice" class="gotoPage" title="클릭시 해당 쇼핑몰로 이동됩니다.">';
 		html += '		<span class="jt-home-expand-shop-firstQuotationMark"></span>';
 		html += '		<pre id="jt-seller-expand-shop-text" class="jt-home-expand-shop-text">'+ ( nullValueCheck(jtownUser.longNotice) ? "쇼핑몰의 홍보문구를 입력해주세요." : jtownUser.longNotice ) +'</pre>';

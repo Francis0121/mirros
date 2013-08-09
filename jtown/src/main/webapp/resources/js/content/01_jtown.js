@@ -311,6 +311,11 @@ jtown.home.masonry = {
 	}
 };
 
+jtown.home.clickProduct = function(spn,label) {
+	ga('send', 'event', 'product', 'click', label);
+	jtown.home.goHome(spn);
+};
+
 jtown.home.clickShop = function(spn) {
 	$.postJSON(contextPath + 'ajax/clickView.jt', { sellerPn : spn }, function(){} );
 };
