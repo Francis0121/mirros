@@ -25,7 +25,6 @@ import com.bg.jtown.business.Json;
 import com.bg.jtown.business.Partnership;
 import com.bg.jtown.business.Question;
 import com.bg.jtown.business.admin.AdminService;
-import com.bg.jtown.business.file.FileService;
 import com.bg.jtown.business.help.HelpService;
 import com.bg.jtown.business.search.AdminCommentFilter;
 import com.bg.jtown.business.search.AdministratorFilter;
@@ -71,8 +70,8 @@ public class AdminController {
 	private SigninAdminVaildatorImpl siginAdminVaildatorImpl;
 	@Resource(name = "messageSource")
 	private DelegatingMessageSource messageSource;
-	@Resource
-	private FileService fileService;
+//	@Resource
+//	private FileService fileService;
 
 	// ~ SHOW
 

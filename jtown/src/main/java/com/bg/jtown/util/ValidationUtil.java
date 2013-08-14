@@ -10,11 +10,7 @@ import java.util.regex.Pattern;
 public class ValidationUtil {
 
 	public static boolean checkNullAndBlank(String target) {
-		if (target == null || "".equals(target.trim())) {
-			return true;
-		} else {
-			return false;
-		}
+		return target == null || "".equals(target.trim());
 	}
 
 	public static boolean emailFormCheck(String username) {
@@ -27,29 +23,16 @@ public class ValidationUtil {
 	}
 
 	public static boolean homepageFormCheck(String homepage) {
-		String regex = "^http://.*$";
+		String regex = "^https?://.*$";
 
 		Pattern pattern = Pattern.compile(regex);
 		Matcher matcher = pattern.matcher(homepage);
 
-		boolean http = matcher.matches();
-
-		regex = "^https://.*$";
-
-		pattern = Pattern.compile(regex);
-		matcher = pattern.matcher(homepage);
-
-		boolean https = matcher.matches();
-		
-		if (http || https) {
-			return true;
-		} else {
-			return false;
-		}
+		return matcher.matches();
 	}
 
 	public static boolean onlyNumber(String number) {
-		String regex = "^[0-9]*$";
+		String regex = "^\\d*$";
 
 		Pattern pattern = Pattern.compile(regex);
 		Matcher matcher = pattern.matcher(number);
@@ -88,20 +71,12 @@ public class ValidationUtil {
 
 	public static boolean lengthCheck(String str, int start, int end) {
 		int length = str.length();
-
-		if (length > start && length <= end) {
-			return true;
-		} else {
-			return false;
-		}
+		return length > start && length <= end;
 	}
 
 	public static boolean confirmPassword(String password,
 			String confirmPassword) {
-		if (password.equals(confirmPassword))
-			return false;
-		else
-			return true;
+		return !password.equals(confirmPassword);
 	}
 
 }
