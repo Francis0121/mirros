@@ -115,7 +115,7 @@ word-wrap: break-word; }
 
 .jt-home-expand-shop-expandProducts{ float: left; width: 620px !important; padding: 0 0; border-bottom: 1px solid #d1cdcd;}
 .jt-home-expand-shop-expandProducts>li{ float: left;  }
-.jt-home-expand-shop-arrow{ width: 55px; height: 200px; float: left; background: transparent; border: 0;}
+.jt-home-expand-shop-arrow{ width: 45px; height: 200px; float: left; background: transparent; border: 0;}
 .jt-home-expand-shop-arrow>span{ margin-left : 10px; cursor: pointer; }
 .jt-home-expand-shop-leftArrow{}
 .jt-home-expand-shop-leftArrow>span{ width: 20px; height: 53px;  background: url("../images/jt-home-icon.png") -88px 0 ; display: block; text-indent: -9999px;}
@@ -123,7 +123,7 @@ word-wrap: break-word; }
 .jt-home-expand-shop-rigthArrow{}
 .jt-home-expand-shop-rigthArrow>span{ width: 20px; height: 53px; background: url("../images/jt-home-icon.png") -130px 0; display: block; text-indent: -9999px;}
 .jt-home-expand-shop-rigthArrow>span:HOVER{background-position: -151px 0;}
-.jt-home-expand-shop-fake-dan{ float: left; min-width: 510px; max-width: 510px; min-height: 200px; max-width: 510px; overflow: hidden; cursor: pointer; height: 200px;}
+.jt-home-expand-shop-fake-dan{ float: left; min-width: 530px; max-width: 530px; min-height: 230px; overflow: hidden; cursor: pointer; height: 230px;}
 .jt-home-expand-shop-products{ width : 100%; min-height: 80px; float: left; border-top: 1px solid #d1cdcd; padding : 10px 15px;
 	box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box; -moz-box-sizing : border-box; -webkit-box-sizing : border-box;
 }
@@ -135,8 +135,8 @@ word-wrap: break-word; }
 	box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box; -moz-box-sizing : border-box; -webkit-box-sizing : border-box;
 }
 .jt-home-expand-shop-tag>.tag-image{float:right; text-indent: -99999px; background: url("../images/jt-shop-tag.png"); width: 35px; height: 16px; text-align: left; margin-right: 5px; }
-.jt-home-expand-shop-expandProduct{ width: 140px; padding: 20px 15px 30px 15px; margin-top:10px; float:left; position: relative;background: transparent;}
-.jt-home-expand-shop-expandProduct img{ width: 140px; height: 140px; padding: 0px; float:left;}
+.jt-home-expand-shop-expandProduct{ width: 170px; padding: 20px 5px 30px 5px; margin-top:10px; float:left; position: relative;background: transparent;}
+.jt-home-expand-shop-expandProduct img{ width: 170px; height: 170px; padding: 0px; float:left;}
 
 #jt-home-expand-shop-notice{ float: left; border-bottom: 1px solid #d1cdcd; width: 100%; cursor: pointer;}
 .jt-home-expand-shop-firstQuotationMark{ float: left; width: 15px; height:15px; 

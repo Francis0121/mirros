@@ -239,7 +239,7 @@ jtown.expand.makeInnerHtml = function(spn){
 		html += '	</div>';	
 		html += '</header>';
 		html += '<div class="jt-home-expand-shop jt-home-expand-click-shop" id="jt-home-expand-shop" data-name="'+userName+'" data-size="'+productSize+'" data-nowPosition="'+productSize+'" data-spn="'+jtownUser.pn+'" data-url="'+jtownUser.shopUrl+'">';
-		html += '	<div id="jt-home-expand-shop-notice" class="gotoPage" title="클릭시 해당 쇼핑몰로 이동됩니다.">';
+		html += '	<div id="jt-home-expand-shop-notice" title="클릭시 해당 쇼핑몰로 이동됩니다.">';
 		html += '		<span class="jt-home-expand-shop-firstQuotationMark"></span>';
 		html += '		<pre id="jt-seller-expand-shop-text" class="jt-home-expand-shop-text">'+ ( nullValueCheck(jtownUser.longNotice) ? "쇼핑몰의 홍보문구를 입력해주세요." : jtownUser.longNotice ) +'</pre>';
 		html += '		<span class="jt-home-expand-shop-lastQuotationMark"></span>';				
@@ -265,14 +265,14 @@ jtown.expand.makeInnerHtml = function(spn){
 		html += '			'+tagHtml;
 		html += '		</div>';
 		html += '	</div>';
-		html += '	<div class="jt-home-expand-shop-event gotoPage" id="jt-seller-expand-event-first" title="클릭시 해당 쇼핑몰로 이동됩니다.">';
+		html += '	<div class="jt-home-expand-shop-event" id="jt-seller-expand-event-first" title="클릭시 해당 쇼핑몰로 이동됩니다.">';
 		html += '		'+ ( (jtownUser.bannerFirst != null && Number(jtownUser.bannerFirst) < 3 ) ? newEventHtml : '');
 		html += '		<img alt="First Event" src="'+eventImage1 +'"/>';
 		html += '	</div>';
-		html += '	<div class="jt-home-expand-shop-event gotoPage" id="jt-seller-expand-event-second" title="클릭시 해당 쇼핑몰로 이동됩니다.">';
+		html += '	<div class="jt-home-expand-shop-event" id="jt-seller-expand-event-second" title="클릭시 해당 쇼핑몰로 이동됩니다.">';
 		html += '		'+ ( (jtownUser.bannerSecond != null && Number(jtownUser.bannerSecond) < 3 )? newEventHtml : '');
 		html +=	'		<img alt="Second Event" src="'+eventImage2 +'"/>';
-		html +=	'	</div>';	
+		html +=	'	</div>';
 		html += '	<ul class="jt-home-expand-shop-content-fn">';
 		html +=	'		<li class="jt-home-expand-shop-content-view-wrap">';
 		html +=	'			<span class="jt-home-expand-shop-content-view" title="최근 일주일간 방문수">Look</span>&nbsp;<span id="view-expand-'+spn+'">'+jtownUser.viewCount+'</span>';	
@@ -337,15 +337,22 @@ jtown.expand.setTimeout = function(){
 };
 
 jtown.expand.gotoPage = function(){
-	
-	$('.gotoPage').unbind('click').bind('click', function(){
-		var parent = $(this).parents('.jt-home-expand-shop');
-		var spn = parent.attr('data-spn');
-		var url = parent.attr('data-url');
+	$('.jt-home-expand-click-shop').each(function(){
+		var parent = $(this);
+		var label = parent.attr('data-name');
+		var gotoPage = function(){
+			var spn = parent.attr('data-spn');
+			var url = parent.attr('data-url');
 
-		var open = window.open('about:blank');
-		open.location.href = url;
-		jtown.home.goHome(spn);
+			var open = window.open('about:blank');
+			open.location.href = url;
+			jtown.home.goHome(spn);
+		};
+		parent.children('#jt-home-expand-shop-notice').unbind('click').bind('click', gotoPage);
+		parent.children('.jt-home-expand-shop-event').unbind('click').bind('click', function(){
+			ga('send', 'event', 'event', 'click', label);
+			gotoPage();
+		});
 	});
 };
 
