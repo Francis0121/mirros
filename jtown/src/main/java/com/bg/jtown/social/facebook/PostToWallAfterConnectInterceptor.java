@@ -48,45 +48,45 @@ import com.bg.jtown.security.LoginService;
  * 
  */
 public class PostToWallAfterConnectInterceptor implements
-		ConnectInterceptor<Facebook> {
+	ConnectInterceptor<Facebook> {
 
-	@Resource
-	private LoginService loginService;
+    @Resource
+    private LoginService loginService;
 
-	private static final Logger logger = LoggerFactory
-			.getLogger(PostToWallAfterConnectInterceptor.class);
+    private static final Logger logger = LoggerFactory
+	    .getLogger(PostToWallAfterConnectInterceptor.class);
 
-	public void preConnect(ConnectionFactory<Facebook> connectionFactory,
-			MultiValueMap<String, String> parameters, WebRequest request) {
+    public void preConnect(ConnectionFactory<Facebook> connectionFactory,
+	    MultiValueMap<String, String> parameters, WebRequest request) {
+    }
+
+    public void postConnect(Connection<Facebook> connection, WebRequest request) {
+
+	try {
+	    Facebook facebook = connection.getApi();
+	    FacebookProfile fp = facebook.userOperations().getUserProfile();
+
+	    String username = fp.getEmail();
+	    Boolean facebookFeed = loginService.selectFacebookFeed(username);
+	    if (facebookFeed != null && facebookFeed) {
+		String message = fp.getName()
+			+ "님이 미러스(Mirros) :: 여자가 예뻐지는 공간을 방문하셨습니다.";
+		// String sex = fp.getGender().equals("male") ? "2" : "1";
+		FacebookLink link = new FacebookLink("https://www.mirros.net",
+			"미러스 :: 여자가 예뻐지는 공간", "",
+			"여자를 위한 쇼핑몰들이 모여있습니다.\n더 쉽고 간편하게, 당신과 어울리는 쇼핑몰을 즐겨보세요!");
+
+		facebook.feedOperations().postLink(message, link);
+	    }
+	} catch (OperationNotPermittedException e) {
+	    Facebook facebook = connection.getApi();
+	    FacebookProfile fp = facebook.userOperations().getUserProfile();
+	    String username = fp.getEmail();
+	    JtownUser jtownUser = new JtownUser();
+	    jtownUser.setUsername(username);
+	    loginService.updateFacebookFeed(jtownUser);
+	} catch (ApiException e) {
+	    logger.debug("PostConnect Catch");
 	}
-
-	public void postConnect(Connection<Facebook> connection, WebRequest request) {
-
-		try {
-			Facebook facebook = connection.getApi();
-			FacebookProfile fp = facebook.userOperations().getUserProfile();
-
-			String username = fp.getEmail();
-			Boolean facebookFeed = loginService.selectFacebookFeed(username);
-			if (facebookFeed != null && facebookFeed) {
-				String message = fp.getName()
-						+ "님이 [미러스(Mirros) :: 여자가 예뻐지는 공간]을 방문하셨습니다.";
-				String sex = fp.getGender().equals("male") ? "2" : "1";
-				FacebookLink link = new FacebookLink(
-						"https://www.mirros.net/cpn/" + sex + "/spn/0",
-						"가장 특별한 쇼핑몰들이 모여있다.", "",
-						"더 쉽고 간편하게, 당신하게 맞는 쇼핑몰들을 체험하세요.");
-				facebook.feedOperations().postLink(message, link);
-			}
-		} catch (OperationNotPermittedException e) {
-			Facebook facebook = connection.getApi();
-			FacebookProfile fp = facebook.userOperations().getUserProfile();
-			String username = fp.getEmail();
-			JtownUser jtownUser = new JtownUser();
-			jtownUser.setUsername(username);
-			loginService.updateFacebookFeed(jtownUser);
-		} catch (ApiException e) {
-			logger.debug("PostConnect Catch");
-		}
-	}
+    }
 }
