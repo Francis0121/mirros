@@ -133,16 +133,16 @@ jtown.expand.makeInnerHtml = function(spn){
 				if(nullValueCheck(comment.warnCustomerPn)){
 					warnComment = '&nbsp;<span href="#none" class="jt-warn-active" title="신고">WARN</span>';
 				}else{
-						warnComment = '&nbsp;<span href="#none" class="jt-warn-disactive" title="신고">WARN</span>';
+					warnComment = '&nbsp;<span href="#none" class="jt-warn-disactive" title="신고">WARN</span>';
 				}
 			}
 			
 			commentHtml += 	'<li data-copn="'+comment.commentPn+'" class="'+(best ? 'jt-home-expand-shop-comment-li-best' : 'jt-home-expand-shop-comment-li')+'">';
 			commentHtml +=	'	<ul class="jt-home-expand-shop-text-wrap">';
 			if(best){
-			commentHtml += 	'		<li class="jt-home-expand-shop-comment-header">';
-			commentHtml += 	'			<span class="jt-home-expand-shop-comment-best">BEST</span>';	
-			commentHtml += 	'		</li>';	
+				commentHtml += 	'		<li class="jt-home-expand-shop-comment-header">';
+				commentHtml += 	'			<span class="jt-home-expand-shop-comment-best">BEST</span>';
+				commentHtml += 	'		</li>';
 			}
 			commentHtml += 	'		<li class="jt-home-expand-shop-comment-content">';
 			commentHtml += 	'			<span class="jt-home-expand-shop-comment-name">'+htmlChars(comment.customerName)+'</span>';
@@ -155,7 +155,7 @@ jtown.expand.makeInnerHtml = function(spn){
 			commentHtml +=	'			'+warnComment;
 			commentHtml += 	'		</li>';
 			commentHtml	+= 	'	</ul>';
-			if(comment.customerPn == cpn){
+			if(comment.customerPn == cpn || cpn == 'admin'){
 				commentHtml +=	'<div class="jt-home-expand-shop-update-wrap">';
 				commentHtml +=	'	<input type="text" class="jt-comment-update-input" value="'+htmlChars(comment.comment)+'" maxlength="100"><br/>';
 				commentHtml += 	'	<span>esc를 누르시면 수정이 취소 됩니다.</span>';
@@ -220,17 +220,17 @@ jtown.expand.makeInnerHtml = function(spn){
 		}
 		var tagHtml = '<div style="padding-bottom: 15px; float:left; width: 100%;"></div>';
 		if(interests.length > 0){
-		tagHtml += '<div class="jt-home-expand-shop-tag">';	
-		tagHtml += '<span class="tag-txt">';
-		for(var i = 0, iLength = interests.length ; i < iLength ; i++){
-			var interest = interests[i];
-			tagHtml += interest.name;
-			if((i+1) != iLength){
-				tagHtml += ',&nbsp;';
+			tagHtml += '<div class="jt-home-expand-shop-tag">';	
+			tagHtml += '<span class="tag-txt">';
+			for(var i = 0, iLength = interests.length ; i < iLength ; i++){
+				var interest = interests[i];
+				tagHtml += interest.name;
+				if((i+1) != iLength){
+					tagHtml += ',&nbsp;';
+				}
 			}
-		}
-		tagHtml +='</span><span class="tag-image">Tag</span>';
-		tagHtml +='</div>';
+			tagHtml +='</span><span class="tag-image">Tag</span>';
+			tagHtml +='</div>';
 		}
 		
 		html += '<header class="jt-home-expand-click-shop-header">';

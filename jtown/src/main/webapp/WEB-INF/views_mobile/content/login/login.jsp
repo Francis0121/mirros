@@ -37,14 +37,14 @@
 				<form action="${cp }/signin/facebook" method="POST">
 					<input type="hidden" name="scope" value="publish_stream,offline_access,email,user_birthday,user_likes" />
 			    	<button class="mm-btn-fbLogin" type="submit"><span class="loginImage"></span><span class="loginBar"></span><span>페이스북으로&nbsp;로그인</span></button>
-				</form>							
+				</form>
 			</li>
 			<li>
 				<button class="mm-btn-orange mm-btn-emailLogin" onclick="location.href='${mcp }/login/join'" type="button"><span class="loginImage"></span><span class="loginBar"></span><span>이메일로&nbsp;간편&nbsp;가입</span></button>
 			</li>
 		</ul>
 		<div class="mm-login-message-box">
-			<h1>Weclode to Mirros</h1>
+			<h1>Weclome to Mirros</h1>
 		
 			<p>
 				Mirros에서 더 쉽고 간편하게<br/>
@@ -57,8 +57,8 @@
 				로그인에 실패하였습니다.<br/>
 				<c:out value="${message }"/>
 			</c:if>
-	    </div>	
-</sec:authorize>	
+	    </div>
+</sec:authorize>
 <sec:authorize access="hasRole('ROLE_USER')">
 <script>
 	location.href= mobileContextPath + '/';
