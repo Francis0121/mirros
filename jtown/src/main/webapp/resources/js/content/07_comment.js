@@ -170,7 +170,7 @@ jtown.comment.syncComment = function(){
 		var commentPn = parents.attr('data-copn');
 		
 		var url = contextPath + 'ajax/home/warnCommentLove.jt';
-		var json = {	commentPn	:	commentPn 	};
+		var json = {commentPn: commentPn};
 		
 		$.postJSON(url, json, function(comment){
 			if(!nullValueCheck(comment.message)){
@@ -191,7 +191,7 @@ jtown.comment.home = function(){
 		
 		if(isSplit == 'true'){
 			
-			$.postJSON(contextPath + 'ajax/home/selectCommentOne.jt', { commentPn : copn }, function(comment){
+			$.postJSON(contextPath + 'ajax/home/selectCommentOne.jt', {commentPn : copn}, function(comment){
 				var html = '<div class="jt-more-comment-wrap">'+comment.comment+'</div>';
 				thiz.after(html);
 				

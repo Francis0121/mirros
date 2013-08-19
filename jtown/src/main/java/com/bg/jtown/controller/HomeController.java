@@ -206,16 +206,24 @@ public class HomeController {
 
 		Map<String, Object> selectMap = homeService.selectExpandShop(sellerPn);
 
-		if (summaryUser.getEnumAuthority().equals(Authority.CUSTOMER)) {
+		logger.debug( "summaryUser.getEnumAuthority() " + summaryUser.getEnumAuthority() );
+		switch(summaryUser.getEnumAuthority()){
+		case ADMIN:
+		case ROOT_ADMIN:
+			selectMap.put("cpn", "admin");
+			break;
+		case CUSTOMER:
 			selectMap.put("cpn", customerPn);
 			if (customerPn != null && customerPn != 0) {
 				int count = homeService.selectLoveCount(new Count(null,
 						customerPn, null, null, sellerPn, null));
 				selectMap.put("loveHave", count);
 			}
-		} else if (summaryUser.getEnumAuthority().equals(Authority.NOT_LOGIN)) {
+			break;
+		case NOT_LOGIN:
 			selectMap.put("cpn", null);
-		} else {
+			break;
+		default:
 			selectMap.put("cpn", 0);
 		}
 

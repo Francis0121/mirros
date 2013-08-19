@@ -181,7 +181,8 @@ public class StringUtil {
 	}
 
 	public static boolean isSplit(String str, int length) {
-		return !(str.getBytes().length < length);
+		if(str == null) return false;
+		return str.getBytes().length > length;
 	}
 
 	/**
