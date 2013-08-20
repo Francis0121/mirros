@@ -52,7 +52,8 @@
 				<c:set var="url" value="${cp }/admin/comment"/>
 				<li><a href="${url}" class="<c:out value="${url eq rp ? 'jt-menu-hover' : '' }"/>">Comment</a></li>
 				<li>
-					<a href="${cp }/admin/questions">Question</a>
+					<c:set var="url" value="${cp }/admin/questions"/>
+					<a href="${url}" class="<c:out value="${url eq rp ? 'jt-menu-hover' : '' }"/>">Question</a>
 				</li>
 			</ul>
 		</nav>

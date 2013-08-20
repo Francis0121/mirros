@@ -19,19 +19,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.bg.jtown.business.Contract;
-import com.bg.jtown.business.Interest;
-import com.bg.jtown.business.Json;
-import com.bg.jtown.business.Partnership;
-import com.bg.jtown.business.Question;
+import com.bg.jtown.business.*;
 import com.bg.jtown.business.admin.AdminService;
 import com.bg.jtown.business.help.HelpService;
-import com.bg.jtown.business.search.AdminCommentFilter;
-import com.bg.jtown.business.search.AdministratorFilter;
-import com.bg.jtown.business.search.ContractFilter;
-import com.bg.jtown.business.search.PartnershipFilter;
-import com.bg.jtown.business.search.QuestionFilter;
-import com.bg.jtown.business.search.UserFilter;
+import com.bg.jtown.business.home.HomeService;
+import com.bg.jtown.business.search.*;
 import com.bg.jtown.business.seller.ContractService;
 import com.bg.jtown.controller.validator.SigninAdminVaildatorImpl;
 import com.bg.jtown.security.Authority;
@@ -65,6 +57,8 @@ public class AdminController {
 	@Resource
 	private HelpService helpService;
 	@Resource
+	private HomeService homeService;
+	@Resource
 	private ContractService contractService;
 	@Resource
 	private SigninAdminVaildatorImpl siginAdminVaildatorImpl;
@@ -76,7 +70,14 @@ public class AdminController {
 	// ~ SHOW
 
 	@RequestMapping(method = RequestMethod.GET)
-	public String showAdmin(Model model) {
+	public String showAdmin(Model model,
+			@ModelAttribute PartnershipFilter partnershipFilter,
+			SummaryUser summaryUser) {
+		HomeFilter homeFilter = new HomeFilter();
+		homeFilter.getPagination().setNumItemsPerPage( Integer.MAX_VALUE );
+		List<JtownUser> partnerships = homeService.selectSeller( homeFilter );
+		model.addAttribute("partnerships", partnerships);
+		
 		return prefixView + "main";
 	}
 
@@ -231,6 +232,14 @@ public class AdminController {
 
 	// ~ Ajax
 
+	@RequestMapping(value = "/ajax/insertViewCount.jt", method = RequestMethod.POST)
+	@ResponseBody
+	public Count ajaxInsertViewCount(
+			@RequestBody Count count) {
+		homeService.insertViewCount( count );
+		return count;
+	}
+	
 	@RequestMapping(value = "/ajax/selectPartnershipCategory.jt", method = RequestMethod.POST)
 	@ResponseBody
 	public Integer ajaxSelectPartnershipCategory(
