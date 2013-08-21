@@ -47,8 +47,8 @@
 					<th>성별</th>
 					<td>
 						<form:select path="sex" cssClass="jt-join-user-select" cssErrorClass="jt-join-user-select-error">
-							<form:option value="true">남자</form:option>
 							<form:option value="false">여자</form:option>
+							<form:option value="true">남자</form:option>
 						</form:select>
 					</td>
 				</tr>

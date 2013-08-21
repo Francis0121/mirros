@@ -177,14 +177,15 @@ public class HomeServiceImpl extends SqlSessionDaoSupport implements
 
 	@Override
 	public void insertViewCount(Count count) {
+		if( count.getCount() == null ) count.setCount( 1 );
+		
 		Integer sellerPn = count.getSellerPn();
-
 		Integer dayCount = selectStaisticView(sellerPn);
 		if (dayCount == null || dayCount == 0) {
-			insertStaisticView(sellerPn);
+			getSqlSession().insert("homeMapper.insertStatisticView", count);
 		} else {
-			count.setCount(dayCount + 1);
-			updateStaisticView(count);
+			count.setCount(dayCount + count.getCount());
+			getSqlSession().update("homeMapper.updateStatisticView", count);
 		}
 
 		Integer sevenDayCount = selectSevenDayStatisticView(sellerPn);
@@ -210,14 +211,6 @@ public class HomeServiceImpl extends SqlSessionDaoSupport implements
 	private Integer selectStaisticView(Integer sellerPn) {
 		return getSqlSession().selectOne("homeMapper.selectStatisticView",
 				sellerPn);
-	}
-
-	private void insertStaisticView(Integer sellerPn) {
-		getSqlSession().insert("homeMapper.insertStatisticView", sellerPn);
-	}
-
-	private void updateStaisticView(Count count) {
-		getSqlSession().update("homeMapper.updateStatisticView", count);
 	}
 
 	@Override

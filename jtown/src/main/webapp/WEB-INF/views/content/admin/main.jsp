@@ -1,7 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file="../../layout/admin_header.jspf" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ include file="../../layout/admin_header.jspf"%>
 <style>
-.jt-admin-view-count{width: 40px;}
+.jt-admin-view-count-form input {
+	width: 40px;
+}
 </style>
 <h1>조회수 현황</h1>
 <table class="jt-admin-base-table">
@@ -19,24 +22,31 @@
 			<tr>
 				<td>${partnership.pn}</td>
 				<td>${partnership.name}</td>
-				<td><a class="jt-admin-view-count" href="#">${partnership.viewCount}</a></td>
+				<c:set var="viewCount" value="${partnership.viewCount eq null? 0 : partnership.viewCount}" />
+				<td>
+					<form class="jt-admin-view-count-form">
+						<label>${viewCount}</label>
+						<input name="sellerPn" type="hidden" value="${partnership.pn}" />
+						<input name="count" type="number" />
+						<input type="submit" value="+" />
+					</form>
+				</td>
 				<td>${partnership.commentCount}</td>
 				<td>${partnership.loveCount}</td>
 			</tr>
 		</c:forEach>
 	</tfoot>
 </table>
-<%@ include file="../../layout/admin_footer.jspf" %>
+<%@ include file="../../layout/admin_footer.jspf"%>
 
 <script>
-	$(".jt-admin-view-count").click(function(){
-		var viewCount = $(this);
-		var sellerPn = viewCount.parents("tr").children("td:first").text();
-		console.log("sellerPn: " + sellerPn);
-		$.postJSON('${cp }/admin/ajax/insertViewCount.jt', {sellerPn: sellerPn}, function(count){
-			console.log("count: " + count.count);
-			viewCount.text(count.count);
+	$(".jt-admin-view-count-form").submit(function() {
+		var form = this;
+		var data = {count: form.count.value, sellerPn: form.sellerPn.value};
+		$.postJSON("${cp }/admin/ajax/insertViewCount.jt", data, function(count) {
+			form.count.value = "";
+			$(form).children("label").text(count.count);
 		});
-		return true;
+		return false;
 	});
 </script>

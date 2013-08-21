@@ -71,8 +71,8 @@
 				<td>
 					<form:select path="sex" cssClass="mm-join-user-select" cssErrorClass="mm-join-user-select-error">
 						<form:option value="">성별을 선택하세요</form:option>
-						<form:option value="true">남자</form:option>
 						<form:option value="false">여자</form:option>
+						<form:option value="true">남자</form:option>
 					</form:select>
 					<div class="mm-join-user-error">
 						<form:errors path="sex" cssClass="commonError"></form:errors>

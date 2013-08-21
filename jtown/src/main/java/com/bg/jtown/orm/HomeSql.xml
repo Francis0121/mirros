@@ -339,12 +339,12 @@
 			count_date = DATE_FORMAT(SYSDATE(), '%Y-%m-%d')
 	</select>
 	
-	<insert id="insertStatisticView" parameterType="Integer">
+	<insert id="insertStatisticView" parameterType="Count">
 		INSERT INTO
 			statistic_view
 			(	seller_pn, count_date, day_count)
 		VALUES
-			(	#{sellerPn}, SYSDATE(), 1)
+			(	#{sellerPn}, SYSDATE(), #{count})
 	</insert>
 	
 	<update id="updateStatisticView" parameterType="Count">
