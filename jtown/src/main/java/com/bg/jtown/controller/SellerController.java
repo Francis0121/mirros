@@ -215,7 +215,7 @@ public class SellerController {
 		if (authority.equals(Authority.SELLER)) {
 			return sellerService.selectInterestes(summaryUser.getPn());
 		} else {
-			logger.info("[" + summaryUser.getAuthoirty() + "] "
+			logger.info("[" + summaryUser.getAuthority() + "] "
 					+ summaryUser.getName());
 			return null;
 		}
@@ -234,7 +234,7 @@ public class SellerController {
 			sellerService.updateSellerInterestes(interest);
 			return sellerService.selectSellerInterest(pn);
 		} else {
-			logger.info("[" + summaryUser.getAuthoirty() + "] "
+			logger.info("[" + summaryUser.getAuthority() + "] "
 					+ summaryUser.getName());
 			return null;
 		}
@@ -251,7 +251,7 @@ public class SellerController {
 			sellerService.insertSellerProduct(product);
 			return product;
 		} else {
-			logger.info("[" + summaryUser.getAuthoirty() + "] "
+			logger.info("[" + summaryUser.getAuthority() + "] "
 					+ summaryUser.getName());
 			return null;
 		}
@@ -267,7 +267,7 @@ public class SellerController {
 			fileVO.setOwnerPn(summaryUser.getPn());
 			sellerService.updateSellerImage(fileVO);
 		} else {
-			logger.info("[" + summaryUser.getAuthoirty() + "] "
+			logger.info("[" + summaryUser.getAuthority() + "] "
 					+ summaryUser.getName());
 		}
 	}
@@ -282,7 +282,7 @@ public class SellerController {
 			jtownUser.setPn(summaryUser.getPn());
 			sellerService.updateSellerNotice(jtownUser);
 		} else {
-			logger.info("[" + summaryUser.getAuthoirty() + "] "
+			logger.info("[" + summaryUser.getAuthority() + "] "
 					+ summaryUser.getName());
 		}
 	}
@@ -297,7 +297,7 @@ public class SellerController {
 			jtownUser.setPn(summaryUser.getPn());
 			sellerService.updateSellerLongNotice(jtownUser);
 		} else {
-			logger.info("[" + summaryUser.getAuthoirty() + "] "
+			logger.info("[" + summaryUser.getAuthority() + "] "
 					+ summaryUser.getName());
 		}
 	}
@@ -314,7 +314,7 @@ public class SellerController {
 			sellerService.updateAndInsertEvent(event);
 			return event;
 		} else {
-			logger.info("[" + summaryUser.getAuthoirty() + "] "
+			logger.info("[" + summaryUser.getAuthority() + "] "
 					+ summaryUser.getName());
 			return null;
 		}

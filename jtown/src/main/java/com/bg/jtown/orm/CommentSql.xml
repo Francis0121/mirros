@@ -200,9 +200,11 @@
 		DELETE FROM
 			user_customer_comment
 		WHERE
-			customer_pn = #{customerPn}
+            pn = #{commentPn}
+        <if test="customerPn != null">
 		AND
-			pn = #{commentPn}
+            customer_pn = #{customerPn}
+        </if>
 	</delete>
 	
 	<!-- Comment Love -->

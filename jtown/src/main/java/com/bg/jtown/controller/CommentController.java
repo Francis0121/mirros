@@ -53,12 +53,20 @@ public class CommentController {
 
 	@RequestMapping(value = "/ajax/home/selectComment.jt", method = RequestMethod.POST)
 	@ResponseBody
-	public List<Comment> ajaxSelectComment(
+	public Object ajaxSelectComment(
 			@RequestBody CommentFilter commentFilter, SummaryUser summaryUser) {
-		if (summaryUser.getEnumAuthority().equals(Authority.CUSTOMER)) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		switch(summaryUser.getEnumAuthority()) {
+		case ADMIN:
+		case ROOT_ADMIN:
+			map.put( "isAdmin", true );
+			break;
+		case CUSTOMER:
 			commentFilter.setCustomerPn(summaryUser.getPn());
 		}
-		return commentService.selectComment(commentFilter);
+		List<Comment> comments = commentService.selectComment(commentFilter);
+		map.put( "comments", comments );
+		return map;
 	}
 
 	@RequestMapping(value = "/ajax/home/existComment.jt", method = RequestMethod.POST)
@@ -105,7 +113,9 @@ public class CommentController {
 	@ResponseBody
 	public void ajaxDeleteComment(@RequestBody Comment comment,
 			SummaryUser summaryUser) {
-		comment.setCustomerPn(summaryUser.getPn());
+		if( !summaryUser.getEnumAuthority().isAdmin() ){
+			comment.setCustomerPn(summaryUser.getPn());
+		}
 		commentService.deleteComment(comment);
 	}
 

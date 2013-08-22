@@ -39,7 +39,7 @@ function goToPreviousPages() {
 			<th>아이디</th>
 			<th>내용</th>
 			<th>입력날짜</th>
-			<th>숨기기</th>
+			<th>삭제</th>
 			<th>아이디정지</th>
 		</tr>
 	</thead>
@@ -81,7 +81,13 @@ function goToPreviousPages() {
 				<td><c:out value="${comment.customerName }"/></td>
 				<td><c:out value="${comment.comment }"/></td>
 				<td><c:out value="${comment.inputDate }"/></td>
-				<td></td>
+				<td>
+					<form class="jt-admin-delete-comment-form">
+						<input type="hidden" value="${comment.commentPn}" name="commentPn" />
+						<input type="hidden" value="${comment.sellerPn}" name="sellerPn" />
+						<input type="submit" value="삭제" />
+					</form>
+				</td>
 				<td></td>
 			</tr>
 		</c:forEach>
@@ -89,3 +95,16 @@ function goToPreviousPages() {
 </table>
 
 <%@ include file="../../layout/admin_footer.jspf" %>
+
+<script>
+	$(".jt-admin-delete-comment-form").submit(function(){
+		var tr = $(this).parents("tr");
+		var url = contextPath + 'ajax/home/deleteComment.jt',
+		json = {'commentPn': this.commentPn.value, 'sellerPn': this.sellerPn.value};
+
+		$.postJSON(url, json, function(){
+			tr.remove();
+		});
+		return false;
+	});
+</script>

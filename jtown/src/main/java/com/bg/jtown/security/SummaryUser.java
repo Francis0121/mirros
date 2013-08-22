@@ -11,7 +11,7 @@ public class SummaryUser {
 	/**
 	 * 권한
 	 */
-	private String authoirty;
+	private String authority;
 
 	/**
 	 * 로그인 여부
@@ -47,10 +47,10 @@ public class SummaryUser {
 		super();
 	}
 
-	public SummaryUser(String authoirty, Boolean isLogin, String name,
+	public SummaryUser(String authority, Boolean isLogin, String name,
 			Integer pn, String remoteIp, String username, Boolean facebookFeed) {
 		super();
-		this.authoirty = authoirty;
+		this.authority = authority;
 		this.isLogin = isLogin;
 		this.name = name;
 		this.pn = pn;
@@ -59,21 +59,21 @@ public class SummaryUser {
 		this.facebookFeed = facebookFeed;
 	}
 
-	public String getAuthoirty() {
-		return authoirty;
+	public String getAuthority() {
+		return authority;
 	}
 
 	public Authority getEnumAuthority() {
-		if (this.authoirty == null) {
+		if (this.authority == null) {
 			return Authority.NOT_LOGIN;
 		}
-		if (this.authoirty.equals("RootAdministrator")) {
+		if (this.authority.equals("RootAdministrator")) {
 			return Authority.ROOT_ADMIN;
-		} else if (this.authoirty.equals("Administrator")) {
+		} else if (this.authority.equals("Administrator")) {
 			return Authority.ADMIN;
-		} else if (this.authoirty.equals("Seller")) {
+		} else if (this.authority.equals("Seller")) {
 			return Authority.SELLER;
-		} else if (this.authoirty.equals("Customer")) {
+		} else if (this.authority.equals("Customer")) {
 			return Authority.CUSTOMER;
 		} else {
 			return Authority.NOT_LOGIN;
@@ -100,8 +100,8 @@ public class SummaryUser {
 		return username;
 	}
 
-	public void setAuthoirty(String authoirty) {
-		this.authoirty = authoirty;
+	public void setAuthority(String authority) {
+		this.authority = authority;
 	}
 
 	public void setIsLogin(Boolean isLogin) {
@@ -134,7 +134,7 @@ public class SummaryUser {
 
 	@Override
 	public String toString() {
-		return "SummaryUser [authoirty=" + authoirty + ", isLogin=" + isLogin
+		return "SummaryUser [authoirty=" + authority + ", isLogin=" + isLogin
 				+ ", name=" + name + ", pn=" + pn + ", remoteIp=" + remoteIp
 				+ ", username=" + username + ", facebookFeed=" + facebookFeed
 				+ "]";
