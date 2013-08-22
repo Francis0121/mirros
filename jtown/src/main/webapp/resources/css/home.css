@@ -55,7 +55,8 @@ word-wrap: break-word; }
 .jt-home-shop-footer-firstTalk{}
 .jt-home-shop-footer-lastTalk{}
 #jt-home-center{}
-#jt-home-container{ margin: auto;}
+#jt-home-container{margin: auto;}
+#jt-home-footer{color: gray; font-size: small; margin: 12px auto; width: 300px;}
 .jt-home-shop-content{ float: left; width: 100%; font-size: 12px;}
 .jt-home-shop-content-image{ float: left; width: 100%;  cursor: pointer; cursor: -webkit-zoom-in; cursor: -moz-zoom-in;}
 .jt-home-shop-content-image>li{ float: left; width: 316px; }

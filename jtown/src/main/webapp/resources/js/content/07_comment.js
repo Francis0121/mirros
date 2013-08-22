@@ -102,10 +102,11 @@ jtown.comment.syncComment = function(){
 		var json = { 	page  		: 	page,
 						sellerPn	:	me.attr('data-spn')	};
 		
-		$.postJSON(url, json, function(comments){
+		$.postJSON(url, json, function(data){
+			var comments = data.comments;
 			for(var i=0, len = comments.length; i < len ; i++){
 				var comment = comments[i];
-				jtown.comment.commentHtml(comment, 'last', false);
+				jtown.comment.commentHtml(comment, 'last', false, data.isAdmin);
 			}
 			
 			setTimeout('jtown.expand.changeContainerHeight()', 0);
@@ -243,7 +244,7 @@ jtown.comment.loveCancle = function(){
 	});
 };
 
-jtown.comment.commentHtml = function(comment, position, best){
+jtown.comment.commentHtml = function(comment, position, best, isAdmin){
 	var cpn = $('#jt-logout').attr('data-cpn');
 	var cancleHtml = '&nbsp;<a href="#none" class="jt-home-expand-shop-comment-loveIt-cancle">취소</a>';
 	var cancleComment = nullValueCheck(comment.commentCustomerPn) ? '' : cancleHtml;
@@ -275,7 +276,7 @@ jtown.comment.commentHtml = function(comment, position, best){
 	commentHtml +=	'			'+warnComment;
 	commentHtml += 	'		</li>';
 	commentHtml	+= 	'	</ul>';
-	if(comment.customerPn == cpn){
+	if(comment.customerPn == cpn || isAdmin){
 	commentHtml +=	'	<div class="jt-home-expand-shop-update-wrap">';
 	commentHtml +=	'		<input type="text" class="jt-comment-update-input" value="'+htmlChars(comment.comment)+'" maxlength="100"/><br/>';
 	commentHtml += 	'		<span>esc를 누르시면 수정이 취소 됩니다.</span>';

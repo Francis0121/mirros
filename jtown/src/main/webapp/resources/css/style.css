@@ -47,7 +47,7 @@
 	-webkit-box-shadow : inset 0 1px #fff,0 1px 3px rgba(121,63,41,0.7);
 	font-size: 13px; background: #fafafa;
 }
-.jt-header-nav-interestCategory{ float: left; position: absolute; top: 46px; left: 50%; width: 600px; margin-left: -327px; height: 40px;}
+.jt-header-nav-interestCategory{ float: left; position: absolute; top: 46px; left: 50%; width: 600px; margin-left: -327px; height: 40px; overflow: hidden;}
 .jt-header-nav-interestCategory-help{float: left; position: absolute; top: 46px; left: 50%; width: 400px; margin-left: -230px; }
 .jt-header-nav-interestCategory-li{ float: left; width: 100px; text-align: center; line-height: 40px;}
 .jt-header-nav-interestCategory-li span{font-family: Arial;}

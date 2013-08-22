@@ -1,10 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../layout/home_header.jspf" %>
 <!-- 서버올릴시 제거 -->
-<div id="jt-home-container" 
+<div id="jt-home-container"
 	data-cpn="${homeFilter.categoryPn eq null ? 0 : homeFilter.categoryPn}" 
 	data-spn="${homeFilter.sectionPn eq null ? 0 : homeFilter.sectionPn}" 
 	data-maxPage="${homeFilter.pagination.numPages eq null ? 0 : homeFilter.pagination.numPages }">
+	<div class="jt-home-shop">
+		<a href="https://www.facebook.com/490323451049229" target="_blank">
+			<img alt="미러스 이벤트" src="${cp }/resources/images/event.jpg" width="316">
+		</a>
+	</div>
 	<c:forEach begin="1" end="2" varStatus="i">
 		<c:set var="jtownUsers" value="${ i.count eq 1 ? one.jtownUsers : two.jtownUsers }"/>
 		<c:set var="images" value="${ i.count eq 1 ? one.images : two.images }"/>
@@ -101,4 +106,9 @@
 		</c:forEach>
 	</c:forEach>
 </div>
+<pre id="jt-home-footer">
+사업자명: 비즈니스게이트
+사업자 등록번호: 130-45-18175
+대표자명: 이진섭
+</pre>
 <%@ include file="../layout/home_footer.jspf" %>
