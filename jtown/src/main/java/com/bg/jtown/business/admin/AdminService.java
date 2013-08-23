@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.bg.jtown.business.Comment;
+import com.bg.jtown.business.Count;
 import com.bg.jtown.business.Interest;
 import com.bg.jtown.business.search.AdminCommentFilter;
 import com.bg.jtown.business.search.AdministratorFilter;
@@ -41,6 +42,8 @@ public interface AdminService {
 	List<Interest> selectSellerInterestList(List<Integer> pnList);
 
 	JtownUser selectSeller(String name);
+	
+	List<Count> selectSellerLovers(Integer sellerPn);
 
 	void insertSeller(JtownUser jtownUser);
 

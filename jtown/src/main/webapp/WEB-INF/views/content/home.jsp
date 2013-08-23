@@ -106,9 +106,4 @@
 		</c:forEach>
 	</c:forEach>
 </div>
-<pre id="jt-home-footer">
-사업자명: 비즈니스게이트
-사업자 등록번호: 130-45-18175
-대표자명: 이진섭
-</pre>
 <%@ include file="../layout/home_footer.jspf" %>

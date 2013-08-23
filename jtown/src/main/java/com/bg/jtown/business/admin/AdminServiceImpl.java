@@ -11,6 +11,7 @@ import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.springframework.stereotype.Service;
 
 import com.bg.jtown.business.Comment;
+import com.bg.jtown.business.Count;
 import com.bg.jtown.business.Interest;
 import com.bg.jtown.business.search.AdminCommentFilter;
 import com.bg.jtown.business.search.AdministratorFilter;
@@ -139,6 +140,11 @@ public class AdminServiceImpl extends SqlSessionDaoSupport implements
 	@Override
 	public JtownUser selectSeller(String name) {
 		return getSqlSession().selectOne("adminMapper.selectSeller", name);
+	}
+	
+	@Override
+	public List<Count> selectSellerLovers(Integer sellerPn) {
+		return getSqlSession().selectList("adminMapper.selectSellerLovers", sellerPn);
 	}
 
 	@Override

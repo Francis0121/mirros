@@ -155,6 +155,23 @@
 			#{item}
 		</foreach>				
 	</select>
+    
+    <select id="selectSellerLovers" parameterType="Integer" resultType="Count">
+        SELECT
+            uc.pn AS customerPn,
+            input_date AS inputDate,
+            name AS message
+        FROM
+            user_customer uc
+			JOIN users u
+            ON uc.pn = u.pn AND u.id LIKE '%.c'
+            LEFT OUTER JOIN count_love cl
+            ON uc.pn = cl.customer_pn
+        WHERE
+            seller_pn = #{sellerPn}
+        OR
+            seller_pn IS NULL
+    </select>
 	
 	<update id="updateSeller" parameterType="JtownUser">
 		<choose>

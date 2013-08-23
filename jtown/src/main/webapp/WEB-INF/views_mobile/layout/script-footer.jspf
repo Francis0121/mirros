@@ -11,7 +11,7 @@
 <script src="${cp}/resources_mobile/js/jquery.scroll.pagination.js"></script>
 <%-- Custom --%>
 <%-- <script src="${cp}/resources_mobile/js/mobile.all.js"></script> --%>
-<script src="${cp}/resources_mobile/js/mobile.mirros.js"></script>
+<script src="${cp}/resources_mobile/js/mobile.mirros.js?08221128"></script>
 <script src="${cp}/resources_mobile/js/util.js"></script>
 
 <%-- Node --%>

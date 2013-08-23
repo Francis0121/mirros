@@ -12,7 +12,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.social.ApiException;
 import org.springframework.social.facebook.api.Facebook;
 import org.springframework.social.facebook.api.FacebookLink;
-import org.springframework.social.twitter.api.Twitter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -23,13 +22,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bg.jtown.business.Count;
-import com.bg.jtown.business.comment.CommentService;
 import com.bg.jtown.business.home.HomeService;
 import com.bg.jtown.business.search.HomeFilter;
 import com.bg.jtown.business.seller.SellerService;
 import com.bg.jtown.security.Authority;
 import com.bg.jtown.security.JtownUser;
-import com.bg.jtown.security.LoginService;
 import com.bg.jtown.security.SummaryUser;
 
 /**
@@ -60,16 +57,16 @@ public class HomeController {
 
 	@Resource
 	private HomeService homeService;
-	@Resource
-	private CommentService commentService;
+//	@Resource
+//	private CommentService commentService;
 	@Resource
 	private Facebook facebook;
-	@Resource
-	private Twitter twitter;
+//	@Resource
+//	private Twitter twitter;
 	@Resource
 	private SellerService sellerService;
-	@Resource
-	private LoginService loginService;
+//	@Resource
+//	private LoginService loginService;
 
 	// ~ SHOW
 

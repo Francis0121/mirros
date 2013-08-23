@@ -292,8 +292,11 @@ public class HomeController {
 	@RequestMapping(value = "/ajax/clickLove.jt", method = RequestMethod.POST)
 	@ResponseBody
 	public Count ajaxClickLove(@RequestBody Count count, SummaryUser summaryUser) {
-		if (summaryUser.getEnumAuthority().equals(Authority.CUSTOMER)) {
+		switch(summaryUser.getEnumAuthority()){
+		case CUSTOMER:
 			count.setCustomerPn(summaryUser.getPn());
+		case ADMIN:
+		case ROOT_ADMIN:
 			homeService.insertLoveCount(count);
 
 			try {
@@ -317,9 +320,11 @@ public class HomeController {
 			} catch (ApiException e) {
 				logger.debug("PostConnect Catch");
 			}
-		} else if (summaryUser.getEnumAuthority().equals(Authority.NOT_LOGIN)) {
+			break;
+		case NOT_LOGIN:
 			count.setMessage("1");
-		} else {
+			break;
+		default:
 			count.setMessage("2");
 		}
 		return count;

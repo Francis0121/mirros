@@ -216,70 +216,71 @@ mobile.mirSync = function(){
 		});
 	});
 	
-	$('#comment-add-btn').bind('click', function(event){
-		var me = $(this), 
-			page = ( Number(me.attr('data-page'))  + 1 ),
+	var btn = $('#comment-add-btn');
+	btn.click(function(event){
+		this.disabled = 'disabled';
+		var page = ( Number(btn.attr('data-page'))  + 1 ),
 			nextPage = ( page + 1 ),
-			numItemsPerPage = me.attr('data-nipp'),
-			numItems = me.attr('data-ni');
+			numItemsPerPage = btn.attr('data-nipp'),
+			numItems = btn.attr('data-ni');
 
 		var url = mobileContextPath + '/home/ajax/selectComment.jt';
 		var json = { 	page  		: 	page,
-						sellerPn	:	me.attr('data-spn')	};
+						sellerPn	:	btn.attr('data-spn')	};
 		
 		$.postJSON(url, json, function(comments){
-			for(var i=0, len = comments.length; i < len ; i++){
-				var comment = comments[i];
-				mobile.comment(comment, 'last');
+			console.log("comments: " + comments.length);
+			for(var i in comments){
+				mobile.comment(comments[i], 'last');
 			}
 			
 			setTimeout('mobile.commentSync()',0);
 			if(nextPage * numItemsPerPage < numItems ||
 					(page * numItemsPerPage < numItems && nextPage * numItemsPerPage >= numItems )){
-				me.attr('data-page', page);
+				btn.attr('data-page', page);
 				$('#comment-now-count').html(page * numItemsPerPage);
 			}else{
-				me.parents('li').remove();
+				btn.parents('li').remove();
 			}
 		});
 	});
 	
-	$('.mm-mir-comment-insert').bind('click focusin focusout', function(event){
-		if(event.type == 'click'){
-			var thiz = $(this),
-				footer = thiz.parents('.mm-mir-footer'),
-				spn = footer.attr('data-spn'),
-				name = footer.attr('data-name');
+	var insert = $('.mm-mir-comment-insert');
+	insert.click(function(event){
+		var footer = insert.parents('.mm-mir-footer'),
+			spn = footer.attr('data-spn'),
+			name = footer.attr('data-name');
+		
+		var url = mobileContextPath + '/home/ajax/existComment.jt',
+			json = { sellerPn : spn	};
+		
+		$.postJSON(url, json, function(map){
+			var result = map.result, authority = map.authority;
 			
-			var url = mobileContextPath + '/home/ajax/existComment.jt',
-				json = { sellerPn : spn	};
+			if(authority == 'NOT_LOGIN'){
+				location.href = mobileContextPath + '/login';
+				return;
+			}else if(authority != 'CUSTOMER'){
+				insert.unbind('click');
+				return;
+			}
 			
-			$.postJSON(url, json, function(map){
-				var result = map.result, authority = map.authority;
-				
-				if(authority == 'NOT_LOGIN'){
-					location.href = mobileContextPath + '/login';
-					return;
-				}else if(authority != 'CUSTOMER'){
-					thiz.unbind('click'); 
-					return;
-				}
-				
-				if(result){	
-					thiz.attr('readonly', 'readonly');
-					alert(name+' 쇼핑몰에 대한 댓글은 하루에 한번만 가능합니다.');				
-				}else{
-					thiz.removeAttr('readonly');
-				}	
-			});
-		}else if(event.type == 'focusin'){
-			$('.mm-mir-comment-insert-btn').show();
-		}
+			if(result){	
+				insert.attr('readonly', 'readonly');
+				alert(name+' 쇼핑몰에 대한 댓글은 하루에 한번만 가능합니다.');				
+			}else{
+				insert.removeAttr('readonly');
+			}	
+		});
+	});
+	insert.bind('focusin', function(){
+		$('.mm-mir-comment-insert-btn').show();
 	});
 	
-	$('.mm-mir-comment-insert-btn').bind('click', function(event){
-		var thiz = $(this), insert = $('.mm-mir-comment-insert');
-			footer = thiz.parents('.mm-mir-footer'),
+	var insertBtn = $('.mm-mir-comment-insert-btn');
+	insertBtn.bind('click', function(event){
+		this.disabled = 'disabled';
+		var footer = insertBtn.parents('.mm-mir-footer'),
 			spn = footer.attr('data-spn'),
 			name = footer.attr('data-name');
 			comment = insert.val();
@@ -329,7 +330,9 @@ mobile.mirSync = function(){
 			}else{
 				postComment();
 			}
-			
+			console.log("insertBtn[0]: " + insertBtn[0]);
+			insertBtn.removeAttr("disabled");
+			console.log("disabled: " + insertBtn[0].disabled);
 		});
 	});
 

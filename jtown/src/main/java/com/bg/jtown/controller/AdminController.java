@@ -240,6 +240,12 @@ public class AdminController {
 		return count;
 	}
 	
+	@RequestMapping(value = "/ajax/selectSellerLovers.jt", method = RequestMethod.POST)
+	@ResponseBody
+	public List<Count> ajaxSelectSellerLovers(@RequestParam("sellerPn") Integer sellerPn) {
+		return adminService.selectSellerLovers(sellerPn);
+	}
+	
 	@RequestMapping(value = "/ajax/selectPartnershipCategory.jt", method = RequestMethod.POST)
 	@ResponseBody
 	public Integer ajaxSelectPartnershipCategory(
