@@ -84,6 +84,42 @@
 		<ul class="jt-about-ourstory-content">
 			<li>
 				<div>
+					<img alt="Kim Sung Geun / Technology director" src="${cp }/resources/images/about/jt-ourstory-btn-02.jpg">
+				</div>
+				<ul>
+					<li>
+						<h2>Kim Sung Geun / Technology director </h2>
+					</li>
+					<li>
+<pre>
+Mirros 개발책임 김성근은 웹페이지제작과 데이터 관리에 있어 남다른 영감을
+갖고 있습니다. 10대시절 부터 다수의 올림피아드상을 받았으며 그가 일했던 
+곳에서 인트라넷 구축과 관리를 지휘하기도 하였습니다.문제의 본질을 파악하고 
+해결하는 데에 있어서 보통의 개발자와는 다른 ‘특별함’을 갖고 있습니다.
+</pre>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<div>
+					<img alt="Lee Jin Seob / Operating director" src="${cp }/resources/images/about/jt-ourstory-btn-03.jpg">
+				</div>
+				<ul>
+					<li>
+						<h2>Lee Jin Seob / Operating director </h2>
+					</li>
+					<li>
+<pre>
+Mirros 재무와 운영을 관리하고 있는 이진섭은 오래전부터 NPO단체에서 경험을 
+쌓아온  20대입니다.실용성과 현실성을 염두해 둔 그의 사회공헌 프로젝트들은 
+크고 작은 주목을 받아왔습니다. 지금까지 쌓아온 조직의 운영과 제휴 경험을 
+Mirros의 탄탄한 운영을 위해 활용할 예정입니다.  
+</pre>
+					</li>
+				</ul>
+			</li>
+<%--			<li>
+				<div>
 					<img alt="Kwon Tae Ho / Producer" src="${cp }/resources/images/about/jt-ourstory-btn-01.jpg">
 				</div>
 				<ul>
@@ -135,13 +171,13 @@
 </pre>
 					</li>
 				</ul>
-			</li>
+			</li> --%>
 		</ul>
 	</section>
 	<img alt="bar" src="${cp }/resources/images/about/jt-about-bar.jpg" class="jt-about-bar">
-	<section class="jt-about-footer">
+	<%-- <section class="jt-about-footer">
 		<header>&copy; 2013 Peoplegate. All rights reserved.</header>
 		<footer><a href="http://peoplegate.net">피플게이트 홈페이지로 이동</a></footer>
-	</section>
+	</section> --%>
 </div>
 <%@ include file="../../layout/help_footer.jspf" %>

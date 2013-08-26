@@ -166,11 +166,7 @@
 			JOIN users u
             ON uc.pn = u.pn AND u.id LIKE '%.c'
             LEFT OUTER JOIN count_love cl
-            ON uc.pn = cl.customer_pn
-        WHERE
-            seller_pn = #{sellerPn}
-        OR
-            seller_pn IS NULL
+            ON uc.pn = cl.customer_pn AND seller_pn = #{sellerPn}
     </select>
 	
 	<update id="updateSeller" parameterType="JtownUser">

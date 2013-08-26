@@ -438,7 +438,7 @@ jtown.seller.syncExpandNotice = function(){
 		$('#jt-seller-expand-notice-update-tool').hide();
 		var url = contextPath + 'ajax/seller/changeLongNotice.jt',
 			longNotice =  $('#jt-seller-expand-textarea').val(),
-			json = { 'longNotice' : longNotice	};
+			json = { 'longNotice': longNotice, 'pn': $(this).parents("#jt-home-expand-shop").attr("data-spn") };
 		
 		$.postJSON(url, json, function(){
 			return jQuery.ajax({

@@ -292,11 +292,14 @@ public class SellerController {
 	@ResponseBody
 	public void ajaxChangeLongNotice(@RequestBody JtownUser jtownUser,
 			SummaryUser summaryUser) {
-		Authority authority = summaryUser.getEnumAuthority();
-		if (authority.equals(Authority.SELLER)) {
+		switch(summaryUser.getEnumAuthority()){
+		case SELLER:
 			jtownUser.setPn(summaryUser.getPn());
+		case ADMIN:
+		case ROOT_ADMIN:
 			sellerService.updateSellerLongNotice(jtownUser);
-		} else {
+			break;
+		default:
 			logger.info("[" + summaryUser.getAuthority() + "] "
 					+ summaryUser.getName());
 		}
