@@ -326,8 +326,8 @@
 						<div class="jt-home-expand-shop-event-update-large-wrap-body">
 								<div style="line-height: 160%">
 									<ul>
-										<li>이벤트 이름 (40자까지)</li>
-										<li style="padding-left: 10px;"><input type="text" class="jt-home-expand-shop-event-update-large-wrap-event-name" maxlength="40" placeholder="ex) 7월 상품 1+1 행사 시작" /></li>
+										<li>이벤트 이름 (30자까지)</li>
+										<li style="padding-left: 10px;"><input type="text" class="jt-home-expand-shop-event-update-large-wrap-event-name" maxlength="30" placeholder="ex) 7월 상품 1+1 행사 시작" /></li>
 										<li style="padding-top: 8px;">이벤트 만기일</li>
 										<li style="padding-left: 10px;"><fmt:formatDate value="${now}" pattern="yyyy-MM-dd" /><span style="padding-left: 20px;padding-right: 20px;font-weight: bold;">~</span> <input type="text" class="jt-home-expand-shop-event-update-large-wrap-calender-btn jt-home-expand-shop-event-update-large-wrap-end-date" readonly="readonly" placeholder="달력을 눌러 날짜를 입력" /></li>
 									</ul>
