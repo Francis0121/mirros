@@ -643,7 +643,7 @@ mobile.homeHtml = function(data) {
 			loveWidth = '39';
 		}
 		var newProductStyle = seller.newProduct > 0 ? 'display: block;' : 'display:none;';
-		var newBannerStyle = seller.newBanner ? 'display: block;' : 'display:none;' ;
+		var newBannerStyle = seller.eventName != null && seller.endDate >= 0 ? 'display: block;' : 'display:none;' ;
 		
 		var commentHtml = '';
 		if(comments.length > 0){

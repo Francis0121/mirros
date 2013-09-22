@@ -35,12 +35,12 @@
 										<c:if test="${mainImage.category eq 0 }">
 											<c:set value="${cp }/resources/uploadImage/${mainImage.saveName }" var="image"/>
 										</c:if>
-										<img alt="" src="${image }" title="${jtownUser.name}"/>	
+										<img alt="" src="${image }" title="${jtownUser.name}"/>
 									</c:forEach>
 								</c:otherwise>
 							</c:choose>
 							<div class="jt-home-shop-new-event">
-								<c:set var="newBannerStyle" value="${seller.newBanner ? 'display: block;' : 'display:none;'}"></c:set>
+								<c:set var="newBannerStyle" value="${!empty seller.eventName && seller.endDate >= 0 ? 'display: block;' : 'display:none;'}"></c:set>
 								<c:set var="newProductStyle" value="${seller.newProduct > 0 ? 'display: block;' : 'display:none;'}"></c:set>
 								<div id="new-product-<c:out value="${seller.pn }"/>" class="jt-home-shop-new-event-div" style="${newProductStyle}">
 									<span class="jt-home-shop-product-new-image">New product</span>
@@ -52,19 +52,37 @@
 						</li>
 					</ul>
 				</div>
+				<c:if test="${!empty seller.eventName && seller.endDate >= 0  }">
+					<div class="jt-home-shop-event-dday">
+							<div class="jt-home-shop-event-dday-event-name">
+								${seller.eventName }
+							</div>
+							<div class="jt-home-shop-event-dday-end-date">
+								${seller.endDate }일 남음
+							</div>
+					</div>
+				</c:if>
 				<div class="jt-home-notice">
-					<span class="jt-home-shop-footer-firstQuotationMark"></span>
 					<pre class="jt-home-shop-footer-text"><c:out value="${seller.notice }"/></pre>
-					<span class="jt-home-shop-footer-lastQuotationMark"></span>
 				</div>
+				<c:if test="${fn:length(comments) > 0}">
+				<div class="jt-home-shop-comments-wrap">
+					<div class="jt-home-shop-comments-bar"><img src="${cp }/resources/images/jt-comment.png"></div>
+					<c:forEach items="${comments }" var="comment" >
+					<div class="jt-home-shop-comments" data-isSplit="${comment.isSplit }" data-copn="${comment.commentPn }">
+						<c:out value="${comment.splitHome }"/>
+					</div>
+					</c:forEach>
+				</div>
+				</c:if>
 				<ul class="jt-home-shop-content-fn">
 					<li>
 						<span class="jt-home-shop-view" title="최근 일주일간 방문수" >VIEW</span>&nbsp;<span id="view-<c:out value="${spn }"/>"><c:out value="${seller.viewCount eq null ? 0 : seller.viewCount}"/></span>	
 					</li>
-					<li>
+					<li class="jt-home-shop-comment-wrap">
 						<span class="jt-home-shop-comment">COMMENT</span>&nbsp;<span id="comment-<c:out value="${spn }"/>"><c:out value="${seller.commentCount eq null ? 0 : seller.commentCount}"/></span>
 					</li>
-					<li>
+					<li class="jt-home-heart-click-wrap" onclick="jtown.home.clickLove('<c:out value="${spn }"/>');" >
 						<c:set var="loveClick" value="${seller.customerPn ne null ? 'jt-home-shop-love-click' : '' }"/>
 						<c:set var="loveTextClick" value="${seller.customerPn ne null ? 'jt-home-shop-love-text-click' : '' }"/>
 						<div class="jt-heart-click-wrap">
@@ -73,7 +91,6 @@
 							</div>
 							<div class="jt-heart-click">
 								<a 	href="#none" 
-									onclick="jtown.home.clickLove('<c:out value="${spn }"/>');" 
 									id="love-image-<c:out value="${spn }"/>" 
 									class="jt-home-shop-love ${loveClick }">♥</a>
 							</div>
@@ -86,16 +103,6 @@
 						</div>
 					</li>
 				</ul>
-				<c:if test="${fn:length(comments) > 0}">
-				<div class="jt-home-shop-comments-wrap">
-					<div class="jt-home-shop-comments-bar"><div></div></div>
-					<c:forEach items="${comments }" var="comment" >
-					<div class="jt-home-shop-comments" data-isSplit="${comment.isSplit }" data-copn="${comment.commentPn }">
-						<c:out value="${comment.splitHome }"/>
-					</div>
-					</c:forEach>
-				</div>
-				</c:if>
 				<!--[if IE 7]>
 				<div class="jt-home-shop-image-footer"></div>
 				<![endif]-->

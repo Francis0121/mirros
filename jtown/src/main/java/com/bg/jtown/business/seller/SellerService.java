@@ -99,5 +99,17 @@ public interface SellerService {
 
 	Integer selectLoveCount(Integer properNumber);
 
-
+	
+	// D-DAY Event
+	void insertDdayEvent(Event event);
+	
+	void updateDdayEvent(Event event);
+	
+	void insertAndUpdateDdayEvent(Event event);
+	
+	Event selectSellerDDayEvent(Event event);
+	
+	void deleteSellerDDayEvent(Event event);
+	
+	void deleteSellerBanner(Event event);
 }

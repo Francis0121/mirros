@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="productGatherMapper">
+
+	<resultMap type="ProductGather" id="productGatherMapper">
+		<result property="imagePn" column="image_pn"/>
+		<result property="sellerPn" column="seller_pn"/>
+		<result property="productPn" column="product_pn"/>
+		<result property="productName" column="product_name"/>
+		<result property="url" column="url"/>
+		<result property="price" column="price"/>
+		<result property="saveName" column="save_name"/>
+		<result property="contentType" column="content_type"/>
+	</resultMap>
+	
+	<select id="selectGatherProductsCount" resultType="Integer">
+		SELECT COUNT(DISTINCT product_pn)
+		FROM(
+			SELECT usp.pn AS product_pn,usci.seller_pn, image_pn, usp.NAME, url, price, start_date, end_date
+			FROM user_seller_product usp
+			JOIN user_seller_contract_info usci
+				ON usp.seller_pn = usci.seller_pn
+			JOIN user_seller us
+				ON us.pn = usci.seller_pn
+			JOIN users u
+				ON u.pn = us.pn 
+			JOIN partnership p 
+				ON p.seller_pn = us.pn
+			WHERE usp.NAME IS NOT NULL
+			AND CURDATE() BETWEEN usci.start_date 
+			    AND usci.end_date 
+			    <if test="categoryPn != 0">
+			    	AND p.category_pn = #{categoryPn}
+			    </if>
+			    AND u.enable = 1 
+		) tb
+	</select>
+	
+	<select id="selectGatherProducts" resultMap="productGatherMapper">
+		SELECT 
+		  product_pn, seller_pn, image_pn, product_name, url, price, save_name, content_type, SUM(day_count) AS day_count
+		FROM
+		  (SELECT 
+		    usp.pn AS product_pn,
+			usci.seller_pn,
+		    image_pn,
+		    usp.NAME AS product_name,
+		    url,
+		    price,
+		    save_name,
+		    content_type,
+		    day_count
+		  FROM
+		    user_seller_product usp 
+		    JOIN user_seller_contract_info usci 
+		      ON usp.seller_pn = usci.seller_pn 
+		    JOIN user_seller us 
+		      ON us.pn = usci.seller_pn 
+		    JOIN users u 
+		      ON u.pn = us.pn 
+		    JOIN partnership p 
+		      ON p.seller_pn = us.pn 
+		    LEFT OUTER JOIN statistic_product_click spc
+			ON spc.product_pn = usp.pn
+		    LEFT OUTER JOIN image img 
+		      ON img.pn = image_pn 
+		  WHERE usp.NAME IS NOT NULL 
+		    AND CURDATE() BETWEEN usci.start_date 
+		    AND usci.end_date 
+		    <if test="categoryPn != 0"> 
+		   		 AND p.category_pn = #{categoryPn}
+		    </if>
+		    AND u.enable = 1 
+		) tb 
+		GROUP BY product_pn
+		ORDER BY day_count DESC
+		LIMIT #{percentCount} , 100000
+	</select>
+	
+	<select id="selectGatherHotProducts" resultMap="productGatherMapper">
+		SELECT 
+		  product_pn, seller_pn, image_pn, product_name, url, price, save_name, content_type, hot, SUM(day_count) AS day_count
+		FROM
+		  (SELECT 
+		    usp.pn AS product_pn,
+			usci.seller_pn,
+		    image_pn,
+		    usp.NAME AS product_name,
+		    url,
+		    price,
+		    save_name,
+		    content_type,
+		    1 AS hot,
+		    day_count
+		  FROM
+		    user_seller_product usp 
+		    JOIN user_seller_contract_info usci 
+		      ON usp.seller_pn = usci.seller_pn 
+		    JOIN user_seller us 
+		      ON us.pn = usci.seller_pn 
+		    JOIN users u 
+		      ON u.pn = us.pn 
+		    JOIN partnership p 
+		      ON p.seller_pn = us.pn 
+		    LEFT OUTER JOIN statistic_product_click spc
+			ON spc.product_pn = usp.pn
+		    LEFT OUTER JOIN image img 
+		      ON img.pn = image_pn 
+		  WHERE usp.NAME IS NOT NULL 
+		    AND CURDATE() BETWEEN usci.start_date 
+		    AND usci.end_date 
+		    <if test="categoryPn != 0"> 
+		   		 AND p.category_pn = #{categoryPn}
+		    </if>
+		    AND u.enable = 1 
+		) tb 
+		GROUP BY product_pn
+		ORDER BY day_count DESC
+		LIMIT #{percentCount}
+	</select>
+
+	<select id="percent" resultType="Integer">
+		
+	</select>
+	
+	
+</mapper>
+	
+	

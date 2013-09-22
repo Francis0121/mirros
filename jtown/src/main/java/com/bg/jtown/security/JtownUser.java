@@ -2,6 +2,7 @@ package com.bg.jtown.security;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -11,7 +12,7 @@ import com.bg.jtown.util.FileVO;
 
 /**
  * @author Francis
- *
+ * 
  */
 @SuppressWarnings("serial")
 public class JtownUser extends AbstractUser {
@@ -45,27 +46,29 @@ public class JtownUser extends AbstractUser {
 	private Integer customerPn;
 	private String interestCategory;
 	private String interestSectionList;
-	
+
 	// ~ Admin
 	private String email;
+
+	// ~ Event
+	private int eventPn;
+	private String eventName;
+	private int endDate;
+	private int bannerOrder;
 
 	public JtownUser() {
 		super();
 	}
-	
-	public JtownUser(Integer pn, String username, String password,
-			String salt, String name, String groupName, Boolean confirmEmail, Boolean facebookFeed, boolean enabled,
-			Collection<? extends GrantedAuthority> authorities) {
+
+	public JtownUser(Integer pn, String username, String password, String salt, String name, String groupName, Boolean confirmEmail,
+			Boolean facebookFeed, boolean enabled, Collection<? extends GrantedAuthority> authorities) {
 		this(pn, username, password, salt, name, groupName, confirmEmail, facebookFeed, enabled, true, true, true, authorities);
 	}
 
-	public JtownUser(Integer pn, String username, String password,
-			String salt, String name, String groupName, Boolean confirmEmail, Boolean facebookFeed,
-			boolean enabled, boolean accountNonExpired,
-			boolean credentialsNonExpired, boolean accountNonLocked,
+	public JtownUser(Integer pn, String username, String password, String salt, String name, String groupName, Boolean confirmEmail,
+			Boolean facebookFeed, boolean enabled, boolean accountNonExpired, boolean credentialsNonExpired, boolean accountNonLocked,
 			Collection<? extends GrantedAuthority> authorities) {
-		super(pn, username, password, salt, name, groupName, confirmEmail, facebookFeed,
-				enabled, accountNonExpired, credentialsNonExpired,
+		super(pn, username, password, salt, name, groupName, confirmEmail, facebookFeed, enabled, accountNonExpired, credentialsNonExpired,
 				accountNonLocked, authorities);
 	}
 
@@ -87,21 +90,21 @@ public class JtownUser extends AbstractUser {
 		}
 		return bannerDate;
 	}
-	
-	public boolean getNewBanner(){
+
+	public boolean getNewBanner() {
 		Integer bannerDate = getBannerDate();
-		if(bannerDate != null && bannerDate < 3){
+		if (bannerDate != null && bannerDate < 3) {
 			return true;
 		}
 		return false;
 	}
-	
-	public String getSixShopPn(){
-		if(this.shopPn == null || "".equals(this.shopPn))
+
+	public String getSixShopPn() {
+		if (this.shopPn == null || "".equals(this.shopPn))
 			return null;
 		return String.format("%06d", this.shopPn);
 	}
-	
+
 	public int getNowYear() {
 		return DateUtil.getYear();
 	}
@@ -281,7 +284,7 @@ public class JtownUser extends AbstractUser {
 	public void setBannerDate(Integer bannerDate) {
 		this.bannerDate = bannerDate;
 	}
-	
+
 	public String getEmail() {
 		return email;
 	}
@@ -289,7 +292,7 @@ public class JtownUser extends AbstractUser {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
+
 	public String getBeginStartDate() {
 		return beginStartDate;
 	}
@@ -297,13 +300,45 @@ public class JtownUser extends AbstractUser {
 	public void setBeginStartDate(String beginStartDate) {
 		this.beginStartDate = beginStartDate;
 	}
-	
+
 	public Integer getNewProduct() {
 		return newProduct;
 	}
 
 	public void setNewProduct(Integer newProduct) {
 		this.newProduct = newProduct;
+	}
+
+	public int getEventPn() {
+		return eventPn;
+	}
+
+	public void setEventPn(int eventPn) {
+		this.eventPn = eventPn;
+	}
+
+	public String getEventName() {
+		return eventName;
+	}
+
+	public void setEventName(String eventName) {
+		this.eventName = eventName;
+	}
+
+	public int getBannerOrder() {
+		return bannerOrder;
+	}
+
+	public void setBannerOrder(int bannerOrder) {
+		this.bannerOrder = bannerOrder;
+	}
+
+	public int getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(int endDate) {
+		this.endDate = endDate;
 	}
 
 	@Override
@@ -314,7 +349,7 @@ public class JtownUser extends AbstractUser {
 		sb.append("BirthDay : ").append(this.year).append("/").append(this.month).append("/").append(this.day).append("; ");
 		sb.append("Sex :").append(this.sex).append("; ");
 		sb.append("Social : ").append(this.social).append(";");
-		sb.append(" ] ");	
+		sb.append(" ] ");
 		sb.append("Seller : [ ");
 		sb.append("Spon Pn : ").append(this.shopPn).append("; ");
 		sb.append("Notice: ").append(this.notice).append("; ");
@@ -337,7 +372,13 @@ public class JtownUser extends AbstractUser {
 		sb.append("Admin : [ ");
 		sb.append("email : ").append(this.email).append("; ");
 		sb.append(" ] ");
-		
+		sb.append("Event : [ ");
+		sb.append("eventPn : ").append(this.eventPn).append("; ");
+		sb.append("eventName : ").append(this.eventName).append("; ");
+		sb.append("endDate : ").append(this.endDate).append("; ");
+		sb.append("bannerOrder : ").append(this.bannerOrder).append("; ");
+		sb.append(" ] ");
+
 		return sb.toString();
 	}
 

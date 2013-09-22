@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../layout/none_header.jspf" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set value="${fn:length(products) }" var="productSize"/>
 <article class="jt-seller-content-wrap" id="jt-seller-body" data-spn="<sec:authentication property="principal.pn" />">
 	<div id="folderBar">
@@ -125,6 +126,18 @@
 						</li>
 					</ul>
 				</div>
+				<div class="jt-home-shop-event-dday-wrap">
+				<c:if test="${!empty jtownUser.eventName && jtownUser.endDate >= 0  }">
+				<div class="jt-home-shop-event-dday">
+					<div class="jt-home-shop-event-dday-event-name">
+						${jtownUser.eventName }
+					</div>
+					<div class="jt-home-shop-event-dday-end-date">
+						${jtownUser.endDate }일 남음
+					</div>
+				</div>
+				</c:if>
+				</div>
 				<div id="jt-seller-main-footer" class="jt-home-notice">
 					<div class="question-mark-wrap" style="width: 316px;">
 						<a class="question-mark" data-step="4">?</a>
@@ -137,11 +150,9 @@
 							</a>
 						</div>
 					</div>
-					<span class="jt-home-shop-footer-firstQuotationMark">"</span>
 					<c:set var="mainTextIsNull" value="${( jtownUser.notice ne null ) and ( jtownUser.notice ne '')}" />
 					<pre id="jt-seller-main-footer-text" class="jt-home-shop-footer-text ${ !mainTextIsNull ? 'jt-home-shop-footer-text-isNull' : '' }" data-isNull="${ !mainTextIsNull }"><c:choose><c:when test="${mainTextIsNull}"><c:out value="${jtownUser.notice }"/></c:when><c:otherwise>쇼핑몰 소개 공간입니다. 쇼핑몰의 특징이나 최근 진행하는 이벤트를 적어보세요.</c:otherwise></c:choose></pre>				
 					<textarea id="jt-seller-main-textarea" class="jt-seller-main-textarea" maxlength="80" placeholder="쇼핑몰 소개 공간입니다. 쇼핑몰의 특징이나 최근 진행하는 이벤트를 적어보세요."><c:out value="${jtownUser.notice }"/></textarea>
-					<span class="jt-home-shop-footer-lastQuotationMark">"</span>
 					<div class="jt-seller-main-notice-update-tool" id="jt-seller-main-notice-update-tool">
 						<a href="#none" id="jt-seller-main-notice-update" class="jt-seller-main-notice-update jt-btn-white-small">
 							<span class="btnImage"></span>
@@ -308,6 +319,38 @@
 						</div>
 					</div>
 				</div>
+				<div class="jt-home-expand-shop-event-update-large-wrap">
+						<div class="jt-home-expand-shop-event-update-large-wrap-header">
+							<span>이벤트 설정</span>
+						</div>
+						<div class="jt-home-expand-shop-event-update-large-wrap-body">
+								<div style="line-height: 160%">
+									<ul>
+										<li>이벤트 이름 (40자까지)</li>
+										<li style="padding-left: 10px;"><input type="text" class="jt-home-expand-shop-event-update-large-wrap-event-name" maxlength="40" placeholder="ex) 7월 상품 1+1 행사 시작" /></li>
+										<li style="padding-top: 8px;">이벤트 만기일</li>
+										<li style="padding-left: 10px;"><fmt:formatDate value="${now}" pattern="yyyy-MM-dd" /><span style="padding-left: 20px;padding-right: 20px;font-weight: bold;">~</span> <input type="text" class="jt-home-expand-shop-event-update-large-wrap-calender-btn jt-home-expand-shop-event-update-large-wrap-end-date" readonly="readonly" placeholder="달력을 눌러 날짜를 입력" /></li>
+									</ul>
+								</div>
+								<div style="float: left;margin-top: 8px;margin-left: 60px;">
+									<input type="file" id="jt-event-first-image" name="jt-event-first-image"/><br/>
+									<input type="file" id="jt-event-second-image" name="jt-event-second-image"/><br/>
+								</div>
+								<div style="margin-top:15px;margin-right: 10px;">
+									<div style="float: right;">
+										<a href="#none" class="jt-home-expand-shop-event-update-done jt-btn-white-small" data-disabled="0">
+											<span class="btnImage"></span>
+											<span class="btnText">완료</span>
+										</a>
+										<a href="#none" class="jt-home-expand-shop-event-update-cancle jt-btn-white-small">
+											<span class="btnImage"></span>
+											<span class="btnText">취소</span>
+										</a>
+									</div>
+								</div>
+							</div>
+							<img src="${cp }/resources/images/jt-loading-04.gif" class="jt-home-expand-shop-event-update-large-wrap-progress">
+					</div>
 				<div class="jt-home-expand-shop-event" id="jt-seller-expand-event-first" data-epn="<c:out value="${event1.pn }"/>" data-bo="1">
 					<div class="question-mark-wrap" style="width: 310px;">
 						<a class="question-mark" data-step="9">?</a>
@@ -324,25 +367,19 @@
 							<span class="btnImage"></span>
 							<span class="btnText">수정</span>
 						</a>
+						<a href="#none" class="jt-home-expand-shop-event-update-delete-btn jt-btn-white-small">
+							<span class="btnImage"></span>
+							<span class="btnText">삭제</span>
+						</a>
 					</div>
 					<div class="jt-home-expand-shop-event-update-wrap">
-<!-- 						<span style="color: #fff;">310 X 150 (pixel)</span><br/> -->
-						<input type="file" id="jt-event-first-image" name="jt-event-first-image"/><br/>
-						<a href="#none" class="jt-home-expand-shop-event-update-done jt-btn-white-small">
-							<span class="btnImage"></span>
-							<span class="btnText">수정</span>
-						</a>
-						<a href="#none" class="jt-home-expand-shop-event-update-cancle jt-btn-white-small">
-							<span class="btnImage"></span>
-							<span class="btnText">취소</span>
-						</a>
 					</div>
 					<c:set var="blankEvent" value="${cp }/resources/images/jt-event-blank.png"/>
 					<c:set var="imageEvent" value="${cp }/photo/thumbnail/${event1.saveName }event.${event1.imageType }"/>
 					<c:if test="${event1.imageCategory eq 0}">
 						<c:set var="imageEvent" value="${cp }/resources/uploadImage/${event1.saveName }"/>
 					</c:if>
-					<img alt="First Event" src="${event1.saveName eq null ? blankEvent : imageEvent }" title="<c:out value="${jtownUser.name }"/> Event" id="jt-seller-expand-event-first-img"/>
+					<img alt="First Event" src="${event1.saveName eq null ? blankEvent : imageEvent }" title="<c:out value="${jtownUser.name }"/> Event" id="jt-seller-expand-event-first-img" data-imagePn="${event1.imagePn }"/>
 				</div>
 				<div class="jt-home-expand-shop-event" id="jt-seller-expand-event-second" data-epn="<c:out value="${event2.pn }"/>" data-bo="2">
 					<div class="question-mark-wrap" style="width: 310px;">
@@ -360,24 +397,18 @@
 							<span class="btnImage"></span>
 							<span class="btnText">수정</span>
 						</a>
+						<a href="#none" class="jt-home-expand-shop-event-update-delete-btn jt-btn-white-small">
+							<span class="btnImage"></span>
+							<span class="btnText">삭제</span>
+						</a>
 					</div>
 					<div class="jt-home-expand-shop-event-update-wrap">
-<!-- 						<span style="color: #fff;">310 X 150 (pixel)</span><br/> -->
-						<input type="file" id="jt-event-second-image" name="jt-event-second-image"/><br/>
-						<a href="#none" class="jt-home-expand-shop-event-update-done jt-btn-white-small">
-							<span class="btnImage"></span>
-							<span class="btnText">수정</span>
-						</a>
-						<a href="#none" class="jt-home-expand-shop-event-update-cancle jt-btn-white-small">
-							<span class="btnImage"></span>
-							<span class="btnText">취소</span>
-						</a>
 					</div>
 					<c:set var="imageEvent" value="${cp }/photo/thumbnail/${event2.saveName }event.${event2.imageType }"/>
 					<c:if test="${event2.imageCategory eq 0}">
 						<c:set var="imageEvent" value="${cp }/resources/uploadImage/${event2.saveName }"/>
 					</c:if>
-					<img alt="Second Event" src="${event2.saveName eq null ? blankEvent : imageEvent }" title="<c:out value="${jtownUser.name }"/> Event" id="jt-seller-expand-event-second-img"/>
+					<img alt="Second Event" src="${event2.saveName eq null ? blankEvent : imageEvent }" title="<c:out value="${jtownUser.name }"/> Event" id="jt-seller-expand-event-second-img" data-imagePn="${event2.imagePn }"/>
 				</div>
 				<div class="jt-home-expand-shop-content-wrpa">
 					<ul class="jt-home-expand-shop-content-fn">

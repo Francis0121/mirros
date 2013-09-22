@@ -15,7 +15,7 @@ jtown.expand.loadExpandShop = function(){
 		}
 	});
 	
-	$('.jt-home-shop-comment').unbind('click').bind('click', function(){
+	$('.jt-home-shop-comment-wrap').unbind('click').bind('click', function(){
 		var $parent = $(this).parents('.jt-seller-main');
 		
 		if(nullValueCheck($parent.html())){
@@ -42,14 +42,16 @@ jtown.expand.makeInnerHtml = function(spn){
 			interests = selectMap.interestes,
 			cpn = selectMap.cpn,
 			best = false,
-			loveHave = selectMap.loveHave;
+			loveHave = selectMap.loveHave,
+			firstBannerInfo = selectMap.firstBannerInfo,
+			secondBannerInfo = selectMap.secondBannerInfo;
 		
 		var userName = htmlChars(jtownUser.name);
 		ga('send', 'pageview', {
 			  'page': '/ajax/home/expandShop.jt?pn=' + spn,
 			  'title': userName
 			});
-
+		
 		var productSize = Number(products.length);
 		var bigProductHtml = '';
 		var smallProductHtml = '';
@@ -265,14 +267,19 @@ jtown.expand.makeInnerHtml = function(spn){
 		html += '			'+tagHtml;
 		html += '		</div>';
 		html += '	</div>';
-		html += '	<div class="jt-home-expand-shop-event" id="jt-seller-expand-event-first" title="클릭시 해당 쇼핑몰로 이동됩니다.">';
-		html += '		'+ ( (jtownUser.bannerFirst != null && Number(jtownUser.bannerFirst) < 3 ) ? newEventHtml : '');
-		html += '		<img alt="First Event" src="'+eventImage1 +'"/>';
-		html += '	</div>';
+		var nowDate = new Date();
+		if(firstBannerInfo!=null  && (Math.floor((nowDate.getTime() - firstBannerInfo.endDate) / (1000*60*60*24))  <= 0)){
+			html += '	<div class="jt-home-expand-shop-event" id="jt-seller-expand-event-first" title="클릭시 해당 쇼핑몰로 이동됩니다.">';
+			html += '		'+ ( (jtownUser.bannerFirst != null && Number(jtownUser.bannerFirst) < 3 ) ? newEventHtml : '');
+			html += '		<img alt="First Event" src="'+eventImage1 +'"/>';
+			html += '	</div>';
+		}
+		if(secondBannerInfo!=null  && (Math.floor((nowDate.getTime() - secondBannerInfo.endDate) / (1000*60*60*24))  <= 0)){
 		html += '	<div class="jt-home-expand-shop-event" id="jt-seller-expand-event-second" title="클릭시 해당 쇼핑몰로 이동됩니다.">';
 		html += '		'+ ( (jtownUser.bannerSecond != null && Number(jtownUser.bannerSecond) < 3 )? newEventHtml : '');
 		html +=	'		<img alt="Second Event" src="'+eventImage2 +'"/>';
 		html +=	'	</div>';
+		}
 		html += '	<ul class="jt-home-expand-shop-content-fn">';
 		html +=	'		<li class="jt-home-expand-shop-content-view-wrap">';
 		html +=	'			<span class="jt-home-expand-shop-content-view" title="최근 일주일간 방문수">Look</span>&nbsp;<span id="view-expand-'+spn+'">'+jtownUser.viewCount+'</span>';	

@@ -26,6 +26,7 @@
 .jt-heart-click-wrap{ float: left; width: 19px; height:19px; margin-left: 6px; margin-top: -3px; }
 .jt-heart-click-background{ position : absolute; opacity : 0; height : 19px; width : 19px;}
 .jt-heart-click{position: absolute; height: 15px; width: 15px; margin: 2px;}
+.jt-home-heart-click-wrap:ACTIVE{box-shadow: 1px 1px 4px 1px #666 inset;}
 /**
 *
 *	@author Francis
@@ -38,9 +39,9 @@
 	-webkit-box-shadow : 0 1px 3px rgba(34,25,25,0.4);
 	background: #fff;
 }
-.jt-home-shop>header{ float: left; width: 100%; font-size: 12px; background: #f2f2f2; }
+.jt-home-shop>header{ float: left; width: 100%; font-size: 12px; background: #fafafa; }
 .jt-home-shop>header>a{ float: left; width: 100%; text-align: center; margin-top: 10px; font-weight: bold; height: 20px;  color: #4f4f4f;}
-.jt-home-shop>.jt-home-notice{ font-size: 12px; font-family: Dotum; float: left; width: 100%;}
+.jt-home-shop>.jt-home-notice{ font-size: 12px; font-family: Dotum; float: left; width: 100%; padding-left: 25px;}
 .jt-home-shop-footer-firstQuotationMark{ float: left; width: 15px; height:15px; 
 	background: url("../images/jt-home-icon.png") 0 0 no-repeat; margin: 5px 10px 0 10px; text-indent: -99999px;
 }
@@ -56,7 +57,7 @@ word-wrap: break-word; }
 .jt-home-shop-footer-lastTalk{}
 #jt-home-center{}
 #jt-home-container{margin: auto;}
-#jt-home-footer{color: gray; font-size: small; margin: 20px auto; width: 640px;}
+#jt-home-footer{color: gray; font-size: small; margin: 20px auto; width: 640px;overflow: auto;}
 .jt-home-shop-content{ float: left; width: 100%; font-size: 12px;}
 .jt-home-shop-content-image{ float: left; width: 100%;  cursor: pointer; cursor: -webkit-zoom-in; cursor: -moz-zoom-in;}
 .jt-home-shop-content-image>li{ float: left; width: 316px; }
@@ -68,12 +69,11 @@ word-wrap: break-word; }
 .jt-home-shop-content-fn>li>span{float: left; font-weight: bold; color: #b2b2b2;}
 
 .jt-home-shop-comments-wrap{width: 316px; height: 50px; float: left; }
-.jt-home-shop-comments-bar{ float: left; width: 27px; border-top : 1px solid #dbd9ca; height: 49px;}
-.jt-home-shop-comments-bar>div{ margin: 13px auto 0 auto; width: 3px; background: #e5e5e5; border-radius: 1px; height: 20px;}
-.jt-home-shop-comments{ width: 289px; float: left;  border-top : 1px solid #dbd9ca; height : 50px; font-size : 12px; padding : 14px 0 14px 0; color : #b2b2b2; line-height : 21px;
+.jt-home-shop-comments-bar{ float: left; width: 18px; border-top : 1px solid #dbd9ca; padding-top:12px; padding-left: 24px; }
+.jt-home-shop-comments{ width: 258px; float: left;  border-top : 1px solid #dbd9ca; height : 50px; font-size : 12px; padding : 14px 7px 14px 0; color : #b2b2b2; line-height : 21px;
 	box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box; -moz-box-sizing : border-box; -webkit-box-sizing : border-box;
 }
-.jt-more-comment-wrap{ display:none; position:absolute; width: 316px; background: rgba(63,63,63,.9); padding: 14px 10px; font-size : 12px; line-height : 20px; z-index : 2; min-height : 50px;
+.jt-more-comment-wrap{ display:none; position:absolute; width: 316px; background: rgba(136,136,136,.9); padding: 14px 10px; font-size : 12px; line-height : 20px; z-index : 2; min-height : 50px;
 	box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box; -moz-box-sizing : border-box; -webkit-box-sizing : border-box; color: #fff;	
 }
 
@@ -82,6 +82,7 @@ word-wrap: break-word; }
 .jt-home-shop-love{ display: block; width: 15px; height: 15px; background: url("../images/jt-home-icon.png") 0 -30px no-repeat; text-indent: -99999px; }
 .jt-home-shop-love:HOVER{ background-position: -15px -30px;}
 .jt-home-shop-comment{ float: left; margin-left: 36px; margin-top:-1px; width: 15px; height: 15px; background: url("../images/jt-home-icon.png") 0 -60px no-repeat; text-indent: -99999px; cursor: pointer;}
+.jt-home-shop-comment-wrap:ACTIVE{ box-shadow: 1px 1px 4px 1px #666 inset;}
 .jt-home-shop-comment:HOVER{ background-position: -15px -60px;}
 .jt-home-shop-content-love-text-wrap{ float: left; font-weight: bold; margin-left: 2px;}
 .jt-home-shop-content-love-text-wrap span:nth-child(1){float: left; color: #b2b2b2;}
@@ -90,6 +91,12 @@ word-wrap: break-word; }
 
 .jt-home-shop-new-event{position: absolute; width: 313px; padding-top: 3px; height: 0;}
 .jt-home-shop-new-event-div{float: right; width: 60%;}
+
+.jt-home-shop-event-dday{float: left; width:97%; height: 45px; background: rgba(0,0,0,0.4); color:#fff;padding-left: 10px;padding-top: 5px; visibility: hidden; margin-top: -50px;}
+.jt-home-shop-event-dday div{font-family: NanumGothic;}
+.jt-home-shop-event-dday-event-name{width:200px; float: left; font-size: 14px;}
+.jt-home-shop-event-dday-end-date{float: left;width:85px; font-size:16px; padding-top: 12px; font-weight: bold; text-align: right;}
+
 /**
 *
 *	@author Francis

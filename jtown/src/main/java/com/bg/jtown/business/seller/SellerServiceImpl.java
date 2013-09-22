@@ -31,11 +31,9 @@ import com.bg.jtown.util.Pagination;
  * 
  */
 @Service
-public class SellerServiceImpl extends SqlSessionDaoSupport implements
-		SellerService {
+public class SellerServiceImpl extends SqlSessionDaoSupport implements SellerService {
 
-	private static Logger logger = LoggerFactory
-			.getLogger(SellerServiceImpl.class);
+	private static Logger logger = LoggerFactory.getLogger(SellerServiceImpl.class);
 
 	@Resource
 	private Publisher publisher;
@@ -54,8 +52,7 @@ public class SellerServiceImpl extends SqlSessionDaoSupport implements
 		selectMap.putAll(selectSellerEvent(properNumber));
 		selectMap.put("interestes", selectSellerInterest(properNumber));
 		selectMap.put("products", selectSellerProduct(properNumber));
-		selectMap.put("comments",
-				commentService.selectCommentTop(commentFilter));
+		selectMap.put("comments", commentService.selectCommentTop(commentFilter));
 		selectMap.put("commentFilter", commentFilter);
 
 		logger.debug(selectMap.toString());
@@ -64,20 +61,16 @@ public class SellerServiceImpl extends SqlSessionDaoSupport implements
 	}
 
 	@Override
-	public Map<String, Object> selectAllInformation(Integer properNumber,
-			Integer customerPn) {
-		CommentFilter commentFilter = new CommentFilter(properNumber,
-				customerPn);
+	public Map<String, Object> selectAllInformation(Integer properNumber, Integer customerPn) {
+		CommentFilter commentFilter = new CommentFilter(properNumber, customerPn);
 		Map<String, Object> selectMap = new HashMap<String, Object>();
 
-		selectMap.put("jtownUser",
-				selectSellerInformation(properNumber, customerPn));
+		selectMap.put("jtownUser", selectSellerInformation(properNumber, customerPn));
 		selectMap.put("mainImages", selectSellerImage(properNumber));
 		selectMap.putAll(selectSellerEvent(properNumber));
 		selectMap.put("interestes", selectSellerInterest(properNumber));
 		selectMap.put("products", selectSellerProduct(properNumber));
-		selectMap.put("commentTops",
-				commentService.selectCommentTop(commentFilter));
+		selectMap.put("commentTops", commentService.selectCommentTop(commentFilter));
 		selectMap.put("comments", commentService.selectComment(commentFilter));
 		selectMap.put("commentFilter", commentFilter);
 
@@ -89,13 +82,11 @@ public class SellerServiceImpl extends SqlSessionDaoSupport implements
 	// ~ Seller Information
 
 	@Override
-	public JtownUser selectSellerInformation(Integer properNumber,
-			Integer customerPn) {
+	public JtownUser selectSellerInformation(Integer properNumber, Integer customerPn) {
 		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("properNumber", properNumber);
 		param.put("customerPn", customerPn);
-		JtownUser jtownUser = getSqlSession().selectOne(
-				"sellerMapper.selectSellerInformation", param);
+		JtownUser jtownUser = getSqlSession().selectOne("sellerMapper.selectSellerInformation", param);
 		if (jtownUser != null) {
 			if (jtownUser.getLoveCount() == null) {
 				jtownUser.setLoveCount(0);
@@ -115,8 +106,7 @@ public class SellerServiceImpl extends SqlSessionDaoSupport implements
 		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("properNumber", properNumber);
 		param.put("customerPn", null);
-		JtownUser jtownUser = getSqlSession().selectOne(
-				"sellerMapper.selectSellerInformation", param);
+		JtownUser jtownUser = getSqlSession().selectOne("sellerMapper.selectSellerInformation", param);
 		if (jtownUser != null) {
 			if (jtownUser.getLoveCount() == null) {
 				jtownUser.setLoveCount(0);
@@ -142,8 +132,7 @@ public class SellerServiceImpl extends SqlSessionDaoSupport implements
 		map.put("beforeDate", beforeDate);
 		map.put("properNumber", properNumber);
 
-		List<Json> jsons = getSqlSession().selectList(
-				"sellerMapper.selectInterval7DayCount", map);
+		List<Json> jsons = getSqlSession().selectList("sellerMapper.selectInterval7DayCount", map);
 		if (jsons == null) {
 			return map;
 		}
@@ -158,8 +147,7 @@ public class SellerServiceImpl extends SqlSessionDaoSupport implements
 
 	@Override
 	public List<FileVO> selectSellerImage(Integer properNumber) {
-		List<FileVO> images = getSqlSession().selectList(
-				"sellerMapper.selectSellerImage", properNumber);
+		List<FileVO> images = getSqlSession().selectList("sellerMapper.selectSellerImage", properNumber);
 		logger.debug(images.toString());
 		return images;
 	}
@@ -170,16 +158,14 @@ public class SellerServiceImpl extends SqlSessionDaoSupport implements
 		paramMap.put("properNumber", properNumber);
 		paramMap.put("imagePn", imagePn);
 
-		FileVO savename = getSqlSession().selectOne(
-				"sellerMapper.selectSellerImageOne", paramMap);
+		FileVO savename = getSqlSession().selectOne("sellerMapper.selectSellerImageOne", paramMap);
 		logger.debug(savename.toString());
 		return savename;
 	}
 
 	@Override
 	public Integer selectSellerImageCount(Integer properNumber) {
-		return getSqlSession().selectOne("sellerMapper.selectSellerImageCount",
-				properNumber);
+		return getSqlSession().selectOne("sellerMapper.selectSellerImageCount", properNumber);
 	}
 
 	@Override
@@ -212,8 +198,7 @@ public class SellerServiceImpl extends SqlSessionDaoSupport implements
 	public void updateSellerNotice(JtownUser jtownUser) {
 		String notice = jtownUser.getNotice();
 		if (notice.length() < 100) {
-			getSqlSession()
-					.update("sellerMapper.updateSellerNotice", jtownUser);
+			getSqlSession().update("sellerMapper.updateSellerNotice", jtownUser);
 		} else {
 			logger.error("=================> Notice Over Flow Character 100");
 			logger.error(jtownUser.getNotice());
@@ -224,8 +209,7 @@ public class SellerServiceImpl extends SqlSessionDaoSupport implements
 	public void updateSellerLongNotice(JtownUser jtownUser) {
 		String longNotice = jtownUser.getLongNotice();
 		if (longNotice.length() < 250) {
-			getSqlSession().update("sellerMapper.updateSellerLongNotice",
-					jtownUser);
+			getSqlSession().update("sellerMapper.updateSellerLongNotice", jtownUser);
 		} else {
 			logger.error("=================> Notice Over Flow Character 100");
 			logger.error(jtownUser.getLongNotice());
@@ -250,20 +234,17 @@ public class SellerServiceImpl extends SqlSessionDaoSupport implements
 
 	@Override
 	public List<Event> selectEventList(Integer userPn) {
-		return getSqlSession().selectList("sellerMapper.selectEventList",
-				userPn);
+		return getSqlSession().selectList("sellerMapper.selectEventList", userPn);
 	}
 
 	@Override
 	public Event selectEventOne(Integer eventPn) {
-		return getSqlSession()
-				.selectOne("sellerMapper.selectEventOne", eventPn);
+		return getSqlSession().selectOne("sellerMapper.selectEventOne", eventPn);
 	}
 
 	@Override
 	public Integer selectEventCount(Integer userPn) {
-		return getSqlSession().selectOne("sellerMapper.selectEventCount",
-				userPn);
+		return getSqlSession().selectOne("sellerMapper.selectEventCount", userPn);
 	}
 
 	@Override
@@ -295,14 +276,12 @@ public class SellerServiceImpl extends SqlSessionDaoSupport implements
 
 	@Override
 	public List<Interest> selectSellerInterest(Integer properNumber) {
-		return getSqlSession().selectList("sellerMapper.selectSellerInterest",
-				properNumber);
+		return getSqlSession().selectList("sellerMapper.selectSellerInterest", properNumber);
 	}
 
 	@Override
 	public List<Interest> selectInterestes(Integer properNumber) {
-		return getSqlSession().selectList("sellerMapper.selectInterestes",
-				properNumber);
+		return getSqlSession().selectList("sellerMapper.selectInterestes", properNumber);
 	}
 
 	@Override
@@ -310,8 +289,7 @@ public class SellerServiceImpl extends SqlSessionDaoSupport implements
 		adminService.deleteSellerInterest(interest);
 
 		Integer[] spnList = interest.getSpnList();
-		Interest insertInterest = new Interest(interest.getSellerPn(), null,
-				interest.getSectionPn(), null);
+		Interest insertInterest = new Interest(interest.getSellerPn(), null, interest.getSectionPn(), null);
 		for (int i = 0; i < spnList.length; i++) {
 			Integer spn = spnList[i];
 			if (spn != null && !spn.equals("0")) {
@@ -325,8 +303,7 @@ public class SellerServiceImpl extends SqlSessionDaoSupport implements
 
 	@Override
 	public List<Product> selectSellerProduct(Integer userPn) {
-		return getSqlSession().selectList("sellerMapper.selectSellerProduct",
-				userPn);
+		return getSqlSession().selectList("sellerMapper.selectSellerProduct", userPn);
 	}
 
 	@Override
@@ -335,33 +312,27 @@ public class SellerServiceImpl extends SqlSessionDaoSupport implements
 		int count = selectSellerProductCount(productFilter);
 		if (count == 0) {
 			return new ArrayList<Product>();
-		}else if(count <= 10 && productFilter.getPage() == 2){
+		} else if (count <= 10 && productFilter.getPage() == 2) {
 			productFilter.setPage(1);
-		}else if(count <= 20 && productFilter.getPage() == 3){
+		} else if (count <= 20 && productFilter.getPage() == 3) {
 			productFilter.setPage(2);
 		}
 		pagination.setNumItems(count);
-		return getSqlSession().selectList(
-				"sellerMapper.selectSellerProductFromProductFilter",
-				productFilter);
+		return getSqlSession().selectList("sellerMapper.selectSellerProductFromProductFilter", productFilter);
 	}
 
 	private Integer selectSellerProductCount(ProductFilter productFilter) {
-		return getSqlSession().selectOne(
-				"sellerMapper.selectSellerProductCountFromProductFilter",
-				productFilter);
+		return getSqlSession().selectOne("sellerMapper.selectSellerProductCountFromProductFilter", productFilter);
 	}
 
 	@Override
 	public Integer selectSellerProductCount(Integer userPn) {
-		return getSqlSession().selectOne(
-				"sellerMapper.selectSellerProductCount", userPn);
+		return getSqlSession().selectOne("sellerMapper.selectSellerProductCount", userPn);
 	}
 
 	@Override
 	public Product selectSellerProductOne(Integer productPn) {
-		return getSqlSession().selectOne("sellerMapper.selectSellerProductOne",
-				productPn);
+		return getSqlSession().selectOne("sellerMapper.selectSellerProductOne", productPn);
 	}
 
 	@Override
@@ -406,7 +377,43 @@ public class SellerServiceImpl extends SqlSessionDaoSupport implements
 	// ~ LoveCount
 	@Override
 	public Integer selectLoveCount(Integer properNumber) {
-		return getSqlSession().selectOne("sellerMapper.selectLoveCount",
-				properNumber);
+		return getSqlSession().selectOne("sellerMapper.selectLoveCount", properNumber);
 	}
+
+	// D-DAY Event
+	@Override
+	public void insertDdayEvent(Event event) {
+		getSqlSession().insert("sellerMapper.insertDdayEvent", event);
+	}
+
+	@Override
+	public void updateDdayEvent(Event event) {
+		getSqlSession().update("sellerMapper.updateDdayEvent", event);
+	}
+
+	@Override
+	public void insertAndUpdateDdayEvent(Event event) {
+		if (event.getEventPn() != null && !("".equals(event.getEventPn()))) {
+			updateDdayEvent(event);
+		} else {
+			insertDdayEvent(event);
+		}
+		publisher.eventPublish(event);
+	}
+
+	@Override
+	public Event selectSellerDDayEvent(Event event) {
+		return getSqlSession().selectOne("sellerMapper.selectSellerDDayEvent", event);
+	}
+
+	@Override
+	public void deleteSellerDDayEvent(Event event) {
+		getSqlSession().delete("sellerMapper.deleteSellerDDayEvent", event);
+	}
+
+	@Override
+	public void deleteSellerBanner(Event event) {
+		getSqlSession().delete("sellerMapper.deleteSellerBanner", event);
+	}
+
 }

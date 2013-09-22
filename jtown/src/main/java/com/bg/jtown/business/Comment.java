@@ -206,11 +206,11 @@ public class Comment {
 		if (this.comment == null || this.comment.trim().equals("")) {
 			return "";
 		}
-		return StringUtil.strCut(this.comment.trim(), 48, "");
+		return StringUtil.strCut(this.comment.trim(), 40, "");
 	}
 	
 	public boolean getIsSplit(){
-		return StringUtil.isSplit(this.comment, 48);
+		return StringUtil.isSplit(this.comment, 40);
 	}
 
 	@Override

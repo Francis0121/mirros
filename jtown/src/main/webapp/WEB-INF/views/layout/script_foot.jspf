@@ -10,6 +10,8 @@
 <%-- <script src="${cp}/resources/js/masonry.scollr.pagination.min.js"></script> --%>
 <script src="${cp}/resources/js/masonry.scroll.pagination.js"></script>
 <script src="${cp}/resources/js/jcarousellite_1.0.1.min.js"></script>
+<script src="${cp}/resources/js/masonry.pkgd.min.js"></script>
+<script src="${cp}/resources/js/jquery.infinitescroll.js"></script>
 
 <%-- <script src="${cp}/resources/js/jquery.plugin.min.js"></script> --%>
 <script src="${cp}/resources/js/jquery.mousewheel.js"></script>
@@ -18,9 +20,11 @@
 <script src="${cp}/resources/js/jquery.plugin.js"></script>
 <script src="${cp}/resources/js/jquery.cookie.js"></script>
 <script src="${cp}/resources/js/jquery.intro.js"></script>
+<script src="${cp}/resources/js/jquery.simplemodal.js"></script>
 <%-- Custom --%>
 <%-- <script src="${cp}/resources/js/mirros.all.js"></script> --%>
 <script src="${cp}/resources/js/content/01_jtown.js"></script>
+<script src="${cp}/resources/js/content/01_2_productGather.js"></script>
 <script src="${cp}/resources/js/content/02_util.js"></script>
 <script src="${cp}/resources/js/content/03_login.js"></script>
 <script src="${cp}/resources/js/content/04_admin.js"></script>
@@ -29,6 +33,7 @@
 <script src="${cp}/resources/js/content/07_comment.js?08191838"></script>
 <script src="${cp}/resources/js/content/08_board.js"></script>
 <script src="${cp}/resources/js/content/09_help.js"></script>
+
 <%-- Node --%>
 <script src="${nodePath }/socket.io/socket.io.js"></script>
 <%-- <script src="${cp}/resources/js/real.time.min.js"></script> --%>
@@ -42,11 +47,10 @@
 /* ]]> */	            
 </script>
 </c:if>
-
 <pre id="jt-home-footer">
-비즈니스게이트 | 사업자등록번호 130-45-18175 | 대표 이진섭 | &copy; 2013 Business Gate. All rights reserved.
+비즈니스게이트 | 사업자등록번호 130-45-18175 | 대표 이진섭 | E-mail help@mirros.net | Tel 070.7079.2234 
+						&copy; 2013 Business Gate. All rights reserved. 
 </pre>
-
 <%-- Loading Page --%>
 <div id="loading-popup">
 	<div><img alt="Loading" src="${cp }/resources/images/jt-loading-03.gif"></div>

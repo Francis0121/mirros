@@ -29,6 +29,8 @@ public interface HomeService {
 	List<JtownUser> selectFromInterestCategory(HomeFilter homeFilter);
 
 	List<JtownUser> selectFromInterest(HomeFilter homeFilter);
+	
+	Map<String, Object> selectSellerEventBannerInformation(int properNumber);
 
 	// ~ count
 

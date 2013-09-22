@@ -1,5 +1,7 @@
 package com.bg.jtown.business;
 
+import java.util.Date;
+
 /**
  * Seller Event
  * 
@@ -58,13 +60,25 @@ public class Event {
 	 */
 	private String imageType;
 
+	/**
+	 * 이벤트 고유번호
+	 */
+	private Integer eventPn;
+	/**
+	 * 이벤트 설명
+	 */
+	private String eventName;
+
+	/**
+	 * 만기일
+	 */
+	private Date endDate;
+
 	public Event() {
 		super();
 	}
 
-	public Event(Integer pn, Integer sellerPn, Integer bannerType,
-			String saveName, Integer imagePn, String content,
-			Integer bannerOrder) {
+	public Event(Integer pn, Integer sellerPn, Integer bannerType, String saveName, Integer imagePn, String content, Integer bannerOrder) {
 		super();
 		this.pn = pn;
 		this.sellerPn = sellerPn;
@@ -151,13 +165,35 @@ public class Event {
 		this.imageType = imageType;
 	}
 
+	public String getEventName() {
+		return eventName;
+	}
+
+	public void setEventName(String eventName) {
+		this.eventName = eventName;
+	}
+
+	public Date getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
+
+	public Integer getEventPn() {
+		return eventPn;
+	}
+
+	public void setEventPn(Integer eventPn) {
+		this.eventPn = eventPn;
+	}
+
 	@Override
 	public String toString() {
-		return "Event [bannerOrder=" + bannerOrder + ", bannerType="
-				+ bannerType + ", content=" + content + ", imagePn=" + imagePn
-				+ ", pn=" + pn + ", redisType=" + redisType + ", saveName="
-				+ saveName + ", sellerPn=" + sellerPn + ", imageCategory="
-				+ imageCategory + ", imageType=" + imageType + "]";
+		return "Event [bannerOrder=" + bannerOrder + ", bannerType=" + bannerType + ", content=" + content + ", imagePn=" + imagePn + ", pn=" + pn
+				+ ", redisType=" + redisType + ", saveName=" + saveName + ", sellerPn=" + sellerPn + ", imageCategory=" + imageCategory
+				+ ", imageType=" + imageType + ", eventName=" + eventName + ", endDate=" + endDate + "]";
 	}
 
 }

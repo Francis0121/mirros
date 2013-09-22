@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import com.bg.jtown.business.Comment;
 import com.bg.jtown.business.Count;
+import com.bg.jtown.business.Event;
 import com.bg.jtown.business.Interest;
 import com.bg.jtown.business.search.HomeFilter;
 import com.bg.jtown.business.seller.SellerService;
@@ -30,13 +31,11 @@ import com.bg.jtown.util.Pagination;
  * 
  */
 @Service
-public class HomeServiceImpl extends SqlSessionDaoSupport implements
-		HomeService {
+public class HomeServiceImpl extends SqlSessionDaoSupport implements HomeService {
 	// Menu 변경으로 주석처리
 	// private static final Integer CATEGORY_DEFAULT_FASION = 1;
 
-	private static Logger logger = LoggerFactory
-			.getLogger(HomeServiceImpl.class);
+	private static Logger logger = LoggerFactory.getLogger(HomeServiceImpl.class);
 
 	@Resource
 	private SellerService sellerService;
@@ -104,16 +103,25 @@ public class HomeServiceImpl extends SqlSessionDaoSupport implements
 	@Override
 	public Map<String, Object> selectExpandShop(Integer properNumber) {
 		Map<String, Object> selectMap = new HashMap<String, Object>();
-		selectMap.put("jtownUser",
-				sellerService.selectSellerInformation(properNumber));
+		selectMap.put("jtownUser", sellerService.selectSellerInformation(properNumber));
 		selectMap.putAll(sellerService.selectSellerEvent(properNumber));
-		selectMap.put("products",
-				sellerService.selectSellerProduct(properNumber));
-		selectMap.put("interestes",
-				sellerService.selectSellerInterest(properNumber));
-
+		selectMap.put("products", sellerService.selectSellerProduct(properNumber));
+		selectMap.put("interestes", sellerService.selectSellerInterest(properNumber));
+		selectMap.putAll(selectSellerEventBannerInformation(properNumber));
 		logger.debug(selectMap.toString());
 
+		return selectMap;
+	}
+	
+	@Override
+	public Map<String, Object> selectSellerEventBannerInformation(int properNumber){
+		Map<String, Object> selectMap = new HashMap<String, Object>();
+		Event event = new Event();
+		event.setBannerOrder(1);
+		event.setSellerPn(properNumber);
+		selectMap.put("firstBannerInfo",  sellerService.selectSellerDDayEvent(event));
+		event.setBannerOrder(2);
+		selectMap.put("secondBannerInfo",  sellerService.selectSellerDDayEvent(event));
 		return selectMap;
 	}
 
@@ -143,15 +151,13 @@ public class HomeServiceImpl extends SqlSessionDaoSupport implements
 			return new ArrayList<JtownUser>();
 		}
 
-		List<JtownUser> list = getSqlSession().selectList(
-				"homeMapper.selectFromInterestCategory", homeFilter);
+		List<JtownUser> list = getSqlSession().selectList("homeMapper.selectFromInterestCategory", homeFilter);
 		logger.debug(list.toString());
 		return list;
 	}
 
 	private Integer selectFromInterestCategoryCount(HomeFilter homeFilter) {
-		return getSqlSession().selectOne(
-				"homeMapper.selectFromInterestCategoryCount", homeFilter);
+		return getSqlSession().selectOne("homeMapper.selectFromInterestCategoryCount", homeFilter);
 	}
 
 	@Override
@@ -162,23 +168,22 @@ public class HomeServiceImpl extends SqlSessionDaoSupport implements
 		if (count == 0) {
 			return new ArrayList<JtownUser>();
 		}
-		List<JtownUser> list = getSqlSession().selectList(
-				"homeMapper.selectFromInterest", homeFilter);
+		List<JtownUser> list = getSqlSession().selectList("homeMapper.selectFromInterest", homeFilter);
 		logger.debug(list.toString());
 		return list;
 	}
 
 	private int selectFromInterestCount(HomeFilter homeFilter) {
-		return getSqlSession().selectOne("homeMapper.selectFromInterestCount",
-				homeFilter);
+		return getSqlSession().selectOne("homeMapper.selectFromInterestCount", homeFilter);
 	}
 
 	// ~ Count
 
 	@Override
 	public void insertViewCount(Count count) {
-		if( count.getCount() == null ) count.setCount( 1 );
-		
+		if (count.getCount() == null)
+			count.setCount(1);
+
 		Integer sellerPn = count.getSellerPn();
 		Integer dayCount = selectStaisticView(sellerPn);
 		if (dayCount == null || dayCount == 0) {
@@ -204,13 +209,11 @@ public class HomeServiceImpl extends SqlSessionDaoSupport implements
 		selectMap.put("beforeDate", beforeDate);
 		selectMap.put("sellerPn", sellerPn);
 
-		return getSqlSession().selectOne(
-				"homeMapper.selectSevenDayStatisticView", selectMap);
+		return getSqlSession().selectOne("homeMapper.selectSevenDayStatisticView", selectMap);
 	}
 
 	private Integer selectStaisticView(Integer sellerPn) {
-		return getSqlSession().selectOne("homeMapper.selectStatisticView",
-				sellerPn);
+		return getSqlSession().selectOne("homeMapper.selectStatisticView", sellerPn);
 	}
 
 	@Override
@@ -218,17 +221,18 @@ public class HomeServiceImpl extends SqlSessionDaoSupport implements
 		Integer sellerPn = count.getSellerPn();
 
 		Integer dayCount = selectStaisticClick(sellerPn);
+		System.out.println("insert click");
 		if (dayCount == null || dayCount == 0) {
 			insertStaisticClick(sellerPn);
 		} else {
 			count.setCount(dayCount + 1);
 			updateStaisticClick(count);
+			System.out.println("update Click");
 		}
 	}
 
 	private Integer selectStaisticClick(Integer sellerPn) {
-		return getSqlSession().selectOne("homeMapper.selectStatisticClick",
-				sellerPn);
+		return getSqlSession().selectOne("homeMapper.selectStatisticClick", sellerPn);
 	}
 
 	private void insertStaisticClick(Integer sellerPn) {
@@ -266,8 +270,7 @@ public class HomeServiceImpl extends SqlSessionDaoSupport implements
 
 	@Override
 	public Map<Integer, List<Interest>> selectInterest(Integer customerPn) {
-		List<Interest> interests = getSqlSession().selectList(
-				"homeMapper.selectInterest", customerPn);
+		List<Interest> interests = getSqlSession().selectList("homeMapper.selectInterest", customerPn);
 		List<Interest> interestCategories = selecInterestCategory();
 
 		Map<Integer, List<Interest>> selectMap = new HashMap<Integer, List<Interest>>();
@@ -291,8 +294,7 @@ public class HomeServiceImpl extends SqlSessionDaoSupport implements
 
 	@Override
 	public void insertInterest(Interest interest) {
-		Integer count = getSqlSession().selectOne(
-				"homeMapper.selectInterestSectionCount", interest);
+		Integer count = getSqlSession().selectOne("homeMapper.selectInterestSectionCount", interest);
 		if (count == 0) {
 			getSqlSession().insert("homeMapper.insertInterest", interest);
 		}
@@ -324,7 +326,6 @@ public class HomeServiceImpl extends SqlSessionDaoSupport implements
 
 	@Override
 	public List<Interest> selectInterestSection(Integer categoryPn) {
-		return getSqlSession().selectList("homeMapper.selectInterestSection",
-				categoryPn);
+		return getSqlSession().selectList("homeMapper.selectInterestSection", categoryPn);
 	}
 }

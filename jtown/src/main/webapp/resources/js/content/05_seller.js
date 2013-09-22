@@ -16,7 +16,7 @@ $(function() {
 
 	$('#jt-event-second-image').uploadify({
 		'formData' : {'pn' : $('#jt-seller-body').attr('data-spn'), 'category' : 'event'},
-		'buttonText' : '사진 업로드',
+		'buttonText' : '이미지 업로드',
 		'fileTypeDesc' : 'Image Files',
         'fileTypeExts' : '*.gif; *.jpg; *.png',
         'fileSizeLimit' : '2MB',
@@ -35,7 +35,7 @@ $(function() {
 	
 	$('#jt-event-first-image').uploadify({
 		'formData' : {'pn' : $('#jt-seller-body').attr('data-spn'), 'category' : 'event'},
-		'buttonText' : '사진 업로드',
+		'buttonText' : '이미지 업로드',
 		'fileTypeDesc' : 'Image Files',
         'fileTypeExts' : '*.gif; *.jpg; *.png',
         'fileSizeLimit' : '2MB',
@@ -244,6 +244,7 @@ makeIntro = function(){
 				intro: 	'<ol style="list-style: decimal; margin-left: 15px;">'+
 						'	<li>마우스를 사진 위에 올립니다.</li>'+
 						'	<li>수정 버튼을 클릭합니다.</li>'+
+						'	<li>이벤트 이름과 이벤트 만기일을 입력합니다.</li>'+
 						'	<li>사진 업로드 버튼을 클릭하여 사진을 업로드 합니다.</li>'+
 						'	<li>수정 버튼을 클릭합니다.</li>'+
 						'</ol>'
@@ -253,6 +254,7 @@ makeIntro = function(){
 				intro: 	'<ol style="list-style: decimal; margin-left: 15px;">'+
 						'	<li>마우스를 사진 위에 올립니다.</li>'+
 						'	<li>수정 버튼을 클릭합니다.</li>'+
+						'	<li>이벤트 이름과 이벤트 만기일을 입력합니다.</li>'+
 						'	<li>사진 업로드 버튼을 클릭하여 사진을 업로드 합니다.</li>'+
 						'	<li>수정 버튼을 클릭합니다.</li>'+
 						'</ol>'
@@ -640,47 +642,193 @@ jtown.seller.syncEvent = function() {
 		}
 	});
 
-	$('.jt-home-expand-shop-event-tool').unbind('click').bind('click', function() {
+	$('.jt-home-expand-shop-event-update-btn').unbind('click').bind('click', function() {
 		$(this).parents('.jt-home-expand-shop-event').children('.jt-home-expand-shop-event-tool').hide();
-		$(this).parents('.jt-home-expand-shop-event').children('.jt-home-expand-shop-event-update-wrap').show();
+		var parents = $(this).parents('.jt-home-expand-shop-event');
+		var largeWrap = $('.jt-home-expand-shop-event-update-large-wrap');
+			largeWrap.css('visibility','visible').attr('data-image-order', parents.attr('id'));
+		
+		var bannerOrder =  1;
+		$('#jt-event-first-image').css('display','block');
+		$('#jt-event-second-image').css('display','none');
+		if('jt-seller-expand-event-second' == parents.attr('id')){
+			$('#jt-event-first-image').css('display','none');
+			$('#jt-event-second-image').css('display','block').css('margin-top','-11px');
+			bannerOrder = 2;
+		}	
+		var sellerPn = $(this).parents('.jt-home-expand-shop').attr('data-spn');
+		var eventName =  $('.jt-home-expand-shop-event-update-large-wrap-event-name');
+		var endDate = $('.jt-home-expand-shop-event-update-large-wrap-calender-btn');
+		eventName.val('');
+		endDate.val('');
+		$.ajax({
+			type:"POST",
+			dataType: 'json',
+			url: contextPath+"ajax/seller/getEventData.jt",
+			data:{ sellerPn : sellerPn , bannerOrder: bannerOrder },
+			success: function(data,textStatus){
+				if(data != null){
+					eventName.val(data.eventName);
+					endDate.val( new Date(data.endDate).format('yyyy-MM-dd'));
+					largeWrap.attr('data-event-pn', data.eventPn);
+				}else{
+					largeWrap.attr('data-event-pn', '');
+				}
+			}
+		});
+		$('.jt-home-expand-shop-event-update-large-wrap').trigger('openModal');
+	});
+	
+	$('.jt-home-expand-shop-event-update-delete-btn').unbind('click').bind('click', function() {
+		var parents = $(this).parents('.jt-home-expand-shop-event');
+			if(jtown.confirm('삭제하시겠습니까?',function(){
+			var bannerOrder =  1;
+			if('jt-seller-expand-event-second' == parents.attr('id')){
+				bannerOrder = 2;
+			}	
+			var sellerPn = $('.jt-seller-content-wrap').attr('data-spn');
+			
+			$.ajax({
+		        url: contextPath+"ajax/seller/deleteDdayEvent.jt",
+		        type: "POST",
+		        dataType : false,
+		        data:{bannerOrder : bannerOrder, sellerPn : sellerPn},
+		        success: function(data){
+		        	console.log(data);
+		        	if(bannerOrder==1){
+		        		$('#jt-seller-expand-event-first-img').attr('data-imagePn','');
+		        	}else if(bannerOrder == 2){
+		        		$('#jt-seller-expand-event-second-img').attr('data-imagePn','');
+		        	}
+		        	jtown.reloadDialog('삭제되었습니다.');
+		        	parents.find('img').attr('src', contextPath+"resources/images/jt-event-blank.png");
+		        	
+		        }
+	        });
+		}, function(){})){
+		}
 	});
 	
 	$('.jt-home-expand-shop-event-update-cancle').unbind('click').bind('click', function(){
 		var $parent = $(this).parents('.jt-home-expand-shop-event');
 		var $img = $parent.find('img');
 		var oldSrc = $img.attr('data-oldSrc');
-		
-		$img.attr('src', oldSrc).attr('data-oldSrc', '').attr('data-imagePn', '');
+		$img.attr('src', oldSrc).attr('data-oldSrc', '');
 		$parent.find('input[type=file]').val('');
-		
-		$parent.children('.jt-home-expand-shop-event-update-wrap').hide();
+		$('.jt-home-expand-shop-event-update-large-wrap').trigger('closeModal');
+		$('.jt-home-expand-shop-event-update-large-wrap').css('visibility','hidden');
 	});
 	
 	$('.jt-home-expand-shop-event-update-done').unbind('click').bind('click', function(){
-		var $parent = $(this).parents('.jt-home-expand-shop-event');
-		var $img = $parent.find('img'), imagePn = $img.attr('data-imagePn');
-		
-		
-		if(!nullValueCheck(imagePn)){
-			var url = contextPath + 'ajax/seller/changeEvent.jt',
-				json = { 	'imagePn' 		:	imagePn,
-							'pn'			:	$parent.attr('data-epn'),
-							'bannerOrder'	:	$parent.attr('data-bo')		};
-			
-			$.postJSON(url, json, function(event){
-				$img.attr('data-oldSrc', '').attr('data-imagePn', '');
-				$parent.attr('data-epn', event.pn);
-				$parent.children('.jt-home-expand-shop-event-update-wrap').hide();
-				var html = 	'<div class="jt-home-expand-shop-event-new">'+
-								'<div>'+
-									'<span class="jt-home-expand-shop-event-new-image">NEW</span>'+
-								'</div>'+
-							'</div>';
-				$parent.prepend(html);
-			});
+		var nowDate = new Date();
+		var endDate = new Date($('.jt-home-expand-shop-event-update-large-wrap-end-date').val());
+		var differenceDate = Math.floor((endDate - nowDate )/(1000*60*60*24));
+		console.log(differenceDate);
+		if(differenceDate > 29){
+			jtown.dialog('만기일은 '+new Date(nowDate.getTime()+(1000*60*60*24* 30) ).format("yyyy년 MM월 dd일")+'까지 입니다.');
+			return;
+		}else if(differenceDate < -1){
+			jtown.dialog('지난날은 만기일로 할 수 없습니다.');
+			return;
+		}
+		var $img, imagePn, epn, bannerOrder = null;
+		if('jt-seller-expand-event-first' == $('.jt-home-expand-shop-event-update-large-wrap').attr('data-image-order') ){
+			$img= $('#jt-seller-expand-event-first-img'),  imagePn= $img.attr('data-imagePn');
+			bannerOrder = 1;
+			epn = $('.jt-home-expand-shop-event:eq(0)').attr('data-epn');
 		}else{
-			$img.attr('data-oldSrc', '').attr('data-imagePn', '');
-			$parent.children('.jt-home-expand-shop-event-update-wrap').hide();
+			$img= $('#jt-seller-expand-event-second-img'),  imagePn= $img.attr('data-imagePn');
+			bannerOrder = 2;
+			epn = $('.jt-home-expand-shop-event:eq(1)').attr('data-epn');
+		}
+		var endDate =$('.jt-home-expand-shop-event-update-large-wrap-end-date').val();
+		var eventName = $('.jt-home-expand-shop-event-update-large-wrap-event-name').val();
+		var eventPn = $('.jt-home-expand-shop-event-update-large-wrap').attr('data-event-pn');
+		var sellerPn = $('.jt-home-expand-shop').attr('data-spn');
+		if('' == eventName){
+			jtown.dialog('이벤트 이름을 입력해주세요.');
+			return;
+		}else if(''== endDate){
+			jtown.dialog('이벤트 만기일을 입력해주세요.');
+			return;
+		}
+		console.log('imagePn :'+ imagePn +' epn :'+ epn +' bannerOrder :'+ bannerOrder +' eventPn :'+ eventPn + ' sellerPn:'+sellerPn);
+		if(!nullValueCheck(imagePn)){
+			if($('.jt-home-expand-shop-event-update-done').attr('data-disabled') == '0'){
+				$('.jt-home-expand-shop-event-update-done').attr('data-disabled','');
+					var url = contextPath + 'ajax/seller/changeEvent.jt',
+					json = { 	'imagePn' 		:	imagePn,
+								'pn'			:	epn,
+								'bannerOrder'	:	bannerOrder,
+								'eventName'		:	eventName,
+								'endDate'		:	endDate,
+								'eventPn'	:	eventPn,
+								'sellerPn'		: sellerPn
+					};
+					$('.jt-home-expand-shop-event-update-large-wrap-progress').css('visibility','visible');
+				$.postJSON(url, json, function(event){
+					$img.attr('data-oldSrc', '').attr('data-imagePn', event.imagePn);
+					if(bannerOrder == 1){
+						$('.jt-home-expand-shop-event:eq(0)').attr('data-epn' ,event.pn);
+					}else{
+						$('.jt-home-expand-shop-event:eq(1)').attr('data-epn' ,event.pn);
+					}
+					var html = 	'<div class="jt-home-expand-shop-event-new">'+
+									'<div>'+
+										'<span class="jt-home-expand-shop-event-new-image">NEW</span>'+
+									'</div>'+
+								'</div>';
+					if(bannerOrder == 1){
+						$('#jt-seller-expand-event-first').prepend(html);
+					}else{
+						$('#jt-seller-expand-event-second').prepend(html);
+					}
+					$('.jt-home-expand-shop-event-update-large-wrap-progress').css('visibility','hidden');
+					$('.jt-home-expand-shop-event-update-large-wrap').trigger('closeModal');
+					
+					if($('.jt-home-shop-event-dday').text() == ''){
+						var ddayHtml = '<div class="jt-home-shop-event-dday" style="visibility:visible">'+
+												'<div class="jt-home-shop-event-dday-event-name">'+
+													eventName+
+												'</div>'+
+												'<div class="jt-home-shop-event-dday-end-date">'+
+													(differenceDate+1)+'일 남음'+
+												'</div>'+
+											'</div>';
+						$('.jt-home-shop-event-dday-wrap').prepend(ddayHtml);
+						
+					}else{
+						$('.jt-home-shop-event-dday-event-name').text(eventName);
+						$('.jt-home-shop-event-dday-end-date').text((differenceDate+1)+'일 남음');
+					}
+					jtown.dialog('수정되었습니다.');
+					$('.jt-home-expand-shop-event-update-done').attr('data-disabled','0');
+					$('.jt-home-expand-shop-event-update-large-wrap').css('visibility','hidden');
+				});
+			}
+		}else{
+			if(''==eventPn){
+				jtown.dialog('이미지를 업로드해주세요.');
+				return;
+			}
+			var url = contextPath + 'ajax/seller/updateDdayEvent.jt',
+			json = {
+						'eventName'		:	eventName,
+						'endDate'		:	endDate,
+						'eventPn'	:	eventPn,
+						'bannerOrder'	:	bannerOrder,
+						'sellerPn'		: sellerPn
+			};
+			$('.jt-home-expand-shop-event-update-large-wrap-progress').css('visibility','visible');
+			$.postJSON(url, json, function(event){
+				$img.attr('data-oldSrc', '').attr('data-imagePn', event.imagePn);
+				$('.jt-home-expand-shop-event-update-large-wrap-progress').css('visibility','hidden');
+				$('.jt-home-expand-shop-event-update-large-wrap').trigger('closeModal');
+				$('.jt-home-shop-event-dday-event-name').text(eventName);
+				$('.jt-home-shop-event-dday-end-date').text((differenceDate-1)+'일 남음');
+				jtown.dialog('수정되었습니다.');
+				$('.jt-home-expand-shop-event-update-large-wrap').css('visibility','hidden');
+			});
 		}
 	});
 	
@@ -707,3 +855,22 @@ jtown.seller.secondEvent = function(file){
 		$('#jt-seller-expand-event-second-img').attr('data-oldSrc', oldSrc);
 	}
 };
+
+$(function(){
+	$(".jt-home-expand-shop-event-update-large-wrap-calender-btn").datepicker({
+		showOn: "button",
+		buttonImageOnly: true,
+		buttonImage: "../resources/jquery/images/calendar.gif",
+		buttonText: "Calendar",
+		dateFormat: "yy-mm-dd"
+	});
+	$('.jt-home-expand-shop-event-update-large-wrap').easyModal({
+		top: 300,
+		autoOpen: false,
+		overlayOpacity: 0.3,
+		overlayColor: "#333",
+		overlayClose: false,
+		closeOnEscape: false
+	});
+});
+

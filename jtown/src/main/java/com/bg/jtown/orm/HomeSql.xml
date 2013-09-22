@@ -15,6 +15,10 @@
 		<result column="customer_pn" property="customerPn"/>
 		<result column="love_hot_count" property="loveHotCount"/>
 		<result column="new_product" property="newProduct"/>
+		<result column="event_pn" property="eventPn"/>
+		<result column="event_name" property="eventName"/>
+		<result column="end_date" property="endDate"/>
+		<result column="banner_order" property="bannerOrder"/>
 		<collection property="images" column="pn" javaType="ArrayList" select="selectSellerImage" ofType="File"/>
 	</resultMap>
 	
@@ -60,7 +64,7 @@
 		SELECT
 			us.pn , u.name, us.shop_url, us.notice, 
 			ssid.view_count, clsp.love_count, ccsp.comment_count, bdl.banner_first, bdl.banner_second, 
-			pnb.new_product,
+			pnb.new_product, usle.event_pn, usle.event_name, DATEDIFF(usle.end_date,NOW()) AS end_date, usle.banner_order,
 			us.hot AS love_hot_count
 			<if test="customerPn != null">
 			, cl.customer_pn
@@ -68,17 +72,19 @@
 		FROM
 			user_seller us 
 			LEFT OUTER JOIN users u
-			ON us.pn = u.pn
+				ON us.pn = u.pn
 			LEFT OUTER JOIN count_love_seller_pn clsp
-			ON us.pn = clsp.seller_pn
+				ON us.pn = clsp.seller_pn
 			LEFT OUTER JOIN sum_statistic_interval_7day ssid
-			ON us.pn = ssid.seller_pn
+				ON us.pn = ssid.seller_pn
 			LEFT OUTER JOIN count_comment_seller_pn ccsp
-			ON us.pn = ccsp.seller_pn
+				ON us.pn = ccsp.seller_pn
 			LEFT OUTER JOIN banner_diff_least bdl
-			ON us.pn = bdl.seller_pn
+				ON us.pn = bdl.seller_pn
 			LEFT OUTER JOIN product_new_bool pnb
-			ON us.pn = pnb.seller_pn
+				ON us.pn = pnb.seller_pn
+			LEFT OUTER JOIN (SELECT * FROM user_seller_event WHERE DATEDIFF(end_date,NOW()) >= 0 ORDER BY RAND()) usle
+				ON usle.seller_pn = us.pn 
 			<if test="customerPn != null">
 			LEFT OUTER JOIN count_love cl
 			ON us.pn = cl.seller_pn AND cl.customer_pn = #{customerPn}
@@ -98,8 +104,6 @@
 			p.category_pn = #{categoryPn}
 		</if>
 		GROUP BY 
-			us.pn
-		ORDER BY
 			us.pn
 		LIMIT #{pagination.itemSeqBegin}, #{pagination.numItemsPerPage}
 	</select>

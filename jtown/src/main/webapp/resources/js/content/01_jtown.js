@@ -150,9 +150,26 @@ jtown.dialog = function(message){
 		resizable: false, 
 		width: '300px',
 		hegiht : '200px', 
+		zIndex :'999',
 		modal : true, 
 		buttons : { 
 			'Close' : function(){ $(this).dialog('close'); } 
+		}
+	});
+	$('.ui-dialog-titlebar').removeClass('ui-widget-header');
+	$('.ui-dialog-buttonset').css({'float' : 'none', 'text-align' : 'center'});
+};
+
+jtown.reloadDialog = function(message){
+	var dialog = '<div style="text-align:center; margin-top: 15px; font-weight: bold; line-height : 16px;">'+message+'</div>';
+	$(dialog).dialog({
+		resizable: false, 
+		width: '300px',
+		hegiht : '200px', 
+		zIndex :'999',
+		modal : true, 
+		buttons : { 
+			'Close' : function(){ $(this).dialog('close'); location.reload(); } 
 		}
 	});
 	$('.ui-dialog-titlebar').removeClass('ui-widget-header');
@@ -266,7 +283,7 @@ jtown.home.masonry = {
 						$c.masonry();
 					});
 				}
-
+				$(".jt-home-shop-event-dday").css("visibility","visible");
 				setTimeout('jtown.expand.loadExpandShop()', 0);
 				setTimeout('jtown.comment.home()', 0);
 			},
@@ -300,13 +317,14 @@ jtown.home.masonry = {
 		
 		if(scrollY == 0){
 			$footer.slideUp('fast');
-			$header.slideDown('fast');
+			//$header.slideDown('fast');
 			setTimeout('$(".jt-header-nav-interestCategory").css( { top : "'+scrollheight.topHeight+'" })', 0);
 		}else{
 			$footer.slideDown('fast');
+			/*
 			$header.slideUp('fast', function(){
 				$('.jt-header-nav-interestCategory').css({ top : scrollheight.downHeight});
-			});
+			});*/
 		}
 	}
 };
@@ -386,32 +404,46 @@ jtown.home.html = function(data) {
 		html += '						<div id="new-product-' + spn + '" class="jt-home-shop-new-event-div" style="'+( (seller.newProduct > 0 ) ? "display: block;": "display:none;") +'">';
 		html += ' 							<span class="jt-home-shop-product-new-image">New arrive</span>';	
 		html += '						</div>';
-		html += '						<div id="new-' + spn + '" class="jt-home-shop-new-event-div" style="'+(seller.newBanner ? "display: block;": "display:none;") +'">';
+		html += '						<div id="new-' + spn + '" class="jt-home-shop-new-event-div" style="'+(seller.eventName !=null && seller.endDate >=0 ? "display: block;": "display:none;") +'">';
 		html += ' 							<span class="jt-home-shop-event-new-image">New event</span>';	
 		html += '						</div>';
 		html += '					</div>';
+		if(seller.eventName !=null && seller.endDate >=0){
+		html += '						<div class="jt-home-shop-event-dday">';
+		html += '							<div class="jt-home-shop-event-dday-event-name">';
+		html += '								'+seller.eventName;
+		html += '							</div>';
+		html += '							<div class="jt-home-shop-event-dday-end-date">';
+		html += '								'+seller.endDate +'일 남음';
+		html += '							</div>';
+		html += '						</div>';
+		}
 		html += '				</li>';
 		html += '			</ul>';
 		html += '		</div>';
 		html += '		<div class="jt-home-notice">';
-		html += '			<span class="jt-home-shop-footer-firstQuotationMark">"</span>';
 		html += '			<pre class="jt-home-shop-footer-text">'+ htmlChars(seller.notice) + '</pre>';
-		html += '			<span class="jt-home-shop-footer-lastQuotationMark">"</span>';
 		html += '		</div>';
+		if(comments.length > 0){
+		html += '		<div class="jt-home-shop-comments-wrap">';	
+		html += '			<div class="jt-home-shop-comments-bar"><img src="'+contextPath+'/resources/images/jt-comment.png"></div>';
+		html += '			'+commentHtml;
+		html += '		</div>';
+		}
 		html += '		<ul class="jt-home-shop-content-fn">';
 		html += '			<li>';
 		html += '				<span class="jt-home-shop-view" title="최근 일주일간 방문수">VIEW</span>&nbsp;<span id="view-'+ spn+ '">'+ (nullValueCheck(seller.viewCount) ? 0 : seller.viewCount)+ '</span>';
 		html += '			</li>';
-		html += '			<li>';
+		html += '			<li class="jt-home-shop-comment-wrap">';
 		html += '				<span class="jt-home-shop-comment">COMMENT</span>&nbsp;<span id="comment-'+ spn+ '">'+ (nullValueCheck(seller.commentCount) ? 0 : seller.commentCount) + '</span>';
 		html += '			</li>';
-		html += '			<li>';
+		html += '			<li class="jt-home-heart-click-wrap" onclick="jtown.home.clickLove(\'' + spn + '\');">';
 		html += '			<div class="jt-heart-click-wrap">';
 		html += '				<div class="jt-heart-click-background" id="jt-heart-click-' + spn + '">';
 		html += '					<img alt="heart-background" src="'+contextPath+'resources/images/heart-background.png">';
 		html += '				</div>';
 		html += '				<div class="jt-heart-click">';
-		html += '				<a href="#none" onclick="jtown.home.clickLove(\'' + spn + '\');"id="love-image-' + spn + '" class="jt-home-shop-love ' + loveClick + '">♥</a>';
+		html += '				<a href="#none" id="love-image-' + spn + '" class="jt-home-shop-love ' + loveClick + '">♥</a>';
 		html += '				</div>';
 		html += '			</div>';
 		html += '			<div class="jt-home-shop-content-love-text-wrap">';
@@ -420,12 +452,6 @@ jtown.home.html = function(data) {
 		html += '			</div>';
 		html += '			</li>';
 		html += '		</ul>';
-		if(comments.length > 0){
-		html += '		<div class="jt-home-shop-comments-wrap">';	
-		html += '			<div class="jt-home-shop-comments-bar"><div></div></div>';
-		html += '			'+commentHtml;
-		html += '		</div>';
-		}
 		html += '		'+msieHtml;
 		html += '	</div>';
 		
@@ -499,3 +525,49 @@ jtown.home.naturalLanguage = function(){
 		}
 	});
 };
+// HOME - javascript_CSS
+jQuery(document).ready(function(){
+	$(".jt-home-shop-comment-wrap").live({
+		mouseenter : function(){
+			$(this).find(".jt-home-shop-comment").css("background-position", "-15px -60px");
+	},
+		mouseleave: function(){
+			$(this).find(".jt-home-shop-comment").css("background-position", "0px -60px");
+	}});
+
+	$(".jt-home-heart-click-wrap").live({
+		mouseenter:function(){
+			$(this).find(".jt-home-shop-love").css("background-position", "-15px -30px");
+	},
+		mouseleave: function(){
+			$(this).find(".jt-home-shop-love").css("background-position", "0px -30px");
+	}});
+	$(".jt-home-shop-event-dday").css("visibility","visible");
+	
+});
+Date.prototype.format = function(f) {
+    if (!this.valueOf()) return " ";
+ 
+    var weekName = ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"];
+    var d = this;
+     
+    return f.replace(/(yyyy|yy|MM|dd|E|hh|mm|ss|a\/p)/gi, function($1) {
+        switch ($1) {
+            case "yyyy": return d.getFullYear();
+            case "yy": return (d.getFullYear() % 1000).zf(2);
+            case "MM": return (d.getMonth() + 1).zf(2);
+            case "dd": return d.getDate().zf(2);
+            case "E": return weekName[d.getDay()];
+            case "HH": return d.getHours().zf(2);
+            case "hh": return ((h = d.getHours() % 12) ? h : 12).zf(2);
+            case "mm": return d.getMinutes().zf(2);
+            case "ss": return d.getSeconds().zf(2);
+            case "a/p": return d.getHours() < 12 ? "오전" : "오후";
+            default: return $1;
+        }
+    });
+};
+ 
+String.prototype.string = function(len){var s = '', i = 0; while (i++ < len) { s += this; } return s;};
+String.prototype.zf = function(len){return "0".string(len - this.length) + this;};
+Number.prototype.zf = function(len){return this.toString().zf(len);};

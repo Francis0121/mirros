@@ -63,8 +63,7 @@ public class LoginController {
 	private static final Integer TRUE = 1;
 	private static final Integer FALSE = 0;
 
-	private static final Logger logger = LoggerFactory
-			.getLogger(LoginController.class);
+	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
 	// ~ Variable
 
@@ -107,12 +106,10 @@ public class LoginController {
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String showLogin(Model model, HttpSession session,
-			@RequestParam(required = false) Integer isFinish) {
+	public String showLogin(Model model, HttpSession session, @RequestParam(required = false) Integer isFinish) {
 		if (isFinish != null) {
 			if (isFinish.equals(FALSE)) {
-				Exception exception = (Exception) session
-						.getAttribute("MIRROS_LOGIN_EXCEPTION");
+				Exception exception = (Exception) session.getAttribute("MIRROS_LOGIN_EXCEPTION");
 				if (exception != null) {
 					model.addAttribute("message", exception.getMessage());
 					session.removeAttribute("MIRROS_LOGIN_EXCEPTION");
@@ -126,13 +123,11 @@ public class LoginController {
 
 	@RequestMapping(value = "/loginProcess")
 	@ResponseBody
-	public Object ajaxProcessRedirect(HttpSession session,
-			HttpServletResponse response, HttpServletRequest request,
-			SummaryUser summaryUser, Model model) {
+	public Object ajaxProcessRedirect(HttpSession session, HttpServletResponse response, HttpServletRequest request, SummaryUser summaryUser,
+			Model model) {
 		String url = "";
 		Authority authority = summaryUser.getEnumAuthority();
-		if (authority.equals(Authority.ROOT_ADMIN)
-				|| authority.equals(Authority.ADMIN)) {
+		if (authority.equals(Authority.ROOT_ADMIN) || authority.equals(Authority.ADMIN)) {
 			url = "admin";
 		} else if (authority.equals(Authority.SELLER)) {
 			url = "seller/" + summaryUser.getPn();
@@ -151,12 +146,10 @@ public class LoginController {
 
 	@RequestMapping(value = "/loginError")
 	@ResponseBody
-	public Object ajaxError(HttpSession session, HttpServletResponse response,
-			HttpServletRequest request, SummaryUser summaryUser, Model model) {
+	public Object ajaxError(HttpSession session, HttpServletResponse response, HttpServletRequest request, SummaryUser summaryUser, Model model) {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("result", "error");
-		Exception exception = (Exception) session
-				.getAttribute("SPRING_SECURITY_LAST_EXCEPTION");
+		Exception exception = (Exception) session.getAttribute("SPRING_SECURITY_LAST_EXCEPTION");
 		session.setAttribute("MIRROS_LOGIN_EXCEPTION", exception);
 		return map;
 	}
@@ -168,13 +161,10 @@ public class LoginController {
 
 	@PreAuthorize("hasRole('ROLE_USER')")
 	@RequestMapping(value = "/login/disactive.jt", method = RequestMethod.POST)
-	public String formDisactive(
-			@ModelAttribute(value = "disactiveUser") JtownUser jtownUser,
-			BindingResult result, HttpSession session, SummaryUser summaryUser,
-			Model model) {
+	public String formDisactive(@ModelAttribute(value = "disactiveUser") JtownUser jtownUser, BindingResult result, HttpSession session,
+			SummaryUser summaryUser, Model model) {
 		Authority authority = summaryUser.getEnumAuthority();
-		if (authority.equals(Authority.SELLER)
-				|| authority.equals(Authority.ADMIN)) {
+		if (authority.equals(Authority.SELLER) || authority.equals(Authority.ADMIN)) {
 			return "redirect:/noPermission";
 		}
 
@@ -187,8 +177,7 @@ public class LoginController {
 					errors.rejectValue("password", "join.password.empty");
 				} else {
 					if (customJdbcUserDetailManager.confirmPassword(jtownUser)) {
-						errors.rejectValue("password",
-								"change.password.notEqualPassword");
+						errors.rejectValue("password", "change.password.notEqualPassword");
 					}
 				}
 			}
@@ -205,10 +194,8 @@ public class LoginController {
 			model.addAllAttributes(loginService.selectDeleteUser(pn));
 			return "redirect:modify";
 		} else {
-			Map<String, List<Connection<?>>> connections = connectionRepository
-					.findAllConnections();
-			model.addAttribute("providerIds",
-					connectionFactoryLocator.registeredProviderIds());
+			Map<String, List<Connection<?>>> connections = connectionRepository.findAllConnections();
+			model.addAttribute("providerIds", connectionFactoryLocator.registeredProviderIds());
 			model.addAttribute("connectionMap", connections);
 
 			if (summaryUser.getEnumAuthority() == Authority.CUSTOMER) {
@@ -230,13 +217,10 @@ public class LoginController {
 
 	@PreAuthorize("hasRole('ROLE_USER')")
 	@RequestMapping(value = "/login/disactive.jt", method = RequestMethod.DELETE)
-	public String formDisactiveDelete(
-			@ModelAttribute(value = "disactiveUser") JtownUser jtownUser,
-			BindingResult result, HttpSession session, SummaryUser summaryUser,
-			Model model) {
+	public String formDisactiveDelete(@ModelAttribute(value = "disactiveUser") JtownUser jtownUser, BindingResult result, HttpSession session,
+			SummaryUser summaryUser, Model model) {
 		Authority authority = summaryUser.getEnumAuthority();
-		if (authority.equals(Authority.SELLER)
-				|| authority.equals(Authority.ADMIN)) {
+		if (authority.equals(Authority.SELLER) || authority.equals(Authority.ADMIN)) {
 			return "redirect:/noPermission";
 		}
 
@@ -249,8 +233,7 @@ public class LoginController {
 					errors.rejectValue("password", "join.password.empty");
 				} else {
 					if (customJdbcUserDetailManager.confirmPassword(jtownUser)) {
-						errors.rejectValue("password",
-								"change.password.notEqualPassword");
+						errors.rejectValue("password", "change.password.notEqualPassword");
 					}
 				}
 			}
@@ -266,10 +249,8 @@ public class LoginController {
 			loginService.deleteDeleteUser(pn);
 			return "redirect:modify";
 		} else {
-			Map<String, List<Connection<?>>> connections = connectionRepository
-					.findAllConnections();
-			model.addAttribute("providerIds",
-					connectionFactoryLocator.registeredProviderIds());
+			Map<String, List<Connection<?>>> connections = connectionRepository.findAllConnections();
+			model.addAttribute("providerIds", connectionFactoryLocator.registeredProviderIds());
 			model.addAttribute("connectionMap", connections);
 
 			if (summaryUser.getEnumAuthority() == Authority.CUSTOMER) {
@@ -290,8 +271,7 @@ public class LoginController {
 	}
 
 	@RequestMapping(value = "/login/join", method = RequestMethod.GET)
-	public String showJoin(Model model, @ModelAttribute JtownUser jtownUser,
-			WebRequest request) {
+	public String showJoin(Model model, @ModelAttribute JtownUser jtownUser, WebRequest request) {
 		Connection<?> connection = ProviderSignInUtils.getConnection(request);
 		if (connection != null) {
 			if (connection.getApi() instanceof Twitter) {
@@ -302,15 +282,13 @@ public class LoginController {
 				jtownUser.setSocial("twitter");
 			}
 		}
-		String referer = request.getHeader("referer") == null ? "../" : request
-				.getHeader("referer");
+		String referer = request.getHeader("referer") == null ? "../" : request.getHeader("referer");
 		request.setAttribute("beforJoinUrl", referer, WebRequest.SCOPE_SESSION);
 		return prefixView + "login/join";
 	}
 
 	@RequestMapping(value = "/login/joinSubmit.jt", method = RequestMethod.POST)
-	public String formJoin(Model model, @ModelAttribute JtownUser jtownUser,
-			@RequestParam("confirmPassword") final String confirmPassword,
+	public String formJoin(Model model, @ModelAttribute JtownUser jtownUser, @RequestParam("confirmPassword") final String confirmPassword,
 			BindingResult result, WebRequest request) {
 		loginValidatorImpl.validate(jtownUser, result);
 		new Validator() {
@@ -320,8 +298,7 @@ public class LoginController {
 
 				if (jtownUser.getPassword() == null) {
 					errors.rejectValue("password", "join.password.empty");
-				} else if (ValidationUtil.confirmPassword(
-						jtownUser.getPassword(), confirmPassword)) {
+				} else if (ValidationUtil.confirmPassword(jtownUser.getPassword(), confirmPassword)) {
 					errors.rejectValue("password", "join.password.isNotEqual");
 				}
 			}
@@ -341,12 +318,10 @@ public class LoginController {
 			userAuthenticator.login(username, password);
 
 			if ("twitter".equals(jtownUser.getSocial())) {
-				ProviderSignInUtils.handlePostSignUp(jtownUser.getPn()
-						.toString(), request);
+				ProviderSignInUtils.handlePostSignUp(jtownUser.getPn().toString(), request);
 			}
 
-			String beforeAddress = (String) request.getAttribute(
-					"beforJoinUrl", WebRequest.SCOPE_SESSION);
+			String beforeAddress = (String) request.getAttribute("beforJoinUrl", WebRequest.SCOPE_SESSION);
 			return "redirect:" + beforeAddress;
 		} else {
 			return prefixView + "login/join";
@@ -355,29 +330,23 @@ public class LoginController {
 
 	@PreAuthorize("hasRole('ROLE_USER')")
 	@RequestMapping(value = "/login/modify", method = RequestMethod.GET)
-	public String showModify(Model model, SummaryUser summaryUser,
-			@RequestParam(required = false) Integer isFinish,
-			NativeWebRequest request) {
+	public String showModify(Model model, SummaryUser summaryUser, @RequestParam(required = false) Integer isFinish, NativeWebRequest request) {
 		setNoCache(request);
 		processFlash(request, model);
 		if (isFinish != null && isFinish.equals(TRUE)) {
 			model.addAttribute("isFinish", "modify");
 		}
 
-		Map<String, List<Connection<?>>> connections = connectionRepository
-				.findAllConnections();
-		model.addAttribute("providerIds",
-				connectionFactoryLocator.registeredProviderIds());
+		Map<String, List<Connection<?>>> connections = connectionRepository.findAllConnections();
+		model.addAttribute("providerIds", connectionFactoryLocator.registeredProviderIds());
 		model.addAttribute("connectionMap", connections);
 
 		if (summaryUser.getEnumAuthority() == Authority.CUSTOMER) {
-			JtownUser jtownUser = loginService.selectCustomer(summaryUser
-					.getPn());
+			JtownUser jtownUser = loginService.selectCustomer(summaryUser.getPn());
 			jtownUser.setUsername(summaryUser.getUsername());
 			jtownUser.setName(summaryUser.getName());
 			model.addAttribute("jtownUser", jtownUser);
-			model.addAllAttributes(loginService.selectDeleteUser(summaryUser
-					.getPn()));
+			model.addAllAttributes(loginService.selectDeleteUser(summaryUser.getPn()));
 			model.addAttribute("disactiveUser", new JtownUser());
 		} else {
 			JtownUser jtownUser = new JtownUser();
@@ -389,73 +358,57 @@ public class LoginController {
 
 	@PreAuthorize("hasRole('ROLE_USER')")
 	@RequestMapping(value = "/login/modify.jt", method = RequestMethod.POST)
-	public String formPassword(@ModelAttribute JtownUser jtownUser,
-			BindingResult result, @RequestParam final String confirmPassword,
-			Model model, final SummaryUser summaryUser,
-			HttpServletRequest request, HttpServletResponse response) {
+	public String formPassword(@ModelAttribute JtownUser jtownUser, BindingResult result, @RequestParam final String confirmPassword, Model model,
+			final SummaryUser summaryUser, HttpServletRequest request, HttpServletResponse response) {
 		new Validator() {
 			@Override
 			public void validate(Object target, Errors errors) {
 				JtownUser jtownUser = (JtownUser) target;
 				if (customJdbcUserDetailManager.confirmPassword(jtownUser)) {
-					errors.rejectValue("password",
-							"change.password.notEqualPassword");
+					errors.rejectValue("password", "change.password.notEqualPassword");
 				}
 
 				String newPassword = jtownUser.getNewPassword();
 
 				if (!ValidationUtil.checkNullAndBlank(newPassword)) {
-					if (ValidationUtil.confirmPassword(newPassword,
-							confirmPassword)) {
-						errors.rejectValue("newPassword",
-								"join.password.isNotEqual");
+					if (ValidationUtil.confirmPassword(newPassword, confirmPassword)) {
+						errors.rejectValue("newPassword", "join.password.isNotEqual");
 					} else if (!ValidationUtil.lengthCheck(newPassword, 7, 16)) {
-						errors.rejectValue("newPassword",
-								"join.password.notAllow");
+						errors.rejectValue("newPassword", "join.password.notAllow");
 					}
 				}
 
 				String nowUsername = summaryUser.getUsername();
 				String changeUsername = jtownUser.getUsername();
 
-				ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username",
-						"join.username.empty");
+				ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username", "join.username.empty");
 				Authority authority = summaryUser.getEnumAuthority();
 
 				if (!ValidationUtil.checkNullAndBlank(changeUsername)) {
 					if (!nowUsername.equals(changeUsername)) {
 						if (authority.equals(Authority.CUSTOMER)) {
 							if (!ValidationUtil.emailFormCheck(changeUsername)) {
-								errors.rejectValue("username",
-										"join.username.notAllow");
+								errors.rejectValue("username", "join.username.notAllow");
 							}
-						} else if (authority.equals(Authority.SELLER)
-								|| authority.equals(Authority.ADMIN)) {
-							if (!ValidationUtil.checkCharAndLength(
-									changeUsername, 0, 20)) {
-								errors.rejectValue("username",
-										"join.username.notAllowId");
+						} else if (authority.equals(Authority.SELLER) || authority.equals(Authority.ADMIN)) {
+							if (!ValidationUtil.checkCharAndLength(changeUsername, 0, 20)) {
+								errors.rejectValue("username", "join.username.notAllowId");
 							}
 						}
 
-						boolean exist = loginService
-								.selectCheckExistEmail(changeUsername);
+						boolean exist = loginService.selectCheckExistEmail(changeUsername);
 						if (exist) {
 							if (authority.equals(Authority.CUSTOMER)) {
-								errors.rejectValue("username",
-										"join.username.exist");
-							} else if (authority.equals(Authority.SELLER)
-									|| authority.equals(Authority.ADMIN)) {
-								errors.rejectValue("username",
-										"join.username.sellerExist");
+								errors.rejectValue("username", "join.username.exist");
+							} else if (authority.equals(Authority.SELLER) || authority.equals(Authority.ADMIN)) {
+								errors.rejectValue("username", "join.username.sellerExist");
 							}
 						}
 					}
 				}
 
 				if (authority.equals(Authority.CUSTOMER)) {
-					ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name",
-							"join.nickName.empty");
+					ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "join.nickName.empty");
 
 					String name = jtownUser.getName();
 					if (!ValidationUtil.checkCharAndLength(name, 0, 20)) {
@@ -484,13 +437,10 @@ public class LoginController {
 			if (!ValidationUtil.checkNullAndBlank(changeUsername)) {
 				if (!nowUsername.equals(changeUsername)) {
 					if (authority.equals(Authority.CUSTOMER)) {
-						loginService.updateUserCustomerEmail(changeUsername,
-								nowUsername);
+						loginService.updateUserCustomerEmail(changeUsername, nowUsername);
 						emailSend.sendConfirmEmail(changeUsername);
-					} else if (authority.equals(Authority.SELLER)
-							|| authority.equals(Authority.ADMIN)) {
-						loginService
-								.updateUsername(changeUsername, nowUsername);
+					} else if (authority.equals(Authority.SELLER) || authority.equals(Authority.ADMIN)) {
+						loginService.updateUsername(changeUsername, nowUsername);
 					}
 					summaryUser.setUsername(changeUsername);
 				}
@@ -505,20 +455,16 @@ public class LoginController {
 			}
 
 			userCache.removeUserFromCache(jtownUser.getUsername());
-			userAuthenticator.onApplicationEvent(jtownUser.getUsername(),
-					request, response);
+			userAuthenticator.onApplicationEvent(jtownUser.getUsername(), request, response);
 			model.addAttribute("isFinish", TRUE);
 			return "redirect:modify";
 		} else {
-			Map<String, List<Connection<?>>> connections = connectionRepository
-					.findAllConnections();
-			model.addAttribute("providerIds",
-					connectionFactoryLocator.registeredProviderIds());
+			Map<String, List<Connection<?>>> connections = connectionRepository.findAllConnections();
+			model.addAttribute("providerIds", connectionFactoryLocator.registeredProviderIds());
 			model.addAttribute("connectionMap", connections);
 
 			if (authority.equals(Authority.CUSTOMER)) {
-				model.addAllAttributes(loginService
-						.selectDeleteUser(summaryUser.getPn()));
+				model.addAllAttributes(loginService.selectDeleteUser(summaryUser.getPn()));
 				model.addAttribute("disactiveUser", new JtownUser());
 			}
 			return prefixView + "login/modify";
@@ -527,9 +473,7 @@ public class LoginController {
 
 	@PreAuthorize("hasRole('ROLE_USER')")
 	@RequestMapping(value = "/login/modifyEmailAddress", method = RequestMethod.GET)
-	public String showModifyEmailAddress(Model model,
-			@ModelAttribute JtownUser jtownUser,
-			@RequestParam(required = false) Integer isFinish) {
+	public String showModifyEmailAddress(Model model, @ModelAttribute JtownUser jtownUser, @RequestParam(required = false) Integer isFinish) {
 		if (isFinish != null && isFinish.equals(TRUE)) {
 			model.addAttribute("isFinish", "modifyEmailAddress");
 		}
@@ -538,20 +482,17 @@ public class LoginController {
 
 	@PreAuthorize("hasRole('ROLE_USER')")
 	@RequestMapping(value = "/login/modifyEmailAddress.jt", method = RequestMethod.POST)
-	public String formModifyEmailAddress(Model model,
-			@ModelAttribute JtownUser jtownUser, BindingResult result,
-			HttpServletRequest request, SummaryUser summaryUser) {
+	public String formModifyEmailAddress(Model model, @ModelAttribute JtownUser jtownUser, BindingResult result, HttpServletRequest request,
+			SummaryUser summaryUser) {
 		new Validator() {
 			@Override
 			public void validate(Object target, Errors errors) {
 				JtownUser jtownUser = (JtownUser) target;
 				if (customJdbcUserDetailManager.confirmPassword(jtownUser)) {
-					errors.rejectValue("password",
-							"change.password.notEqualPassword");
+					errors.rejectValue("password", "change.password.notEqualPassword");
 				}
 				String username = jtownUser.getUsername();
-				ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username",
-						"join.username.empty");
+				ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username", "join.username.empty");
 
 				boolean exist = loginService.selectCheckExistEmail(username);
 				if (exist) {
@@ -574,8 +515,7 @@ public class LoginController {
 			String username = jtownUser.getUsername();
 			String password = jtownUser.getPassword();
 
-			loginService.updateUserCustomerEmail(jtownUser.getUsername(),
-					summaryUser.getUsername());
+			loginService.updateUserCustomerEmail(jtownUser.getUsername(), summaryUser.getUsername());
 			emailSend.sendConfirmEmail(jtownUser.getUsername());
 			userAuthenticator.login(username, password);
 			model.addAttribute("isFinish", TRUE);
@@ -596,23 +536,18 @@ public class LoginController {
 	}
 
 	@RequestMapping(value = "/resultEmailAddress", method = RequestMethod.GET)
-	public String formConfirmEmailAddress(Model model,
-			@RequestParam(required = false) Integer confirm) {
+	public String formConfirmEmailAddress(Model model, @RequestParam(required = false) Integer confirm) {
 		model.addAttribute("confirm", confirm);
 		return prefixView + "login/confirmEmaillAddress";
 	}
 
 	@RequestMapping(value = "/confirmEmailAddress", method = RequestMethod.GET)
-	public ModelAndView formConfirmEmailAddress(
-			@ModelAttribute Confirm confirm, HttpServletRequest request,
-			HttpServletResponse response) {
-		ModelAndView mav = new ModelAndView(new RedirectView(
-				"resultEmailAddress"));
+	public ModelAndView formConfirmEmailAddress(@ModelAttribute Confirm confirm, HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView(new RedirectView("resultEmailAddress"));
 		logger.debug(confirm.toString());
 
 		String id = confirm.getId();
-		JtownUser jtownUser = (JtownUser) customJdbcUserDetailManager
-				.loadUserByUsername(id);
+		JtownUser jtownUser = (JtownUser) customJdbcUserDetailManager.loadUserByUsername(id);
 		String key = jtownUser.getSalt();
 		String value = confirm.getSeries();
 		value = StringUtil.replace(value, " ", "+");
@@ -620,8 +555,7 @@ public class LoginController {
 		String decryptText = "";
 
 		try {
-			decryptText = seedCipher.decryptAsString(encryptbytes,
-					key.getBytes(), "UTF-8");
+			decryptText = seedCipher.decryptAsString(encryptbytes, key.getBytes(), "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			logger.error("Error in Confimr Email Address Encoding");
 			return mav;
@@ -644,8 +578,7 @@ public class LoginController {
 	}
 
 	@RequestMapping(value = "/login/findPassword", method = RequestMethod.GET)
-	public String showFindPassword(Model model,
-			@RequestParam(required = false) Integer isFinish) {
+	public String showFindPassword(Model model, @RequestParam(required = false) Integer isFinish) {
 		if (isFinish != null && isFinish.equals(TRUE)) {
 			model.addAttribute("isFinish", "findPassword");
 		}
@@ -655,19 +588,16 @@ public class LoginController {
 	}
 
 	@RequestMapping(value = "/login/findUserPassword.jt", method = RequestMethod.POST)
-	public String formFindUserPassword(Model model,
-			@ModelAttribute JtownUser jtownUser, BindingResult result) {
+	public String formFindUserPassword(Model model, @ModelAttribute JtownUser jtownUser, BindingResult result) {
 		new Validator() {
 			@Override
 			public void validate(Object target, Errors errors) {
 				JtownUser jtownUser = (JtownUser) target;
 				String username = jtownUser.getUsername();
-				ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username",
-						"join.username.empty");
+				ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username", "join.username.empty");
 
 				if (!ValidationUtil.checkNullAndBlank(username)) {
-					boolean exist = loginService
-							.selectCheckExistEmail(username);
+					boolean exist = loginService.selectCheckExistEmail(username);
 					if (!exist) {
 						errors.rejectValue("username", "join.username.notExist");
 					}
@@ -691,9 +621,7 @@ public class LoginController {
 	}
 
 	@RequestMapping(value = "/login/findSellerPassword.jt", method = RequestMethod.POST)
-	public String formFindSellerPassword(Model model,
-			@ModelAttribute(value = "sellerUser") JtownUser jtownUser,
-			BindingResult result) {
+	public String formFindSellerPassword(Model model, @ModelAttribute(value = "sellerUser") JtownUser jtownUser, BindingResult result) {
 		String username = jtownUser.getUsername();
 		final Integer pn = loginService.selectCheckExistSellerEmail(username);
 		new Validator() {
@@ -701,8 +629,7 @@ public class LoginController {
 			public void validate(Object target, Errors errors) {
 				JtownUser jtownUser = (JtownUser) target;
 				String username = jtownUser.getUsername();
-				ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username",
-						"join.username.empty");
+				ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username", "join.username.empty");
 
 				if (!ValidationUtil.checkNullAndBlank(username)) {
 					if (pn == null) {
@@ -728,8 +655,7 @@ public class LoginController {
 	}
 
 	private void setNoCache(NativeWebRequest request) {
-		HttpServletResponse response = request
-				.getNativeResponse(HttpServletResponse.class);
+		HttpServletResponse response = request.getNativeResponse(HttpServletResponse.class);
 		if (response != null) {
 			response.setHeader("Pragma", "no-cache");
 			response.setDateHeader("Expires", 1L);
@@ -739,28 +665,21 @@ public class LoginController {
 	}
 
 	private void processFlash(WebRequest request, Model model) {
-		convertSessionAttributeToModelAttribute(DUPLICATE_CONNECTION_ATTRIBUTE,
-				request, model);
-		convertSessionAttributeToModelAttribute(PROVIDER_ERROR_ATTRIBUTE,
-				request, model);
+		convertSessionAttributeToModelAttribute(DUPLICATE_CONNECTION_ATTRIBUTE, request, model);
+		convertSessionAttributeToModelAttribute(PROVIDER_ERROR_ATTRIBUTE, request, model);
 		convertSessionAttributeToModelAttribute("providerId", request, model);
 	}
 
-	private void convertSessionAttributeToModelAttribute(String attributeName,
-			WebRequest request, Model model) {
-		if (request
-				.getAttribute(attributeName, RequestAttributes.SCOPE_SESSION) != null) {
+	private void convertSessionAttributeToModelAttribute(String attributeName, WebRequest request, Model model) {
+		if (request.getAttribute(attributeName, RequestAttributes.SCOPE_SESSION) != null) {
 			if ("social.addConnection.duplicate".equals(attributeName)) {
 				model.addAttribute("socialDuplicate", true);
 			} else if ("social.provider.error".equals(attributeName)) {
 				model.addAttribute("socialError", true);
 			} else if ("providerId".equals(attributeName)) {
-				model.addAttribute("socialErrorProviderId", request
-						.getAttribute("providerId",
-								RequestAttributes.SCOPE_SESSION));
+				model.addAttribute("socialErrorProviderId", request.getAttribute("providerId", RequestAttributes.SCOPE_SESSION));
 			}
-			request.removeAttribute(attributeName,
-					RequestAttributes.SCOPE_SESSION);
+			request.removeAttribute(attributeName, RequestAttributes.SCOPE_SESSION);
 		}
 	}
 
@@ -769,16 +688,14 @@ public class LoginController {
 	private static final String PROVIDER_ERROR_ATTRIBUTE = "social.provider.error";
 
 	@RequestMapping(value = "/login/modifyFacebookFeed.jt", method = RequestMethod.POST)
-	public String formModifyFacebookFeed(Model model, SummaryUser summaryUser,
-			HttpServletRequest request, HttpServletResponse response) {
+	public String formModifyFacebookFeed(Model model, SummaryUser summaryUser, HttpServletRequest request, HttpServletResponse response) {
 		JtownUser jtownUser = new JtownUser();
 		jtownUser.setPn(summaryUser.getPn());
 		jtownUser.setFacebookFeed(!summaryUser.getFacebookFeed());
 
 		loginService.updateFacebookFeed(jtownUser);
 
-		userAuthenticator.onApplicationEvent(summaryUser.getUsername(),
-				request, response);
+		userAuthenticator.onApplicationEvent(summaryUser.getUsername(), request, response);
 		model.addAttribute("isFinish", TRUE);
 		return "redirect:modify";
 	}

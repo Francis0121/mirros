@@ -48,9 +48,7 @@
  	-webkit-border-radius: 5px 0 25px 25px;
     -moz-border-radius: 5px 0 25px 25px;
     border-radius: 5px 0 25px 25px;
-    box-shadow :  inset 4px 4px 10px -5px #000, 4px 4px 6px -4px #000;
-	-moz-box-shadow : inset 4px 4px 10px -5px #000, 4px 4px 6px -4px #000;
-	-webkit-box-shadow :  inset 4px 4px 10px -5px #000, 4px 4px 6px -4px #000;
+    
 }
 
 .jt-seller-text-content{width: 330px; margin-top: 8px; float: left;}
@@ -147,6 +145,25 @@ box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box;
 .jt-home-expand-shop-event-update-done>.btnImage{ background-position: 0 -36px; }
 .jt-home-expand-shop-event-update-cancle{ margin-left: 3px; }
 .jt-home-expand-shop-event-update-cancle>.btnImage{ background-position: 0 -24px; }
+.jt-home-expand-shop-event-update-delete-btn{ margin-left: 3px; }
+.jt-home-expand-shop-event-update-delete-btn>.btnImage{ background-position: 0 -12px; }
+
+.jt-home-expand-shop-event-update-large-wrap{
+		position: absolute; 
+		background-color:#fff;
+		width:350px;
+		height: 185px; 
+		border: 2px solid #f48409;
+		border-radius: 1px; 
+		padding-bottom:20px;
+		visibility: hidden;
+}
+.ui-datepicker-trigger{margin-bottom: -3px;}
+.jt-home-expand-shop-event-update-large-wrap-event-name{width:96%;}
+.jt-home-expand-shop-event-update-large-wrap-header{border-bottom: 1px solid #d1cdcd;height:25px;padding-top: 15px;padding-left: 15px;}
+.jt-home-expand-shop-event-update-large-wrap-header>span {font-weight: bold; font-size: 15px;}
+.jt-home-expand-shop-event-update-large-wrap-body{padding-top: 10px;padding-left:15px;padding-right:15px;padding-bottom:10px;font-size: 12px; color:#b2b2b2;}
+.jt-home-expand-shop-event-update-large-wrap-progress{width:25px; position:absolute; top:45%; right:47%; visibility: hidden;}
 
 .jt-comment-update{padding:3px;}
 .jt-comment-update>.btnImage{background-position: 0 -36px;}
@@ -268,7 +285,7 @@ Product Insert btn
 .jt-product-active img{ opacity : 0.4; }
 
 .jt-product-article-object-img{cursor: pointer; }
-.jt-product-article-object-wrap{ color: #fff;  background: rgba(0,0,0,.7); height: 40px; width: 170px; margin-top: -40px; position: absolute; display: none;}
+.jt-product-article-object-wrap{ color: #fff;  background: rgba(0,0,0,.5); height: 40px; width: 170px; margin-top: -40px; position: absolute; display: none;}
 .jt-product-article-object-wrap>span{width: 170px; line-height: 20px; text-align: center; display: block;  font-size: 11px; overflow: hidden; height: 20px;}
 .jt-product-article-object-expand{margin-top: 130px;}
 
