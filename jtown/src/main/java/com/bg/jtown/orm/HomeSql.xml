@@ -372,6 +372,15 @@
 		AND
 			count_date BETWEEN #{beforeDate} AND #{nowDate}
 	</select>
+	
+	<select id="selectTotalStatisticView" parameterType="Integer" resultType="Integer">
+		SELECT
+			SUM(day_count) AS `count`
+		FROM
+			`statistic_view`
+		WHERE
+			seller_pn = #{sellerPn}
+	</select>
 
 	<resultMap type="Comment" id="jt-newComment-map">
 		<result column="comment" property="comment"/>

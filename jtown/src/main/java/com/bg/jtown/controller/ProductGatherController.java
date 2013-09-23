@@ -1,6 +1,7 @@
 package com.bg.jtown.controller;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,12 +20,15 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.bg.jtown.business.Count;
 import com.bg.jtown.business.ProductGather;
 import com.bg.jtown.business.home.HomeService;
 import com.bg.jtown.business.home.ProductGatherService;
 import com.bg.jtown.business.search.ProductGatherFilter;
+import com.bg.jtown.security.Authority;
 import com.bg.jtown.security.SummaryUser;
 import com.bg.jtown.util.BrowserUtil;
 import com.bg.jtown.util.CookieUtil;
@@ -98,11 +102,9 @@ public class ProductGatherController {
 	@RequestMapping(value = "/ajax/productGatherPagination.jt", method = RequestMethod.POST)
 	@ResponseBody
 	public Object ajaxProductGatherItem(ProductGatherFilter productGatherFilter, HttpSession session) {
-		// TODO
 		int currentPage = (Integer) session.getAttribute("currentPage") == null ? 2 : (Integer) session.getAttribute("currentPage");
 		productGatherFilter.setCurrentPage(currentPage);
-		System.out.println("mergeSize : " + mergeSize);
-		
+
 		productGatherFilter.setPagePerItem(30);
 		productGatherFilter.setTotalCount(mergeSize);
 
@@ -113,6 +115,32 @@ public class ProductGatherController {
 			return object;
 		} else {
 			return null;
+		}
+	}
+
+	@RequestMapping(value = "/ajax/productClick.jt", method = RequestMethod.POST)
+	@ResponseBody
+	public void ajaxProductClick(Count count, HttpSession session, SummaryUser summaryUser) {
+		Authority authority = summaryUser.getEnumAuthority();
+		if (authority.equals(Authority.CUSTOMER) || authority.equals(Authority.NOT_LOGIN)) {
+			ArrayList<Integer> checkedList = (ArrayList<Integer>) session.getAttribute("productStasticView");
+			if (checkedList == null || checkedList.isEmpty()) {
+				checkedList = new ArrayList<Integer>();
+				checkedList.add(count.getProductPn());
+				productGatherService.insertUpdateProductStasticView(count);
+			} else {
+				boolean isProductPn = false;
+				for(Integer productPns : checkedList ){
+					if(productPns.equals(count.getProductPn())){
+						isProductPn = true;
+					}
+				}
+				if(!isProductPn){
+					checkedList.add(count.getProductPn());
+					productGatherService.insertUpdateProductStasticView(count);
+				}
+			}
+			session.setAttribute("productStasticView", checkedList);
 		}
 	}
 

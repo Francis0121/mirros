@@ -51,14 +51,13 @@ jtown.expand.makeInnerHtml = function(spn){
 			  'page': '/ajax/home/expandShop.jt?pn=' + spn,
 			  'title': userName
 			});
-		
 		var productSize = Number(products.length);
 		var bigProductHtml = '';
 		var smallProductHtml = '';
 		for(var i=0; i<productSize; i++){
 			var product = products[i];
 			
-			var detailProduct  = '<span title="'+htmlChars(nullValueCheck(product.name) ? '' : product.name)+'">'+htmlChars(nullValueCheck(product.name) ? '' : product.name)+'</span>';
+			var detailProduct  = '<span title="'+htmlChars(nullValueCheck(product.name) ? '' : product.name)+'"><b>'+htmlChars(nullValueCheck(product.name) ? '' : product.name)+'</b></span>';
 				detailProduct += '<span>'+htmlChars(nullValueCheck(product.commaPrice) ? '' : product.commaPrice)+'</span>';
 			
 			if(nullValueCheck(product.name) || nullValueCheck(product.commaPrice)){

@@ -4,7 +4,14 @@
 	<li class="jt-header-nav-interestCategory-li">
 		<c:set var="now_nav" value="${cp }/cpn/0/spn/0"/>
 		<c:set var="navPosition" value="${now_nav eq check_nav ? 'jt-header-nav-interestCategory-realPath' : 'jt-header-nav-interestCategory-normal' }"/>
-		<a href="${cp }/" class="${navPosition }" title="All"><span>All</span></a>
+		<c:choose>
+			<c:when test="${empty categoryType}">
+				<a href="${cp }/" class="${navPosition }" title="All"><span>All</span></a>
+			</c:when>
+			<c:when test="${categoryType == 'pg'}">
+				<a href="${cp }/g" class="${navPosition }" title="All"><span>All</span></a>
+			</c:when>
+		</c:choose>	
 	</li>
 	<c:forEach var="interestCategory" items="${interestCategories }">
 		<c:set var="interestCategoryPn" value="${interestCategory.categoryPn }"/>

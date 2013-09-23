@@ -7,13 +7,17 @@ import java.util.List;
 import java.util.Random;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.springframework.stereotype.Service;
 
+import com.bg.jtown.business.Count;
 import com.bg.jtown.business.ProductGather;
 import com.bg.jtown.business.search.ProductGatherFilter;
 import com.bg.jtown.redis.Publisher;
+import com.bg.jtown.security.Authority;
+import com.bg.jtown.security.SummaryUser;
 import com.bg.jtown.util.Pagination;
 
 @Service
@@ -58,27 +62,34 @@ public class ProductGatherServiceImpl extends SqlSessionDaoSupport implements Pr
 		productGatherFilter.setPercentCount(count * 15 / 100);
 		Random rand = new Random(System.nanoTime());
 		List<ProductGather> hotProduct = selectGatherHotProducts(productGatherFilter);
-		Collections.shuffle(hotProduct, rand);
+		List<ProductGather> eventList = selectEventList(productGatherFilter);
 		List<ProductGather> normalProduct = selectGatherProducts(productGatherFilter);
-		Collections.shuffle(normalProduct, rand);
+
+		System.out.println("eventList :"+ eventList);
+		List<ProductGather> smallSizeList = new ArrayList<ProductGather>();
+		smallSizeList.addAll(normalProduct);
+		smallSizeList.addAll(eventList);
+		
+		Collections.shuffle(smallSizeList, rand);
+		Collections.shuffle(hotProduct, rand);
 		List<ProductGather> mergeList = new ArrayList<ProductGather>();
 
 		// TODO IF -> BANNER BANNER LIST가 끝날 때까지 먼저 hotproduct 대신에 bannerList를
 		// 먼저 비움
 		int totalCount = 0;
-		totalCount = hotProduct.size() + normalProduct.size();
+		totalCount = hotProduct.size() + smallSizeList.size();
 		while (totalCount > 0) {
-			if (!normalProduct.isEmpty()) {
+			if (!smallSizeList.isEmpty()) {
 				int randNum = ((rand.nextInt(5) + 1) * 2);
 				for (int idx = 0; idx < randNum; idx++) {
-					int normalSize = normalProduct.size();
+					int normalSize = smallSizeList.size();
 					if (normalSize < randNum) {
 						for (int sIdx = 0; sIdx < normalSize; sIdx++) {
-							mergeList.add(normalProduct.remove(0));
+							mergeList.add(smallSizeList.remove(0));
 							totalCount--;
 						}
 					} else {
-						mergeList.add(normalProduct.remove(0));
+						mergeList.add(smallSizeList.remove(0));
 						totalCount--;
 					}
 				}
@@ -90,5 +101,39 @@ public class ProductGatherServiceImpl extends SqlSessionDaoSupport implements Pr
 		}
 		return mergeList;
 	}
+
+	@Override
+	public void insertProductStasticView(Integer productPn) {
+		getSqlSession().insert("productGatherMapper.insertProductStasticView", productPn);
+	}
+
+	@Override
+	public void updateProductStasticView(Count count) {
+		getSqlSession().update("productGatherMapper.updateProductStasticView", count);
+	}
+
+	@Override
+	public Integer selectProductStasticViewTodayCount(Integer productPn) {
+		return getSqlSession().selectOne("productGatherMapper.selectProductStasticViewTodayCount", productPn);
+	}
+
+	@Override
+	public void insertUpdateProductStasticView(Count count) {
+		Integer dayCount = selectProductStasticViewTodayCount(count.getProductPn());
+		
+		if (dayCount == null || dayCount == 0) {
+			insertProductStasticView(count.getProductPn());
+		} else {
+			count.setCount(dayCount + 1);
+			updateProductStasticView(count);
+		}
+	}
+
+	@Override
+	public List<ProductGather> selectEventList(ProductGatherFilter gatherFilter) {
+		return getSqlSession().selectList("productGatherMapper.selectEventList", gatherFilter);
+	}
+	
+	
 
 }

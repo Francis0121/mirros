@@ -185,7 +185,8 @@ public class HomeServiceImpl extends SqlSessionDaoSupport implements HomeService
 			count.setCount(1);
 
 		Integer sellerPn = count.getSellerPn();
-		Integer dayCount = selectStaisticView(sellerPn);
+		Integer dayCount = selectStatisticView(sellerPn);
+		
 		if (dayCount == null || dayCount == 0) {
 			getSqlSession().insert("homeMapper.insertStatisticView", count);
 		} else {
@@ -193,8 +194,8 @@ public class HomeServiceImpl extends SqlSessionDaoSupport implements HomeService
 			getSqlSession().update("homeMapper.updateStatisticView", count);
 		}
 
-		Integer sevenDayCount = selectSevenDayStatisticView(sellerPn);
-		count.setCount(sevenDayCount);
+		Integer totalCount = selectTotalStatisticView(sellerPn);
+		count.setCount(totalCount);
 
 		publisher.viewPublish(count);
 	}
@@ -212,8 +213,12 @@ public class HomeServiceImpl extends SqlSessionDaoSupport implements HomeService
 		return getSqlSession().selectOne("homeMapper.selectSevenDayStatisticView", selectMap);
 	}
 
-	private Integer selectStaisticView(Integer sellerPn) {
+	private Integer selectStatisticView(Integer sellerPn) {
 		return getSqlSession().selectOne("homeMapper.selectStatisticView", sellerPn);
+	}
+	
+	private Integer selectTotalStatisticView(Integer sellerPn) {
+		return getSqlSession().selectOne("homeMapper.selectTotalStatisticView", sellerPn);
 	}
 
 	@Override

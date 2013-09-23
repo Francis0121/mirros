@@ -42,12 +42,16 @@ public class Count {
 	 */
 	private Integer sellerPn;
 
+	/**
+	 * 상품 고유번호
+	 */
+	private Integer productPn;
+
 	public Count() {
 		super();
 	}
 
-	public Count(Integer count, Integer customerPn, String inputDate,
-			String message, Integer sellerPn, String redisType) {
+	public Count(Integer count, Integer customerPn, String inputDate, String message, Integer sellerPn, String redisType) {
 		super();
 		this.count = count;
 		this.customerPn = customerPn;
@@ -113,12 +117,18 @@ public class Count {
 		this.sellerPn = sellerPn;
 	}
 
+	public Integer getProductPn() {
+		return productPn;
+	}
+
+	public void setProductPn(Integer productPn) {
+		this.productPn = productPn;
+	}
+
 	@Override
 	public String toString() {
-		return "Count [count=" + count + ", customerPn=" + customerPn
-				+ ", inputDate=" + inputDate + ", message=" + message
-				+ ", redisType=" + redisType + ", sellerPn=" + sellerPn
-				+ ", crudType=" + crudType + "]";
+		return "Count [count=" + count + ", crudType=" + crudType + ", customerPn=" + customerPn + ", inputDate=" + inputDate + ", message="
+				+ message + ", redisType=" + redisType + ", sellerPn=" + sellerPn + ", productPn=" + productPn + "]";
 	}
 
 }

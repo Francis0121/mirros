@@ -13,6 +13,15 @@
 		<result property="contentType" column="content_type"/>
 	</resultMap>
 	
+	<resultMap type="ProductGather" id="EventMapper">
+		<result property="sellerPn" column="seller_pn"/>
+		<result property="eventPn" column="event_pn"/>
+		<result property="eventName" column="event_name"/>
+		<result property="beginDate" column="begin_date"/>
+		<result property="endDate" column="end_date"/>
+		<result property="bannerOrder" column="banner_order"/>
+	</resultMap>
+	
 	<select id="selectGatherProductsCount" resultType="Integer">
 		SELECT COUNT(DISTINCT product_pn)
 		FROM(
@@ -74,7 +83,7 @@
 		) tb 
 		GROUP BY product_pn
 		ORDER BY day_count DESC
-		LIMIT #{percentCount} , 100000
+		LIMIT #{percentCount} , 10
 	</select>
 	
 	<select id="selectGatherHotProducts" resultMap="productGatherMapper">
@@ -119,10 +128,47 @@
 		LIMIT #{percentCount}
 	</select>
 
-	<select id="percent" resultType="Integer">
-		
+	<insert id="insertProductStasticView" >
+		INSERT INTO 
+			statistic_product_click(product_pn, count_date, day_count)
+		VALUES
+			(#{productPn}, CURDATE(), 1)
+	</insert>
+	
+	<update id="updateProductStasticView">
+		UPDATE 
+			statistic_product_click
+		SET 
+			day_count = #{count}
+		WHERE 
+			product_pn = #{productPn}
+		AND 
+			count_date = CURDATE()
+	</update>
+	
+	<select id="selectProductStasticViewTodayCount" resultType="Integer"> 
+		SELECT 
+			day_count
+		FROM 
+			statistic_product_click
+		WHERE 
+			product_pn = #{productPn}  	
+		AND
+			count_date = CURDATE() 
 	</select>
 	
+	<select id="selectEventList" resultMap="EventMapper"> 
+		SELECT
+			 event_pn, usee.seller_pn, event_name, begin_date, DATEDIFF(usee.end_date,NOW()) AS end_date, banner_order
+		FROM
+			user_seller_event usee
+		JOIN partnership p
+			ON p.seller_pn = usee.seller_pn
+		WHERE 0=0
+		<if test="categoryPn != 0"> 
+			AND p.category_pn = #{categoryPn}
+		</if>	
+	</select>
 	
 </mapper>
 	

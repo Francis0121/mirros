@@ -16,6 +16,13 @@ public class ProductGather {
 	private String contentType;
 	private int hot;
 
+	// Event Data
+	private int eventPn;
+	private String eventName;
+	private int beginDate;
+	private int endDate;
+	private int bannerOrder;
+
 	public int getProductPn() {
 		return productPn;
 	}
@@ -88,10 +95,51 @@ public class ProductGather {
 		this.hot = hot;
 	}
 
+	public int getEventPn() {
+		return eventPn;
+	}
+
+	public void setEventPn(int eventPn) {
+		this.eventPn = eventPn;
+	}
+
+	public String getEventName() {
+		return eventName;
+	}
+
+	public void setEventName(String eventName) {
+		this.eventName = eventName;
+	}
+
+	public int getBeginDate() {
+		return beginDate;
+	}
+
+	public void setBeginDate(int beginDate) {
+		this.beginDate = beginDate;
+	}
+
+	public int getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(int endDate) {
+		this.endDate = endDate;
+	}
+
+	public int getBannerOrder() {
+		return bannerOrder;
+	}
+
+	public void setBannerOrder(int bannerOrder) {
+		this.bannerOrder = bannerOrder;
+	}
+
 	@Override
 	public String toString() {
 		return "ProductGather [productPn=" + productPn + ", sellerPn=" + sellerPn + ", imagePn=" + imagePn + ", productName=" + productName
-				+ ", url=" + url + ", price=" + price + ", saveName=" + saveName + ", contentType=" + contentType + ", hot=" + hot + "]";
+				+ ", url=" + url + ", price=" + price + ", saveName=" + saveName + ", contentType=" + contentType + ", hot=" + hot + ", eventPn="
+				+ eventPn + ", eventName=" + eventName + ", beginDate=" + beginDate + ", endDate=" + endDate + ", bannerOrder=" + bannerOrder + "]";
 	}
 
 }

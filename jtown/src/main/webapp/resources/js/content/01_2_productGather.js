@@ -69,7 +69,23 @@ var productGatherHtml = function(data){
 	$('.jt-pg-main').append(html);
 	itemOrder();
 };
-	
+
+var productStatisticClick = function(productPn){
+	$.ajax({
+        url: contextPath+'ajax/productClick.jt',
+        type: 'POST',
+        data:{productPn : productPn },
+        success: function(data){}
+    });
+};
+
+$('.jt-item').live('click', function(){
+	var productPn = $(this).find('.jt-pg-product-name').attr('data-product-pn');
+	productStatisticClick(productPn);
+	window.open($(this).find('.jt-pg-product-name').attr('data-url'), '_blank');
+});
+
+
 $('.jt-item').live({
 	mouseenter: function(){
 		$(this).find('.jt-pg-product-name').css('display','block');

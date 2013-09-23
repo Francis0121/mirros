@@ -22,6 +22,10 @@
 	width: 100%;
 	height: 100%; 
 }
+.jt-pg-event-line{
+	background-color: rgba(255,255,240,.9);
+	height: 100%;
+}
 .jt-pg-product-name{
 	font-size:13px;
 	padding-top:10px;
@@ -36,6 +40,9 @@
 	display: none;
 	transition :all 0.3s ease-in;
 }
+.jt-pg-product-name div:FIRST-CHILD {
+	font-weight: bold;
+}
 </style>
 
 <div>
@@ -44,7 +51,15 @@
 	<c:choose>
 		<c:when test="${list.hot ==0}">
 			<div class="jt-item jt-pg-small-product">
-				<div class="jt-pg-product-line">
+				<c:if test="${list.productPn == 0 }">
+					<div class="jt-pg-event-line">
+						${list.eventName }
+						
+						${list.endDate }일
+					</div>
+				</c:if> 
+				<c:if test="${list.productPn != 0 }">
+					<div class="jt-pg-product-line">
 					<div>
 						<c:if test="${empty list.contentType}">
 							<img src="${cp}/resources/uploadImage/${list.saveName }" alt="${list.productName }" />
@@ -53,11 +68,12 @@
 							<img src="${cp}/resources/uploadImage/${list.saveName }.${list.contentType}" alt="${list.productName }" />
 						</c:if>
 					</div>
-					<div class="jt-pg-product-name">
+					<div class="jt-pg-product-name" data-url="${list.url }" data-product-pn="${list.productPn }">
 						<div>${list.productName }</div>
 						<div>${list.price }</div>
 					</div>
 				</div>
+				</c:if>
 			</div>
 		</c:when>
 		<c:otherwise>
@@ -71,7 +87,7 @@
 							<img src="${cp}/resources/uploadImage/${list.saveName }.${list.contentType}" alt="${list.productName }" />
 						</c:if>
 					</div>
-					<div class="jt-pg-product-name">
+					<div class="jt-pg-product-name" data-url="${list.url }">
 						<div>${list.productName }</div>
 						<div>${list.price }</div>
 					</div>

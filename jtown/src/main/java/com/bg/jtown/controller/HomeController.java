@@ -223,15 +223,13 @@ public class HomeController {
 	@RequestMapping(value = "/ajax/clickView.jt", method = RequestMethod.POST)
 	@ResponseBody
 	public void ajaxClickShop(@RequestBody Count count, HttpSession session, SummaryUser summaryUser) {
-		//TODO 
-		System.out.println(count);
 		checkSessionStatisticView(session, count, summaryUser);
 	}
 
 	private void checkSessionStatisticView(HttpSession session, Count count, SummaryUser summaryUser) {
 
 		Integer sellerPn = count.getSellerPn();
-
+		
 		Authority authority = summaryUser.getEnumAuthority();
 		if (authority.equals(Authority.CUSTOMER) || authority.equals(Authority.NOT_LOGIN)) {
 
