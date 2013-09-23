@@ -426,7 +426,7 @@ jtown.home.html = function(data) {
 		html += '		</div>';
 		if(comments.length > 0){
 		html += '		<div class="jt-home-shop-comments-wrap">';	
-		html += '			<div class="jt-home-shop-comments-bar"><img src="'+contextPath+'/resources/images/jt-comment.png"></div>';
+		html += '			<div class="jt-home-shop-comments-bar"><img src="'+contextPath+'resources/images/jt-comment.png"></div>';
 		html += '			'+commentHtml;
 		html += '		</div>';
 		}
