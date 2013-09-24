@@ -286,7 +286,8 @@ Product Insert btn
 
 .jt-product-article-object-img{cursor: pointer; }
 .jt-product-article-object-wrap{ color: #fff;  background: rgba(0,0,0,.5); height: 40px; width: 170px; margin-top: -40px; position: absolute; display: none;}
-.jt-product-article-object-wrap>span{width: 170px; line-height: 20px; text-align: center; display: block;  font-size: 11px; overflow: hidden; height: 20px;}
+.jt-product-article-object-wrap>span{width: 100%; line-height: 20px; text-align: center; display: block;  font-size: 11px; overflow: hidden; height: 20px;}
+.jt-product-article-object-photo{ width: 140px;}
 .jt-product-article-object-expand{margin-top: 130px;}
 
 .jt-product-article-inputBox{ width: 300px; height: 150px; padding: 5px;

@@ -1,4 +1,10 @@
 $(function() {
+	
+	if (typeof jtown.pg == 'undefined') {
+		jtown.pg = {};
+	}
+	
+	
 	var containerDiv = document.querySelector('.jt-pg-main');
 
 	var itemOrder = function(){
@@ -69,8 +75,7 @@ var productGatherHtml = function(data){
 	$('.jt-pg-main').append(html);
 	itemOrder();
 };
-
-var productStatisticClick = function(productPn){
+jtown.pg.productStatisticClick = function(productPn){
 	$.ajax({
         url: contextPath+'ajax/productClick.jt',
         type: 'POST',
@@ -79,10 +84,24 @@ var productStatisticClick = function(productPn){
     });
 };
 
-$('.jt-item').live('click', function(){
-	var productPn = $(this).find('.jt-pg-product-name').attr('data-product-pn');
-	productStatisticClick(productPn);
-	window.open($(this).find('.jt-pg-product-name').attr('data-url'), '_blank');
+jtown.pg.eventStatisticClick = function(eventPn){
+	$.ajax({
+        url: contextPath+'ajax/eventClick.jt',
+        type: 'POST',
+        data:{eventPn : eventPn },
+        success: function(data){}
+    });
+};
+
+$('.jt-pg-item').live('click', function(){
+	var productPn = $(this).attr('data-product-pn');
+	var eventPn = $(this).attr('data-event-pn');
+	if(productPn != 0){
+		jtown.pg.productStatisticClick(productPn);
+	}else{
+		jtown.pg.eventStatisticClick(eventPn);
+	}
+	window.open($(this).attr('data-url'), '_blank');
 });
 
 

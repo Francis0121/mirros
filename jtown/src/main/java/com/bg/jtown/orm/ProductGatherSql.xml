@@ -20,6 +20,7 @@
 		<result property="beginDate" column="begin_date"/>
 		<result property="endDate" column="end_date"/>
 		<result property="bannerOrder" column="banner_order"/>
+		<result property="shopName" column="shop_name"/>
 	</resultMap>
 	
 	<select id="selectGatherProductsCount" resultType="Integer">
@@ -159,15 +160,44 @@
 	
 	<select id="selectEventList" resultMap="EventMapper"> 
 		SELECT
-			 event_pn, usee.seller_pn, event_name, begin_date, DATEDIFF(usee.end_date,NOW()) AS end_date, banner_order
+			 event_pn, usee.seller_pn, event_name, begin_date, DATEDIFF(usee.end_date,NOW()) AS end_date, banner_order, p.shop_name, p.shop_url AS url
 		FROM
 			user_seller_event usee
 		JOIN partnership p
 			ON p.seller_pn = usee.seller_pn
-		WHERE 0=0
+		WHERE DATEDIFF(usee.end_date,NOW()) >= 0
 		<if test="categoryPn != 0"> 
 			AND p.category_pn = #{categoryPn}
 		</if>	
+	</select>
+	
+	<insert id="insertEventStasticView" >
+		INSERT INTO 
+			statistic_event_click(event_pn, count_date, day_count)
+		VALUES
+			(#{event}, CURDATE(), 1)
+	</insert>
+	
+	<update id="updateEventStasticView">
+		UPDATE 
+			statistic_event_click
+		SET 
+			day_count = #{count}
+		WHERE 
+			event_pn = #{eventPn}
+		AND 
+			count_date = CURDATE()
+	</update>
+	
+	<select id="selectEventStasticViewTodayCount" resultType="Integer"> 
+		SELECT 
+			day_count
+		FROM 
+			statistic_event_click
+		WHERE 
+			event_pn = #{eventPn}  	
+		AND
+			count_date = CURDATE() 
 	</select>
 	
 </mapper>

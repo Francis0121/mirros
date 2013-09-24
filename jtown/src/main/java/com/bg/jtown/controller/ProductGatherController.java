@@ -143,5 +143,32 @@ public class ProductGatherController {
 			session.setAttribute("productStasticView", checkedList);
 		}
 	}
+	
+	@RequestMapping(value = "/ajax/eventClick.jt", method = RequestMethod.POST)
+	@ResponseBody
+	public void ajaxEventClick(Count count, HttpSession session, SummaryUser summaryUser) {
+		Authority authority = summaryUser.getEnumAuthority();
+		if (authority.equals(Authority.CUSTOMER) || authority.equals(Authority.NOT_LOGIN)) {
+			ArrayList<Integer> checkedList = (ArrayList<Integer>) session.getAttribute("eventStasticView");
+			if (checkedList == null || checkedList.isEmpty()) {
+				checkedList = new ArrayList<Integer>();
+				checkedList.add(count.getEventPn());
+				productGatherService.insertUpdateEventStasticView(count);
+			} else {
+				System.out.println("checkedList :"+ checkedList);
+				boolean isEventPn = false;
+				for(Integer eventPns : checkedList ){
+					if(eventPns.equals(count.getEventPn())){
+						isEventPn = true;
+					}
+				}
+				if(!isEventPn){
+					checkedList.add(count.getEventPn());
+					productGatherService.insertUpdateEventStasticView(count);
+				}
+			}
+			session.setAttribute("eventStasticView", checkedList);
+		}
+	}
 
 }

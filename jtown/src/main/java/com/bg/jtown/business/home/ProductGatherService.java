@@ -29,5 +29,13 @@ public interface ProductGatherService {
 	
 	Integer selectProductStasticViewTodayCount(Integer productPn);
 	
-	List<ProductGather> selectEventList(ProductGatherFilter gatherFilter);	
+	List<ProductGather> selectEventList(ProductGatherFilter gatherFilter);
+	
+	void insertEventStasticView(Integer eventPn);
+
+	void updateEventStasticView(Count count);
+
+	void insertUpdateEventStasticView(Count count);
+	
+	Integer selectEventStasticViewTodayCount(Integer eventPn);
 }

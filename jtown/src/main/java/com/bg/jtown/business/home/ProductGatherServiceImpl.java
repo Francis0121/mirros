@@ -65,17 +65,15 @@ public class ProductGatherServiceImpl extends SqlSessionDaoSupport implements Pr
 		List<ProductGather> eventList = selectEventList(productGatherFilter);
 		List<ProductGather> normalProduct = selectGatherProducts(productGatherFilter);
 
-		System.out.println("eventList :"+ eventList);
 		List<ProductGather> smallSizeList = new ArrayList<ProductGather>();
 		smallSizeList.addAll(normalProduct);
 		smallSizeList.addAll(eventList);
-		
+
 		Collections.shuffle(smallSizeList, rand);
 		Collections.shuffle(hotProduct, rand);
 		List<ProductGather> mergeList = new ArrayList<ProductGather>();
 
-		// TODO IF -> BANNER BANNER LIST가 끝날 때까지 먼저 hotproduct 대신에 bannerList를
-		// 먼저 비움
+		// TODO IF -> BANNER LIST가 끝날 때까지 먼저 hotproduct 대신에 bannerList를 먼저 비움
 		int totalCount = 0;
 		totalCount = hotProduct.size() + smallSizeList.size();
 		while (totalCount > 0) {
@@ -120,7 +118,7 @@ public class ProductGatherServiceImpl extends SqlSessionDaoSupport implements Pr
 	@Override
 	public void insertUpdateProductStasticView(Count count) {
 		Integer dayCount = selectProductStasticViewTodayCount(count.getProductPn());
-		
+
 		if (dayCount == null || dayCount == 0) {
 			insertProductStasticView(count.getProductPn());
 		} else {
@@ -133,7 +131,34 @@ public class ProductGatherServiceImpl extends SqlSessionDaoSupport implements Pr
 	public List<ProductGather> selectEventList(ProductGatherFilter gatherFilter) {
 		return getSqlSession().selectList("productGatherMapper.selectEventList", gatherFilter);
 	}
-	
-	
+
+	@Override
+	public void insertEventStasticView(Integer eventPn) {
+		getSqlSession().insert("productGatherMapper.insertEventStasticView", eventPn);
+	}
+
+	@Override
+	public void updateEventStasticView(Count count) {
+		getSqlSession().update("productGatherMapper.updateEventStasticView", count);
+
+	}
+
+	@Override
+	public void insertUpdateEventStasticView(Count count) {
+		Integer dayCount = selectEventStasticViewTodayCount(count.getEventPn());
+
+		if (dayCount == null || dayCount == 0) {
+			insertEventStasticView(count.getEventPn());
+		} else {
+			count.setCount(dayCount + 1);
+			updateEventStasticView(count);
+		}
+
+	}
+
+	@Override
+	public Integer selectEventStasticViewTodayCount(Integer eventPn) {
+		return getSqlSession().selectOne("productGatherMapper.selectEventStasticViewTodayCount", eventPn);
+	}
 
 }

@@ -22,6 +22,7 @@ public class ProductGather {
 	private int beginDate;
 	private int endDate;
 	private int bannerOrder;
+	private String shopName;
 
 	public int getProductPn() {
 		return productPn;
@@ -135,11 +136,20 @@ public class ProductGather {
 		this.bannerOrder = bannerOrder;
 	}
 
+	public String getShopName() {
+		return shopName;
+	}
+
+	public void setShopName(String shopName) {
+		this.shopName = shopName;
+	}
+
 	@Override
 	public String toString() {
 		return "ProductGather [productPn=" + productPn + ", sellerPn=" + sellerPn + ", imagePn=" + imagePn + ", productName=" + productName
 				+ ", url=" + url + ", price=" + price + ", saveName=" + saveName + ", contentType=" + contentType + ", hot=" + hot + ", eventPn="
-				+ eventPn + ", eventName=" + eventName + ", beginDate=" + beginDate + ", endDate=" + endDate + ", bannerOrder=" + bannerOrder + "]";
+				+ eventPn + ", eventName=" + eventName + ", beginDate=" + beginDate + ", endDate=" + endDate + ", bannerOrder=" + bannerOrder
+				+ ", shopName=" + shopName + "]";
 	}
 
 }

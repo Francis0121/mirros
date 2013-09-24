@@ -39,8 +39,6 @@ public class CreatePasswordController{
 				//(JtownUser) userDetailsService.loadUsersByUsername(password).get(0);
 		user.setUsername(password);
 		user.setSalt(salt);
-		System.out.println("password :"+ password);
-		System.out.println("salt :"+ salt);
 		String encodedPassword = passwordEncoder.encodePassword(password, saltSource.getSalt(user));
 		System.out.println("create password :"+ encodedPassword);
 		return "redirect:createpw";

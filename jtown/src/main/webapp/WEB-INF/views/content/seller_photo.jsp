@@ -47,7 +47,7 @@ html{ overflow-y: hidden;}
 							<c:set value="${cp }/resources/uploadImage/${product.saveName }" var="image"/>
 						</c:if>
 						<img alt="${product.name }" src="${image}"/>
-						<div class="jt-product-article-object-wrap">
+						<div class="jt-product-article-object-wrap jt-product-article-object-photo">
 							<c:choose>
 								<c:when test="${product.name eq null or product.commaPrice eq null }">
 									<span>상품 정보가 아직</span>
@@ -71,7 +71,7 @@ html{ overflow-y: hidden;}
 							</div>
 						</div>
 						<img alt="Blank" src="${cp }/resources/images/jt-product-blank.png">
-						<div class="jt-product-article-object-wrap">
+						<div class="jt-product-article-object-wrap jt-product-article-object-photo">
 							<span>상품 정보가 아직</span>
 							<span>입력되지 않았습니다.</span>
 						</div>

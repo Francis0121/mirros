@@ -329,8 +329,9 @@ jtown.home.masonry = {
 	}
 };
 
-jtown.home.clickProduct = function(spn,label) {
+jtown.home.clickProduct = function(spn,label, productPn) {
 	ga('send', 'event', 'product', 'click', label);
+	jtown.home.productStatisticClick(productPn);
 	jtown.home.goHome(spn);
 };
 
@@ -543,6 +544,15 @@ jQuery(document).ready(function(){
 			$(this).find(".jt-home-shop-love").css("background-position", "0px -30px");
 	}});
 	$(".jt-home-shop-event-dday").css("visibility","visible");
+	
+	jtown.home.productStatisticClick = function(productPn){
+		$.ajax({
+	        url: contextPath+'ajax/productClick.jt',
+	        type: 'POST',
+	        data:{productPn : productPn },
+	        success: function(data){}
+	    });
+	};
 	
 });
 Date.prototype.format = function(f) {

@@ -47,6 +47,11 @@ public class Count {
 	 */
 	private Integer productPn;
 
+	/**
+	 * 이벤트 고유번호
+	 */
+	private Integer eventPn;
+
 	public Count() {
 		super();
 	}
@@ -125,10 +130,18 @@ public class Count {
 		this.productPn = productPn;
 	}
 
+	public Integer getEventPn() {
+		return eventPn;
+	}
+
+	public void setEventPn(Integer eventPn) {
+		this.eventPn = eventPn;
+	}
+
 	@Override
 	public String toString() {
 		return "Count [count=" + count + ", crudType=" + crudType + ", customerPn=" + customerPn + ", inputDate=" + inputDate + ", message="
-				+ message + ", redisType=" + redisType + ", sellerPn=" + sellerPn + ", productPn=" + productPn + "]";
+				+ message + ", redisType=" + redisType + ", sellerPn=" + sellerPn + ", productPn=" + productPn + ", eventPn=" + eventPn + "]";
 	}
 
 }

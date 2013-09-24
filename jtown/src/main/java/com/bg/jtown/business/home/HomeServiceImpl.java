@@ -226,13 +226,11 @@ public class HomeServiceImpl extends SqlSessionDaoSupport implements HomeService
 		Integer sellerPn = count.getSellerPn();
 
 		Integer dayCount = selectStaisticClick(sellerPn);
-		System.out.println("insert click");
 		if (dayCount == null || dayCount == 0) {
 			insertStaisticClick(sellerPn);
 		} else {
 			count.setCount(dayCount + 1);
 			updateStaisticClick(count);
-			System.out.println("update Click");
 		}
 	}
 

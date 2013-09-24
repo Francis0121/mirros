@@ -47,7 +47,7 @@
 				ON us.pn = bdl.seller_pn
 			LEFT OUTER JOIN product_new_bool pnb
 				ON us.pn = pnb.seller_pn
-			LEFT OUTER JOIN (SELECT * FROM user_seller_event WHERE DATEDIFF(end_date,NOW()) >= 0 ORDER BY RAND()) usle
+			LEFT OUTER JOIN (SELECT * FROM user_seller_event WHERE DATEDIFF(end_date,NOW()) >= 0 AND deleted = 'N' ORDER BY RAND()) usle
 				ON usle.seller_pn = us.pn 
 			<if test="customerPn != null">
 			LEFT OUTER JOIN count_love cl
@@ -284,16 +284,16 @@
 	
 	<insert id="insertDdayEvent" parameterType="Event">
 		INSERT INTO 
-			user_seller_event(seller_pn, event_name, end_date, banner_order)
+			user_seller_event(seller_pn, event_name, end_date, begin_date, banner_order)
 		VALUES
-			(#{sellerPn}, #{eventName}, #{endDate}, #{bannerOrder})
+			(#{sellerPn}, #{eventName}, #{endDate}, SYSDATE() #{bannerOrder})
 	</insert>
 	
 	<update id="updateDdayEvent" parameterType="Event">
 		UPDATE
 			 user_seller_event
 		SET
-			event_name = #{eventName} , end_date = #{endDate}
+			event_name = #{eventName} , end_date = #{endDate}, begin_date = SYSDATE()
 		WHERE
 			event_pn = #{eventPn}
 	</update>
@@ -306,15 +306,18 @@
 		WHERE 
 			seller_pn = #{sellerPn}
 			AND banner_order = #{bannerOrder}
+			AND deleted ='N'
 	</select>
 	
-	<delete id="deleteSellerDDayEvent">
-		DELETE FROM 
+	<update id="deleteSellerDDayEvent">
+		UPDATE  
 			user_seller_event
+		SET 
+			deleted = 'Y'
 		WHERE 
 			seller_pn = #{sellerPn}
 			AND banner_order = #{bannerOrder}
-	</delete>
+	</update>
 	
 	<delete id="deleteSellerBanner">
 		DELETE FROM
@@ -381,12 +384,13 @@
 			usp.seller_pn = #{userPn}
 		AND
 			usp.image_pn = i.pn
+		AND usp.deleted = 'N'
 		ORDER BY
 			usp.order ASC, usp.input_date ASC	
 	</select>
 	
 	<select id="selectSellerProductCount" parameterType="Integer" resultType="Integer">
-		SELECT COUNT(pn) FROM user_seller_product WHERE seller_pn = #{userPn}
+		SELECT COUNT(pn) FROM user_seller_product WHERE seller_pn = #{userPn} AND deleted = 'N'
 	</select>
 	
 	<select id="selectSellerProductFromProductFilter" parameterType="ProductFilter" resultMap="jt-product-map">
@@ -400,13 +404,15 @@
 			usp.seller_pn = #{sellerPn}
 		AND
 			usp.image_pn = i.pn
+		AND 
+			usp.deleted = 'N'
 		ORDER BY
 			usp.order ASC, usp.input_date ASC
 		LIMIT #{pagination.itemSeqBegin}, #{pagination.numItemsPerPage}	
 	</select>
 	
 	<select id="selectSellerProductCountFromProductFilter" parameterType="ProductFilter" resultType="Integer">
-		SELECT COUNT(pn) FROM user_seller_product WHERE seller_pn = #{sellerPn}
+		SELECT COUNT(pn) FROM user_seller_product WHERE seller_pn = #{sellerPn} AND deleted = 'N'
 	</select>
 	
 	<select id="selectSellerProductOne" parameterType="Integer" resultMap="jt-product-map">
@@ -420,11 +426,15 @@
 			usp.image_pn = i.pn
 		AND
 			pn = #{productPn}
+		AND 
+			usp.deleted = 'N'
 	</select>
 	
 	<delete id="deleteSellerProduct" parameterType="Product">
-		DELETE	FROM
+		UPDATE
 			user_seller_product
+		SET
+			deleted = 'Y'
 		<if test="pn != null">
 		WHERE
 			pn = #{pn}

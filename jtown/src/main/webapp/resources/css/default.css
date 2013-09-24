@@ -10,6 +10,12 @@
     font-style: normal; 
 }
 
+@font-face {
+font-family: 'HeadLineM';
+src: url('font/H2HDRM.TTF?#iefix') format('embedded-opentype'), 
+     url('font/H2HDRM.TTF')  format('truetype'),
+}
+
 /******************************************
 	All Base Style : Delete browser style
 *******************************************/
