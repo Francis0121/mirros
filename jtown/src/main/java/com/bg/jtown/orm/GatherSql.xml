@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="productGatherMapper">
+<mapper namespace="gatherMapper">
 
-	<resultMap type="ProductGather" id="productGatherMapper">
+	<resultMap type="Gather" id="gatherMapper">
 		<result property="imagePn" column="image_pn"/>
 		<result property="sellerPn" column="seller_pn"/>
 		<result property="productPn" column="product_pn"/>
@@ -13,7 +13,7 @@
 		<result property="contentType" column="content_type"/>
 	</resultMap>
 	
-	<resultMap type="ProductGather" id="EventMapper">
+	<resultMap type="Gather" id="EventMapper">
 		<result property="sellerPn" column="seller_pn"/>
 		<result property="eventPn" column="event_pn"/>
 		<result property="eventName" column="event_name"/>
@@ -36,17 +36,24 @@
 				ON u.pn = us.pn 
 			JOIN partnership p 
 				ON p.seller_pn = us.pn
+			<if test="newFlag == 1">
+			JOIN new_product_bool npb
+				ON npb.product_pn = usp.pn
+			</if>
 			WHERE usp.NAME IS NOT NULL
 			AND CURDATE() BETWEEN usci.start_date 
 			    AND usci.end_date 
 			    <if test="categoryPn != 0">
 			    	AND p.category_pn = #{categoryPn}
 			    </if>
-			    AND u.enable = 1 
+			    <if test="newFlag == 1">
+			    AND npb.new_product > 0
+			    </if>  
+			    AND u.enable = 1
 		) tb
 	</select>
 	
-	<select id="selectGatherProducts" resultMap="productGatherMapper">
+	<select id="selectGatherProducts" resultMap="gatherMapper">
 		SELECT 
 		  product_pn, seller_pn, image_pn, product_name, url, price, save_name, content_type, SUM(day_count) AS day_count
 		FROM
@@ -74,20 +81,27 @@
 			ON spc.product_pn = usp.pn
 		    LEFT OUTER JOIN image img 
 		      ON img.pn = image_pn 
+		     <if test="newFlag == 1">
+			JOIN new_product_bool npb
+				ON npb.product_pn = usp.pn
+			</if> 
 		  WHERE usp.NAME IS NOT NULL 
 		    AND CURDATE() BETWEEN usci.start_date 
 		    AND usci.end_date 
 		    <if test="categoryPn != 0"> 
 		   		 AND p.category_pn = #{categoryPn}
 		    </if>
-		    AND u.enable = 1 
+		    <if test="newFlag == 1">
+		    AND npb.new_product > 0	
+		    </if> 
+		    AND u.enable = 1
 		) tb 
 		GROUP BY product_pn
 		ORDER BY day_count DESC
-		LIMIT #{percentCount} , 10
+		LIMIT #{percentCount} , 1000000
 	</select>
 	
-	<select id="selectGatherHotProducts" resultMap="productGatherMapper">
+	<select id="selectGatherHotProducts" resultMap="gatherMapper">
 		SELECT 
 		  product_pn, seller_pn, image_pn, product_name, url, price, save_name, content_type, hot, SUM(day_count) AS day_count
 		FROM
@@ -116,12 +130,19 @@
 			ON spc.product_pn = usp.pn
 		    LEFT OUTER JOIN image img 
 		      ON img.pn = image_pn 
+		    <if test="newFlag == 1">
+			JOIN new_product_bool npb
+				ON npb.product_pn = usp.pn
+			</if> 
 		  WHERE usp.NAME IS NOT NULL 
 		    AND CURDATE() BETWEEN usci.start_date 
 		    AND usci.end_date 
 		    <if test="categoryPn != 0"> 
 		   		 AND p.category_pn = #{categoryPn}
 		    </if>
+		    <if test="newFlag == 1">
+		    AND npb.new_product > 0	
+		    </if> 
 		    AND u.enable = 1 
 		) tb 
 		GROUP BY product_pn
@@ -160,12 +181,19 @@
 	
 	<select id="selectEventList" resultMap="EventMapper"> 
 		SELECT
-			 event_pn, usee.seller_pn, event_name, begin_date, DATEDIFF(usee.end_date,NOW()) AS end_date, banner_order, p.shop_name, p.shop_url AS url
+			 usee.event_pn, usee.seller_pn, event_name, begin_date, DATEDIFF(usee.end_date,SYSDATE()) AS end_date, banner_order, p.shop_name, p.shop_url AS url
 		FROM
 			user_seller_event usee
 		JOIN partnership p
 			ON p.seller_pn = usee.seller_pn
-		WHERE DATEDIFF(usee.end_date,NOW()) >= 0
+		<if test="newFlag == 1">
+		JOIN new_event_bool neb
+			ON neb.event_pn = usee.event_pn 
+		</if>	
+		WHERE DATEDIFF(usee.end_date,SYSDATE()) >= 0
+		<if test="newFlag == 1">
+			AND neb.new_event > 0
+		</if>	
 		<if test="categoryPn != 0"> 
 			AND p.category_pn = #{categoryPn}
 		</if>	

@@ -13,40 +13,43 @@ import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.springframework.stereotype.Service;
 
 import com.bg.jtown.business.Count;
-import com.bg.jtown.business.ProductGather;
-import com.bg.jtown.business.search.ProductGatherFilter;
+import com.bg.jtown.business.Gather;
+import com.bg.jtown.business.search.GatherFilter;
 import com.bg.jtown.redis.Publisher;
 import com.bg.jtown.security.Authority;
 import com.bg.jtown.security.SummaryUser;
 import com.bg.jtown.util.Pagination;
 
 @Service
-public class ProductGatherServiceImpl extends SqlSessionDaoSupport implements ProductGatherService {
+public class GatherServiceImpl extends SqlSessionDaoSupport implements GatherService {
 
 	@Resource
 	private Publisher publisher;
 
 	@Override
-	public List<ProductGather> selectGatherHotProducts(ProductGatherFilter productGatherFilter) {
-		return getSqlSession().selectList("productGatherMapper.selectGatherHotProducts", productGatherFilter);
+	public List<Gather> selectGatherHotProducts(GatherFilter productGatherFilter) {
+		return getSqlSession().selectList("gatherMapper.selectGatherHotProducts", productGatherFilter);
 	}
 
 	@Override
-	public List<ProductGather> selectGatherProducts(ProductGatherFilter productGatherFilter) {
-		return getSqlSession().selectList("productGatherMapper.selectGatherProducts", productGatherFilter);
+	public List<Gather> selectGatherProducts(GatherFilter productGatherFilter) {
+		return getSqlSession().selectList("gatherMapper.selectGatherProducts", productGatherFilter);
 	}
 
 	@Override
-	public int selectGatherProductsCount(ProductGatherFilter productGatherFilter) {
-		return getSqlSession().selectOne("productGatherMapper.selectGatherProductsCount", productGatherFilter);
+	public int selectGatherProductsCount(GatherFilter productGatherFilter) {
+		return getSqlSession().selectOne("gatherMapper.selectGatherProductsCount", productGatherFilter);
 	}
 
 	@Override
-	public List<ProductGather> paginateItemList(List<ProductGather> itemList, ProductGatherFilter productGatherFilter) {
-		List<ProductGather> paginatedItemList = new ArrayList<ProductGather>();
+	public List<Gather> paginateItemList(List<Gather> itemList, GatherFilter productGatherFilter) {
+		List<Gather> paginatedItemList = new ArrayList<Gather>();
+		int itemSize = itemList.size();
 		for (int idx = productGatherFilter.getPagePerItem() * (productGatherFilter.getCurrentPage() - 1); idx < productGatherFilter.getPagePerItem()
 				* productGatherFilter.getCurrentPage(); idx++) {
-			paginatedItemList.add(itemList.get(idx));
+			if(idx < itemSize){
+				paginatedItemList.add(itemList.get(idx));
+			}
 		}
 		return paginatedItemList;
 	}
@@ -57,21 +60,21 @@ public class ProductGatherServiceImpl extends SqlSessionDaoSupport implements Pr
 	 * 나와야됨. 큰게 연속으로 나오지 않으려면 2개부터 시작이므로 범위는 2 ~ 10 인 짝수
 	 */
 	@Override
-	public List<ProductGather> mergeProductGatherList(ProductGatherFilter productGatherFilter) {
+	public List<Gather> mergeProductGatherList(GatherFilter productGatherFilter) {
 		int count = selectGatherProductsCount(productGatherFilter);
 		productGatherFilter.setPercentCount(count * 15 / 100);
 		Random rand = new Random(System.nanoTime());
-		List<ProductGather> hotProduct = selectGatherHotProducts(productGatherFilter);
-		List<ProductGather> eventList = selectEventList(productGatherFilter);
-		List<ProductGather> normalProduct = selectGatherProducts(productGatherFilter);
+		List<Gather> hotProduct = selectGatherHotProducts(productGatherFilter);
+		List<Gather> eventList = selectEventList(productGatherFilter);
+		List<Gather> normalProduct = selectGatherProducts(productGatherFilter);
 
-		List<ProductGather> smallSizeList = new ArrayList<ProductGather>();
+		List<Gather> smallSizeList = new ArrayList<Gather>();
 		smallSizeList.addAll(normalProduct);
 		smallSizeList.addAll(eventList);
 
 		Collections.shuffle(smallSizeList, rand);
 		Collections.shuffle(hotProduct, rand);
-		List<ProductGather> mergeList = new ArrayList<ProductGather>();
+		List<Gather> mergeList = new ArrayList<Gather>();
 
 		// TODO IF -> BANNER LIST가 끝날 때까지 먼저 hotproduct 대신에 bannerList를 먼저 비움
 		int totalCount = 0;
@@ -102,17 +105,17 @@ public class ProductGatherServiceImpl extends SqlSessionDaoSupport implements Pr
 
 	@Override
 	public void insertProductStasticView(Integer productPn) {
-		getSqlSession().insert("productGatherMapper.insertProductStasticView", productPn);
+		getSqlSession().insert("gatherMapper.insertProductStasticView", productPn);
 	}
 
 	@Override
 	public void updateProductStasticView(Count count) {
-		getSqlSession().update("productGatherMapper.updateProductStasticView", count);
+		getSqlSession().update("gatherMapper.updateProductStasticView", count);
 	}
 
 	@Override
 	public Integer selectProductStasticViewTodayCount(Integer productPn) {
-		return getSqlSession().selectOne("productGatherMapper.selectProductStasticViewTodayCount", productPn);
+		return getSqlSession().selectOne("gatherMapper.selectProductStasticViewTodayCount", productPn);
 	}
 
 	@Override
@@ -128,18 +131,18 @@ public class ProductGatherServiceImpl extends SqlSessionDaoSupport implements Pr
 	}
 
 	@Override
-	public List<ProductGather> selectEventList(ProductGatherFilter gatherFilter) {
-		return getSqlSession().selectList("productGatherMapper.selectEventList", gatherFilter);
+	public List<Gather> selectEventList(GatherFilter gatherFilter) {
+		return getSqlSession().selectList("gatherMapper.selectEventList", gatherFilter);
 	}
 
 	@Override
 	public void insertEventStasticView(Integer eventPn) {
-		getSqlSession().insert("productGatherMapper.insertEventStasticView", eventPn);
+		getSqlSession().insert("gatherMapper.insertEventStasticView", eventPn);
 	}
 
 	@Override
 	public void updateEventStasticView(Count count) {
-		getSqlSession().update("productGatherMapper.updateEventStasticView", count);
+		getSqlSession().update("gatherMapper.updateEventStasticView", count);
 
 	}
 
@@ -158,7 +161,7 @@ public class ProductGatherServiceImpl extends SqlSessionDaoSupport implements Pr
 
 	@Override
 	public Integer selectEventStasticViewTodayCount(Integer eventPn) {
-		return getSqlSession().selectOne("productGatherMapper.selectEventStasticViewTodayCount", eventPn);
+		return getSqlSession().selectOne("gatherMapper.selectEventStasticViewTodayCount", eventPn);
 	}
 
 }

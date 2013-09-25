@@ -4,22 +4,20 @@ $(function() {
 		jtown.pg = {};
 	}
 	
-	
 	var containerDiv = document.querySelector('.jt-pg-main');
 
 	var itemOrder = function(){
 		var msnry = new Masonry( containerDiv, {
-		  // options
 		  columnWidth: 0,
-		  itemSelector: '.jt-item'
+		  itemSelector: '.jt-pg-item'
 		});
 	};
-if($('.jt-header-nav-interestCategory').attr('data-category') == 'pg'){
+if($('.jt-header-nav-interestCategory').attr('data-category') == 'pg' || $('.jt-header-nav-interestCategory').attr('data-category') == 'new'){
 	$(window).scroll(function(){
 			    if($(window).scrollTop() == $(document).height() - $(window).height()){
 			        $('div#infscr-loading').show();
 			        $.ajax({
-			        url: contextPath+'ajax/productGatherPagination.jt',
+			        url: contextPath+'ajax/gatherPagination.jt',
 			        type: 'POST',
 			        success: function(data){
 			            if(data){
@@ -27,6 +25,7 @@ if($('.jt-header-nav-interestCategory').attr('data-category') == 'pg'){
 			                $('div#infscr-loading').hide();
 			            }else{
 			                $('div#infscr-loading').html('<center>Today end</center>');
+			                $('div#infscr-loading').delay(500).fadeOut(1000);
 			            }
 			        }
 		        });
@@ -39,7 +38,7 @@ var productGatherHtml = function(data){
 	
 	for(var idx=0; idx< size; idx++){
 		if(data.mergeItems[idx].hot == 0){
-			html+='<div class="jt-item jt-pg-small-product">';
+			html+='<div class="jt-pg-item jt-pg-small-product" data-url="'+data.mergeItems[idx].url+'" data-product-pn="'+data.mergeItems[idx].productPn+'" data-event-pn="'+data.mergeItems[idx].eventPn+'">';
 			html+=		'<div class="jt-pg-product-line">';
 			html+=			'<div>';
 			if(data.mergeItems[idx].contentType == ''){
@@ -55,7 +54,7 @@ var productGatherHtml = function(data){
 			html+=		'</div>';
 			html+='</div>';
 		}else{
-			html+='<div class="jt-item jt-pg-large-product">';
+			html+='<div class="jt-pg-item jt-pg-large-product" data-url="'+data.mergeItems[idx].url+'" data-product-pn="'+data.mergeItems[idx].productPn+'">';
 			html+=		'<div class="jt-pg-product-line">';
 			html+=			'<div>';
 			if(data.mergeItems[idx].contentType == ''){
@@ -72,6 +71,7 @@ var productGatherHtml = function(data){
 			html+='</div>';
 		}
 	}
+	console.log(html);
 	$('.jt-pg-main').append(html);
 	itemOrder();
 };
@@ -105,7 +105,7 @@ $('.jt-pg-item').live('click', function(){
 });
 
 
-$('.jt-item').live({
+$('.jt-pg-item').live({
 	mouseenter: function(){
 		$(this).find('.jt-pg-product-name').css('display','block');
 	},

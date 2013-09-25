@@ -19,7 +19,7 @@
 		<typeAlias alias="QuestionCategory" type="com.bg.jtown.business.QuestionCategory"/>
 		<typeAlias alias="QuestionSection" type="com.bg.jtown.business.QuestionSection"/>
 		<typeAlias alias="SellerBaseInfo" type="com.bg.jtown.business.SellerBaseInfo"/>
-		<typeAlias alias="ProductGather" type="com.bg.jtown.business.ProductGather"/>
+		<typeAlias alias="Gather" type="com.bg.jtown.business.Gather"/>
 				
 		<!-- Search Filter -->		
 		<typeAlias alias="AdminCommentFilter" type="com.bg.jtown.business.search.AdminCommentFilter"/>
@@ -34,6 +34,6 @@
 		<typeAlias alias="ProductFilter" type="com.bg.jtown.business.search.ProductFilter"/>
 		<typeAlias alias="QuestionFilter" type="com.bg.jtown.business.search.QuestionFilter"/>
 		<typeAlias alias="UserFilter" type="com.bg.jtown.business.search.UserFilter"/>
-		<typeAlias alias="ProductGatherFilter" type="com.bg.jtown.business.search.ProductGatherFilter"/>
+		<typeAlias alias="GatherFilter" type="com.bg.jtown.business.search.GatherFilter"/>
 	</typeAliases>
 </configuration>

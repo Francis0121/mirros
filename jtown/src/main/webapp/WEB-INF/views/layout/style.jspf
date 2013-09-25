@@ -29,6 +29,7 @@
 		<link rel="stylesheet" type="text/css" href="${cp}/resources/css/addInterest.css" />
 		<link rel="stylesheet" type="text/css" href="${cp}/resources/css/help.css?201308070647" />
 		<link rel="stylesheet" type="text/css" href="${cp}/resources/css/introjs.css" />
+		<link rel="stylesheet" type="text/css" href="${cp}/resources/css/gather.css" />
 	<%-- </c:when>
 	<c:otherwise>
 		<link rel="stylesheet" type="text/css" href="${cp}/resources/css/mirros.min.css?201308071143" />

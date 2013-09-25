@@ -24,25 +24,25 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bg.jtown.business.Count;
-import com.bg.jtown.business.ProductGather;
+import com.bg.jtown.business.Gather;
 import com.bg.jtown.business.home.HomeService;
-import com.bg.jtown.business.home.ProductGatherService;
-import com.bg.jtown.business.search.ProductGatherFilter;
+import com.bg.jtown.business.home.GatherService;
+import com.bg.jtown.business.search.GatherFilter;
 import com.bg.jtown.security.Authority;
 import com.bg.jtown.security.SummaryUser;
 import com.bg.jtown.util.BrowserUtil;
 import com.bg.jtown.util.CookieUtil;
 
 @Controller
-public class ProductGatherController {
+public class GatherController {
 
-	private static final Logger logger = LoggerFactory.getLogger(ProductGatherController.class);
+	private static final Logger logger = LoggerFactory.getLogger(GatherController.class);
 
 	@Autowired
 	private HomeService homeService;
 
 	@Autowired
-	private ProductGatherService productGatherService;
+	private GatherService productGatherService;
 
 	private String prefixView = "views/content/";
 
@@ -50,22 +50,26 @@ public class ProductGatherController {
 		this.prefixView = prefixView;
 	}
 
-	private List<ProductGather> mergeList = null;
+	private List<Gather> mergeList = null;
 	private int mergeSize = 0;
 
-	public void productGatherModelSetting(Model model, HttpSession session, ProductGatherFilter productGatherFilter, HttpServletRequest request) {
-		session.setAttribute("currentPage", 1);
-		productGatherFilter.setPagePerItem(30);
-		mergeList = productGatherService.mergeProductGatherList(productGatherFilter);
+	public void gatherModelSetting(Model model, HttpSession session, GatherFilter gatherFilter, HttpServletRequest request) {
+		session.setAttribute("currentPage", 2);
+		gatherFilter.setPagePerItem(30);
+		mergeList = productGatherService.mergeProductGatherList(gatherFilter);
 		mergeSize = mergeList.size();
-		productGatherFilter.setTotalCount(mergeSize);
-		model.addAttribute("productGatherList", productGatherService.paginateItemList(mergeList, productGatherFilter));
+		gatherFilter.setTotalCount(mergeSize);
+		model.addAttribute("productGatherList", productGatherService.paginateItemList(mergeList, gatherFilter));
 		model.addAttribute("interestCategories", homeService.selecInterestCategory());
-		model.addAttribute("categoryType", "pg");
+		if(gatherFilter.getNewFlag() == 0){
+			model.addAttribute("categoryType", "pg");
+		}else{
+			model.addAttribute("categoryType", "new");
+		}
 	}
 
 	@RequestMapping(value = "/g", method = RequestMethod.GET)
-	public String productGatherView(Model model, HttpSession session, @ModelAttribute ProductGatherFilter productGatherFilter,
+	public String productGatherView(Model model, HttpSession session, @ModelAttribute GatherFilter gatherFilter,
 			SummaryUser summaryUser, HttpServletRequest request) throws UnsupportedEncodingException {
 		if (BrowserUtil.isMobile(request)) {
 			String value = CookieUtil.isCookie("SEE_PC_VERSION", request);
@@ -75,12 +79,12 @@ public class ProductGatherController {
 				model.addAttribute("isMobile", true);
 			}
 		}
-		productGatherModelSetting(model, session, productGatherFilter, request);
-		return prefixView + "product_gather";
+		gatherModelSetting(model, session, gatherFilter, request);
+		return prefixView + "gather";
 	}
 
 	@RequestMapping(value = "/g/cpn/{categoryPn}", method = RequestMethod.GET)
-	public String productGatherCategoryView(Model model, HttpSession session, @ModelAttribute ProductGatherFilter productGatherFilter,
+	public String productGatherCategoryView(Model model, HttpSession session, @ModelAttribute GatherFilter gatherFilter,
 			SummaryUser summaryUser, HttpServletRequest request) throws UnsupportedEncodingException {
 		if (BrowserUtil.isMobile(request)) {
 			String value = CookieUtil.isCookie("SEE_PC_VERSION", request);
@@ -90,28 +94,63 @@ public class ProductGatherController {
 				model.addAttribute("isMobile", true);
 			}
 		}
-		productGatherModelSetting(model, session, productGatherFilter, request);
-		return prefixView + "product_gather";
+		gatherModelSetting(model, session, gatherFilter, request);
+		return prefixView + "gather";
 	}
 
 	@RequestMapping(value = "/g/", method = RequestMethod.GET)
 	public String productGatherView() {
 		return "redirect:/g";
 	}
+	
+	@RequestMapping(value = "/n", method = RequestMethod.GET)
+	public String newGatherView(Model model, HttpSession session, @ModelAttribute GatherFilter gatherFilter,
+			SummaryUser summaryUser, HttpServletRequest request) throws UnsupportedEncodingException {
+		if (BrowserUtil.isMobile(request)) {
+			String value = CookieUtil.isCookie("SEE_PC_VERSION", request);
+			if (value == null || !value.equals("T")) {
+				return "redirect:/m/n";
+			} else {
+				model.addAttribute("isMobile", true);
+			}
+		}
+		gatherFilter.setNewFlag(1);
+		gatherModelSetting(model, session, gatherFilter, request);
+		return prefixView + "gather";
+	}
 
-	@RequestMapping(value = "/ajax/productGatherPagination.jt", method = RequestMethod.POST)
+	@RequestMapping(value = "/n/cpn/{categoryPn}", method = RequestMethod.GET)
+	public String newGatherCategoryView(Model model, HttpSession session, @ModelAttribute GatherFilter gatherFilter,
+			SummaryUser summaryUser, HttpServletRequest request) throws UnsupportedEncodingException {
+		if (BrowserUtil.isMobile(request)) {
+			String value = CookieUtil.isCookie("SEE_PC_VERSION", request);
+			if (value == null || !value.equals("T")) {
+				return "redirect:/m/n/cpn/{categoryPn}";
+			} else {
+				model.addAttribute("isMobile", true);
+			}
+		}
+		gatherFilter.setNewFlag(1);
+		gatherModelSetting(model, session, gatherFilter, request);
+		return prefixView + "gather";
+	}
+
+	@RequestMapping(value = "/n/", method = RequestMethod.GET)
+	public String newGatherView() {
+		return "redirect:/n";
+	}
+
+	@RequestMapping(value = "/ajax/gatherPagination.jt", method = RequestMethod.POST)
 	@ResponseBody
-	public Object ajaxProductGatherItem(ProductGatherFilter productGatherFilter, HttpSession session) {
+	public Object ajaxGatherItem(GatherFilter gatherFilter, HttpSession session) {
 		int currentPage = (Integer) session.getAttribute("currentPage") == null ? 2 : (Integer) session.getAttribute("currentPage");
-		productGatherFilter.setCurrentPage(currentPage);
-
-		productGatherFilter.setPagePerItem(30);
-		productGatherFilter.setTotalCount(mergeSize);
-
-		if (productGatherFilter.getTotalPageSize() > currentPage) {
+		gatherFilter.setCurrentPage(currentPage);
+		gatherFilter.setPagePerItem(30);
+		gatherFilter.setTotalCount(mergeSize);
+		if (gatherFilter.getTotalPageSize() > currentPage) {
 			Map<String, Object> object = new HashMap<String, Object>();
-			object.put("mergeItems", productGatherService.paginateItemList(mergeList, productGatherFilter));
-			session.setAttribute("currentPage", (productGatherFilter.getCurrentPage() + 1));
+			object.put("mergeItems", productGatherService.paginateItemList(mergeList, gatherFilter));
+			session.setAttribute("currentPage", (gatherFilter.getCurrentPage() + 1));
 			return object;
 		} else {
 			return null;
@@ -155,7 +194,6 @@ public class ProductGatherController {
 				checkedList.add(count.getEventPn());
 				productGatherService.insertUpdateEventStasticView(count);
 			} else {
-				System.out.println("checkedList :"+ checkedList);
 				boolean isEventPn = false;
 				for(Integer eventPns : checkedList ){
 					if(eventPns.equals(count.getEventPn())){

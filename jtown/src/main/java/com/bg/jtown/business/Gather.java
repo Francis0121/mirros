@@ -4,8 +4,9 @@ package com.bg.jtown.business;
  * @author In Sanghak
  * 
  */
-public class ProductGather {
+public class Gather {
 
+	// Product Data
 	private int productPn;
 	private int sellerPn;
 	private int imagePn;
@@ -15,6 +16,7 @@ public class ProductGather {
 	private String saveName;
 	private String contentType;
 	private int hot;
+	private int newProduct;
 
 	// Event Data
 	private int eventPn;
@@ -23,6 +25,7 @@ public class ProductGather {
 	private int endDate;
 	private int bannerOrder;
 	private String shopName;
+	private int newEvent;
 
 	public int getProductPn() {
 		return productPn;
@@ -144,12 +147,28 @@ public class ProductGather {
 		this.shopName = shopName;
 	}
 
+	public int getNewProduct() {
+		return newProduct;
+	}
+
+	public void setNewProduct(int newProduct) {
+		this.newProduct = newProduct;
+	}
+
+	public int getNewEvent() {
+		return newEvent;
+	}
+
+	public void setNewEvent(int newEvent) {
+		this.newEvent = newEvent;
+	}
+
 	@Override
 	public String toString() {
 		return "ProductGather [productPn=" + productPn + ", sellerPn=" + sellerPn + ", imagePn=" + imagePn + ", productName=" + productName
-				+ ", url=" + url + ", price=" + price + ", saveName=" + saveName + ", contentType=" + contentType + ", hot=" + hot + ", eventPn="
-				+ eventPn + ", eventName=" + eventName + ", beginDate=" + beginDate + ", endDate=" + endDate + ", bannerOrder=" + bannerOrder
-				+ ", shopName=" + shopName + "]";
+				+ ", url=" + url + ", price=" + price + ", saveName=" + saveName + ", contentType=" + contentType + ", hot=" + hot + ", newProduct="
+				+ newProduct + ", eventPn=" + eventPn + ", eventName=" + eventName + ", beginDate=" + beginDate + ", endDate=" + endDate
+				+ ", bannerOrder=" + bannerOrder + ", shopName=" + shopName + ", newEvent=" + newEvent + "]";
 	}
 
 }

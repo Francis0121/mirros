@@ -2,7 +2,7 @@ package com.bg.jtown.business.search;
 
 import com.bg.jtown.util.AbstractListFilter;
 
-public class ProductGatherFilter extends AbstractListFilter {
+public class GatherFilter extends AbstractListFilter {
 
 	private int categoryPn;
 	private int currentPage = 1;
@@ -10,6 +10,7 @@ public class ProductGatherFilter extends AbstractListFilter {
 	private int totalCount = 0;
 	private int pagePerItem = 10;
 	private int totalPageSize;
+	private int newFlag = 0;
 
 	public int getCategoryPn() {
 		return categoryPn;
@@ -52,17 +53,25 @@ public class ProductGatherFilter extends AbstractListFilter {
 	}
 
 	public int getTotalPageSize() {
-		return (int) Math.ceil(1.0*totalCount / pagePerItem);
+		return (int) Math.ceil(1.0 * totalCount / pagePerItem);
 	}
 
 	public void setTotalPageSize(int totalPageSize) {
 		this.totalPageSize = totalPageSize;
 	}
 
+	public int getNewFlag() {
+		return newFlag;
+	}
+
+	public void setNewFlag(int newFlag) {
+		this.newFlag = newFlag;
+	}
+
 	@Override
 	public String toString() {
 		return "ProductGatherFilter [categoryPn=" + categoryPn + ", currentPage=" + currentPage + ", percentCount=" + percentCount + ", totalCount="
-				+ totalCount + ", pagePerItem=" + pagePerItem + ", totalPageSize=" + totalPageSize + "]";
+				+ totalCount + ", pagePerItem=" + pagePerItem + ", totalPageSize=" + totalPageSize + ", newFlag=" + newFlag + "]";
 	}
 
 }
