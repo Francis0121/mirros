@@ -24,10 +24,10 @@
 					<div class="jt-pg-product-line">
 					<div>
 						<c:if test="${empty list.contentType}">
-							<img src="${cp}/resources/uploadImage/${list.saveName }" alt="${list.productName }" />
+							<img src="${cp}/photo/thumbnail/${list.saveName }" alt="${list.productName }" />
 						</c:if>
 						<c:if test="${!empty list.contentType}">
-							<img src="${cp}/resources/uploadImage/${list.saveName }.${list.contentType}" alt="${list.productName }" />
+							<img src="${cp}/photo/thumbnail/${list.saveName }.${list.contentType}" alt="${list.productName }" />
 						</c:if>
 					</div>
 					<div class="jt-pg-product-name" >
@@ -43,10 +43,10 @@
 				<div class="jt-pg-product-line">
 					<div>
 						<c:if test="${empty list.contentType}">
-							<img src="${cp}/resources/uploadImage/${list.saveName }" alt="${list.productName }" />
+							<img src="${cp}/photo/thumbnail/${list.saveName }" alt="${list.productName }" />
 						</c:if>
 						<c:if test="${!empty list.contentType}">
-							<img src="${cp}/resources/uploadImage/${list.saveName }.${list.contentType}" alt="${list.productName }" />
+							<img src="${cp}/photo/thumbnail/${list.saveName }.${list.contentType}" alt="${list.productName }" />
 						</c:if>
 					</div>
 					<div class="jt-pg-product-name">

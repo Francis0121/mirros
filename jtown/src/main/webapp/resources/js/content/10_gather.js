@@ -42,9 +42,9 @@ var productGatherHtml = function(data){
 			html+=		'<div class="jt-pg-product-line">';
 			html+=			'<div>';
 			if(data.mergeItems[idx].contentType == ''){
-				html+=			 '<img src="'+contextPath+'resources/uploadImage'+data.mergeItems[idx].saveName+'" alt="'+data.mergeItems[idx].productName+'" />';
+				html+=			 '<img src="'+contextPath+'photo/thumbnail/'+data.mergeItems[idx].saveName+'" alt="'+data.mergeItems[idx].productName+'" />';
 			}else{
-				html+=			 '<img src="'+contextPath+'resources/uploadImage'+data.mergeItems[idx].saveName+'.'+data.mergeItems[idx].contentType+'" alt="'+data.mergeItems[idx].productName+'" />';	
+				html+=			 '<img src="'+contextPath+'photo/thumbnail/'+data.mergeItems[idx].saveName+'product.'+data.mergeItems[idx].contentType+'" alt="'+data.mergeItems[idx].productName+'" />';	
 			}
 			html+= 		'</div>';
 			html+=			'<div class="jt-pg-product-name">';
@@ -58,9 +58,9 @@ var productGatherHtml = function(data){
 			html+=		'<div class="jt-pg-product-line">';
 			html+=			'<div>';
 			if(data.mergeItems[idx].contentType == ''){
-				html+=			 '<img src="'+contextPath+'resources/uploadImage'+data.mergeItems[idx].saveName+'" alt="'+data.mergeItems[idx].productName+'" />';
+				html+=			 '<img src="'+contextPath+'photo/thumbnail/'+data.mergeItems[idx].saveName+'" alt="'+data.mergeItems[idx].productName+'" />';
 			}else{
-				html+=			 '<img src="'+contextPath+'resources/uploadImage'+data.mergeItems[idx].saveName+'.'+data.mergeItems[idx].contentType+'" alt="'+data.mergeItems[idx].productName+'" />';	
+				html+=			 '<img src="'+contextPath+'photo/thumbnail/'+data.mergeItems[idx].saveName+'product.'+data.mergeItems[idx].contentType+'" alt="'+data.mergeItems[idx].productName+'" />';	
 			}
 			html+= 		'</div>';
 			html+=			'<div class="jt-pg-product-name">';
