@@ -11,12 +11,13 @@
 .jt-header-warning-confirmEmail>span{float: left;}
 .jt-header-warning-confirmEmail>span>a{ font-weight: bold; color: #000;}
 .jt-header-warning-confirmEmail>span>a:HOVER{ color: #ff2a00; text-decoration: underline;}
-.jt-header-title{ width: 100%; min-height: 45px; float: left; background: #fff;}
+.jt-header-title{ width: 100%; min-height: 45px; float: left; background: #fff;box-shadow: inset 0 1px #fff,0 1px 3px rgba(121,63,41,0.7);-moz-box-shadow: inset 0 1px #fff,0 1px 3px rgba(121,63,41,0.7);-webkit-box-shadow: inset 0 1px #fff,0 1px 3px rgba(121,63,41,0.7);}
 .jt-header-banner{ position: absolute; top: 0; left: 50%; width: 150px; font-size: 16px; margin-left: -75px;}
 .jt-header-banner-h1{ text-indent: -9999px; background: url("../images/jt-main-banner.png") no-repeat; width: 93px; height: 45px; }
 .jt-header-login-menu{ font-size: 12px; position: absolute; right: 15px;}
 .jt-header-login-menu>li{ float: left; width: 80px;}
 .jt-header-login-menu>li>a{font-family: arial, sans-serif; width: 70px; padding: 18px 5px 12px 5px; display: block; text-align: center;}
+.jt-header-menu img{padding-left:10px;margin-top: 10px; float: left;}
 #jt-mypage{width: 110px;}
 #jt-mypage>a{width: 100px;}
 .jt-under-wrap{
@@ -47,6 +48,24 @@
 	-webkit-box-shadow : inset 0 1px #fff,0 1px 3px rgba(121,63,41,0.7);
 	font-size: 13px; background: #fafafa;
 }
+
+.jt-header-nav-interestCategory{
+	position:absolute;
+	top:30px;
+	left:220px;
+	display: none;
+	border-top: 1px solid #cccaca;
+	box-shadow : inset 0 1px #fff,0 1px 3px rgba(34,25,25,0.4);
+	-moz-box-shadow : inset 0 1px #fff,0 1px 3px rgba(34,25,25,0.4);
+	-webkit-box-shadow : inset 0 1px #fff,0 1px 3px rgba(34,25,25,0.4);
+	width: 150px; background: #fff;
+	min-height: 50px; margin-top: 2px;
+	z-index: 15;
+}
+.jt-header-nav-interestCategory-li{ margin: 8px; background: #fff;}
+.jt-header-nav-interestCategory li{font-size: 13px;}
+.jt-header-nav-interestCategory>li>a{color:#808080;}
+/*
 .jt-header-nav-interestCategory{ float: left; position: absolute; top: 46px; left: 50%; width: 700px; margin-left: -377px; height: 40px; overflow: hidden;}
 .jt-header-nav-interestCategory-help{float: left; position: absolute; top: 46px; left: 50%; width: 400px; margin-left: -230px; }
 .jt-header-nav-interestCategory-li{ float: left; width: 100px; text-align: center; line-height: 40px;}
@@ -55,7 +74,7 @@
 .jt-header-nav-interestCategory-realPath>span{  width :98px; line-height: 40px; display: block; border-left: 1px solid #e5e5e5; border-right: 1px solid #e5e5e5; z-index: 1; height: 37px;}
 .jt-header-nav-interestCategory-normal{color: #ffae0d; font-weight: bold; height: 40px; display: block; line-height: 40px;}
 .jt-header-nav-interestCategory-normal:HOVER{ color: #ff6a00; }
-
+*/
 .jt-header-nav-interest{ display: none; border-top: 1px solid #cccaca;
 	box-shadow : 0 2px 4px rgba(34,25,25,0.5);
 	-moz-box-shadow : 0 2px 4px rgba(34,25,25,0.5);
@@ -136,7 +155,7 @@
 /*************************
 *	내용 f78200
 **************************/
-.jt-content{ width: 100%; min-height: 1000px; float: left; min-width: 990px; padding: 98px 0 80px 0; z-index: 1; background: #fff;}
+.jt-content{ width: 100%; min-height: 1000px; float: left; min-width: 990px; padding: 98px 0 80px 0; z-index: 1; background-image: url("resources/images/bg.jpg");}
 .jt-content-help{ width: 100%; float: left; min-width: 990px; padding: 98px 0 30px 0; z-index: 1; background: #f6f4f5;}
 /*************************
 *	꼬리말

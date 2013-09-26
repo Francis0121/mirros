@@ -19,6 +19,18 @@ $(function() {
 		jtown.toggleMouse($('#jt-help-wrap'), event.type);
 	});
 	
+	$('.jt-header-menu').bind('mouseover mouseout', function(event) {
+		jtown.toggleMouse($('.jt-header-nav-interestCategory'), event.type);
+	});
+	
+	$('.jt-header-menu').bind('mouseover', function(event) {
+		$('.jt-header-menu img').attr('src', contextPath+'resources/images/jt-top-menu2.png');
+	});
+	
+	$('.jt-header-menu').bind('mouseout', function(event) {
+		$('.jt-header-menu img').attr('src', contextPath+'resources/images/jt-top-menu.png');
+	});
+	
 	jtown.comment.home();
 	jtown.home.masonry.start();
 	jtown.home.naturalLanguage();

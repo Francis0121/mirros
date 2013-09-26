@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../layout/home_header.jspf" %>
-<div>
+<div class="jt-pg-container">
 <div class="jt-pg-main js-masonry">
 	<c:forEach items="${productGatherList }" var="list">
 	<c:choose>
@@ -22,31 +22,32 @@
 				</c:if> 
 				<c:if test="${list.productPn != 0 }">
 					<div class="jt-pg-product-line">
-					<div>
-						<c:if test="${empty list.contentType}">
-							<img src="${cp}/photo/thumbnail/${list.saveName }" alt="${list.productName }" />
-						</c:if>
-						<c:if test="${!empty list.contentType}">
-							<img src="${cp}/photo/thumbnail/${list.saveName }.${list.contentType}" alt="${list.productName }" />
-						</c:if>
+						<div>
+							<c:if test="${empty list.contentType}">
+								<img src="${cp}/resources/uploadImage/${list.saveName }" alt="${list.productName }" />
+							</c:if>
+							<c:if test="${!empty list.contentType}">
+								<img src="${cp}/photo/thumbnail/${list.saveName }product.${list.contentType}" alt="${list.productName }" />
+							</c:if>
+						</div>
+						<div class="jt-pg-product-name" >
+							<div>${list.productName }</div>
+							<div>${list.price }</div>
+						</div>
 					</div>
-					<div class="jt-pg-product-name" >
-						<div>${list.productName }</div>
-						<div>${list.price }</div>
-					</div>
-				</div>
 				</c:if>
 			</div>
 		</c:when>
 		<c:otherwise>
 			<div class="jt-pg-item jt-pg-large-product" data-url="${list.url }" data-product-pn="${list.productPn }" >
 				<div class="jt-pg-product-line">
+					<div class="jt-pg-product-line-hot"><img src="${cp}/resources/images/jt-hot.png"></div>
 					<div>
 						<c:if test="${empty list.contentType}">
-							<img src="${cp}/photo/thumbnail/${list.saveName }" alt="${list.productName }" />
+							<img src="${cp}/resources/uploadImage/${list.saveName }" alt="${list.productName }" />
 						</c:if>
 						<c:if test="${!empty list.contentType}">
-							<img src="${cp}/photo/thumbnail/${list.saveName }.${list.contentType}" alt="${list.productName }" />
+							<img src="${cp}/photo/thumbnail/${list.saveName }product.${list.contentType}" alt="${list.productName }" />
 						</c:if>
 					</div>
 					<div class="jt-pg-product-name">

@@ -2,6 +2,56 @@
 <div class="jt-header-search">
 	<input type="text" class="jt-header-search-input" id="jt-naturalLanguage-search" placeholder="어떤 쇼핑몰을 찾으시나요?"/>
 </div>
+<div class="jt-header-menu">
+	<img src="${cp }/resources/images/jt-top-menu.png" style="width: 28.8px;height:24px ">
+	<c:if test="${empty categoryType}">
+		<c:set var="check_nav" value="${cp }/cpn/${homeFilter.categoryPn eq null ? 0 : homeFilter.categoryPn }/spn/${homeFilter.sectionPn eq null ? 0 : homeFilter.sectionPn }"/>
+		<c:set var="now_nav" value="${cp }/cpn/0/spn/0"/>
+	</c:if>
+	<c:if test="${categoryType == 'pg'}">
+		<c:set var="check_nav" value="${cp }/g/cpn/${gatherFilter.categoryPn eq null ? 0 : gatherFilter.categoryPn }"/>
+		<c:set var="now_nav" value="${cp }/g/cpn/0"/>
+	</c:if>
+	<c:if test="${categoryType == 'new'}">
+		<c:set var="check_nav" value="${cp }/n/cpn/${gatherFilter.categoryPn eq null ? 0 : gatherFilter.categoryPn }"/>
+		<c:set var="now_nav" value="${cp }/n/cpn/0"/>
+	</c:if>
+	<ul class="jt-header-nav-interestCategory" data-category="${categoryType }">
+		<li class="jt-header-nav-interestCategory-li">
+			<c:set var="navPosition" value="${now_nav eq check_nav ? 'jt-header-nav-interestCategory-realPath' : 'jt-header-nav-interestCategory-normal' }"/>
+			<c:choose>
+				<c:when test="${empty categoryType}">
+					<a href="${cp }/" class="${navPosition }" title="All"><span>All</span></a>
+				</c:when>
+				<c:when test="${categoryType == 'pg'}">
+					<a href="${cp }/g" class="${navPosition }" title="All"><span>All</span></a>
+				</c:when>
+				<c:when test="${categoryType == 'new'}">
+					<a href="${cp }/n" class="${navPosition }" title="All"><span>All</span></a>
+				</c:when>
+			</c:choose>	
+		</li>
+		<c:forEach var="interestCategory" items="${interestCategories }">
+			<c:set var="interestCategoryPn" value="${interestCategory.categoryPn }"/>
+			<c:set var="interestSections" value="${interestMap[interestCategoryPn] }"/>
+			<c:choose>
+				<c:when test="${categoryType == 'pg'}">
+					<c:set var="now_nav" value="${cp }/g/cpn/${interestCategoryPn }"/>
+				</c:when>
+				<c:when test="${categoryType == 'new'}">
+					<c:set var="now_nav" value="${cp }/n/cpn/${interestCategoryPn }"/>
+				</c:when>
+				<c:otherwise>
+					<c:set var="now_nav" value="${cp }/cpn/${interestCategoryPn }/spn/0"/>	
+				</c:otherwise>
+			</c:choose>
+			<c:set var="navPosition" value="${now_nav eq check_nav ? 'jt-header-nav-interestCategory-realPath' : 'jt-header-nav-interestCategory-normal' }"/>
+			<li class="jt-header-nav-interestCategory-li">
+				<a href="${now_nav }" class="${navPosition }" title="<c:out value="${interestCategory.name }"/>"><span><c:out value="${interestCategory.name }"/></span></a>
+			</li>
+		</c:forEach>
+	</ul>
+</div>
 <div class="jt-header-banner">
 	<a href="${cp }/"><h1 class="jt-header-banner-h1">Mirros</h1></a>
 </div>

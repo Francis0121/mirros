@@ -694,7 +694,6 @@ jtown.seller.syncEvent = function() {
 		        dataType : false,
 		        data:{bannerOrder : bannerOrder, sellerPn : sellerPn},
 		        success: function(data){
-		        	console.log(data);
 		        	if(bannerOrder==1){
 		        		$('#jt-seller-expand-event-first-img').attr('data-imagePn','');
 		        	}else if(bannerOrder == 2){
@@ -723,7 +722,6 @@ jtown.seller.syncEvent = function() {
 		var nowDate = new Date();
 		var endDate = new Date($('.jt-home-expand-shop-event-update-large-wrap-end-date').val());
 		var differenceDate = Math.floor((endDate - nowDate )/(1000*60*60*24));
-		console.log(differenceDate);
 		if(differenceDate > 29){
 			jtown.dialog('만기일은 '+new Date(nowDate.getTime()+(1000*60*60*24* 30) ).format("yyyy년 MM월 dd일")+'까지 입니다.');
 			return;
@@ -752,7 +750,6 @@ jtown.seller.syncEvent = function() {
 			jtown.dialog('이벤트 만기일을 입력해주세요.');
 			return;
 		}
-		console.log('imagePn :'+ imagePn +' epn :'+ epn +' bannerOrder :'+ bannerOrder +' eventPn :'+ eventPn + ' sellerPn:'+sellerPn);
 		if(!nullValueCheck(imagePn)){
 			if($('.jt-home-expand-shop-event-update-done').attr('data-disabled') == '0'){
 				$('.jt-home-expand-shop-event-update-done').attr('data-disabled','');

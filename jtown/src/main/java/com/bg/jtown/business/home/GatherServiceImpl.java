@@ -55,14 +55,14 @@ public class GatherServiceImpl extends SqlSessionDaoSupport implements GatherSer
 	}
 
 	/*
-	 * (rand.nextInt(5)+1)*2 에 대한 설명 : 15% , 즉 3/20 -> 6.67개마다 1개의 큰 사각형이 나와야함.
+	 * (rand.nextInt(19)+1)*2 에 대한 설명 : 5% , 즉 1/20 -> 20개마다 1개의 큰 사각형이 나와야함.
 	 * 큰 사각형은 hot 아이템이므로 화면에 많이 나타나야함. 그러므로 내림하여 평균적으로 작은 사각형 6개 마다 큰 사각형 1개가
-	 * 나와야됨. 큰게 연속으로 나오지 않으려면 2개부터 시작이므로 범위는 2 ~ 10 인 짝수
+	 * 나와야됨. 큰게 연속으로 나오지 않으려면 2개부터 시작이므로 범위는 2 ~ 38 인 짝수
 	 */
 	@Override
 	public List<Gather> mergeProductGatherList(GatherFilter productGatherFilter) {
 		int count = selectGatherProductsCount(productGatherFilter);
-		productGatherFilter.setPercentCount(count * 15 / 100);
+		productGatherFilter.setPercentCount(count *  5 / 100);
 		Random rand = new Random(System.nanoTime());
 		List<Gather> hotProduct = selectGatherHotProducts(productGatherFilter);
 		List<Gather> eventList = selectEventList(productGatherFilter);
@@ -81,7 +81,7 @@ public class GatherServiceImpl extends SqlSessionDaoSupport implements GatherSer
 		totalCount = hotProduct.size() + smallSizeList.size();
 		while (totalCount > 0) {
 			if (!smallSizeList.isEmpty()) {
-				int randNum = ((rand.nextInt(5) + 1) * 2);
+				int randNum = ((rand.nextInt(19) + 1) * 2);
 				for (int idx = 0; idx < randNum; idx++) {
 					int normalSize = smallSizeList.size();
 					if (normalSize < randNum) {

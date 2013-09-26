@@ -14,6 +14,7 @@ public class Gather {
 	private String url;
 	private int price;
 	private String saveName;
+	private String originalName;
 	private String contentType;
 	private int hot;
 	private int newProduct;
@@ -163,12 +164,20 @@ public class Gather {
 		this.newEvent = newEvent;
 	}
 
+	public String getOriginalName() {
+		return originalName;
+	}
+
+	public void setOriginalName(String originalName) {
+		this.originalName = originalName;
+	}
+
 	@Override
 	public String toString() {
-		return "ProductGather [productPn=" + productPn + ", sellerPn=" + sellerPn + ", imagePn=" + imagePn + ", productName=" + productName
-				+ ", url=" + url + ", price=" + price + ", saveName=" + saveName + ", contentType=" + contentType + ", hot=" + hot + ", newProduct="
-				+ newProduct + ", eventPn=" + eventPn + ", eventName=" + eventName + ", beginDate=" + beginDate + ", endDate=" + endDate
-				+ ", bannerOrder=" + bannerOrder + ", shopName=" + shopName + ", newEvent=" + newEvent + "]";
+		return "Gather [productPn=" + productPn + ", sellerPn=" + sellerPn + ", imagePn=" + imagePn + ", productName=" + productName + ", url=" + url
+				+ ", price=" + price + ", saveName=" + saveName + ", originalName=" + originalName + ", contentType=" + contentType + ", hot=" + hot
+				+ ", newProduct=" + newProduct + ", eventPn=" + eventPn + ", eventName=" + eventName + ", beginDate=" + beginDate + ", endDate="
+				+ endDate + ", bannerOrder=" + bannerOrder + ", shopName=" + shopName + ", newEvent=" + newEvent + "]";
 	}
 
 }

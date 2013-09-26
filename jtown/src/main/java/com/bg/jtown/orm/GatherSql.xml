@@ -10,6 +10,7 @@
 		<result property="url" column="url"/>
 		<result property="price" column="price"/>
 		<result property="saveName" column="save_name"/>
+		<result property="originalName" column="original_name"/>
 		<result property="contentType" column="content_type"/>
 	</resultMap>
 	
@@ -41,8 +42,8 @@
 				ON npb.product_pn = usp.pn
 			</if>
 			WHERE usp.NAME IS NOT NULL
-			AND CURDATE() BETWEEN usci.start_date 
-			    AND usci.end_date 
+			AND CURDATE() BETWEEN usci.start_date AND usci.end_date 
+			    AND usp.deleted ='N'
 			    <if test="categoryPn != 0">
 			    	AND p.category_pn = #{categoryPn}
 			    </if>
@@ -55,7 +56,7 @@
 	
 	<select id="selectGatherProducts" resultMap="gatherMapper">
 		SELECT 
-		  product_pn, seller_pn, image_pn, product_name, url, price, save_name, content_type, SUM(day_count) AS day_count
+		  product_pn, seller_pn, image_pn, product_name, url, price, save_name, original_name, content_type, SUM(day_count) AS day_count
 		FROM
 		  (SELECT 
 		    usp.pn AS product_pn,
@@ -65,6 +66,7 @@
 		    url,
 		    price,
 		    save_name,
+		    original_name,
 		    content_type,
 		    day_count
 		  FROM
@@ -86,8 +88,8 @@
 				ON npb.product_pn = usp.pn
 			</if> 
 		  WHERE usp.NAME IS NOT NULL 
-		    AND CURDATE() BETWEEN usci.start_date 
-		    AND usci.end_date 
+		    AND CURDATE() BETWEEN usci.start_date AND usci.end_date 
+		    AND usp.deleted ='N'
 		    <if test="categoryPn != 0"> 
 		   		 AND p.category_pn = #{categoryPn}
 		    </if>
@@ -103,7 +105,7 @@
 	
 	<select id="selectGatherHotProducts" resultMap="gatherMapper">
 		SELECT 
-		  product_pn, seller_pn, image_pn, product_name, url, price, save_name, content_type, hot, SUM(day_count) AS day_count
+		  product_pn, seller_pn, image_pn, product_name, url, price, save_name, original_name, content_type, hot, SUM(day_count) AS day_count
 		FROM
 		  (SELECT 
 		    usp.pn AS product_pn,
@@ -113,6 +115,7 @@
 		    url,
 		    price,
 		    save_name,
+		    original_name,
 		    content_type,
 		    1 AS hot,
 		    day_count
@@ -135,8 +138,8 @@
 				ON npb.product_pn = usp.pn
 			</if> 
 		  WHERE usp.NAME IS NOT NULL 
-		    AND CURDATE() BETWEEN usci.start_date 
-		    AND usci.end_date 
+		    AND CURDATE() BETWEEN usci.start_date AND usci.end_date
+		    AND usp.deleted ='N' 
 		    <if test="categoryPn != 0"> 
 		   		 AND p.category_pn = #{categoryPn}
 		    </if>

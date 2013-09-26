@@ -36,8 +36,10 @@
 			<div class="jt-header-title">
 				<%@ include file="header.jspf" %>
 			</div>
+			<!-- 
 			<nav class="jt-header-nav">
 				<%@ include file="navigation_home.jspf" %>
 			</nav>
+			 -->
 		</header>
 		<section class="jt-content">
