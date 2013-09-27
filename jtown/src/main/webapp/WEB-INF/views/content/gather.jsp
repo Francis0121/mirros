@@ -30,6 +30,8 @@
 								<img src="${cp}/photo/thumbnail/${list.saveName }product.${list.contentType}" alt="${list.productName }" />
 							</c:if>
 						</div>
+						<div class="jt-pg-product-line-bright">
+						</div>
 						<div class="jt-pg-product-name" >
 							<div>${list.productName }</div>
 							<div>${list.price }</div>

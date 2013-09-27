@@ -117,7 +117,7 @@
 							<br/>
 							<a href="#none" id="jt-seller-main-image-update" class="jt-btn-white-small">
 								<span class="btnImage"></span>
-								<span class="btnText">수정</span>
+								<span class="btnText">완료</span>
 							</a>
 							<a href="#none" id="jt-seller-main-image-cancle" class="jt-btn-white-small">
 								<span class="btnImage"></span>

@@ -131,9 +131,11 @@ $('.jt-pg-item').live('click', function(){
 $('.jt-pg-item').live({
 	mouseenter: function(){
 		$(this).find('.jt-pg-product-name').css('display','block');
+		$(this).find('.jt-pg-product-line-bright').css('display','block');
 	},
 	mouseleave: function(){
 		$(this).find('.jt-pg-product-name').css('display','none');
+		$(this).find('.jt-pg-product-line-bright').css('display','none');
 	}
 });
 

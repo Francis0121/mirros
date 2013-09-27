@@ -55,6 +55,9 @@
 <div class="jt-header-banner">
 	<a href="${cp }/"><h1 class="jt-header-banner-h1">Mirros</h1></a>
 </div>
+<div class="jt-header-main-title">
+	Welcome to my friend, the mirror of magic!
+</div>
 <ul class="jt-header-login-menu">
 	<sec:authorize access="hasRole('ROLE_USER')">
 		<li id="jt-mypage">

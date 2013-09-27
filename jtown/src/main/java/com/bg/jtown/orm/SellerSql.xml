@@ -286,7 +286,7 @@
 		INSERT INTO 
 			user_seller_event(seller_pn, event_name, end_date, begin_date, banner_order)
 		VALUES
-			(#{sellerPn}, #{eventName}, #{endDate}, SYSDATE() #{bannerOrder})
+			(#{sellerPn}, #{eventName}, #{endDate}, SYSDATE(), #{bannerOrder})
 	</insert>
 	
 	<update id="updateDdayEvent" parameterType="Event">

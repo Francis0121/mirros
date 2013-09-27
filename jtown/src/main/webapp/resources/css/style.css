@@ -13,7 +13,7 @@
 .jt-header-warning-confirmEmail>span>a:HOVER{ color: #ff2a00; text-decoration: underline;}
 .jt-header-title{ width: 100%; min-height: 45px; float: left; background: #fff;box-shadow: inset 0 1px #fff,0 1px 3px rgba(121,63,41,0.7);-moz-box-shadow: inset 0 1px #fff,0 1px 3px rgba(121,63,41,0.7);-webkit-box-shadow: inset 0 1px #fff,0 1px 3px rgba(121,63,41,0.7);}
 .jt-header-banner{ position: absolute; top: 0; left: 50%; width: 150px; font-size: 16px; margin-left: -75px;}
-.jt-header-banner-h1{ text-indent: -9999px; background: url("../images/jt-main-banner.png") no-repeat; width: 93px; height: 45px; }
+.jt-header-banner-h1{ text-indent: -9999px; background: url("../images/jt-main-banner.png") no-repeat; width: 93px; height: 45px; margin-left: 30px;}
 .jt-header-login-menu{ font-size: 12px; position: absolute; right: 15px;}
 .jt-header-login-menu>li{ float: left; width: 80px;}
 .jt-header-login-menu>li>a{font-family: arial, sans-serif; width: 70px; padding: 18px 5px 12px 5px; display: block; text-align: center;}
@@ -21,6 +21,7 @@
 #jt-mypage{width: 110px;}
 #jt-mypage>a{width: 100px;}
 .jt-under-wrap{
+	position:absolute;
 	display: none;
 	border-top: 1px solid #cccaca;
 	box-shadow : inset 0 1px #fff,0 1px 3px rgba(34,25,25,0.4);
@@ -28,9 +29,11 @@
 	-webkit-box-shadow : inset 0 1px #fff,0 1px 3px rgba(34,25,25,0.4);
 	width: 150px; float: left; background: #fff;
 	min-height: 50px; margin-top: 2px;
+	z-index: 15;
 }
 .jt-under-wrap>li{ margin: 8px;}
 .jt-help-under-wrap{
+	position:absolute;
 	display: none;
 	float: right;
 	border-top: 1px solid #cccaca;
@@ -42,12 +45,20 @@
 	z-index: 15;
 }
 .jt-help-under-wrap>li{ margin: 8px; background: #fff;}
-.jt-header-nav{ width: 100%; min-height: 30px;  float : left; padding: 5px 0; border-top: 1px solid #f3f0ef;
-	box-shadow : inset 0 1px #fff,0 1px 3px rgba(121,63,41,0.7);
-	-moz-box-shadow : inset 0 1px #fff,0 1px 3px rgba(121,63,41,0.7);
-	-webkit-box-shadow : inset 0 1px #fff,0 1px 3px rgba(121,63,41,0.7);
-	font-size: 13px; background: #fafafa;
-}
+.jt-header-nav{position:absolute;width: 94px; height: 28px;  float : left; background: #f9f9f9;right: 5.3%; top:45px; border-bottom: 1px solid #ccc; box-shadow: inset 2px 1px #fff,0 3px 4px rgba(121,63,41,0.2);
+-moz-box-shadow: inset 0 1px #fff,0 3px 4px rgba(121,63,41,0.2);
+-webkit-box-shadow: inset 0 1px #fff,0 3px 4px rgba(121,63,41,0.2);}
+.jt-header-nav-mode-ul>li:FIRST-CHILD{border-left: 1px solid #ccc; }
+.jt-header-nav-mode-ul>li{ float: left; width: 30px; height: 28px;border-right: 1px solid #ccc;padding: 0; border-top: 1px solid #ccc;}
+.jt-header-nav-mode-ul>li:HOVER{ background-color: rgba(150,150,150,0.1) }
+.jt-header-nav-mode-now{ background-color: #fff; border-top: 0px !important;}
+.jt-header-nav-mode-shop-inactive{cursor:pointer; width: 22px; height: 23px; background: url("../images/jt-home-mode-nav.png") no-repeat; text-indent: -9999999px; display: block;margin-left: 4px;margin-top: 2px;}
+.jt-header-nav-mode-shop-active{cursor:pointer; width: 22px; height: 23px; background: url("../images/jt-home-mode-nav.png") no-repeat; text-indent: -9999999px; display: block;background-position: 0px -23px;margin-left: 4px;margin-top: 2px;}
+.jt-header-nav-mode-gather-inactive{cursor:pointer; width: 22px; height: 23px; background: url("../images/jt-home-mode-nav.png") no-repeat; text-indent: -9999999px; display: block;background-position: -25px 0px;margin-left: 4px;margin-top: 2px;}
+.jt-header-nav-mode-gather-active{cursor:pointer; width: 22px; height: 22px; background: url("../images/jt-home-mode-nav.png") no-repeat; text-indent: -9999999px; display: block;background-position: -25px -23px;margin-left: 4px;margin-top: 2px; }
+.jt-header-nav-mode-new-inactive{cursor:pointer; width: 22px; height: 23px; background: url("../images/jt-home-mode-nav.png") no-repeat; text-indent: -9999999px; display: block;background-position: -50px 0px;margin-left: 4px;margin-top: 2px;}
+.jt-header-nav-mode-new-active{cursor:pointer; width: 22px; height: 23px; background: url("../images/jt-home-mode-nav.png") no-repeat; text-indent: -9999999px; display: block;background-position: -50px -23px;margin-left: 4px;margin-top: 2px;}
+.jt-header-main-title{position: absolute; left: 50%; margin-left: -172px; top: 70px; font-family: Georgia, serif; color: #000; font-size: 18px;}
 
 .jt-header-nav-interestCategory{
 	position:absolute;
@@ -65,16 +76,11 @@
 .jt-header-nav-interestCategory-li{ margin: 8px; background: #fff;}
 .jt-header-nav-interestCategory li{font-size: 13px;}
 .jt-header-nav-interestCategory>li>a{color:#808080;}
-/*
-.jt-header-nav-interestCategory{ float: left; position: absolute; top: 46px; left: 50%; width: 700px; margin-left: -377px; height: 40px; overflow: hidden;}
-.jt-header-nav-interestCategory-help{float: left; position: absolute; top: 46px; left: 50%; width: 400px; margin-left: -230px; }
-.jt-header-nav-interestCategory-li{ float: left; width: 100px; text-align: center; line-height: 40px;}
-.jt-header-nav-interestCategory-li span{font-family: Arial;}
-.jt-header-nav-interestCategory-realPath{ color: #ff6a00 !important;  font-weight: bold; height: 40px; display: block;  background: url("../images/jt-nav_active.png") repeat-x; z-index: 2;}
-.jt-header-nav-interestCategory-realPath>span{  width :98px; line-height: 40px; display: block; border-left: 1px solid #e5e5e5; border-right: 1px solid #e5e5e5; z-index: 1; height: 37px;}
-.jt-header-nav-interestCategory-normal{color: #ffae0d; font-weight: bold; height: 40px; display: block; line-height: 40px;}
+.jt-header-nav-interestCategory-realPath{ color: #ff974e !important;  font-weight: bold; height: 32px; display: block; z-index: 2;}
+.jt-header-nav-interestCategory-realPath>span{  width :98px; line-height: 32px; display: block; z-index: 1; height: 29px;}
+.jt-header-nav-interestCategory-normal{color: #ffae0d; font-weight: bold; height: 32px; display: block; line-height: 32px;}
 .jt-header-nav-interestCategory-normal:HOVER{ color: #ff6a00; }
-*/
+
 .jt-header-nav-interest{ display: none; border-top: 1px solid #cccaca;
 	box-shadow : 0 2px 4px rgba(34,25,25,0.5);
 	-moz-box-shadow : 0 2px 4px rgba(34,25,25,0.5);
@@ -155,7 +161,7 @@
 /*************************
 *	내용 f78200
 **************************/
-.jt-content{ width: 100%; min-height: 1000px; float: left; min-width: 990px; padding: 98px 0 80px 0; z-index: 1; background-image: url("resources/images/bg.jpg");}
+.jt-content{ width: 100%; min-height: 1000px; float: left; min-width: 990px; padding: 118px 0 80px 0; z-index: 1; background-image: url("resources/images/bg.jpg");}
 .jt-content-help{ width: 100%; float: left; min-width: 990px; padding: 98px 0 30px 0; z-index: 1; background: #f6f4f5;}
 /*************************
 *	꼬리말
