@@ -55,8 +55,8 @@ public class GatherServiceImpl extends SqlSessionDaoSupport implements GatherSer
 	}
 
 	/*
-	 * (rand.nextInt(9)+1)*2 에 대한 설명 : 10% , 즉 1/10 -> 10개마다 1개의 큰 사각형이 나와야함.
-	 * 큰게 연속으로 나오지 않으려면 2개부터 시작이므로 범위는 2 ~ 18 인 짝수
+	 * (rand.nextInt(9)+1)*2 에 대한 설명 : 10% , 즉 1/10 -> 10개마다 1개의 큰 사각형이 나와야함. 큰게
+	 * 연속으로 나오지 않으려면 2개부터 시작이므로 범위는 2 ~ 18 인 짝수
 	 */
 	@Override
 	public List<Gather> mergeProductGatherList(GatherFilter productGatherFilter) {
@@ -161,6 +161,40 @@ public class GatherServiceImpl extends SqlSessionDaoSupport implements GatherSer
 	@Override
 	public Integer selectEventStasticViewTodayCount(Integer eventPn) {
 		return getSqlSession().selectOne("gatherMapper.selectEventStasticViewTodayCount", eventPn);
+	}
+
+	@Override
+	public Integer selectProductHeartCountForCustomer(Count count) {
+		return getSqlSession().selectOne("gatherMapper.selectProductHeartCountForCustomer", count);
+	}
+
+	@Override
+	public Integer selectProductHeartCount(Count count) {
+		return getSqlSession().selectOne("gatherMapper.selectProductHeartCount", count);
+	}
+
+	@Override
+	public void insertProductHeart(Count count) {
+		getSqlSession().insert("gatherMapper.insertProductHeart", count);
+	}
+
+	@Override
+	public void deleteProductHeart(Count count) {
+		getSqlSession().delete("gatherMapper.deleteProductHeart", count);
+	}
+
+	@Override
+	public void insertProductHeartCount(Count count) {
+		Integer heartCount = selectProductHeartCountForCustomer(count);
+		if (heartCount == 0) {
+			count.setCrudType("productHeartInsert");
+			insertProductHeart(count);
+		} else {
+			count.setCrudType("productHeartDelete");
+			deleteProductHeart(count);
+		}
+		count.setCount(selectProductHeartCount(count));
+		publisher.productHeartPublish(count);
 	}
 
 }

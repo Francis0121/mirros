@@ -163,6 +163,11 @@
 			}
 
 			if (this.opts.effect === null) {
+				sessionStorage.removeItem('productPn');
+				sessionStorage.removeItem('eventPn');
+				sessionStorage.removeItem('spn');
+				sessionStorage.removeItem('productUrl');
+				sessionStorage.removeItem('eventUrl');
 				$('#smartPop').hide();
 				$('#smartPop_overlay').fadeOut(500);
 			} else {

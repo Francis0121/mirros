@@ -38,4 +38,14 @@ public interface GatherService {
 	void insertUpdateEventStasticView(Count count);
 	
 	Integer selectEventStasticViewTodayCount(Integer eventPn);
+	
+	Integer selectProductHeartCount(Count count);
+	
+	Integer selectProductHeartCountForCustomer(Count count);
+	
+	void insertProductHeartCount(Count count);
+	
+	void insertProductHeart(Count count);
+	
+	void deleteProductHeart(Count count);
 }

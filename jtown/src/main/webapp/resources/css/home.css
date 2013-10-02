@@ -41,11 +41,11 @@
 }
 .jt-home-shop>header{ float: left; width: 100%; font-size: 12px; background: #fafafa; }
 .jt-home-shop>header>a{ float: left; width: 100%; text-align: center; margin-top: 10px; font-weight: bold; height: 20px;  color: #4f4f4f;}
-.jt-home-shop>.jt-home-notice{ font-size: 12px; font-family: Dotum; float: left; width: 100%; padding-left: 25px;}
+.jt-home-shop>.jt-home-notice{ font-size: 12px; font-family: Dotum; float: left; width: 100%;}
 .jt-home-shop-footer-firstQuotationMark{ float: left; width: 15px; height:15px; 
 	background: url("../images/jt-home-icon.png") 0 0 no-repeat; margin: 5px 10px 0 10px; text-indent: -99999px;
 }
-.jt-home-shop-footer-text{ float: left; width: 242px; padding: 15px 0 15px 0 ; text-align: left; font-size: 12px; min-height: 30px; line-height: 1.5;
+.jt-home-shop-footer-text{ float: left; width: 242px; padding: 15px 0 15px 0 ; text-align: left; font-size: 12px; min-height: 30px;padding-left: 25px; line-height: 1.5;
 white-space: pre-wrap;
 white-space: -moz-pre-wrap;
 word-wrap: break-word; }

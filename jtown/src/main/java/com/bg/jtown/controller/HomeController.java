@@ -271,7 +271,6 @@ public class HomeController {
 		case ADMIN:
 		case ROOT_ADMIN:
 			homeService.insertLoveCount(count);
-
 			try {
 				if (count.getCrudType().equals("insert") && (summaryUser.getFacebookFeed() != null && summaryUser.getFacebookFeed().equals(true))) {
 					JtownUser jtownUser = sellerService.selectSellerInformation(count.getSellerPn());

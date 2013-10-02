@@ -75,4 +75,17 @@ public class Publisher {
 			logger.error("Redis 서버가 작동하지 않고 있습니다. Redis 서버를 실행시켜야 합니다");
 		}
 	}
+	
+	public void productHeartPublish(Count count) {
+		try {
+			count.setRedisType("product_heart_count");
+			Gson gson = new Gson();
+			String json = gson.toJson(count);
+			logger.debug("Publish Reids " + json);
+			publishTemplate.convertAndSend("real_time", json);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("Redis 서버가 작동하지 않고 있습니다. Redis 서버를 실행시켜야 합니다");
+		}
+	}
 }

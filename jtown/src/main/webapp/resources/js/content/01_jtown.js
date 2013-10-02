@@ -124,8 +124,8 @@ $(function() {
 	// ~ Seller
 	
 	$('.jt-home-expand-shop-expandProducts').jCarouselLite({
-		btnNext: ".jt-home-expand-shop-leftArrow",
-		btnPrev: ".jt-home-expand-shop-rigthArrow",
+		btnPrev: ".jt-home-expand-shop-leftArrow",
+		btnNext: ".jt-home-expand-shop-rigthArrow",
 		mouseWheel: true,
 		speed : 300,
 		btnGo : ['.0', '.1', '.2', '.3', '.4', '.5', '.6', '.7', '.8', '.9',
@@ -147,9 +147,7 @@ jtown.loading = {
 };
 
 jtown.postJSON = function(url, json, callback){
-	
 	jtown.loading.start();
-	
 	$.postJSON(url, json, function() {
 		callback();
 		jtown.loading.finish();
@@ -330,7 +328,6 @@ jtown.home.masonry = {
 		if(scrollY == 0){
 			$footer.slideUp('fast');
 			//$header.slideDown('fast');
-			setTimeout('$(".jt-header-nav-interestCategory").css( { top : "'+scrollheight.topHeight+'" })', 0);
 		}else{
 			$footer.slideDown('fast');
 			/*
@@ -341,10 +338,18 @@ jtown.home.masonry = {
 	}
 };
 
-jtown.home.clickProduct = function(spn,label, productPn) {
-	ga('send', 'event', 'product', 'click', label);
-	jtown.home.productStatisticClick(productPn);
-	jtown.home.goHome(spn);
+jtown.home.clickProduct = function(spn,label, productPn, productUrl) {
+	if($('#jt-login-smartPopup').text() ==''){
+		ga('send', 'event', 'product', 'click', label);
+		jtown.home.productStatisticClick(productPn);
+		jtown.home.goHome(spn);
+		window.open(productUrl, '_blank');
+	}else{
+		jtown.login.showLoginForm();
+		sessionStorage.setItem('productUrl', productUrl);
+		sessionStorage.setItem('productPn', productPn);
+		sessionStorage.setItem('spn', spn);
+	}
 };
 
 jtown.home.clickShop = function(spn) {
@@ -565,7 +570,65 @@ jQuery(document).ready(function(){
 	        success: function(data){}
 	    });
 	};
-	
+	jtown.home.eventStatisticClick = function(eventPn){
+		$.ajax({
+	        url: contextPath+'ajax/eventClick.jt',
+	        type: 'POST',
+	        data:{eventPn : eventPn },
+	        success: function(data){}
+	    });
+	};
+	jtown.home.productHeartClick = function(productPn){
+		 $.postJSON(contextPath + 'ajax/productHeartClick.jt', { productPn : productPn }, function(count) {
+			var productPn = count.productPn, crudType = count.crudType, message = count.message,
+				$small = $('#jt-heart-click-'+productPn), $big = $('#jt-heart-expand-click-'+productPn);
+			if (!nullValueCheck(message)) {
+				message == '1' ? jtown.login.showLoginForm() : jtown.dialog('판매자는 불가능합니다');
+				return;
+			} 
+			if (crudType == 'productHeartInsert') {
+				$small.addClass('jt-heart-animation');
+				$big.addClass('jt-heart-animation');
+			} else if (crudType == 'productHeartDelete') {
+				$small.removeClass('jt-heart-animation');
+				$big.removeClass('jt-heart-animation');
+			}
+		});
+		/*
+		$.ajax({
+	        url: contextPath+'ajax/productHeartClick.jt',
+	        type: 'POST',
+	        data:{productPn : productPn },
+	        success: function(data){
+	        	if(data == 'count'){
+	        		jtown.dialog($('.jt-common-a-base:eq(0)').text().replace('▼','')+'님이 이 상품을 좋아합니다.');
+	        	}
+	        }
+	    });
+	    */
+	};
+	if($('#jt-login-smartPopup').text() ==''){
+		if(sessionStorage.getItem('productUrl') != null){
+			productWindow=window.open(sessionStorage.getItem('productUrl'), '_blank', 'width=1260,height=980');
+			jtown.home.productStatisticClick(sessionStorage.getItem('productPn'));
+			sessionStorage.removeItem('productPn');
+			sessionStorage.removeItem('productUrl');
+			if(sessionStorage.getItem('spn') != null){
+				jtown.home.goHome(sessionStorage.getItem('spn'));
+				sessionStorage.removeItem('spn');
+			}
+		}else if(sessionStorage.getItem('eventPn') != null){
+			productWindow=window.open(sessionStorage.getItem('eventUrl'), '_blank', 'width=1260,height=980');
+			jtown.home.eventStatisticClick(sessionStorage.getItem('eventPn'));
+			sessionStorage.removeItem('eventUrl');
+			sessionStorage.removeItem('eventPn');
+		}else if(sessionStorage.getItem('productHeart') != null){
+			jtown.home.productHeartClick(sessionStorage.getItem('productPn'));
+			sessionStorage.removeItem('productPn');
+			sessionStorage.removeItem('productHeart');
+		}
+		
+	}
 });
 Date.prototype.format = function(f) {
     if (!this.valueOf()) return " ";

@@ -68,7 +68,7 @@ jtown.expand.makeInnerHtml = function(spn){
 				image = contextPath + 'resources/uploadImage/'+product.saveName;
 			}
 			bigProductHtml += '	<li class="jt-home-expand-shop-expandProduct">';
-			bigProductHtml += '		<a href="'+ ( nullValueCheck(product.url) ? jtownUser.shopUrl : product.url  )+'" target="_blank" onclick="jtown.home.clickProduct('+spn+',\''+userName+': '+product.name+'\','+product.pn+');"><img alt="상품" src="'+image+'"/></a>';
+			bigProductHtml += '			<img alt="상품" src="'+image+'" onclick="jtown.home.clickProduct('+spn+',\''+userName+': '+product.name+'\','+product.pn+',\''+( nullValueCheck(product.url) ? jtownUser.shopUrl : product.url  )+'\');"/>';
 			bigProductHtml += '		<div class="jt-product-article-object-wrap jt-product-article-object-expand">';
 			bigProductHtml += '			'+detailProduct;
 			bigProductHtml += '		</div>';
@@ -328,8 +328,8 @@ jtown.expand.setTimeout = function(){
 		$('#jt-comment-insert').placeholder();
 		
 		$('.jt-home-expand-shop-expandProducts').jCarouselLite({
-			btnNext: ".jt-home-expand-shop-leftArrow",
-			btnPrev: ".jt-home-expand-shop-rigthArrow",
+			btnPrev: ".jt-home-expand-shop-leftArrow",
+			btnNext: ".jt-home-expand-shop-rigthArrow",
 			mouseWheel: true,
 			speed : 300,
 			btnGo : ['.0', '.1', '.2', '.3', '.4', '.5', '.6', '.7', '.8', '.9',

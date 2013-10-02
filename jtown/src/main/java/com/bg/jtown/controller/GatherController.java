@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -14,6 +15,9 @@ import net.sf.json.JSONArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.social.ApiException;
+import org.springframework.social.facebook.api.Facebook;
+import org.springframework.social.facebook.api.FacebookLink;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -29,6 +33,7 @@ import com.bg.jtown.business.home.HomeService;
 import com.bg.jtown.business.home.GatherService;
 import com.bg.jtown.business.search.GatherFilter;
 import com.bg.jtown.security.Authority;
+import com.bg.jtown.security.JtownUser;
 import com.bg.jtown.security.SummaryUser;
 import com.bg.jtown.util.BrowserUtil;
 import com.bg.jtown.util.CookieUtil;
@@ -42,7 +47,10 @@ public class GatherController {
 	private HomeService homeService;
 
 	@Autowired
-	private GatherService productGatherService;
+	private GatherService gatherService;
+	
+	@Resource
+	private Facebook facebook;
 
 	private String prefixView = "views/content/";
 
@@ -53,13 +61,14 @@ public class GatherController {
 	private List<Gather> mergeList = null;
 	private int mergeSize = 0;
 
-	public void gatherModelSetting(Model model, HttpSession session, GatherFilter gatherFilter, HttpServletRequest request) {
+	public void gatherModelSetting(Model model, HttpSession session, GatherFilter gatherFilter, SummaryUser summaryUser) {
 		session.setAttribute("currentPage", 2);
-		gatherFilter.setPagePerItem(30);
-		mergeList = productGatherService.mergeProductGatherList(gatherFilter);
+		gatherFilter.setPagePerItem(20);
+		gatherFilter.setCustomerPn(summaryUser.getPn());
+		mergeList = gatherService.mergeProductGatherList(gatherFilter);
 		mergeSize = mergeList.size();
 		gatherFilter.setTotalCount(mergeSize);
-		model.addAttribute("productGatherList", productGatherService.paginateItemList(mergeList, gatherFilter));
+		model.addAttribute("productGatherList", gatherService.paginateItemList(mergeList, gatherFilter));
 		model.addAttribute("interestCategories", homeService.selecInterestCategory());
 		if(gatherFilter.getNewFlag() == 0){
 			model.addAttribute("categoryType", "pg");
@@ -79,7 +88,7 @@ public class GatherController {
 				model.addAttribute("isMobile", true);
 			}
 		}
-		gatherModelSetting(model, session, gatherFilter, request);
+		gatherModelSetting(model, session, gatherFilter, summaryUser);
 		return prefixView + "gather";
 	}
 
@@ -94,7 +103,7 @@ public class GatherController {
 				model.addAttribute("isMobile", true);
 			}
 		}
-		gatherModelSetting(model, session, gatherFilter, request);
+		gatherModelSetting(model, session, gatherFilter, summaryUser);
 		return prefixView + "gather";
 	}
 
@@ -115,7 +124,7 @@ public class GatherController {
 			}
 		}
 		gatherFilter.setNewFlag(1);
-		gatherModelSetting(model, session, gatherFilter, request);
+		gatherModelSetting(model, session, gatherFilter, summaryUser);
 		return prefixView + "gather";
 	}
 
@@ -131,7 +140,7 @@ public class GatherController {
 			}
 		}
 		gatherFilter.setNewFlag(1);
-		gatherModelSetting(model, session, gatherFilter, request);
+		gatherModelSetting(model, session, gatherFilter, summaryUser);
 		return prefixView + "gather";
 	}
 
@@ -142,14 +151,15 @@ public class GatherController {
 
 	@RequestMapping(value = "/ajax/gatherPagination.jt", method = RequestMethod.POST)
 	@ResponseBody
-	public Object ajaxGatherItem(GatherFilter gatherFilter, HttpSession session) {
+	public Object ajaxGatherItem(GatherFilter gatherFilter, HttpSession session, SummaryUser summaryUser) {
 		int currentPage = (Integer) session.getAttribute("currentPage") == null ? 2 : (Integer) session.getAttribute("currentPage");
 		gatherFilter.setCurrentPage(currentPage);
-		gatherFilter.setPagePerItem(30);
+		gatherFilter.setPagePerItem(20);
+		gatherFilter.setCustomerPn(summaryUser.getPn());
 		gatherFilter.setTotalCount(mergeSize);
 		if (gatherFilter.getTotalPageSize() > currentPage) {
 			Map<String, Object> object = new HashMap<String, Object>();
-			object.put("mergeItems", productGatherService.paginateItemList(mergeList, gatherFilter));
+			object.put("mergeItems", gatherService.paginateItemList(mergeList, gatherFilter));
 			session.setAttribute("currentPage", (gatherFilter.getCurrentPage() + 1));
 			return object;
 		} else {
@@ -166,7 +176,7 @@ public class GatherController {
 			if (checkedList == null || checkedList.isEmpty()) {
 				checkedList = new ArrayList<Integer>();
 				checkedList.add(count.getProductPn());
-				productGatherService.insertUpdateProductStasticView(count);
+				gatherService.insertUpdateProductStasticView(count);
 			} else {
 				boolean isProductPn = false;
 				for(Integer productPns : checkedList ){
@@ -176,7 +186,7 @@ public class GatherController {
 				}
 				if(!isProductPn){
 					checkedList.add(count.getProductPn());
-					productGatherService.insertUpdateProductStasticView(count);
+					gatherService.insertUpdateProductStasticView(count);
 				}
 			}
 			session.setAttribute("productStasticView", checkedList);
@@ -192,7 +202,7 @@ public class GatherController {
 			if (checkedList == null || checkedList.isEmpty()) {
 				checkedList = new ArrayList<Integer>();
 				checkedList.add(count.getEventPn());
-				productGatherService.insertUpdateEventStasticView(count);
+				gatherService.insertUpdateEventStasticView(count);
 			} else {
 				boolean isEventPn = false;
 				for(Integer eventPns : checkedList ){
@@ -202,11 +212,81 @@ public class GatherController {
 				}
 				if(!isEventPn){
 					checkedList.add(count.getEventPn());
-					productGatherService.insertUpdateEventStasticView(count);
+					gatherService.insertUpdateEventStasticView(count);
 				}
 			}
 			session.setAttribute("eventStasticView", checkedList);
 		}
+	}
+	
+	/*
+	@RequestMapping(value = "/ajax/productHeartClick.jt", method = RequestMethod.POST)
+	@ResponseBody
+	public String ajaxProductHeartClick(Count count, HttpSession session, SummaryUser summaryUser) {
+		Authority authority = summaryUser.getEnumAuthority();
+		String result ="";
+		if (authority.equals(Authority.CUSTOMER) || authority.equals(Authority.NOT_LOGIN)) {
+			ArrayList<Integer> checkedList = (ArrayList<Integer>) session.getAttribute("productHeart");
+			if (checkedList == null || checkedList.isEmpty()) {
+				checkedList = new ArrayList<Integer>();
+				checkedList.add(count.getProductPn());
+				productGatherService.updateProductHeartCount(count.getProductPn());
+				result = "count";
+			} else {
+				boolean isProductPn = false;
+				for(Integer productPns : checkedList ){
+					if(productPns.equals(count.getProductPn())){
+						isProductPn = true;
+					}
+				}
+				if(!isProductPn){
+					checkedList.add(count.getProductPn());
+					productGatherService.updateProductHeartCount(count.getProductPn());
+					result = "count";
+				}
+			}
+			session.setAttribute("productHeart", checkedList);
+		}else{
+			result = "!customer";
+		}
+		return result;
+	}*/
+	
+	@RequestMapping(value = "/ajax/productHeartClick.jt", method = RequestMethod.POST)
+	@ResponseBody
+	public Count ajaxProductHeartClick(@RequestBody Count count, SummaryUser summaryUser) {
+		switch (summaryUser.getEnumAuthority()) {
+		case CUSTOMER:
+			count.setCustomerPn(summaryUser.getPn());
+		case ADMIN:
+		case ROOT_ADMIN:
+			gatherService.insertProductHeartCount(count);
+			try {
+				if (count.getCrudType().equals("productHeartInsert") && (summaryUser.getFacebookFeed() != null && summaryUser.getFacebookFeed().equals(true))) {
+					System.out.println("do facebook");
+					/*
+					JtownUser jtownUser = sellerService.selectSellerInformation(count.getSellerPn());
+					String url = "https://www.mirros.net/mir/" + count.getSellerPn();
+					String name = jtownUser.getName();
+					String loginNotice = jtownUser.getLongNotice();
+					FacebookLink link = new FacebookLink(url, name, "", loginNotice);
+
+					String message = summaryUser.getName() + "님이 미러스(Mirros)의 " + jtownUser.getName() + "을(를) 좋아합니다.";
+					
+					facebook.feedOperations().postLink(message, link);
+					*/
+				}
+			} catch (ApiException e) {
+				logger.debug("PostConnect Catch");
+			}
+			break;
+		case NOT_LOGIN:
+			count.setMessage("1");
+			break;
+		default:
+			count.setMessage("2");
+		}
+		return count;
 	}
 
 }

@@ -18,6 +18,8 @@ public class Gather {
 	private String contentType;
 	private int hot;
 	private int newProduct;
+	private int heartCount;
+	private Integer customerPn;
 
 	// Event Data
 	private int eventPn;
@@ -172,12 +174,29 @@ public class Gather {
 		this.originalName = originalName;
 	}
 
+	public int getHeartCount() {
+		return heartCount;
+	}
+
+	public void setHeartCount(int heartCount) {
+		this.heartCount = heartCount;
+	}
+
+	public Integer getCustomerPn() {
+		return customerPn;
+	}
+
+	public void setCustomerPn(Integer customerPn) {
+		this.customerPn = customerPn;
+	}
+
 	@Override
 	public String toString() {
 		return "Gather [productPn=" + productPn + ", sellerPn=" + sellerPn + ", imagePn=" + imagePn + ", productName=" + productName + ", url=" + url
 				+ ", price=" + price + ", saveName=" + saveName + ", originalName=" + originalName + ", contentType=" + contentType + ", hot=" + hot
-				+ ", newProduct=" + newProduct + ", eventPn=" + eventPn + ", eventName=" + eventName + ", beginDate=" + beginDate + ", endDate="
-				+ endDate + ", bannerOrder=" + bannerOrder + ", shopName=" + shopName + ", newEvent=" + newEvent + "]";
+				+ ", newProduct=" + newProduct + ", heartCount=" + heartCount + ", customerPn=" + customerPn + ", eventPn=" + eventPn
+				+ ", eventName=" + eventName + ", beginDate=" + beginDate + ", endDate=" + endDate + ", bannerOrder=" + bannerOrder + ", shopName="
+				+ shopName + ", newEvent=" + newEvent + "]";
 	}
 
 }

@@ -9,13 +9,12 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>Mirros :: 여자가 예뻐지는 공간</title>
+<title>미러스 :: 여자를 위한 잇 아이템</title>
 <%@ include file="script_head.jspf" %>
 <%@ include file="style.jspf"%>
 <sec:authorize access="hasRole('ROLE_USER') and !principal.confirmEmail">
 <style type="text/css">
 	.jt-header-banner{ top: 30px; }
-	.jt-header-nav-interestCategory{ top:76px; } 
 	.jt-content{ padding-top: 128px; }
 </style>
 <!--[if lt IE 9]>
@@ -41,3 +40,7 @@
 			</nav>
 		</header>
 		<section class="jt-content">
+		<div class="jt-header-main-title">
+			Welcome to the new generation of shopping, mirror magic<i>!</i>
+		</div>
+			

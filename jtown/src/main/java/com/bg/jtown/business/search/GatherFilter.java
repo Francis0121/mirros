@@ -11,6 +11,7 @@ public class GatherFilter extends AbstractListFilter {
 	private int pagePerItem = 10;
 	private int totalPageSize;
 	private int newFlag = 0;
+	private Integer customerPn;
 
 	public int getCategoryPn() {
 		return categoryPn;
@@ -68,10 +69,19 @@ public class GatherFilter extends AbstractListFilter {
 		this.newFlag = newFlag;
 	}
 
+	public Integer getCustomerPn() {
+		return customerPn;
+	}
+
+	public void setCustomerPn(Integer customerPn) {
+		this.customerPn = customerPn;
+	}
+
 	@Override
 	public String toString() {
-		return "ProductGatherFilter [categoryPn=" + categoryPn + ", currentPage=" + currentPage + ", percentCount=" + percentCount + ", totalCount="
-				+ totalCount + ", pagePerItem=" + pagePerItem + ", totalPageSize=" + totalPageSize + ", newFlag=" + newFlag + "]";
+		return "GatherFilter [categoryPn=" + categoryPn + ", currentPage=" + currentPage + ", percentCount=" + percentCount + ", totalCount="
+				+ totalCount + ", pagePerItem=" + pagePerItem + ", totalPageSize=" + totalPageSize + ", newFlag=" + newFlag + ", customerPn="
+				+ customerPn + "]";
 	}
 
 }

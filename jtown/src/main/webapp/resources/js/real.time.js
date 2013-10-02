@@ -116,11 +116,29 @@ jtown.real.time = function(data) {
 				$('.copnLoveIt-'+copn).find('.jt-home-expand-shop-comment-loveIt-count').html(count == 0 ? '': count);
 			}
 		}
+	}else if(obj.redisType == 'product_heart_count'){
+		var productPn = obj.productPn;
+		var count = obj.count;
+		$('#jt-pg-heart-count-' + productPn).html(count);
+		var crudType = obj.crudType;
+		var cpn = obj.customerPn;
+		var nowcpn = $('#jt-logout').attr('data-cpn');
+		
+		if(cpn == nowcpn){
+			if (crudType == 'productHeartInsert') {
+				$('#jt-pg-heart-click-' + productPn).addClass('jt-home-shop-love-click');
+				$('#jt-pg-heart-count-' + productPn).addClass('jt-home-shop-love-text-click');
+			} else if (crudType == 'productHeartDelete') {
+				$('#jt-pg-heart-click-' + productPn).removeClass('jt-home-shop-love-click');
+				$('#jt-pg-heart-count-' + productPn).removeClass('jt-home-shop-love-text-click');
+			}
+		}
 	}
 };
 
 jtown.real.loveRank = function(data){
 	var sellerPnList = data.split(',');
+	console.log('loveRank');
 	
 	$('.jt-home-shop-love-hot').remove();
 	var html = '<span class="jt-home-shop-love-hot">HOT</span>';

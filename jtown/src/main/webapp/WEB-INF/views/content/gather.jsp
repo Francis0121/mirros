@@ -3,6 +3,8 @@
 <div class="jt-pg-container">
 <div class="jt-pg-main js-masonry">
 	<c:forEach items="${productGatherList }" var="list">
+	<c:set value="${!empty list.customerPn ? 'jt-home-shop-love-click' : ''}   " var="heartClickShapeClass" />
+	<c:set value="${!empty list.customerPn ? 'jt-home-shop-love-text-click' : ''}   " var="heartClickTextClass" />
 	<c:choose>
 		<c:when test="${list.hot ==0}">
 			<div class="jt-pg-item jt-pg-small-product" data-url="${list.url }" data-product-pn="${list.productPn }" data-event-pn="${list.eventPn }">
@@ -21,6 +23,8 @@
 					</div>
 				</c:if> 
 				<c:if test="${list.productPn != 0 }">
+					<div class="jt-pg-product-line-bright">
+					</div>
 					<div class="jt-pg-product-line">
 						<div>
 							<c:if test="${empty list.contentType}">
@@ -30,11 +34,15 @@
 								<img src="${cp}/photo/thumbnail/${list.saveName }product.${list.contentType}" alt="${list.productName }" />
 							</c:if>
 						</div>
-						<div class="jt-pg-product-line-bright">
-						</div>
 						<div class="jt-pg-product-name" >
 							<div>${list.productName }</div>
 							<div>${list.price }</div>
+						</div>
+						<div class="jt-pg-heart-wrap">
+							<div class="jt-pg-heart-shape">
+								<span class="jt-home-shop-love jt-pg-heart-shape ${heartClickShapeClass }" id="jt-pg-heart-click-${list.productPn}">heart</span>
+							</div>
+							<div class="jt-pg-heart-count ${heartClickTextClass}" id="jt-pg-heart-count-${list.productPn }">	${list.heartCount }</div>
 						</div>
 					</div>
 				</c:if>
@@ -52,9 +60,17 @@
 							<img src="${cp}/photo/thumbnail/${list.saveName }product.${list.contentType}" alt="${list.productName }" />
 						</c:if>
 					</div>
+					<div class="jt-pg-product-line-bright">
+					</div>
 					<div class="jt-pg-product-name">
 						<div>${list.productName }</div>
 						<div>${list.price }</div>
+					</div>
+					<div class="jt-pg-heart-wrap">
+						<div class="jt-pg-heart-shape">	
+							<span class="jt-home-shop-love jt-pg-heart-shape ${heartClickShapeClass }" id="jt-pg-heart-click-${list.productPn}">heart</span>
+						</div>
+						<div class="jt-pg-heart-count ${heartClickTextClass}" id="jt-pg-heart-count-${list.productPn }">${list.heartCount }</div>
 					</div>
 				</div>	
 			</div>
