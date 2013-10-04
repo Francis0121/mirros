@@ -26,4 +26,14 @@ public class CommonController {
 	public String showAgreement() {
 		return prefixView + "common/agreement";
 	}
+
+	@RequestMapping(value = "/businessInfoPolicy", method = RequestMethod.GET)
+	public String businessInfoPolicy() {
+		return prefixView + "common/businessInfoPolicy";
+	}
+
+	@RequestMapping(value = "/businessUtilizationAgree", method = RequestMethod.GET)
+	public String businessUtilizationAgree() {
+		return prefixView + "common/businessUtilizationAgree";
+	}
 }
