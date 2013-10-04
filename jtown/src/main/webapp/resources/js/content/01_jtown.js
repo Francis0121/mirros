@@ -629,6 +629,14 @@ jQuery(document).ready(function(){
 		}
 		
 	}
+	if($('.jt-header-warning-confirmEmail').text() !=''){
+		$('.jt-header-nav-interestCategory').css('top','62px');
+	}
+	var agt = navigator.userAgent.toLowerCase();
+	if (agt.indexOf("msie") != -1){
+		$('.jt-content').css('padding-top','55px');
+	}
+	
 });
 Date.prototype.format = function(f) {
     if (!this.valueOf()) return " ";

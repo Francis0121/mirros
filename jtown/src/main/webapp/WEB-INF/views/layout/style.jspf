@@ -37,7 +37,7 @@
 </c:choose> --%>
 <%-- IE Browser --%>
 <!--[if gte IE 9]>
-<style type="text/css"> .gradient {  filter: none; } </style>
+<style type="text/css"> .gradient {  filter: none; }</style>
 <![endif]-->
 <!--[if IE 8]>
 <link rel="stylesheet" type="text/css" href="${cp}/resources/css/ie/8.css" />
@@ -49,8 +49,9 @@
 <link rel="stylesheet" type="text/css" href="${cp}/resources/css/ie/6.css" />
 <![endif]-->
 <!--[if IE]>
-<style>
+<style type="text/css">
 	.jt-home-shop-content-image{ cursor: pointer; }
 	#smartPop{cursor: pointer;}
+	.jt-content{padding-top: 55px;}
 </style>
 <![endif]-->

@@ -26,7 +26,7 @@
 					<div class="jt-pg-product-line-bright">
 					</div>
 					<div class="jt-pg-product-line">
-						<div>
+						<div class="jt-pg-product-img">
 							<c:if test="${empty list.contentType}">
 								<img src="${cp}/resources/uploadImage/${list.saveName }" alt="${list.productName }" />
 							</c:if>
@@ -52,7 +52,7 @@
 			<div class="jt-pg-item jt-pg-large-product" data-url="${list.url }" data-product-pn="${list.productPn }" >
 				<div class="jt-pg-product-line">
 					<div class="jt-pg-product-line-hot"><img src="${cp}/resources/images/jt-hot.png"></div>
-					<div>
+					<div class="jt-pg-product-img">
 						<c:if test="${empty list.contentType}">
 							<img src="${cp}/resources/uploadImage/${list.saveName }" alt="${list.productName }" />
 						</c:if>

@@ -2,11 +2,11 @@
 
 .jt-pg-container{width: 100%}
 .jt-pg-main {margin: auto;position: relative;height: 100%;}
-.jt-pg-item {cursor: pointer; }
-.jt-pg-large-product {margin: 7px;width: 240px; border-radius:3px;box-shadow: 0 1px 3px rgba(34,25,25,0.4);}
-.jt-pg-large-product img{width: 240px;height: 240px; border-radius:3px 3px 0 0;}
-.jt-pg-small-product {margin: 7px;width: 240px; border-radius:3px;box-shadow: 0 1px 3px rgba(34,25,25,0.4);}
-.jt-pg-small-product img{width: 240px;height: 240px; border-radius:3px 3px 0 0;}
+.jt-pg-item {cursor: pointer;box-shadow: 0 1px 3px rgba(34,25,25,0.4);-webkit-box-shadow: 0 1px 3px rgba(34,25,25,0.4);-moz-box-shadow: 0 1px 3px rgba(34,25,25,0.4); }
+.jt-pg-large-product {margin: 7px;width: 240px; border-radius:3px;}
+.jt-pg-large-product .jt-pg-product-img img{width: 240px;height: 240px; border-radius:3px 3px 0 0;}
+.jt-pg-small-product {margin: 7px;width: 240px; border-radius:3px;}
+.jt-pg-small-product .jt-pg-product-img img{width: 240px;height: 240px; border-radius:3px 3px 0 0;}
 .jt-pg-product-line {background-color: #fff;height: 100%;border-radius:3px;}
 .jt-pg-product-line-bright{position:absolute; height:100%;width:100%;background-color: rgba(255,255,255,0.05);top: 0px;display: none;}
 .jt-pg-product-line-hot{position: absolute; width:70px; height: 50px; right: 0%;top:10%;}
@@ -21,6 +21,8 @@
 	background-color: #fff;
 	line-height: 140%;
 	box-shadow: 0 1px 3px rgba(34,25,25,0.4);
+	-webkit-box-shadow: 0 1px 3px rgba(34,25,25,0.4);
+    -moz-box-shadow: 0 1px 3px rgba(34,25,25,0.4);
 }
 .jt-pg-product-name div{
 	padding-left: 15px;

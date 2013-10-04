@@ -117,7 +117,7 @@
 	
 	<select id="selectGatherHotProducts" resultMap="gatherMapper">
 		SELECT 
-		  product_pn, seller_pn, image_pn, product_name, url, price, save_name, original_name, 
+		  product_pn, seller_pn, image_pn, product_name, url, price, save_name, original_name, 1 AS hot, 
 		  	content_type, SUM(day_count) AS day_count, heart_count  <if test="customerPn != null">, customer_pn</if>
 		FROM
 		  (SELECT 

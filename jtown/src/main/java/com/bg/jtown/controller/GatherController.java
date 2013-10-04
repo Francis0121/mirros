@@ -29,9 +29,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bg.jtown.business.Count;
 import com.bg.jtown.business.Gather;
+import com.bg.jtown.business.Product;
 import com.bg.jtown.business.home.HomeService;
 import com.bg.jtown.business.home.GatherService;
 import com.bg.jtown.business.search.GatherFilter;
+import com.bg.jtown.business.seller.SellerService;
 import com.bg.jtown.security.Authority;
 import com.bg.jtown.security.JtownUser;
 import com.bg.jtown.security.SummaryUser;
@@ -48,6 +50,9 @@ public class GatherController {
 
 	@Autowired
 	private GatherService gatherService;
+	
+	@Autowired
+	private SellerService sellerService;
 	
 	@Resource
 	private Facebook facebook;
@@ -219,39 +224,6 @@ public class GatherController {
 		}
 	}
 	
-	/*
-	@RequestMapping(value = "/ajax/productHeartClick.jt", method = RequestMethod.POST)
-	@ResponseBody
-	public String ajaxProductHeartClick(Count count, HttpSession session, SummaryUser summaryUser) {
-		Authority authority = summaryUser.getEnumAuthority();
-		String result ="";
-		if (authority.equals(Authority.CUSTOMER) || authority.equals(Authority.NOT_LOGIN)) {
-			ArrayList<Integer> checkedList = (ArrayList<Integer>) session.getAttribute("productHeart");
-			if (checkedList == null || checkedList.isEmpty()) {
-				checkedList = new ArrayList<Integer>();
-				checkedList.add(count.getProductPn());
-				productGatherService.updateProductHeartCount(count.getProductPn());
-				result = "count";
-			} else {
-				boolean isProductPn = false;
-				for(Integer productPns : checkedList ){
-					if(productPns.equals(count.getProductPn())){
-						isProductPn = true;
-					}
-				}
-				if(!isProductPn){
-					checkedList.add(count.getProductPn());
-					productGatherService.updateProductHeartCount(count.getProductPn());
-					result = "count";
-				}
-			}
-			session.setAttribute("productHeart", checkedList);
-		}else{
-			result = "!customer";
-		}
-		return result;
-	}*/
-	
 	@RequestMapping(value = "/ajax/productHeartClick.jt", method = RequestMethod.POST)
 	@ResponseBody
 	public Count ajaxProductHeartClick(@RequestBody Count count, SummaryUser summaryUser) {
@@ -263,18 +235,12 @@ public class GatherController {
 			gatherService.insertProductHeartCount(count);
 			try {
 				if (count.getCrudType().equals("productHeartInsert") && (summaryUser.getFacebookFeed() != null && summaryUser.getFacebookFeed().equals(true))) {
-					System.out.println("do facebook");
-					/*
-					JtownUser jtownUser = sellerService.selectSellerInformation(count.getSellerPn());
-					String url = "https://www.mirros.net/mir/" + count.getSellerPn();
-					String name = jtownUser.getName();
-					String loginNotice = jtownUser.getLongNotice();
-					FacebookLink link = new FacebookLink(url, name, "", loginNotice);
-
-					String message = summaryUser.getName() + "님이 미러스(Mirros)의 " + jtownUser.getName() + "을(를) 좋아합니다.";
-					
+					Product productInfo = sellerService.selectSellerProductOne(count.getProductPn());
+					String url = "https://www.mirros.net/mir/" + productInfo.getSellerPn();
+					String name = productInfo.getName();
+					FacebookLink link = new FacebookLink(url, name, "", name);
+					String message = summaryUser.getName() + "님이 미러스(Mirros)의 " + name + "을(를) 좋아합니다.";
 					facebook.feedOperations().postLink(message, link);
-					*/
 				}
 			} catch (ApiException e) {
 				logger.debug("PostConnect Catch");

@@ -1,20 +1,20 @@
 @CHARSET "UTF-8";
 
-.jt-header-nav{ min-height: 39px; background: url("../../images/jt-header-bar.png"); border: 0px;}
+.jt-header-nav{ min-height: 30px; background: url("../../images/jt-header-bar.png"); border: 0px;}
 .jt-home-shop{width: 316px; padding: 0 2px; margin: 5px 3px;  border-top: 1px solid #e5e5e5; border-left :0; border-right :0; border-bottom :0 ; background: url("../../images/jt-shop.png");}
 .jt-home-shop-image-footer{ background: url("../../images/jt-shop-footer.png"); width: 316px; height: 3px; float: left;}
 .jt-heart-click-background{display: none;}
 .jt-home-shop-content-love-text-wrap>span{color: #b2b2b2;}
-
+.jt-header-title{border-bottom: 2px solid #b49c8d;}
 .jt-header-nav-interest{ border: 1px solid #cccaca; margin-top: 0;}
-.jt-under-wrap{ border: 1px solid #cccaca; margin-top: 5px;}
-.jt-help-under-wrap{border: 1px solid #cccaca; margin-top: 5px;}
+.jt-under-wrap{ border: 1px solid #cccaca; margin-top: 0px;}
+.jt-help-under-wrap{border: 1px solid #cccaca; margin-top: 0px;}
 
 .jt-one-header-title{ background: url("../../images/jt-one-header-bar.png");}
 
 #jt-login-form{border: 1px solid #cccccc;}
 
-.jt-header-nav-interestCategory{ top: 50px; }
+.jt-header-nav-interestCategory{ top: 31px; border: 1px solid #eee;}
 .jt-header-nav-interestCategory-help{top: 50px;}
 .jt-home-shop-content-fn>li>span{margin-right: 3px;}
 .jt-home-shop-love-hot{float: right;}
@@ -24,4 +24,8 @@
 .jt-help-notice-table thead tr{background: #e5e5e5;}
 
 .jt-more-comment-wrap{ background: #3f3f3f; min-height: 22px; }
-.jt-home-shop-comments{ width: 289px; height : 21px;}
+.jt-home-shop-comments{height : 21px;}
+
+.jt-pg-item {border: 1px solid #abaaac}
+.jt-pg-product-name{border-top: 1px solid #abaaac}
+.jt-home-notice{border-top: 1px solid #abaaac}

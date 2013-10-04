@@ -425,7 +425,7 @@
 		WHERE
 			usp.image_pn = i.pn
 		AND
-			pn = #{productPn}
+			usp.pn = #{productPn}
 		AND 
 			usp.deleted = 'N'
 	</select>

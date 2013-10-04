@@ -112,4 +112,5 @@ public interface SellerService {
 	void deleteSellerDDayEvent(Event event);
 	
 	void deleteSellerBanner(Event event);
+	
 }
