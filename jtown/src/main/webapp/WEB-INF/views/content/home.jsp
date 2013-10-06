@@ -6,8 +6,8 @@
 	data-spn="${homeFilter.sectionPn eq null ? 0 : homeFilter.sectionPn}" 
 	data-maxPage="${homeFilter.pagination.numPages eq null ? 0 : homeFilter.pagination.numPages }">
 	<div class="jt-home-shop">
-		<a href="https://www.facebook.com/490323451049229" target="_blank">
-			<img alt="미러스 이벤트" src="${cp }/resources/images/event.jpg" width="316">
+		<a href="http://shop.beautyfactory.co.kr/ariul.index.asp" target="_blank">
+			<img alt="미러스 이벤트" src="${cp }/resources/images/event.png" width="316">
 		</a>
 	</div>
 	<c:forEach begin="1" end="2" varStatus="i">

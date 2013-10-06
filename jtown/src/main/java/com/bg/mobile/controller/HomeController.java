@@ -88,6 +88,11 @@ public class HomeController {
 		getHomeModel(model, session, homeFilter, summaryUser);
 		return prefixView + "home";
 	}
+	
+	@RequestMapping(value = "/m", method = RequestMethod.GET)
+	public String homeMobileView() {
+		return "redirect:/m/";
+	}
 
 	@RequestMapping(value = "/g", method = RequestMethod.GET)
 	public String gatherView(Model model, HttpSession session, @ModelAttribute HomeFilter homeFilter, SummaryUser summaryUser) {

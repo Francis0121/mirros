@@ -78,13 +78,13 @@ public class HomeController {
 
 	// ~ SHOW
 
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@RequestMapping(value = "/s", method = RequestMethod.GET)
 	public String showHome(Model model, HttpSession session, @ModelAttribute HomeFilter homeFilter, SummaryUser summaryUser,
 			HttpServletRequest request) throws UnsupportedEncodingException {
 		if (BrowserUtil.isMobile(request)) {
 			String value = CookieUtil.isCookie("SEE_PC_VERSION", request);
 			if (value == null || !value.equals("T")) {
-				return "redirect:/m/";
+				return "redirect:/m";
 			} else {
 				model.addAttribute("isMobile", true);
 			}
@@ -126,7 +126,7 @@ public class HomeController {
 		return prefixView + "mir";
 	}
 
-	@RequestMapping(value = "/cpn/{categoryPn}/spn/{sectionPn}", method = RequestMethod.GET)
+	@RequestMapping(value = "/s/cpn/{categoryPn}/spn/{sectionPn}", method = RequestMethod.GET)
 	public String showHomeSearch(Model model, Integer loginUserPn, HttpSession session, @ModelAttribute HomeFilter homeFilter,
 			SummaryUser summaryUser, HttpServletRequest request) throws UnsupportedEncodingException {
 		if (BrowserUtil.isMobile(request)) {

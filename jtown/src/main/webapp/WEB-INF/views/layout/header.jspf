@@ -7,29 +7,29 @@
 <c:if test="${!empty interestCategories }">
 	<img src="${cp }/resources/images/jt-top-menu.png" style="width: 28.8px;height:24px ">
 	<c:if test="${empty categoryType}">
-		<c:set var="check_nav" value="${cp }/cpn/${homeFilter.categoryPn eq null ? 0 : homeFilter.categoryPn }/spn/${homeFilter.sectionPn eq null ? 0 : homeFilter.sectionPn }"/>
-		<c:set var="now_nav" value="${cp }/cpn/0/spn/0"/>
+		<c:set var="check_nav" value="${cp }/s/cpn/${homeFilter.categoryPn eq null ? 0 : homeFilter.categoryPn }/spn/${homeFilter.sectionPn eq null ? 0 : homeFilter.sectionPn }"/>
+		<c:set var="now_nav" value="${cp }/s/cpn/0/spn/0"/>
 	</c:if>
 	<c:if test="${categoryType == 'pg'}">
 		<c:set var="check_nav" value="${cp }/g/cpn/${gatherFilter.categoryPn eq null ? 0 : gatherFilter.categoryPn }"/>
 		<c:set var="now_nav" value="${cp }/g/cpn/0"/>
 	</c:if>
 	<c:if test="${categoryType == 'new'}">
-		<c:set var="check_nav" value="${cp }/n/cpn/${gatherFilter.categoryPn eq null ? 0 : gatherFilter.categoryPn }"/>
-		<c:set var="now_nav" value="${cp }/n/cpn/0"/>
+		<c:set var="check_nav" value="${cp }/cpn/${gatherFilter.categoryPn eq null ? 0 : gatherFilter.categoryPn }"/>
+		<c:set var="now_nav" value="${cp }/cpn/0"/>
 	</c:if>
 	<ul class="jt-header-nav-interestCategory" data-category="${categoryType }">
 		<li class="jt-header-nav-interestCategory-li">
 			<c:set var="navPosition" value="${now_nav eq check_nav ? 'jt-header-nav-interestCategory-realPath' : 'jt-header-nav-interestCategory-normal' }"/>
 			<c:choose>
 				<c:when test="${empty categoryType}">
-					<a href="${cp }/" class="${navPosition }" title="All"><span>All</span></a>
+					<a href="${cp }/s" class="${navPosition }" title="All"><span>All</span></a>
 				</c:when>
 				<c:when test="${categoryType == 'pg'}">
 					<a href="${cp }/g" class="${navPosition }" title="All"><span>All</span></a>
 				</c:when>
 				<c:when test="${categoryType == 'new'}">
-					<a href="${cp }/n" class="${navPosition }" title="All"><span>All</span></a>
+					<a href="${cp }/" class="${navPosition }" title="All"><span>All</span></a>
 				</c:when>
 			</c:choose>	
 		</li>
@@ -41,10 +41,10 @@
 					<c:set var="now_nav" value="${cp }/g/cpn/${interestCategoryPn }"/>
 				</c:when>
 				<c:when test="${categoryType == 'new'}">
-					<c:set var="now_nav" value="${cp }/n/cpn/${interestCategoryPn }"/>
+					<c:set var="now_nav" value="${cp }/cpn/${interestCategoryPn }"/>
 				</c:when>
 				<c:otherwise>
-					<c:set var="now_nav" value="${cp }/cpn/${interestCategoryPn }/spn/0"/>	
+					<c:set var="now_nav" value="${cp }/s/cpn/${interestCategoryPn }/spn/0"/>	
 				</c:otherwise>
 			</c:choose>
 			<c:set var="navPosition" value="${now_nav eq check_nav ? 'jt-header-nav-interestCategory-realPath' : 'jt-header-nav-interestCategory-normal' }"/>

@@ -117,13 +117,13 @@ public class GatherController {
 		return "redirect:/g";
 	}
 	
-	@RequestMapping(value = "/n", method = RequestMethod.GET)
+	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String newGatherView(Model model, HttpSession session, @ModelAttribute GatherFilter gatherFilter,
 			SummaryUser summaryUser, HttpServletRequest request) throws UnsupportedEncodingException {
 		if (BrowserUtil.isMobile(request)) {
 			String value = CookieUtil.isCookie("SEE_PC_VERSION", request);
 			if (value == null || !value.equals("T")) {
-				return "redirect:/m/n";
+				return "redirect:/m/";
 			} else {
 				model.addAttribute("isMobile", true);
 			}
@@ -133,13 +133,13 @@ public class GatherController {
 		return prefixView + "gather";
 	}
 
-	@RequestMapping(value = "/n/cpn/{categoryPn}", method = RequestMethod.GET)
+	@RequestMapping(value = "/cpn/{categoryPn}", method = RequestMethod.GET)
 	public String newGatherCategoryView(Model model, HttpSession session, @ModelAttribute GatherFilter gatherFilter,
 			SummaryUser summaryUser, HttpServletRequest request) throws UnsupportedEncodingException {
 		if (BrowserUtil.isMobile(request)) {
 			String value = CookieUtil.isCookie("SEE_PC_VERSION", request);
 			if (value == null || !value.equals("T")) {
-				return "redirect:/m/n/cpn/{categoryPn}";
+				return "redirect:/m/cpn/{categoryPn}";
 			} else {
 				model.addAttribute("isMobile", true);
 			}
@@ -149,10 +149,12 @@ public class GatherController {
 		return prefixView + "gather";
 	}
 
+	/*
 	@RequestMapping(value = "/n/", method = RequestMethod.GET)
 	public String newGatherView() {
 		return "redirect:/n";
 	}
+	*/
 
 	@RequestMapping(value = "/ajax/gatherPagination.jt", method = RequestMethod.POST)
 	@ResponseBody
