@@ -98,6 +98,11 @@ var productGatherHtml = function(data){
 					html+=			 '<img src="'+contextPath+'photo/thumbnail/'+data.mergeItems[idx].saveName+'product.'+data.mergeItems[idx].contentType +'" alt="'+data.mergeItems[idx].productName+'" />';	
 				}
 				html+= 		'</div>';
+				html+=			'<div class="jt-pg-product-line-bright"></div>';
+				html+=			'<div class="jt-btn-fbLogin jt-pg-product-facebook">';
+				html+=				'<span class="loginImage"></span>';
+				html+=			'<span class="loginText">페이스북 공유하기</span>';
+				html+=			'</div>';
 				html+=			'<div class="jt-pg-product-name">';
 				html+=				'<div>'+data.mergeItems[idx].productName+'</div>';
 				html+=				'<div>'+data.mergeItems[idx].price+'</div>';
@@ -122,6 +127,11 @@ var productGatherHtml = function(data){
 				html+=			 '<img src="'+contextPath+'photo/thumbnail/'+data.mergeItems[idx].saveName+'product.'+data.mergeItems[idx].contentType +'" alt="'+data.mergeItems[idx].productName+'" />';	
 			}
 			html+= 		'</div>';
+			html+=			'<div class="jt-pg-product-line-bright"></div>';
+			html+=			'<div class="jt-btn-fbLogin jt-pg-product-facebook">';
+			html+=				'<span class="loginImage"></span>';
+			html+=			'<span class="loginText">페이스북 공유하기</span>';
+			html+=			'</div>';
 			html+=			'<div class="jt-pg-product-name">';
 			html+=				'<div>'+data.mergeItems[idx].productName+'</div>';
 			html+=				'<div>'+data.mergeItems[idx].price+'</div>';
@@ -148,10 +158,23 @@ $('.jt-pg-container').on('click', '.jt-pg-heart-wrap', function(e){
 	e.stopPropagation();
 	if($('#jt-login-smartPopup').text() ==''){
 		jtown.home.productHeartClick(productPn);
+		if($(this).find('.jt-home-shop-love-click').text() == ''){
+			$fbBtn = $(this).parents('.jt-pg-product-line').find('.jt-pg-product-facebook');
+			$fbBtn.fadeIn(500).delay(2000).fadeOut(500);
+		}
 	}else{
 		jtown.login.showLoginForm();
 		sessionStorage.setItem('productPn', productPn);
 		sessionStorage.setItem('productHeart', 'productHeart');
+	}
+});
+
+$('.jt-pg-container').on('click', '.jt-pg-product-facebook', function(e){
+	var productPn =$(this).parents('.jt-pg-item').attr('data-product-pn');
+	$(this).parents('.jt-pg-item').find('.loginText').text('공유 됐어요♥');
+	e.stopPropagation();
+	if($('#jt-login-smartPopup').text() ==''){
+		jtown.home.facebookLikeClick(productPn);
 	}
 });
 

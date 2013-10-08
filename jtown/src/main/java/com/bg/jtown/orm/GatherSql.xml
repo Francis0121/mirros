@@ -210,11 +210,14 @@
 			user_seller_event usee
 		JOIN partnership p
 			ON p.seller_pn = usee.seller_pn
+		JOIN users u
+			ON u.pn = p.seller_pn
 		<if test="newFlag == 1">
 		JOIN new_event_bool neb
 			ON neb.event_pn = usee.event_pn 
 		</if>	
 		WHERE DATEDIFF(usee.end_date,SYSDATE()) >= 0
+			AND u.enable = 1
 		<if test="newFlag == 1">
 			AND neb.new_event > 0
 		</if>	

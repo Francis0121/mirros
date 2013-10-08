@@ -127,16 +127,18 @@
 	<sec:authorize access="principal.groupName eq 'Customer'">
 	<article class="jt-account-setting-article">
 		<header class="jt-account-setting-article-header">
-			<h2>소셜</h2>
+			<h2>페이스북 연동</h2>
 		</header>
 		<article class="jt-account-setting-article-social">
 		<c:forEach var="providerId" items="${providerIds}">
 			<c:set var="connections" value="${connectionMap[providerId]}" />
 			<spring:message code="${providerId}.displayName" var="providerDisplayName" />
 			<spring:message code="${providerId}.icon" var="iconUrl"/>
+			<!-- 
 			<header class="jt-account-setting-article-social-header">
 				<h3><img src="${cp }${iconUrl}" width="30" height="30" alt="${providerDisplayName }"/></h3>
 			</header>
+			 -->
 			<table class="jt-account-setting-article-table jt-account-setting-article-social-header-table">
 				<tbody>
 				<c:if test="${not empty connections}">
@@ -209,20 +211,20 @@
 	<footer class="jt-account-setting-section-footer">
 		<ul>
 			<li>
+				<button type="button" class="jt-change-user-btn jt-btn-orange">저장</button>
+			</li>
+			<li>
 				<sec:authorize access="principal.groupName eq 'Customer'">
 					<c:choose>
 						<c:when test="${registerDate ne null }">
-							<button type="button" class="jt-btn-gray jt-disactive-user-btn">계정삭제 취소</button>
+							<div class="jt-disactive-user-btn">계정삭제 취소</div>
 						</c:when>
 						<c:otherwise>
-							<button type="button" class="jt-btn-gray jt-disactive-user-btn">계정삭제</button>
+							<div class="jt-disactive-user-btn">계정삭제</div>
 						</c:otherwise>
 					</c:choose>
 				</sec:authorize>
 				&nbsp;
-			</li>
-			<li>
-				<button type="button" class="jt-change-user-btn jt-btn-orange">저장</button>
 			</li>
 		</ul>
 	</footer>

@@ -51,7 +51,7 @@
 			
 				<p>
 					Mirros에서 더 쉽고 간편하게<br/>
-					인터넷 쇼핑몰들을 체험하세요.
+					당신을 위한 아이템을 모아보세요.
 				</p>
 			</div>
 			<div class="jt-login-error-box">

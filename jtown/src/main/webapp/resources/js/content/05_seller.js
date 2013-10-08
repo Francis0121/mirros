@@ -612,10 +612,11 @@ jtown.seller.productImage = function(file){
 					'saveName': file.saveName };
 	
 	$.postJSON(url, json, function(product){
-		if(product.count > 29){
-			jtown.dialog('상품은 30개 이하로 등록 가능합니다.');
+		if(product.todayCount ==13){
+			jtown.dialog('하루에 올릴 수 있는 상품은 12개 입니다.');
+		}else if(product.count > 9){
+			jtown.dialog('상품은 10개 이하로 등록 가능합니다.');
 		}
-		
 		var me = $('#jt-product-article-object-'+product.count);
 		me.children('img').attr('src', contextPath+'photo/thumbnail/'+product.saveName+'product.'+file.type);
 		me.addClass('jt-product-article-object-img');

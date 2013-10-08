@@ -75,6 +75,11 @@ public class Product {
 	 */
 	private String url;
 
+	/**
+	 * 오늘 올린 상품 수
+	 */
+	private Integer todayCount;
+
 	public Product() {
 		super();
 	}
@@ -121,8 +126,7 @@ public class Product {
 		}
 
 		try {
-			long diffDays = DateUtil.diffOfDate(this.inputDate,
-					DateUtil.getToday("YYYYMMDD"));
+			long diffDays = DateUtil.diffOfDate(this.inputDate, DateUtil.getToday("YYYYMMDD"));
 			if (diffDays < 3) {
 				return true;
 			}
@@ -209,14 +213,19 @@ public class Product {
 		this.url = url;
 	}
 
+	public Integer getTodayCount() {
+		return todayCount;
+	}
+
+	public void setTodayCount(Integer todayCount) {
+		this.todayCount = todayCount;
+	}
+
 	@Override
 	public String toString() {
-		return "Product [count=" + count + ", imagePn=" + imagePn
-				+ ", imageCategory=" + imageCategory + ", imageType="
-				+ imageType + ", inputDate=" + inputDate + ", name=" + name
-				+ ", order=" + order + ", pn=" + pn + ", price=" + price
-				+ ", saveName=" + saveName + ", sellerPn=" + sellerPn
-				+ ", url=" + url + ", currentPage=" + currentPage + "]";
+		return "Product [count=" + count + ", currentPage=" + currentPage + ", imageCategory=" + imageCategory + ", imagePn=" + imagePn
+				+ ", imageType=" + imageType + ", inputDate=" + inputDate + ", name=" + name + ", order=" + order + ", pn=" + pn + ", price=" + price
+				+ ", saveName=" + saveName + ", sellerPn=" + sellerPn + ", url=" + url + ", todayCount=" + todayCount + "]";
 	}
 
 }

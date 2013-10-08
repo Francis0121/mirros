@@ -23,15 +23,15 @@ import com.bg.jtown.security.SummaryUser;
 @Component
 public class ControllerAspect {
 
-	private final Logger logger = LoggerFactory
-			.getLogger(ControllerAspect.class);
+	private final Logger logger = LoggerFactory.getLogger(ControllerAspect.class);
 
 	@Resource
 	private HttpServletRequest request;
-//	@Resource
-//	private SellerService sellerService;
-//	@Resource
-//	private Facebook facebook;
+
+	// @Resource
+	// private SellerService sellerService;
+	// @Resource
+	// private Facebook facebook;
 
 	@Around("bean(*Controller)")
 	public Object trace(ProceedingJoinPoint joinPoint) throws Throwable {
@@ -46,16 +46,13 @@ public class ControllerAspect {
 			SummaryUser summaryUser;
 			String remoteIp = request.getRemoteAddr();
 			try {
-				JtownUser user = (JtownUser) SecurityContextHolder.getContext()
-						.getAuthentication().getPrincipal();
-				summaryUser = new SummaryUser(user.getGroupName(), true,
-						user.getName(), user.getPn(), remoteIp,
-						user.getUsername(), user.getFacebookFeed());
+				JtownUser user = (JtownUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+				summaryUser = new SummaryUser(user.getGroupName(), true, user.getName(), user.getPn(), remoteIp, user.getUsername(),
+						user.getFacebookFeed());
 				logger.info("Log In : " + summaryUser.getName());
 				logger.debug(summaryUser.toString());
 			} catch (ClassCastException e) {
-				summaryUser = new SummaryUser(null, false, null, null,
-						remoteIp, null, null);
+				summaryUser = new SummaryUser(null, false, null, null, remoteIp, null, null);
 				logger.debug("Not Log In user");
 			}
 
@@ -73,8 +70,7 @@ public class ControllerAspect {
 		} finally {
 			long finish = System.currentTimeMillis();
 			logger.debug(signatureString + " 종료");
-			logger.debug(signatureString + " 실행 시간 : " + (finish - start)
-					+ "ms");
+			logger.debug(signatureString + " 실행 시간 : " + (finish - start) + "ms");
 		}
 	}
 

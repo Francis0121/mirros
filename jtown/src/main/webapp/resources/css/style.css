@@ -12,12 +12,14 @@
 .jt-header-warning-confirmEmail>span>a{ font-weight: bold; color: #000;}
 .jt-header-warning-confirmEmail>span>a:HOVER{ color: #ff2a00; text-decoration: underline;}
 .jt-header-title{width: 100%; min-height: 45px; float: left; background: #fff;box-shadow: inset 0 1px #fff,0 1px 3px rgba(121,63,41,0.7);-moz-box-shadow: inset 0 1px #fff,0 1px 3px rgba(121,63,41,0.7);-webkit-box-shadow: inset 0 1px #fff,0 1px 3px rgba(121,63,41,0.7);}
-.jt-header-banner{ position: absolute; top: 0; left: 50%; width: 150px; font-size: 16px; margin-left: -75px;}
-.jt-header-banner-h1{ text-indent: -9999px; background: url("../images/jt-main-banner.png") no-repeat; width: 93px; height: 45px; margin-left: 30px;}
+.jt-header-banner{ position: absolute; top: 0; left: 50%; width: 250px; font-size: 16px; margin-left: -75px;}
+.jt-header-banner-h1{ text-indent: -9999px; background: url("../images/jt-main-banner.png") no-repeat; width: 93px; height: 45px; margin-left: 30px;float: left;}
+.jt-header-banner-beta{text-indent: -9999px; background: url("../images/jt-banner-beta.png") no-repeat; width: 25px; height: 9px; float: left; margin-top: 12px;}
+
 .jt-header-login-menu{ font-size: 12px; position: absolute; right: 15px;}
 .jt-header-login-menu>li{ float: left; width: 80px;}
 .jt-header-login-menu>li>a{font-family: arial, sans-serif; width: 70px; padding: 18px 5px 12px 5px; display: block; text-align: center;}
-.jt-header-menu img{padding-left:10px;margin-top: 10px; float: left;}
+.jt-header-menu img{margin-top: 10px; float: left;}
 #jt-mypage{width: 110px;}
 #jt-mypage>a{width: 100px;}
 .jt-under-wrap{
@@ -62,7 +64,7 @@
 .jt-header-nav-interestCategory{
 	position:absolute;
 	top:31px;
-	left:220px;
+	left:275px;
 	display: none;
 	border-top: 1px solid #cccaca;
 	box-shadow : inset 0 1px #fff,0 1px 3px rgba(34,25,25,0.4);
@@ -99,15 +101,15 @@
 .jt-header-nav-interest-normal-realPath{ color: #f7a300; display: block; width: 90px; height: 17px; padding: 8px 5px 4px 5px; font-size: 12px;  }
 .jt-header-nav-interest-normal-realPath:HOVER{ background: #f7a300; color: #fff; }
 
-.jt-header-search{float: left; width: 200px; margin: 0 0 0 10px; display: block;}
+.jt-header-search{float: left; width: 265px; margin: 0 0 0 10px; display: block;}
 .jt-header-search-input{
 	margin: 10px 0 0 0;
     background: url(../images/jt-search-white.png) no-repeat 8px 4px #fcfcfc;
     border: 1px solid #c3c4c4;
     font: 12px Dotum, Gulim;
     color: #737373;
-    width: 150px;
-    padding: 4px 15px 4px 35px;
+    width: 215px;
+    padding: 4px 15px 4px 30px;
     ime-mode:active;
 }
 /***************************

@@ -3,7 +3,7 @@
 *	@author Francis
 *	/login/join Page
 */
-.jt-btn-orange-login{font-family: Arial; border: 0; padding: 2px 0; background: transparent;cursor: pointer;color: #ff8900;}
+.jt-btn-orange-login{font-family: Arial; border: 0; padding: 2px 0; background: transparent;cursor: pointer;color: #fb950f;}
 .jt-btn-orange-login:HOVER{text-decoration: underline;}
 .jt-join-user-header{ width: 990px; margin: auto auto; height: 75px; }
 .jt-join-user-login, .jt-join-user-login:VISITED{ font-size: 12px; float: right; color: #808080; margin-top: 60px;}
@@ -46,7 +46,7 @@ text-shadow : 1px 2px 4px #e3e3e3,0 0 0 #000,1px 2px 4px #e3e3e3,0 1px 0 #fff;}
 
 .jt-join-user-vaild-wrap{position: absolute; margin: 3px 0 0 245px; width: 300px; display: none;}
 .jt-join-user-vaild-wrap>span{display: block; width: 280px; background: #fff; font-size: 11px; text-align: center; }
-.jt-form-invalid { line-height: 24px; color: red; border: 1px solid red;}
+.jt-form-invalid { line-height: 24px; color: #ee5555; border: 1px solid red;}
 .jt-form-valid { line-height: 24px; color: green; border: 1px solid green;}
 .jt-join-submit{width: 100px; font-size: 15px; padding: 7px 10px;}
 
@@ -192,19 +192,15 @@ text-shadow : 1px 2px 4px #e3e3e3,0 0 0 #000,1px 2px 4px #e3e3e3,0 1px 0 #fff;}
 .jt-account-setting-section-header>h1{ float: left; margin-left : 10px; font-family: NanumGothic, Dotum, Gulim; font-size: 25px; color: #524d4d;
 text-shadow : 1px 2px 4px #e3e3e3,0 0 0 #000,1px 2px 4px #e3e3e3,0 1px 0 #fff;}
 .jt-account-setting-section-header>span{ float: left; margin: 6px 0 0 10px; font-family: NanumGothic, Dotum, Gulim; font-size: 13px; color: #ee2f2f; }
-.jt-account-setting-section-footer{ float: left; width: 100%; margin: 15px 0 30px 0; border: 1px solid #cccccc; padding : 10px 15px; background : #fafafa; 
+.jt-account-setting-section-footer{ float: left; width: 100%; margin: 5px 0 30px 0;
 	box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box; -moz-box-sizing : border-box; -webkit-box-sizing : border-box;
-	border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; 
-	box-shadow: inset 3px 3px 8px -5px #cccccc, 4px 4px 6px -4px #cccccc;
-	-moz-box-shadow: inset 3px 3px 8px -5px #cccccc, 4px 4px 6px -4px #cccccc;
-	-webkit-box-shadow: inset 3px 3px 8px -5px #cccccc, 4px 4px 6px -4px #cccccc;
 }
-.jt-account-setting-section-footer ul{ float: left; width: 100%;}
-.jt-account-setting-section-footer ul li{ float: left; width: 50%;}
-.jt-change-user-btn{ float: right;  padding: 7px 10px; width: 70px;}
-.jt-disactive-user-btn{ padding: 7px 10px; }
+.jt-account-setting-section-footer ul{width: 100%; text-align: right;}
+.jt-change-user-btn{padding: 7px 10px; width: 70px;}
+.jt-disactive-user-btn{font-size:11px; margin-top: 20px; cursor: pointer; color:#999;}
+.jt-disactive-user-btn:HOVER{color: #444; }
 .jt-emailAddress-user-btn{ padding: 7px 10px; width: 70px; }
-.jt-account-setting-findPassword-btn{ color: #ee2f2f; font-family:NanumGothic; font-size: 11px; font-weight: bold; margin-left: 8px; }
+.jt-account-setting-findPassword-btn{ color: #ee5555; font-family:NanumGothic; font-size: 11px; font-weight: bold; margin-left: 8px; }
 .jt-account-setting-findPassword-btn:HOVER{text-decoration: underline;}
 
 .jt-account-setting-article{ float: left; width: 100%; margin: 15px 0; border: 1px solid #cccccc; padding : 15px; background : #fcfcfc;
@@ -282,7 +278,7 @@ text-shadow : 1px 2px 4px #e3e3e3,0 0 0 #000,1px 2px 4px #e3e3e3,0 1px 0 #fff;}
 	YES OR NO BUTTON
 *************************/
 .jt-Yes-btn{
-	border: 0; padding : 2px; width : 90px; background : #FF7E00; cursor :pointer;
+	border: 0; padding : 2px; width : 90px; background : #fb950f; cursor :pointer;
 	border-radius: 4px;	-moz-border-radius:4px; -webkit-border-radius:4px;
 	box-sizing: border-box; -o-box-sizing : border-box;	-ms-box-sizing : border-box; -moz-box-sizing : border-box; -webkit-box-sizing : border-box;
 	-webkit-box-shadow: inset 1px 1px 5px 0 rgba(0,0,0,0.3);

@@ -371,6 +371,7 @@
 		<result column="price" property="price"/>
 		<result column="order" property="order"/>
 		<result column="input_date" property="inputDate"/>
+		<result column="seller_pn" property="sellerPn"/>
 	</resultMap>
 
 	<select id="selectSellerProduct" parameterType="Integer" resultMap="jt-product-map">
@@ -417,7 +418,7 @@
 	
 	<select id="selectSellerProductOne" parameterType="Integer" resultMap="jt-product-map">
 		SELECT
-			i.pn AS image_pn, i.save_name, 
+			i.pn AS image_pn, i.save_name, seller_pn,
 			usp.pn, usp.name, usp.url, usp.price, usp.order, usp.input_date
 		FROM
 			user_seller_product usp,
@@ -469,6 +470,35 @@
 			pn = #{pn}
 		AND
 			seller_pn = #{sellerPn}
+	</update>
+	
+	<select id="selectProductTodayUploadCount" parameterType="Product" resultType="Integer">
+		SELECT 
+			today_count
+		FROM
+			seller_upload_count
+		WHERE 
+			seller_pn = #{sellerPn}
+		AND 
+			input_date = DATE_FORMAT(SYSDATE(), '%Y%m%d')
+	</select>
+	
+	<insert id="insertProductTodayUploadCount" parameterType="Product">
+		INSERT INTO
+			seller_upload_count(seller_pn, today_count, input_date)
+		VALUES
+			(#{sellerPn}, 1, SYSDATE())
+	</insert>
+	
+	<update id="updateProductTodayCount" parameterType="Product">
+		UPDATE
+			seller_upload_count
+		SET
+			today_count = today_count+1
+		WHERE
+			seller_pn = #{sellerPn}
+		AND 
+			input_date = DATE_FORMAT(SYSDATE(), '%Y%m%d')
 	</update>
 
 	<!-- LoveCount -->

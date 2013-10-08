@@ -526,7 +526,7 @@ jtown.home.naturalLanguage = function(){
 			if(item.category =='SHOP'){				
 				location.href = contextPath + 'mir/'+item.pn;
 			}else if(item.category =='CATEGORY'){
-				location.href = contextPath + 'cpn/'+item.categoryPn+'/spn/'+item.spn;
+				location.href = contextPath + 's/cpn/'+item.categoryPn+'/spn/'+item.spn;
 			}
 		},
 		focus : function(event, ui){
@@ -592,21 +592,18 @@ jQuery(document).ready(function(){
 			} else if (crudType == 'productHeartDelete') {
 				$small.removeClass('jt-heart-animation');
 				$big.removeClass('jt-heart-animation');
-			}
+			};
 		});
-		/*
-		$.ajax({
-	        url: contextPath+'ajax/productHeartClick.jt',
-	        type: 'POST',
-	        data:{productPn : productPn },
-	        success: function(data){
-	        	if(data == 'count'){
-	        		jtown.dialog($('.jt-common-a-base:eq(0)').text().replace('▼','')+'님이 이 상품을 좋아합니다.');
-	        	}
-	        }
-	    });
-	    */
 	};
+	 jtown.home.facebookLikeClick = function(productPn){
+		 $.postJSON(contextPath + 'ajax/facebookLikeClick.jt', { productPn : productPn }, function(count) {
+			if (!nullValueCheck(message)) {
+				message == '1' ? jtown.login.showLoginForm() : jtown.dialog('판매자는 불가능합니다');
+				return;
+			} 
+		});
+	 };
+	 
 	if($('#jt-login-smartPopup').text() ==''){
 		if(sessionStorage.getItem('productUrl') != null){
 			productWindow=window.open(sessionStorage.getItem('productUrl'), '_blank', 'width=1260,height=980');

@@ -209,7 +209,7 @@ text-shadow : 1px 2px 4px #e3e3e3,0 0 0 #000,1px 2px 4px #e3e3e3,0 1px 0 #fff; }
 .jt-about-ourstory-content{ float: left; width: 100%; }
 .jt-about-ourstory-content>li{ float: left; width: 100%; margin-top: 20px;}
 .jt-about-ourstory-content>li>div{ float: left; width: 171px; margin-right: 9px;}
-.jt-about-ourstory-content>li>div>img{ width: 171px; height: 159px;}
+.jt-about-ourstory-content>li>div>img{ width: 171px;}
 
 .jt-about-ourstory-content>li>ul{ float: left; width: 440px;}
 .jt-about-ourstory-content>li>ul>li{ float: left; width: 440px;}

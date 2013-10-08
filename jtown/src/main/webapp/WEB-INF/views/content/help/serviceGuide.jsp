@@ -12,10 +12,10 @@
 			<div>
 				<h2>Enjoy Your Shopping</h2>
 <pre>
-세계의 이슈는 다양화 되어가고 있으며 그에 따라 다양한 니즈를 해결하기 위한 쇼핑몰들이 많아지고 있습니다.
-이제 우리는 누구나 쉽게 자신에게 맞는 쇼핑몰을 쉽게 찾을 수 있어야 합니다. 
-나에게 딱 맞는 쇼핑몰이 어떤 이야기를 하고 있는지 알 수 있어야 합니다. 
-이제 온라인에서도 보다 즐겁게 당신을 위한 쇼핑을 즐겨보세요! 
+여자를 위한 다양한 상품과 이벤트를 하나로 모았다! 여자를 위한 잇 아이템 미러스에 오신것을 환영합니다.
+수많은 쇼핑몰들에서 진행되는 다양한 이벤트와 할인행사들 그리고 숨겨져 있던 아이템들을 이제 한번에 모아보세요, 
+선택된 120개의 쇼핑몰들이 당신을 위해 특별한 순간을 제공합니다 
+
 </pre>
 			</div>
 		</div>
@@ -30,9 +30,9 @@
 					</li>
 					<li>
 <pre>
-기존의 인터넷 쇼핑페이지에 너무 많은 이야기를 알림으로써
-사용자의 손쉬운 쇼핑몰 서핑을 힘들게 하였습니다.
-미러스에서 다양한 쇼핑몰을 한눈에 살펴보세요! 
+"세상에서 가장 빠르게, 여성을 위한 쇼핑공간"  
+검색을 통해 다양한 쇼핑몰들을 오고가며 서핑할 필요가 없습니다. 
+미러스에서는 당신은 최소한의 행동으로 최대한의 서핑을 즐길 수 있습니다.
 </pre>
 					</li>
 				</ul>
@@ -47,9 +47,8 @@
 					</li>
 					<li>
 <pre>
-높은 광고비를 통해 노출되는 대형 쇼핑몰이 아닌, 당신에게  필요한 정보를
-우선적으로 살펴보세요! 다양한 쇼핑페이지에서 제공되는 할인정보와 이벤트 등을
-가장 빠르게 체험할 수 있습니다!
+미러스에서는 기존에 보기 힘들었던 숨어있던 패션 아이템과 할인혜택을 즐길 수 있습니다.
+마음에 드는 아이템을 발견했다면? 좋아요를 누르고 페이스북 친구들과 정보를 공유해보세요!
 </pre>
 					</li>
 				</ul>
@@ -84,94 +83,36 @@
 		<ul class="jt-about-ourstory-content">
 			<li>
 				<div>
-					<img alt="Kim Sung Geun / Technology director" src="${cp }/resources/images/about/jt-ourstory-btn-02.jpg">
+					<img alt="In Sang Hak" src="${cp }/resources/images/about/jt-about-us-01.jpg">
 				</div>
 				<ul>
 					<li>
-						<h2>Kim Sung Geun / Technology director </h2>
+						<h2>In Sang Hak</h2>
 					</li>
 					<li>
 <pre>
-Mirros 개발책임 김성근은 웹페이지제작과 데이터 관리에 있어 남다른 영감을
-갖고 있습니다. 10대시절 부터 다수의 올림피아드상을 받았으며 그가 일했던 
-곳에서 인트라넷 구축과 관리를 지휘하기도 하였습니다.문제의 본질을 파악하고 
-해결하는 데에 있어서 보통의 개발자와는 다른 ‘특별함’을 갖고 있습니다.
+Producer comment 
+"미러스는 여자를 위해 조금 더 편한 쇼핑공간을 만들어보자는 생각에서 출발하였습니다. 가장 적은 동선으로 누구나 쉽게 다양한 패션 아이템들을 살펴보고 각종 혜택까지 모아볼 수 있는 쇼핑몰들의 뉴스피드를 만들어보고 싶었습니다. 이 곳에서 당신이 조금 더 편했으면 좋겠습니다"
 </pre>
 					</li>
 				</ul>
 			</li>
 			<li>
 				<div>
-					<img alt="Lee Jin Seob / Operating director" src="${cp }/resources/images/about/jt-ourstory-btn-03.jpg">
+					<img alt="Song Mi Kyung & Gil So Young" src="${cp }/resources/images/about/jt-about-us-02.jpg">
 				</div>
 				<ul>
 					<li>
-						<h2>Lee Jin Seob / Operating director </h2>
+						<h2>Song Mi Kyung & Gil So Young </h2>
 					</li>
 					<li>
 <pre>
-Mirros 재무와 운영을 관리하고 있는 이진섭은 오래전부터 NPO단체에서 경험을 
-쌓아온  20대입니다.실용성과 현실성을 염두해 둔 그의 사회공헌 프로젝트들은 
-크고 작은 주목을 받아왔습니다. 지금까지 쌓아온 조직의 운영과 제휴 경험을 
-Mirros의 탄탄한 운영을 위해 활용할 예정입니다.  
+Editor comment 
+미러스의 콘텐츠 구성을 맡고 있는 송미경씨와 길소영씨는 오랫동안 웹 매거진 분야에서 경력을 쌓아왔습니다. 그녀들이 미러스에 채워갈 다양한 이야기들을 기대해주세요
 </pre>
 					</li>
 				</ul>
 			</li>
-<%--			<li>
-				<div>
-					<img alt="Kwon Tae Ho / Producer" src="${cp }/resources/images/about/jt-ourstory-btn-01.jpg">
-				</div>
-				<ul>
-					<li>
-						<h2>Kwon Tae Ho / Producer</h2>
-					</li>
-					<li>
-<pre>
-미러스 기획자 권태호는 재능교환 App 피플게이트의 기획자이기도 합니다.
-대학교 시절 정치, 경제 등을 공부하며 우리나라의 일반 사업자들을 위해
-손쉬운 인터넷 비즈니스 공간의 필요성을 느꼈으며 미러스를 기획하게 됩니다.
-그가 상상하는 미러스의 미래는 누구나 쉽게 참가할 수 있는 전자상거래 공간입니다.
-</pre>
-					</li>
-				</ul>
-			</li>
-			<li>
-				<div>
-					<img alt="Jeong Ha Young / Technology director" src="${cp }/resources/images/about/jt-ourstory-btn-02.jpg?0822">
-				</div>
-				<ul>
-					<li>
-						<h2>Jeong Ha Young / Technology director </h2>
-					</li>
-					<li>
-<pre>
-미러스의 개발책임을 맡고 있는 정하영씨는 여러분들을 위해
-더욱 기분좋고 빠른 서비스를 위해 항상 노력합니다.
-조금 더 여러분들의 상품이 쉽게 알려질 수 있도록, 조금 더 여러분들의 프로모션이
-효과적으로 표현될 수 있도록 최선을 다하고자 합니다.
-</pre>
-					</li>
-				</ul>
-			</li>
-			<li>
-				<div>
-					<img alt="Song Mi Kyung / Operating director" src="${cp }/resources/images/about/jt-ourstory-btn-03.jpg?0822">
-				</div>
-				<ul>
-					<li>
-						<h2>Song Mi Kyung / Operating director </h2>
-					</li>
-					<li>
-<pre>
-패션과 효과적인 인터넷 마케팅에 관심이 많은 미경씨는 미러스의 상품들이
-조금 더 '예쁘게' '가치있게' 구성될 수 있도록 노력합니다.
-미러스는 여자를 위합니다. 그래서 미경씨는 여러분들의 기분 좋은 쇼핑을 위해
-조금 더 배려하고자 합니다.
-</pre>
-					</li>
-				</ul>
-			</li> --%>
 		</ul>
 	</section>
 	<img alt="bar" src="${cp }/resources/images/about/jt-about-bar.jpg" class="jt-about-bar">

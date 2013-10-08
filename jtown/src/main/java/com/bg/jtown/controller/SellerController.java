@@ -230,12 +230,17 @@ public class SellerController {
 
 	@PreAuthorize("hasRole('ROLE_SELLER')")
 	@RequestMapping(value = "/ajax/seller/insertProduct.jt", method = RequestMethod.POST)
+	@Transactional
 	@ResponseBody
 	public Product ajaxChangeNotice(@RequestBody Product product, SummaryUser summaryUser) {
 		Authority authority = summaryUser.getEnumAuthority();
 		if (authority.equals(Authority.SELLER)) {
 			product.setSellerPn(summaryUser.getPn());
-			sellerService.insertSellerProduct(product);
+			Integer todayCount = sellerService.insertProductTodayUpload(product);
+			if (todayCount == null || todayCount < 13) {
+				sellerService.insertSellerProduct(product);
+			}
+			product.setTodayCount(todayCount);
 			return product;
 		} else {
 			logger.info("[" + summaryUser.getAuthority() + "] " + summaryUser.getName());
@@ -316,7 +321,7 @@ public class SellerController {
 			return null;
 		}
 	}
-	
+
 	@PreAuthorize("hasRole('ROLE_SELLER')")
 	@RequestMapping(value = "/ajax/seller/updateDdayEvent.jt", method = RequestMethod.POST)
 	@ResponseBody
@@ -330,12 +335,12 @@ public class SellerController {
 			return null;
 		}
 	}
-	
+
 	@PreAuthorize("hasRole('ROLE_SELLER')")
 	@RequestMapping(value = "/ajax/seller/deleteDdayEvent.jt", method = RequestMethod.POST)
 	@ResponseBody
 	@Transactional
-	public void ajaxDeleteEventBanner(Event event, SummaryUser summaryUser){
+	public void ajaxDeleteEventBanner(Event event, SummaryUser summaryUser) {
 		Authority authority = summaryUser.getEnumAuthority();
 		if (authority.equals(Authority.SELLER)) {
 			sellerService.deleteSellerDDayEvent(event);

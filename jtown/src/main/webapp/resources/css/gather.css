@@ -11,7 +11,7 @@
 .jt-pg-product-line-bright{position:absolute; height:100%;width:100%;background-color: rgba(255,255,255,0.05);top: 0px;display: none;}
 .jt-pg-product-line-hot{position: absolute; width:70px; height: 50px; right: 0%;top:10%;}
 .jt-pg-product-line-hot img{width: 70px; height: 16.8px;}
-.jt-pg-event-line {height: 288px;line-height: 150%;border: 1px solid #eee; border-radius:5px; background-color: #fff;}
+.jt-pg-event-line {height: 286px;line-height: 150%;border: 1px solid #eee; border-radius:5px; background-color: #fff;}
 .jt-pg-product-name {
 	font-size: 13px;
 	margin-top: -2px;
@@ -35,6 +35,7 @@
 .jt-pg-event-line-event-name {padding-top: 15px;float: left;color: #6e6e6e;width: 165px;font-size: 15px;padding-left: 5px;font-weight: bold;}
 .jt-pg-event-line-shop-name {color: #bbb;padding-left: 25px;font-size: 15px;font-family: NanumGothic;}
 .jt-pg-event-line-end-date {color: #6e6e6e;padding-left: 25px;font-family: NanumGothic;font-weight: bold;font-size: 16px;}
-.jt-pg-heart-shape{float: left; margin-top: 6px;margin-left: 5px; }
+.jt-pg-heart-shape{float: left; margin-top: 6px;margin-left: 8px; }
 .jt-pg-heart-count{float:left; margin-top:12px;margin-left: 5px;color: #777}
 .jt-pg-heart-wrap{position: absolute;bottom:0;  right:0; font-size: 13px;z-index: 3; font-weight: bold; width:66px;height:44px;  text-align: left;}
+.jt-pg-product-facebook{position: absolute;bottom: 40px; right: 2px; font-size: 13px;z-index: 20; display: none;}

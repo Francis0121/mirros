@@ -356,7 +356,7 @@ public class SellerServiceImpl extends SqlSessionDaoSupport implements SellerSer
 	public void insertSellerProduct(Product product) {
 		Integer sellerPn = product.getSellerPn();
 		Integer count = selectSellerProductCount(sellerPn);
-		if (count >= 30) {
+		if (count >= 10) {
 			product.setCount(count);
 			return;
 		}
@@ -372,6 +372,37 @@ public class SellerServiceImpl extends SqlSessionDaoSupport implements SellerSer
 	@Override
 	public void updateProduct(Product product) {
 		getSqlSession().update("sellerMapper.updateSellerProduct", product);
+	}
+
+	@Override
+	public void insertProductTodayUploadCount(Product product) {
+		getSqlSession().insert("sellerMapper.insertProductTodayUploadCount", product);
+	}
+
+	@Override
+	public void updateProductTodayCount(Product product) {
+		getSqlSession().update("sellerMapper.updateProductTodayCount", product);
+	}
+
+	@Override
+	public Integer selectProductTodayUploadCount(Product product) {
+		return getSqlSession().selectOne("sellerMapper.selectProductTodayUploadCount", product);
+	}
+
+	@Override
+	public Integer insertProductTodayUpload(Product product) {
+		Integer todayCount = selectProductTodayUploadCount(product);
+		if(todayCount == null || todayCount < 13){
+			product.setTodayCount(todayCount);
+			if(todayCount == null){
+				insertProductTodayUploadCount(product);
+				todayCount = 1;
+			}else{
+				updateProductTodayCount(product);
+				todayCount++;
+			}
+		}
+		return todayCount;
 	}
 
 	// ~ LoveCount

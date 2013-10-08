@@ -23,8 +23,7 @@
 					</div>
 				</c:if> 
 				<c:if test="${list.productPn != 0 }">
-					<div class="jt-pg-product-line-bright">
-					</div>
+					
 					<div class="jt-pg-product-line">
 						<div class="jt-pg-product-img">
 							<c:if test="${empty list.contentType}">
@@ -33,6 +32,11 @@
 							<c:if test="${!empty list.contentType}">
 								<img src="${cp}/photo/thumbnail/${list.saveName }product.${list.contentType}" alt="${list.productName }" />
 							</c:if>
+						</div>
+						<div class="jt-pg-product-line-bright"></div>
+						<div class="jt-btn-fbLogin jt-pg-product-facebook">
+							<span class="loginImage"></span>
+							<span class="loginText">페이스북 공유하기</span>
 						</div>
 						<div class="jt-pg-product-name" >
 							<div>${list.productName }</div>
@@ -60,7 +64,10 @@
 							<img src="${cp}/photo/thumbnail/${list.saveName }product.${list.contentType}" alt="${list.productName }" />
 						</c:if>
 					</div>
-					<div class="jt-pg-product-line-bright">
+					<div class="jt-pg-product-line-bright"></div>
+					<div class="jt-btn-fbLogin jt-pg-product-facebook">
+						<span class="loginImage"></span>
+						<span class="loginText">페이스북 공유하기</span>
 					</div>
 					<div class="jt-pg-product-name">
 						<div>${list.productName }</div>

@@ -94,6 +94,14 @@ public interface SellerService {
 	void insertSellerProduct(Product product);
 
 	void updateProduct(Product product);
+	
+	void insertProductTodayUploadCount(Product product);
+	
+	void updateProductTodayCount(Product product);
+	
+	Integer selectProductTodayUploadCount(Product product);
+	
+	Integer insertProductTodayUpload(Product product);
 
 	// ~ LoveCount
 

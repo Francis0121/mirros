@@ -235,8 +235,26 @@ public class GatherController {
 		case ADMIN:
 		case ROOT_ADMIN:
 			gatherService.insertProductHeartCount(count);
+			break;
+		case NOT_LOGIN:
+			count.setMessage("1");
+			break;
+		default:
+			count.setMessage("2");
+		}
+		return count;
+	}
+	
+	@RequestMapping(value = "/ajax/facebookLikeClick.jt", method = RequestMethod.POST)
+	@ResponseBody
+	public Count ajaxFacebookLikeClick(@RequestBody Count count, SummaryUser summaryUser) {
+		switch (summaryUser.getEnumAuthority()) {
+		case CUSTOMER:
+			count.setCustomerPn(summaryUser.getPn());
+		case ADMIN:
+		case ROOT_ADMIN:
 			try {
-				if (count.getCrudType().equals("productHeartInsert") && (summaryUser.getFacebookFeed() != null && summaryUser.getFacebookFeed().equals(true))) {
+				if ((summaryUser.getFacebookFeed() != null && summaryUser.getFacebookFeed().equals(true))) {
 					Product productInfo = sellerService.selectSellerProductOne(count.getProductPn());
 					String url = "https://www.mirros.net/mir/" + productInfo.getSellerPn();
 					String name = productInfo.getName();
