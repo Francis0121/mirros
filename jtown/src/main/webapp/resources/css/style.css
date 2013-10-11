@@ -54,12 +54,12 @@
 .jt-header-nav-mode-shop-inactive{cursor:pointer; width: 42px; height: 30px; background: url("../images/jt-nav-inactive2.png") no-repeat; text-indent: -9999999px; display: block;background-position: -73px 0px; background-size: 115px;}
 .jt-header-nav-mode-shop-inactive:HOVER{cursor:pointer; width: 42px; height: 30px; background: url("../images/jt-nav-hover2.png") no-repeat; text-indent: -9999999px; display: block;background-position: -73px 0px; background-size: 115px;}
 .jt-header-nav-mode-shop-active{cursor:pointer; width: 42px; height: 30px; background: url("../images/jt-nav-active2.png") no-repeat; text-indent: -9999999px; display: block;background-position: -73px 0px; background-size: 115px;}
-.jt-header-nav-mode-gather-inactive{cursor:pointer; width: 30px; height: 30px; background: url("../images/jt-nav-inactive2.png") no-repeat; text-indent: -9999999px; display: block;background-position: -43px 0px; background-size: 115px;}
-.jt-header-nav-mode-gather-inactive:HOVER{cursor:pointer; width: 30px; height: 30px; background: url("../images/jt-nav-hover2.png") no-repeat; text-indent: -9999999px; display: block;background-position: -43px 0px; background-size: 115px;}
-.jt-header-nav-mode-gather-active{cursor:pointer; width: 30px; height: 30px; background: url("../images/jt-nav-active2.png") no-repeat; text-indent: -9999999px; display: block;background-position: -43px 0px;  background-size: 115px;}
-.jt-header-nav-mode-new-inactive{cursor:pointer; width: 43px; height: 30px; background: url("../images/jt-nav-inactive2.png") no-repeat; text-indent: -9999999px; display: block;background-position: 0px 0px; background-size: 115px;}
-.jt-header-nav-mode-new-inactive:HOVER{cursor:pointer; width: 43px; height: 30px; background: url("../images/jt-nav-hover2.png") no-repeat; text-indent: -9999999px; display: block;background-position: 0px 0px; background-size: 115px;}
-.jt-header-nav-mode-new-active{cursor:pointer; width: 43px; height: 30px; background: url("../images/jt-nav-active2.png") no-repeat; text-indent: -9999999px; display: block;background-position: 0px 0px; background-size: 115px;}
+.jt-header-nav-mode-gather-inactive{cursor:pointer; width: 43px; height: 30px; background: url("../images/jt-nav-inactive2.png") no-repeat; text-indent: -9999999px; display: block;background-position: 0px 0px; background-size: 115px;}
+.jt-header-nav-mode-gather-inactive:HOVER{cursor:pointer; width: 43px; height: 30px; background: url("../images/jt-nav-hover2.png") no-repeat; text-indent: -9999999px; display: block;background-position: 0px 0px; background-size: 115px;}
+.jt-header-nav-mode-gather-active{cursor:pointer; width: 43px; height: 30px; background: url("../images/jt-nav-active2.png") no-repeat; text-indent: -9999999px; display: block;background-position: 0px 0px;  background-size: 115px;}
+.jt-header-nav-mode-new-inactive{cursor:pointer; width: 30px; height: 30px; background: url("../images/jt-nav-inactive2.png") no-repeat; text-indent: -9999999px; display: block;background-position: -43px 0px; background-size: 115px;}
+.jt-header-nav-mode-new-inactive:HOVER{cursor:pointer; width: 30px; height: 30px; background: url("../images/jt-nav-hover2.png") no-repeat; text-indent: -9999999px; display: block;background-position: -43px 0px; background-size: 115px;}
+.jt-header-nav-mode-new-active{cursor:pointer; width: 30px; height: 30px; background: url("../images/jt-nav-active2.png") no-repeat; text-indent: -9999999px; display: block;background-position: -43px 0px; background-size: 115px;}
 .jt-header-main-title{font-family: Georgia, serif; color: #000; font-size: 18px; text-align:center; width: 100%; background-image: url("../images/bg.jpg");padding-bottom:  30px; }
 .jt-header-nav-interestCategory{
 	position:absolute;

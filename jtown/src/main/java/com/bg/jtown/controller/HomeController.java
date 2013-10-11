@@ -38,7 +38,7 @@ import com.bg.jtown.util.CookieUtil;
 
 /**
  * @author Francis, 박광열
- * 
+ * @author In Sanghak
  */
 @Controller
 public class HomeController {

@@ -16,6 +16,7 @@ import com.bg.jtown.business.Event;
 import com.bg.jtown.business.Interest;
 import com.bg.jtown.business.Json;
 import com.bg.jtown.business.Product;
+import com.bg.jtown.business.Statistic;
 import com.bg.jtown.business.admin.AdminService;
 import com.bg.jtown.business.comment.CommentService;
 import com.bg.jtown.business.search.CommentFilter;
@@ -392,12 +393,12 @@ public class SellerServiceImpl extends SqlSessionDaoSupport implements SellerSer
 	@Override
 	public Integer insertProductTodayUpload(Product product) {
 		Integer todayCount = selectProductTodayUploadCount(product);
-		if(todayCount == null || todayCount < 13){
+		if (todayCount == null || todayCount < 13) {
 			product.setTodayCount(todayCount);
-			if(todayCount == null){
+			if (todayCount == null) {
 				insertProductTodayUploadCount(product);
 				todayCount = 1;
-			}else{
+			} else {
 				updateProductTodayCount(product);
 				todayCount++;
 			}
@@ -446,5 +447,20 @@ public class SellerServiceImpl extends SqlSessionDaoSupport implements SellerSer
 	public void deleteSellerBanner(Event event) {
 		getSqlSession().delete("sellerMapper.deleteSellerBanner", event);
 	}
+
+	// Statistic
+	
+	@Override
+	public Integer selectProductClickStatisticCount(Statistic statistic) {
+		return getSqlSession().selectOne("sellerMapper.selectProductClickStatisticCount", statistic);
+	}
+
+	@Override
+	public List<Statistic> selectProductClickStatisticTopNPercentList(Statistic statistic) {
+		statistic.setPercentCount(selectProductClickStatisticCount(statistic));
+		return getSqlSession().selectList("sellerMapper.selectProductClickStatisticTopNPercentList", statistic);
+	}
+
+
 
 }

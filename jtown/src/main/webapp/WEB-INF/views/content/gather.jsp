@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../layout/home_header.jspf" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <div class="jt-pg-container">
 <div class="jt-pg-main js-masonry">
 	<c:forEach items="${productGatherList }" var="list">
@@ -20,10 +21,19 @@
 						<div class="jt-pg-event-line-end-date">
 							D - ${list.endDate }일 남았습니다.
 						</div>
+						<div class="jt-pg-heart-wrap">
+							<div class="jt-pg-heart-shape">
+								<span class="jt-home-shop-love jt-pg-heart-shape ${heartClickShapeClass }" id="jt-pg-heart-click-e-${list.eventPn}">heart</span>
+							</div>
+							<div class="jt-pg-heart-event-count ${heartClickTextClass}" id="jt-pg-heart-count-e-${list.eventPn }">${list.heartCount }</div>
+						</div>
+						<div class="jt-btn-fbLogin jt-pg-product-facebook">
+							<span class="loginImage"></span>
+							<span class="loginText">페이스북 공유하기</span>
+						</div>
 					</div>
 				</c:if> 
 				<c:if test="${list.productPn != 0 }">
-					
 					<div class="jt-pg-product-line">
 						<div class="jt-pg-product-img">
 							<c:if test="${empty list.contentType}">
@@ -40,7 +50,7 @@
 						</div>
 						<div class="jt-pg-product-name" >
 							<div>${list.productName }</div>
-							<div>${list.price }</div>
+							<div><fmt:formatNumber value="${list.price }" /></div>
 						</div>
 						<div class="jt-pg-heart-wrap">
 							<div class="jt-pg-heart-shape">
@@ -71,7 +81,7 @@
 					</div>
 					<div class="jt-pg-product-name">
 						<div>${list.productName }</div>
-						<div>${list.price }</div>
+						<div><fmt:formatNumber value="${list.price }" /></div>
 					</div>
 					<div class="jt-pg-heart-wrap">
 						<div class="jt-pg-heart-shape">	

@@ -72,13 +72,13 @@
 .jt-home-notice{border-top: 1px solid #abaaac}
 .jt-pg-item {float: left;}
 
-.jt-header-nav-mode-shop-inactive{width: 34px;height:28px;background-position: -71px 0px;border-right:1px solid #ccc; }
-.jt-header-nav-mode-shop-inactive:HOVER{width: 34px;height:28px;background-position: -71px 0px;border-right:1px solid #ccc;}
-.jt-header-nav-mode-shop-active{width: 34px;height:28px;background-position: -71px 0px;border-right:1px solid #ccc;}
-.jt-header-nav-mode-gather-inactive{width: 30px;height:28px;background-position: -43px 0px;}
-.jt-header-nav-mode-gather-inactive:HOVER{width: 30px;height:28px;background-position: -43px 0px;}
-.jt-header-nav-mode-gather-active{width: 30px;height:28px;background-position: -43px 0px;}
-.jt-header-nav-mode-new-inactive{width: 34px;height:28px;background-position: -10px 0px;border-left:1px solid #ccc;}
-.jt-header-nav-mode-new-inactive:HOVER{width: 34px;height:28px;background-position: -10px 0px;border-left:1px solid #ccc;}
-.jt-header-nav-mode-new-active{width: 34px;height:28px;background-position: -10px 0px;border-left:1px solid #ccc;}
+.jt-header-nav-mode-shop-inactive{cursor:pointer; width: 33px; height: 30px;background-position: -73px 0px; background-size: 115px;border-right: 1px solid #ccc;}
+.jt-header-nav-mode-shop-inactive:HOVER{cursor:pointer; width: 33px; height: 30px;background-position: -73px 0px; background-size: 115px;border-right: 1px solid #ccc;}
+.jt-header-nav-mode-shop-active{cursor:pointer; width: 33px; height: 30px;background-position: -73px 0px; background-size: 115px;border-right: 1px solid #ccc;}
+.jt-header-nav-mode-gather-inactive{cursor:pointer; width: 33px; height: 30px;background-position: -10px 0px; background-size: 115px;border-left: 1px solid #ccc;}
+.jt-header-nav-mode-gather-inactive:HOVER{cursor:pointer; width: 33px; height: 30px;background-position: -10px 0px; background-size: 115px;border-left: 1px solid #ccc;}
+.jt-header-nav-mode-gather-active{cursor:pointer; width: 33px; height: 30px;background-position: -10px 0px;  background-size: 115px;border-left: 1px solid #ccc;}
+.jt-header-nav-mode-new-inactive{cursor:pointer; width: 30px; height: 30px;background-position: -43px 0px; background-size: 115px;}
+.jt-header-nav-mode-new-inactive:HOVER{cursor:pointer; width: 30px; height: 30px;background-position: -43px 0px; background-size: 115px;}
+.jt-header-nav-mode-new-active{cursor:pointer; width: 30px; height: 30px;background-position: -43px 0px; background-size: 115px;}
 .jt-home-shop-event-dday{background-color: #666;}

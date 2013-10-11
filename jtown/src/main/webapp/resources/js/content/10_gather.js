@@ -88,6 +88,16 @@ var productGatherHtml = function(data){
 				html+=		'<div class="jt-pg-event-line-end-date">';
 				html+=			'D - '+data.mergeItems[idx].endDate+'일 남았습니다.';
 				html+=		'</div>';
+				html+=		'<div class="jt-pg-heart-wrap">';
+				html+=			'<div class="jt-pg-heart-shape">';
+				html+=				'<span class="jt-home-shop-love jt-pg-heart-shape '+heartClickShapeClass+'" id="jt-pg-heart-click-e-'+data.mergeItems[idx].eventPn+'">heart</span>';
+				html+=			'</div>';
+				html+=			'<div class="jt-pg-heart-event-count '+heartClickTextClass+'" id="jt-pg-heart-count-e-'+data.mergeItems[idx].eventPn+'">	'+data.mergeItems[idx].heartCount+'</div>';
+				html+=		'</div>';
+				html+=		'<div class="jt-btn-fbLogin jt-pg-product-facebook">';
+				html+=			'<span class="loginImage"></span>';
+				html+=		'<span class="loginText">페이스북 공유하기</span>';
+				html+=		'</div>';
 				html+='</div>';
 			}else if(data.mergeItems[idx].productPn != 0){
 				html+=		'<div class="jt-pg-product-line">';
@@ -105,7 +115,7 @@ var productGatherHtml = function(data){
 				html+=			'</div>';
 				html+=			'<div class="jt-pg-product-name">';
 				html+=				'<div>'+data.mergeItems[idx].productName+'</div>';
-				html+=				'<div>'+data.mergeItems[idx].price+'</div>';
+				html+=				'<div>'+jtown.pg.formatNumber(data.mergeItems[idx].price)+'</div>';
 				html+=			'</div>';
 				html+=			'<div class="jt-pg-heart-wrap">';
 				html+=				'<div class="jt-pg-heart-shape">';	
@@ -134,7 +144,7 @@ var productGatherHtml = function(data){
 			html+=			'</div>';
 			html+=			'<div class="jt-pg-product-name">';
 			html+=				'<div>'+data.mergeItems[idx].productName+'</div>';
-			html+=				'<div>'+data.mergeItems[idx].price+'</div>';
+			html+=				'<div>'+jtown.pg.formatNumber(data.mergeItems[idx].price)+'</div>';
 			html+=			'</div>';
 			html+=			'<div class="jt-pg-heart-wrap">';
 			html+=				'<div class="jt-pg-heart-shape">';	
@@ -150,32 +160,23 @@ var productGatherHtml = function(data){
 	if (getInternetExplorerVersion() != 7 ){
 		jtown.pg.itemOrder();
 	}
-	
 };
 
 $('.jt-pg-container').on('click', '.jt-pg-heart-wrap', function(e){
-	var productPn =$(this).parents('.jt-pg-item').attr('data-product-pn');
 	e.stopPropagation();
-	if($('#jt-login-smartPopup').text() ==''){
-		jtown.home.productHeartClick(productPn);
-		if($(this).find('.jt-home-shop-love-click').text() == ''){
-			$fbBtn = $(this).parents('.jt-pg-product-line').find('.jt-pg-product-facebook');
-			$fbBtn.fadeIn(500).delay(2000).fadeOut(500);
-		}
-	}else{
-		jtown.login.showLoginForm();
-		sessionStorage.setItem('productPn', productPn);
-		sessionStorage.setItem('productHeart', 'productHeart');
-	}
+	var productPn =$(this).parents('.jt-pg-item').attr('data-product-pn');
+	var eventPn =$(this).parents('.jt-pg-item').attr('data-event-pn');
+	var isHeartChecked = $(this).find('.jt-home-shop-love-click').text() =='';
+	var fbElement = $(this).parents('.jt-pg-item').find('.jt-pg-product-facebook');
+	productPn == 0 ? jtown.home.eventHeartClick(eventPn, isHeartChecked,fbElement) : jtown.home.productHeartClick(productPn, isHeartChecked,fbElement) ;
 });
 
 $('.jt-pg-container').on('click', '.jt-pg-product-facebook', function(e){
-	var productPn =$(this).parents('.jt-pg-item').attr('data-product-pn');
-	$(this).parents('.jt-pg-item').find('.loginText').text('공유 됐어요♥');
 	e.stopPropagation();
-	if($('#jt-login-smartPopup').text() ==''){
-		jtown.home.facebookLikeClick(productPn);
-	}
+	var productPn =$(this).parents('.jt-pg-item').attr('data-product-pn');
+	var eventPn =$(this).parents('.jt-pg-item').attr('data-event-pn');
+	var fbTextElement = $(this).parents('.jt-pg-item').find('.loginText'); 
+	productPn == 0 ? jtown.home.eventFacebookLikeClick(eventPn, fbTextElement) : jtown.home.productFacebookLikeClick(productPn, fbTextElement);
 });
 
 $('.jt-pg-container').on('click', '.jt-pg-item', function(){
@@ -201,6 +202,16 @@ $('.jt-pg-container').on('click', '.jt-pg-item', function(){
 		jtown.login.showLoginForm();
 	};
 });
+
+jtown.pg.formatNumber = function(cr){
+	var str = new Array();
+	cr = String(cr);
+	for(var i=1;i<=cr.length;i++){
+		if(i%3){str[cr.length-i]=cr.charAt(cr.length-i);}
+		else{str[cr.length-i]=','+cr.charAt(cr.length-i);}
+	}
+	return str.join('').replace(/^,/,'');
+};
 
 $('.jt-pg-container').on('mouseenter', '.jt-pg-item', function(){
 	$(this).find('.jt-pg-product-line-bright').css('display','block');

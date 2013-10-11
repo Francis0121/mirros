@@ -578,14 +578,18 @@ jQuery(document).ready(function(){
 	        success: function(data){}
 	    });
 	};
-	jtown.home.productHeartClick = function(productPn){
+	jtown.home.productHeartClick = function(productPn, isHeartChecked,fbElement){
 		 $.postJSON(contextPath + 'ajax/productHeartClick.jt', { productPn : productPn }, function(count) {
 			var productPn = count.productPn, crudType = count.crudType, message = count.message,
 				$small = $('#jt-heart-click-'+productPn), $big = $('#jt-heart-expand-click-'+productPn);
 			if (!nullValueCheck(message)) {
 				message == '1' ? jtown.login.showLoginForm() : jtown.dialog('판매자는 불가능합니다');
 				return;
-			} 
+			}
+			else if(nullValueCheck(message) && isHeartChecked){
+				$fbBtn = fbElement;
+				$fbBtn.fadeIn(500).delay(2000).fadeOut(500);
+			}
 			if (crudType == 'productHeartInsert') {
 				$small.addClass('jt-heart-animation');
 				$big.addClass('jt-heart-animation');
@@ -595,11 +599,45 @@ jQuery(document).ready(function(){
 			};
 		});
 	};
-	 jtown.home.facebookLikeClick = function(productPn){
-		 $.postJSON(contextPath + 'ajax/facebookLikeClick.jt', { productPn : productPn }, function(count) {
+	jtown.home.eventHeartClick = function(eventPn, isHeartChecked,fbElement){
+		 $.postJSON(contextPath + 'ajax/eventHeartClick.jt', { eventPn : eventPn }, function(count) {
+			var eventPn = count.eventPn, crudType = count.crudType, message = count.message,
+				$small = $('#jt-heart-click-'+eventPn), $big = $('#jt-heart-expand-click-'+eventPn);
 			if (!nullValueCheck(message)) {
 				message == '1' ? jtown.login.showLoginForm() : jtown.dialog('판매자는 불가능합니다');
 				return;
+			}else if(nullValueCheck(message) && isHeartChecked){
+				$fbBtn = fbElement;
+				$fbBtn.fadeIn(500).delay(2000).fadeOut(500);
+			}
+			if (crudType == 'eventHeartInsert') {
+				$small.addClass('jt-heart-animation');
+				$big.addClass('jt-heart-animation');
+			} else if (crudType == 'eventHeartDelete') {
+				$small.removeClass('jt-heart-animation');
+				$big.removeClass('jt-heart-animation');
+			};
+		});
+	};
+	
+	 jtown.home.productFacebookLikeClick = function(productPn, fbTextElement){
+		 $.postJSON(contextPath + 'ajax/productFacebookLikeClick.jt', { productPn : productPn }, function(count) {
+			if (!nullValueCheck(count.message)) {
+				message == '1' ? jtown.login.showLoginForm() : jtown.dialog('판매자는 불가능합니다');
+				return;
+			}else if(nullValueCheck(count.message)){
+				fbTextElement.text('공유 됐어요♥');
+			} 
+		});
+	 };
+	 
+	 jtown.home.eventFacebookLikeClick = function(eventPn, fbTextElement){
+		 $.postJSON(contextPath + 'ajax/eventFacebookLikeClick.jt', { eventPn : eventPn }, function(count) {
+			if (!nullValueCheck(count.message)) {
+				message == '1' ? jtown.login.showLoginForm() : jtown.dialog('판매자는 불가능합니다');
+				return;
+			}else if(nullValueCheck(count.message)){
+				fbTextElement.text('공유 됐어요♥');
 			} 
 		});
 	 };
@@ -619,12 +657,7 @@ jQuery(document).ready(function(){
 			jtown.home.eventStatisticClick(sessionStorage.getItem('eventPn'));
 			sessionStorage.removeItem('eventUrl');
 			sessionStorage.removeItem('eventPn');
-		}else if(sessionStorage.getItem('productHeart') != null){
-			jtown.home.productHeartClick(sessionStorage.getItem('productPn'));
-			sessionStorage.removeItem('productPn');
-			sessionStorage.removeItem('productHeart');
 		}
-		
 	}
 	if($('.jt-header-warning-confirmEmail').text() !=''){
 		$('.jt-header-nav-interestCategory').css('top','62px');

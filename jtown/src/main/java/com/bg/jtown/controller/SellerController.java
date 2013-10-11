@@ -1,5 +1,6 @@
 package com.bg.jtown.controller;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -25,6 +26,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bg.jtown.business.Interest;
 import com.bg.jtown.business.Product;
+import com.bg.jtown.business.Statistic;
 import com.bg.jtown.security.Authority;
 import com.bg.jtown.security.JtownUser;
 import com.bg.jtown.security.SummaryUser;
@@ -39,6 +41,7 @@ import com.google.gson.JsonArray;
  * @author Francis
  * 
  */
+@PreAuthorize("hasRole('ROLE_SELLER')")
 @Controller
 public class SellerController {
 
@@ -124,6 +127,27 @@ public class SellerController {
 		model.addAttribute("product", product);
 		return prefixView + "seller_photo";
 	}
+	
+	@RequestMapping(value="/statistic/{sellerPn}", method=RequestMethod.GET)
+	public String sellerStatistic(@ModelAttribute ProductFilter productFilter, Model model, SummaryUser summaryUser){
+		Integer sellerPn = productFilter.getSellerPn();
+		if (sellerPn == null) {
+			return prefixView + "error/404";
+		}
+		if (summaryUser.getEnumAuthority().equals(Authority.SELLER)) {
+			if (!summaryUser.getPn().equals(sellerPn)) {
+				logger.warn("Deny Seller page No Permission [ Access = " + summaryUser.getPn() + ", IP = " + summaryUser.getRemoteIp() + " ] ");
+				return "redirect:../noPermission";
+			}
+			Statistic statistic = new Statistic();
+			Calendar cal = Calendar.getInstance();
+			statistic.setStatisticDate(cal.get(Calendar.YEAR)+"-"+(cal.get(Calendar.MONTH)+1)+"-01");
+			System.out.println("statisticDate :"+ statistic.getStatisticDate());
+			model.addAttribute("percentStatisticList",sellerService.selectProductClickStatisticTopNPercentList(statistic));
+		}
+		return prefixView+"statistic";
+	}
+	
 
 	// ~ Form
 

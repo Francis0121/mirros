@@ -6,13 +6,14 @@ import java.util.Map;
 import com.bg.jtown.business.Event;
 import com.bg.jtown.business.Interest;
 import com.bg.jtown.business.Product;
+import com.bg.jtown.business.Statistic;
 import com.bg.jtown.business.search.ProductFilter;
 import com.bg.jtown.security.JtownUser;
 import com.bg.jtown.util.FileVO;
 
 /**
  * @author Francis
- * 
+ * @author In Sanghak
  */
 public interface SellerService {
 
@@ -120,5 +121,13 @@ public interface SellerService {
 	void deleteSellerDDayEvent(Event event);
 	
 	void deleteSellerBanner(Event event);
+	
+	
+	//Statistic
+	
+	Integer selectProductClickStatisticCount(Statistic statistic);
+	
+	List<Statistic> selectProductClickStatisticTopNPercentList(Statistic statistic); 
+	
 	
 }

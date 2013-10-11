@@ -40,6 +40,10 @@ import com.bg.jtown.security.SummaryUser;
 import com.bg.jtown.util.BrowserUtil;
 import com.bg.jtown.util.CookieUtil;
 
+/**
+ * @author In Sanghak
+ *
+ */
 @Controller
 public class GatherController {
 
@@ -82,13 +86,13 @@ public class GatherController {
 		}
 	}
 
-	@RequestMapping(value = "/g", method = RequestMethod.GET)
+	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String productGatherView(Model model, HttpSession session, @ModelAttribute GatherFilter gatherFilter,
 			SummaryUser summaryUser, HttpServletRequest request) throws UnsupportedEncodingException {
 		if (BrowserUtil.isMobile(request)) {
 			String value = CookieUtil.isCookie("SEE_PC_VERSION", request);
 			if (value == null || !value.equals("T")) {
-				return "redirect:/m/g";
+				return "redirect:/m/";
 			} else {
 				model.addAttribute("isMobile", true);
 			}
@@ -97,13 +101,13 @@ public class GatherController {
 		return prefixView + "gather";
 	}
 
-	@RequestMapping(value = "/g/cpn/{categoryPn}", method = RequestMethod.GET)
+	@RequestMapping(value = "/cpn/{categoryPn}", method = RequestMethod.GET)
 	public String productGatherCategoryView(Model model, HttpSession session, @ModelAttribute GatherFilter gatherFilter,
 			SummaryUser summaryUser, HttpServletRequest request) throws UnsupportedEncodingException {
 		if (BrowserUtil.isMobile(request)) {
 			String value = CookieUtil.isCookie("SEE_PC_VERSION", request);
 			if (value == null || !value.equals("T")) {
-				return "redirect:/m/g/cpn/{categoryPn}";
+				return "redirect:/m/cpn/{categoryPn}";
 			} else {
 				model.addAttribute("isMobile", true);
 			}
@@ -112,12 +116,14 @@ public class GatherController {
 		return prefixView + "gather";
 	}
 
+	/*
 	@RequestMapping(value = "/g/", method = RequestMethod.GET)
 	public String productGatherView() {
 		return "redirect:/g";
 	}
+	*/
 	
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@RequestMapping(value = "/n", method = RequestMethod.GET)
 	public String newGatherView(Model model, HttpSession session, @ModelAttribute GatherFilter gatherFilter,
 			SummaryUser summaryUser, HttpServletRequest request) throws UnsupportedEncodingException {
 		if (BrowserUtil.isMobile(request)) {
@@ -133,7 +139,7 @@ public class GatherController {
 		return prefixView + "gather";
 	}
 
-	@RequestMapping(value = "/cpn/{categoryPn}", method = RequestMethod.GET)
+	@RequestMapping(value = "/n/cpn/{categoryPn}", method = RequestMethod.GET)
 	public String newGatherCategoryView(Model model, HttpSession session, @ModelAttribute GatherFilter gatherFilter,
 			SummaryUser summaryUser, HttpServletRequest request) throws UnsupportedEncodingException {
 		if (BrowserUtil.isMobile(request)) {
@@ -245,9 +251,9 @@ public class GatherController {
 		return count;
 	}
 	
-	@RequestMapping(value = "/ajax/facebookLikeClick.jt", method = RequestMethod.POST)
+	@RequestMapping(value = "/ajax/productFacebookLikeClick.jt", method = RequestMethod.POST)
 	@ResponseBody
-	public Count ajaxFacebookLikeClick(@RequestBody Count count, SummaryUser summaryUser) {
+	public Count ajaxProductFacebookLikeClick(@RequestBody Count count, SummaryUser summaryUser) {
 		switch (summaryUser.getEnumAuthority()) {
 		case CUSTOMER:
 			count.setCustomerPn(summaryUser.getPn());
@@ -260,6 +266,56 @@ public class GatherController {
 					String name = productInfo.getName();
 					FacebookLink link = new FacebookLink(url, name, "", name);
 					String message = summaryUser.getName() + "님이 미러스(Mirros)의 " + name + "을(를) 좋아합니다.";
+					facebook.feedOperations().postLink(message, link);
+				}
+			} catch (ApiException e) {
+				logger.debug("PostConnect Catch");
+			}
+			break;
+		case NOT_LOGIN:
+			count.setMessage("1");
+			break;
+		default:
+			count.setMessage("2");
+		}
+		return count;
+	}
+	
+	@RequestMapping(value = "/ajax/eventHeartClick.jt", method = RequestMethod.POST)
+	@ResponseBody
+	public Count ajaxEventHeartClick(@RequestBody Count count, SummaryUser summaryUser) {
+		switch (summaryUser.getEnumAuthority()) {
+		case CUSTOMER:
+			count.setCustomerPn(summaryUser.getPn());
+		case ADMIN:
+		case ROOT_ADMIN:
+			gatherService.insertEventHeartCount(count);
+			break;
+		case NOT_LOGIN:
+			count.setMessage("1");
+			break;
+		default:
+			count.setMessage("2");
+		}
+		return count;
+	}
+	
+	@RequestMapping(value = "/ajax/eventFacebookLikeClick.jt", method = RequestMethod.POST)
+	@ResponseBody
+	public Count ajaxEventFacebookLikeClick(@RequestBody Count count, SummaryUser summaryUser) {
+		switch (summaryUser.getEnumAuthority()) {
+		case CUSTOMER:
+			count.setCustomerPn(summaryUser.getPn());
+		case ADMIN:
+		case ROOT_ADMIN:
+			try {
+				if ((summaryUser.getFacebookFeed() != null && summaryUser.getFacebookFeed().equals(true))) {
+					Gather shopEventInfo = gatherService.selectShopEvent(count.getEventPn());
+					String url = "https://www.mirros.net/mir/" + shopEventInfo.getSellerPn();
+					String shopName = shopEventInfo.getShopName();
+					String eventName = shopEventInfo.getEventName();
+					FacebookLink link = new FacebookLink(url, shopName, "", shopName);
+					String message = summaryUser.getName() + "님이 미러스(Mirros)의 "+shopName+" : "+ eventName + "을(를) 좋아합니다.";
 					facebook.feedOperations().postLink(message, link);
 				}
 			} catch (ApiException e) {

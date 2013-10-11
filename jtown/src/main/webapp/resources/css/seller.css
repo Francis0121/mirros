@@ -342,3 +342,13 @@ Product Insert btn
 .jt-sellerPop-page .page-link:HOVER{ color: #5a5a5a; text-decoration: underline; font-weight: bold; }
 .jt-sellerPop-page .page-now{font-weight: bold;}
 .jt-sellerPop-page .page-now:HOVER{text-decoration: none;}
+
+/******************************
+ seller_statistic 
+*******************************/
+.jt-statistic-container{width: 990px; margin: 0 auto;}
+.jt-statistic-content{padding: 20px 10px 50px 20px; width:954px; text-align: center;}
+.jt-statistic-title{padding-bottom: 20px;}
+.jt-statistic-tip-wrap{text-align: right; padding-right: 30px;padding-top: 15px; font-size: 13px;}
+.jt-statistic-tip{color:#aaa;font-size:13px;}
+.jt-statistic-tip-go{color:#FFA01E;font-size:13px;}

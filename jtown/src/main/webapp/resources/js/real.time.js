@@ -133,6 +133,23 @@ jtown.real.time = function(data) {
 				$('#jt-pg-heart-count-' + productPn).removeClass('jt-home-shop-love-text-click');
 			}
 		}
+	}else if(obj.redisType == 'event_heart_count'){
+		var eventPn = obj.eventPn;
+		var count = obj.count;
+		$('#jt-pg-heart-count-e-' + eventPn).html(count);
+		var crudType = obj.crudType;
+		var cpn = obj.customerPn;
+		var nowcpn = $('#jt-logout').attr('data-cpn');
+		
+		if(cpn == nowcpn){
+			if (crudType == 'eventHeartInsert') {
+				$('#jt-pg-heart-click-e-' + eventPn).addClass('jt-home-shop-love-click');
+				$('#jt-pg-heart-count-e-' + eventPn).addClass('jt-home-shop-love-text-click');
+			} else if (crudType == 'eventHeartDelete') {
+				$('#jt-pg-heart-click-e-' + eventPn).removeClass('jt-home-shop-love-click');
+				$('#jt-pg-heart-count-e-' + eventPn).removeClass('jt-home-shop-love-text-click');
+			}
+		}
 	}
 };
 

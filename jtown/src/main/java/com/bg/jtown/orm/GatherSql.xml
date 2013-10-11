@@ -24,6 +24,8 @@
 		<result property="endDate" column="end_date"/>
 		<result property="bannerOrder" column="banner_order"/>
 		<result property="shopName" column="shop_name"/>
+		<result property="heartCount" column="heart_count"/>
+		<result property="customerPn" column="customer_pn"/>
 	</resultMap>
 	
 	<select id="selectGatherProductsCount" resultType="Integer">
@@ -205,13 +207,20 @@
 	
 	<select id="selectEventList" resultMap="EventMapper"> 
 		SELECT
-			 usee.event_pn, usee.seller_pn, event_name, begin_date, DATEDIFF(usee.end_date,SYSDATE()) AS end_date, banner_order, p.shop_name, p.shop_url AS url
+			 usee.event_pn, usee.seller_pn, event_name, begin_date, DATEDIFF(usee.end_date,SYSDATE()) AS end_date, banner_order, p.shop_name, p.shop_url AS url, heart_count <if test="customerPn != null">, customer_pn</if>
 		FROM
 			user_seller_event usee
 		JOIN partnership p
 			ON p.seller_pn = usee.seller_pn
 		JOIN users u
 			ON u.pn = p.seller_pn
+		LEFT OUTER JOIN count_event_heart ceh
+			  ON ceh.event_pn = usee.event_pn 
+		LEFT OUTER JOIN event_count_love ecl
+			  ON ecl.event_pn = usee.event_pn 
+			  <if test="customerPn != null">
+			  		AND ecl.customer_pn = #{customerPn}
+			  	</if>
 		<if test="newFlag == 1">
 		JOIN new_event_bool neb
 			ON neb.event_pn = usee.event_pn 
@@ -291,6 +300,64 @@
 			product_pn = #{productPn}
 	</select>
 	
+	<select id="selectEventHeartCountForCustomer" resultType="Integer" parameterType="Count">
+		SELECT
+			COUNT(*)
+		FROM
+			event_count_love
+		WHERE
+			customer_pn = #{customerPn}
+		AND
+			event_pn = #{eventPn}
+	</select>
+	
+	<insert id="insertEventHeart" parameterType="Count">
+		INSERT INTO
+			event_count_love(customer_pn, event_pn, input_date)
+		VALUES
+			(#{customerPn}, #{eventPn}, SYSDATE())
+	</insert>
+	
+	<delete id="deleteEventHeart" parameterType="Count">
+		DELETE FROM
+			event_count_love
+		WHERE 
+			customer_pn = #{customerPn}
+		AND
+			event_pn = #{eventPn} 
+	</delete>
+	
+	<select id="selectEventHeartCount" resultType="Integer" parameterType="Count">
+		SELECT
+			COUNT(*)
+		FROM
+			event_count_love
+		WHERE
+			event_pn = #{eventPn}
+	</select>
+	
+	<resultMap type="Gather" id="ShopEventMapper">
+		<result property="sellerPn" column="seller_pn"/>
+		<result property="eventPn" column="event_pn"/>
+		<result property="eventName" column="event_name"/>
+		<result property="shopName" column="shop_name"/>
+		<result property="url" column="shop_url"/>
+	</resultMap>
+	
+	<select id="selectShopEvent" resultMap="ShopEventMapper">
+		SELECT 
+			event_pn, usee.seller_pn,shop_name, shop_url, event_name
+		FROM 
+			user_seller_event usee
+		JOIN 
+			partnership p
+		ON 
+			p.seller_pn = usee.seller_pn
+		WHERE 
+			event_pn = #{eventPn}
+		AND 
+			deleted = 'N'
+	</select>
 </mapper>
 	
 	

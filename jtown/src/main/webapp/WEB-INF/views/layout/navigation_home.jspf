@@ -2,18 +2,18 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <ul class="jt-header-nav-mode-ul">
 	<c:if test="${empty categoryType}">
-		<li><a href="${cp}/"><span class="jt-header-nav-mode-new-inactive">new</span></a></li>
-		<li><a href="${cp}/g"><span class="jt-header-nav-mode-gather-inactive">gather</span></a></li>
+		<li><a href="${cp}/"><span class="jt-header-nav-mode-gather-inactive">gather</span></a></li>
+		<li><a href="${cp}/n"><span class="jt-header-nav-mode-new-inactive">new</span></a></li>
 		<li class="jt-header-nav-mode-now"><a href="${cp}/s"><span class="jt-header-nav-mode-shop-active">shop</span></a></li>
 	</c:if>
 	<c:if test="${categoryType =='pg'}">
-		<li><a href="${cp}/"><span class="jt-header-nav-mode-new-inactive">new</span></a></li>
 		<li class="jt-header-nav-mode-now"><span class="jt-header-nav-mode-gather-active">gather</span></li>
+		<li><a href="${cp}/n"><span class="jt-header-nav-mode-new-inactive">new</span></a></li>
 		<li><a href="${cp}/s"><span class="jt-header-nav-mode-shop-inactive">shop</span></a></li>
 	</c:if>
 	<c:if test="${categoryType =='new'}">
+		<li><a href="${cp}/"><span class="jt-header-nav-mode-gather-inactive">gather</span></a></li>
 		<li class="jt-header-nav-mode-now"><span class="jt-header-nav-mode-new-active">new</span></li>
-		<li><a href="${cp}/g"><span class="jt-header-nav-mode-gather-inactive">gather</span></a></li>
 		<li><a href="${cp}/s"><span class="jt-header-nav-mode-shop-inactive">shop</span></a></li>		
 	</c:if>
 </ul>

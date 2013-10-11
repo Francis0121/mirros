@@ -10,6 +10,10 @@
 <%-- <script src="${cp}/resources/js/masonry.scollr.pagination.min.js"></script> --%>
 <script src="${cp}/resources/js/masonry.scroll.pagination.js"></script>
 <script src="${cp}/resources/js/jcarousellite_1.0.1.min.js"></script>
+<script src="${cp}/resources/js/jquery.jqplot.min.js"></script>
+ <!--[if IE]>
+ <script language="javascript" type="text/javascript" src="${cp}/resources/js/excanvas.min.js"></script>
+ <![endif]-->
 <!--[if !IE 7]>
 <script src="${cp}/resources/js/masonry.pkgd.min.js"></script>
 <![endif]-->

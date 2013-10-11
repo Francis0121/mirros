@@ -20,6 +20,10 @@ import com.bg.jtown.security.Authority;
 import com.bg.jtown.security.SummaryUser;
 import com.bg.jtown.util.Pagination;
 
+/**
+ * @author In Sanghak
+ * 
+ */
 @Service
 public class GatherServiceImpl extends SqlSessionDaoSupport implements GatherService {
 
@@ -195,6 +199,45 @@ public class GatherServiceImpl extends SqlSessionDaoSupport implements GatherSer
 		}
 		count.setCount(selectProductHeartCount(count));
 		publisher.productHeartPublish(count);
+	}
+
+	@Override
+	public Integer selectEventHeartCountForCustomer(Count count) {
+		return getSqlSession().selectOne("gatherMapper.selectEventHeartCountForCustomer", count);
+	}
+
+	@Override
+	public Integer selectEventHeartCount(Count count) {
+		return getSqlSession().selectOne("gatherMapper.selectEventHeartCount", count);
+	}
+
+	@Override
+	public void insertEventHeart(Count count) {
+		getSqlSession().insert("gatherMapper.insertEventHeart", count);
+	}
+
+	@Override
+	public void deleteEventHeart(Count count) {
+		getSqlSession().delete("gatherMapper.deleteEventHeart", count);
+	}
+
+	@Override
+	public void insertEventHeartCount(Count count) {
+		Integer heartCount = selectEventHeartCountForCustomer(count);
+		if (heartCount == 0) {
+			count.setCrudType("eventHeartInsert");
+			insertEventHeart(count);
+		} else {
+			count.setCrudType("eventHeartDelete");
+			deleteEventHeart(count);
+		}
+		count.setCount(selectEventHeartCount(count));
+		publisher.eventHeartPublish(count);
+	}
+
+	@Override
+	public Gather selectShopEvent(Integer eventPn) {
+		return getSqlSession().selectOne("gatherMapper.selectShopEvent", eventPn);
 	}
 
 }
