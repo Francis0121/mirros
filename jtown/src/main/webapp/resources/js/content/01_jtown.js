@@ -75,7 +75,6 @@ $(function() {
 	jtown.regExp('onlyChar', 'input[data-form=join]', '#nameLength', 0, 20);
 	jtown.regExp('empty', 'input[data-form=modify]', '#passwordLength', 7, 16);
 	jtown.login.confirmPassword();
-	jtown.login.joinFormSubmit();
 	jtown.login.changeUserSubmit();
 	jtown.login.disactiveUser();
 	

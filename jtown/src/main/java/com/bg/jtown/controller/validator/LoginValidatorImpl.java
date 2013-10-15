@@ -64,7 +64,7 @@ public class LoginValidatorImpl implements Validator {
 				errors.rejectValue("name", "join.nickName.notAllow");
 			}
 		}
-
+		/*
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "sex",
 				"join.sex.empty");
 
@@ -76,6 +76,7 @@ public class LoginValidatorImpl implements Validator {
 
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "day",
 				"join.day.empty");
+		*/
 
 	}
 }

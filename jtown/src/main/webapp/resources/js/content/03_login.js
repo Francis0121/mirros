@@ -37,19 +37,43 @@ jtown.login.showLoginForm = function(){
 	var inner = $('#jt-login-form-wrap'),
 		form = inner.find('form[name=jt-popup-login-form]'),
 		j_username = inner.find('input[name=j_username]'),
-		j_password = inner.find('input[name=j_password]');
+		j_password = inner.find('input[name=j_password]')
+		/*
+		joinForm = inner.find('form[name=jt-join-direct-join-form]'),
+		name = inner.find('input[name=name]'),
+		username = inner.find('input[name=username]'),
+		password = inner.find('input[name=password]'),
+		confirmPassword = inner.find('input[name=confirmPassword]');
+		*/
+		;
 	
 	form.attr('id', 'jt-popup-login-form');
 	j_username.attr('id', 'j_username');
 	j_password.attr('id', 'j_password');
-	
-	$.smartPop.open({ width : 430, height : 350, html : inner.html(), effect : null });	
+	$.smartPop.open({ width : 430, height : 400, html : inner.html(), effect : null });	
 	
 	form.attr('id', '');
 	j_username.attr('id', '');
 	j_password.attr('id', '');
 	
 	setTimeout('$(function() { $(\'#j_username, #j_password\').placeholder(); });', 0);
+};
+
+jtown.login.loginOn= function(){
+	$('.jt-login-direct-login-form').css('display','block');
+	$('.jt-login-direct-sign-wrap').css('display','none');
+};
+jtown.login.loginOff= function(){
+	$('.jt-login-direct-login-form').css('display','none');
+	$('.jt-login-direct-sign-wrap').css('display','block');
+};
+jtown.login.joinOn= function(){
+	$('.jt-login-direct-form').css('display','none');
+	$('.jt-login-join-form').css('display','block');
+};
+jtown.login.joinOff= function(){
+	$('.jt-login-direct-form').css('display','block');
+	$('.jt-login-join-form').css('display','none');
 };
 
 jtown.login.resendEmailAddress = function() {
@@ -63,12 +87,12 @@ jtown.login.resendEmailAddress = function() {
 	});
 };
 
-jtown.login.joinFormSubmit = function() {
-	$('.jt-join-submit').bind('click', function() {
+jtown.login.joinSubmit = function(){
 		$('#loading-popup').fadeIn();
-		var form = document.forms['jtownUser'];
-		form.submit();
-	});
+		var form = document.forms['jt-join-direct-join-form'];
+		console.log(form);
+		console.log($('.jt-join-direct-user-input'));
+		//form.submit();
 };
 
 jtown.login.changeUserSubmit = function(){

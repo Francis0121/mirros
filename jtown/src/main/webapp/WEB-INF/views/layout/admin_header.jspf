@@ -21,7 +21,7 @@
 <link rel="stylesheet" type="text/css" href="${cp}/resources/css/home.css" />
 <link rel="stylesheet" type="text/css" href="${cp}/resources/css/common.css" />
 <link rel="stylesheet" type="text/css" href="${cp}/resources/css/help.css" />
-<link rel="stylesheet" type="text/css" href="${cp}/resources/css/admin.css" />.
+<link rel="stylesheet" type="text/css" href="${cp}/resources/css/admin.css" />
 </head>
 <body>
 	<section class="jt-body">
@@ -32,10 +32,12 @@
 				<li><a href="${cp }/login/logout" class="jt-common-a-base">로그아웃</a></li>		
 			</ul>
 			<ul class="jt-menu">
-				<c:set var="url" value="${cp }/admin"/>
-				<li><a href="${url}" class="<c:out value="${url eq rp ? 'jt-menu-hover' : '' }"/>">Home</a></li>
-				<c:set var="url" value="${cp }/admin/notice"/>
-				<li><a href="${url}" class="<c:out value="${url eq rp ? 'jt-menu-hover' : '' }"/>">Notice</a></li>
+				<sec:authorize ifNotGranted="ROLE_SALES">
+					<c:set var="url" value="${cp }/admin"/>
+					<li><a href="${url}" class="<c:out value="${url eq rp ? 'jt-menu-hover' : '' }"/>">Home</a></li>
+					<c:set var="url" value="${cp }/admin/notice"/>
+					<li><a href="${url}" class="<c:out value="${url eq rp ? 'jt-menu-hover' : '' }"/>">Notice</a></li>
+				</sec:authorize>
 				<li>
 					<a href="${cp }/admin/partnership">User</a>
 					<ul class="jt-sub-menu">
@@ -45,16 +47,20 @@
 						</sec:authorize>
 						<c:set var="url" value="${cp }/admin/partnership"/>
 						<li><a href="${url}" class="<c:out value="${url eq rp ? 'jt-menu-hover' : '' }"/>">Seller</a></li>
+						<sec:authorize ifNotGranted="ROLE_SALES">
 						<c:set var="url" value="${cp }/admin/customer"/>
 						<li><a href="${url}" class="<c:out value="${url eq rp ? 'jt-menu-hover' : '' }"/>">Customer</a></li>
+						</sec:authorize>
 					</ul>
 				</li>
+				<sec:authorize ifNotGranted="ROLE_SALES">
 				<c:set var="url" value="${cp }/admin/comment"/>
 				<li><a href="${url}" class="<c:out value="${url eq rp ? 'jt-menu-hover' : '' }"/>">Comment</a></li>
 				<li>
 					<c:set var="url" value="${cp }/admin/questions"/>
 					<a href="${url}" class="<c:out value="${url eq rp ? 'jt-menu-hover' : '' }"/>">Question</a>
 				</li>
+				</sec:authorize>
 			</ul>
 		</nav>
 		<section class="jt-content">

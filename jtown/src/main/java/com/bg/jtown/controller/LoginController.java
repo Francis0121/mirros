@@ -1,6 +1,10 @@
 package com.bg.jtown.controller;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,6 +13,20 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.swing.text.html.HTMLDocument.HTMLReader.ParagraphAction;
+import javax.xml.crypto.dsig.SignatureMethod;
+
+import net.sf.json.JSONArray;
+import oauth.signpost.OAuth;
+import oauth.signpost.OAuthConsumer;
+import oauth.signpost.OAuthProvider;
+import oauth.signpost.basic.DefaultOAuthConsumer;
+import oauth.signpost.basic.DefaultOAuthProvider;
+import oauth.signpost.exception.OAuthCommunicationException;
+import oauth.signpost.exception.OAuthExpectationFailedException;
+import oauth.signpost.exception.OAuthMessageSignerException;
+import oauth.signpost.exception.OAuthNotAuthorizedException;
+import oauth.signpost.http.HttpParameters;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -290,7 +308,10 @@ public class LoginController {
 	@RequestMapping(value = "/login/joinSubmit.jt", method = RequestMethod.POST)
 	public String formJoin(Model model, @ModelAttribute JtownUser jtownUser, @RequestParam("confirmPassword") final String confirmPassword,
 			BindingResult result, WebRequest request) {
+		System.out.println("jtownUser :"+ jtownUser);
+		System.out.println("confirmPassword :"+ confirmPassword);
 		loginValidatorImpl.validate(jtownUser, result);
+		System.out.println("jtownUser result :"+ result);
 		new Validator() {
 			@Override
 			public void validate(Object target, Errors errors) {
@@ -308,6 +329,7 @@ public class LoginController {
 				return JtownUser.class.isAssignableFrom(clazz);
 			}
 		}.validate(jtownUser, result);
+		System.out.println("jtownUser result2 :"+ result);
 
 		if (!result.hasErrors()) {
 			String username = jtownUser.getUsername();

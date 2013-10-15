@@ -63,8 +63,8 @@ public class EmailSender {
 		private String pw;
 
 		public EmailAuthenticator() {
-			this.id = "helpmirros@gmail.com";
-			this.pw = "jt0308pk!";
+			this.id = "help@mirros.net";
+			this.pw = "bizgate";
 		}
 
 		public EmailAuthenticator(String id, String pw) {

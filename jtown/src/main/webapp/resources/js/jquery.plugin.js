@@ -168,6 +168,8 @@
 				sessionStorage.removeItem('spn');
 				sessionStorage.removeItem('productUrl');
 				sessionStorage.removeItem('eventUrl');
+				jtown.login.loginOff();
+				jtown.login.joinOff();
 				$('#smartPop').hide();
 				$('#smartPop_overlay').fadeOut(500);
 			} else {

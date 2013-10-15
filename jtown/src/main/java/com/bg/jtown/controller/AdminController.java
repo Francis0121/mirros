@@ -78,7 +78,11 @@ public class AdminController {
 		List<JtownUser> partnerships = homeService.selectSeller( homeFilter );
 		model.addAttribute("partnerships", partnerships);
 		
-		return prefixView + "main";
+		if("Salesman".equals(summaryUser.getAuthority())){
+			return "redirect:/admin/partnership";
+		}else{
+			return prefixView + "main";
+		}
 	}
 
 	@RequestMapping(value = "/customer", method = RequestMethod.GET)

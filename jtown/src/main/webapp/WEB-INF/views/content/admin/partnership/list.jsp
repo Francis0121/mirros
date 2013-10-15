@@ -34,7 +34,7 @@ function goToPreviousPages() {
 	<form:form commandName="partnershipFilter" action="${cp }/admin/partnership" htmlEscape="true" method="get">
 		<form:hidden path="page" value="${pagination.currentPage}"/>
 		<li>
-			<sec:authorize access="hasRole('ROLE_ROOT')">
+			<sec:authorize ifAnyGranted="ROLE_ROOT,ROLE_SALES">
 				<form:label path="adminPn">담당자</form:label>
 				<form:select path="adminPn" onchange="document.forms['partnershipFilter'].submit();" cssClass="jt-admin-filter-select">
 					<form:option value="">전체</form:option>
@@ -81,12 +81,12 @@ function goToPreviousPages() {
 <sec:authorize access="principal.groupName eq 'Administrator'">
 	<table class="jt-partnership-table jt-admin-base-table">
 </sec:authorize>
-<sec:authorize access="hasRole('ROLE_ROOT')">
+<sec:authorize ifAnyGranted="ROLE_ROOT,ROLE_SALES">
 	<table class="jt-partnership-root-table jt-admin-base-table">
 </sec:authorize>
 	<thead>
 		<tr>
-			<sec:authorize access="hasRole('ROLE_ROOT')">
+			<sec:authorize ifAnyGranted="ROLE_ROOT,ROLE_SALES">
 			<th rowspan="2">담당자</th>
 			</sec:authorize>
 			<th colspan="7">문의사항정보</th>
@@ -119,7 +119,7 @@ function goToPreviousPages() {
 			<sec:authorize access="principal.groupName eq 'Administrator'">
 				<td colspan="18">
 			</sec:authorize>
-			<sec:authorize access="hasRole('ROLE_ROOT')">
+			<sec:authorize ifAnyGranted="ROLE_ROOT,ROLE_SALES">
 				<td colspan="19">
 			</sec:authorize>
 				<div id="page-wrap">
@@ -153,7 +153,7 @@ function goToPreviousPages() {
 		<c:forEach items="${partnerships }" var="partnership" varStatus="loop">
 			<c:set var="userInfo" value="${partnership.jtownUser }"/>
 			<tr class="jt-partnership-info" data-pspn="<c:out value="${partnership.pn }"/>" data-spn="<c:out value="${userInfo.pn}"/>">
-				<sec:authorize access="hasRole('ROLE_ROOT')">
+				<sec:authorize ifAnyGranted="ROLE_ROOT,ROLE_SALES">
 				<td class="jt-partnership-adminPn">
 					<select class="jt-partnership-adminPn-select">
 						<option value="">선택</option>
@@ -287,7 +287,7 @@ function goToPreviousPages() {
 				<sec:authorize access="principal.groupName eq 'Administrator'">
 					<td colspan="18">
 				</sec:authorize>
-				<sec:authorize access="hasRole('ROLE_ROOT')">
+				<sec:authorize ifAnyGranted="ROLE_ROOT,ROLE_SALES">
 					<td colspan="19">
 				</sec:authorize>
 					<pre><c:out value="${partnership.content }"/></pre>

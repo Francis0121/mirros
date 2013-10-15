@@ -5,11 +5,13 @@
 	data-cpn="${homeFilter.categoryPn eq null ? 0 : homeFilter.categoryPn}" 
 	data-spn="${homeFilter.sectionPn eq null ? 0 : homeFilter.sectionPn}" 
 	data-maxPage="${homeFilter.pagination.numPages eq null ? 0 : homeFilter.pagination.numPages }">
+	<!-- 
 	<div class="jt-home-shop">
 		<a href="http://shop.beautyfactory.co.kr/ariul.index.asp" target="_blank">
 			<img alt="미러스 이벤트" src="${cp }/resources/images/event.png" width="316">
 		</a>
 	</div>
+	 -->
 	<c:forEach begin="1" end="2" varStatus="i">
 		<c:set var="jtownUsers" value="${ i.count eq 1 ? one.jtownUsers : two.jtownUsers }"/>
 		<c:set var="images" value="${ i.count eq 1 ? one.images : two.images }"/>

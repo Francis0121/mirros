@@ -34,7 +34,7 @@ public class LoginServiceImpl extends SqlSessionDaoSupport implements
 	@Override
 	public void insertCreatUserCustomer(JtownUser jtownUser) {
 		insertUser(jtownUser);
-		getSqlSession().insert("loginMapper.insertUserCustomer", jtownUser);
+		//getSqlSession().insert("loginMapper.insertUserCustomer", jtownUser);
 	}
 
 	@Override

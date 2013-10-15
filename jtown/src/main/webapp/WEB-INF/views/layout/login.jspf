@@ -1,16 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <sec:authorize access="anonymous">
 <div id="jt-login-form-wrap">
-	<div id="jt-login-form">
-		<form action="${cp }/j_spring_security_check" method="post" name="jt-popup-login-form" onsubmit="onPopupLoginSubmit(); return false;">
-		<table class="jt-login-form-table">
-			<thead>
-				<tr>
-					<th colspan="2"> 
-						<span style="font-weight: normal;">LOG&nbsp;IN&nbsp;TO</span>&nbsp;Mirros
-					</th>
-				</tr>
-			</thead>
+	<div class="jt-login-direct-form" > 
+		<ul class="jt-login-direct-sign-wrap" >
+			<li>
+				<!-- FACEBOOK login -->
+				<form action="${cp }/signin/facebook" method="POST">
+					<input type="hidden" name="scope" value="publish_stream,offline_access,email,user_birthday,user_likes" />
+			    	<button class="jt-btn-fbLogin" type="submit"><span class="loginImage"></span><span class="loginText">페이스북으로&nbsp;로그인</span></button>
+				</form>							
+			</li>
+			<li>
+				<button class="jt-btn-orange jt-btn-emailLogin" onclick="jtown.login.loginOn()" type="button"><span class="loginImage"></span><span class="loginText">이메일로&nbsp;로그인</span></button>
+			</li>
+			<li class="jt-login-direct-join">
+				<a href="javascript:jtown.login.joinOn()">간편 가입</a>
+			</li>
+		</ul>
+		<form action="${cp }/j_spring_security_check" method="post" name="jt-popup-login-form" onsubmit="onPopupLoginSubmit(); return false;" class="jt-login-direct-login-form">
+		<table class="jt-login-form-table jt-login-direct-form-table" >
 			<tfoot>
 				<tr>
 					<th>
@@ -23,37 +31,66 @@
 			<tbody>
 				<tr>
 					<td colspan="2">
-						<input name="j_username" size="20" maxlength="50" type="text" class="jt-login-form-table-input" placeholder="Email Address"/>
+						<input name="j_username" size="20" maxlength="50" type="text" class="jt-login-form-table-input jt-login-direct-form-table-input" placeholder="Email Address"/>
 					</td>
 				</tr>
 				<tr>
 					<td colspan="2">
-						<input name="j_password" size="20" maxlength="50" type="password" class="jt-login-form-table-password"  placeholder="Password"/><button type="button" onclick="location.href='${cp}/login/findPassword'" title="비밀번호를&nbsp;잊으셨나요?" class="jt-login-findPassword">?</button>		
+						<input name="j_password" size="20" maxlength="50" type="password" class="jt-login-form-table-password jt-login-direct-form-table-password"  placeholder="Password"/><button type="button" onclick="location.href='${cp}/login/findPassword'" title="비밀번호를&nbsp;잊으셨나요?" class="jt-login-findPassword">?</button>		
 					</td>
 				</tr>
 			</tbody>
 		</table>
 		</form>
-		<ul class="jt-login-sign-wrap" >
-			<li>
-				<!-- FACEBOOK login -->
-				<form action="${cp }/signin/facebook" method="POST">
-					<input type="hidden" name="scope" value="publish_stream,offline_access,email,user_birthday,user_likes" />
-			    	<button class="jt-btn-fbLogin" type="submit"><span class="loginImage"></span><span class="loginText">페이스북으로&nbsp;로그인</span></button>
-				</form>							
-			</li>
-			<li>
-				<button class="jt-btn-orange jt-btn-emailLogin" onclick="location.href='${cp }/login/join'" type="button"><span class="loginImage"></span><span class="loginText">이메일로&nbsp;간편&nbsp;가입</span></button>
-			</li>
-		</ul>
-		<div class="jt-login-message-box">
-			<h1>Weclode to Mirros</h1>
+		<div class="jt-login-direct-message-box">
+			<h1>Welcome to Mirros</h1>
 			<p>
 				Mirros에서 더 쉽고 간편하게<br/>
 				당신을 위한 아이템을 모아보세요.
 			</p>
 		</div>
-		
+	</div>
+	<div class="jt-login-join-form">
+		<header class="jt-join-direct-form-user-info">
+			<h1>회원가입</h1>
+		</header>
+		<form name="jt-join-direct-join-form" action="${cp }/login/joinSubmit.jt" htmlEscape="true" method="post">
+		<table class="jt-join-direct-user-table">
+				<tbody>
+					<tr>
+						<td>
+							<input name="name" data-form="join" class="jt-join-direct-user-input" maxlength="20" placeholder="이름"/>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<input name="username" htmlEscape="true" data-type="create" class="jt-join-direct-user-input" maxlength="50" placeholder="이메일"/>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<input type="password" name="password" data-form="joinPw" class="jt-join-direct-user-input" maxlength="16" placeholder="비밀번호"/>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<input type="password" id="confirmPassword" name="confirmPassword" class="jt-join-direct-user-input" maxlength="16" placeholder="비밀번호 확인"/>
+						</td>
+					</tr>
+			</tbody>
+		</table>
+		</form>
+		<footer class="jt-join-user-footer jt-join-direct-user-footer">
+		<div>
+		<button type="button" class="jt-join-submit jt-btn-orange" onclick="jtown.login.joinSubmit()">가입하기</button>
+		</div>
+		<ul>
+			<li>‘가입하기’를&nbsp;누르면&nbsp;<a href="${cp }/individual">이용약관</a>&nbsp;및&nbsp;<a href="${cp }/agreement">개인정보취급방침</a>에
+			&nbsp;동의한&nbsp;것으로&nbsp;간주합니다.</li>
+			<li>판매자&nbsp;회원가입은&nbsp;고객센터로&nbsp;문의주시기<br/>바랍니다.</li>
+		</ul>
+	</footer>
 	</div>
 </div>
+
 </sec:authorize>

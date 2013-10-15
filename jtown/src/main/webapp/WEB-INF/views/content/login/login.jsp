@@ -39,7 +39,7 @@
 					<!-- FACEBOOK login -->
 					<form action="${cp }/signin/facebook" method="POST">
 						<input type="hidden" name="scope" value="publish_stream,offline_access,email,user_birthday,user_likes" />
-				    	<button class="jt-btn-fbLogin" type="submit"><span class="loginImage"></span><span class="loginText">페이스북으로&nbsp;로그인</span></button>
+				    	<button class="jt-btn-fbLogin" type="submit" ><span class="loginImage"></span><span class="loginText">페이스북으로&nbsp;로그인</span></button>
 					</form>							
 				</li>
 				<li>

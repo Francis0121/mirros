@@ -10,10 +10,10 @@
 * Copyright (c) 2013 Francis
 * Update SmartPop
 */
-#smartPop_overlay { display: none; overflow: hidden; position: fixed; opacity: .9; background: #fff; top: 0; right: 0; bottom: 0; left: 0; z-index: 100; cursor: wait;}
+#smartPop_overlay { display: none; overflow: hidden; position: fixed; opacity: .9; background: rgba(0, 0, 0, .75); top: 0; right: 0; bottom: 0; left: 0; z-index: 100; cursor: wait;}
 #smartPop { display: none; position: fixed; top: 0;right: 0;bottom: 0;left: 0; overflow-x: auto; overflow-y: scroll; z-index: 104; cursor: -webkit-zoom-out; cursor: -moz-zoom-out;}
-#smartPop_container { background-color: transparent;margin: 9px auto 100px auto; max-width: 1300px; min-width: 200px; padding: 0px;width: 720px;height: 500px; z-index: 2; }
-#smartPop_content { display: none; padding: 10px 0 0 0;overflow: hidden; cursor: default; }
+#smartPop_container { background-color: transparent;margin: 9px auto 100px auto; max-width: 1300px; min-width: 200px; padding: 0px;width: 720px;height: 600px; z-index: 2; }
+#smartPop_content { display: none; padding: 10px 0 0 0;overflow: hidden; cursor: default; margin-top:-100px; }
 #smartPop_log { display: none; position: fixed; top: 10px; left: 10px; overflow: auto; width: 200px; height: 400px; background: #fff; border: solid 1px #444; padding: 10px; z-index: 3; }
 #smartPop_close_wrap { position: absolute; }
 #smartPop_close { position: absolute; cursor: pointer; }
