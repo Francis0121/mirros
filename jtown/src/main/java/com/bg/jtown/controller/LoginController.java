@@ -1,10 +1,6 @@
 package com.bg.jtown.controller;
 
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,20 +9,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.swing.text.html.HTMLDocument.HTMLReader.ParagraphAction;
-import javax.xml.crypto.dsig.SignatureMethod;
 
-import net.sf.json.JSONArray;
-import oauth.signpost.OAuth;
-import oauth.signpost.OAuthConsumer;
-import oauth.signpost.OAuthProvider;
-import oauth.signpost.basic.DefaultOAuthConsumer;
-import oauth.signpost.basic.DefaultOAuthProvider;
-import oauth.signpost.exception.OAuthCommunicationException;
-import oauth.signpost.exception.OAuthExpectationFailedException;
-import oauth.signpost.exception.OAuthMessageSignerException;
-import oauth.signpost.exception.OAuthNotAuthorizedException;
-import oauth.signpost.http.HttpParameters;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -305,13 +288,36 @@ public class LoginController {
 		return prefixView + "login/join";
 	}
 
+	@RequestMapping(value="/login/nameValidation.jt")
+	@ResponseBody
+	public String nameValidation(String name){
+		String error ="success";
+		if(!name.equals(name.trim())){
+			error="error";
+		}else if (!ValidationUtil.checkCharAndLength(name, 0, 20)) {
+			error="error";
+		}
+		return error;
+	}
+	
+	@RequestMapping(value="/login/usernameValidation.jt")
+	@ResponseBody
+	public String usernameValidation(String username){
+		String error ="success";
+		boolean exist = loginService.selectCheckExistEmail(username);
+		if (exist) {
+			error="error";
+		}else if (!ValidationUtil.emailFormCheck(username)) {
+			error="error";
+		}
+		return error;
+	}
+	
+	
 	@RequestMapping(value = "/login/joinSubmit.jt", method = RequestMethod.POST)
 	public String formJoin(Model model, @ModelAttribute JtownUser jtownUser, @RequestParam("confirmPassword") final String confirmPassword,
 			BindingResult result, WebRequest request) {
-		System.out.println("jtownUser :"+ jtownUser);
-		System.out.println("confirmPassword :"+ confirmPassword);
 		loginValidatorImpl.validate(jtownUser, result);
-		System.out.println("jtownUser result :"+ result);
 		new Validator() {
 			@Override
 			public void validate(Object target, Errors errors) {
@@ -329,7 +335,6 @@ public class LoginController {
 				return JtownUser.class.isAssignableFrom(clazz);
 			}
 		}.validate(jtownUser, result);
-		System.out.println("jtownUser result2 :"+ result);
 
 		if (!result.hasErrors()) {
 			String username = jtownUser.getUsername();
@@ -342,9 +347,7 @@ public class LoginController {
 			if ("twitter".equals(jtownUser.getSocial())) {
 				ProviderSignInUtils.handlePostSignUp(jtownUser.getPn().toString(), request);
 			}
-
-			String beforeAddress = (String) request.getAttribute("beforJoinUrl", WebRequest.SCOPE_SESSION);
-			return "redirect:" + beforeAddress;
+			return "redirect:" + "/";
 		} else {
 			return prefixView + "login/join";
 		}

@@ -42,7 +42,6 @@ $(function() {
 	jtown.expand.gotoPage();
 	
 	// ~ Login
-
 	$('#jt-login-smartPopup').bind('click', function(){
 		jtown.login.showLoginForm();		
 	});

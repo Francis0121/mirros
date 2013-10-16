@@ -115,7 +115,7 @@
 	</article>
 	<footer class="jt-join-user-footer">
 		<div>
-		<button type="button" class="jt-join-submit jt-btn-orange">가입하기</button>
+		<button type="button" class="jt-join-submit jt-btn-orange" onclick="jtown.login.joinSubmit()">가입하기</button>
 		</div>
 		<ul>
 			<li>‘가입하기’를&nbsp;누르면&nbsp;<a href="${cp }/individual">이용약관</a>&nbsp;및&nbsp;<a href="${cp }/agreement">개인정보취급방침</a>에&nbsp;동의한&nbsp;것으로&nbsp;간주합니다.</li>

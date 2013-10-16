@@ -54,27 +54,31 @@
 		<header class="jt-join-direct-form-user-info">
 			<h1>회원가입</h1>
 		</header>
-		<form name="jt-join-direct-join-form" action="${cp }/login/joinSubmit.jt" htmlEscape="true" method="post">
+		<form id="jt-join-direct-join-form" name="jt-join-direct-join-form" action="${cp }/login/joinSubmit.jt" htmlEscape="true" method="post">
 		<table class="jt-join-direct-user-table">
 				<tbody>
 					<tr>
 						<td>
-							<input name="name" data-form="join" class="jt-join-direct-user-input" maxlength="20" placeholder="이름"/>
+							<input name="name" data-form="join" class="jt-join-direct-user-input jt-join-direct-user-name" maxlength="20" placeholder="이름"/>
+							<span class="jt-join-validation jt-join-direct-user-name-check"></span>
 						</td>
 					</tr>
 					<tr>
 						<td>
-							<input name="username" htmlEscape="true" data-type="create" class="jt-join-direct-user-input" maxlength="50" placeholder="이메일"/>
+							<input name="username" htmlEscape="true" data-type="create" class="jt-join-direct-user-input jt-join-direct-user-username" maxlength="50" placeholder="이메일"/>
+							<span class="jt-join-validation jt-join-direct-user-username-check"></span>
 						</td>
 					</tr>
 					<tr>
 						<td>
-							<input type="password" name="password" data-form="joinPw" class="jt-join-direct-user-input" maxlength="16" placeholder="비밀번호"/>
+							<input type="password" name="password" data-form="joinPw" class="jt-join-direct-user-input jt-join-direct-user-password" maxlength="16" placeholder="비밀번호 (8~16자)"/>
+							<span class="jt-join-validation jt-join-direct-user-password-check"></span>
 						</td>
 					</tr>
 					<tr>
 						<td>
-							<input type="password" id="confirmPassword" name="confirmPassword" class="jt-join-direct-user-input" maxlength="16" placeholder="비밀번호 확인"/>
+							<input type="password" id="confirmPassword" name="confirmPassword" class="jt-join-direct-user-input jt-join-direct-user-confirmPassword" maxlength="16" placeholder="비밀번호 확인"/>
+							<span class="jt-join-validation jt-join-direct-user-confirmPassword-check"></span>
 						</td>
 					</tr>
 			</tbody>
@@ -82,7 +86,7 @@
 		</form>
 		<footer class="jt-join-user-footer jt-join-direct-user-footer">
 		<div>
-		<button type="button" class="jt-join-submit jt-btn-orange" onclick="jtown.login.joinSubmit()">가입하기</button>
+		<button type="button" class="jt-join-submit jt-btn-orange" onclick="jtown.login.joinDirectSubmit()">가입하기</button>
 		</div>
 		<ul>
 			<li>‘가입하기’를&nbsp;누르면&nbsp;<a href="${cp }/individual">이용약관</a>&nbsp;및&nbsp;<a href="${cp }/agreement">개인정보취급방침</a>에

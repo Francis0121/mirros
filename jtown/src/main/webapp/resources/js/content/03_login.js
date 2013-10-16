@@ -20,7 +20,7 @@ jtown.login.submit = function(name){
 		'success' : function(data) {
 			jtown.login.control(data, name);
 		}
-	});	
+	});
 };
 
 jtown.login.control = function(data, name){
@@ -37,25 +37,50 @@ jtown.login.showLoginForm = function(){
 	var inner = $('#jt-login-form-wrap'),
 		form = inner.find('form[name=jt-popup-login-form]'),
 		j_username = inner.find('input[name=j_username]'),
-		j_password = inner.find('input[name=j_password]')
-		/*
+		j_password = inner.find('input[name=j_password]'),
 		joinForm = inner.find('form[name=jt-join-direct-join-form]'),
 		name = inner.find('input[name=name]'),
-		username = inner.find('input[name=username]'),
+		username = inner.find('input[name=username]');
 		password = inner.find('input[name=password]'),
 		confirmPassword = inner.find('input[name=confirmPassword]');
-		*/
-		;
 	
 	form.attr('id', 'jt-popup-login-form');
 	j_username.attr('id', 'j_username');
 	j_password.attr('id', 'j_password');
+	
+	joinForm.attr('id', 'jt-join-direct-join-form');
+	name.attr('id', 'name');
+	username.attr('id', 'username');
+	password.attr('id', 'password');
+	confirmPassword.attr('id', 'confirmPassword');
 	$.smartPop.open({ width : 430, height : 400, html : inner.html(), effect : null });	
 	
 	form.attr('id', '');
 	j_username.attr('id', '');
 	j_password.attr('id', '');
 	
+	joinForm.attr('id', '');
+	name.attr('id', '');
+	username.attr('id', '');
+	password.attr('id', '');
+	confirmPassword.attr('id', '');
+
+	$('.jt-join-direct-user-name').focusout(function(){
+		$.post( contextPath+'login/nameValidation.jt', { name: this.value}, function(result){
+			result == 'success' ? $('.jt-join-direct-user-name-check').text('O') : $('.jt-join-direct-user-name-check').text('X');
+		});
+	});
+	$('.jt-join-direct-user-username').focusout(function(){
+		$.post( contextPath+'login/usernameValidation.jt', { username: this.value}, function(result){
+			result == 'success' ? $('.jt-join-direct-user-username-check').text('O') : $('.jt-join-direct-user-username-check').text('X');
+		});
+	});
+	$('.jt-join-direct-user-password').focusout(function(){
+		this.value.length >=8 && this.value.length <=16 ? $('.jt-join-direct-user-password-check').text('O') : $('.jt-join-direct-user-password-check').text('X'); 
+	});
+	$('.jt-join-direct-user-confirmPassword').focusout(function(){
+		$('.jt-join-direct-user-confirmPassword:eq(1)').val() == this.value & this.value!='' ? $('.jt-join-direct-user-confirmPassword-check').text('O') : $('.jt-join-direct-user-confirmPassword-check').text('X'); 
+	});
 	setTimeout('$(function() { $(\'#j_username, #j_password\').placeholder(); });', 0);
 };
 
@@ -87,13 +112,21 @@ jtown.login.resendEmailAddress = function() {
 	});
 };
 
-jtown.login.joinSubmit = function(){
-		$('#loading-popup').fadeIn();
-		var form = document.forms['jt-join-direct-join-form'];
-		console.log(form);
-		console.log($('.jt-join-direct-user-input'));
-		//form.submit();
+jtown.login.joinDirectSubmit = function(){
+	$('#loading-popup').fadeIn();
+	var $form = $('#jt-join-direct-join-form');
+	$form.serialize();
+	$form.submit();
 };
+
+jtown.login.joinSubmit = function(){
+	$('.jt-join-submit').bind('click', function() {
+		$('#loading-popup').fadeIn();
+		var form = document.forms['jtownUser'];
+		form.submit();
+	});
+};
+
 
 jtown.login.changeUserSubmit = function(){
 	$('.jt-change-user-btn').bind('click', function(){
@@ -147,3 +180,5 @@ jtown.login.confirmPassword = function() {
 		$('#confirmPW').hide();
 	});
 };
+
+

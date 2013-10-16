@@ -11,22 +11,19 @@
 <script src="${cp}/resources/js/masonry.scroll.pagination.js"></script>
 <script src="${cp}/resources/js/jcarousellite_1.0.1.min.js"></script>
 <script src="${cp}/resources/js/jquery.jqplot.min.js"></script>
+<script src="${cp}/resources/js/jqplot.highlighter.min.js"></script>
+<script src="${cp}/resources/js/jqplot.dateAxisRenderer.min.js"></script>
+<script src="${cp}/resources/js/jquery.default.plugin.min.js"></script>
  <!--[if IE]>
  <script language="javascript" type="text/javascript" src="${cp}/resources/js/excanvas.min.js"></script>
  <![endif]-->
 <!--[if !IE 7]>
 <script src="${cp}/resources/js/masonry.pkgd.min.js"></script>
 <![endif]-->
-<script src="${cp}/resources/js/jquery.infinitescroll.js"></script>
 
 <%-- <script src="${cp}/resources/js/jquery.plugin.min.js"></script> --%>
-<script src="${cp}/resources/js/jquery.mousewheel.js"></script>
-<script src="${cp}/resources/js/jquery.form.js"></script>
-<script src="${cp}/resources/js/jquery.json.js"></script>
 <script src="${cp}/resources/js/jquery.plugin.js"></script>
-<script src="${cp}/resources/js/jquery.cookie.js"></script>
-<script src="${cp}/resources/js/jquery.intro.js"></script>
-<script src="${cp}/resources/js/jquery.simplemodal.js"></script>
+
 <%-- Custom --%>
 <%-- <script src="${cp}/resources/js/mirros.all.js"></script> --%>
 <script src="${cp}/resources/js/content/01_jtown.js"></script>
