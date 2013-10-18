@@ -29,9 +29,6 @@ $(function() {
 		jtown.pg.windowResize();
 	
 	var containerDiv = document.querySelector('.jt-pg-main');
-		
-		
-	
 	jtown.pg.itemOrder = function(){
 		var msnry = new Masonry( containerDiv, {
 		  columnWidth: 0,
@@ -78,6 +75,7 @@ var productGatherHtml = function(data){
 			html+='<div class="jt-pg-item jt-pg-small-product" data-url="'+data.mergeItems[idx].url+'" data-product-pn="'+data.mergeItems[idx].productPn+'" data-event-pn="'+data.mergeItems[idx].eventPn+'">';
 			if(data.mergeItems[idx].productPn == 0){
 				html+=	'<div class="jt-pg-event-line">';
+				html+=	'<div class="jt-pg-item-wrap">';
 				html+=		'<div class="jt-pg-event-line-event-name-wrap">';
 				html+=	 		'<span class="jt-home-expand-shop-event-new-image">NEW</span>';
 				html+=			'<div class="jt-pg-event-line-event-name">'+data.mergeItems[idx].eventName +'</div>';
@@ -98,9 +96,11 @@ var productGatherHtml = function(data){
 				html+=			'<span class="loginImage"></span>';
 				html+=		'<span class="loginText">페이스북 공유하기</span>';
 				html+=		'</div>';
+				html+=		'</div>';
 				html+='</div>';
 			}else if(data.mergeItems[idx].productPn != 0){
 				html+=		'<div class="jt-pg-product-line">';
+				html+= 	'<div class="jt-pg-item-wrap">';
 				html+=			'<div class="jt-pg-product-img">';
 				if(data.mergeItems[idx].contentType == ''){
 					html+=			 '<img src="'+contextPath+'resources/uploadImage/'+data.mergeItems[idx].saveName+'" alt="'+data.mergeItems[idx].productName+'" />';
@@ -123,12 +123,32 @@ var productGatherHtml = function(data){
 				html+=				'</div>';
 				html+=			'<div class="jt-pg-heart-count '+heartClickTextClass+'" id="jt-pg-heart-count-'+data.mergeItems[idx].productPn+'">'+data.mergeItems[idx].heartCount+'</div>';
 				html+=			'</div>';
+				html+=			'</div>';
+				html+=		'<div class="jt-pg-comment-wrap">';
+				html+=		'<div>ㅁ<input type="text" class="jt-pg-comment-input" placeholder="Write your secret comment..."  maxlength="20"/></div>';
+				html+=		'<div class="jt-pg-comment-line-wrap">';
+				var commentsSize = data.mergeItems[idx].comments.length;
+				var moreEnable = '';
+				for(var sIdx=0; sIdx< commentsSize; sIdx++){
+					if(sIdx < 3){
+						html+= 	'<div>';
+						html+=			'<div class="jt-pg-comment-line-text">'+data.mergeItems[idx].comments[sIdx].comment+'</div>';
+						html+=			'<div class="jt-pg-comment-line-date">'+data.mergeItems[idx].comments[sIdx].inputDate+'</div>';
+						html+= 	'</div>';
+					}else{
+						moreEnable = 'jt-pg-comment-more-enable';
+					}
+				}
+				html+='	</div>';
+				html+='		<div class="jt-pg-comment-more '+moreEnable+'">▼</div>';
+				html+='	</div>';
 				html+=		'</div>';
 			}
 			html+='</div>';
 		}else{
 			html+='<div class="jt-pg-item jt-pg-large-product" data-url="'+data.mergeItems[idx].url+'" data-product-pn="'+data.mergeItems[idx].productPn+'">';
 			html+=		'<div class="jt-pg-product-line">';
+			html+= 	'<div class="jt-pg-item-wrap">';
 			html+=			'<div class="jt-pg-product-line-hot"><img src="'+contextPath+'resources/images/jt-hot.png"></div>';
 			html+=			'<div class="jt-pg-product-img">';
 			if(data.mergeItems[idx].contentType == ''){
@@ -152,6 +172,25 @@ var productGatherHtml = function(data){
 			html+=				'</div>';
 			html+=			'<div class="jt-pg-heart-count '+heartClickTextClass+'" id="jt-pg-heart-count-'+data.mergeItems[idx].productPn+'" >'+data.mergeItems[idx].heartCount+'</div>';
 			html+=			'</div>';
+			html+=		'</div>';
+			html+=		'<div class="jt-pg-comment-wrap">';
+			html+=		'<div>ㅁ <input type="text" class="jt-pg-comment-input" placeholder="Write your secret comment..."  maxlength="20"/></div>';
+			html+=		'<div class="jt-pg-comment-line-wrap">';
+			var commentsSize = data.mergeItems[idx].comments.length;
+			var moreEnable = '';
+			for(var sIdx=0; sIdx< commentsSize; sIdx++){
+				if(sIdx < 3){
+					html+= 	'<div>';
+					html+=			'<div class="jt-pg-comment-line-text">'+data.mergeItems[idx].comments[sIdx].comment+'</div>';
+					html+=			'<div class="jt-pg-comment-line-date">'+data.mergeItems[idx].comments[sIdx].inputDate+'</div>';
+					html+= 	'</div>';
+				}else{
+					moreEnable = 'jt-pg-comment-more-enable';
+				}
+			}
+			html+='	</div>';
+			html+='		<div class="jt-pg-comment-more '+moreEnable+'">▼</div>';
+			html+='	</div>';
 			html+=		'</div>';
 			html+='</div>';
 		}
@@ -179,11 +218,10 @@ $('.jt-pg-container').on('click', '.jt-pg-product-facebook', function(e){
 	productPn == 0 ? jtown.home.eventFacebookLikeClick(eventPn, fbTextElement) : jtown.home.productFacebookLikeClick(productPn, fbTextElement);
 });
 
-$('.jt-pg-container').on('click', '.jt-pg-item', function(){
-	var productPn = $(this).attr('data-product-pn');
-	var eventPn = $(this).attr('data-event-pn');
-	var productUrl = $(this).attr('data-url'); 
-	
+$('.jt-pg-container').on('click', '.jt-pg-item-wrap', function(){
+	var productPn = $(this).parents('.jt-pg-item').attr('data-product-pn');
+	var eventPn = $(this).parents('.jt-pg-item').attr('data-event-pn');
+	var productUrl = $(this).parents('.jt-pg-item').attr('data-url'); 
 	if($('#jt-login-smartPopup').text() ==''){
 		if(productPn != 0){
 			jtown.home.productStatisticClick(productPn);
@@ -203,6 +241,13 @@ $('.jt-pg-container').on('click', '.jt-pg-item', function(){
 	};
 });
 
+$('.jt-pg-container').on('click', '.jt-pg-comment-input', function(){
+	if($('#jt-login-smartPopup').text() =='LOG IN'){
+		jtown.login.showLoginForm();
+		return;
+	}
+});
+
 jtown.pg.formatNumber = function(cr){
 	var str = new Array();
 	cr = String(cr);
@@ -213,10 +258,10 @@ jtown.pg.formatNumber = function(cr){
 	return str.join('').replace(/^,/,'');
 };
 
-$('.jt-pg-container').on('mouseenter', '.jt-pg-item', function(){
+$('.jt-pg-container').on('mouseenter', '.jt-pg-item-wrap', function(){
 	$(this).find('.jt-pg-product-line-bright').css('display','block');
 });
-$('.jt-pg-container').on('mouseleave', '.jt-pg-item', function(){
+$('.jt-pg-container').on('mouseleave', '.jt-pg-item-wrap', function(){
 	$(this).find('.jt-pg-product-line-bright').css('display','none');
 });
 
@@ -227,6 +272,90 @@ $('.jt-pg-container').on('mouseleave', '.jt-pg-heart-wrap', function(){
 	$(this).find('.jt-home-shop-love').css('background-position','0px -30px');
 });
 
+$('.jt-pg-container').on('keydown','.jt-pg-comment-input',(function(e){
+ 	if( (e.keyCode) && (e.keyCode==13) && ($(this).val() !='')) {
+		var productPn =$(this).parents('.jt-pg-item').attr('data-product-pn');
+		$replyItemLength = $(this).parents('.jt-pg-item').find('.jt-pg-comment-line-text').length;
+		$inputText =$(this).val();
+		$(this).val('');
+		$commentWrap = $(this).parents('.jt-pg-item').find('.jt-pg-comment-line-wrap');
+		$.postJSON(contextPath + 'ajax/insertComment.jt', { productPn : productPn, comment : $inputText }, function(object) {
+			var comments =object.comment;
+			var commentList = object.commentList;
+			if (!nullValueCheck(comments.message)) {
+				if(comments.message == '1'){
+					jtown.login.showLoginForm();
+				}else if(comments.message == '3'){
+					jtown.dialog('한 상품에 댓글은 한번만 가능합니다.');
+				}else{
+					jtown.dialog('판매자는 불가능합니다');
+				}
+				return;
+			}else if(nullValueCheck(comments.message)){
+				if(comments.count <=3){
+					var html = '<div>';
+					html +='	<div class="jt-pg-comment-line-text">'+commentList[0].comment+'</div>';
+					html +='	<div class="jt-pg-comment-line-date">'+commentList[0].inputDate+'</div>';
+					html += '</div>';
+					$commentWrap.prepend(html);
+					if (getInternetExplorerVersion() != 7 ){
+						jtown.pg.itemOrder();
+					}
+				}else{
+					var html ='';
+					for(var idx=0; idx< 3; idx++){
+						html += '<div>';
+						html +='	<div class="jt-pg-comment-line-text">'+commentList[idx].comment+'</div>';
+						html +='	<div class="jt-pg-comment-line-date">'+commentList[idx].inputDate+'</div>';
+						html += '</div>';
+					}
+					$commentWrap.html(html);
+					sessionStorage.setItem('comment-'+productPn, 2);
+				}
+			} 
+		});
+	}
+}));
+//TODO 페이지 이동
+$('.jt-pg-container').on('click', '.jt-pg-comment-more', function(){
+	var productPn = $(this).parents('.jt-pg-item').attr('data-product-pn');
+	var page = 2;
+	sessionStorage.getItem('comment-'+productPn) == null ? page = 2 : page = sessionStorage.getItem('comment-'+productPn); 
+	$commentWrap = $(this).parents('.jt-pg-item').find('.jt-pg-comment-line-wrap');
+	$commentMore = $(this).parents('.jt-pg-item').find('.jt-pg-comment-more');
+	$.postJSON(contextPath + 'ajax/selectComment.jt', { productPn : productPn, page : page}, function(object) {
+		sessionStorage.setItem('comment-'+productPn, (page-0+1));
+		var comments =object.comment;
+		var commentList = object.commentList;
+		var size = comments.count;
+		var html ='';
+		
+		console.log(size);
+		console.log(commentList);
+		for(var idx=0; idx< size; idx++){
+			if(idx <=3){
+				html += '<div>';
+				html +='	<div class="jt-pg-comment-line-text">'+commentList[idx].comment+'</div>';
+				html +='	<div class="jt-pg-comment-line-date">'+commentList[idx].inputDate+'</div>';
+				html += '</div>';
+			}
+		}
+		$commentWrap.html(html);
+		if(size < 3){
+			if (getInternetExplorerVersion() != 7 ){
+				jtown.pg.itemOrder();
+				$commentMore.attr('class', 'jt-pg-comment-more');
+			}
+		}
+	});
+});
+
+//TODO 자기꺼면 수정
+//TODO 자기꺼 삭제/ 운영자가 삭제
+$('.jt-pg-event-page').click(function(){
+	var openNewWindow = window.open("about:blank");
+	openNewWindow.location.href = "http://www.mizon.co.kr/join/mirros.asp?ref=mirros_memb";
+});
 
 $('.jt-footer').css('display','block');
 $('#jt-scroll-top').bind('click', function(){

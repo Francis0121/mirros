@@ -168,7 +168,6 @@ public class CustomJdbcUserDetailManager extends JdbcUserDetailsManager {
 		jtownUser.setFacebookFeed(true);
 		setEncodedPassword(jtownUser, jtownUser.getPassword());
 		loginService.insertCreatUserCustomer(jtownUser);
-
 		addUserToGroup(jtownUser.getPn(), CUSTOMER);
 
 		loginService.confirmingEmailAddress(jtownUser);

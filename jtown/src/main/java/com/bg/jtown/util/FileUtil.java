@@ -61,7 +61,7 @@ public class FileUtil {
 		} else if (category.equals("event")) {
 			return 309;
 		} else if (category.equals("product")) {
-			return 140;
+			return 240;
 		}
 		return 0;
 	}

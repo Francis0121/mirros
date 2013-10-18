@@ -43,6 +43,7 @@
 						</div>
 					</td>
 				</tr>
+				<!-- 
 				<tr>
 					<th>성별</th>
 					<td>
@@ -72,6 +73,7 @@
 						</form:select>
 					</td>
 				</tr>
+				 -->
 				</sec:authorize>
 				<sec:authorize access="principal.groupName eq 'Seller' or principal.groupName eq 'Administrator'">
 				<tr>

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.springframework.stereotype.Service;
 
+import com.bg.jtown.business.Comment;
 import com.bg.jtown.business.Count;
 import com.bg.jtown.business.Gather;
 import com.bg.jtown.business.search.GatherFilter;
@@ -52,6 +53,10 @@ public class GatherServiceImpl extends SqlSessionDaoSupport implements GatherSer
 		for (int idx = productGatherFilter.getPagePerItem() * (productGatherFilter.getCurrentPage() - 1); idx < productGatherFilter.getPagePerItem()
 				* productGatherFilter.getCurrentPage(); idx++) {
 			if (idx < itemSize) {
+				Comment comment = new Comment();
+				comment.setProductPn(itemList.get(idx).getProductPn());
+				comment.setPage(1);
+				itemList.get(idx).setComments(selectCommentList(comment));
 				paginatedItemList.add(itemList.get(idx));
 			}
 		}
@@ -239,5 +244,27 @@ public class GatherServiceImpl extends SqlSessionDaoSupport implements GatherSer
 	public Gather selectShopEvent(Integer eventPn) {
 		return getSqlSession().selectOne("gatherMapper.selectShopEvent", eventPn);
 	}
+
+	@Override
+	public void insertProductComment(Comment comment) {
+		getSqlSession().insert("gatherMapper.insertProductComment", comment);
+	}
+
+	@Override
+	public Integer selectCommentExist(Comment comment) {
+		return getSqlSession().selectOne("gatherMapper.selectCommentExist", comment);
+	}
+
+	@Override
+	public List<Comment> selectCommentList(Comment comment) {
+		return getSqlSession().selectList("gatherMapper.selectCommentList", comment);
+	}
+
+	@Override
+	public List<Comment> selectCommentList(Integer productPn) {
+		return getSqlSession().selectList("gatherMapper.selectCommentList", productPn);
+	}
+	
+	
 
 }

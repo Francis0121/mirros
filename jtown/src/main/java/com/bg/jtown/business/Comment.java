@@ -73,15 +73,28 @@ public class Comment {
 	 */
 	private Integer sellerPn;
 
+	/**
+	 * 상품 고유번호
+	 */
+	private Integer productPn;
+
+	/**
+	 * 페이지
+	 */
+	private Integer page = 1;
+
+	/**
+	 * 가져오는 범위 preItem ~ postItem
+	 */
+	private Integer preItem;
+	private Integer postItem;
+
 	public Comment() {
 		super();
 	}
 
-	public Comment(String comment, Integer commentCustomerPn,
-			Integer warnCustomerPn, Integer commentLoveCount,
-			Integer commentPn, Integer count, String crudType,
-			String customerName, Integer customerPn, String inputDate,
-			String message, String redisType, Integer sellerPn) {
+	public Comment(String comment, Integer commentCustomerPn, Integer warnCustomerPn, Integer commentLoveCount, Integer commentPn, Integer count,
+			String crudType, String customerName, Integer customerPn, String inputDate, String message, String redisType, Integer sellerPn) {
 		super();
 		this.comment = comment;
 		this.commentCustomerPn = commentCustomerPn;
@@ -208,21 +221,49 @@ public class Comment {
 		}
 		return StringUtil.strCut(this.comment.trim(), 40, "");
 	}
-	
-	public boolean getIsSplit(){
+
+	public boolean getIsSplit() {
 		return StringUtil.isSplit(this.comment, 40);
+	}
+
+	public Integer getProductPn() {
+		return productPn;
+	}
+
+	public void setProductPn(Integer productPn) {
+		this.productPn = productPn;
+	}
+
+	public Integer getPage() {
+		return page;
+	}
+
+	public void setPage(Integer page) {
+		this.page = page;
+	}
+
+	public Integer getPreItem() {
+		return (page-1)*3;
+	}
+
+	public void setPreItem(Integer preItem) {
+		this.preItem = preItem;
+	}
+
+	public Integer getPostItem() {
+		return page*3 +1;
+	}
+
+	public void setPostItem(Integer postItem) {
+		this.postItem = postItem;
 	}
 
 	@Override
 	public String toString() {
-		return "Comment [comment=" + comment + ", commentCustomerPn="
-				+ commentCustomerPn + ", warnCustomerPn=" + warnCustomerPn
-				+ ", commentLoveCount=" + commentLoveCount + ", commentPn="
-				+ commentPn + ", count=" + count + ", crudType=" + crudType
-				+ ", customerName=" + customerName + ", customerPn="
-				+ customerPn + ", inputDate=" + inputDate + ", message="
-				+ message + ", redisType=" + redisType + ", sellerPn="
-				+ sellerPn + "]";
+		return "Comment [comment=" + comment + ", commentCustomerPn=" + commentCustomerPn + ", warnCustomerPn=" + warnCustomerPn
+				+ ", commentLoveCount=" + commentLoveCount + ", commentPn=" + commentPn + ", count=" + count + ", crudType=" + crudType
+				+ ", customerName=" + customerName + ", customerPn=" + customerPn + ", inputDate=" + inputDate + ", message=" + message
+				+ ", redisType=" + redisType + ", sellerPn=" + sellerPn + ", productPn=" + productPn + "]";
 	}
 
 }

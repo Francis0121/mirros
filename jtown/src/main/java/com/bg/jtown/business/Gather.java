@@ -1,5 +1,7 @@
 package com.bg.jtown.business;
 
+import java.util.List;
+
 /**
  * @author In Sanghak
  * 
@@ -20,6 +22,7 @@ public class Gather {
 	private int newProduct;
 	private int heartCount;
 	private Integer customerPn;
+	private List<Comment> comments;
 
 	// Event Data
 	private int eventPn;
@@ -190,13 +193,21 @@ public class Gather {
 		this.customerPn = customerPn;
 	}
 
+	public List<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
+	}
+
 	@Override
 	public String toString() {
 		return "Gather [productPn=" + productPn + ", sellerPn=" + sellerPn + ", imagePn=" + imagePn + ", productName=" + productName + ", url=" + url
 				+ ", price=" + price + ", saveName=" + saveName + ", originalName=" + originalName + ", contentType=" + contentType + ", hot=" + hot
-				+ ", newProduct=" + newProduct + ", heartCount=" + heartCount + ", customerPn=" + customerPn + ", eventPn=" + eventPn
-				+ ", eventName=" + eventName + ", beginDate=" + beginDate + ", endDate=" + endDate + ", bannerOrder=" + bannerOrder + ", shopName="
-				+ shopName + ", newEvent=" + newEvent + "]";
+				+ ", newProduct=" + newProduct + ", heartCount=" + heartCount + ", customerPn=" + customerPn + ", comments=" + comments
+				+ ", eventPn=" + eventPn + ", eventName=" + eventName + ", beginDate=" + beginDate + ", endDate=" + endDate + ", bannerOrder="
+				+ bannerOrder + ", shopName=" + shopName + ", newEvent=" + newEvent + "]";
 	}
 
 }

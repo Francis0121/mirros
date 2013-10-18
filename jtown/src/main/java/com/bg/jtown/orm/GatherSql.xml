@@ -358,6 +358,49 @@
 		AND 
 			deleted = 'N'
 	</select>
+	
+	<!-- comment  -->
+	<resultMap type="Comment" id="jtown-comment-map">
+		<result column="comment_pn" property="commentPn"/>
+		<result column="customer_pn" property="customerPn"/>
+		<result column="product_pn" property="productPn"/>
+		<result column="comment" property="comment"/>
+		<result column="input_date" property="inputDate"/>
+		<result column="deleted" property="deleted"/>
+	</resultMap>
+	
+	<select id="selectCommentExist" resultType="Integer">
+		SELECT 
+			COUNT(comment_pn)
+		FROM 
+			product_comment
+		WHERE 
+			product_pn = #{productPn} 
+		AND 
+			customer_pn = #{customerPn}
+		AND 
+			deleted ='N'
+	</select>
+	
+	<select id="selectCommentList" resultMap="jtown-comment-map">
+		SELECT 
+			comment_pn, customer_pn, COMMENT, DATE_FORMAT(input_date, '%Y-%m-%d %H:%i') AS input_date
+		FROM 
+			product_comment
+		WHERE 
+			product_pn = #{productPn}
+		AND deleted = 'N'
+		ORDER BY 
+			input_date DESC
+			LIMIT #{preItem}, #{postItem}
+	</select>
+	
+	<insert id="insertProductComment" > 
+		INSERT INTO 
+			product_comment(product_pn, customer_pn, comment, input_date) 
+		VALUES(#{productPn}, #{customerPn}, #{comment}, SYSDATE())
+	</insert>
+	
 </mapper>
 	
 	

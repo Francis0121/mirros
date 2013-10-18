@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.bg.jtown.business.Comment;
 import com.bg.jtown.business.Count;
 import com.bg.jtown.business.Gather;
 import com.bg.jtown.business.Product;
@@ -329,6 +330,44 @@ public class GatherController {
 			count.setMessage("2");
 		}
 		return count;
+	}
+	
+	@RequestMapping(value="/ajax/insertComment.jt", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String,Object> ajaxInsertComment(@RequestBody Comment comment, SummaryUser summaryUser){
+		Map<String, Object> map = new HashMap<String, Object>(); 
+		switch (summaryUser.getEnumAuthority()) {
+		case CUSTOMER:
+			comment.setCustomerPn(summaryUser.getPn());
+			if(gatherService.selectCommentExist(comment) == 0 ){
+				gatherService.insertProductComment(comment);
+				List<Comment> commentList = gatherService.selectCommentList(comment);
+				comment.setCount(commentList.size());
+				map.put("commentList", commentList);
+			}else{
+				comment.setMessage("3");
+				break;
+			}
+			break;
+		case NOT_LOGIN:
+			comment.setMessage("1");
+			break;
+		default:
+			comment.setMessage("2");
+		}
+		map.put("comment", comment);
+		return map;
+	}
+	
+	@RequestMapping(value="/ajax/selectComment.jt", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String,Object> ajaxSelectComment(@RequestBody Comment comment, SummaryUser summaryUser){
+		Map<String, Object> map = new HashMap<String, Object>();
+		List<Comment> commentList = gatherService.selectCommentList(comment);
+		comment.setCount(commentList.size());
+		map.put("commentList", commentList);
+		map.put("comment", comment);
+		return map;
 	}
 
 }

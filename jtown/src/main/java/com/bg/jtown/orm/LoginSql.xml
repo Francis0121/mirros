@@ -40,7 +40,7 @@
 			users
 			( id, password, enable, salt, name, confirm_email, upper_name, facebook_feed )
 		VALUES
-			( #{username}, #{password}, #{enabled}, #{salt}, #{name}, #{confirmEmail}, #{upperName}, #{facebookFeed} )
+			( #{username}, #{password}, #{enabled}, #{salt}, #{name}, 1, #{upperName}, #{facebookFeed} )
 		<selectKey keyProperty="pn" resultType="Integer">
 			SELECT LAST_INSERT_ID()
 		</selectKey>

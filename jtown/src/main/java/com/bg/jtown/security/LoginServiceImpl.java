@@ -15,14 +15,12 @@ import com.bg.jtown.util.RandomUtil;
  * 
  */
 @Service
-public class LoginServiceImpl extends SqlSessionDaoSupport implements
-		LoginService {
+public class LoginServiceImpl extends SqlSessionDaoSupport implements LoginService {
 
 	@Override
 	public boolean selectCheckExistEmail(String id) {
 		if (id != null) {
-			return (Integer) getSqlSession().selectOne(
-					"loginMapper.checkExistEmail", id) > 0;
+			return (Integer) getSqlSession().selectOne("loginMapper.checkExistEmail", id) > 0;
 		}
 		return false;
 	}
@@ -34,7 +32,7 @@ public class LoginServiceImpl extends SqlSessionDaoSupport implements
 	@Override
 	public void insertCreatUserCustomer(JtownUser jtownUser) {
 		insertUser(jtownUser);
-		//getSqlSession().insert("loginMapper.insertUserCustomer", jtownUser);
+		// getSqlSession().insert("loginMapper.insertUserCustomer", jtownUser);
 	}
 
 	@Override
@@ -78,24 +76,20 @@ public class LoginServiceImpl extends SqlSessionDaoSupport implements
 	public void updateUserCustomer(JtownUser jtownUser) {
 		getSqlSession().update("loginMapper.updateUserCustomer", jtownUser);
 		if (jtownUser.getConfirmEmail() == null) {
-			getSqlSession().update("loginMapper.updateUserCustomerDetail",
-					jtownUser);
+			//getSqlSession().update("loginMapper.updateUserCustomerDetail", jtownUser);
 		}
 	}
 
 	@Override
-	public void updateUserCustomerEmail(String changeUserName,
-			String nowUserName) {
+	public void updateUserCustomerEmail(String changeUserName, String nowUserName) {
 
 		Map<String, Object> updateMap = new HashMap<String, Object>();
 		updateMap.put("changeUserName", changeUserName);
 		updateMap.put("nowUserName", nowUserName);
 
 		deleteEmailConfirm(new Confirm(nowUserName));
-		getSqlSession()
-				.update("loginMapper.updateUserCustomerEmail", updateMap);
-		String series = Integer
-				.toString(RandomUtil.randomRange(100000, 999999));
+		getSqlSession().update("loginMapper.updateUserCustomerEmail", updateMap);
+		String series = Integer.toString(RandomUtil.randomRange(100000, 999999));
 		insertEmailConfirm(new Confirm(changeUserName, series));
 	}
 
@@ -109,8 +103,7 @@ public class LoginServiceImpl extends SqlSessionDaoSupport implements
 
 	@Override
 	public Map<String, Object> selectDeleteUser(Integer pn) {
-		String registerDate = getSqlSession().selectOne(
-				"loginMapper.selectDeleteUser", pn);
+		String registerDate = getSqlSession().selectOne("loginMapper.selectDeleteUser", pn);
 		if (registerDate == null) {
 			return null;
 		}
@@ -154,14 +147,12 @@ public class LoginServiceImpl extends SqlSessionDaoSupport implements
 
 	@Override
 	public Confirm selectEmailConfirm(Confirm confirm) {
-		return getSqlSession().selectOne("loginMapper.selectEmailConfirm",
-				confirm);
+		return getSqlSession().selectOne("loginMapper.selectEmailConfirm", confirm);
 	}
 
 	@Override
 	public void confirmingEmailAddress(JtownUser jtownUser) {
-		String series = Integer
-				.toString(RandomUtil.randomRange(100000, 999999));
+		String series = Integer.toString(RandomUtil.randomRange(100000, 999999));
 		Confirm confirm = new Confirm(jtownUser.getUsername(), series);
 
 		deleteEmailConfirm(confirm);
@@ -181,13 +172,11 @@ public class LoginServiceImpl extends SqlSessionDaoSupport implements
 	// ~ Social
 
 	@Override
-	public String selectSocialProviderUserId(Integer properNumber,
-			String providerId) {
+	public String selectSocialProviderUserId(Integer properNumber, String providerId) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("properNumber", properNumber);
 		map.put("providerId", providerId);
-		return getSqlSession().selectOne(
-				"loginMapper.selectSocialProviderUserId", map);
+		return getSqlSession().selectOne("loginMapper.selectSocialProviderUserId", map);
 	}
 
 	@Override
@@ -197,29 +186,25 @@ public class LoginServiceImpl extends SqlSessionDaoSupport implements
 
 	@Override
 	public Boolean selectFacebookFeed(String username) {
-		return getSqlSession().selectOne("loginMapper.selectFacebookFeed",
-				username);
+		return getSqlSession().selectOne("loginMapper.selectFacebookFeed", username);
 	}
 
 	// ~ Admin
 
 	@Override
 	public boolean selectCheckExistAdminEmail(String email) {
-		boolean result = getSqlSession().selectList(
-				"loginMapper.selectCheckExistAdminEmail", email).size() == 1;
+		boolean result = getSqlSession().selectList("loginMapper.selectCheckExistAdminEmail", email).size() == 1;
 		return result;
 	}
 
 	@Override
 	public boolean selectCheckExistAdminUsername(String username) {
-		boolean result = getSqlSession().selectList(
-				"loginMapper.selectCheckExistAdminUsername", username).size() == 1;
+		boolean result = getSqlSession().selectList("loginMapper.selectCheckExistAdminUsername", username).size() == 1;
 		return result;
 	}
 
 	@Override
 	public Integer selectCheckExistSellerEmail(String username) {
-		return getSqlSession().selectOne(
-				"loginMapper.selectCheckExistSellerEmail", username);
+		return getSqlSession().selectOne("loginMapper.selectCheckExistSellerEmail", username);
 	}
 }

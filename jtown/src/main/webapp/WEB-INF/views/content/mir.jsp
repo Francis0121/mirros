@@ -38,9 +38,7 @@
 				</li>
 			</ul>
 			<div class="jt-home-main-url-notice">
-				<span class="jt-home-shop-footer-firstQuotationMark">"</span>
 				<pre class="jt-home-shop-footer-text"><c:out value="${jtownUser.notice }"/></pre>
-				<span class="jt-home-shop-footer-lastQuotationMark">"</span>
 			</div>
 			<section class="jt-home-main-recently-wrap">
 				<header>

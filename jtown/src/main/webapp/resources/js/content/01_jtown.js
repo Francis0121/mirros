@@ -4,6 +4,7 @@
  * Copyright (C) 2013 peoplegate - made by Francis ( Project : businessgate)
  * ***********************/
 $(function() {
+	sessionStorage.clear();
 	// ~ Home
 	
 //	Sub Navigation View	

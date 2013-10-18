@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import com.bg.jtown.business.Comment;
 import com.bg.jtown.business.Count;
 import com.bg.jtown.business.Gather;
 import com.bg.jtown.business.search.GatherFilter;
@@ -64,5 +65,12 @@ public interface GatherService {
 	void deleteEventHeart(Count count);
 	
 	Gather selectShopEvent(Integer eventPn);
+	
+	void insertProductComment(Comment comment);
+	
+	Integer selectCommentExist(Comment comment);
 
+	List<Comment> selectCommentList(Comment comment);
+	
+	List<Comment> selectCommentList(Integer productPn);
 }
