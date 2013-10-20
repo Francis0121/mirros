@@ -349,17 +349,37 @@ $('.jt-pg-container').on('click', '.jt-pg-comment-more', function(){
 		}
 	});
 });
-
 //TODO 자기꺼면 수정
 //TODO 자기꺼 삭제/ 운영자가 삭제
-$('.jt-pg-event-page').click(function(){
-	var openNewWindow = window.open("about:blank");
-	openNewWindow.location.href = "http://www.mizon.co.kr/join/mirros.asp?ref=mirros_memb";
-});
+
+jtown.pg.eventBannerOpen = function(ebPn){
+	//TODO 이벤트 입력창 열고 데이터 보여줌, 이벤트 참가 입력 , 공유 
+	//$.postJSON(contextPath + 'ajax/eventBanner.jt', { eventPn : ebPn}, function(object) {
+		
+	//});
+	$.smartPop.open({ width : 430, height : 400, html : '<div style="background-color:#fff;">213 </div>', effect : null });
+	
+	console.log('open');
+};
 
 $('.jt-footer').css('display','block');
 $('#jt-scroll-top').bind('click', function(){
 	$('html, body').animate({scrollTop:0}, 'slow');
+});
+
+$.getJSON("bannerJSON?order=1", function(data) {
+        $("#flavor_1").agile_carousel({
+            carousel_data: data,
+            carousel_outer_height: 289,
+            carousel_height: 289,
+            slide_height: 290,
+            carousel_outer_width: 492,
+            slide_width: 492,
+            transition_time: 300,
+            timer: 4000,
+            continuous_scrolling: true,
+            control_set_1: "numbered_buttons"
+    });
 });
 
 });

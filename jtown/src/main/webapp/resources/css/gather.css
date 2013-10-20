@@ -8,9 +8,9 @@
 .jt-pg-large-product .jt-pg-product-img img{width: 240px;height: 240px; border-radius:3px 3px 0 0;}
 .jt-pg-small-product {margin: 7px;width: 240px; border-radius:3px;}
 .jt-pg-small-product .jt-pg-product-img img{width: 240px;height: 240px; border-radius:3px 3px 0 0;}
-.jt-pg-event-item {width: 1px; height: 289px; visibility: hidden;}
-.jt-pg-event-page{margin: 7px;cursor: pointer;width:492px;}
-.jt-pg-event-page>img{width:491px;}
+.jt-pg-event-item {width: 1px; height:275px; margin:1px;  visibility: hidden;}
+.jt-pg-event-page{margin: 7px;cursor: pointer;width:492px; height: 289px;}
+.photo{width:492px}
 .jt-pg-product-line {background-color: #fff;height: 100%;border-radius:3px;}
 .jt-pg-product-line-bright{position:absolute; height:240px;width:100%;background-color: rgba(255,255,255,0.05);top: 0px;display: none;}
 .jt-pg-product-line-hot{position: absolute; width:70px; height: 50px; right: 0%;top:10%;}

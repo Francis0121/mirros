@@ -14,6 +14,7 @@
 <script src="${cp}/resources/js/jqplot.highlighter.min.js"></script>
 <script src="${cp}/resources/js/jqplot.dateAxisRenderer.min.js"></script>
 <script src="${cp}/resources/js/jquery.default.plugin.min.js"></script>
+<script src="${cp}/resources/js/agile_carousel.alpha.js"></script>
  <!--[if IE]>
  <script language="javascript" type="text/javascript" src="${cp}/resources/js/excanvas.min.js"></script>
  <![endif]-->

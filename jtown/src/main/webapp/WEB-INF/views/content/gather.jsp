@@ -7,8 +7,9 @@
 	<div class="jt-pg-item jt-pg-event-item">
 	</div>
 	<div class="jt-pg-item jt-pg-event-page">
-		<img src="${cp}/resources/images/event/banner2.PNG">
+		<div class="slideshow" id="flavor_1"></div>
 	</div>
+	
 	<c:forEach items="${productGatherList }" var="list">
 	<c:set value="${!empty list.customerPn ? 'jt-home-shop-love-click' : ''}   " var="heartClickShapeClass" />
 	<c:set value="${!empty list.customerPn ? 'jt-home-shop-love-text-click' : ''}   " var="heartClickTextClass" />

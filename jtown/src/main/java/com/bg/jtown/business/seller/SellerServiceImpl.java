@@ -29,7 +29,7 @@ import com.bg.jtown.util.Pagination;
 
 /**
  * @author Francis
- * 
+ * @author In Sanghak
  */
 @Service
 public class SellerServiceImpl extends SqlSessionDaoSupport implements SellerService {

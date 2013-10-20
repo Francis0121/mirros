@@ -6,6 +6,7 @@ import java.util.Date;
  * Seller Event
  * 
  * @author Francis
+ * @author In Sanghak
  * 
  */
 public class Event {
@@ -73,6 +74,16 @@ public class Event {
 	 * 만기일
 	 */
 	private Date endDate;
+	
+	/**
+	 * 삽입일
+	 */
+	private Date inputDate;
+	
+	/**
+	 * URL or placeHolder
+	 */
+	private String variableData;
 
 	public Event() {
 		super();

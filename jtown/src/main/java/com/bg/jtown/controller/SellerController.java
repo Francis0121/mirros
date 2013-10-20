@@ -39,7 +39,7 @@ import com.google.gson.JsonArray;
 
 /**
  * @author Francis
- * 
+ * @author In Sanghak
  */
 @PreAuthorize("hasRole('ROLE_SELLER')")
 @Controller

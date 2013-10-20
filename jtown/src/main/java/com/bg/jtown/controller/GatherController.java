@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bg.jtown.business.Comment;
 import com.bg.jtown.business.Count;
+import com.bg.jtown.business.Event;
 import com.bg.jtown.business.Gather;
 import com.bg.jtown.business.Product;
 import com.bg.jtown.business.home.HomeService;
@@ -43,7 +44,7 @@ import com.bg.jtown.util.CookieUtil;
 
 /**
  * @author In Sanghak
- *
+ * 
  */
 @Controller
 public class GatherController {
@@ -55,10 +56,10 @@ public class GatherController {
 
 	@Autowired
 	private GatherService gatherService;
-	
+
 	@Autowired
 	private SellerService sellerService;
-	
+
 	@Resource
 	private Facebook facebook;
 
@@ -80,16 +81,16 @@ public class GatherController {
 		gatherFilter.setTotalCount(mergeSize);
 		model.addAttribute("productGatherList", gatherService.paginateItemList(mergeList, gatherFilter));
 		model.addAttribute("interestCategories", homeService.selecInterestCategory());
-		if(gatherFilter.getNewFlag() == 0){
+		if (gatherFilter.getNewFlag() == 0) {
 			model.addAttribute("categoryType", "pg");
-		}else{
+		} else {
 			model.addAttribute("categoryType", "new");
 		}
 	}
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String productGatherView(Model model, HttpSession session, @ModelAttribute GatherFilter gatherFilter,
-			SummaryUser summaryUser, HttpServletRequest request) throws UnsupportedEncodingException {
+	public String productGatherView(Model model, HttpSession session, @ModelAttribute GatherFilter gatherFilter, SummaryUser summaryUser,
+			HttpServletRequest request) throws UnsupportedEncodingException {
 		if (BrowserUtil.isMobile(request)) {
 			String value = CookieUtil.isCookie("SEE_PC_VERSION", request);
 			if (value == null || !value.equals("T")) {
@@ -103,8 +104,8 @@ public class GatherController {
 	}
 
 	@RequestMapping(value = "/cpn/{categoryPn}", method = RequestMethod.GET)
-	public String productGatherCategoryView(Model model, HttpSession session, @ModelAttribute GatherFilter gatherFilter,
-			SummaryUser summaryUser, HttpServletRequest request) throws UnsupportedEncodingException {
+	public String productGatherCategoryView(Model model, HttpSession session, @ModelAttribute GatherFilter gatherFilter, SummaryUser summaryUser,
+			HttpServletRequest request) throws UnsupportedEncodingException {
 		if (BrowserUtil.isMobile(request)) {
 			String value = CookieUtil.isCookie("SEE_PC_VERSION", request);
 			if (value == null || !value.equals("T")) {
@@ -118,15 +119,13 @@ public class GatherController {
 	}
 
 	/*
-	@RequestMapping(value = "/g/", method = RequestMethod.GET)
-	public String productGatherView() {
-		return "redirect:/g";
-	}
-	*/
-	
+	 * @RequestMapping(value = "/g/", method = RequestMethod.GET) public String
+	 * productGatherView() { return "redirect:/g"; }
+	 */
+
 	@RequestMapping(value = "/n", method = RequestMethod.GET)
-	public String newGatherView(Model model, HttpSession session, @ModelAttribute GatherFilter gatherFilter,
-			SummaryUser summaryUser, HttpServletRequest request) throws UnsupportedEncodingException {
+	public String newGatherView(Model model, HttpSession session, @ModelAttribute GatherFilter gatherFilter, SummaryUser summaryUser,
+			HttpServletRequest request) throws UnsupportedEncodingException {
 		if (BrowserUtil.isMobile(request)) {
 			String value = CookieUtil.isCookie("SEE_PC_VERSION", request);
 			if (value == null || !value.equals("T")) {
@@ -141,8 +140,8 @@ public class GatherController {
 	}
 
 	@RequestMapping(value = "/n/cpn/{categoryPn}", method = RequestMethod.GET)
-	public String newGatherCategoryView(Model model, HttpSession session, @ModelAttribute GatherFilter gatherFilter,
-			SummaryUser summaryUser, HttpServletRequest request) throws UnsupportedEncodingException {
+	public String newGatherCategoryView(Model model, HttpSession session, @ModelAttribute GatherFilter gatherFilter, SummaryUser summaryUser,
+			HttpServletRequest request) throws UnsupportedEncodingException {
 		if (BrowserUtil.isMobile(request)) {
 			String value = CookieUtil.isCookie("SEE_PC_VERSION", request);
 			if (value == null || !value.equals("T")) {
@@ -157,11 +156,14 @@ public class GatherController {
 	}
 
 	/*
-	@RequestMapping(value = "/n/", method = RequestMethod.GET)
-	public String newGatherView() {
-		return "redirect:/n";
+	 * @RequestMapping(value = "/n/", method = RequestMethod.GET) public String
+	 * newGatherView() { return "redirect:/n"; }
+	 */
+	@RequestMapping(value = "/bannerJSON")
+	public String eventBanner(Model model, @RequestParam Integer order) {
+		model.addAttribute("order", order);
+		return prefixView + "bannerJSON";
 	}
-	*/
 
 	@RequestMapping(value = "/ajax/gatherPagination.jt", method = RequestMethod.POST)
 	@ResponseBody
@@ -193,12 +195,12 @@ public class GatherController {
 				gatherService.insertUpdateProductStasticView(count);
 			} else {
 				boolean isProductPn = false;
-				for(Integer productPns : checkedList ){
-					if(productPns.equals(count.getProductPn())){
+				for (Integer productPns : checkedList) {
+					if (productPns.equals(count.getProductPn())) {
 						isProductPn = true;
 					}
 				}
-				if(!isProductPn){
+				if (!isProductPn) {
 					checkedList.add(count.getProductPn());
 					gatherService.insertUpdateProductStasticView(count);
 				}
@@ -206,7 +208,7 @@ public class GatherController {
 			session.setAttribute("productStasticView", checkedList);
 		}
 	}
-	
+
 	@RequestMapping(value = "/ajax/eventClick.jt", method = RequestMethod.POST)
 	@ResponseBody
 	public void ajaxEventClick(Count count, HttpSession session, SummaryUser summaryUser) {
@@ -219,12 +221,12 @@ public class GatherController {
 				gatherService.insertUpdateEventStasticView(count);
 			} else {
 				boolean isEventPn = false;
-				for(Integer eventPns : checkedList ){
-					if(eventPns.equals(count.getEventPn())){
+				for (Integer eventPns : checkedList) {
+					if (eventPns.equals(count.getEventPn())) {
 						isEventPn = true;
 					}
 				}
-				if(!isEventPn){
+				if (!isEventPn) {
 					checkedList.add(count.getEventPn());
 					gatherService.insertUpdateEventStasticView(count);
 				}
@@ -232,7 +234,7 @@ public class GatherController {
 			session.setAttribute("eventStasticView", checkedList);
 		}
 	}
-	
+
 	@RequestMapping(value = "/ajax/productHeartClick.jt", method = RequestMethod.POST)
 	@ResponseBody
 	public Count ajaxProductHeartClick(@RequestBody Count count, SummaryUser summaryUser) {
@@ -251,7 +253,7 @@ public class GatherController {
 		}
 		return count;
 	}
-	
+
 	@RequestMapping(value = "/ajax/productFacebookLikeClick.jt", method = RequestMethod.POST)
 	@ResponseBody
 	public Count ajaxProductFacebookLikeClick(@RequestBody Count count, SummaryUser summaryUser) {
@@ -281,7 +283,7 @@ public class GatherController {
 		}
 		return count;
 	}
-	
+
 	@RequestMapping(value = "/ajax/eventHeartClick.jt", method = RequestMethod.POST)
 	@ResponseBody
 	public Count ajaxEventHeartClick(@RequestBody Count count, SummaryUser summaryUser) {
@@ -300,7 +302,7 @@ public class GatherController {
 		}
 		return count;
 	}
-	
+
 	@RequestMapping(value = "/ajax/eventFacebookLikeClick.jt", method = RequestMethod.POST)
 	@ResponseBody
 	public Count ajaxEventFacebookLikeClick(@RequestBody Count count, SummaryUser summaryUser) {
@@ -316,7 +318,7 @@ public class GatherController {
 					String shopName = shopEventInfo.getShopName();
 					String eventName = shopEventInfo.getEventName();
 					FacebookLink link = new FacebookLink(url, shopName, "", shopName);
-					String message = summaryUser.getName() + "님이 미러스(Mirros)의 "+shopName+" : "+ eventName + "을(를) 좋아합니다.";
+					String message = summaryUser.getName() + "님이 미러스(Mirros)의 " + shopName + " : " + eventName + "을(를) 좋아합니다.";
 					facebook.feedOperations().postLink(message, link);
 				}
 			} catch (ApiException e) {
@@ -331,20 +333,20 @@ public class GatherController {
 		}
 		return count;
 	}
-	
-	@RequestMapping(value="/ajax/insertComment.jt", method = RequestMethod.POST)
+
+	@RequestMapping(value = "/ajax/insertComment.jt", method = RequestMethod.POST)
 	@ResponseBody
-	public Map<String,Object> ajaxInsertComment(@RequestBody Comment comment, SummaryUser summaryUser){
-		Map<String, Object> map = new HashMap<String, Object>(); 
+	public Map<String, Object> ajaxInsertComment(@RequestBody Comment comment, SummaryUser summaryUser) {
+		Map<String, Object> map = new HashMap<String, Object>();
 		switch (summaryUser.getEnumAuthority()) {
 		case CUSTOMER:
 			comment.setCustomerPn(summaryUser.getPn());
-			if(gatherService.selectCommentExist(comment) == 0 ){
+			if (gatherService.selectCommentExist(comment) == 0) {
 				gatherService.insertProductComment(comment);
 				List<Comment> commentList = gatherService.selectCommentList(comment);
 				comment.setCount(commentList.size());
 				map.put("commentList", commentList);
-			}else{
+			} else {
 				comment.setMessage("3");
 				break;
 			}
@@ -358,16 +360,23 @@ public class GatherController {
 		map.put("comment", comment);
 		return map;
 	}
-	
-	@RequestMapping(value="/ajax/selectComment.jt", method = RequestMethod.POST)
+
+	@RequestMapping(value = "/ajax/selectComment.jt", method = RequestMethod.POST)
 	@ResponseBody
-	public Map<String,Object> ajaxSelectComment(@RequestBody Comment comment, SummaryUser summaryUser){
+	public Map<String, Object> ajaxSelectComment(@RequestBody Comment comment, SummaryUser summaryUser) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		List<Comment> commentList = gatherService.selectCommentList(comment);
 		comment.setCount(commentList.size());
 		map.put("commentList", commentList);
 		map.put("comment", comment);
 		return map;
+	}
+	
+	@RequestMapping(value = "/ajax/eventBanner.jt", method = RequestMethod.POST)
+	@ResponseBody
+	public Event ajaxSelectEventBanner(@RequestBody Event event, SummaryUser summaryUser) {
+		//TODO PN 텍스트 이미지 PLACEHOLDER 
+		return event;
 	}
 
 }
