@@ -1,14 +1,15 @@
 @CHARSET "UTF-8";
 
-.jt-header-nav{ min-height: 30px; background: url("../../images/jt-header-bar.png"); border: 0px;}
+.jt-header-nav{ min-height: 30px; background: url("../../images/jt-header-bar.png"); border: 0px; z-index: -1;}
 .jt-home-shop{width: 316px; padding: 0 2px; margin: 5px 3px;  border-top: 1px solid #e5e5e5;  border-left :0; border-right :0; border-bottom :0 ; background: url("../../images/jt-shop.png");}
 .jt-home-shop-image-footer{ background: url("../../images/jt-shop-footer.png"); width: 316px; height: 3px; float: left;}
 .jt-heart-click-background{display: none;}
 .jt-home-shop-content-love-text-wrap>span{color: #b2b2b2;}
-.jt-header-title{border-bottom: 2px solid #b49c8d;}
+.jt-header-title{border-bottom: 2px solid #b49c8d; position: relative;}
 .jt-header-nav-interest{ border: 1px solid #cccaca; margin-top: 0;}
-.jt-under-wrap{ border: 1px solid #cccaca; margin-top: 5px;}
-.jt-help-under-wrap{border: 1px solid #cccaca; margin-top: 5px; margin-left: -65px; z-index: 10000;}
+.jt-under-wrap{ border: 1px solid #cccaca;}
+
+.jt-help-under-wrap{border: 1px solid #cccaca;margin-left: 0px;width:100px; z-index: 100;}
 
 .jt-home-shop-content-fn>li{ padding: 4px 0 18px 0;}
 .jt-home-shop-content-fn>li>a,.jt-home-shop-content-fn>li>span{ height: 15px;}
@@ -38,7 +39,6 @@
 .jt-home-expand-shop-content-love{ margin: 12px 5px 0 65px; }
 
 .jt-login-form-table-page{margin-top: 40px;}
-.jt-login-form-table-password{width: 300px;}
 
 .jt-product-article-object-wrap{background: #666666;}
 .jt-about-mirrosis-banner>div{ margin: 180px 0 0 -625px;}
@@ -64,7 +64,7 @@
 
 #jt-home-container{z-index: 1;}
 .jt-home-shop{z-index: 2;}
-.jt-home-shop-comments{ height : 21px;}
+.jt-home-shop-comments{ height : 21px;width:267px;}
 .jt-more-comment-wrap{ background: #3f3f3f; margin-left: -312px; width: 296px; min-height: 22px; z-index: 50;}
 
 .jt-pg-item {border: 1px solid #abaaac}

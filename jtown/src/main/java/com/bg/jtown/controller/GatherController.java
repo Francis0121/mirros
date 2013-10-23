@@ -10,8 +10,6 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import net.sf.json.JSONArray;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,16 +29,21 @@ import com.bg.jtown.business.Comment;
 import com.bg.jtown.business.Count;
 import com.bg.jtown.business.Event;
 import com.bg.jtown.business.Gather;
+import com.bg.jtown.business.Participant;
 import com.bg.jtown.business.Product;
 import com.bg.jtown.business.home.HomeService;
 import com.bg.jtown.business.home.GatherService;
 import com.bg.jtown.business.search.GatherFilter;
 import com.bg.jtown.business.seller.SellerService;
 import com.bg.jtown.security.Authority;
-import com.bg.jtown.security.JtownUser;
+import com.bg.jtown.security.LoginService;
 import com.bg.jtown.security.SummaryUser;
 import com.bg.jtown.util.BrowserUtil;
 import com.bg.jtown.util.CookieUtil;
+import com.restfb.DefaultFacebookClient;
+import com.restfb.FacebookClient;
+import com.restfb.Parameter;
+import com.restfb.types.FacebookType;
 
 /**
  * @author In Sanghak
@@ -59,6 +62,9 @@ public class GatherController {
 
 	@Autowired
 	private SellerService sellerService;
+
+	@Autowired
+	private LoginService loginService;
 
 	@Resource
 	private Facebook facebook;
@@ -263,13 +269,28 @@ public class GatherController {
 		case ADMIN:
 		case ROOT_ADMIN:
 			try {
-				if ((summaryUser.getFacebookFeed() != null && summaryUser.getFacebookFeed().equals(true))) {
+				String accessToken = loginService.selectAccessToken(summaryUser.getPn());
+				if(accessToken == null){
+					count.setMessage("4");
+					return count; 
+				}else{
 					Product productInfo = sellerService.selectSellerProductOne(count.getProductPn());
 					String url = "https://www.mirros.net/mir/" + productInfo.getSellerPn();
 					String name = productInfo.getName();
-					FacebookLink link = new FacebookLink(url, name, "", name);
 					String message = summaryUser.getName() + "님이 미러스(Mirros)의 " + name + "을(를) 좋아합니다.";
-					facebook.feedOperations().postLink(message, link);
+					String shopName = productInfo.getShopName();
+					String prevImageUrl = "https://www.mirros.net/photo/thumbnail/";
+					String imageType = productInfo.getImageType();
+					String imageUrl = imageType == null ? prevImageUrl+productInfo.getSaveName() : prevImageUrl+productInfo.getSaveName()+"product."+imageType;
+					String notice = productInfo.getNotice();
+					FacebookClient facebookClient = new DefaultFacebookClient(accessToken);
+					FacebookType publish = facebookClient.publish("me/feed", FacebookType.class, 
+							Parameter.with("link", url),
+							Parameter.with("message", message),
+							Parameter.with("name", shopName),
+							Parameter.with("picture", imageUrl),
+							Parameter.with("caption", name),
+							Parameter.with("description", notice));
 				}
 			} catch (ApiException e) {
 				logger.debug("PostConnect Catch");
@@ -312,14 +333,24 @@ public class GatherController {
 		case ADMIN:
 		case ROOT_ADMIN:
 			try {
-				if ((summaryUser.getFacebookFeed() != null && summaryUser.getFacebookFeed().equals(true))) {
+				String accessToken = loginService.selectAccessToken(summaryUser.getPn());
+				if(accessToken == null){
+					count.setMessage("4");
+					return count; 
+				}else{
 					Gather shopEventInfo = gatherService.selectShopEvent(count.getEventPn());
 					String url = "https://www.mirros.net/mir/" + shopEventInfo.getSellerPn();
 					String shopName = shopEventInfo.getShopName();
 					String eventName = shopEventInfo.getEventName();
-					FacebookLink link = new FacebookLink(url, shopName, "", shopName);
-					String message = summaryUser.getName() + "님이 미러스(Mirros)의 " + shopName + " : " + eventName + "을(를) 좋아합니다.";
-					facebook.feedOperations().postLink(message, link);
+					String message = summaryUser.getName() + "님이 미러스(Mirros)의 " + shopName + " 에서 진행되는 이벤트를 좋아합니다.";
+					
+					FacebookClient facebookClient = new DefaultFacebookClient(accessToken);
+					FacebookType publish = facebookClient.publish("me/feed", FacebookType.class, 
+							Parameter.with("link", url),
+							Parameter.with("message", message),
+							Parameter.with("name", shopName),
+							Parameter.with("picture", ""),
+							Parameter.with("description", eventName));
 				}
 			} catch (ApiException e) {
 				logger.debug("PostConnect Catch");
@@ -371,12 +402,88 @@ public class GatherController {
 		map.put("comment", comment);
 		return map;
 	}
-	
+
 	@RequestMapping(value = "/ajax/eventBanner.jt", method = RequestMethod.POST)
 	@ResponseBody
 	public Event ajaxSelectEventBanner(@RequestBody Event event, SummaryUser summaryUser) {
-		//TODO PN 텍스트 이미지 PLACEHOLDER 
+		event = gatherService.selectBannerEvent(event);
 		return event;
+	}
+
+	@RequestMapping(value = "/ajax/insertParticipantFilter.jt", method = RequestMethod.POST)
+	@ResponseBody
+	public Participant ajaxInsertEventParticipantFilter(@RequestBody Participant participant, SummaryUser summaryUser) {
+		switch (summaryUser.getEnumAuthority()) {
+		case CUSTOMER:
+			try {
+				participant.setCustomerPn(summaryUser.getPn());
+				Integer exist = gatherService.selectExistParticipant(participant);
+				if (exist == 0) {
+					participant.setMessage("success");
+					return participant;
+				} else {
+					participant.setMessage("3");
+					return participant;
+				}
+			} catch (ApiException e) {
+				logger.debug("PostConnect Catch");
+			}
+			break;
+		case NOT_LOGIN:
+			participant.setMessage("1");
+			break;
+		default:
+			participant.setMessage("2");
+		}
+		return participant;
+	}
+	
+	@RequestMapping(value = "/ajax/insertParticipant.jt", method = RequestMethod.POST)
+	@ResponseBody
+	public Participant ajaxInsertEventParticipant(@RequestBody Participant participant, SummaryUser summaryUser) {
+		switch (summaryUser.getEnumAuthority()) {
+		case CUSTOMER:
+			try {
+				participant.setCustomerPn(summaryUser.getPn());
+				Integer exist = gatherService.selectExistParticipant(participant);
+				if (exist == 0) {
+					String accessToken = loginService.selectAccessToken(summaryUser.getPn());
+					if(accessToken == null){
+						participant.setMessage("4");
+						return participant; 
+					}else{
+						gatherService.insertBannerEventParticipant(participant);
+						Event event = new Event();
+						event.setPn(participant.getEventPn());
+						String url = "https://www.mirros.net";
+						Event eventItem = gatherService.selectBannerEvent(event);
+						String eventName = eventItem.getEventName();
+						String imageUrl = "https://www.mirros.net/resources/images/event_thumbnail/"+eventItem.getFbThumbnail();
+						String message = summaryUser.getName() + "님이 미러스(Mirros)의 " + eventName + " 이벤트를 좋아합니다.";
+						
+						FacebookClient facebookClient = new DefaultFacebookClient(accessToken);
+						FacebookType publish = facebookClient.publish("me/feed", FacebookType.class, 
+								Parameter.with("link", url),
+								Parameter.with("message", message),
+								Parameter.with("name", eventName),
+								Parameter.with("picture", imageUrl),
+								Parameter.with("description", eventItem.getFbMessage()));
+					}
+				} else {
+					participant.setMessage("3");
+					return participant;
+				}
+			} catch (ApiException e) {
+				logger.debug("PostConnect Catch");
+			}
+			break;
+		case NOT_LOGIN:
+			participant.setMessage("1");
+			break;
+		default:
+			participant.setMessage("2");
+		}
+		return participant;
 	}
 
 }

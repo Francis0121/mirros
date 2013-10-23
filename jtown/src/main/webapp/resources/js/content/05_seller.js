@@ -610,7 +610,6 @@ jtown.seller.productImage = function(file){
 	var url = contextPath + 'ajax/seller/insertProduct.jt',
 		json = { 	'imagePn' : file.imagePn, 
 					'saveName': file.saveName };
-	
 	$.postJSON(url, json, function(product){
 		if(product.todayCount ==13){
 			jtown.dialog('하루에 올릴 수 있는 상품은 12개 입니다.');

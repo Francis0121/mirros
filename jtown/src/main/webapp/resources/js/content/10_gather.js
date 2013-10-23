@@ -124,6 +124,7 @@ var productGatherHtml = function(data){
 				html+=			'<div class="jt-pg-heart-count '+heartClickTextClass+'" id="jt-pg-heart-count-'+data.mergeItems[idx].productPn+'">'+data.mergeItems[idx].heartCount+'</div>';
 				html+=			'</div>';
 				html+=			'</div>';
+				/*
 				html+=		'<div class="jt-pg-comment-wrap">';
 				html+=		'<div>ㅁ<input type="text" class="jt-pg-comment-input" placeholder="Write your secret comment..."  maxlength="20"/></div>';
 				html+=		'<div class="jt-pg-comment-line-wrap">';
@@ -142,6 +143,7 @@ var productGatherHtml = function(data){
 				html+='	</div>';
 				html+='		<div class="jt-pg-comment-more '+moreEnable+'">▼</div>';
 				html+='	</div>';
+				*/
 				html+=		'</div>';
 			}
 			html+='</div>';
@@ -173,6 +175,7 @@ var productGatherHtml = function(data){
 			html+=			'<div class="jt-pg-heart-count '+heartClickTextClass+'" id="jt-pg-heart-count-'+data.mergeItems[idx].productPn+'" >'+data.mergeItems[idx].heartCount+'</div>';
 			html+=			'</div>';
 			html+=		'</div>';
+			/*
 			html+=		'<div class="jt-pg-comment-wrap">';
 			html+=		'<div>ㅁ <input type="text" class="jt-pg-comment-input" placeholder="Write your secret comment..."  maxlength="20"/></div>';
 			html+=		'<div class="jt-pg-comment-line-wrap">';
@@ -191,6 +194,7 @@ var productGatherHtml = function(data){
 			html+='	</div>';
 			html+='		<div class="jt-pg-comment-more '+moreEnable+'">▼</div>';
 			html+='	</div>';
+			*/
 			html+=		'</div>';
 			html+='</div>';
 		}
@@ -222,23 +226,12 @@ $('.jt-pg-container').on('click', '.jt-pg-item-wrap', function(){
 	var productPn = $(this).parents('.jt-pg-item').attr('data-product-pn');
 	var eventPn = $(this).parents('.jt-pg-item').attr('data-event-pn');
 	var productUrl = $(this).parents('.jt-pg-item').attr('data-url'); 
-	if($('#jt-login-smartPopup').text() ==''){
-		if(productPn != 0){
-			jtown.home.productStatisticClick(productPn);
-		}else{
-			jtown.home.eventStatisticClick(eventPn);
-		}
-		window.open(productUrl, '_blank');
+	if(productPn != 0){
+		jtown.home.productStatisticClick(productPn);
 	}else{
-		if(productPn != 0){
-			sessionStorage.setItem('productPn', productPn);
-			sessionStorage.setItem('productUrl', productUrl);
-		}else{
-			sessionStorage.setItem('eventPn', eventPn);
-			sessionStorage.setItem('eventUrl', productUrl);
-		}
-		jtown.login.showLoginForm();
-	};
+		jtown.home.eventStatisticClick(eventPn);
+	}
+	window.open(productUrl, '_blank');
 });
 
 $('.jt-pg-container').on('click', '.jt-pg-comment-input', function(){
@@ -271,7 +264,7 @@ $('.jt-pg-container').on('mouseenter', '.jt-pg-heart-wrap', function(){
 $('.jt-pg-container').on('mouseleave', '.jt-pg-heart-wrap', function(){
 	$(this).find('.jt-home-shop-love').css('background-position','0px -30px');
 });
-
+/*
 $('.jt-pg-container').on('keydown','.jt-pg-comment-input',(function(e){
  	if( (e.keyCode) && (e.keyCode==13) && ($(this).val() !='')) {
 		var productPn =$(this).parents('.jt-pg-item').attr('data-product-pn');
@@ -316,7 +309,7 @@ $('.jt-pg-container').on('keydown','.jt-pg-comment-input',(function(e){
 		});
 	}
 }));
-//TODO 페이지 이동
+
 $('.jt-pg-container').on('click', '.jt-pg-comment-more', function(){
 	var productPn = $(this).parents('.jt-pg-item').attr('data-product-pn');
 	var page = 2;
@@ -349,25 +342,45 @@ $('.jt-pg-container').on('click', '.jt-pg-comment-more', function(){
 		}
 	});
 });
+*/
 //TODO 자기꺼면 수정
 //TODO 자기꺼 삭제/ 운영자가 삭제
 
-jtown.pg.eventBannerOpen = function(ebPn){
-	//TODO 이벤트 입력창 열고 데이터 보여줌, 이벤트 참가 입력 , 공유 
-	//$.postJSON(contextPath + 'ajax/eventBanner.jt', { eventPn : ebPn}, function(object) {
-		
-	//});
-	$.smartPop.open({ width : 430, height : 400, html : '<div style="background-color:#fff;">213 </div>', effect : null });
-	
-	console.log('open');
+jtown.pg.eventBannerOpen = function(pn){
+	$.postJSON(contextPath + 'ajax/eventBanner.jt', { pn : pn}, function(object) {
+		var html ='<div class="jt-gather-extend-banner">';
+		html +=	'<div><img src="'+contextPath+'resources/images/event/'+object.saveName+'" /></div>';
+		html +=	'<div class="jt-gather-extend-text"><pre>'+object.content+'</pre></div>';
+		html +=	'<div class="jt-gather-extend-input-box"><h3>페이스북으로 공유하고 이벤트 참여하기</h3>';
+		html +=	'<form action="'+contextPath+'signin/facebook" class="jt-gather-extend-banner-login-form" method="POST">';
+		html +=		'<input type="hidden" name="scope" value="publish_stream,offline_access,email,user_birthday,user_likes" />';
+		if('null'!= object.variableData){
+			html +=		'<input type="text" class="jt-gather-extend-input-long" placeholder="'+object.variableData+'" />';
+		}
+		html +=		'<div class="jt-btn-fbLogin jt-gather-extend-facebook" onclick="jtown.pg.facebookLogin('+object.pn+',\''+object.variableData+'\')">';
+		html +=			'<span class="loginImage"></span>';
+		html +=			'<span class="loginText">참여하고 선물받기</span>';
+		html +=		'</div>';
+		html += 	'</form>';
+		html +=	'</div>';
+		html +='</div>';
+		$.smartPop.open({ width : 510, height : 640, html : html, effect : null });
+	});
 };
+jtown.pg.facebookLogin = function(pn, memo){
+	sessionStorage.setItem('insertParticipant', pn);
+	sessionStorage.setItem('insertParticipantMemo', memo);
+	var loginForm = $('.jt-gather-extend-banner-login-form')[0];
+	loginForm.submit();
+};
+
 
 $('.jt-footer').css('display','block');
 $('#jt-scroll-top').bind('click', function(){
 	$('html, body').animate({scrollTop:0}, 'slow');
 });
 
-$.getJSON("bannerJSON?order=1", function(data) {
+$.getJSON(contextPath+"bannerJSON?order=1", function(data) {
         $("#flavor_1").agile_carousel({
             carousel_data: data,
             carousel_outer_height: 289,
@@ -376,7 +389,7 @@ $.getJSON("bannerJSON?order=1", function(data) {
             carousel_outer_width: 492,
             slide_width: 492,
             transition_time: 300,
-            timer: 4000,
+            timer: 6500,
             continuous_scrolling: true,
             control_set_1: "numbered_buttons"
     });

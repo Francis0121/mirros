@@ -260,13 +260,13 @@ float: left;
 
 .agile_carousel .control_set {
 position: absolute;
-z-index: 4000;
+z-index: 40;
 }
 
 /*-- default styles for all button containers --*/
 
 .agile_carousel .button_container {
-z-index: 5000;	
+z-index: 50;	
 }
 
 /*-- default style for controls whose trigger type is "hover" --*/
@@ -290,7 +290,7 @@ such as the current slide number --*/
 /*-- style applied to all controls --*/
 
 .slide_button {
-z-index: 5000;
+z-index: 50;
 cursor: pointer;
 display: block;
 background-position: 0 0;
@@ -561,16 +561,18 @@ float: left;
 float: left;
 }
 #flavor_1 .numbered_button {
-color: #000;
+color: #d9d9d9;
 padding: 2px 5px;
 font-size: 12px;
 margin-right: 4px;
-background-color: #d9d9d9;
+background-color: #fff;
+border:1px solid #d9d9d9;
 opacity: .6;
+font-size:11px;
 }
 #flavor_1 .numbered_buttons_container .ac_selected, #flavor_1 .numbered_buttons_container .numbered_button:hover {
 color: #fff;
-background-color: #666;
+background-color: #d9d9d9;
 opacity: .9;
 }
 
@@ -626,7 +628,7 @@ top: 100px;
 left: 10px;
 color: #ccc;
 position: absolute;
-z-index: 5000;
+z-index: 50;
 }
 
 
@@ -754,7 +756,7 @@ top: 100px;
 left: 10px;
 color: #ccc;
 position: absolute;
-z-index: 5000;
+z-index: 50;
 }
 
 /* -------------------------------------------- */

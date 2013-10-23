@@ -84,7 +84,7 @@
 										<c:set value="${cp }/resources/uploadImage/${product.saveName }" var="image"/>
 									</c:if>
 									<c:set var="shopUrl" value="${jtownUser.shopUrl }" />
-									<a href="${product.url eq null ? shopUrl : product.url}" target="_blank"  onclick="jtown.home.goHome('${jtownUser.pn }');"><img alt="상품" src="${image }"/></a>
+									<a href="${product.url eq null ? shopUrl : product.url}" target="_blank"  onclick="jtown.home.productStatisticClick('${product.pn}');"><img alt="상품" src="${image }"/></a>
 									<div class="jt-product-article-object-wrap jt-product-article-object-expand">
 										<c:choose>
 											<c:when test="${product.name eq null or product.commaPrice eq null }">

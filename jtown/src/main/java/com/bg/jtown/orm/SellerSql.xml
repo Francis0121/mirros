@@ -372,6 +372,8 @@
 		<result column="order" property="order"/>
 		<result column="input_date" property="inputDate"/>
 		<result column="seller_pn" property="sellerPn"/>
+		<result column="shop_name" property="shopName"/>
+		<result column="notice" property="notice"/>
 	</resultMap>
 
 	<select id="selectSellerProduct" parameterType="Integer" resultMap="jt-product-map">
@@ -418,11 +420,16 @@
 	
 	<select id="selectSellerProductOne" parameterType="Integer" resultMap="jt-product-map">
 		SELECT
-			i.pn AS image_pn, i.save_name, seller_pn,
+			i.pn AS image_pn, i.save_name, usp.seller_pn, shop_name, i.content_type, notice,
 			usp.pn, usp.name, usp.url, usp.price, usp.order, usp.input_date
 		FROM
-			user_seller_product usp,
-			image i
+			user_seller_product usp
+		JOIN image i 
+		   	ON i.pn = usp.image_pn 
+		JOIN partnership p 
+		    ON p.seller_pn = usp.seller_pn 
+		JOIN user_seller us
+   			ON us.pn = usp.seller_pn
 		WHERE
 			usp.image_pn = i.pn
 		AND

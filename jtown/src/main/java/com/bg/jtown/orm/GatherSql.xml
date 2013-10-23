@@ -401,6 +401,63 @@
 		VALUES(#{productPn}, #{customerPn}, #{comment}, SYSDATE())
 	</insert>
 	
+	
+	<!-- bannerEvent  -->
+	<resultMap type="Event" id="jtown-banner-map">
+		<result column="event_pn" property="pn"/>
+		<result column="image" property="saveName"/>
+		<result column="event_name" property="eventName"/>
+		<result column="contents" property="content"/>
+		<result column="banner_order" property="bannerOrder"/>
+		<result column="banner_type" property="bannerType"/>
+		<result column="input_date" property="inputDate"/>
+		<result column="datas" property="variableData"/>
+		<result column="fb_message" property="fbMessage"/>
+		<result column="fb_thumbnail" property="fbThumbnail"/>
+	</resultMap>
+	
+	<select id="selectBannerEvent" resultMap="jtown-banner-map">
+		SELECT 
+		  event_pn,
+		  image,
+		  event_name,
+		  contents,
+		  input_date,
+		  banner_type,
+		  banner_order,
+		  datas,
+		  fb_message,
+		  fb_thumbnail 
+		FROM
+		  banner_event 
+		WHERE event_pn = #{pn}
+		AND deleted = 'N'
+	</select>
+	
+	<!-- bannerEventParticipant  -->
+	<resultMap type="Participant" id="jtown-participant-map">
+		<result column="customer_pn" property="customerPn"/>
+		<result column="event_pn" property="eventPn"/>
+		<result column="memo" property="memo"/>
+		<result column="input_date" property="inputDate"/>
+	</resultMap>
+	
+	<insert id="insertBannerEventParticipant">
+		INSERT INTO 
+			banner_event_participant(customer_pn, event_pn, memo, input_date)
+		VALUES
+			(#{customerPn}, #{eventPn}, #{memo}, SYSDATE())
+	</insert>
+	
+	<select id="selectExistParticipant" resultType="Integer">
+		SELECT 
+		  COUNT(*) 
+		FROM
+		  banner_event_participant 
+		WHERE customer_pn = #{customerPn} 
+		  AND event_pn = #{eventPn}
+	</select>
+	
 </mapper>
 	
 	

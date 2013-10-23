@@ -25,6 +25,11 @@ public class LoginServiceImpl extends SqlSessionDaoSupport implements LoginServi
 		return false;
 	}
 
+	@Override
+	public String selectAccessToken(Integer customerPn) {
+		return getSqlSession().selectOne("loginMapper.selectAccessToken", customerPn);
+	}
+
 	private void insertUser(JtownUser jtownUser) {
 		getSqlSession().insert("loginMapper.insertUsers", jtownUser);
 	}
@@ -76,7 +81,8 @@ public class LoginServiceImpl extends SqlSessionDaoSupport implements LoginServi
 	public void updateUserCustomer(JtownUser jtownUser) {
 		getSqlSession().update("loginMapper.updateUserCustomer", jtownUser);
 		if (jtownUser.getConfirmEmail() == null) {
-			//getSqlSession().update("loginMapper.updateUserCustomerDetail", jtownUser);
+			// getSqlSession().update("loginMapper.updateUserCustomerDetail",
+			// jtownUser);
 		}
 	}
 

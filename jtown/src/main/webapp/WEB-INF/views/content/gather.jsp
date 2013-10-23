@@ -13,7 +13,6 @@
 	<c:forEach items="${productGatherList }" var="list">
 	<c:set value="${!empty list.customerPn ? 'jt-home-shop-love-click' : ''}   " var="heartClickShapeClass" />
 	<c:set value="${!empty list.customerPn ? 'jt-home-shop-love-text-click' : ''}   " var="heartClickTextClass" />
-	
 	<c:choose>
 		<c:when test="${list.hot ==0}">
 			<div class="jt-pg-item jt-pg-small-product" data-url="${list.url }" data-product-pn="${list.productPn }" data-event-pn="${list.eventPn }">
@@ -70,6 +69,7 @@
 								<div class="jt-pg-heart-count ${heartClickTextClass}" id="jt-pg-heart-count-${list.productPn }">	${list.heartCount }</div>
 							</div>
 						</div>
+						<!-- 
 						<div class="jt-pg-comment-wrap">
 							<div>ㅁ <input type="text" class="jt-pg-comment-input" placeholder="Write your secret comment..."  maxlength="20"/></div>
 							<div class="jt-pg-comment-line-wrap">
@@ -88,6 +88,7 @@
 							<div class="jt-pg-comment-more <c:out value="${enable}"/>">▼</div>
 							<c:set var="enable" value=""  />
 						</div>
+						-->
 					</div>
 				</c:if>
 			</div>
@@ -121,6 +122,7 @@
 							<div class="jt-pg-heart-count ${heartClickTextClass}" id="jt-pg-heart-count-${list.productPn }">${list.heartCount }</div>
 						</div>
 					</div>
+					<!--
 					<div class="jt-pg-comment-wrap">
 							<div>ㅁ <input type="text" class="jt-pg-comment-input" placeholder="Write your secret comment..."  maxlength="20"/></div>
 							<div class="jt-pg-comment-line-wrap">
@@ -139,6 +141,7 @@
 							<div class="jt-pg-comment-more <c:out value="${enable}"/>">▼</div>
 							<c:set var="enable" value=""  />
 						</div>
+						-->
 				</div>	
 			</div>
 		</c:otherwise>

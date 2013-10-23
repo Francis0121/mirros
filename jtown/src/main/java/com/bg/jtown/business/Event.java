@@ -74,16 +74,26 @@ public class Event {
 	 * 만기일
 	 */
 	private Date endDate;
-	
+
 	/**
 	 * 삽입일
 	 */
 	private Date inputDate;
-	
+
 	/**
 	 * URL or placeHolder
 	 */
 	private String variableData;
+
+	/**
+	 * 페이스북 공유하기에 올라갈 메세지
+	 */
+	private String fbMessage;
+
+	/**
+	 * 페이스북 공유하기에 올라갈 이미지
+	 */
+	private String fbThumbnail;
 
 	public Event() {
 		super();
@@ -200,11 +210,44 @@ public class Event {
 		this.eventPn = eventPn;
 	}
 
+	public Date getInputDate() {
+		return inputDate;
+	}
+
+	public void setInputDate(Date inputDate) {
+		this.inputDate = inputDate;
+	}
+
+	public String getVariableData() {
+		return variableData;
+	}
+
+	public void setVariableData(String variableData) {
+		this.variableData = variableData;
+	}
+
+	public String getFbMessage() {
+		return fbMessage;
+	}
+
+	public void setFbMessage(String fbMessage) {
+		this.fbMessage = fbMessage;
+	}
+
+	public String getFbThumbnail() {
+		return fbThumbnail;
+	}
+
+	public void setFbThumbnail(String fbThumbnail) {
+		this.fbThumbnail = fbThumbnail;
+	}
+
 	@Override
 	public String toString() {
 		return "Event [bannerOrder=" + bannerOrder + ", bannerType=" + bannerType + ", content=" + content + ", imagePn=" + imagePn + ", pn=" + pn
 				+ ", redisType=" + redisType + ", saveName=" + saveName + ", sellerPn=" + sellerPn + ", imageCategory=" + imageCategory
-				+ ", imageType=" + imageType + ", eventName=" + eventName + ", endDate=" + endDate + "]";
+				+ ", imageType=" + imageType + ", eventPn=" + eventPn + ", eventName=" + eventName + ", endDate=" + endDate + ", inputDate="
+				+ inputDate + ", variableData=" + variableData + ", fbMessage=" + fbMessage + ", fbThumbnail=" + fbThumbnail + "]";
 	}
 
 }

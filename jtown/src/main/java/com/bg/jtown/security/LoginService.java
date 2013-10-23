@@ -37,6 +37,8 @@ public interface LoginService {
 	void insertDeleteUser(Integer pn);
 
 	void deleteDeleteUser(Integer pn);
+	
+	String selectAccessToken(Integer customerPn);
 
 	// ~ Use Only Test Case
 

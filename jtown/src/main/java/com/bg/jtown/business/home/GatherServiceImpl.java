@@ -14,7 +14,9 @@ import org.springframework.stereotype.Service;
 
 import com.bg.jtown.business.Comment;
 import com.bg.jtown.business.Count;
+import com.bg.jtown.business.Event;
 import com.bg.jtown.business.Gather;
+import com.bg.jtown.business.Participant;
 import com.bg.jtown.business.search.GatherFilter;
 import com.bg.jtown.redis.Publisher;
 import com.bg.jtown.security.Authority;
@@ -264,7 +266,20 @@ public class GatherServiceImpl extends SqlSessionDaoSupport implements GatherSer
 	public List<Comment> selectCommentList(Integer productPn) {
 		return getSqlSession().selectList("gatherMapper.selectCommentList", productPn);
 	}
-	
-	
+
+	@Override
+	public Event selectBannerEvent(Event event) {
+		return getSqlSession().selectOne("gatherMapper.selectBannerEvent", event);
+	}
+
+	@Override
+	public void insertBannerEventParticipant(Participant participant) {
+		getSqlSession().insert("gatherMapper.insertBannerEventParticipant", participant);
+	}
+
+	@Override
+	public Integer selectExistParticipant(Participant participant) {
+		return getSqlSession().selectOne("gatherMapper.selectExistParticipant", participant);
+	}
 
 }

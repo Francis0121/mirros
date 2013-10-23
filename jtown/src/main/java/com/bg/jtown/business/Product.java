@@ -80,6 +80,16 @@ public class Product {
 	 */
 	private Integer todayCount;
 
+	/**
+	 * 쇼핑몰 이름
+	 */
+	private String shopName;
+
+	/**
+	 * 쇼핑몰 설명
+	 */
+	private String notice;
+
 	public Product() {
 		super();
 	}
@@ -221,11 +231,28 @@ public class Product {
 		this.todayCount = todayCount;
 	}
 
+	public String getShopName() {
+		return shopName;
+	}
+
+	public void setShopName(String shopName) {
+		this.shopName = shopName;
+	}
+
+	public String getNotice() {
+		return notice;
+	}
+
+	public void setNotice(String notice) {
+		this.notice = notice;
+	}
+
 	@Override
 	public String toString() {
 		return "Product [count=" + count + ", currentPage=" + currentPage + ", imageCategory=" + imageCategory + ", imagePn=" + imagePn
 				+ ", imageType=" + imageType + ", inputDate=" + inputDate + ", name=" + name + ", order=" + order + ", pn=" + pn + ", price=" + price
-				+ ", saveName=" + saveName + ", sellerPn=" + sellerPn + ", url=" + url + ", todayCount=" + todayCount + "]";
+				+ ", saveName=" + saveName + ", sellerPn=" + sellerPn + ", url=" + url + ", todayCount=" + todayCount + ", shopName=" + shopName
+				+ ", notice=" + notice + "]";
 	}
 
 }

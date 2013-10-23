@@ -35,7 +35,7 @@ nhn.husky.SE2_PhotoMake = jindo.$Class({
 	},
 	makePopupURL : function() {
 		//TODO 서버에 올릴 때 Jtown 삭제후 전송
-		var a =  "/jtown/admin/file";
+		var a =  "/admin/file";
 		return a;
 	},
 	$ON_SET_PHOTO_ONE : function(f) {

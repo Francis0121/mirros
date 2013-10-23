@@ -59,3 +59,19 @@
 .jt-pg-comment-line-wrap{padding: 10px 6px 2px 6px;font-size : 11px;}
 .jt-pg-comment-line-text{height: 18px;}
 .jt-pg-comment-line-date{font-size : 10px; color:#bbb; text-align: right;height: 20px; margin-right: 7px;}
+.jt-gather-extend-banner{
+	width:496px; height:620px;border: 3px solid #f48409; background: #fff;
+    font-size:12px;
+	font-family: NanumBarunGothic; 
+}
+.jt-gather-extend-text{
+	border-bottom: 1px solid #ddd;
+	height: 160px;
+	padding: 20px;
+	line-height: 1.6
+}
+.jt-gather-extend-input-box{padding: 15px 20px;color: #999;}
+.jt-gather-extend-input-box>h3{padding: 0 0 10px 0;}
+.jt-gather-extend-input-warn{width: 100%;  display: inline-block; margin: 25px 0 0 0; line-height: 1.7}
+.jt-gather-extend-input-long{width: 427px; padding: 2px 10px; border: 1px solid #c3c4c4; height: 18px;background-color: #f9f9f9;margin: 10px 0 0 0; }
+.jt-gather-extend-facebook{float: left; margin: 10px 0 0 138px;}

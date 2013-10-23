@@ -6,7 +6,7 @@
 /*************************
 *	머리말
 **************************/
-.jt-header{ width: 100%; float: left; min-width: 990px; position: fixed; top:0; left:0; z-index: 5;background: #f9f9f9;}
+.jt-header{ width: 100%; float: left; min-width: 990px; position: fixed; top:0; left:0; z-index: 50;background: #f9f9f9;}
 .jt-header-warning-confirmEmail{width: 100%; min-height: 20px; padding : 9px 0 0 30px ;  float: left; background: #fff2e6; font-size: 11px; border-bottom: 1px solid #f3f0ef;}
 .jt-header-warning-confirmEmail>span{float: left;}
 .jt-header-warning-confirmEmail>span>a{ font-weight: bold; color: #000;}
@@ -20,8 +20,8 @@
 .jt-header-login-menu>li{ float: left; width: 80px;}
 .jt-header-login-menu>li>a{font-family: arial, sans-serif; width: 70px; padding: 18px 5px 12px 5px; display: block; text-align: center;}
 .jt-header-menu img{margin-top: 10px; float: left;}
-#jt-mypage{width: 110px;}
-#jt-mypage>a{width: 100px;}
+#jt-mypage{width: 120px;}
+#jt-mypage>a{width: 110px;}
 .jt-under-wrap{
 	position:absolute;
 	display: none;

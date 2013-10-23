@@ -254,4 +254,13 @@
 			p.email = #{username}
 	</select>
 	
+	<select id="selectAccessToken" resultType="String">
+		SELECT 
+			accessToken 
+		FROM 
+			UserConnection
+  		WHERE 
+  			userid = #{customerPn}
+	</select>
+	
 </mapper>

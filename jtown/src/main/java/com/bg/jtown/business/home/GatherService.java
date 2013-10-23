@@ -6,7 +6,9 @@ import javax.servlet.http.HttpSession;
 
 import com.bg.jtown.business.Comment;
 import com.bg.jtown.business.Count;
+import com.bg.jtown.business.Event;
 import com.bg.jtown.business.Gather;
+import com.bg.jtown.business.Participant;
 import com.bg.jtown.business.search.GatherFilter;
 import com.bg.jtown.security.SummaryUser;
 
@@ -73,4 +75,10 @@ public interface GatherService {
 	List<Comment> selectCommentList(Comment comment);
 	
 	List<Comment> selectCommentList(Integer productPn);
+	
+	Event selectBannerEvent(Event event);
+	
+	void insertBannerEventParticipant(Participant participant);
+	
+	Integer selectExistParticipant(Participant participant);
 }
