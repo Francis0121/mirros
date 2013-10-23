@@ -59,6 +59,10 @@
 .jt-pg-comment-line-wrap{padding: 10px 6px 2px 6px;font-size : 11px;}
 .jt-pg-comment-line-text{height: 18px;}
 .jt-pg-comment-line-date{font-size : 10px; color:#bbb; text-align: right;height: 20px; margin-right: 7px;}
+.jt-pg-comment-line-warn{}
+.jt-pg-comment-line-delete{margin: 0 0 0 2px; cursor: pointer; font-size: 13px;}
+.jt-pg-comment-line-delete:HOVER{color: #f48409}
+.jt-pg-comment-line-warn{ float:right; margin: 5px 0 0 4px; color: orange; cursor: pointer; text-indent: -99999px; width: 12px; height: 12px; display: block; background: url("../images/jt-warn-btn.png") 0 -12px;}
 .jt-gather-extend-banner{
 	width:496px; height:620px;border: 3px solid #f48409; background: #fff;
     font-size:12px;

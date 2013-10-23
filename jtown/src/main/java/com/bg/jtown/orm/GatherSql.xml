@@ -395,10 +395,49 @@
 			LIMIT #{preItem}, #{postItem}
 	</select>
 	
+	<select id="selectUserCommentExist" resultType="Integer">
+		SELECT 
+			COUNT(comment_pn)
+		FROM 
+			product_comment
+		WHERE 
+			comment_pn = #{commentPn} 
+		AND 
+			customer_pn = #{customerPn}
+		AND 
+			deleted ='N'
+	</select>
+	
 	<insert id="insertProductComment" > 
 		INSERT INTO 
 			product_comment(product_pn, customer_pn, comment, input_date) 
 		VALUES(#{productPn}, #{customerPn}, #{comment}, SYSDATE())
+	</insert>
+	
+	<update id="deleteProductComment">
+		UPDATE 
+			product_comment
+		SET 
+			deleted = 'Y'
+		WHERE 
+			comment_pn = #{commentPn}
+	</update>
+	
+	<select id="selectProductCommentWarnExist" resultType="Integer" >
+		SELECT 
+			COUNT(*) 
+		FROM 
+			product_comment_warn
+		WHERE 
+			comment_pn = #{commentPn} 
+		AND 
+			customer_pn = #{customerPn}
+	</select>
+	
+	<insert id="insertProductCommentWarn">
+		INSERT INTO 
+			product_comment_warn(comment_pn, customer_pn, input_date)
+		VALUES(#{commentPn}, #{customerPn}, SYSDATE())
 	</insert>
 	
 	

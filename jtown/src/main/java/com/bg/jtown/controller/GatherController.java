@@ -18,6 +18,7 @@ import org.springframework.social.facebook.api.Facebook;
 import org.springframework.social.facebook.api.FacebookLink;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -484,6 +485,55 @@ public class GatherController {
 			participant.setMessage("2");
 		}
 		return participant;
+	}
+	
+	@RequestMapping(value = "/ajax/insertProductCommentWarn.jt", method = RequestMethod.POST)
+	@ResponseBody
+	public Comment ajaxInsertProductCommentWarn(@RequestBody Comment comment, SummaryUser summaryUser){
+		switch (summaryUser.getEnumAuthority()) {
+		case CUSTOMER:
+			comment.setCustomerPn(summaryUser.getPn());
+			Integer exist =gatherService.selectProductCommentWarnExist(comment);
+			if(exist == 0){
+				gatherService.insertProductCommentWarn(comment);
+			}else{
+				comment.setMessage("3");
+				return comment;
+			}
+			break;
+		case NOT_LOGIN:
+			comment.setMessage("1");
+			break;
+		default:
+			comment.setMessage("2");
+		}
+		return comment;
+	}
+	
+	@RequestMapping(value = "/ajax/deleteComment.jt", method = RequestMethod.POST)
+	@ResponseBody
+	public Comment ajaxDeleteComment(@RequestBody Comment comment, SummaryUser summaryUser){
+		comment.setCustomerPn(summaryUser.getPn());
+		switch (summaryUser.getEnumAuthority()) {
+		case ROOT_ADMIN:
+			gatherService.deleteProductComment(comment);
+			break;
+		case CUSTOMER:
+			Integer exist = gatherService.selectUserCommentExist(comment);
+			if(exist == 1){
+				gatherService.deleteProductComment(comment);
+			}else{
+				comment.setMessage("3");
+				break;
+			}
+			break;
+		case NOT_LOGIN:
+			comment.setMessage("1");
+			break;
+		default:
+			comment.setMessage("2");
+		}
+		return comment;
 	}
 
 }

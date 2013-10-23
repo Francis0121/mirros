@@ -69,7 +69,6 @@
 								<div class="jt-pg-heart-count ${heartClickTextClass}" id="jt-pg-heart-count-${list.productPn }">	${list.heartCount }</div>
 							</div>
 						</div>
-						<!-- 
 						<div class="jt-pg-comment-wrap">
 							<div>ㅁ <input type="text" class="jt-pg-comment-input" placeholder="Write your secret comment..."  maxlength="20"/></div>
 							<div class="jt-pg-comment-line-wrap">
@@ -80,7 +79,11 @@
 									<c:if test="${idx.count <=3}">
 										<div>
 											<div class="jt-pg-comment-line-text">${commentList.comment }</div>
-											<div class="jt-pg-comment-line-date">${commentList.inputDate}</div>
+											<div class="jt-pg-comment-line-date" data-cmPn="${commentList.commentPn }">
+												<span>${commentList.inputDate}</span>
+												<span class="jt-pg-comment-line-delete"><b>X</b></span> 
+												<span class="jt-pg-comment-line-warn" title="신고"> </span>
+											</div>
 										</div>
 									</c:if>
 								</c:forEach>
@@ -88,7 +91,6 @@
 							<div class="jt-pg-comment-more <c:out value="${enable}"/>">▼</div>
 							<c:set var="enable" value=""  />
 						</div>
-						-->
 					</div>
 				</c:if>
 			</div>
@@ -122,7 +124,6 @@
 							<div class="jt-pg-heart-count ${heartClickTextClass}" id="jt-pg-heart-count-${list.productPn }">${list.heartCount }</div>
 						</div>
 					</div>
-					<!--
 					<div class="jt-pg-comment-wrap">
 							<div>ㅁ <input type="text" class="jt-pg-comment-input" placeholder="Write your secret comment..."  maxlength="20"/></div>
 							<div class="jt-pg-comment-line-wrap">
@@ -133,7 +134,11 @@
 									<c:if test="${idx.count <=3}">
 										<div>
 											<div class="jt-pg-comment-line-text">${commentList.comment }</div>
-											<div class="jt-pg-comment-line-date">${commentList.inputDate}</div>
+											<div class="jt-pg-comment-line-date" data-cmPn="${commentList.commentPn }">
+												<span>${commentList.inputDate}</span>
+												<span class="jt-pg-comment-line-delete"><b>X</b></span> 
+												<span class="jt-pg-comment-line-warn" title="신고"> </span>
+											</div>
 										</div>
 									</c:if>
 								</c:forEach>
@@ -141,7 +146,6 @@
 							<div class="jt-pg-comment-more <c:out value="${enable}"/>">▼</div>
 							<c:set var="enable" value=""  />
 						</div>
-						-->
 				</div>	
 			</div>
 		</c:otherwise>

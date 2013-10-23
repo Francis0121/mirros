@@ -282,4 +282,24 @@ public class GatherServiceImpl extends SqlSessionDaoSupport implements GatherSer
 		return getSqlSession().selectOne("gatherMapper.selectExistParticipant", participant);
 	}
 
+	@Override
+	public Integer selectProductCommentWarnExist(Comment comment) {
+		return getSqlSession().selectOne("gatherMapper.selectProductCommentWarnExist", comment);
+	}
+
+	@Override
+	public void insertProductCommentWarn(Comment comment) {
+		getSqlSession().insert("gatherMapper.insertProductCommentWarn", comment);
+	}
+
+	@Override
+	public void deleteProductComment(Comment comment) {
+		getSqlSession().update("gatherMapper.deleteProductComment", comment);
+	}
+
+	@Override
+	public Integer selectUserCommentExist(Comment comment) {
+		return getSqlSession().selectOne("gatherMapper.selectUserCommentExist", comment);
+	}
+
 }

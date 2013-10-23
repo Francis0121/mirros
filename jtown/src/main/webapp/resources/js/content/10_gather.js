@@ -124,7 +124,6 @@ var productGatherHtml = function(data){
 				html+=			'<div class="jt-pg-heart-count '+heartClickTextClass+'" id="jt-pg-heart-count-'+data.mergeItems[idx].productPn+'">'+data.mergeItems[idx].heartCount+'</div>';
 				html+=			'</div>';
 				html+=			'</div>';
-				/*
 				html+=		'<div class="jt-pg-comment-wrap">';
 				html+=		'<div>ㅁ<input type="text" class="jt-pg-comment-input" placeholder="Write your secret comment..."  maxlength="20"/></div>';
 				html+=		'<div class="jt-pg-comment-line-wrap">';
@@ -132,10 +131,14 @@ var productGatherHtml = function(data){
 				var moreEnable = '';
 				for(var sIdx=0; sIdx< commentsSize; sIdx++){
 					if(sIdx < 3){
-						html+= 	'<div>';
-						html+=			'<div class="jt-pg-comment-line-text">'+data.mergeItems[idx].comments[sIdx].comment+'</div>';
-						html+=			'<div class="jt-pg-comment-line-date">'+data.mergeItems[idx].comments[sIdx].inputDate+'</div>';
-						html+= 	'</div>';
+						html += '<div>';
+						html +=	'<div class="jt-pg-comment-line-text">'+data.mergeItems[idx].comments[sIdx].comment+'</div>';
+						html +=	'<div class="jt-pg-comment-line-date" data-cmPn="'+data.mergeItems[idx].comments[sIdx].commentPn+'">';
+						html +=		'<span>'+data.mergeItems[idx].comments[sIdx].inputDate+'</span>';
+						html +=		'<span class="jt-pg-comment-line-delete"><b>X</b></span>'; 
+						html +=		'<span class="jt-pg-comment-line-warn" title="신고"> </span>';
+						html +=	'</div>';
+						html += '</div>';
 					}else{
 						moreEnable = 'jt-pg-comment-more-enable';
 					}
@@ -143,7 +146,6 @@ var productGatherHtml = function(data){
 				html+='	</div>';
 				html+='		<div class="jt-pg-comment-more '+moreEnable+'">▼</div>';
 				html+='	</div>';
-				*/
 				html+=		'</div>';
 			}
 			html+='</div>';
@@ -175,7 +177,6 @@ var productGatherHtml = function(data){
 			html+=			'<div class="jt-pg-heart-count '+heartClickTextClass+'" id="jt-pg-heart-count-'+data.mergeItems[idx].productPn+'" >'+data.mergeItems[idx].heartCount+'</div>';
 			html+=			'</div>';
 			html+=		'</div>';
-			/*
 			html+=		'<div class="jt-pg-comment-wrap">';
 			html+=		'<div>ㅁ <input type="text" class="jt-pg-comment-input" placeholder="Write your secret comment..."  maxlength="20"/></div>';
 			html+=		'<div class="jt-pg-comment-line-wrap">';
@@ -183,10 +184,14 @@ var productGatherHtml = function(data){
 			var moreEnable = '';
 			for(var sIdx=0; sIdx< commentsSize; sIdx++){
 				if(sIdx < 3){
-					html+= 	'<div>';
-					html+=			'<div class="jt-pg-comment-line-text">'+data.mergeItems[idx].comments[sIdx].comment+'</div>';
-					html+=			'<div class="jt-pg-comment-line-date">'+data.mergeItems[idx].comments[sIdx].inputDate+'</div>';
-					html+= 	'</div>';
+					html += '<div>';
+					html +=	'<div class="jt-pg-comment-line-text">'+data.mergeItems[idx].comments[sIdx].comment+'</div>';
+					html +=	'<div class="jt-pg-comment-line-date" data-cmPn="'+data.mergeItems[idx].comments[sIdx].commentPn+'">';
+					html +=		'<span>'+data.mergeItems[idx].comments[sIdx].inputDate+'</span>';
+					html +=		'<span class="jt-pg-comment-line-delete"><b>X</b></span>'; 
+					html +=		'<span class="jt-pg-comment-line-warn" title="신고"> </span>';
+					html +=	'</div>';
+					html += '</div>';
 				}else{
 					moreEnable = 'jt-pg-comment-more-enable';
 				}
@@ -194,7 +199,6 @@ var productGatherHtml = function(data){
 			html+='	</div>';
 			html+='		<div class="jt-pg-comment-more '+moreEnable+'">▼</div>';
 			html+='	</div>';
-			*/
 			html+=		'</div>';
 			html+='</div>';
 		}
@@ -264,7 +268,6 @@ $('.jt-pg-container').on('mouseenter', '.jt-pg-heart-wrap', function(){
 $('.jt-pg-container').on('mouseleave', '.jt-pg-heart-wrap', function(){
 	$(this).find('.jt-home-shop-love').css('background-position','0px -30px');
 });
-/*
 $('.jt-pg-container').on('keydown','.jt-pg-comment-input',(function(e){
  	if( (e.keyCode) && (e.keyCode==13) && ($(this).val() !='')) {
 		var productPn =$(this).parents('.jt-pg-item').attr('data-product-pn');
@@ -272,6 +275,7 @@ $('.jt-pg-container').on('keydown','.jt-pg-comment-input',(function(e){
 		$inputText =$(this).val();
 		$(this).val('');
 		$commentWrap = $(this).parents('.jt-pg-item').find('.jt-pg-comment-line-wrap');
+		$commentMore = $(this).parents('.jt-pg-item').find('.jt-pg-comment-more');
 		$.postJSON(contextPath + 'ajax/insertComment.jt', { productPn : productPn, comment : $inputText }, function(object) {
 			var comments =object.comment;
 			var commentList = object.commentList;
@@ -287,8 +291,12 @@ $('.jt-pg-container').on('keydown','.jt-pg-comment-input',(function(e){
 			}else if(nullValueCheck(comments.message)){
 				if(comments.count <=3){
 					var html = '<div>';
-					html +='	<div class="jt-pg-comment-line-text">'+commentList[0].comment+'</div>';
-					html +='	<div class="jt-pg-comment-line-date">'+commentList[0].inputDate+'</div>';
+					html +=	'<div class="jt-pg-comment-line-text">'+commentList[0].comment+'</div>';
+					html +=	'<div class="jt-pg-comment-line-date" data-cmPn="'+commentList[0].commentPn+'">';
+					html +=		'<span>'+commentList[0].inputDate+'</span>';
+					html +=		'<span class="jt-pg-comment-line-delete"><b>X</b></span>'; 
+					html +=		'<span class="jt-pg-comment-line-warn" title="신고"> </span>';
+					html +=	'</div>';
 					html += '</div>';
 					$commentWrap.prepend(html);
 					if (getInternetExplorerVersion() != 7 ){
@@ -298,11 +306,16 @@ $('.jt-pg-container').on('keydown','.jt-pg-comment-input',(function(e){
 					var html ='';
 					for(var idx=0; idx< 3; idx++){
 						html += '<div>';
-						html +='	<div class="jt-pg-comment-line-text">'+commentList[idx].comment+'</div>';
-						html +='	<div class="jt-pg-comment-line-date">'+commentList[idx].inputDate+'</div>';
+						html +=	'<div class="jt-pg-comment-line-text">'+commentList[idx].comment+'</div>';
+						html +=	'<div class="jt-pg-comment-line-date" data-cmPn="'+commentList[idx].commentPn+'">';
+						html +=		'<span>'+commentList[idx].inputDate+'</span>';
+						html +=		'<span class="jt-pg-comment-line-delete"><b>X</b></span>'; 
+						html +=		'<span class="jt-pg-comment-line-warn" title="신고"> </span>';
+						html +=	'</div>';
 						html += '</div>';
 					}
 					$commentWrap.html(html);
+					$commentMore.attr('class', 'jt-pg-comment-more jt-pg-comment-more-enable');
 					sessionStorage.setItem('comment-'+productPn, 2);
 				}
 			} 
@@ -310,7 +323,7 @@ $('.jt-pg-container').on('keydown','.jt-pg-comment-input',(function(e){
 	}
 }));
 
-$('.jt-pg-container').on('click', '.jt-pg-comment-more', function(){
+$('.jt-pg-container').on('click', '.jt-pg-comment-more-enable', function(){
 	var productPn = $(this).parents('.jt-pg-item').attr('data-product-pn');
 	var page = 2;
 	sessionStorage.getItem('comment-'+productPn) == null ? page = 2 : page = sessionStorage.getItem('comment-'+productPn); 
@@ -322,14 +335,15 @@ $('.jt-pg-container').on('click', '.jt-pg-comment-more', function(){
 		var commentList = object.commentList;
 		var size = comments.count;
 		var html ='';
-		
-		console.log(size);
-		console.log(commentList);
 		for(var idx=0; idx< size; idx++){
 			if(idx <=3){
 				html += '<div>';
-				html +='	<div class="jt-pg-comment-line-text">'+commentList[idx].comment+'</div>';
-				html +='	<div class="jt-pg-comment-line-date">'+commentList[idx].inputDate+'</div>';
+				html +=	'<div class="jt-pg-comment-line-text">'+commentList[idx].comment+'</div>';
+				html +=	'<div class="jt-pg-comment-line-date" data-cmPn="'+commentList[idx].commentPn+'">';
+				html +=		'<span>'+commentList[idx].inputDate+'</span>';
+				html +=		'<span class="jt-pg-comment-line-delete"><b>X</b></span>'; 
+				html +=		'<span class="jt-pg-comment-line-warn" title="신고"> </span>';
+				html +=	'</div>';
 				html += '</div>';
 			}
 		}
@@ -342,9 +356,69 @@ $('.jt-pg-container').on('click', '.jt-pg-comment-more', function(){
 		}
 	});
 });
-*/
-//TODO 자기꺼면 수정
-//TODO 자기꺼 삭제/ 운영자가 삭제
+
+$('.jt-pg-container').on('click', '.jt-pg-comment-line-warn', function(){
+	var commentPn = $(this).parents('.jt-pg-comment-line-date').attr('data-cmpn');
+	$.postJSON(contextPath + 'ajax/insertProductCommentWarn.jt', { commentPn : commentPn}, function(object) {
+		if (!nullValueCheck(object.message)) {
+			if(object.message == '1'){
+				jtown.login.showLoginForm();
+			}else if(object.message == '2'){
+				jtown.dialog('판매자는 불가능합니다');
+			}else if(object.message == '3'){
+				jtown.dialog('이미 신고되었습니다.');
+			}
+		}else{
+			jtown.dialog('신고되었습니다.');
+		}
+	});
+});
+$('.jt-pg-container').on('click', '.jt-pg-comment-line-delete', function(){
+	var commentPn = $(this).parents('.jt-pg-comment-line-date').attr('data-cmpn');
+	$commentWrap = $(this).parents('.jt-pg-item').find('.jt-pg-comment-line-wrap');
+	$commentMore = $(this).parents('.jt-pg-item').find('.jt-pg-comment-more');
+	var productPn =$(this).parents('.jt-pg-item').attr('data-product-pn');
+	$.postJSON(contextPath + 'ajax/deleteComment.jt', { commentPn : commentPn}, function(object) {
+		if (!nullValueCheck(object.message)) {
+			if(object.message == '1'){
+				jtown.login.showLoginForm();
+			}else if(object.message == '2'){
+				jtown.dialog('판매자는 불가능합니다');
+			}else if(object.message == '3'){
+				jtown.dialog('자신의 글만 삭제할 수 있습니다.');
+			}
+		}else{
+			var page = 1;
+			$.postJSON(contextPath + 'ajax/selectComment.jt', { productPn : productPn, page : page}, function(object) {
+				sessionStorage.setItem('comment-'+productPn, 2);
+				var comments =object.comment;
+				var commentList = object.commentList;
+				var size = comments.count;
+				var html ='';
+				for(var idx=0; idx< size; idx++){
+					if(idx <=3){
+						html += '<div>';
+						html +=	'<div class="jt-pg-comment-line-text">'+commentList[idx].comment+'</div>';
+						html +=	'<div class="jt-pg-comment-line-date" data-cmPn="'+commentList[idx].commentPn+'">';
+						html +=		'<span>'+commentList[idx].inputDate+'</span>';
+						html +=		'<span class="jt-pg-comment-line-delete"><b>X</b></span>'; 
+						html +=		'<span class="jt-pg-comment-line-warn" title="신고"> </span>';
+						html +=	'</div>';
+						html += '</div>';
+					}
+				}
+				$commentWrap.html(html);
+				if(size < 3){
+					if (getInternetExplorerVersion() != 7 ){
+						jtown.pg.itemOrder();
+						$commentMore.attr('class', 'jt-pg-comment-more');
+					}
+				}
+				jtown.dialog('삭제되었습니다.');
+			});
+		}
+	});
+});
 
 jtown.pg.eventBannerOpen = function(pn){
 	$.postJSON(contextPath + 'ajax/eventBanner.jt', { pn : pn}, function(object) {

@@ -81,4 +81,12 @@ public interface GatherService {
 	void insertBannerEventParticipant(Participant participant);
 	
 	Integer selectExistParticipant(Participant participant);
+	
+	Integer selectProductCommentWarnExist(Comment comment);
+	
+	Integer selectUserCommentExist(Comment comment);
+	
+	void insertProductCommentWarn(Comment comment);
+	
+	void deleteProductComment(Comment comment);
 }
