@@ -27,7 +27,7 @@ public interface CommentService {
 	Boolean selectExistComment(Comment comment);
 
 	Boolean selectExistLove(Count count);
-	
+
 	Comment insertComment(Comment comment);
 
 	Comment updateComment(Comment comment);
@@ -47,10 +47,29 @@ public interface CommentService {
 	void toggleCommentLove(Comment comment);
 
 	// ~ WarnComment
-	
+
 	void insertWarnComment(Comment comment);
 
+	// ~ productComment
 
+	void insertProductComment(Comment comment);
 
+	Integer selectCommentExist(Comment comment);
+
+	List<Comment> selectCommentList(Comment comment);
+
+	List<Comment> selectCommentList(Integer productPn);
+
+	Integer selectProductCommentWarnExist(Comment comment);
+
+	Integer selectUserCommentExist(Comment comment);
+
+	void insertProductCommentWarn(Comment comment);
+
+	void deleteProductComment(Comment comment);
+
+	List<Comment> selectCommentFeedList();
+	
+	Comment selectCommentFeedItem(Integer commnetPn);
 
 }

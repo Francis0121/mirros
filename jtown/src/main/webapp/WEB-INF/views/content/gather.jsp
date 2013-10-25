@@ -2,6 +2,39 @@
 <%@ include file="../layout/home_header.jspf" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<div class="jt-right-sidebar">
+	<div class="jt-right-sidebar-comment-feed">
+		<c:forEach items="${commentFeed}" var="feedList">
+			<div class="jt-sidebar-comment-item">
+				<span class="jt-sidebar-comment-item-product">${feedList.productName }</span>
+				<span class="jt-sidebar-comment-item-comment">에 댓글이 달렸습니다 : ${feedList.comment}</span>
+			</div>
+		</c:forEach>
+	</div>
+	<div class="jt-right-sidebar-heart-gather">
+		<div class="jt-right-sidebar-heart-gather-arrow-enabled jt-right-sidebar-heart-gather-arrow-top">▲</div>
+		<div class="jt-right-sidebar-heart-gather-wrap">
+		<c:forEach items="${myHeartList}" var="myHeartList">
+			<div class="jt-sidebar-heart-item" data-url ="${myHeartList.url}" data-productPn="${myHeartList.productPn }">
+				<div class="jt-sidebar-heart-item-img-wrap">
+					<c:if test="${empty myHeartList.contentType}">
+						<img src="${cp}/resources/uploadImage/${myHeartList.saveName }" alt="${myHeartList.productName }" />
+					</c:if>
+					<c:if test="${!empty myHeartList.contentType}">
+						<img src="${cp}/photo/thumbnail/${myHeartList.saveName }product.${myHeartList.contentType}" alt="${myHeartList.productName }" />
+					</c:if>
+				</div>
+				<div class="jt-sidebar-heart-item-text-wrap">
+					<div>${myHeartList.productName }</div>
+					<div><fmt:formatNumber value="${myHeartList.price }" /></div>
+				</div>
+			</div>
+		</c:forEach>
+		</div>
+		<div class="jt-right-sidebar-heart-gather-arrow jt-right-sidebar-heart-gather-arrow-bottom">▼</div>
+	</div>
+</div>
 <div class="jt-pg-container">
 <div class="jt-pg-main js-masonry">
 	<div class="jt-pg-item jt-pg-event-item">
@@ -23,11 +56,13 @@
 								<span class="jt-home-expand-shop-event-new-image">NEW</span>
 								<div class="jt-pg-event-line-event-name">${list.eventName }</div>
 							</div>
-							<div class="jt-pg-event-line-shop-name">
-								${list.shopName }
-							</div>
-							<div class="jt-pg-event-line-end-date">
-								D - ${list.endDate }일 남았습니다.
+							<div class="jt-pg-event-line-text">
+								<div class="jt-pg-event-line-shop-name">
+									${list.shopName }
+								</div>
+								<div class="jt-pg-event-line-end-date">
+									D - ${list.endDate }일 남았습니다.
+								</div>
 							</div>
 							<div class="jt-pg-heart-wrap">
 								<div class="jt-pg-heart-shape">
@@ -58,19 +93,22 @@
 								<span class="loginImage"></span>
 								<span class="loginText">페이스북 공유하기</span>
 							</div>
-							<div class="jt-pg-product-name" >
-								<div>${list.productName }</div>
-								<div><fmt:formatNumber value="${list.price }" /></div>
-							</div>
-							<div class="jt-pg-heart-wrap">
-								<div class="jt-pg-heart-shape">
-									<span class="jt-home-shop-love jt-pg-heart-shape ${heartClickShapeClass }" id="jt-pg-heart-click-${list.productPn}">heart</span>
+							<div class="jt-pg-product-name-wrap">
+								<div class="jt-pg-product-name" >
+									<div>${list.productName }</div>
+									<div><fmt:formatNumber value="${list.price }" /></div>
 								</div>
-								<div class="jt-pg-heart-count ${heartClickTextClass}" id="jt-pg-heart-count-${list.productPn }">	${list.heartCount }</div>
+								<div class="jt-pg-heart-wrap">
+									<div class="jt-pg-heart-shape">
+										<span class="jt-home-shop-love jt-pg-heart-shape ${heartClickShapeClass }" id="jt-pg-heart-click-${list.productPn}">heart</span>
+									</div>
+									<div class="jt-pg-heart-count ${heartClickTextClass}" id="jt-pg-heart-count-${list.productPn }">	${list.heartCount }</div>
+								</div>
 							</div>
 						</div>
+						
 						<div class="jt-pg-comment-wrap">
-							<div>ㅁ <input type="text" class="jt-pg-comment-input" placeholder="Write your secret comment..."  maxlength="20"/></div>
+							<div><span class="jt-pg-comment-icon"> </span> <input type="text" class="jt-pg-comment-input" placeholder="Write your secret comment..."  maxlength="20"/></div>
 							<div class="jt-pg-comment-line-wrap">
 								<c:forEach items="${list.comments}" var="commentList" varStatus="idx">
 									<c:if test="${idx.count >3}">
@@ -91,6 +129,7 @@
 							<div class="jt-pg-comment-more <c:out value="${enable}"/>">▼</div>
 							<c:set var="enable" value=""  />
 						</div>
+						
 					</div>
 				</c:if>
 			</div>
@@ -113,19 +152,22 @@
 							<span class="loginImage"></span>
 							<span class="loginText">페이스북 공유하기</span>
 						</div>
-						<div class="jt-pg-product-name">
-							<div>${list.productName }</div>
-							<div><fmt:formatNumber value="${list.price }" /></div>
-						</div>
-						<div class="jt-pg-heart-wrap">
-							<div class="jt-pg-heart-shape">	
-								<span class="jt-home-shop-love jt-pg-heart-shape ${heartClickShapeClass }" id="jt-pg-heart-click-${list.productPn}">heart</span>
+						<div class="jt-pg-product-name-wrap">
+							<div class="jt-pg-product-name">
+								<div>${list.productName }</div>
+								<div><fmt:formatNumber value="${list.price }" /></div>
 							</div>
-							<div class="jt-pg-heart-count ${heartClickTextClass}" id="jt-pg-heart-count-${list.productPn }">${list.heartCount }</div>
+							<div class="jt-pg-heart-wrap">
+								<div class="jt-pg-heart-shape">	
+									<span class="jt-home-shop-love jt-pg-heart-shape ${heartClickShapeClass }" id="jt-pg-heart-click-${list.productPn}">heart</span>
+								</div>
+								<div class="jt-pg-heart-count ${heartClickTextClass}" id="jt-pg-heart-count-${list.productPn }">${list.heartCount }</div>
+							</div>
 						</div>
 					</div>
+					
 					<div class="jt-pg-comment-wrap">
-							<div>ㅁ <input type="text" class="jt-pg-comment-input" placeholder="Write your secret comment..."  maxlength="20"/></div>
+							<div><span class="jt-pg-comment-icon"> </span> <input type="text" class="jt-pg-comment-input" placeholder="Write your secret comment..."  maxlength="20"/></div>
 							<div class="jt-pg-comment-line-wrap">
 								<c:forEach items="${list.comments}" var="commentList" varStatus="idx">
 									<c:if test="${idx.count >3}">
@@ -146,6 +188,7 @@
 							<div class="jt-pg-comment-more <c:out value="${enable}"/>">▼</div>
 							<c:set var="enable" value=""  />
 						</div>
+						 
 				</div>	
 			</div>
 		</c:otherwise>
@@ -158,6 +201,5 @@
 	</center>
 	Loading...
 </div>
-
 </div>
 <%@ include file="../layout/home_footer.jspf" %>

@@ -150,6 +150,14 @@ jtown.real.time = function(data) {
 				$('#jt-pg-heart-count-e-' + eventPn).removeClass('jt-home-shop-love-text-click');
 			}
 		}
+	}else if(obj.redisType == 'comment_feed'){
+		var html ='';
+		html +='<div class="jt-sidebar-comment-item">';
+		html +='<span class="jt-sidebar-comment-item-product">'+obj.productName+'</span>';
+		html +='<span class="jt-sidebar-comment-item-comment">에 댓글이 달렸습니다 : '+obj.comment+'</span>';
+		html +='</div>';
+		$('.jt-right-sidebar-comment-feed').append(html);
+		jtown.pg.commentFeedScrollingBottom();
 	}
 };
 

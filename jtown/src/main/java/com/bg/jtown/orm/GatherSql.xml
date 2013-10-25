@@ -206,7 +206,7 @@
 	</select>
 	
 	<select id="selectEventList" resultMap="EventMapper"> 
-		SELECT
+		SELECT DISTINCT
 			 usee.event_pn, usee.seller_pn, event_name, begin_date, DATEDIFF(usee.end_date,SYSDATE()) AS end_date, banner_order, p.shop_name, p.shop_url AS url, heart_count <if test="customerPn != null">, customer_pn</if>
 		FROM
 			user_seller_event usee
@@ -336,6 +336,26 @@
 			event_pn = #{eventPn}
 	</select>
 	
+	<select id="selectMyHeartList" resultMap="gatherMapper">
+		SELECT 
+		  pcl.product_pn,
+		  name AS product_name,
+		  url,
+		  price,
+		  pcl.input_date,
+		  save_name,
+		  content_type 
+		FROM
+		  user_seller_product usp 
+		  JOIN product_count_love pcl 
+		    ON usp.pn = pcl.product_pn 
+		  JOIN image i 
+		    ON i.pn = usp.image_pn 
+		WHERE pcl.customer_pn = #{customerPn}
+		ORDER BY input_date 
+		LIMIT 10 
+	</select>
+	
 	<resultMap type="Gather" id="ShopEventMapper">
 		<result property="sellerPn" column="seller_pn"/>
 		<result property="eventPn" column="event_pn"/>
@@ -358,88 +378,6 @@
 		AND 
 			deleted = 'N'
 	</select>
-	
-	<!-- comment  -->
-	<resultMap type="Comment" id="jtown-comment-map">
-		<result column="comment_pn" property="commentPn"/>
-		<result column="customer_pn" property="customerPn"/>
-		<result column="product_pn" property="productPn"/>
-		<result column="comment" property="comment"/>
-		<result column="input_date" property="inputDate"/>
-		<result column="deleted" property="deleted"/>
-	</resultMap>
-	
-	<select id="selectCommentExist" resultType="Integer">
-		SELECT 
-			COUNT(comment_pn)
-		FROM 
-			product_comment
-		WHERE 
-			product_pn = #{productPn} 
-		AND 
-			customer_pn = #{customerPn}
-		AND 
-			deleted ='N'
-	</select>
-	
-	<select id="selectCommentList" resultMap="jtown-comment-map">
-		SELECT 
-			comment_pn, customer_pn, COMMENT, DATE_FORMAT(input_date, '%Y-%m-%d %H:%i') AS input_date
-		FROM 
-			product_comment
-		WHERE 
-			product_pn = #{productPn}
-		AND deleted = 'N'
-		ORDER BY 
-			input_date DESC
-			LIMIT #{preItem}, #{postItem}
-	</select>
-	
-	<select id="selectUserCommentExist" resultType="Integer">
-		SELECT 
-			COUNT(comment_pn)
-		FROM 
-			product_comment
-		WHERE 
-			comment_pn = #{commentPn} 
-		AND 
-			customer_pn = #{customerPn}
-		AND 
-			deleted ='N'
-	</select>
-	
-	<insert id="insertProductComment" > 
-		INSERT INTO 
-			product_comment(product_pn, customer_pn, comment, input_date) 
-		VALUES(#{productPn}, #{customerPn}, #{comment}, SYSDATE())
-	</insert>
-	
-	<update id="deleteProductComment">
-		UPDATE 
-			product_comment
-		SET 
-			deleted = 'Y'
-		WHERE 
-			comment_pn = #{commentPn}
-	</update>
-	
-	<select id="selectProductCommentWarnExist" resultType="Integer" >
-		SELECT 
-			COUNT(*) 
-		FROM 
-			product_comment_warn
-		WHERE 
-			comment_pn = #{commentPn} 
-		AND 
-			customer_pn = #{customerPn}
-	</select>
-	
-	<insert id="insertProductCommentWarn">
-		INSERT INTO 
-			product_comment_warn(comment_pn, customer_pn, input_date)
-		VALUES(#{commentPn}, #{customerPn}, SYSDATE())
-	</insert>
-	
 	
 	<!-- bannerEvent  -->
 	<resultMap type="Event" id="jtown-banner-map">

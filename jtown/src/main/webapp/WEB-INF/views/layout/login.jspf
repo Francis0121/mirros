@@ -7,11 +7,11 @@
 				<!-- FACEBOOK login -->
 				<form action="${cp }/signin/facebook" method="POST">
 					<input type="hidden" name="scope" value="publish_stream,offline_access,email,user_birthday,user_likes" />
-			    	<button class="jt-btn-fbLogin" type="submit"><span class="loginImage"></span><span class="loginText">페이스북으로&nbsp;로그인</span></button>
+			    	<button class="jt-btn-fbLogin jt-btn-login" type="submit"><span class="loginImage"></span><span class="loginText">간편하게&nbsp;로그인하세요</span></button>
 				</form>							
 			</li>
 			<li>
-				<button class="jt-btn-orange jt-btn-emailLogin" onclick="jtown.login.loginOn()" type="button"><span class="loginImage"></span><span class="loginText">이메일로&nbsp;로그인</span></button>
+				<button class="jt-btn-orange jt-btn-emailLogin jt-btn-login" onclick="jtown.login.loginOn()" type="button"><span class="loginImage"></span><span class="loginText">이메일로&nbsp;로그인하세요</span></button>
 			</li>
 			<li class="jt-login-direct-join">
 				<a href="javascript:jtown.login.joinOn()">간편 가입</a>
@@ -45,8 +45,8 @@
 		<div class="jt-login-direct-message-box">
 			<h1>Welcome to Mirros</h1>
 			<p>
-				Mirros에서 더 쉽고 간편하게<br/>
-				당신을 위한 아이템을 모아보세요.
+				Mirros에 가입하시면 다양한 이벤트에<br/>
+				바로 참여 가능합니다. 혜택을 누리세요!
 			</p>
 		</div>
 	</div>

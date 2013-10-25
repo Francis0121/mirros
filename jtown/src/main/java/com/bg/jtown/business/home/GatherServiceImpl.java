@@ -10,6 +10,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
 import org.mybatis.spring.support.SqlSessionDaoSupport;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bg.jtown.business.Comment;
@@ -17,6 +18,7 @@ import com.bg.jtown.business.Count;
 import com.bg.jtown.business.Event;
 import com.bg.jtown.business.Gather;
 import com.bg.jtown.business.Participant;
+import com.bg.jtown.business.comment.CommentService;
 import com.bg.jtown.business.search.GatherFilter;
 import com.bg.jtown.redis.Publisher;
 import com.bg.jtown.security.Authority;
@@ -32,6 +34,9 @@ public class GatherServiceImpl extends SqlSessionDaoSupport implements GatherSer
 
 	@Resource
 	private Publisher publisher;
+
+	@Autowired
+	private CommentService commentService;
 
 	@Override
 	public List<Gather> selectGatherHotProducts(GatherFilter productGatherFilter) {
@@ -58,7 +63,7 @@ public class GatherServiceImpl extends SqlSessionDaoSupport implements GatherSer
 				Comment comment = new Comment();
 				comment.setProductPn(itemList.get(idx).getProductPn());
 				comment.setPage(1);
-				itemList.get(idx).setComments(selectCommentList(comment));
+				itemList.get(idx).setComments(commentService.selectCommentList(comment));
 				paginatedItemList.add(itemList.get(idx));
 			}
 		}
@@ -81,6 +86,7 @@ public class GatherServiceImpl extends SqlSessionDaoSupport implements GatherSer
 		List<Gather> smallSizeList = new ArrayList<Gather>();
 		smallSizeList.addAll(normalProduct);
 		smallSizeList.addAll(eventList);
+		System.out.println("eventList :" + eventList);
 
 		Collections.shuffle(smallSizeList, rand);
 		Collections.shuffle(hotProduct, rand);
@@ -248,26 +254,6 @@ public class GatherServiceImpl extends SqlSessionDaoSupport implements GatherSer
 	}
 
 	@Override
-	public void insertProductComment(Comment comment) {
-		getSqlSession().insert("gatherMapper.insertProductComment", comment);
-	}
-
-	@Override
-	public Integer selectCommentExist(Comment comment) {
-		return getSqlSession().selectOne("gatherMapper.selectCommentExist", comment);
-	}
-
-	@Override
-	public List<Comment> selectCommentList(Comment comment) {
-		return getSqlSession().selectList("gatherMapper.selectCommentList", comment);
-	}
-
-	@Override
-	public List<Comment> selectCommentList(Integer productPn) {
-		return getSqlSession().selectList("gatherMapper.selectCommentList", productPn);
-	}
-
-	@Override
 	public Event selectBannerEvent(Event event) {
 		return getSqlSession().selectOne("gatherMapper.selectBannerEvent", event);
 	}
@@ -283,23 +269,8 @@ public class GatherServiceImpl extends SqlSessionDaoSupport implements GatherSer
 	}
 
 	@Override
-	public Integer selectProductCommentWarnExist(Comment comment) {
-		return getSqlSession().selectOne("gatherMapper.selectProductCommentWarnExist", comment);
-	}
-
-	@Override
-	public void insertProductCommentWarn(Comment comment) {
-		getSqlSession().insert("gatherMapper.insertProductCommentWarn", comment);
-	}
-
-	@Override
-	public void deleteProductComment(Comment comment) {
-		getSqlSession().update("gatherMapper.deleteProductComment", comment);
-	}
-
-	@Override
-	public Integer selectUserCommentExist(Comment comment) {
-		return getSqlSession().selectOne("gatherMapper.selectUserCommentExist", comment);
+	public List<Gather> selectMyHeartList(Integer customerPn) {
+		return getSqlSession().selectList("gatherMapper.selectMyHeartList", customerPn);
 	}
 
 }

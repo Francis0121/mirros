@@ -24,11 +24,9 @@ import com.bg.jtown.util.Pagination;
  * 
  */
 @Service
-public class CommentServiceImpl extends SqlSessionDaoSupport implements
-		CommentService {
+public class CommentServiceImpl extends SqlSessionDaoSupport implements CommentService {
 
-	private static Logger logger = LoggerFactory
-			.getLogger(CommentServiceImpl.class);
+	private static Logger logger = LoggerFactory.getLogger(CommentServiceImpl.class);
 
 	private static final Integer COMMENT_NUM_PER_PAGE = 5;
 
@@ -39,8 +37,7 @@ public class CommentServiceImpl extends SqlSessionDaoSupport implements
 
 	@Override
 	public Integer selectCommentCount(CommentFilter commentFilter) {
-		Integer count = getSqlSession().selectOne(
-				"commentMapper.selectCommentCount", commentFilter);
+		Integer count = getSqlSession().selectOne("commentMapper.selectCommentCount", commentFilter);
 		if (count == null) {
 			return 0;
 		}
@@ -56,8 +53,7 @@ public class CommentServiceImpl extends SqlSessionDaoSupport implements
 		pagination.setNumItems(count);
 		pagination.setNumItemsPerPage(COMMENT_NUM_PER_PAGE);
 
-		List<Comment> comments = getSqlSession().selectList(
-				"commentMapper.selectCommentTop", commentFilter);
+		List<Comment> comments = getSqlSession().selectList("commentMapper.selectCommentTop", commentFilter);
 		return comments;
 	}
 
@@ -71,35 +67,30 @@ public class CommentServiceImpl extends SqlSessionDaoSupport implements
 		pagination.setNumItems(count);
 		pagination.setNumItemsPerPage(COMMENT_NUM_PER_PAGE);
 
-		List<Comment> comments = getSqlSession().selectList(
-				"commentMapper.selectComment", commentFilter);
+		List<Comment> comments = getSqlSession().selectList("commentMapper.selectComment", commentFilter);
 		return comments;
 	}
 
 	@Override
 	public Comment selectCommentOne(Integer commentPn) {
-		return getSqlSession().selectOne("commentMapper.selectCommentOne",
-				commentPn);
+		return getSqlSession().selectOne("commentMapper.selectCommentOne", commentPn);
 	}
 
 	@Override
 	public Comment selectCommentDefaultOne(Integer commentPn) {
-		return getSqlSession().selectOne(
-				"commentMapper.selectCommentDefaultOne", commentPn);
+		return getSqlSession().selectOne("commentMapper.selectCommentDefaultOne", commentPn);
 	}
 
 	@Override
 	public Boolean selectExistComment(Comment comment) {
 		comment.setInputDate(DateUtil.getToday("YYYY-MM-DD"));
-		List<Comment> comments = getSqlSession().selectList(
-				"commentMapper.selectExistComment", comment);
+		List<Comment> comments = getSqlSession().selectList("commentMapper.selectExistComment", comment);
 		return comments.size() > 0 ? true : false;
 	}
 
 	@Override
 	public Boolean selectExistLove(Count count) {
-		List<Count> counts = getSqlSession().selectList(
-				"commentMapper.selectExistLove", count);
+		List<Count> counts = getSqlSession().selectList("commentMapper.selectExistLove", count);
 		return counts.size() > 0 ? true : false;
 	}
 
@@ -129,8 +120,7 @@ public class CommentServiceImpl extends SqlSessionDaoSupport implements
 	public void deleteComment(Comment comment) {
 		getSqlSession().update("commentMapper.deleteComment", comment);
 		deleteCommentLove(comment);
-		Integer count = selectCommentCount(new CommentFilter(
-				comment.getSellerPn()));
+		Integer count = selectCommentCount(new CommentFilter(comment.getSellerPn()));
 		comment.setCount(count);
 		comment.setRedisType("delete_comment");
 		logger.debug(comment.toString());
@@ -141,14 +131,12 @@ public class CommentServiceImpl extends SqlSessionDaoSupport implements
 
 	@Override
 	public List<Comment> selectCommentLove(Comment comment) {
-		return getSqlSession().selectList("commentMapper.selectCommentLove",
-				comment);
+		return getSqlSession().selectList("commentMapper.selectCommentLove", comment);
 	}
 
 	@Override
 	public Integer selectCommentLoveCount(Comment comment) {
-		return getSqlSession().selectOne(
-				"commentMapper.selectCommentLoveCount", comment);
+		return getSqlSession().selectOne("commentMapper.selectCommentLoveCount", comment);
 	}
 
 	@Override
@@ -183,4 +171,59 @@ public class CommentServiceImpl extends SqlSessionDaoSupport implements
 	public void insertWarnComment(Comment comment) {
 		getSqlSession().insert("commentMapper.insertWarnComment", comment);
 	}
+
+	// ~ product Comment
+
+	@Override
+	public Integer selectProductCommentWarnExist(Comment comment) {
+		return getSqlSession().selectOne("commentMapper.selectProductCommentWarnExist", comment);
+	}
+
+	@Override
+	public void insertProductCommentWarn(Comment comment) {
+		getSqlSession().insert("commentMapper.insertProductCommentWarn", comment);
+	}
+
+	@Override
+	public void deleteProductComment(Comment comment) {
+		getSqlSession().update("commentMapper.deleteProductComment", comment);
+	}
+
+	@Override
+	public Integer selectUserCommentExist(Comment comment) {
+		return getSqlSession().selectOne("commentMapper.selectUserCommentExist", comment);
+	}
+
+	@Override
+	public void insertProductComment(Comment comment) {
+		getSqlSession().insert("commentMapper.insertProductComment", comment);
+		Comment selectedComment = selectCommentFeedItem(comment.getCommentPn());
+		publisher.commentFeed(selectedComment);
+	}
+
+	@Override
+	public Integer selectCommentExist(Comment comment) {
+		return getSqlSession().selectOne("commentMapper.selectCommentExist", comment);
+	}
+
+	@Override
+	public List<Comment> selectCommentList(Comment comment) {
+		return getSqlSession().selectList("commentMapper.selectCommentList", comment);
+	}
+
+	@Override
+	public List<Comment> selectCommentList(Integer productPn) {
+		return getSqlSession().selectList("commentMapper.selectCommentList", productPn);
+	}
+
+	@Override
+	public List<Comment> selectCommentFeedList() {
+		return getSqlSession().selectList("commentMapper.selectCommentFeedList");
+	}
+
+	@Override
+	public Comment selectCommentFeedItem(Integer commnetPn) {
+		return getSqlSession().selectOne("commentMapper.selectCommentFeedItem", commnetPn);
+	}
+
 }

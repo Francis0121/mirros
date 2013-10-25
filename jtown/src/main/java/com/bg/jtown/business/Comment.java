@@ -89,6 +89,8 @@ public class Comment {
 	private Integer preItem;
 	private Integer postItem;
 
+	private String productName;
+
 	public Comment() {
 		super();
 	}
@@ -243,7 +245,7 @@ public class Comment {
 	}
 
 	public Integer getPreItem() {
-		return (page-1)*3;
+		return (page - 1) * 3;
 	}
 
 	public void setPreItem(Integer preItem) {
@@ -251,11 +253,19 @@ public class Comment {
 	}
 
 	public Integer getPostItem() {
-		return page*3 +1;
+		return page * 3 + 1;
 	}
 
 	public void setPostItem(Integer postItem) {
 		this.postItem = postItem;
+	}
+
+	public String getProductName() {
+		return productName;
+	}
+
+	public void setProductName(String productName) {
+		this.productName = productName;
 	}
 
 	@Override
@@ -263,7 +273,8 @@ public class Comment {
 		return "Comment [comment=" + comment + ", commentCustomerPn=" + commentCustomerPn + ", warnCustomerPn=" + warnCustomerPn
 				+ ", commentLoveCount=" + commentLoveCount + ", commentPn=" + commentPn + ", count=" + count + ", crudType=" + crudType
 				+ ", customerName=" + customerName + ", customerPn=" + customerPn + ", inputDate=" + inputDate + ", message=" + message
-				+ ", redisType=" + redisType + ", sellerPn=" + sellerPn + ", productPn=" + productPn + "]";
+				+ ", redisType=" + redisType + ", sellerPn=" + sellerPn + ", productPn=" + productPn + ", page=" + page + ", preItem=" + preItem
+				+ ", postItem=" + postItem + ", productName=" + productName + "]";
 	}
 
 }

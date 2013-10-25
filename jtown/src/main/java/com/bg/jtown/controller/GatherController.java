@@ -32,6 +32,7 @@ import com.bg.jtown.business.Event;
 import com.bg.jtown.business.Gather;
 import com.bg.jtown.business.Participant;
 import com.bg.jtown.business.Product;
+import com.bg.jtown.business.comment.CommentService;
 import com.bg.jtown.business.home.HomeService;
 import com.bg.jtown.business.home.GatherService;
 import com.bg.jtown.business.search.GatherFilter;
@@ -67,6 +68,9 @@ public class GatherController {
 	@Autowired
 	private LoginService loginService;
 
+	@Autowired
+	private CommentService commentService;
+
 	@Resource
 	private Facebook facebook;
 
@@ -88,6 +92,8 @@ public class GatherController {
 		gatherFilter.setTotalCount(mergeSize);
 		model.addAttribute("productGatherList", gatherService.paginateItemList(mergeList, gatherFilter));
 		model.addAttribute("interestCategories", homeService.selecInterestCategory());
+		model.addAttribute("commentFeed", commentService.selectCommentFeedList());
+		model.addAttribute("myHeartList", gatherService.selectMyHeartList(summaryUser.getPn()));
 		if (gatherFilter.getNewFlag() == 0) {
 			model.addAttribute("categoryType", "pg");
 		} else {
@@ -271,10 +277,10 @@ public class GatherController {
 		case ROOT_ADMIN:
 			try {
 				String accessToken = loginService.selectAccessToken(summaryUser.getPn());
-				if(accessToken == null){
+				if (accessToken == null) {
 					count.setMessage("4");
-					return count; 
-				}else{
+					return count;
+				} else {
 					Product productInfo = sellerService.selectSellerProductOne(count.getProductPn());
 					String url = "https://www.mirros.net/mir/" + productInfo.getSellerPn();
 					String name = productInfo.getName();
@@ -282,16 +288,13 @@ public class GatherController {
 					String shopName = productInfo.getShopName();
 					String prevImageUrl = "https://www.mirros.net/photo/thumbnail/";
 					String imageType = productInfo.getImageType();
-					String imageUrl = imageType == null ? prevImageUrl+productInfo.getSaveName() : prevImageUrl+productInfo.getSaveName()+"product."+imageType;
+					String imageUrl = imageType == null ? prevImageUrl + productInfo.getSaveName() : prevImageUrl + productInfo.getSaveName()
+							+ "product." + imageType;
 					String notice = productInfo.getNotice();
 					FacebookClient facebookClient = new DefaultFacebookClient(accessToken);
-					FacebookType publish = facebookClient.publish("me/feed", FacebookType.class, 
-							Parameter.with("link", url),
-							Parameter.with("message", message),
-							Parameter.with("name", shopName),
-							Parameter.with("picture", imageUrl),
-							Parameter.with("caption", name),
-							Parameter.with("description", notice));
+					FacebookType publish = facebookClient.publish("me/feed", FacebookType.class, Parameter.with("link", url),
+							Parameter.with("message", message), Parameter.with("name", shopName), Parameter.with("picture", imageUrl),
+							Parameter.with("caption", name), Parameter.with("description", notice));
 				}
 			} catch (ApiException e) {
 				logger.debug("PostConnect Catch");
@@ -335,22 +338,19 @@ public class GatherController {
 		case ROOT_ADMIN:
 			try {
 				String accessToken = loginService.selectAccessToken(summaryUser.getPn());
-				if(accessToken == null){
+				if (accessToken == null) {
 					count.setMessage("4");
-					return count; 
-				}else{
+					return count;
+				} else {
 					Gather shopEventInfo = gatherService.selectShopEvent(count.getEventPn());
 					String url = "https://www.mirros.net/mir/" + shopEventInfo.getSellerPn();
 					String shopName = shopEventInfo.getShopName();
 					String eventName = shopEventInfo.getEventName();
 					String message = summaryUser.getName() + "님이 미러스(Mirros)의 " + shopName + " 에서 진행되는 이벤트를 좋아합니다.";
-					
+
 					FacebookClient facebookClient = new DefaultFacebookClient(accessToken);
-					FacebookType publish = facebookClient.publish("me/feed", FacebookType.class, 
-							Parameter.with("link", url),
-							Parameter.with("message", message),
-							Parameter.with("name", shopName),
-							Parameter.with("picture", ""),
+					FacebookType publish = facebookClient.publish("me/feed", FacebookType.class, Parameter.with("link", url),
+							Parameter.with("message", message), Parameter.with("name", shopName), Parameter.with("picture", ""),
 							Parameter.with("description", eventName));
 				}
 			} catch (ApiException e) {
@@ -373,9 +373,9 @@ public class GatherController {
 		switch (summaryUser.getEnumAuthority()) {
 		case CUSTOMER:
 			comment.setCustomerPn(summaryUser.getPn());
-			if (gatherService.selectCommentExist(comment) == 0) {
-				gatherService.insertProductComment(comment);
-				List<Comment> commentList = gatherService.selectCommentList(comment);
+			if (commentService.selectCommentExist(comment) == 0) {
+				commentService.insertProductComment(comment);
+				List<Comment> commentList = commentService.selectCommentList(comment);
 				comment.setCount(commentList.size());
 				map.put("commentList", commentList);
 			} else {
@@ -397,7 +397,7 @@ public class GatherController {
 	@ResponseBody
 	public Map<String, Object> ajaxSelectComment(@RequestBody Comment comment, SummaryUser summaryUser) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		List<Comment> commentList = gatherService.selectCommentList(comment);
+		List<Comment> commentList = commentService.selectCommentList(comment);
 		comment.setCount(commentList.size());
 		map.put("commentList", commentList);
 		map.put("comment", comment);
@@ -438,7 +438,7 @@ public class GatherController {
 		}
 		return participant;
 	}
-	
+
 	@RequestMapping(value = "/ajax/insertParticipant.jt", method = RequestMethod.POST)
 	@ResponseBody
 	public Participant ajaxInsertEventParticipant(@RequestBody Participant participant, SummaryUser summaryUser) {
@@ -449,25 +449,22 @@ public class GatherController {
 				Integer exist = gatherService.selectExistParticipant(participant);
 				if (exist == 0) {
 					String accessToken = loginService.selectAccessToken(summaryUser.getPn());
-					if(accessToken == null){
+					if (accessToken == null) {
 						participant.setMessage("4");
-						return participant; 
-					}else{
+						return participant;
+					} else {
 						gatherService.insertBannerEventParticipant(participant);
 						Event event = new Event();
 						event.setPn(participant.getEventPn());
 						String url = "https://www.mirros.net";
 						Event eventItem = gatherService.selectBannerEvent(event);
 						String eventName = eventItem.getEventName();
-						String imageUrl = "https://www.mirros.net/resources/images/event_thumbnail/"+eventItem.getFbThumbnail();
+						String imageUrl = "https://www.mirros.net/resources/images/event_thumbnail/" + eventItem.getFbThumbnail();
 						String message = summaryUser.getName() + "님이 미러스(Mirros)의 " + eventName + " 이벤트를 좋아합니다.";
-						
+
 						FacebookClient facebookClient = new DefaultFacebookClient(accessToken);
-						FacebookType publish = facebookClient.publish("me/feed", FacebookType.class, 
-								Parameter.with("link", url),
-								Parameter.with("message", message),
-								Parameter.with("name", eventName),
-								Parameter.with("picture", imageUrl),
+						FacebookType publish = facebookClient.publish("me/feed", FacebookType.class, Parameter.with("link", url),
+								Parameter.with("message", message), Parameter.with("name", eventName), Parameter.with("picture", imageUrl),
 								Parameter.with("description", eventItem.getFbMessage()));
 					}
 				} else {
@@ -486,17 +483,17 @@ public class GatherController {
 		}
 		return participant;
 	}
-	
+
 	@RequestMapping(value = "/ajax/insertProductCommentWarn.jt", method = RequestMethod.POST)
 	@ResponseBody
-	public Comment ajaxInsertProductCommentWarn(@RequestBody Comment comment, SummaryUser summaryUser){
+	public Comment ajaxInsertProductCommentWarn(@RequestBody Comment comment, SummaryUser summaryUser) {
 		switch (summaryUser.getEnumAuthority()) {
 		case CUSTOMER:
 			comment.setCustomerPn(summaryUser.getPn());
-			Integer exist =gatherService.selectProductCommentWarnExist(comment);
-			if(exist == 0){
-				gatherService.insertProductCommentWarn(comment);
-			}else{
+			Integer exist = commentService.selectProductCommentWarnExist(comment);
+			if (exist == 0) {
+				commentService.insertProductCommentWarn(comment);
+			} else {
 				comment.setMessage("3");
 				return comment;
 			}
@@ -509,20 +506,20 @@ public class GatherController {
 		}
 		return comment;
 	}
-	
+
 	@RequestMapping(value = "/ajax/deleteComment.jt", method = RequestMethod.POST)
 	@ResponseBody
-	public Comment ajaxDeleteComment(@RequestBody Comment comment, SummaryUser summaryUser){
+	public Comment ajaxDeleteComment(@RequestBody Comment comment, SummaryUser summaryUser) {
 		comment.setCustomerPn(summaryUser.getPn());
 		switch (summaryUser.getEnumAuthority()) {
 		case ROOT_ADMIN:
-			gatherService.deleteProductComment(comment);
+			commentService.deleteProductComment(comment);
 			break;
 		case CUSTOMER:
-			Integer exist = gatherService.selectUserCommentExist(comment);
-			if(exist == 1){
-				gatherService.deleteProductComment(comment);
-			}else{
+			Integer exist = commentService.selectUserCommentExist(comment);
+			if (exist == 1) {
+				commentService.deleteProductComment(comment);
+			} else {
 				comment.setMessage("3");
 				break;
 			}

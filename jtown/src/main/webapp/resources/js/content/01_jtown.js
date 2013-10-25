@@ -320,6 +320,7 @@ jtown.home.masonry = {
 		});
 	},
 	resize : function(){
+		console.log('resize');
 		var clientWidth = Number(window.document.body.clientWidth),
 		widthItem = Math.floor(clientWidth/330);
 	
@@ -333,6 +334,7 @@ jtown.home.masonry = {
 		});
 	},
 	move : function(){
+		console.log('move');
 		var $header = $('.jt-header-title'), $footer =$('.jt-footer'), scrollheight = { },
 			isEmail = $footer.attr('data-isEmail'),
 			isBrowser = ($.browser.msie && $.browser.version == '7.0') || ($.browser.msie && $.browser.version == '8.0'),			

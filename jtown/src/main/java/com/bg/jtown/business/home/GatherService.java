@@ -68,25 +68,14 @@ public interface GatherService {
 	
 	Gather selectShopEvent(Integer eventPn);
 	
-	void insertProductComment(Comment comment);
-	
-	Integer selectCommentExist(Comment comment);
-
-	List<Comment> selectCommentList(Comment comment);
-	
-	List<Comment> selectCommentList(Integer productPn);
-	
+		
 	Event selectBannerEvent(Event event);
 	
 	void insertBannerEventParticipant(Participant participant);
 	
 	Integer selectExistParticipant(Participant participant);
 	
-	Integer selectProductCommentWarnExist(Comment comment);
+	List<Gather> selectMyHeartList(Integer customerPn);
 	
-	Integer selectUserCommentExist(Comment comment);
 	
-	void insertProductCommentWarn(Comment comment);
-	
-	void deleteProductComment(Comment comment);
 }
