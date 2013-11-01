@@ -63,7 +63,12 @@ public class GatherServiceImpl extends SqlSessionDaoSupport implements GatherSer
 				Comment comment = new Comment();
 				comment.setProductPn(itemList.get(idx).getProductPn());
 				comment.setPage(1);
-				itemList.get(idx).setComments(commentService.selectCommentList(comment));
+				if (comment.getProductPn() != 0) {
+					itemList.get(idx).setComments(commentService.selectCommentList(comment));
+				} else {
+					comment.setEventPn(itemList.get(idx).getEventPn());
+					itemList.get(idx).setComments(commentService.selectEventCommentList(comment));
+				}
 				paginatedItemList.add(itemList.get(idx));
 			}
 		}
@@ -75,23 +80,26 @@ public class GatherServiceImpl extends SqlSessionDaoSupport implements GatherSer
 	 * 연속으로 나오지 않으려면 2개부터 시작이므로 범위는 2 ~ 18 인 짝수
 	 */
 	@Override
-	public List<Gather> mergeProductGatherList(GatherFilter productGatherFilter) {
-		int count = selectGatherProductsCount(productGatherFilter);
-		productGatherFilter.setPercentCount(count * 10 / 100);
+	public List<Gather> mergeProductGatherList(GatherFilter gatherFilter) {
+		int hotCount = selectGatherProductsCount(gatherFilter) * 10 / 100 ;
+		List<Gather> normalProduct = selectGatherProducts(gatherFilter); 
 		Random rand = new Random(System.nanoTime());
-		List<Gather> hotProduct = selectGatherHotProducts(productGatherFilter);
-		List<Gather> eventList = selectEventList(productGatherFilter);
-		List<Gather> normalProduct = selectGatherProducts(productGatherFilter);
-
+		List<Gather> hotProduct = new ArrayList<Gather>();
+		List<Gather> eventList = selectEventList(gatherFilter);
 		List<Gather> smallSizeList = new ArrayList<Gather>();
-		smallSizeList.addAll(normalProduct);
-		smallSizeList.addAll(eventList);
-		System.out.println("eventList :" + eventList);
-
-		Collections.shuffle(smallSizeList, rand);
-		Collections.shuffle(hotProduct, rand);
 		List<Gather> mergeList = new ArrayList<Gather>();
-
+		
+		for(int idx = 0; idx < hotCount ; idx++){
+			hotProduct.add(normalProduct.remove(idx));
+			hotProduct.get(idx).setHot(1);
+		}
+		if (!"hot".equals(gatherFilter.getNavFlag())) {
+			smallSizeList.addAll(eventList);
+			smallSizeList.addAll(normalProduct);
+			Collections.shuffle(smallSizeList, rand);
+		}
+		Collections.shuffle(hotProduct, rand);
+		
 		// TODO IF -> BANNER LIST가 끝날 때까지 먼저 hotproduct 대신에 bannerList를 먼저 비움
 		int totalCount = 0;
 		totalCount = hotProduct.size() + smallSizeList.size();
@@ -116,6 +124,7 @@ public class GatherServiceImpl extends SqlSessionDaoSupport implements GatherSer
 				totalCount--;
 			}
 		}
+		
 		return mergeList;
 	}
 

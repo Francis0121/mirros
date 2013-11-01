@@ -41,7 +41,7 @@
 				ON u.pn = us.pn 
 			JOIN partnership p 
 				ON p.seller_pn = us.pn
-			<if test="newFlag == 1">
+			<if test="navFlag == 'new'">
 			JOIN new_product_bool npb
 				ON npb.product_pn = usp.pn
 			</if>
@@ -51,7 +51,7 @@
 			    <if test="categoryPn != 0">
 			    	AND p.category_pn = #{categoryPn}
 			    </if>
-			    <if test="newFlag == 1">
+			    <if test="navFlag == 'new'">
 			    AND npb.new_product > 0
 			    </if>  
 			    AND u.enable = 1
@@ -97,7 +97,7 @@
 			  	<if test="customerPn != null">
 			  		AND pcl.customer_pn = #{customerPn}
 			  	</if>
-		     <if test="newFlag == 1">
+		     <if test="navFlag == 'new'">
 			JOIN new_product_bool npb
 				ON npb.product_pn = usp.pn
 			</if> 
@@ -107,14 +107,13 @@
 		    <if test="categoryPn != 0"> 
 		   		 AND p.category_pn = #{categoryPn}
 		    </if>
-		    <if test="newFlag == 1">
+		    <if test="navFlag == 'new'">
 		    AND npb.new_product > 0	
 		    </if> 
 		    AND u.enable = 1
 		) tb 
 		GROUP BY product_pn
-		ORDER BY day_count DESC
-		LIMIT #{percentCount} , 1000000
+		ORDER BY day_count DESC, heart_count DESC
 	</select>
 	
 	<select id="selectGatherHotProducts" resultMap="gatherMapper">
@@ -156,7 +155,7 @@
 			  	<if test="customerPn != null">
 			  		AND pcl.customer_pn = #{customerPn}
 			  	</if>
-		     <if test="newFlag == 1">
+		     <if test="navFlag == 'new'">
 			JOIN new_product_bool npb
 				ON npb.product_pn = usp.pn
 			</if> 
@@ -166,7 +165,7 @@
 		    <if test="categoryPn != 0"> 
 		   		 AND p.category_pn = #{categoryPn}
 		    </if>
-		    <if test="newFlag == 1">
+		    <if test="navFlag == 'new'">
 		    AND npb.new_product > 0	
 		    </if> 
 		    AND u.enable = 1
@@ -221,13 +220,13 @@
 			  <if test="customerPn != null">
 			  		AND ecl.customer_pn = #{customerPn}
 			  	</if>
-		<if test="newFlag == 1">
+		<if test="navFlag == 'new'">
 		JOIN new_event_bool neb
 			ON neb.event_pn = usee.event_pn 
 		</if>	
 		WHERE DATEDIFF(usee.end_date,SYSDATE()) >= 0
 			AND u.enable = 1
-		<if test="newFlag == 1">
+		<if test="navFlag == 'new'">
 			AND neb.new_event > 0
 		</if>	
 		<if test="categoryPn != 0"> 
@@ -352,8 +351,27 @@
 		  JOIN image i 
 		    ON i.pn = usp.image_pn 
 		WHERE pcl.customer_pn = #{customerPn}
-		ORDER BY input_date 
-		LIMIT 10 
+		UNION 
+		SELECT 	
+		  usee.event_pn,
+		  event_name,
+		  p.shop_url AS url,
+		  -1,
+		  ecl.input_date,
+		  shop_name,
+		  DATEDIFF(usee.end_date, SYSDATE()) AS end_date
+		FROM
+		  user_seller_event usee 
+		  JOIN partnership p 
+		    ON p.seller_pn = usee.seller_pn 
+		  JOIN users u 
+		    ON u.pn = p.seller_pn 
+		  LEFT JOIN event_count_love ecl 
+		    ON ecl.event_pn = usee.event_pn 
+		WHERE customer_pn = #{customerPn}
+			AND DATEDIFF(usee.end_date, SYSDATE()) &gt;= 0 
+		ORDER BY input_date DESC 
+		LIMIT 10
 	</select>
 	
 	<resultMap type="Gather" id="ShopEventMapper">
@@ -361,12 +379,13 @@
 		<result property="eventPn" column="event_pn"/>
 		<result property="eventName" column="event_name"/>
 		<result property="shopName" column="shop_name"/>
+		<result property="endDate" column="end_date"/>
 		<result property="url" column="shop_url"/>
 	</resultMap>
 	
 	<select id="selectShopEvent" resultMap="ShopEventMapper">
 		SELECT 
-			event_pn, usee.seller_pn,shop_name, shop_url, event_name
+			event_pn, usee.seller_pn,shop_name, shop_url, event_name, DATEDIFF(usee.end_date, SYSDATE()) AS end_date
 		FROM 
 			user_seller_event usee
 		JOIN 

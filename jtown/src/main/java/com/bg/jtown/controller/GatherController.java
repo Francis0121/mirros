@@ -94,11 +94,7 @@ public class GatherController {
 		model.addAttribute("interestCategories", homeService.selecInterestCategory());
 		model.addAttribute("commentFeed", commentService.selectCommentFeedList());
 		model.addAttribute("myHeartList", gatherService.selectMyHeartList(summaryUser.getPn()));
-		if (gatherFilter.getNewFlag() == 0) {
-			model.addAttribute("categoryType", "pg");
-		} else {
-			model.addAttribute("categoryType", "new");
-		}
+		model.addAttribute("categoryType", gatherFilter.getNavFlag());
 	}
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
@@ -112,6 +108,7 @@ public class GatherController {
 				model.addAttribute("isMobile", true);
 			}
 		}
+		gatherFilter.setNavFlag("pg");
 		gatherModelSetting(model, session, gatherFilter, summaryUser);
 		return prefixView + "gather";
 	}
@@ -147,7 +144,7 @@ public class GatherController {
 				model.addAttribute("isMobile", true);
 			}
 		}
-		gatherFilter.setNewFlag(1);
+		gatherFilter.setNavFlag("new");
 		gatherModelSetting(model, session, gatherFilter, summaryUser);
 		return prefixView + "gather";
 	}
@@ -163,7 +160,39 @@ public class GatherController {
 				model.addAttribute("isMobile", true);
 			}
 		}
-		gatherFilter.setNewFlag(1);
+		gatherFilter.setNavFlag("new");
+		gatherModelSetting(model, session, gatherFilter, summaryUser);
+		return prefixView + "gather";
+	}
+	
+	@RequestMapping(value = "/h", method = RequestMethod.GET)
+	public String hotGatherView(Model model, HttpSession session, @ModelAttribute GatherFilter gatherFilter, SummaryUser summaryUser,
+			HttpServletRequest request) throws UnsupportedEncodingException {
+		if (BrowserUtil.isMobile(request)) {
+			String value = CookieUtil.isCookie("SEE_PC_VERSION", request);
+			if (value == null || !value.equals("T")) {
+				return "redirect:/m/";
+			} else {
+				model.addAttribute("isMobile", true);
+			}
+		}
+		gatherFilter.setNavFlag("hot");
+		gatherModelSetting(model, session, gatherFilter, summaryUser);
+		return prefixView + "gather";
+	}
+
+	@RequestMapping(value = "/h/cpn/{categoryPn}", method = RequestMethod.GET)
+	public String hotGatherCategoryView(Model model, HttpSession session, @ModelAttribute GatherFilter gatherFilter, SummaryUser summaryUser,
+			HttpServletRequest request) throws UnsupportedEncodingException {
+		if (BrowserUtil.isMobile(request)) {
+			String value = CookieUtil.isCookie("SEE_PC_VERSION", request);
+			if (value == null || !value.equals("T")) {
+				return "redirect:/m/cpn/{categoryPn}";
+			} else {
+				model.addAttribute("isMobile", true);
+			}
+		}
+		gatherFilter.setNavFlag("hot");
 		gatherModelSetting(model, session, gatherFilter, summaryUser);
 		return prefixView + "gather";
 	}
@@ -250,21 +279,24 @@ public class GatherController {
 
 	@RequestMapping(value = "/ajax/productHeartClick.jt", method = RequestMethod.POST)
 	@ResponseBody
-	public Count ajaxProductHeartClick(@RequestBody Count count, SummaryUser summaryUser) {
+	public Product ajaxProductHeartClick(@RequestBody Count count, SummaryUser summaryUser) {
+		Product product = new Product();
 		switch (summaryUser.getEnumAuthority()) {
 		case CUSTOMER:
 			count.setCustomerPn(summaryUser.getPn());
+			product = sellerService.selectSellerProductOne(count.getProductPn());
 		case ADMIN:
 		case ROOT_ADMIN:
 			gatherService.insertProductHeartCount(count);
+			product.setCrudType(count.getCrudType());
 			break;
 		case NOT_LOGIN:
-			count.setMessage("1");
+			product.setMessage("1");
 			break;
 		default:
-			count.setMessage("2");
+			product.setMessage("2");
 		}
-		return count;
+		return product;
 	}
 
 	@RequestMapping(value = "/ajax/productFacebookLikeClick.jt", method = RequestMethod.POST)
@@ -311,21 +343,24 @@ public class GatherController {
 
 	@RequestMapping(value = "/ajax/eventHeartClick.jt", method = RequestMethod.POST)
 	@ResponseBody
-	public Count ajaxEventHeartClick(@RequestBody Count count, SummaryUser summaryUser) {
+	public Gather ajaxEventHeartClick(@RequestBody Count count, SummaryUser summaryUser) {
+		Gather gather = new Gather();
 		switch (summaryUser.getEnumAuthority()) {
 		case CUSTOMER:
 			count.setCustomerPn(summaryUser.getPn());
+			gather = gatherService.selectShopEvent(count.getEventPn());
 		case ADMIN:
 		case ROOT_ADMIN:
 			gatherService.insertEventHeartCount(count);
+			gather.setCrudType(count.getCrudType());
 			break;
 		case NOT_LOGIN:
-			count.setMessage("1");
+			gather.setMessage("1");
 			break;
 		default:
-			count.setMessage("2");
+			gather.setMessage("2");
 		}
-		return count;
+		return gather;
 	}
 
 	@RequestMapping(value = "/ajax/eventFacebookLikeClick.jt", method = RequestMethod.POST)
@@ -373,14 +408,25 @@ public class GatherController {
 		switch (summaryUser.getEnumAuthority()) {
 		case CUSTOMER:
 			comment.setCustomerPn(summaryUser.getPn());
-			if (commentService.selectCommentExist(comment) == 0) {
-				commentService.insertProductComment(comment);
-				List<Comment> commentList = commentService.selectCommentList(comment);
-				comment.setCount(commentList.size());
-				map.put("commentList", commentList);
-			} else {
-				comment.setMessage("3");
-				break;
+			
+			if(comment.getProductPn() != 0){
+				if (commentService.selectCommentExist(comment) == 0) {
+					commentService.insertProductComment(comment);
+					List<Comment> commentList = commentService.selectCommentList(comment);
+					comment.setCount(commentList.size());
+					map.put("commentList", commentList);
+				} else {
+					comment.setMessage("3");
+				}
+			}else{
+				if (commentService.selectEventCommentExist(comment) == 0) {
+					commentService.insertEventComment(comment);
+					List<Comment> commentList = commentService.selectEventCommentList(comment);
+					comment.setCount(commentList.size());
+					map.put("commentList", commentList);
+				} else {
+					comment.setMessage("3");
+				}
 			}
 			break;
 		case NOT_LOGIN:
@@ -397,7 +443,12 @@ public class GatherController {
 	@ResponseBody
 	public Map<String, Object> ajaxSelectComment(@RequestBody Comment comment, SummaryUser summaryUser) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		List<Comment> commentList = commentService.selectCommentList(comment);
+		List<Comment> commentList = new ArrayList<Comment>();
+		if(comment.getProductPn() != 0){
+			commentList = commentService.selectCommentList(comment);
+		}else{
+			commentList = commentService.selectEventCommentList(comment);
+		}
 		comment.setCount(commentList.size());
 		map.put("commentList", commentList);
 		map.put("comment", comment);
@@ -484,18 +535,28 @@ public class GatherController {
 		return participant;
 	}
 
-	@RequestMapping(value = "/ajax/insertProductCommentWarn.jt", method = RequestMethod.POST)
+	@RequestMapping(value = "/ajax/insertCommentWarn.jt", method = RequestMethod.POST)
 	@ResponseBody
-	public Comment ajaxInsertProductCommentWarn(@RequestBody Comment comment, SummaryUser summaryUser) {
+	public Comment ajaxInsertCommentWarn(@RequestBody Comment comment, SummaryUser summaryUser) {
 		switch (summaryUser.getEnumAuthority()) {
 		case CUSTOMER:
 			comment.setCustomerPn(summaryUser.getPn());
-			Integer exist = commentService.selectProductCommentWarnExist(comment);
-			if (exist == 0) {
-				commentService.insertProductCommentWarn(comment);
-			} else {
-				comment.setMessage("3");
-				return comment;
+			if(comment.getProductPn() != 0 ){ 
+				Integer exist = commentService.selectProductCommentWarnExist(comment);
+				if (exist == 0) {
+					commentService.insertProductCommentWarn(comment);
+				} else {
+					comment.setMessage("3");
+					return comment;
+				}
+			}else{
+				Integer exist = commentService.selectEventCommentWarnExist(comment);
+				if (exist == 0) {
+					commentService.insertEventCommentWarn(comment);
+				} else {
+					comment.setMessage("3");
+					return comment;
+				}
 			}
 			break;
 		case NOT_LOGIN:
@@ -513,15 +574,27 @@ public class GatherController {
 		comment.setCustomerPn(summaryUser.getPn());
 		switch (summaryUser.getEnumAuthority()) {
 		case ROOT_ADMIN:
-			commentService.deleteProductComment(comment);
+			if(comment.getProductPn() !=0){
+				commentService.deleteProductComment(comment);
+			}else{
+				commentService.deleteEventComment(comment);
+			}
 			break;
 		case CUSTOMER:
-			Integer exist = commentService.selectUserCommentExist(comment);
-			if (exist == 1) {
-				commentService.deleteProductComment(comment);
-			} else {
-				comment.setMessage("3");
-				break;
+			if(comment.getProductPn() !=0){
+				Integer exist = commentService.selectUserCommentExist(comment);
+				if (exist == 1) {
+					commentService.deleteProductComment(comment);
+				} else {
+					comment.setMessage("3");
+				}
+			}else{
+				Integer exist = commentService.selectUserEventCommentExist(comment);
+				if (exist == 1) {
+					commentService.deleteEventComment(comment);
+				} else {
+					comment.setMessage("3");
+				}
 			}
 			break;
 		case NOT_LOGIN:

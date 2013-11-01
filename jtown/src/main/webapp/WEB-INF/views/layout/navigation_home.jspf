@@ -16,4 +16,11 @@
 		<li class="jt-header-nav-mode-now"><span class="jt-header-nav-mode-new-active">new</span></li>
 		<li><a href="${cp}/s"><span class="jt-header-nav-mode-shop-inactive">shop</span></a></li>		
 	</c:if>
+	<c:if test="${categoryType =='hot'}">
+	<!-- 
+		<li><a href="${cp}/"><span class="jt-header-nav-mode-gather-inactive">gather</span></a></li>
+		<li class="jt-header-nav-mode-now"><span class="jt-header-nav-mode-new-active">new</span></li>
+		<li><a href="${cp}/s"><span class="jt-header-nav-mode-shop-inactive">shop</span></a></li>
+		 -->		
+	</c:if>
 </ul>

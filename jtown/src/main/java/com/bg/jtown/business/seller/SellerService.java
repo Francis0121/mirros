@@ -129,5 +129,9 @@ public interface SellerService {
 	
 	List<Statistic> selectProductClickStatisticTopNPercentList(Statistic statistic); 
 	
+	List<Statistic> selectProductClickStatistic(Statistic statistic);
 	
+	List<Statistic> selectTotalProductClickStatistic(Statistic statistic);
+	
+	List<Statistic> selectTotalEventClickStatistic(Statistic statistic);
 }

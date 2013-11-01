@@ -362,6 +362,10 @@ jtown.expand.gotoPage = function(){
 	});
 };
 
+$('.jt-home-expand-shop-event').bind('click',function(){
+	window.open($(this).parent('.jt-home-expand-shop').attr('data-url'), '_blank');
+});
+
 jtown.expand.changeContainerHeight = function(){
 	var smartPopContainer = $('#smartPop_container');
 	if(!nullValueCheck(smartPopContainer.html())){	

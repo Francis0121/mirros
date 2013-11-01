@@ -2,7 +2,7 @@
 /*************************
 *	왼쪽 가장 큰 단
 **************************/
-.jt-body{ width: 100%; float: left; }
+.jt-body{ width: 100%; float: left; overflow-x: hidden;   }
 /*************************
 *	머리말
 **************************/
@@ -47,7 +47,7 @@
 	z-index: 15;
 }
 .jt-help-under-wrap>li{ margin: 8px; background: #fff;}
-.jt-header-nav{position:absolute; height: 28px;  float : left;right: 5.3%; top:45px;}
+.jt-header-nav{position:absolute; height: 28px;  float : left;left: 10px; top:45px;}
 .jt-header-nav-mode-now{border-top: 1px solid #fff !important;}
 .jt-header-nav-mode-ul>li{ float: left; height: 28px;padding: 0; border-top: 1px solid #ccc;}
 .jt-header-nav-top-css{top:75px;}

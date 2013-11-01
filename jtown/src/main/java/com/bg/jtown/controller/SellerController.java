@@ -2,7 +2,9 @@ package com.bg.jtown.controller;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -31,9 +33,11 @@ import com.bg.jtown.security.Authority;
 import com.bg.jtown.security.JtownUser;
 import com.bg.jtown.security.SummaryUser;
 import com.bg.jtown.util.FileVO;
+import com.bg.jtown.util.StringUtil;
 import com.bg.jtown.util.ValidationUtil;
 import com.bg.jtown.business.Event;
 import com.bg.jtown.business.search.ProductFilter;
+import com.bg.jtown.business.search.StatisticFilter;
 import com.bg.jtown.business.seller.SellerService;
 import com.google.gson.JsonArray;
 
@@ -127,10 +131,10 @@ public class SellerController {
 		model.addAttribute("product", product);
 		return prefixView + "seller_photo";
 	}
-	
-	@RequestMapping(value="/statistic/{sellerPn}", method=RequestMethod.GET)
-	public String sellerStatistic(@ModelAttribute ProductFilter productFilter, Model model, SummaryUser summaryUser){
-		Integer sellerPn = productFilter.getSellerPn();
+
+	@RequestMapping(value = "/statistic/{sellerPn}", method = RequestMethod.GET)
+	public String sellerStatistic(@ModelAttribute StatisticFilter statisticFilter, Model model, SummaryUser summaryUser) {
+		Integer sellerPn = statisticFilter.getSellerPn();
 		if (sellerPn == null) {
 			return prefixView + "error/404";
 		}
@@ -139,15 +143,35 @@ public class SellerController {
 				logger.warn("Deny Seller page No Permission [ Access = " + summaryUser.getPn() + ", IP = " + summaryUser.getRemoteIp() + " ] ");
 				return "redirect:../noPermission";
 			}
-			Statistic statistic = new Statistic();
-			Calendar cal = Calendar.getInstance();
-			statistic.setStatisticDate(cal.get(Calendar.YEAR)+"-"+(cal.get(Calendar.MONTH)+1)+"-01");
-			System.out.println("statisticDate :"+ statistic.getStatisticDate());
-			model.addAttribute("percentStatisticList",sellerService.selectProductClickStatisticTopNPercentList(statistic));
 		}
-		return prefixView+"statistic";
+		model.addAttribute("sellerPn", sellerPn);
+		return prefixView + "statistic";
 	}
-	
+
+	@RequestMapping(value = "/ajax/statistic/getStatisticValue.jt", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> ajaxGetStatisticValue(@RequestBody StatisticFilter statisticFilter, SummaryUser summaryUser) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		Statistic statistic = new Statistic();
+		Calendar cal = Calendar.getInstance();
+
+		Integer sellerPn = statisticFilter.getSellerPn();
+		statistic.setSellerPn(sellerPn);
+		statisticFilter.getCurrentDate();
+		if (statisticFilter.getCurrentDate() != 0) {
+			cal.setTimeInMillis(statisticFilter.getCurrentDate());
+			cal.add(Calendar.MONTH, statisticFilter.getNextMonth());
+		}
+		statistic.setStatisticDate(cal.get(Calendar.YEAR) + "-" + (cal.get(Calendar.MONTH) + 1) + "-01");
+
+		map.put("currentDate", cal.getTime().getTime());
+		map.put("currentMonth", cal.get(Calendar.MONTH) + 1);
+		map.put("currentYear", cal.get(Calendar.YEAR));
+		map.put("shopStatistic", sellerService.selectProductClickStatistic(statistic));
+		map.put("TopStatistic", sellerService.selectProductClickStatisticTopNPercentList(statistic));
+
+		return map;
+	}
 
 	// ~ Form
 

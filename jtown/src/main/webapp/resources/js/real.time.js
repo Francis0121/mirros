@@ -152,12 +152,42 @@ jtown.real.time = function(data) {
 		}
 	}else if(obj.redisType == 'comment_feed'){
 		var html ='';
-		html +='<div class="jt-sidebar-comment-item">';
-		html +='<span class="jt-sidebar-comment-item-product">'+obj.productName+'</span>';
-		html +='<span class="jt-sidebar-comment-item-comment">에 댓글이 달렸습니다 : '+obj.comment+'</span>';
-		html +='</div>';
-		$('.jt-right-sidebar-comment-feed').append(html);
-		jtown.pg.commentFeedScrollingBottom();
+		html +='<div class="jt-sidebar-comment-item" data-productPn="'+obj.productPn+'" data-url="'+obj.url +'">';
+		html +=	'<span class="jt-sidebar-comment-item-product">'+obj.productName+'</span>';
+		html +=	'<span class="jt-sidebar-comment-item-comment">'+obj.comment+'</span>';
+		html +=	'<div class="jt-right-sidebar-comment-feed-dialog" role="dialog">';
+		html +=		'<span class="jt-right-sidebar-comment-feed-dialog-arrow"> </span>';
+		html +=		'<div class="jt-right-sidebar-comment-feed-dialog-contents">';
+		if(obj.contentType == '-1'){
+			html +=		'<div class="jt-right-sidebar-comment-feed-dialog-contents-img">';
+			html +=			'<span class="jt-home-expand-shop-event-new-image"> </span>';
+			html +=			'<div class="jt-right-sidebar-comment-feed-dialog-contents-event">'+obj.productName+'</div>';
+			html +=		'</div>';
+			html +=		'<div class="jt-right-sidebar-comment-feed-dialog-contents-text">';
+			html +=		'<div>'+obj.saveName+'</div>';
+			if(obj.price >= 0){
+				html +='<div>D- '+obj.price +'일 남았습니다.</div>';
+			}else{
+				html +='<div>이벤트 기간이 만료되었습니다.</div>';
+			}
+			html +='</div>';
+		}else{
+			html +='<div class="jt-right-sidebar-comment-feed-dialog-contents-img">';
+			if(obj.contentType == null){
+				html+= 		'<img src="'+contextPath+'resources/uploadImage/'+obj.saveName +'" alt="'+obj.productName +'" />';
+			}else{
+				html+=			 '<img src="'+contextPath+'photo/thumbnail/'+obj.saveName+'product.'+obj.contentType+'" alt="'+obj.productName+'" />';
+			}
+			html +=				'</div>';
+			html +=				'<div class="jt-right-sidebar-comment-feed-dialog-contents-text">';
+			html +=					'<div>'+obj.productName+'</div>';
+			html +=					'<div>'+jtown.pg.formatNumber(obj.price) +'</div>';
+			html +=				'</div>';
+		}
+		html +=			'</div>';
+		html +=	'</div>';
+		html += '</div>';
+		$('.jt-right-sidebar-comment-feed').prepend(html);
 	}
 };
 

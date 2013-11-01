@@ -184,7 +184,7 @@
 					</c:if>
 					<img alt="Second Event" src="${event2.saveName eq null ? blankEvent : imageEvent }" id="jt-seller-expand-event-second-img"/>
 				</div>
-				<div class="jt-home-expand-shop-content-wrpa">
+				<div class="jt-home-expand-shop-content-wrap">
 					<ul class="jt-home-expand-shop-content-fn">
 						<li class="jt-home-expand-shop-content-view-wrap">
 							<span class="jt-home-expand-shop-content-view" title="최근 일주일간 방문수">Look</span>&nbsp;<span id="view-expand-<c:out value="${jtownUser.pn }"/>"><c:out value="${jtownUser.viewCount eq null ? 0 : jtownUser.viewCount}"/></span>

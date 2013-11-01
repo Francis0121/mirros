@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.bg.jtown.business.Comment;
 import com.bg.jtown.business.Count;
 import com.bg.jtown.business.Event;
+import com.bg.jtown.business.Gather;
 import com.google.gson.Gson;
 
 /**
@@ -102,11 +103,11 @@ public class Publisher {
 		}
 	}
 	
-	public void commentFeed(Comment comment) {
+	public void commentFeed(Gather gather) {
 		try {
-			comment.setRedisType("comment_feed");
+			gather.setRedisType("comment_feed");
 			Gson gson = new Gson();
-			String json = gson.toJson(comment);
+			String json = gson.toJson(gather);
 			logger.debug("Publish Reids " + json);
 			publishTemplate.convertAndSend("real_time", json);
 		} catch (Exception e) {

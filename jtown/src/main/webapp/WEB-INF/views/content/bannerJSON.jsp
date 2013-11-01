@@ -5,5 +5,9 @@
       "content": "<div class='slide_inner'><a class='photo_link' href='http://goo.gl/0xf20A' target='_blank'><img class='photo' src='${pageContext.request.contextPath}/resources/images/event/banner2.jpg'></a></div>"
 },{
       "content": "<div class='slide_inner'><a class='photo_link' href='javascript:jtown.pg.eventBannerOpen(1)'><img class='photo' src='${pageContext.request.contextPath}/resources/images/event/drama002.jpg'></a></div>"
-}]
+},
+{
+	"content": "<div class='slide_inner'><a class='photo_link' href='javascript:jtown.pg.eventBannerOpen(2)'><img class='photo' src='${pageContext.request.contextPath}/resources/images/event/drama003.png'></a></div>"
+}
+]
 </c:if>

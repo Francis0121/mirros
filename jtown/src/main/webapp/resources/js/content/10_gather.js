@@ -12,41 +12,42 @@ $(function() {
             }    
         return rv; 
    }
-	
-	jtown.pg.windowResize = function(){
-			var clientWidth = Number(window.document.body.clientWidth),
-			widthItem = Math.floor(clientWidth/258);
-			if(widthItem > 6){
-				widthItem = widthItem-1;
-			}
-			$('.jt-pg-main').css({width : (widthItem*258), margin : 'auto'});
-		};
+	if($('.jt-pg-main').length != 0 ){
+		jtown.pg.windowResize = function(){
+				var clientWidth = Number(window.document.body.clientWidth),
+				widthItem = Math.floor(clientWidth/258);
+				if(widthItem > 6){
+					widthItem = widthItem-1;
+				}
+				$('.jt-pg-main').css({width : (widthItem*258), margin : 'auto'});
+			};
 		$( window ).resize(function() {
 			jtown.pg.windowResize();
+			jtown.pg.commentFeedInit();
 		});
 		jtown.pg.windowResize();
-	
-	jtown.pg.itemOrder = function(){
-		if (getInternetExplorerVersion() != 7 ){
-			var containerDiv = document.querySelector('.jt-pg-main');
-			var msnry = new Masonry( containerDiv, {
-				  columnWidth: 0,
-				  itemSelector: '.jt-pg-item'
-				});
-		}else{
-			var mediaItemContainer = $('.jt-pg-main');
-			mediaItemContainer.masonry({
-			    columnWidth: 0, 
-			    itemSelector: '.jt-pg-item',
-			    resizeable: true,
-			    saveOptions: true
-			  });
-			$( mediaItemContainer ).masonry( 'reloadItems' );
-		}
-	};
-	jtown.pg.itemOrder();
-	
-if($('.jt-header-nav-interestCategory').attr('data-category') == 'pg' || $('.jt-header-nav-interestCategory').attr('data-category') == 'new'){
+		
+		jtown.pg.itemOrder = function(){
+			if (getInternetExplorerVersion() != 7 ){
+				var containerDiv = document.querySelector('.jt-pg-main');
+				var msnry = new Masonry( containerDiv, {
+					  columnWidth: 0,
+					  itemSelector: '.jt-pg-item'
+					});
+			}else{
+				var mediaItemContainer = $('.jt-pg-main');
+				mediaItemContainer.masonry({
+				    columnWidth: 0, 
+				    itemSelector: '.jt-pg-item',
+				    resizeable: true,
+				    saveOptions: true
+				  });
+				$( mediaItemContainer ).masonry( 'reloadItems' );
+			}
+		};
+		jtown.pg.itemOrder();
+	}
+if($('.jt-header-nav-interestCategory').attr('data-category') != '' ){
 	$(window).scroll(function(){
 			    if($(window).scrollTop() == $(document).height() - $(window).height()){
 			        $('div#infscr-loading').show();
@@ -91,25 +92,52 @@ var productGatherHtml = function(data){
 				html+=	 		'<span class="jt-home-expand-shop-event-new-image">NEW</span>';
 				html+=			'<div class="jt-pg-event-line-event-name">'+data.mergeItems[idx].eventName +'</div>';
 				html+=		'</div>';
-				html+= 	'<div class="jt-pg-event-line-text">';
-				html+=			'<div class="jt-pg-event-line-shop-name">';
-				html+=				data.mergeItems[idx].shopName ;
-				html+=			'</div>';
-				html+=			'<div class="jt-pg-event-line-end-date">';
-				html+=				'D - '+data.mergeItems[idx].endDate+'일 남았습니다.';
+				html+= 	'<div class="jt-pg-event-line-bottom">';
+				html+= 		'<div class="jt-pg-event-line-text">';
+				html+=				'<div class="jt-pg-event-line-shop-name">';
+				html+=					data.mergeItems[idx].shopName ;
+				html+=				'</div>';
+				html+=				'<div class="jt-pg-event-line-end-date">';
+				html+=					'D - '+data.mergeItems[idx].endDate+'일 남았습니다.';
+				html+=				'</div>';
+				html+= 		'</div>';
+				html+=			'<div class="jt-pg-heart-wrap">';
+				html+=				'<div class="jt-pg-heart-shape">';
+				html+=					'<span class="jt-home-shop-love jt-pg-heart-shape '+heartClickShapeClass+'" id="jt-pg-heart-click-e-'+data.mergeItems[idx].eventPn+'">heart</span>';
+				html+=				'</div>';
+				html+=				'<div class="jt-pg-heart-event-count '+heartClickTextClass+'" id="jt-pg-heart-count-e-'+data.mergeItems[idx].eventPn+'">	'+data.mergeItems[idx].heartCount+'</div>';
 				html+=			'</div>';
 				html+= 	'</div>';
-				html+=		'<div class="jt-pg-heart-wrap">';
-				html+=			'<div class="jt-pg-heart-shape">';
-				html+=				'<span class="jt-home-shop-love jt-pg-heart-shape '+heartClickShapeClass+'" id="jt-pg-heart-click-e-'+data.mergeItems[idx].eventPn+'">heart</span>';
-				html+=			'</div>';
-				html+=			'<div class="jt-pg-heart-event-count '+heartClickTextClass+'" id="jt-pg-heart-count-e-'+data.mergeItems[idx].eventPn+'">	'+data.mergeItems[idx].heartCount+'</div>';
-				html+=		'</div>';
 				html+=		'<div class="jt-btn-fbLogin jt-pg-product-facebook">';
 				html+=			'<span class="loginImage"></span>';
 				html+=		'<span class="loginText">페이스북 공유하기</span>';
 				html+=		'</div>';
 				html+=		'</div>';
+				
+				html+= '<div class="jt-pg-comment-wrap">';
+				html+= '<div><span class="jt-pg-comment-icon"> </span> <input type="text" class="jt-pg-comment-input" placeholder="Write your secret comment"  maxlength="20"/></div>';
+				html+= '<div class="jt-pg-comment-line-wrap">';
+				
+				var commentsSize = data.mergeItems[idx].comments.length;
+				var moreEnable = '';
+				for(var sIdx=0; sIdx< commentsSize; sIdx++){
+					if(sIdx < 3){
+						html += '<div>';
+						html +=	'<div class="jt-pg-comment-line-text">'+data.mergeItems[idx].comments[sIdx].comment+'</div>';
+						html +=	'<div class="jt-pg-comment-line-date" data-cmPn="'+data.mergeItems[idx].comments[sIdx].commentPn+'">';
+						html +=		'<span>'+data.mergeItems[idx].comments[sIdx].inputDate+'</span>';
+						html +=		'<span class="jt-pg-comment-line-warn">신고</span> |';
+						html +=		'<span class="jt-pg-comment-line-delete">삭제</span>'; 
+						html +=	'</div>';
+						html += '</div>';
+					}else{
+						moreEnable = 'jt-pg-comment-more-enable';
+					}
+				}
+				html+='	</div>';
+				html+='		<div class="jt-pg-comment-more '+moreEnable+'">▼</div>';
+				html+='	</div>';
+				
 				html+='</div>';
 			}else if(data.mergeItems[idx].productPn != 0){
 				html+=		'<div class="jt-pg-product-line">';
@@ -141,7 +169,7 @@ var productGatherHtml = function(data){
 				html+=			'</div>';
 				
 				html+=		'<div class="jt-pg-comment-wrap">';
-				html+=		'<div><span class="jt-pg-comment-icon"> </span> <input type="text" class="jt-pg-comment-input" placeholder="Write your secret comment..."  maxlength="20"/></div>';
+				html+=		'<div><span class="jt-pg-comment-icon"> </span> <input type="text" class="jt-pg-comment-input" placeholder="Write your secret comment"  maxlength="20"/></div>';
 				html+=		'<div class="jt-pg-comment-line-wrap">';
 				var commentsSize = data.mergeItems[idx].comments.length;
 				var moreEnable = '';
@@ -151,8 +179,8 @@ var productGatherHtml = function(data){
 						html +=	'<div class="jt-pg-comment-line-text">'+data.mergeItems[idx].comments[sIdx].comment+'</div>';
 						html +=	'<div class="jt-pg-comment-line-date" data-cmPn="'+data.mergeItems[idx].comments[sIdx].commentPn+'">';
 						html +=		'<span>'+data.mergeItems[idx].comments[sIdx].inputDate+'</span>';
-						html +=		'<span class="jt-pg-comment-line-delete"><b>X</b></span>'; 
-						html +=		'<span class="jt-pg-comment-line-warn" title="신고"> </span>';
+						html +=		'<span class="jt-pg-comment-line-warn">신고</span> |';
+						html +=		'<span class="jt-pg-comment-line-delete">삭제</span>'; 
 						html +=	'</div>';
 						html += '</div>';
 					}else{
@@ -198,7 +226,7 @@ var productGatherHtml = function(data){
 			html+=		'</div>';
 			
 			html+=		'<div class="jt-pg-comment-wrap">';
-			html+=		'<div><span class="jt-pg-comment-icon"> </span> <input type="text" class="jt-pg-comment-input" placeholder="Write your secret comment..."  maxlength="20"/></div>';
+			html+=		'<div><span class="jt-pg-comment-icon"> </span> <input type="text" class="jt-pg-comment-input" placeholder="Write your secret comment"  maxlength="20"/></div>';
 			html+=		'<div class="jt-pg-comment-line-wrap">';
 			var commentsSize = data.mergeItems[idx].comments.length;
 			var moreEnable = '';
@@ -208,8 +236,8 @@ var productGatherHtml = function(data){
 					html +=	'<div class="jt-pg-comment-line-text">'+data.mergeItems[idx].comments[sIdx].comment+'</div>';
 					html +=	'<div class="jt-pg-comment-line-date" data-cmPn="'+data.mergeItems[idx].comments[sIdx].commentPn+'">';
 					html +=		'<span>'+data.mergeItems[idx].comments[sIdx].inputDate+'</span>';
-					html +=		'<span class="jt-pg-comment-line-delete"><b>X</b></span>'; 
-					html +=		'<span class="jt-pg-comment-line-warn" title="신고"> </span>';
+					html +=		'<span class="jt-pg-comment-line-warn">신고</span> |';
+					html +=		'<span class="jt-pg-comment-line-delete">삭제</span>';
 					html +=	'</div>';
 					html += '</div>';
 				}else{
@@ -291,12 +319,14 @@ $('.jt-pg-container').on('mouseleave', '.jt-pg-heart-wrap', function(){
 $('.jt-pg-container').on('keydown','.jt-pg-comment-input',(function(e){
  	if( (e.keyCode) && (e.keyCode==13) && ($(this).val() !='')) {
 		var productPn =$(this).parents('.jt-pg-item').attr('data-product-pn');
+		var eventPn =$(this).parents('.jt-pg-item').attr('data-event-pn');
+		
 		$replyItemLength = $(this).parents('.jt-pg-item').find('.jt-pg-comment-line-text').length;
 		$inputText =$(this).val();
 		$(this).val('');
 		$commentWrap = $(this).parents('.jt-pg-item').find('.jt-pg-comment-line-wrap');
 		$commentMore = $(this).parents('.jt-pg-item').find('.jt-pg-comment-more');
-		$.postJSON(contextPath + 'ajax/insertComment.jt', { productPn : productPn, comment : $inputText }, function(object) {
+		$.postJSON(contextPath + 'ajax/insertComment.jt', { productPn : productPn, eventPn : eventPn, comment : $inputText }, function(object) {
 			var comments =object.comment;
 			var commentList = object.commentList;
 			if (!nullValueCheck(comments.message)) {
@@ -314,8 +344,8 @@ $('.jt-pg-container').on('keydown','.jt-pg-comment-input',(function(e){
 					html +=	'<div class="jt-pg-comment-line-text">'+commentList[0].comment+'</div>';
 					html +=	'<div class="jt-pg-comment-line-date" data-cmPn="'+commentList[0].commentPn+'">';
 					html +=		'<span>'+commentList[0].inputDate+'</span>';
-					html +=		'<span class="jt-pg-comment-line-delete"><b>X</b></span>'; 
-					html +=		'<span class="jt-pg-comment-line-warn" title="신고"> </span>';
+					html +=		'<span class="jt-pg-comment-line-warn">신고</span> |';
+					html +=		'<span class="jt-pg-comment-line-delete">삭제</span>';
 					html +=	'</div>';
 					html += '</div>';
 					$commentWrap.prepend(html);
@@ -327,28 +357,42 @@ $('.jt-pg-container').on('keydown','.jt-pg-comment-input',(function(e){
 						html +=	'<div class="jt-pg-comment-line-text">'+commentList[idx].comment+'</div>';
 						html +=	'<div class="jt-pg-comment-line-date" data-cmPn="'+commentList[idx].commentPn+'">';
 						html +=		'<span>'+commentList[idx].inputDate+'</span>';
-						html +=		'<span class="jt-pg-comment-line-delete"><b>X</b></span>'; 
-						html +=		'<span class="jt-pg-comment-line-warn" title="신고"> </span>';
+						html +=		'<span class="jt-pg-comment-line-warn">신고</span> |';
+						html +=		'<span class="jt-pg-comment-line-delete">삭제</span>';
 						html +=	'</div>';
 						html += '</div>';
 					}
 					$commentWrap.html(html);
 					$commentMore.attr('class', 'jt-pg-comment-more jt-pg-comment-more-enable');
-					sessionStorage.setItem('comment-'+productPn, 2);
+					if(productPn != 0){
+						sessionStorage.setItem('comment-'+productPn, 2);
+					}else{
+						sessionStorage.setItem('comment-e-'+eventPn, 2);
+					}
 				}
-			} 
+			}
 		});
 	}
 }));
 
+
 $('.jt-pg-container').on('click', '.jt-pg-comment-more-enable', function(){
 	var productPn = $(this).parents('.jt-pg-item').attr('data-product-pn');
+	var eventPn = $(this).parents('.jt-pg-item').attr('data-event-pn');
 	var page = 2;
-	sessionStorage.getItem('comment-'+productPn) == null ? page = 2 : page = sessionStorage.getItem('comment-'+productPn); 
+	if(productPn != 0){
+		sessionStorage.getItem('comment-'+productPn) == null ? page = 2 : page = sessionStorage.getItem('comment-'+productPn);
+	}else{
+		sessionStorage.getItem('comment-e-'+eventPn) == null ? page = 2 : page = sessionStorage.getItem('comment-e-'+eventPn);
+	}
 	$commentWrap = $(this).parents('.jt-pg-item').find('.jt-pg-comment-line-wrap');
 	$commentMore = $(this).parents('.jt-pg-item').find('.jt-pg-comment-more');
-	$.postJSON(contextPath + 'ajax/selectComment.jt', { productPn : productPn, page : page}, function(object) {
-		sessionStorage.setItem('comment-'+productPn, (page-0+1));
+	$.postJSON(contextPath + 'ajax/selectComment.jt', { productPn : productPn, eventPn : eventPn, page : page}, function(object) {
+		if(productPn != 0){
+			sessionStorage.setItem('comment-'+productPn, (page-0+1));
+		}else{
+			sessionStorage.setItem('comment-e-'+productPn, (page-0+1));
+		}
 		var comments =object.comment;
 		var commentList = object.commentList;
 		var size = comments.count;
@@ -374,8 +418,9 @@ $('.jt-pg-container').on('click', '.jt-pg-comment-more-enable', function(){
 });
 
 $('.jt-pg-container').on('click', '.jt-pg-comment-line-warn', function(){
+	var productPn = $(this).parents('.jt-pg-item').attr('data-product-pn');
 	var commentPn = $(this).parents('.jt-pg-comment-line-date').attr('data-cmpn');
-	$.postJSON(contextPath + 'ajax/insertProductCommentWarn.jt', { commentPn : commentPn}, function(object) {
+	$.postJSON(contextPath + 'ajax/insertCommentWarn.jt', { commentPn : commentPn, productPn : productPn}, function(object) {
 		if (!nullValueCheck(object.message)) {
 			if(object.message == '1'){
 				jtown.login.showLoginForm();
@@ -389,12 +434,15 @@ $('.jt-pg-container').on('click', '.jt-pg-comment-line-warn', function(){
 		}
 	});
 });
+
 $('.jt-pg-container').on('click', '.jt-pg-comment-line-delete', function(){
 	var commentPn = $(this).parents('.jt-pg-comment-line-date').attr('data-cmpn');
 	$commentWrap = $(this).parents('.jt-pg-item').find('.jt-pg-comment-line-wrap');
 	$commentMore = $(this).parents('.jt-pg-item').find('.jt-pg-comment-more');
 	var productPn =$(this).parents('.jt-pg-item').attr('data-product-pn');
-	$.postJSON(contextPath + 'ajax/deleteComment.jt', { commentPn : commentPn}, function(object) {
+	var eventPn =$(this).parents('.jt-pg-item').attr('data-event-pn');
+	
+	$.postJSON(contextPath + 'ajax/deleteComment.jt', { commentPn : commentPn, productPn : productPn, eventPn : eventPn}, function(object) {
 		if (!nullValueCheck(object.message)) {
 			if(object.message == '1'){
 				jtown.login.showLoginForm();
@@ -405,8 +453,12 @@ $('.jt-pg-container').on('click', '.jt-pg-comment-line-delete', function(){
 			}
 		}else{
 			var page = 1;
-			$.postJSON(contextPath + 'ajax/selectComment.jt', { productPn : productPn, page : page}, function(object) {
-				sessionStorage.setItem('comment-'+productPn, 2);
+			$.postJSON(contextPath + 'ajax/selectComment.jt', { productPn : productPn, eventPn : eventPn, page : page}, function(object) {
+				if(productPn != 0){
+					sessionStorage.setItem('comment-'+productPn, 2);
+				}else{
+					sessionStorage.setItem('comment-e-'+eventPn, 2);
+				}
 				var comments =object.comment;
 				var commentList = object.commentList;
 				var size = comments.count;
@@ -480,41 +532,48 @@ $.getJSON(contextPath+"bannerJSON?order=1", function(data) {
 });
 
 //~ sidebar 
-jtown.pg.commentFeedScrollingBottom = function(){
-	var WH = $('.jt-right-sidebar-comment-feed').height();  
-	var SH = $('.jt-right-sidebar-comment-feed')[0].scrollHeight;
-	$('.jt-right-sidebar-comment-feed').stop().animate({scrollTop: SH-WH}, 300);
-};
-jtown.pg.commentFeedScrollingBottom();
-jtown.pg.myHeartScrollingBottom = function(){
-	var WH = $('.jt-right-sidebar-heart-gather-wrap').height();  
-	var SH = $('.jt-right-sidebar-heart-gather-wrap')[0].scrollHeight;
-	$('.jt-right-sidebar-heart-gather-wrap').stop().animate({scrollTop: SH-WH}, 300);
-	$('.jt-right-sidebar-heart-gather-arrow-bottom').attr('class','jt-right-sidebar-heart-gather-arrow-disabled jt-right-sidebar-heart-gather-arrow-bottom');
-	$('.jt-right-sidebar-heart-gather-arrow-top').attr('class','jt-right-sidebar-heart-gather-arrow-enabled jt-right-sidebar-heart-gather-arrow-top');
-	
-	//$('.jt-right-sidebar-heart-gather-wrap').scrollTop()
-};
-jtown.pg.myHeartScrollingBottom();
 
-$('.jt-right-sidebar-heart-gather-arrow-top').bind('click', function(){
-	$('.jt-right-sidebar-heart-gather-wrap').stop().animate({scrollTop: 0}, 300);
-	$('.jt-right-sidebar-heart-gather-arrow-bottom').attr('class','jt-right-sidebar-heart-gather-arrow-enabled jt-right-sidebar-heart-gather-arrow-bottom');
-	$('.jt-right-sidebar-heart-gather-arrow-top').attr('class','jt-right-sidebar-heart-gather-arrow-disabled jt-right-sidebar-heart-gather-arrow-top');
+jtown.pg.commentFeedInit = function(){
+	var heartFeedHeight = window.innerHeight - $('.jt-right-sidebar-comment-feed').height() - 115 ;
+	$('.jt-right-sidebar-heart-gather-wrap').height(heartFeedHeight);
+};
+jtown.pg.commentFeedInit();
+$(".jt-right-sidebar-heart-gather-wrap").mCustomScrollbar({theme:"dark"});
+
+$('.jt-right-sidebar-comment-feed').on('click', '.jt-right-sidebar-comment-feed-dialog-contents', function(){
+	if($(this).find('img').attr('alt') == null){
+		var eventPn = $(this).parents('.jt-sidebar-comment-item').attr('data-productPn');
+		jtown.home.eventStatisticClick(eventPn);
+	}else{
+		var productPn =$(this).parents('.jt-sidebar-comment-item').attr('data-productPn');
+		jtown.home.productStatisticClick(productPn);
+	}
+	window.open($(this).parents('.jt-sidebar-comment-item').attr('data-url'), '_blank');
 });
-$('.jt-right-sidebar-heart-gather-arrow-bottom').bind('click', function(){
-	jtown.pg.myHeartScrollingBottom();
+
+$('.jt-right-sidebar').on('mouseover', '.jt-sidebar-comment-item', function(event){
+	$(this).find('.jt-right-sidebar-comment-feed-dialog').css('display','block');
+	$('.jt-right-sidebar-comment-feed-dialog').css('top', ($(this).offset().top)-50-$('body').scrollTop());
+});
+$('.jt-right-sidebar').on('mouseout', '.jt-sidebar-comment-item', function(){
+	$(this).find('.jt-right-sidebar-comment-feed-dialog').css('display','none');
 });
 
 $('body').on('click', '.jt-sidebar-heart-item', function(){
-	jtown.home.productStatisticClick($(this).attr('data-productPn'));
+	var productPn = $(this).attr('data-productPn');
+	var eventPn = $(this).attr('data-eventPn');
+	if(productPn != ""){
+		jtown.home.productStatisticClick(productPn);
+	}else{
+		jtown.home.eventStatisticClick(eventPn);
+	}
 	window.open($(this).attr('data-url'), '_blank');
 });
 
 //~ footer scroll top
-$('.jt-footer').css('display','block');
+/*$('.jt-footer').css('display','block');
 $('#jt-scroll-top').bind('click', function(){
 	$('html, body').animate({scrollTop:0}, 'slow');
 });
-
+*/
 });

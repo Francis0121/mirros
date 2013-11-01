@@ -271,8 +271,10 @@
 		<result column="comment_pn" property="commentPn"/>
 		<result column="customer_pn" property="customerPn"/>
 		<result column="product_pn" property="productPn"/>
+		<result column="event_pn" property="eventPn"/>
 		<result column="comment" property="comment"/>
 		<result column="input_date" property="inputDate"/>
+		<result column="count" property="count"/>
 		<result column="name" property="productName"/>
 		<result column="deleted" property="deleted"/>
 	</resultMap>
@@ -284,6 +286,19 @@
 			product_comment
 		WHERE 
 			product_pn = #{productPn} 
+		AND 
+			customer_pn = #{customerPn}
+		AND 
+			deleted ='N'
+	</select>
+	
+	<select id="selectEventCommentExist" resultType="Integer">
+		SELECT 
+			COUNT(comment_pn)
+		FROM 
+			event_comment
+		WHERE 
+			event_pn = #{eventPn} 
 		AND 
 			customer_pn = #{customerPn}
 		AND 
@@ -306,11 +321,40 @@
 			LIMIT #{preItem}, #{postItem}
 	</select>
 	
+	<select id="selectEventCommentList" resultMap="jtown-gather-comment-map">
+		SELECT 
+			ec.comment_pn, customer_pn, COMMENT, DATE_FORMAT(input_date, '%Y-%m-%d %H:%i') AS input_date
+		FROM 
+			event_comment ec
+		LEFT JOIN gather_event_commnet_warn_bool gcwb
+  			ON ec.comment_pn = gcwb.comment_pn
+		WHERE 
+			event_pn = #{eventPn}
+		AND deleted = 'N'
+		AND IFNULL(warn_count, 0) &lt; 3
+		ORDER BY 
+			input_date DESC
+			LIMIT #{preItem}, #{postItem}
+	</select>
+	
 	<select id="selectUserCommentExist" resultType="Integer">
 		SELECT 
 			COUNT(comment_pn)
 		FROM 
 			product_comment
+		WHERE 
+			comment_pn = #{commentPn} 
+		AND 
+			customer_pn = #{customerPn}
+		AND 
+			deleted ='N'
+	</select>
+	
+	<select id="selectUserEventCommentExist" resultType="Integer">
+		SELECT 
+			COUNT(comment_pn)
+		FROM 
+			event_comment
 		WHERE 
 			comment_pn = #{commentPn} 
 		AND 
@@ -328,9 +372,27 @@
 		</selectKey>
 	</insert>
 	
+	<insert id="insertEventComment" > 
+		INSERT INTO 
+			event_comment(event_pn, customer_pn, comment, input_date) 
+		VALUES(#{eventPn}, #{customerPn}, #{comment}, SYSDATE())
+		<selectKey keyProperty="commentPn" resultType="Integer" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+	
 	<update id="deleteProductComment">
 		UPDATE 
 			product_comment
+		SET 
+			deleted = 'Y'
+		WHERE 
+			comment_pn = #{commentPn}
+	</update>
+	
+	<update id="deleteEventComment">
+		UPDATE 
+			event_comment
 		SET 
 			deleted = 'Y'
 		WHERE 
@@ -348,49 +410,135 @@
 			customer_pn = #{customerPn}
 	</select>
 	
+	<select id="selectEventCommentWarnExist" resultType="Integer" >
+		SELECT 
+			COUNT(*) 
+		FROM 
+			event_comment_warn
+		WHERE 
+			comment_pn = #{commentPn} 
+		AND 
+			customer_pn = #{customerPn}
+	</select>
+	
 	<insert id="insertProductCommentWarn">
 		INSERT INTO 
 			product_comment_warn(comment_pn, customer_pn, input_date)
 		VALUES(#{commentPn}, #{customerPn}, SYSDATE())
 	</insert>
 	
-	<select id="selectCommentFeedList" resultMap="jtown-gather-comment-map">
-		SELECT * FROM (
-			SELECT 
-				  comment_pn,
-				  pc.product_pn,
-				  customer_pn,
-				  COMMENT,
-				  NAME,
-				  DATE_FORMAT(pc.input_date, '%Y-%m-%d %H:%i') AS input_date 
-			FROM
-				product_comment pc 
-			JOIN user_seller_product usp 
-				ON pc.product_pn = usp.pn 
-			WHERE 
-				pc.deleted = 'N' 
-			ORDER BY 
-				comment_pn DESC 
-			LIMIT 10
-			) tb
-			ORDER BY comment_pn
+	<insert id="insertEventCommentWarn">
+		INSERT INTO 
+			event_comment_warn(comment_pn, customer_pn, input_date)
+		VALUES(#{commentPn}, #{customerPn}, SYSDATE())
+	</insert>
+
+	
+	
+	<resultMap type="Gather" id="jtown-gather-comment-data-map">
+		<result column="comment_pn" property="commentPn"/>
+		<result column="customer_pn" property="customerPn"/>
+		<result column="product_pn" property="productPn"/>
+		<result column="event_pn" property="eventPn"/>
+		<result column="shop_url" property="url"/>
+		<result column="shop_name" property="shopName"/>
+		<result column="price" property="price"/>
+		<result column="name" property="productName"/>
+		<result column="save_name" property="saveName"/>
+		<result column="content_type" property="contentType"/>
+		<result column="comment" property="comment"/>
+		
+	</resultMap>
+	
+	<select id="selectCommentFeedList" resultMap="jtown-gather-comment-data-map">
+		SELECT 
+		  comment_pn,
+		  pc.product_pn,
+		  customer_pn,
+		  COMMENT,
+		  NAME,
+		  price,
+		  url,
+		  save_name,
+		  content_type,
+		  pc.input_date 
+		FROM
+		  product_comment pc 
+		  JOIN user_seller_product usp 
+		    ON pc.product_pn = usp.pn 
+		  JOIN image i 
+		    ON i.pn = usp.image_pn 
+		WHERE pc.deleted = 'N' 
+		AND 
+			DATE_FORMAT(pc.input_date, "%Y-%m-%d") >= DATE_FORMAT(DATE_ADD(SYSDATE(),INTERVAL -2 DAY), "%Y-%m-%d")	
+		UNION
+		SELECT 
+		  comment_pn,
+		  ec.event_pn,
+		  customer_pn,
+		  COMMENT,
+		  event_name,
+		  DATEDIFF(usee.end_date, SYSDATE()) AS end_date,
+		  p.shop_url,
+		  p.shop_name,
+		  '-1',
+		  ec.input_date 
+		FROM
+		  event_comment ec 
+		  JOIN user_seller_event usee 
+		    ON ec.event_pn = usee.event_pn 
+		  JOIN partnership p 
+		    ON p.seller_pn = usee.seller_pn 
+		WHERE ec.deleted = 'N' 
+		AND 
+			DATE_FORMAT(ec.input_date, "%Y-%m-%d") >= DATE_FORMAT(DATE_ADD(SYSDATE(),INTERVAL -2 DAY), "%Y-%m-%d")
+		ORDER BY input_date DESC 
+		LIMIT 13 
 	</select>
 	
-	<select id="selectCommentFeedItem" resultMap="jtown-gather-comment-map">
+	<select id="selectCommentFeedItem" resultMap="jtown-gather-comment-data-map">
 		SELECT 
-				  comment_pn,
-				  pc.product_pn,
-				  customer_pn,
-				  COMMENT,
-				  NAME,
-				  DATE_FORMAT(pc.input_date, '%Y-%m-%d %H:%i') AS input_date 
-			FROM
-				product_comment pc 
-			JOIN user_seller_product usp 
-				ON pc.product_pn = usp.pn 
-			WHERE 
-				pc.deleted = 'N'
-			AND 
-				comment_pn = #{commentPn}
+		  comment_pn,
+		  pc.product_pn,
+		  customer_pn,
+		  COMMENT,
+		  NAME,
+		  price,
+		  url,
+		  save_name,
+		  content_type,
+		  DATE_FORMAT(pc.input_date, '%Y-%m-%d %H:%i') AS input_date  
+		FROM
+		  product_comment pc 
+		  JOIN user_seller_product usp 
+		    ON pc.product_pn = usp.pn 
+		  JOIN image i 
+		    ON i.pn = usp.image_pn 
+		WHERE pc.deleted = 'N' 
+		AND 
+			comment_pn = #{commentPn}
+	</select>
+	
+	<select id="selectEventCommentFeedItem" resultMap="jtown-gather-comment-data-map">
+		SELECT 
+		  comment_pn,
+		  ec.event_pn AS product_pn,
+		  customer_pn,
+		  COMMENT,
+		  event_name AS name,
+		  DATEDIFF(usee.end_date, SYSDATE()) AS price,
+		  p.shop_url,
+		  p.shop_name AS save_name,
+		  '-1' AS content_type,
+		 DATE_FORMAT(ec.input_date, '%Y-%m-%d %H:%i') AS input_date 
+		FROM
+		  event_comment ec 
+		  JOIN user_seller_event usee 
+		    ON ec.event_pn = usee.event_pn 
+		  JOIN partnership p 
+		    ON p.seller_pn = usee.seller_pn 
+		WHERE ec.deleted = 'N' 
+		AND 
+			comment_pn = #{commentPn}
 	</select>
 </mapper>

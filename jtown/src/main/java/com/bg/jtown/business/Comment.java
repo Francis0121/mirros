@@ -79,6 +79,11 @@ public class Comment {
 	private Integer productPn;
 
 	/**
+	 * 이벤트 고유번호
+	 */
+	private Integer eventPn;
+
+	/**
 	 * 페이지
 	 */
 	private Integer page = 1;
@@ -89,6 +94,9 @@ public class Comment {
 	private Integer preItem;
 	private Integer postItem;
 
+	/**
+	 * 상품 이름
+	 */
 	private String productName;
 
 	public Comment() {
@@ -260,6 +268,14 @@ public class Comment {
 		this.postItem = postItem;
 	}
 
+	public Integer getEventPn() {
+		return eventPn;
+	}
+
+	public void setEventPn(Integer eventPn) {
+		this.eventPn = eventPn;
+	}
+
 	public String getProductName() {
 		return productName;
 	}
@@ -273,8 +289,8 @@ public class Comment {
 		return "Comment [comment=" + comment + ", commentCustomerPn=" + commentCustomerPn + ", warnCustomerPn=" + warnCustomerPn
 				+ ", commentLoveCount=" + commentLoveCount + ", commentPn=" + commentPn + ", count=" + count + ", crudType=" + crudType
 				+ ", customerName=" + customerName + ", customerPn=" + customerPn + ", inputDate=" + inputDate + ", message=" + message
-				+ ", redisType=" + redisType + ", sellerPn=" + sellerPn + ", productPn=" + productPn + ", page=" + page + ", preItem=" + preItem
-				+ ", postItem=" + postItem + ", productName=" + productName + "]";
+				+ ", redisType=" + redisType + ", sellerPn=" + sellerPn + ", productPn=" + productPn + ", eventPn=" + eventPn + ", page=" + page
+				+ ", preItem=" + preItem + ", postItem=" + postItem + ", productName=" + productName + "]";
 	}
 
 }

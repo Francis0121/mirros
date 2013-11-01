@@ -853,6 +853,106 @@ jtown.seller.secondEvent = function(file){
 	}
 };
 
+
+jtown.seller.shopStatistic = function(s1,s2, year, month){
+	var length = s1.length >= s2.length ? s1.length : s2.length;
+	$('#jt-statistic-graph').html('');
+	plot1 = $.jqplot('jt-statistic-graph',[s1,s2],{
+	    legend: {
+	        show: true,
+	        location: 'ne',
+	        xoffset: 15
+	    },
+	   series: [{label: '쇼핑몰의 상품 클릭수'},{label:'상위 20%의 평균 상품 클릭수'}],
+       axes: {
+           xaxis: {
+               renderer: $.jqplot.DateAxisRenderer,
+               tickOptions: {
+            	   formatString: '%d'
+               },
+               numberTicks: length 
+           },
+           yaxis: {
+               tickOptions: {
+                   formatString: '%d'
+               }
+           }
+       },
+       highlighter: {
+           sizeAdjust: 10,
+           tooltipLocation: 'n',
+           useAxesFormatters: true,
+           formatString: year+'-'+month+'-%s, %d회' 
+       },
+       cursor: {
+           show: true
+       }
+   });
+};
+// ~ onLoad statistic 
+if($('.jt-statistic-content').attr('data-time') !=null){
+	if($('.jt-statistic-content').attr('data-role') =="admin"){
+		$.postJSON(contextPath+'admin/ajax/getStatisticValue.jt', {}, function(object){
+			$('.jt-statistic-content').attr('data-time',object.currentDate);
+			$('.jt-statistic-title span').text(object.currentYear+'년 '+object.currentMonth+'월 통계');
+			var productStatisticArray = jtown.seller.statisticToArray(object.productStatistic, object.currentYear, object.currentMonth);
+			var eventStatisticArray = jtown.seller.statisticToArray(object.eventStatistic,object.currentYear, object.currentMonth);
+			jtown.seller.shopStatistic(productStatisticArray,eventStatisticArray, object.currentYear, object.currentMonth);
+		});
+	}else{
+		var sellerPn = $('.jt-statistic-content').attr('data-sellerPn');
+		$.postJSON(contextPath+'ajax/statistic/getStatisticValue.jt', {sellerPn: sellerPn}, function(object){
+			$('.jt-statistic-content').attr('data-time',object.currentDate);
+			$('.jt-statistic-title span').text(object.currentYear+'년 '+object.currentMonth+'월 통계');
+			var shopStatisticArray = jtown.seller.statisticToArray(object.shopStatistic, object.currentYear, object.currentMonth);
+			var topStatisticArray = jtown.seller.statisticToArray(object.TopStatistic,object.currentYear, object.currentMonth);
+			jtown.seller.shopStatistic(shopStatisticArray,topStatisticArray, object.currentYear, object.currentMonth);
+		});
+	}
+};
+
+jtown.seller.statisticToArray = function(array,year,month){
+	var arraySize = array.length;
+	var dataList = new Array();
+	for(var idx=0; idx< arraySize; idx++){
+		var data = new Array();
+		data.push(array[idx].countDate);
+		data.push(array[idx].todayCount);
+		dataList.push(data);
+	}
+	if(arraySize == 0){
+		var data = new Array();
+		data.push(year+'-'+month+'-01');
+		data.push(0);
+		dataList.push(data);
+	}
+	return dataList;
+};
+
+$('.jt-statistic-next-month-btn').bind('click',function(){
+	var nextMonth = $(this).val();
+	var currentDate = $('.jt-statistic-content').attr('data-time');
+	if($('.jt-statistic-content').attr('data-role') =="admin"){
+		$.postJSON(contextPath+'admin/ajax/getStatisticValue.jt', {currentDate: currentDate , nextMonth : nextMonth}, function(object){
+			$('.jt-statistic-content').attr('data-time',object.currentDate);
+			$('.jt-statistic-title span').text(object.currentYear+'년 '+object.currentMonth+'월 통계');
+			var productStatisticArray = jtown.seller.statisticToArray(object.productStatistic, object.currentYear, object.currentMonth);
+			var eventStatisticArray = jtown.seller.statisticToArray(object.eventStatistic,object.currentYear, object.currentMonth);
+			jtown.seller.shopStatistic(productStatisticArray,eventStatisticArray, object.currentYear, object.currentMonth);
+		});
+	}else{
+		var sellerPn = $('.jt-statistic-content').attr('data-sellerPn');
+		$.postJSON(contextPath+'ajax/statistic/getStatisticValue.jt', {sellerPn: sellerPn, currentDate: currentDate , nextMonth : nextMonth}, function(object){
+			$('.jt-statistic-content').attr('data-time',object.currentDate);
+			$('.jt-statistic-title span').text(object.currentYear+'년 '+object.currentMonth+'월 통계');
+			var shopStatisticArray = jtown.seller.statisticToArray(object.shopStatistic, object.currentYear, object.currentMonth);
+			var topStatisticArray = jtown.seller.statisticToArray(object.TopStatistic,object.currentYear, object.currentMonth);
+			jtown.seller.shopStatistic(shopStatisticArray,topStatisticArray,object.currentYear, object.currentMonth );
+		});
+	}
+});
+
+
 $(function(){
 	$(".jt-home-expand-shop-event-update-large-wrap-calender-btn").datepicker({
 		showOn: "button",

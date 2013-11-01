@@ -6,7 +6,7 @@ import java.util.List;
  * @author In Sanghak
  * 
  */
-public class Gather {
+public class Gather extends Redis {
 
 	// Product Data
 	private int productPn;
@@ -32,6 +32,10 @@ public class Gather {
 	private int bannerOrder;
 	private String shopName;
 	private int newEvent;
+
+	// Comments
+	private int commentPn;
+	private String comment;
 
 	public int getProductPn() {
 		return productPn;
@@ -201,13 +205,29 @@ public class Gather {
 		this.comments = comments;
 	}
 
+	public int getCommentPn() {
+		return commentPn;
+	}
+
+	public void setCommentPn(int commentPn) {
+		this.commentPn = commentPn;
+	}
+
+	public String getComment() {
+		return comment;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
+
 	@Override
 	public String toString() {
 		return "Gather [productPn=" + productPn + ", sellerPn=" + sellerPn + ", imagePn=" + imagePn + ", productName=" + productName + ", url=" + url
 				+ ", price=" + price + ", saveName=" + saveName + ", originalName=" + originalName + ", contentType=" + contentType + ", hot=" + hot
 				+ ", newProduct=" + newProduct + ", heartCount=" + heartCount + ", customerPn=" + customerPn + ", comments=" + comments
 				+ ", eventPn=" + eventPn + ", eventName=" + eventName + ", beginDate=" + beginDate + ", endDate=" + endDate + ", bannerOrder="
-				+ bannerOrder + ", shopName=" + shopName + ", newEvent=" + newEvent + "]";
+				+ bannerOrder + ", shopName=" + shopName + ", newEvent=" + newEvent + ", commentPn=" + commentPn + ", comment=" + comment + "]";
 	}
 
 }

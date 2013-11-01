@@ -4,6 +4,8 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.bg.jtown.business.Statistic;
+
 /**
  * 문자열 변화 Util
  * 

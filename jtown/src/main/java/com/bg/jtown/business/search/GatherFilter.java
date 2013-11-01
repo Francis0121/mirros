@@ -10,7 +10,7 @@ public class GatherFilter extends AbstractListFilter {
 	private int totalCount = 0;
 	private int pagePerItem = 10;
 	private int totalPageSize;
-	private int newFlag = 0;
+	private String navFlag;
 	private Integer customerPn;
 
 	public int getCategoryPn() {
@@ -61,12 +61,12 @@ public class GatherFilter extends AbstractListFilter {
 		this.totalPageSize = totalPageSize;
 	}
 
-	public int getNewFlag() {
-		return newFlag;
+	public String getNavFlag() {
+		return navFlag;
 	}
 
-	public void setNewFlag(int newFlag) {
-		this.newFlag = newFlag;
+	public void setNavFlag(String navFlag) {
+		this.navFlag = navFlag;
 	}
 
 	public Integer getCustomerPn() {
@@ -80,7 +80,7 @@ public class GatherFilter extends AbstractListFilter {
 	@Override
 	public String toString() {
 		return "GatherFilter [categoryPn=" + categoryPn + ", currentPage=" + currentPage + ", percentCount=" + percentCount + ", totalCount="
-				+ totalCount + ", pagePerItem=" + pagePerItem + ", totalPageSize=" + totalPageSize + ", newFlag=" + newFlag + ", customerPn="
+				+ totalCount + ", pagePerItem=" + pagePerItem + ", totalPageSize=" + totalPageSize + ", navFlag=" + navFlag + ", customerPn="
 				+ customerPn + "]";
 	}
 

@@ -461,6 +461,20 @@ public class SellerServiceImpl extends SqlSessionDaoSupport implements SellerSer
 		return getSqlSession().selectList("sellerMapper.selectProductClickStatisticTopNPercentList", statistic);
 	}
 
+	@Override
+	public List<Statistic> selectProductClickStatistic(Statistic statistics) {
+		return getSqlSession().selectList("sellerMapper.selectProductClickStatistic", statistics);
+	}
 
+	@Override
+	public List<Statistic> selectTotalProductClickStatistic(Statistic statistic) {
+		return getSqlSession().selectList("sellerMapper.selectTotalProductClickStatistic", statistic);
+	}
+
+	@Override
+	public List<Statistic> selectTotalEventClickStatistic(Statistic statistic) {
+		return getSqlSession().selectList("sellerMapper.selectTotalEventClickStatistic", statistic);
+	}
+	
 
 }

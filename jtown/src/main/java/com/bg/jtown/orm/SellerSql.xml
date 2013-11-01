@@ -515,37 +515,23 @@
 		<result column="today_count" property="todayCount"/>
 	</resultMap>
 	
-	<!-- 
-	<select id="selectProductClickStatistic" resultMap="">
-		SELECT 
-			seller_pn, count_date,day_count
-		FROM 
-			user_seller_product usp
-		JOIN 
-			statistic_product_click spc
-		ON 	
-			usp.pn = spc.product_pn
-		WHERE 
-			usp.seller_pn = #{sellerPn}
-		AND 
-			DATE_FORMAT(count_date, '%Y%m') = DATE_FORMAT(#{date}, '%Y%m')
-	</select>
-	
-	<select id="selectShopClickStatistic" resultMap="">
-		SELECT 
-			seller_pn, count_date,day_count 
-		FROM 
-			statistic_click
-		WHERE 
-			seller_pn = #{sellerPn}
-		AND 
-			DATE_FORMAT(count_date, '%Y%m') = DATE_FORMAT(#{date}, '%Y%m')
-	</select>
-	
- -->
+ 	<select id="selectProductClickStatistic" resultMap="jt-statistic-map">
+ 		SELECT 
+		  seller_pn,
+		  count_date,
+		  COUNT(day_count) AS today_count 
+		FROM
+		  user_seller_product usp 
+		  JOIN statistic_product_click spc 
+		    ON usp.pn = spc.product_pn 
+		WHERE DATE_FORMAT(count_date, '%Y%m') = DATE_FORMAT(#{statisticDate}, '%Y%m') 
+		AND seller_pn = #{sellerPn}
+		GROUP BY seller_pn,count_date 
+ 	</select>
+ 
 	 <select id="selectProductClickStatisticTopNPercentList" resultMap="jt-statistic-map">
 	 	SELECT 
-			seller_pn, count_date, AVG(day_count) AS today_count
+			seller_pn, count_date, COUNT(day_count) AS today_count
 		FROM 
 			user_seller_product usp
 		JOIN 
@@ -575,7 +561,8 @@
 	 </select>
 	 
 	 <select id="selectProductClickStatisticCount" resultType="Integer">
-	 	SELECT COUNT(seller_pn) * 0.2 
+	 	SELECT 
+	 		CEILING(COUNT(seller_pn) * 0.2) 
 	 	FROM (
 			SELECT 
 				seller_pn
@@ -589,6 +576,26 @@
 				DATE_FORMAT(count_date, '%Y%m') = DATE_FORMAT(#{statisticDate}, '%Y%m')
 			GROUP BY seller_pn	
 		)tb
+	 </select>
+	 
+	 <select id="selectTotalProductClickStatistic" resultMap="jt-statistic-map">
+	 	SELECT 
+	      count_date, COUNT(day_count )
+	    FROM
+	      user_seller_product usp 
+	      JOIN statistic_product_click spc 
+	        ON usp.pn = spc.product_pn 
+	    WHERE DATE_FORMAT(count_date, '%Y%m') = DATE_FORMAT(#{statisticDate}, '%Y%m') 
+	    GROUP BY count_date
+	 </select>
+	 
+	 <select id="selectTotalEventClickStatistic" resultMap="jt-statistic-map">
+	 	SELECT 
+	      count_date, COUNT(day_count )
+	    FROM
+	      statistic_event_click 
+	    WHERE DATE_FORMAT(count_date, '%Y%m') = DATE_FORMAT(#{statisticDate}, '%Y%m') 
+	    GROUP BY count_date
 	 </select>
 	<!-- LoveCount -->
 

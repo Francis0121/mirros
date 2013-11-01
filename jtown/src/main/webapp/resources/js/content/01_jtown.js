@@ -320,7 +320,6 @@ jtown.home.masonry = {
 		});
 	},
 	resize : function(){
-		console.log('resize');
 		var clientWidth = Number(window.document.body.clientWidth),
 		widthItem = Math.floor(clientWidth/330);
 	
@@ -334,7 +333,6 @@ jtown.home.masonry = {
 		});
 	},
 	move : function(){
-		console.log('move');
 		var $header = $('.jt-header-title'), $footer =$('.jt-footer'), scrollheight = { },
 			isEmail = $footer.attr('data-isEmail'),
 			isBrowser = ($.browser.msie && $.browser.version == '7.0') || ($.browser.msie && $.browser.version == '8.0'),			
@@ -593,8 +591,8 @@ jQuery(document).ready(function(){
 	    });
 	};
 	jtown.home.productHeartClick = function(productPn, isHeartChecked,fbElement){
-		 $.postJSON(contextPath + 'ajax/productHeartClick.jt', { productPn : productPn }, function(count) {
-			var productPn = count.productPn, crudType = count.crudType, message = count.message,
+		 $.postJSON(contextPath + 'ajax/productHeartClick.jt', { productPn : productPn }, function(product) {
+			var productPn = product.productPn, crudType = product.crudType, message = product.message,
 				$small = $('#jt-heart-click-'+productPn), $big = $('#jt-heart-expand-click-'+productPn);
 			if (!nullValueCheck(message)) {
 				message == '1' ? jtown.login.showLoginForm() : jtown.dialog('판매자는 불가능합니다.');
@@ -607,15 +605,38 @@ jQuery(document).ready(function(){
 			if (crudType == 'productHeartInsert') {
 				$small.addClass('jt-heart-animation');
 				$big.addClass('jt-heart-animation');
+				var appendHtml ='';
+				appendHtml += '<div class="jt-sidebar-heart-item" data-url ="'+product.url+'" data-productPn="'+product.pn+'" data-eventPn="">';
+				appendHtml += 	'<div class="jt-sidebar-heart-item-img-wrap">';
+				if(product.imageType == null ){
+					appendHtml += '<img src="'+contextPath+'resources/uploadImage/'+product.saveName+'" alt="'+product.name+'" />';
+				}else{
+					appendHtml +='<img src="'+contextPath+'photo/thumbnail/'+product.saveName+'product.'+product.imageType+'" alt="'+product.name+'" />';
+				}
+				appendHtml += 	'</div>';
+				appendHtml += 	'<div class="jt-sidebar-heart-item-text-wrap">';
+				appendHtml += 		'<div>'+product.name+'</div>';
+				appendHtml += 		'<div>'+product.price+'</div>';	
+				appendHtml += '	</div>';	
+				appendHtml += '</div>';
+				$('.jt-right-sidebar-heart-gather-wrap').prepend(appendHtml);
+				$('.jt-right-sidebar-heart-gather-wrap').stop().animate({scrollTop: 0}, 300);
 			} else if (crudType == 'productHeartDelete') {
+				var itemSize = $('.jt-sidebar-heart-item').length;
+				for(var idx=0; idx < itemSize; idx++){
+					if($('.jt-sidebar-heart-item:eq('+idx+')').attr('data-productPn') == product.pn){
+						$('.jt-sidebar-heart-item:eq('+idx+')').remove();
+						break;
+					}
+				}
 				$small.removeClass('jt-heart-animation');
 				$big.removeClass('jt-heart-animation');
 			};
 		});
 	};
 	jtown.home.eventHeartClick = function(eventPn, isHeartChecked,fbElement){
-		 $.postJSON(contextPath + 'ajax/eventHeartClick.jt', { eventPn : eventPn }, function(count) {
-			var eventPn = count.eventPn, crudType = count.crudType, message = count.message,
+		 $.postJSON(contextPath + 'ajax/eventHeartClick.jt', { eventPn : eventPn }, function(event) {
+			var eventPn = event.eventPn, crudType = event.crudType, message = event.message,
 				$small = $('#jt-heart-click-'+eventPn), $big = $('#jt-heart-expand-click-'+eventPn);
 			if (!nullValueCheck(message)) {
 				message == '1' ? jtown.login.showLoginForm() : jtown.dialog('판매자는 불가능합니다.');
@@ -627,9 +648,33 @@ jQuery(document).ready(function(){
 			if (crudType == 'eventHeartInsert') {
 				$small.addClass('jt-heart-animation');
 				$big.addClass('jt-heart-animation');
+				var appendHtml ='';
+				appendHtml += '<div class="jt-sidebar-heart-item" data-url ="'+event.url+'" data-eventPn="'+eventPn+'" data-productPn="">';
+				appendHtml += 	'<div class="jt-sidebar-heart-item-img-wrap">';
+				appendHtml += 		'<span class="jt-home-expand-shop-event-new-image jt-sidebar-heart-item-event-img"> </span>';
+				appendHtml += 	'</div>';
+				appendHtml +=		'<div class="jt-sidebar-heart-item-text-wrap">';
+				appendHtml += 		'<div>'+event.eventName+'</div>';
+				if(event.endDate >= 0 ){
+					appendHtml += 		'<div>D - '+event.endDate+' 일 남았습니다.</div>';
+				}else{
+					appendHtml += 		'<div>이벤트 기간이 만료되었습니다.</div>';
+				}
+				appendHtml += 	'</div>';
+				appendHtml += '</div>';
+				
+				$('.jt-right-sidebar-heart-gather-wrap').prepend(appendHtml);
+				$('.jt-right-sidebar-heart-gather-wrap').stop().animate({scrollTop: 0}, 300);
 			} else if (crudType == 'eventHeartDelete') {
 				$small.removeClass('jt-heart-animation');
 				$big.removeClass('jt-heart-animation');
+				var itemSize = $('.jt-sidebar-heart-item').length;
+				for(var idx=0; idx < itemSize; idx++){
+					if($('.jt-sidebar-heart-item:eq('+idx+')').attr('data-eventPn') == eventPn){
+						$('.jt-sidebar-heart-item:eq('+idx+')').remove();
+						break;
+					}
+				}
 			};
 		});
 	};

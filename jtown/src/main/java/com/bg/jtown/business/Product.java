@@ -8,7 +8,7 @@ import com.bg.jtown.util.DateUtil;
  * @author Francis
  * 
  */
-public class Product {
+public class Product extends Redis{
 
 	/**
 	 * 상품개수

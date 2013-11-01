@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.bg.jtown.business.Comment;
 import com.bg.jtown.business.Count;
+import com.bg.jtown.business.Gather;
 import com.bg.jtown.business.search.CommentFilter;
 
 /**
@@ -58,8 +59,6 @@ public interface CommentService {
 
 	List<Comment> selectCommentList(Comment comment);
 
-	List<Comment> selectCommentList(Integer productPn);
-
 	Integer selectProductCommentWarnExist(Comment comment);
 
 	Integer selectUserCommentExist(Comment comment);
@@ -70,6 +69,24 @@ public interface CommentService {
 
 	List<Comment> selectCommentFeedList();
 	
-	Comment selectCommentFeedItem(Integer commnetPn);
+	Gather selectCommentFeedItem(Integer commnetPn);
+	
+	//~ EventComment
+	
+	void insertEventComment(Comment comment);
+	
+	void deleteEventComment(Comment comment);
+	
+	Integer selectEventCommentExist(Comment comment);
+	
+	List<Comment> selectEventCommentList(Comment comment);
+	
+	Integer selectUserEventCommentExist(Comment comment);
+	
+	Gather selectEventCommentFeedItem(Integer commnetPn);
+	
+	Integer selectEventCommentWarnExist(Comment comment);
+	
+	void insertEventCommentWarn(Comment comment);
 
 }

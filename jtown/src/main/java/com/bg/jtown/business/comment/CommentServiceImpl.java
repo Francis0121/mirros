@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.bg.jtown.business.Comment;
 import com.bg.jtown.business.Count;
+import com.bg.jtown.business.Gather;
 import com.bg.jtown.business.search.CommentFilter;
 import com.bg.jtown.redis.Publisher;
 import com.bg.jtown.util.DateUtil;
@@ -197,7 +198,7 @@ public class CommentServiceImpl extends SqlSessionDaoSupport implements CommentS
 	@Override
 	public void insertProductComment(Comment comment) {
 		getSqlSession().insert("commentMapper.insertProductComment", comment);
-		Comment selectedComment = selectCommentFeedItem(comment.getCommentPn());
+		Gather selectedComment = selectCommentFeedItem(comment.getCommentPn());
 		publisher.commentFeed(selectedComment);
 	}
 
@@ -212,18 +213,57 @@ public class CommentServiceImpl extends SqlSessionDaoSupport implements CommentS
 	}
 
 	@Override
-	public List<Comment> selectCommentList(Integer productPn) {
-		return getSqlSession().selectList("commentMapper.selectCommentList", productPn);
-	}
-
-	@Override
 	public List<Comment> selectCommentFeedList() {
 		return getSqlSession().selectList("commentMapper.selectCommentFeedList");
 	}
 
 	@Override
-	public Comment selectCommentFeedItem(Integer commnetPn) {
+	public Gather selectCommentFeedItem(Integer commnetPn) {
 		return getSqlSession().selectOne("commentMapper.selectCommentFeedItem", commnetPn);
+	}
+
+	// ~ Event Comment
+
+	@Override
+	public void insertEventComment(Comment comment) {
+		getSqlSession().insert("commentMapper.insertEventComment", comment);
+		Gather selectedComment = selectEventCommentFeedItem(comment.getCommentPn());
+		publisher.commentFeed(selectedComment);
+	}
+
+	@Override
+	public void deleteEventComment(Comment comment) {
+		getSqlSession().update("commentMapper.deleteEventComment", comment);
+	}
+
+	@Override
+	public Integer selectEventCommentExist(Comment comment) {
+		return getSqlSession().selectOne("commentMapper.selectEventCommentExist", comment);
+	}
+
+	@Override
+	public List<Comment> selectEventCommentList(Comment comment) {
+		return getSqlSession().selectList("commentMapper.selectEventCommentList", comment);
+	}
+
+	@Override
+	public Integer selectUserEventCommentExist(Comment comment) {
+		return getSqlSession().selectOne("commentMapper.selectUserEventCommentExist", comment);
+	}
+
+	@Override
+	public Gather selectEventCommentFeedItem(Integer commnetPn) {
+		return getSqlSession().selectOne("commentMapper.selectEventCommentFeedItem", commnetPn);
+	}
+
+	@Override
+	public Integer selectEventCommentWarnExist(Comment comment) {
+		return getSqlSession().selectOne("commentMapper.selectEventCommentWarnExist", comment);
+	}
+
+	@Override
+	public void insertEventCommentWarn(Comment comment) {
+		getSqlSession().insert("commentMapper.insertEventCommentWarn", comment);
 	}
 
 }

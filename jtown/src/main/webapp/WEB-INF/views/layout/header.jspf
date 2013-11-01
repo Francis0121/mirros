@@ -18,6 +18,10 @@
 		<c:set var="check_nav" value="${cp }/n/cpn/${gatherFilter.categoryPn eq null ? 0 : gatherFilter.categoryPn }"/>
 		<c:set var="now_nav" value="${cp }/n/cpn/0"/>
 	</c:if>
+	<c:if test="${categoryType == 'hot'}">
+		<c:set var="check_nav" value="${cp }/h/cpn/${gatherFilter.categoryPn eq null ? 0 : gatherFilter.categoryPn }"/>
+		<c:set var="now_nav" value="${cp }/h/cpn/0"/>
+	</c:if>
 	<ul class="jt-header-nav-interestCategory" data-category="${categoryType }">
 		<li class="jt-header-nav-interestCategory-li">
 			<c:set var="navPosition" value="${now_nav eq check_nav ? 'jt-header-nav-interestCategory-realPath' : 'jt-header-nav-interestCategory-normal' }"/>
@@ -31,6 +35,9 @@
 				<c:when test="${categoryType == 'new'}">
 					<a href="${cp }/n" class="${navPosition }" title="All"><span>All</span></a>
 				</c:when>
+				<c:when test="${categoryType == 'hot'}">
+					<a href="${cp }/h" class="${navPosition }" title="All"><span>All</span></a>
+				</c:when>
 			</c:choose>	
 		</li>
 		<c:forEach var="interestCategory" items="${interestCategories }">
@@ -42,6 +49,9 @@
 				</c:when>
 				<c:when test="${categoryType == 'new'}">
 					<c:set var="now_nav" value="${cp }/n/cpn/${interestCategoryPn }"/>
+				</c:when>
+				<c:when test="${categoryType == 'hot'}">
+					<c:set var="now_nav" value="${cp }/h/cpn/${interestCategoryPn }"/>
 				</c:when>
 				<c:otherwise>
 					<c:set var="now_nav" value="${cp }/s/cpn/${interestCategoryPn }/spn/0"/>	

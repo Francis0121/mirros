@@ -352,3 +352,5 @@ Product Insert btn
 .jt-statistic-tip-wrap{text-align: right; padding-right: 30px;padding-top: 15px; font-size: 13px;}
 .jt-statistic-tip{color:#aaa;font-size:13px;}
 .jt-statistic-tip-go{color:#FFA01E;font-size:13px;}
+.jt-statistic-next-month-btn{background-color: #fff; font-size: 10px; margin: 0 5px; border-radius: 5px; border: 1px solid #d9d9d9; }
+.jt-statistic-next-month-btn:HOVER{background-color: #FFA01E; color: #fff; }
