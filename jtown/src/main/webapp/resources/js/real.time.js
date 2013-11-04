@@ -164,11 +164,11 @@ jtown.real.time = function(data) {
 			html +=			'<div class="jt-right-sidebar-comment-feed-dialog-contents-event">'+obj.productName+'</div>';
 			html +=		'</div>';
 			html +=		'<div class="jt-right-sidebar-comment-feed-dialog-contents-text">';
-			html +=		'<div>'+obj.saveName+'</div>';
+			html +=		'<div class="jt-pg-event-line-shop-name jt-right-sidebar-comment-feed-dialog-contents-event-text">'+obj.saveName+'</div>';
 			if(obj.price >= 0){
-				html +='<div>D- '+obj.price +'일 남았습니다.</div>';
+				html +='<div class="jt-pg-event-line-end-date jt-right-sidebar-comment-feed-dialog-contents-event-text">D- '+obj.price +'일 남았습니다.</div>';
 			}else{
-				html +='<div>이벤트 기간이 만료되었습니다.</div>';
+				html +='<div class="jt-pg-event-line-end-date jt-right-sidebar-comment-feed-dialog-contents-event-text">이벤트 기간이 만료되었습니다.</div>';
 			}
 			html +='</div>';
 		}else{
@@ -179,7 +179,7 @@ jtown.real.time = function(data) {
 				html+=			 '<img src="'+contextPath+'photo/thumbnail/'+obj.saveName+'product.'+obj.contentType+'" alt="'+obj.productName+'" />';
 			}
 			html +=				'</div>';
-			html +=				'<div class="jt-right-sidebar-comment-feed-dialog-contents-text">';
+			html +=				'<div class="jt-right-sidebar-comment-feed-dialog-contents-text jt-right-sidebar-comment-feed-dialog-contents-product-text">';
 			html +=					'<div>'+obj.productName+'</div>';
 			html +=					'<div>'+jtown.pg.formatNumber(obj.price) +'</div>';
 			html +=				'</div>';

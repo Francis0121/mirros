@@ -138,7 +138,7 @@ public class FileController {
 						
 						File save = new File(FileUtil.ORGINAL_DIRECOTRY + saveName);
 						IOUtils.copy(cmFile.getInputStream(), new FileOutputStream(save));
-						if(type.equals("jpg")){
+						if(type.equals("jpg") || type.equals("png") || type.equals("gif") || type.equals("jpeg")){
 							OutputStream os = new FileOutputStream(FileUtil.THUMBNAIL_DIRECTORTY + thumbnailName);
 							int width = FileUtil.getCategoryWidth(category);
 							Thumbnails.of(save).width(width).outputQuality(1.0d).outputFormat(type).toOutputStream(os);							

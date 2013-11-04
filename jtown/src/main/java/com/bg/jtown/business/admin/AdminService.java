@@ -37,6 +37,8 @@ public interface AdminService {
 
 	void updateAdminPassword(JtownUser jtownUser);
 	
+	void updateSellerPassword(JtownUser jtownUser);
+	
 	// ~ Seller 
 
 	List<Interest> selectSellerInterestList(List<Integer> pnList);

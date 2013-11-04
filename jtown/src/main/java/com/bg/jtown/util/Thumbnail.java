@@ -25,42 +25,36 @@ public class Thumbnail {
 	 * because GIF is protected or something - so always make your outFilename
 	 * end in 'jpg'. PNG's with transparency are given white backgrounds
 	 */
-	public String createThumbnail(String inFilename, String outFilename,
-			int largestDimension) {
+	public String createThumbnail(String inFilename, String outFilename, int largestDimension) {
 		try {
 			double scale;
 			int sizeDifference, originalImageLargestDim;
-			if (!inFilename.endsWith(".jpg") && !inFilename.endsWith(".jpeg")
-					&& !inFilename.endsWith(".gif")
-					&& !inFilename.endsWith(".png")) {
+			if (!inFilename.endsWith(".jpg") && !inFilename.endsWith(".jpeg") && !inFilename.endsWith(".gif") && !inFilename.endsWith(".png")) {
 				return "Error: Unsupported image type, please only either JPG, GIF or PNG";
 			} else {
 				Image inImage = ImageIO.read(new File(inFilename));
-				if (inImage.getWidth(null) == -1
-						|| inImage.getHeight(null) == -1) {
+				if (inImage.getWidth(null) == -1 || inImage.getHeight(null) == -1) {
 					return "Error loading file: \"" + inFilename + "\"";
 				} else {
-					if(largestDimension == 0){
+					if (largestDimension == 0) {
 						largestDimension = inImage.getWidth(null);
 					}
 					// find biggest dimension
 					if (inImage.getWidth(null) > inImage.getHeight(null)) {
-						scale = (double) largestDimension
-								/ (double) inImage.getWidth(null);
-						sizeDifference = inImage.getWidth(null)
-								- largestDimension;
+						scale = (double) largestDimension / (double) inImage.getWidth(null);
+						sizeDifference = inImage.getWidth(null) - largestDimension;
 						originalImageLargestDim = inImage.getWidth(null);
 					} else {
-						scale = (double) largestDimension
-								/ (double) inImage.getHeight(null);
-						sizeDifference = inImage.getHeight(null)
-								- largestDimension;
+						scale = (double) largestDimension / (double) inImage.getHeight(null);
+						sizeDifference = inImage.getHeight(null) - largestDimension;
 						originalImageLargestDim = inImage.getHeight(null);
 					}
 					// create an image buffer to draw to
-					BufferedImage outImage = new BufferedImage(100, 100,
-							BufferedImage.TYPE_INT_RGB); // arbitrary init so
-															// code compiles
+					BufferedImage outImage = new BufferedImage(100, 100, BufferedImage.TYPE_INT_RGB); // arbitrary
+																										// init
+																										// so
+																										// code
+																										// compiles
 					Graphics2D g2d;
 					AffineTransform tx;
 					if (scale < 0.9d) // only scale if desired size is smaller
@@ -76,10 +70,10 @@ public class Thumbnail {
 						double scaledH = inImage.getHeight(null);
 						if (numSteps % 2 == 1) // if there's an odd number of
 												// steps
-							centerStep = (int) Math
-									.ceil((double) numSteps / 2d); // find the
-																	// center
-																	// step
+							centerStep = (int) Math.ceil((double) numSteps / 2d); // find
+																					// the
+																					// center
+																					// step
 						else
 							centerStep = -1; // set it to -1 so it's ignored
 												// later
@@ -93,8 +87,7 @@ public class Thumbnail {
 								{
 									// fix the stepsize to account for decimal
 									// place errors previously
-									currentStepSize = previousIntermediateSize
-											- largestDimension;
+									currentStepSize = previousIntermediateSize - largestDimension;
 								} else {
 									if (numSteps - i > numSteps / 2) // if we're
 																		// in
@@ -112,20 +105,15 @@ public class Thumbnail {
 							{
 								currentStepSize = stepSize;
 							}
-							intermediateSize = previousIntermediateSize
-									- currentStepSize;
-							scale = (double) intermediateSize
-									/ (double) previousIntermediateSize;
+							intermediateSize = previousIntermediateSize - currentStepSize;
+							scale = (double) intermediateSize / (double) previousIntermediateSize;
 							scaledW = (int) scaledW * scale;
 							scaledH = (int) scaledH * scale;
-							outImage = new BufferedImage((int) scaledW,
-									(int) scaledH, BufferedImage.TYPE_INT_RGB);
+							outImage = new BufferedImage((int) scaledW, (int) scaledH, BufferedImage.TYPE_INT_RGB);
 							g2d = outImage.createGraphics();
 							g2d.setBackground(Color.WHITE);
-							g2d.clearRect(0, 0, outImage.getWidth(),
-									outImage.getHeight());
-							g2d.setRenderingHint(RenderingHints.KEY_RENDERING,
-									RenderingHints.VALUE_RENDER_QUALITY);
+							g2d.clearRect(0, 0, outImage.getWidth(), outImage.getHeight());
+							g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
 							tx = new AffineTransform();
 							tx.scale(scale, scale);
 							g2d.drawImage(inImage, tx, null);
@@ -135,13 +123,10 @@ public class Thumbnail {
 						}
 					} else {
 						// just copy the original
-						outImage = new BufferedImage(inImage.getWidth(null),
-								inImage.getHeight(null),
-								BufferedImage.TYPE_INT_RGB);
+						outImage = new BufferedImage(inImage.getWidth(null), inImage.getHeight(null), BufferedImage.TYPE_INT_RGB);
 						g2d = outImage.createGraphics();
 						g2d.setBackground(Color.WHITE);
-						g2d.clearRect(0, 0, outImage.getWidth(),
-								outImage.getHeight());
+						g2d.clearRect(0, 0, outImage.getWidth(), outImage.getHeight());
 						tx = new AffineTransform();
 						tx.setToIdentity(); // use identity matrix so image is
 											// copied exactly

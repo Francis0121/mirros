@@ -83,6 +83,7 @@ body{background: #f6f4f5;}
 **************************/
 .jt-make-administrator-btn .btnImage{ background-position: 0 -36px;}
 .jt-reset-password .btnImage{background-position: 0 -24px;}
+.jt-seller-reset-password .btnImage{background-position: 0 -24px;}
 
 .jt-admin-base-table{ border-collapse: collapse; font-size: 12px; border-bottom: 1px solid #000; border-left: 1px solid #000; background : #fff;
 	box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box; -moz-box-sizing : border-box; -webkit-box-sizing : border-box;
@@ -158,7 +159,7 @@ body{background: #f6f4f5;}
 }
 
 .jt-partnership-table { width: 2520px;}
-.jt-partnership-root-table{ width: 2620px;}
+.jt-partnership-root-table{ width: 2720px;}
 .jt-partnership-table-content {display: none;}
 .jt-partnership-table-content td{ text-align : left; }
 

@@ -401,6 +401,12 @@ public class AdminController {
 	public void ajaxResetPassword(@RequestBody JtownUser jtownUser) {
 		adminService.updateAdminPassword(jtownUser);
 	}
+	
+	@RequestMapping(value = "/ajax/resetSellerPassword.jt", method = RequestMethod.POST)
+	@ResponseBody
+	public void ajaxResetSellerPassword(@RequestBody JtownUser jtownUser) {
+		adminService.updateSellerPassword(jtownUser);
+	}
 
 	@RequestMapping(value = "/ajax/getStatisticValue.jt", method = RequestMethod.POST)
 	@ResponseBody

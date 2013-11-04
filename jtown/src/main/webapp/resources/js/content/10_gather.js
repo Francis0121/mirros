@@ -12,64 +12,59 @@ $(function() {
             }    
         return rv; 
    }
-	if($('.jt-pg-main').length != 0 ){
-		jtown.pg.windowResize = function(){
-				var clientWidth = Number(window.document.body.clientWidth),
-				widthItem = Math.floor(clientWidth/258);
-				if(widthItem > 6){
-					widthItem = widthItem-1;
-				}
-				$('.jt-pg-main').css({width : (widthItem*258), margin : 'auto'});
-			};
-		$( window ).resize(function() {
-			jtown.pg.windowResize();
-			jtown.pg.commentFeedInit();
-		});
-		jtown.pg.windowResize();
-		
-		jtown.pg.itemOrder = function(){
-			if (getInternetExplorerVersion() != 7 ){
-				var containerDiv = document.querySelector('.jt-pg-main');
-				var msnry = new Masonry( containerDiv, {
-					  columnWidth: 0,
-					  itemSelector: '.jt-pg-item'
-					});
-			}else{
-				var mediaItemContainer = $('.jt-pg-main');
-				mediaItemContainer.masonry({
-				    columnWidth: 0, 
-				    itemSelector: '.jt-pg-item',
-				    resizeable: true,
-				    saveOptions: true
-				  });
-				$( mediaItemContainer ).masonry( 'reloadItems' );
-			}
-		};
-		jtown.pg.itemOrder();
+	
+jtown.pg.windowResize = function(){
+	var clientWidth = Number(window.document.body.clientWidth),
+	widthItem = Math.floor(clientWidth/258);
+	if(widthItem > 6){
+		widthItem = widthItem-1;
 	}
-if($('.jt-header-nav-interestCategory').attr('data-category') != '' ){
+	$('.jt-pg-main').css({width : (widthItem*258), margin : 'auto'});
+};
+
+jtown.pg.itemOrder = function(){
+	if (getInternetExplorerVersion() != 7 ){
+		var containerDiv = document.querySelector('.jt-pg-main');
+		var msnry = new Masonry( containerDiv, {
+			  columnWidth: 0,
+			  itemSelector: '.jt-pg-item'
+			});
+	}else{
+		var mediaItemContainer = $('.jt-pg-main');
+		mediaItemContainer.masonry({
+		    columnWidth: 0, 
+		    itemSelector: '.jt-pg-item',
+		    resizeable: true,
+		    saveOptions: true
+		  });
+		$( mediaItemContainer ).masonry( 'reloadItems' );
+	}
+};
+
+jtown.pg.scrollPaging = function(){
 	$(window).scroll(function(){
-			    if($(window).scrollTop() == $(document).height() - $(window).height()){
-			        $('div#infscr-loading').show();
-			        $.ajax({
-			        url: contextPath+'ajax/gatherPagination.jt',
-			        type: 'POST',
-			        success: function(data){
-			            if(data){
-			            	productGatherHtml(data);
-			                $('div#infscr-loading').hide();
-			            }else{
-			                $('div#infscr-loading').html('<center>Today end</center>');
-			                $('div#infscr-loading').delay(500).fadeOut(1000);
-			            }
-			            if (getInternetExplorerVersion() == 7 ){
-			            	jtown.pg.itemOrder();
-			            }
-			        }
-		        });
-		    }
+	    if($(window).scrollTop() == $(document).height() - $(window).height()){
+	        $('div#infscr-loading').show();
+	        $.ajax({
+	        url: contextPath+'ajax/gatherPagination.jt',
+	        type: 'POST',
+	        success: function(data){
+	            if(data){
+	            	productGatherHtml(data);
+	                $('div#infscr-loading').hide();
+	            }else{
+	                $('div#infscr-loading').html('<center>Today end</center>');
+	                $('div#infscr-loading').delay(500).fadeOut(1000);
+	            }
+	            if (getInternetExplorerVersion() == 7 ){
+	            	jtown.pg.itemOrder();
+	            }
+	        }});
+	    }
 	});
-}
+};
+
+
 var productGatherHtml = function(data){
 	var html = '';
 	var size = data.mergeItems.length;
@@ -403,14 +398,14 @@ $('.jt-pg-container').on('click', '.jt-pg-comment-more-enable', function(){
 				html +=	'<div class="jt-pg-comment-line-text">'+commentList[idx].comment+'</div>';
 				html +=	'<div class="jt-pg-comment-line-date" data-cmPn="'+commentList[idx].commentPn+'">';
 				html +=		'<span>'+commentList[idx].inputDate+'</span>';
-				html +=		'<span class="jt-pg-comment-line-delete"><b>X</b></span>'; 
-				html +=		'<span class="jt-pg-comment-line-warn" title="신고"> </span>';
+				html +=		'<span class="jt-pg-comment-line-warn">신고</span> |';
+				html +=		'<span class="jt-pg-comment-line-delete">삭제</span>';
 				html +=	'</div>';
 				html += '</div>';
 			}
 		}
 		$commentWrap.html(html);
-		if(size < 3){
+		if(size <= 3){
 			jtown.pg.itemOrder();
 			$commentMore.attr('class', 'jt-pg-comment-more');
 		}
@@ -469,14 +464,14 @@ $('.jt-pg-container').on('click', '.jt-pg-comment-line-delete', function(){
 						html +=	'<div class="jt-pg-comment-line-text">'+commentList[idx].comment+'</div>';
 						html +=	'<div class="jt-pg-comment-line-date" data-cmPn="'+commentList[idx].commentPn+'">';
 						html +=		'<span>'+commentList[idx].inputDate+'</span>';
-						html +=		'<span class="jt-pg-comment-line-delete"><b>X</b></span>'; 
-						html +=		'<span class="jt-pg-comment-line-warn" title="신고"> </span>';
+						html +=		'<span class="jt-pg-comment-line-warn">신고</span> |';
+						html +=		'<span class="jt-pg-comment-line-delete">삭제</span>';
 						html +=	'</div>';
 						html += '</div>';
 					}
 				}
 				$commentWrap.html(html);
-				if(size < 3){
+				if(size <= 3){
 					jtown.pg.itemOrder();
 					$commentMore.attr('class', 'jt-pg-comment-more');
 				}
@@ -516,20 +511,22 @@ jtown.pg.facebookLogin = function(pn, memo){
 	loginForm.submit();
 };
 
-$.getJSON(contextPath+"bannerJSON?order=1", function(data) {
-    $("#flavor_1").agile_carousel({
-        carousel_data: data,
-        carousel_outer_height: 289,
-        carousel_height: 289,
-        slide_height: 290,
-        carousel_outer_width: 492,
-        slide_width: 492,
-        transition_time: 300,
-        timer: 6500,
-        continuous_scrolling: true,
-        control_set_1: "numbered_buttons"
-    });
-});
+jtown.pg.eventBanner = function(){
+	$.getJSON(contextPath+"bannerJSON?order=1", function(data) {
+	    $("#flavor_1").agile_carousel({
+	        carousel_data: data,
+	        carousel_outer_height: 289,
+	        carousel_height: 289,
+	        slide_height: 290,
+	        carousel_outer_width: 492,
+	        slide_width: 492,
+	        transition_time: 300,
+	        timer: 6500,
+	        continuous_scrolling: true,
+	        control_set_1: "numbered_buttons"
+	    });
+	});
+};
 
 //~ sidebar 
 
@@ -537,8 +534,10 @@ jtown.pg.commentFeedInit = function(){
 	var heartFeedHeight = window.innerHeight - $('.jt-right-sidebar-comment-feed').height() - 115 ;
 	$('.jt-right-sidebar-heart-gather-wrap').height(heartFeedHeight);
 };
-jtown.pg.commentFeedInit();
-$(".jt-right-sidebar-heart-gather-wrap").mCustomScrollbar({theme:"dark"});
+
+jtown.pg.commentFeedScrollInit = function(){
+	getInternetExplorerVersion() == 7 ? $itemSize = $('.jt-sidebar-heart-item').length : $('.jt-right-sidebar-heart-gather-wrap').mCustomScrollbar({theme:"dark"});
+};
 
 $('.jt-right-sidebar-comment-feed').on('click', '.jt-right-sidebar-comment-feed-dialog-contents', function(){
 	if($(this).find('img').attr('alt') == null){
@@ -570,10 +569,22 @@ $('body').on('click', '.jt-sidebar-heart-item', function(){
 	window.open($(this).attr('data-url'), '_blank');
 });
 
-//~ footer scroll top
-/*$('.jt-footer').css('display','block');
-$('#jt-scroll-top').bind('click', function(){
-	$('html, body').animate({scrollTop:0}, 'slow');
-});
-*/
+//~ init
+
+jtown.pg.eventBanner();
+jtown.pg.commentFeedInit();
+jtown.pg.commentFeedScrollInit();
+
+if($('.jt-pg-main').length != 0 ){
+	$( window ).resize(function() {
+		jtown.pg.windowResize();
+		jtown.pg.commentFeedInit();
+	});
+	jtown.pg.windowResize();
+	jtown.pg.itemOrder();
+}
+if($('.jt-header-nav-interestCategory').attr('data-category') != null ){
+	jtown.pg.scrollPaging();
+}
+
 });

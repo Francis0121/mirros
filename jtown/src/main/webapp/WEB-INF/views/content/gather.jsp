@@ -19,12 +19,12 @@
 								<div class="jt-right-sidebar-comment-feed-dialog-contents-event">${feedList.productName }</div>
 							</div>
 							<div class="jt-right-sidebar-comment-feed-dialog-contents-text">
-								<div>${feedList.saveName }</div>
+								<div class="jt-pg-event-line-shop-name jt-right-sidebar-comment-feed-dialog-contents-event-text">${feedList.saveName }</div>
 								<c:if test="${feedList.price >= 0}">
-									<div>D- ${feedList.price }일 남았습니다.</div>
+									<div class="jt-pg-event-line-end-date jt-right-sidebar-comment-feed-dialog-contents-event-text">D- ${feedList.price }일 남았습니다.</div>
 								</c:if>
 								<c:if test="${feedList.price < 0}">
-									<div>이벤트 기간이 만료되었습니다.</div>
+									<div class="jt-pg-event-line-end-date jt-right-sidebar-comment-feed-dialog-contents-event-text">이벤트 기간이 만료되었습니다.</div>
 								</c:if>
 							</div>
 						</c:if>
@@ -37,7 +37,7 @@
 									<img src="${cp}/photo/thumbnail/${feedList.saveName }product.${feedList.contentType}" alt="${feedList.productName }" />
 								</c:if>
 							</div>
-							<div class="jt-right-sidebar-comment-feed-dialog-contents-text">
+							<div class="jt-right-sidebar-comment-feed-dialog-contents-text jt-right-sidebar-comment-feed-dialog-contents-product-text">
 								<div>${feedList.productName }</div>
 								<div><fmt:formatNumber value="${feedList.price }" /></div>
 							</div>
@@ -58,7 +58,7 @@
 							<img src="${cp}/resources/uploadImage/${myHeartList.saveName }" alt="${myHeartList.productName }" />
 						</c:if>
 						<c:if test="${!empty myHeartList.contentType}">
-							<img src="${cp}/photo/thumbnail/${myHeartList.saveName }product.${myHeartList.contentType}" alt="${myHeartList.productName }" />
+							<img src="${cp}/photo/thumbnail/${myHeartList.saveName }productSmall.${myHeartList.contentType}" alt="${myHeartList.productName }" />
 						</c:if>
 					</div>
 					<div class="jt-sidebar-heart-item-text-wrap">

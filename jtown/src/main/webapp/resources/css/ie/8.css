@@ -36,6 +36,7 @@
 .jt-sidebar-comment-item:HOVER{background-color:#fbfbfb;} 
 .jt-sidebar-heart-item:HOVER{background-color: #fbfbfb;}
 .jt-right-sidebar-comment-feed-dialog-contents{border: 1px solid #989898;}
+.jt-right-sidebar-heart-gather-wrap{height: 400px;}
 
 .jt-header-nav-mode-shop-inactive{cursor:pointer; width: 33px; height: 30px;background-position: -73px 0px; background-size: 115px;border-right: 1px solid #ccc;}
 .jt-header-nav-mode-shop-inactive:HOVER{cursor:pointer; width: 33px; height: 30px;background-position: -73px 0px; background-size: 115px;border-right: 1px solid #ccc;}

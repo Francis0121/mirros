@@ -114,6 +114,12 @@ public class AdminServiceImpl extends SqlSessionDaoSupport implements
 		jtownUser.setNewPassword("1q2w3e4r!");
 		customJdbcUserDetailManager.changePassword(jtownUser);
 	}
+	
+	@Override
+	public void updateSellerPassword(JtownUser jtownUser) {
+		jtownUser.setNewPassword(jtownUser.getUsername());
+		customJdbcUserDetailManager.changePassword(jtownUser);
+	}
 
 	// ~ Seller
 

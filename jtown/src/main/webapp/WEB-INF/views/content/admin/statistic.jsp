@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file="../../layout/none_header.jspf" %>
+<%@ include file="../../layout/admin_header.jspf" %>
 <div class="jt-statistic-container">
 	<div id="folderBar">
 		<div id="folderTabName">

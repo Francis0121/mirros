@@ -611,7 +611,7 @@ jQuery(document).ready(function(){
 				if(product.imageType == null ){
 					appendHtml += '<img src="'+contextPath+'resources/uploadImage/'+product.saveName+'" alt="'+product.name+'" />';
 				}else{
-					appendHtml +='<img src="'+contextPath+'photo/thumbnail/'+product.saveName+'product.'+product.imageType+'" alt="'+product.name+'" />';
+					appendHtml +='<img src="'+contextPath+'photo/thumbnail/'+product.saveName+'productSmall.'+product.imageType+'" alt="'+product.name+'" />';
 				}
 				appendHtml += 	'</div>';
 				appendHtml += 	'<div class="jt-sidebar-heart-item-text-wrap">';
@@ -619,7 +619,12 @@ jQuery(document).ready(function(){
 				appendHtml += 		'<div>'+product.price+'</div>';	
 				appendHtml += '	</div>';	
 				appendHtml += '</div>';
-				$('.jt-right-sidebar-heart-gather-wrap').prepend(appendHtml);
+				if($.browser.msie && $.browser.version == '7.0'){
+					$('.jt-right-sidebar-heart-gather-wrap').prepend(appendHtml);
+				}else{
+					$('.mCSB_container').prepend(appendHtml);
+				}
+				
 				$('.jt-right-sidebar-heart-gather-wrap').stop().animate({scrollTop: 0}, 300);
 			} else if (crudType == 'productHeartDelete') {
 				var itemSize = $('.jt-sidebar-heart-item').length;

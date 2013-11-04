@@ -516,48 +516,58 @@
 	</resultMap>
 	
  	<select id="selectProductClickStatistic" resultMap="jt-statistic-map">
- 		SELECT 
-		  seller_pn,
-		  count_date,
-		  COUNT(day_count) AS today_count 
+	 	SELECT 
+		  DATE AS count_date,
+		  IFNULL(today_count, 0) AS today_count 
 		FROM
-		  user_seller_product usp 
-		  JOIN statistic_product_click spc 
-		    ON usp.pn = spc.product_pn 
-		WHERE DATE_FORMAT(count_date, '%Y%m') = DATE_FORMAT(#{statisticDate}, '%Y%m') 
-		AND seller_pn = #{sellerPn}
-		GROUP BY seller_pn,count_date 
+		  (SELECT 
+		    count_date,
+		    COUNT(day_count) AS today_count 
+		  FROM
+		    user_seller_product usp 
+		    JOIN statistic_product_click spc 
+		      ON usp.pn = spc.product_pn 
+		  WHERE DATE_FORMAT(count_date, '%Y%m') = DATE_FORMAT(#{statisticDate}, '%Y%m') 
+		    AND seller_pn = #{sellerPn} 
+		  GROUP BY seller_pn,
+		    count_date) tb 
+		  RIGHT OUTER JOIN calendar cal 
+		    ON count_date = cal.date 
+		WHERE DATE_FORMAT(DATE, '%Y%m') = DATE_FORMAT(#{statisticDate}, '%Y%m')
  	</select>
  
 	 <select id="selectProductClickStatisticTopNPercentList" resultMap="jt-statistic-map">
 	 	SELECT 
-			seller_pn, count_date, COUNT(day_count) AS today_count
-		FROM 
-			user_seller_product usp
-		JOIN 
-			statistic_product_click spc
-		ON 
-			usp.pn = spc.product_pn
-		WHERE 
-			DATE_FORMAT(count_date, '%Y%m') = DATE_FORMAT(#{statisticDate}, '%Y%m')
-		AND seller_pn IN (
-			SELECT seller_pn FROM (
-			SELECT 
-				seller_pn
-			FROM 
-				user_seller_product usp
-			JOIN 
-				statistic_product_click spc
-			ON 
-				usp.pn = spc.product_pn
-			WHERE 
-				DATE_FORMAT(count_date, '%Y%m') = DATE_FORMAT(#{statisticDate}, '%Y%m')
-			GROUP BY seller_pn	
-			ORDER BY day_count DESC
-			LIMIT #{percentCount}
-			)tb1
-		)	
-		GROUP BY count_date
+		  DATE AS count_date,
+		  IFNULL(today_count, 0) AS today_count 
+		FROM
+		  (SELECT 
+		    count_date,
+		    COUNT(day_count) AS today_count 
+		  FROM
+		    user_seller_product usp 
+		    JOIN statistic_product_click spc 
+		      ON usp.pn = spc.product_pn 
+		  WHERE DATE_FORMAT(count_date, '%Y%m') = DATE_FORMAT(#{statisticDate}, '%Y%m') 
+		    AND seller_pn IN 
+		    (SELECT 
+		      seller_pn 
+		    FROM
+		      (SELECT 
+		        seller_pn 
+		      FROM
+		        user_seller_product usp 
+		        JOIN statistic_product_click spc 
+		          ON usp.pn = spc.product_pn 
+		      WHERE DATE_FORMAT(count_date, '%Y%m') = DATE_FORMAT(#{statisticDate}, '%Y%m') 
+		      GROUP BY seller_pn 
+		      ORDER BY day_count DESC 
+		      LIMIT #{percentCount}) tb1) 
+		  GROUP BY count_date) tb2 
+		  RIGHT 
+		  OUTER JOIN calendar cal 
+		    ON cal.date = count_date 
+		WHERE DATE_FORMAT(DATE, '%Y%m') = DATE_FORMAT(#{statisticDate}, '%Y%m')
 	 </select>
 	 
 	 <select id="selectProductClickStatisticCount" resultType="Integer">
@@ -580,22 +590,30 @@
 	 
 	 <select id="selectTotalProductClickStatistic" resultMap="jt-statistic-map">
 	 	SELECT 
-	      count_date, COUNT(day_count )
-	    FROM
-	      user_seller_product usp 
-	      JOIN statistic_product_click spc 
-	        ON usp.pn = spc.product_pn 
-	    WHERE DATE_FORMAT(count_date, '%Y%m') = DATE_FORMAT(#{statisticDate}, '%Y%m') 
-	    GROUP BY count_date
+		  DATE AS count_date,
+		  COUNT(day_count) AS today_count 
+		FROM
+		  user_seller_product usp 
+		  JOIN statistic_product_click spc 
+		    ON usp.pn = spc.product_pn 
+		  RIGHT OUTER JOIN calendar cal 
+		    ON cal.date = count_date 
+		WHERE 
+			DATE_FORMAT(DATE, '%Y%m') = DATE_FORMAT(#{statisticDate}, '%Y%m') 
+		GROUP BY date 
 	 </select>
 	 
 	 <select id="selectTotalEventClickStatistic" resultMap="jt-statistic-map">
 	 	SELECT 
-	      count_date, COUNT(day_count )
-	    FROM
-	      statistic_event_click 
-	    WHERE DATE_FORMAT(count_date, '%Y%m') = DATE_FORMAT(#{statisticDate}, '%Y%m') 
-	    GROUP BY count_date
+		  DATE AS count_date,
+		  COUNT(day_count) AS today_count 
+		FROM
+		  statistic_event_click sec 
+		  RIGHT OUTER JOIN calendar cal 
+		    ON cal.date = count_date 
+		WHERE 
+			DATE_FORMAT(DATE, '%Y%m') = DATE_FORMAT(#{statisticDate}, '%Y%m') 
+		GROUP BY DATE 
 	 </select>
 	<!-- LoveCount -->
 

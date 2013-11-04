@@ -93,6 +93,9 @@ function goToPreviousPages() {
 			<th colspan="8">판매자정보</th>
 			<th colspan="2">계약정보</th>
 			<th rowspan="2">비고</th>
+			<sec:authorize ifAnyGranted="ROLE_ROOT">
+			<th rowspan="2">비밀번호</th>
+			</sec:authorize>
 		</tr>
 		<tr>
 			<th>접수번호</th>
@@ -119,8 +122,11 @@ function goToPreviousPages() {
 			<sec:authorize access="principal.groupName eq 'Administrator'">
 				<td colspan="18">
 			</sec:authorize>
-			<sec:authorize ifAnyGranted="ROLE_ROOT,ROLE_SALES">
+			<sec:authorize ifAnyGranted="ROLE_SALES">
 				<td colspan="19">
+			</sec:authorize>
+			<sec:authorize ifAnyGranted="ROLE_ROOT">
+				<td colspan="20">
 			</sec:authorize>
 				<div id="page-wrap">
 					<div style="float: left;">
@@ -282,13 +288,26 @@ function goToPreviousPages() {
 					</c:otherwise>
 				</c:choose>
 				<td class="jt-partnership-note"><pre><c:out value="${partnership.note }"/></pre></td>
+				<sec:authorize ifAnyGranted="ROLE_ROOT">
+					<td>
+						<c:if test="${!empty userInfo.username }">
+							<button type="button" class="jt-seller-reset-password jt-btn-white-small" data-sellername="${userInfo.username }">
+								<span class="btnImage"></span>
+								<span class="btnText">초기화</span>
+							</button>
+						</c:if>
+					</td>
+				</sec:authorize>
 			</tr>
 			<tr class="jt-partnership-table-content" id="partnership-content-<c:out value="${partnership.pn }"/>">
 				<sec:authorize access="principal.groupName eq 'Administrator'">
 					<td colspan="18">
 				</sec:authorize>
-				<sec:authorize ifAnyGranted="ROLE_ROOT,ROLE_SALES">
+				<sec:authorize ifAnyGranted="ROLE_SALES">
 					<td colspan="19">
+				</sec:authorize>
+				<sec:authorize ifAnyGranted="ROLE_ROOT">
+					<td colspan="20">
 				</sec:authorize>
 					<pre><c:out value="${partnership.content }"/></pre>
 				</td>
