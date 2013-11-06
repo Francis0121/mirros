@@ -4,43 +4,46 @@
 <script src="${cp}/resources/jquery/jquery-ui-1.10.0.custom.js"></script>
 <%-- Plug in --%>
 <script src="${cp}/resources/uploadify/jquery.uploadify.min.js"></script>
-<script src="${cp}/resources/js/masonry.min.old.js"></script>
-<script src="${cp}/resources/js/masonry.min.js"></script>
-<script src="${cp}/resources/js/masonry.imagesloaded.min.js"></script>
-<%-- <script src="${cp}/resources/js/masonry.scollr.pagination.min.js"></script> --%>
-<script src="${cp}/resources/js/masonry.scroll.pagination.js"></script>
-<script src="${cp}/resources/js/jcarousellite_1.0.1.min.js"></script>
-<script src="${cp}/resources/js/jquery.jqplot.min.js"></script>
-<script src="${cp}/resources/js/jqplot.highlighter.min.js"></script>
-<script src="${cp}/resources/js/jqplot.dateAxisRenderer.min.js"></script>
-<script src="${cp}/resources/js/jquery.default.plugin.min.js"></script>
-<script src="${cp}/resources/js/agile_carousel.alpha.js"></script>
+<script src="${cp}/resources/js/plugin/masonry.min.old.js"></script>
+<script src="${cp}/resources/js/plugin/masonry.min.js"></script>
+<script src="${cp}/resources/js/plugin/masonry.imagesloaded.min.js"></script>
+<script src="${cp}/resources/js/plugin/masonry.scollr.pagination.min.js"></script>
+<script src="${cp}/resources/js/plugin/jcarousellite_1.0.1.min.js"></script>
+<script src="${cp}/resources/js/plugin/jquery.jqplot.min.js"></script>
+<script src="${cp}/resources/js/plugin/jqplot.highlighter.min.js"></script>
+<script src="${cp}/resources/js/plugin/jqplot.dateAxisRenderer.min.js"></script>
+<script src="${cp}/resources/js/plugin/jquery.default.plugin.min.js"></script>
+<script src="${cp}/resources/js/plugin/agile_carousel.alpha.min.js"></script>
  <!--[if IE]>
- <script language="javascript" type="text/javascript" src="${cp}/resources/js/excanvas.min.js"></script>
+ <script language="javascript" type="text/javascript" src="${cp}/resources/js/plugin/excanvas.min.js"></script>
  <![endif]-->
 <!--[if !IE 7]>
-<script src="${cp}/resources/js/masonry.pkgd.min.js"></script>
+<script src="${cp}/resources/js/plugin/masonry.pkgd.min.js"></script>
 <![endif]-->
 
-<%-- <script src="${cp}/resources/js/jquery.plugin.min.js"></script> --%>
-<script src="${cp}/resources/js/jquery.plugin.js"></script>
+<script src="${cp}/resources/js/jquery.custom.plugin.min.js"></script>
+<%-- <script src="${cp}/resources/js/jquery.custom.plugin.js"></script> --%>
 
 <%-- Custom --%>
-<%-- <script src="${cp}/resources/js/mirros.all.js"></script> --%>
+<%-- 
+<script src="${cp}/resources/js/mirros.all.js"></script>
+--%>
 <script src="${cp}/resources/js/content/01_jtown.js"></script>
 <script src="${cp}/resources/js/content/02_util.js"></script>
 <script src="${cp}/resources/js/content/03_login.js"></script>
 <script src="${cp}/resources/js/content/04_admin.js"></script>
 <script src="${cp}/resources/js/content/05_seller.js"></script>
-<script src="${cp}/resources/js/content/06_expand.js?08191355"></script>
-<script src="${cp}/resources/js/content/07_comment.js?08191838"></script>
+<script src="${cp}/resources/js/content/06_expand.js"></script>
+<script src="${cp}/resources/js/content/07_comment.js"></script>
 <script src="${cp}/resources/js/content/08_board.js"></script>
 <script src="${cp}/resources/js/content/09_help.js"></script>
 <script src="${cp}/resources/js/content/10_gather.js"></script>
-
+ 
 <%-- Node --%>
 <script src="${nodePath }/socket.io/socket.io.js"></script>
-<%-- <script src="${cp}/resources/js/real.time.min.js"></script> --%>
+<%-- 
+<script src="${cp}/resources/js/real.time.min.js"></script>
+ --%>
 <script src="${cp}/resources/js/real.time.js"></script>
 <%-- isFinish Message --%>
 <c:if test="${isFinish ne null && isFinish ne '' }">

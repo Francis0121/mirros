@@ -105,7 +105,6 @@ public class FileUtil {
 		try {
 			f1.createNewFile();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -145,7 +144,6 @@ public class FileUtil {
 			fis.close();
 			fos.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -174,7 +172,6 @@ public class FileUtil {
 			fileDelete(inFileName);
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

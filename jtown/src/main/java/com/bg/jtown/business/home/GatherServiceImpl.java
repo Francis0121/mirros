@@ -38,10 +38,6 @@ public class GatherServiceImpl extends SqlSessionDaoSupport implements GatherSer
 	@Autowired
 	private CommentService commentService;
 
-	@Override
-	public List<Gather> selectGatherHotProducts(GatherFilter productGatherFilter) {
-		return getSqlSession().selectList("gatherMapper.selectGatherHotProducts", productGatherFilter);
-	}
 
 	@Override
 	public List<Gather> selectGatherProducts(GatherFilter productGatherFilter) {
@@ -94,7 +90,9 @@ public class GatherServiceImpl extends SqlSessionDaoSupport implements GatherSer
 			hotProduct.get(idx).setHot(1);
 		}
 		if (!"hot".equals(gatherFilter.getNavFlag())) {
-			smallSizeList.addAll(eventList);
+			if(gatherFilter.getItemName() == null ){
+				smallSizeList.addAll(eventList);
+			}
 			smallSizeList.addAll(normalProduct);
 			Collections.shuffle(smallSizeList, rand);
 		}

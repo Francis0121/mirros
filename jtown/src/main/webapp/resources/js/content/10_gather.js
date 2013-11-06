@@ -45,21 +45,18 @@ jtown.pg.scrollPaging = function(){
 	$(window).scroll(function(){
 	    if($(window).scrollTop() == $(document).height() - $(window).height()){
 	        $('div#infscr-loading').show();
-	        $.ajax({
-	        url: contextPath+'ajax/gatherPagination.jt',
-	        type: 'POST',
-	        success: function(data){
-	            if(data){
-	            	productGatherHtml(data);
-	                $('div#infscr-loading').hide();
-	            }else{
-	                $('div#infscr-loading').html('<center>Today end</center>');
-	                $('div#infscr-loading').delay(500).fadeOut(1000);
-	            }
-	            if (getInternetExplorerVersion() == 7 ){
-	            	jtown.pg.itemOrder();
-	            }
-	        }});
+	        $.postJSON(contextPath+'ajax/gatherPagination.jt',{}, function(data){
+	        	  if(data){
+		            	productGatherHtml(data);
+		                $('div#infscr-loading').hide();
+		            }else{
+		                $('div#infscr-loading').html('<center>Today end</center>');
+		                $('div#infscr-loading').delay(500).fadeOut(1000);
+		            }
+		            if (getInternetExplorerVersion() == 7 ){
+		            	jtown.pg.itemOrder();
+		            }
+	        });
 	    }
 	});
 };

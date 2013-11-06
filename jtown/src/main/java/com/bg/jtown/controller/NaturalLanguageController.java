@@ -1,5 +1,6 @@
 package com.bg.jtown.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,8 +31,7 @@ public class NaturalLanguageController {
 
 	// ~ Static
 
-	private static Logger logger = LoggerFactory
-			.getLogger(NaturalLanguageController.class);
+	private static Logger logger = LoggerFactory.getLogger(NaturalLanguageController.class);
 
 	// ~ Dynamic Injection
 
@@ -42,18 +42,21 @@ public class NaturalLanguageController {
 
 	@RequestMapping(value = "/ajax/natural/autocomplete.jt", method = RequestMethod.POST)
 	@ResponseBody
-	public Object ajaxAutoComplete(
-			@RequestBody NaturalLanguageFilter naturalLanguageFilter) {
+	public Object ajaxAutoComplete(@RequestBody NaturalLanguageFilter naturalLanguageFilter) {
 		logger.debug(naturalLanguageFilter.toString());
 
-		List<JtownUser> jtownUsers = naturalLanguageService
-				.selectSearchShopName(naturalLanguageFilter);
+		List<JtownUser> jtownUsers = naturalLanguageService.selectSearchShopName(naturalLanguageFilter);
 
-		NaturalLanguageFilter naturalLanguageFilterInterest = new NaturalLanguageFilter(
-				naturalLanguageFilter.getSearchName());
+		List<JtownUser> productNameSearch = new ArrayList<JtownUser>();
+		if(naturalLanguageFilter.getSearchName().length() >=2 ){ 
+			productNameSearch = naturalLanguageService.selectSearchProductName(naturalLanguageFilter);
+		}
+		
+		NaturalLanguageFilter naturalLanguageFilterInterest = new NaturalLanguageFilter(naturalLanguageFilter.getSearchName());
 
-		List<Interest> interests = naturalLanguageService
-				.selectSearchInterestSection(naturalLanguageFilterInterest);
+		List<Interest> interests = naturalLanguageService.selectSearchInterestSection(naturalLanguageFilterInterest);
+		
+		 
 
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("jtownUsers", jtownUsers);
@@ -61,6 +64,8 @@ public class NaturalLanguageController {
 
 		map.put("interests", interests);
 		map.put("iNLF", naturalLanguageFilterInterest);
+		
+		map.put("productName", productNameSearch);
 		return map;
 	}
 }

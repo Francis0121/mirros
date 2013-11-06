@@ -95,9 +95,10 @@ public class GatherController {
 		model.addAttribute("commentFeed", commentService.selectCommentFeedList());
 		model.addAttribute("myHeartList", gatherService.selectMyHeartList(summaryUser.getPn()));
 		model.addAttribute("categoryType", gatherFilter.getNavFlag());
+		model.addAttribute("itemName", gatherFilter.getItemName());
 	}
 
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@RequestMapping(value = "/")
 	public String productGatherView(Model model, HttpSession session, @ModelAttribute GatherFilter gatherFilter, SummaryUser summaryUser,
 			HttpServletRequest request) throws UnsupportedEncodingException {
 		if (BrowserUtil.isMobile(request)) {

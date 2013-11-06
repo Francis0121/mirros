@@ -18,49 +18,42 @@ import com.bg.jtown.util.Pagination;
  * 
  */
 @Service
-public class NaturalLanguageServiceImpl extends SqlSessionDaoSupport implements
-		NaturalLanguageService {
+public class NaturalLanguageServiceImpl extends SqlSessionDaoSupport implements NaturalLanguageService {
 
 	@Override
-	public List<JtownUser> selectSearchShopName(
-			NaturalLanguageFilter naturalLanguageFilter) {
+	public List<JtownUser> selectSearchShopName(NaturalLanguageFilter naturalLanguageFilter) {
 		Pagination pagination = naturalLanguageFilter.getPagination();
 		int count = selectSearchShopNameCount(naturalLanguageFilter);
 		pagination.setNumItems(count);
 		if (count == 0) {
 			return new ArrayList<JtownUser>();
 		}
-		return getSqlSession().selectList(
-				"naturalLanguageMapper.selectSearchShopName",
-				naturalLanguageFilter);
+		return getSqlSession().selectList("naturalLanguageMapper.selectSearchShopName", naturalLanguageFilter);
 	}
 
-	private int selectSearchShopNameCount(
-			NaturalLanguageFilter naturalLanguageFilter) {
-		return getSqlSession().selectOne(
-				"naturalLanguageMapper.selectSearchShopNameCount",
-				naturalLanguageFilter);
+	private int selectSearchShopNameCount(NaturalLanguageFilter naturalLanguageFilter) {
+		return getSqlSession().selectOne("naturalLanguageMapper.selectSearchShopNameCount", naturalLanguageFilter);
 	}
 
 	@Override
-	public List<Interest> selectSearchInterestSection(
-			NaturalLanguageFilter naturalLanguageFilter) {
+	public List<Interest> selectSearchInterestSection(NaturalLanguageFilter naturalLanguageFilter) {
 		Pagination pagination = naturalLanguageFilter.getPagination();
 		int count = selectSearchInterestSectionCount(naturalLanguageFilter);
 		pagination.setNumItems(count);
 		if (count == 0) {
 			return new ArrayList<Interest>();
 		}
-		List<Interest> interests = getSqlSession().selectList(
-				"naturalLanguageMapper.selectSearchInterestSection",
-				naturalLanguageFilter);
+		List<Interest> interests = getSqlSession().selectList("naturalLanguageMapper.selectSearchInterestSection", naturalLanguageFilter);
 		return interests;
 	}
 
-	private int selectSearchInterestSectionCount(
-			NaturalLanguageFilter naturalLanguageFilter) {
-		return getSqlSession().selectOne(
-				"naturalLanguageMapper.selectSearchInterestSectionCount",
-				naturalLanguageFilter);
+	private int selectSearchInterestSectionCount(NaturalLanguageFilter naturalLanguageFilter) {
+		return getSqlSession().selectOne("naturalLanguageMapper.selectSearchInterestSectionCount", naturalLanguageFilter);
 	}
+
+	@Override
+	public List<JtownUser> selectSearchProductName(NaturalLanguageFilter naturalLanguageFilter) {
+		return getSqlSession().selectList("naturalLanguageMapper.selectSearchProductName", naturalLanguageFilter);
+	}
+
 }

@@ -512,6 +512,21 @@ jtown.home.naturalLanguage = function(){
 	      });
 	    }
 	 });
+	function post(URL, PARAMS) {
+		var temp=document.createElement("form");
+		temp.action=URL;
+		temp.method="POST";
+		temp.style.display="none";
+		for(var x in PARAMS) {
+			var opt=document.createElement("textarea");
+			opt.name=x;
+			opt.value=PARAMS[x];
+			temp.appendChild(opt);
+		}
+		document.body.appendChild(temp);
+		temp.submit();
+		return temp;
+	}
 	
 	$('#jt-naturalLanguage-search').catcomplete({
 		source : function(request, response){
@@ -519,15 +534,30 @@ jtown.home.naturalLanguage = function(){
 				json = {	searchName : request.term  };
 			
 			$.postJSON(url, json, function(map){
-				var jtownUsers = map.jtownUsers, interests = map.interests, data = [];
+				var jtownUsers = map.jtownUsers, interests = map.interests, productName = map.productName,  data = [];
 				
 				for(var i=0, len = jtownUsers.length ; i< len; i++){
 					var jtownUser = jtownUsers[i];
 					data[i] = { label : jtownUser.name , value : jtownUser.name, pn : jtownUser.pn,  category : 'SHOP'};
 				}
+				/*
 				for(var i=0, len = interests.length, size = jtownUsers.length ; i< len; i++){
 					var interest = interests[i];
-					data[i+size] = { label : interest.name , value : interest.name, categoryPn : interest.categoryPn, spn : interest.sectionPn, category : 'CATEGORY'};
+					data[i+size] = { label : interest.name , value : interest.name, categoryPn : interest.categoryPn, spn : interest.sectionPn, category : 'CATEGORY(쇼핑몰)'};
+				}
+				*/
+				var size =  jtownUsers.length, itemSize = productName.length;
+				var allItemCount  = 0;
+				if(itemSize > 0 && request.term.length >= 2){
+					data[size] = { label : '[ '+request.term +' ] (이)가 포함된 모든 상품' , value : request.term, categoryPn : 0, spn : 0, category : 'ITEM'};
+					allItemCount = 1;
+				}
+				else if(itemSize == 0 && request.term.length >= 2){
+					data[size] = { label : '검색 결과가 없습니다.' , value : null, categoryPn : 0, spn : 0, category : 'ITEM'};
+				} 
+				for(var idx = 0, len = productName.length; idx < len; idx++  ){
+					var product = productName[idx];
+					data[allItemCount+size + idx] = { label : product.name , value : product.name, categoryPn : 0, spn : 0, category : 'ITEM'};
 				}
 				response( data );
 			});
@@ -537,8 +567,15 @@ jtown.home.naturalLanguage = function(){
 			var item = ui.item;
 			if(item.category =='SHOP'){				
 				location.href = contextPath + 'mir/'+item.pn;
-			}else if(item.category =='CATEGORY'){
+			}
+			/*else if(item.category =='CATEGORY'){
 				location.href = contextPath + 's/cpn/'+item.categoryPn+'/spn/'+item.spn;
+			}*/
+			else if(item.category =='ITEM'){
+				console.log(item.value);
+				post(contextPath, {
+					itemName : item.value
+				});
 			}
 		},
 		focus : function(event, ui){

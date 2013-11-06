@@ -18,8 +18,6 @@ import com.bg.jtown.security.SummaryUser;
  */
 public interface GatherService {
 
-	List<Gather> selectGatherHotProducts(GatherFilter gatherFilter);
-
 	List<Gather> selectGatherProducts(GatherFilter gatherFilter);
 
 	int selectGatherProductsCount(GatherFilter gatherFilter);

@@ -34,6 +34,26 @@
 			u.upper_name LIKE #{upperSearchName}
 	</select>
 	
+	<select id="selectSearchProductName" parameterType="NaturalLanguageFilter" resultMap="jt-natural-search-name-map">
+		SELECT 
+		  usp.pn,
+		  usp.name 
+		FROM
+		  user_seller_product usp 
+		JOIN partnership p 
+		    ON p.seller_pn = usp.seller_pn 
+		JOIN users u 
+		    ON u.pn = p.seller_pn
+		JOIN user_seller_contract_info usci 
+	       ON usp.seller_pn = usci.seller_pn  
+		WHERE deleted = 'N' 
+		  AND u.enable = 1 
+		  AND usp.name IS NOT NULL
+		  AND CURDATE() BETWEEN usci.start_date AND usci.end_date 
+		  AND UCASE(usp.name) LIKE #{upperSearchName}
+		  LIMIT 30
+	</select>
+	
 	<resultMap type="Interest" id="jt-natural-search-interest-map">
 		<result column="pn" property="sectionPn"/>
 		<result column="category_pn" property="categoryPn"/>
