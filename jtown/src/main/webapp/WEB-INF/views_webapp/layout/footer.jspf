@@ -1,0 +1,15 @@
+<style type="text/css">
+.footer_btn>li>a{
+	height: 60px;
+}
+</style>
+<div data-role="footer"  data-theme="d" data-position="fixed">
+	<div data-role="navbar" data-iconpos="top">
+		<ul class="footer_btn">
+			<li><a href="#">Item</a></li>
+			<li><a  class="reply">Reply</a></li>
+			<li><a href="#" class="like">Like</a></li>
+			<li><a href="page2" data-transition="slideup">More</a></li>
+		</ul>
+	</div>
+</div>

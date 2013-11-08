@@ -1,0 +1,21 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+<link rel="shortcut icon" href="${cp }/resources_webapp/images/favicon.ico" type="image/x-icon"/>
+<link rel="apple-touch-icon" href= "${cp }/resources_webapp/images/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css" />
+<meta name="viewport" content= "width=device-width ,initial-scale=1.0,maximum-scale=1.0, minimum-scale=1.0,user-scalable=no" />
+<meta name=" apple-mobi le-web-app-capable" content ="yes "/>
+	
+
+<%-- <link rel="stylesheet" type="text/css" href="${cp }/resources_mobile/css/mobile.min.css" /> --%>
+<%--  
+<link rel="stylesheet" type="text/css" href="${cp }/resources_mobile/css/default.css" />
+<link rel="stylesheet" type="text/css" href="${cp }/resources_mobile/css/mobile-mirros.css" />
+ --%>
+ <link rel="stylesheet" type="text/css" href="${cp }/resources_webapp/css/default.css?06" />
+ <link rel="stylesheet" type="text/css" href="${cp }/resources_webapp/css/items.css?023" />
+ <link rel="stylesheet" type="text/css" href="${cp }/resources_webapp/css/reply.css" /> 
+ <link rel="stylesheet" type="text/css" href="${cp }/resources_webapp/css/checkList.css" />
+ <link rel="stylesheet" type="text/css" href="${cp }/resources_webapp/css/more.css" />
+ 

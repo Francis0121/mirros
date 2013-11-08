@@ -1,0 +1,22 @@
+<div data-role="header" class="jt-app-header" data-theme="c" data-inline="true">
+	<div class="jt-app-header-wrap">
+	<h4>Mirros</h4>
+	<a data-icon="arrow-d" data-role="button"  data-iconpos="notext" id="jt-app-header-arrow-d" class="ui-btn-left" data-toggle="0"></a> 
+	<a data-icon="arrow-l" data-role="button"  data-iconpos="notext" id="jt-app-header-arrow-l" class="ui-btn-right" ></a>
+	</div>
+</div>
+<div class="jt-app-header-extend-menu">
+	<div class="jt-app-header-extend-menu-inner">
+	<input type="text" placeholder="search" />
+	 <ul>
+	 	<li>All</li>
+	 	<li>Daily</li>
+	 	<li>Office</li>
+	 	<li>~~</li>
+	 	<li>~~</li>
+ </ul>
+ <div style="text-align: center;">
+ 	<a data-icon="arrow-u" data-role="button"  data-iconpos="notext" class="jt-app-header-arrow-u"></a>
+ 	</div>
+	</div>
+</div>

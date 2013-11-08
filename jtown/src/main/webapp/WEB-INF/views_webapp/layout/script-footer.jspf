@@ -1,0 +1,27 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%-- Jquery --%>
+<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script src="${cp}/resources_webapp/jquery/jquery.mobile-1.3.2.min.js"></script>
+<%-- Plug in --%>
+
+<%-- Custom --%>
+<%-- <script src="${cp}/resources_mobile/js/mobile.all.js"></script> --%>
+<script src="${cp}/resources_webapp/js/util.js"></script>
+<script src="${cp}/resources_webapp/js/default.js"></script>
+<script src="${cp}/resources_webapp/js/mirros.all.js"></script>
+
+
+<script src="${cp}/resources_webapp/js/content/item.js"></script>
+
+<%-- Node --%>
+<%-- <script src="${cp}/resources_mobile/js/mobile.real.time.js"></script> --%>
+<%--
+<script src="${cp}/resources_webapp/js/real.time.js"></script>
+<script src="${nodePath }/socket.io/socket.io.js"></script>
+ --%>
+ 
+ 
+<%-- Loading Page --%>
+<div id="loading-popup">
+	<div><img alt="Loading" src="${cp }/resources/images/jt-loading.gif"></div>
+</div>

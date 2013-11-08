@@ -75,5 +75,9 @@ public interface GatherService {
 	
 	List<Gather> selectMyHeartList(Integer customerPn);
 	
+	//~ app
+	
+	List<Gather> selectNewProductListForMobile(GatherFilter gatherFilter);
+	
 	
 }

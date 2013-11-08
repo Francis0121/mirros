@@ -24,8 +24,7 @@ public class EmailSender {
 
 	private static final String SENDER_EMAIL_ADDRESS = "admin@mirros.net";
 
-	private static final Logger logger = LoggerFactory
-			.getLogger(EmailSender.class);
+	private static final Logger logger = LoggerFactory.getLogger(EmailSender.class);
 
 	private Properties props;
 
@@ -36,13 +35,11 @@ public class EmailSender {
 	public void sendEmail(String to, String subject, String content) {
 
 		EmailAuthenticator authenticator = new EmailAuthenticator();
-
 		Session session = Session.getInstance(props, authenticator);
 
 		try {
 			Message msg = new MimeMessage(session);
-			msg.setFrom(new InternetAddress(SENDER_EMAIL_ADDRESS, "Mirros",
-					"UTF-8"));
+			msg.setFrom(new InternetAddress(SENDER_EMAIL_ADDRESS, "Mirros", "UTF-8"));
 			logger.debug(msg.getFrom()[0].toString());
 			// Recipients 받는사람
 			InternetAddress[] address = { new InternetAddress(to) };
@@ -54,11 +51,9 @@ public class EmailSender {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	class EmailAuthenticator extends Authenticator {
-
 		private String id;
 		private String pw;
 
@@ -75,7 +70,6 @@ public class EmailSender {
 		protected PasswordAuthentication getPasswordAuthentication() {
 			return new PasswordAuthentication(id, pw);
 		}
-
 	}
 
 }

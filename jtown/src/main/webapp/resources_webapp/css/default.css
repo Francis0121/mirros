@@ -1,0 +1,9 @@
+.jt-app-header-wrap{overflow: hidden;text-align: center;}
+.jt-app-header{height: 50px;}
+#jt-app-header-arrow-d{margin: 10px 0;}
+#jt-app-header-arrow-l{margin: 10px 0;}
+.jt-app-header-extend-menu{position:absolute;height: 0px; background-color: #eee;width:100%;transition:height 0.5s;-webkit-transition:height 0.5s; }
+.jt-app-header-extend-menu-inner{display: none;}
+.jt-app-header-arrow-u{left:50%;margin-left: -8px;}
+.jt-app-header-extend-menu-inner>ul>li{width:25%;height: 45px; float: left; border: 1px solid #eee;}
+.jt-app-header-extend-menu-inner>ul{overflow: hidden;}
