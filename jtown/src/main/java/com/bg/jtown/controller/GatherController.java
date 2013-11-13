@@ -79,18 +79,14 @@ public class GatherController {
 	public void setPrefixView(String prefixView) {
 		this.prefixView = prefixView;
 	}
-
-	private List<Gather> mergeList = null;
-	private int mergeSize = 0;
+	
+	private List<Gather> hotItemList = null;
 
 	public void gatherModelSetting(Model model, HttpSession session, GatherFilter gatherFilter, SummaryUser summaryUser) {
 		session.setAttribute("currentPage", 2);
 		gatherFilter.setPagePerItem(20);
+		
 		gatherFilter.setCustomerPn(summaryUser.getPn());
-		mergeList = gatherService.mergeProductGatherList(gatherFilter);
-		mergeSize = mergeList.size();
-		gatherFilter.setTotalCount(mergeSize);
-		model.addAttribute("productGatherList", gatherService.paginateItemList(mergeList, gatherFilter));
 		model.addAttribute("interestCategories", homeService.selecInterestCategory());
 		model.addAttribute("commentFeed", commentService.selectCommentFeedList());
 		model.addAttribute("myHeartList", gatherService.selectMyHeartList(summaryUser.getPn()));
@@ -111,6 +107,7 @@ public class GatherController {
 		}
 		gatherFilter.setNavFlag("pg");
 		gatherModelSetting(model, session, gatherFilter, summaryUser);
+		model.addAttribute("productGatherList", gatherService.paginateItemList(gatherService.selectNewMergeList(gatherFilter), gatherFilter));
 		return prefixView + "gather";
 	}
 
@@ -125,47 +122,14 @@ public class GatherController {
 				model.addAttribute("isMobile", true);
 			}
 		}
+		gatherFilter.setNavFlag("pg");
 		gatherModelSetting(model, session, gatherFilter, summaryUser);
+		model.addAttribute("productGatherList", gatherService.paginateItemList(gatherService.selectNewMergeList(gatherFilter), gatherFilter));
 		return prefixView + "gather";
 	}
 
-	/*
-	 * @RequestMapping(value = "/g/", method = RequestMethod.GET) public String
-	 * productGatherView() { return "redirect:/g"; }
-	 */
-
-	@RequestMapping(value = "/n", method = RequestMethod.GET)
-	public String newGatherView(Model model, HttpSession session, @ModelAttribute GatherFilter gatherFilter, SummaryUser summaryUser,
-			HttpServletRequest request) throws UnsupportedEncodingException {
-		if (BrowserUtil.isMobile(request)) {
-			String value = CookieUtil.isCookie("SEE_PC_VERSION", request);
-			if (value == null || !value.equals("T")) {
-				return "redirect:/m/";
-			} else {
-				model.addAttribute("isMobile", true);
-			}
-		}
-		gatherFilter.setNavFlag("new");
-		gatherModelSetting(model, session, gatherFilter, summaryUser);
-		return prefixView + "gather";
-	}
-
-	@RequestMapping(value = "/n/cpn/{categoryPn}", method = RequestMethod.GET)
-	public String newGatherCategoryView(Model model, HttpSession session, @ModelAttribute GatherFilter gatherFilter, SummaryUser summaryUser,
-			HttpServletRequest request) throws UnsupportedEncodingException {
-		if (BrowserUtil.isMobile(request)) {
-			String value = CookieUtil.isCookie("SEE_PC_VERSION", request);
-			if (value == null || !value.equals("T")) {
-				return "redirect:/m/cpn/{categoryPn}";
-			} else {
-				model.addAttribute("isMobile", true);
-			}
-		}
-		gatherFilter.setNavFlag("new");
-		gatherModelSetting(model, session, gatherFilter, summaryUser);
-		return prefixView + "gather";
-	}
 	
+
 	@RequestMapping(value = "/h", method = RequestMethod.GET)
 	public String hotGatherView(Model model, HttpSession session, @ModelAttribute GatherFilter gatherFilter, SummaryUser summaryUser,
 			HttpServletRequest request) throws UnsupportedEncodingException {
@@ -179,6 +143,8 @@ public class GatherController {
 		}
 		gatherFilter.setNavFlag("hot");
 		gatherModelSetting(model, session, gatherFilter, summaryUser);
+		hotItemList = gatherService.selectHotProductList(gatherFilter);
+		model.addAttribute("productGatherList", gatherService.paginateHotItemList(hotItemList, gatherFilter));
 		return prefixView + "gather";
 	}
 
@@ -195,6 +161,8 @@ public class GatherController {
 		}
 		gatherFilter.setNavFlag("hot");
 		gatherModelSetting(model, session, gatherFilter, summaryUser);
+		hotItemList = gatherService.selectHotProductList(gatherFilter);
+		model.addAttribute("productGatherList", gatherService.paginateHotItemList(hotItemList, gatherFilter));
 		return prefixView + "gather";
 	}
 
@@ -210,20 +178,19 @@ public class GatherController {
 
 	@RequestMapping(value = "/ajax/gatherPagination.jt", method = RequestMethod.POST)
 	@ResponseBody
-	public Object ajaxGatherItem(GatherFilter gatherFilter, HttpSession session, SummaryUser summaryUser) {
+	public Object ajaxGatherItem(@RequestBody GatherFilter gatherFilter, HttpSession session, SummaryUser summaryUser) {
 		int currentPage = (Integer) session.getAttribute("currentPage") == null ? 2 : (Integer) session.getAttribute("currentPage");
 		gatherFilter.setCurrentPage(currentPage);
 		gatherFilter.setPagePerItem(20);
 		gatherFilter.setCustomerPn(summaryUser.getPn());
-		gatherFilter.setTotalCount(mergeSize);
-		if (gatherFilter.getTotalPageSize() > currentPage) {
-			Map<String, Object> object = new HashMap<String, Object>();
-			object.put("mergeItems", gatherService.paginateItemList(mergeList, gatherFilter));
-			session.setAttribute("currentPage", (gatherFilter.getCurrentPage() + 1));
-			return object;
-		} else {
-			return null;
+		Map<String, Object> object = new HashMap<String, Object>();
+		if("hot".equals(gatherFilter.getNavFlag()) ){
+			object.put("mergeItems", gatherService.paginateHotItemList(hotItemList, gatherFilter));
+		}else{
+			object.put("mergeItems", gatherService.paginateItemList(gatherService.selectNewMergeList(gatherFilter), gatherFilter));
 		}
+		session.setAttribute("currentPage", (gatherFilter.getCurrentPage() + 1));
+		return object;
 	}
 
 	@RequestMapping(value = "/ajax/productClick.jt", method = RequestMethod.POST)
@@ -409,8 +376,8 @@ public class GatherController {
 		switch (summaryUser.getEnumAuthority()) {
 		case CUSTOMER:
 			comment.setCustomerPn(summaryUser.getPn());
-			
-			if(comment.getProductPn() != 0){
+
+			if (comment.getProductPn() != 0) {
 				if (commentService.selectCommentExist(comment) == 0) {
 					commentService.insertProductComment(comment);
 					List<Comment> commentList = commentService.selectCommentList(comment);
@@ -419,7 +386,7 @@ public class GatherController {
 				} else {
 					comment.setMessage("3");
 				}
-			}else{
+			} else {
 				if (commentService.selectEventCommentExist(comment) == 0) {
 					commentService.insertEventComment(comment);
 					List<Comment> commentList = commentService.selectEventCommentList(comment);
@@ -445,9 +412,9 @@ public class GatherController {
 	public Map<String, Object> ajaxSelectComment(@RequestBody Comment comment, SummaryUser summaryUser) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		List<Comment> commentList = new ArrayList<Comment>();
-		if(comment.getProductPn() != 0){
+		if (comment.getProductPn() != 0) {
 			commentList = commentService.selectCommentList(comment);
-		}else{
+		} else {
 			commentList = commentService.selectEventCommentList(comment);
 		}
 		comment.setCount(commentList.size());
@@ -542,7 +509,7 @@ public class GatherController {
 		switch (summaryUser.getEnumAuthority()) {
 		case CUSTOMER:
 			comment.setCustomerPn(summaryUser.getPn());
-			if(comment.getProductPn() != 0 ){ 
+			if (comment.getProductPn() != 0) {
 				Integer exist = commentService.selectProductCommentWarnExist(comment);
 				if (exist == 0) {
 					commentService.insertProductCommentWarn(comment);
@@ -550,7 +517,7 @@ public class GatherController {
 					comment.setMessage("3");
 					return comment;
 				}
-			}else{
+			} else {
 				Integer exist = commentService.selectEventCommentWarnExist(comment);
 				if (exist == 0) {
 					commentService.insertEventCommentWarn(comment);
@@ -575,21 +542,21 @@ public class GatherController {
 		comment.setCustomerPn(summaryUser.getPn());
 		switch (summaryUser.getEnumAuthority()) {
 		case ROOT_ADMIN:
-			if(comment.getProductPn() !=0){
+			if (comment.getProductPn() != 0) {
 				commentService.deleteProductComment(comment);
-			}else{
+			} else {
 				commentService.deleteEventComment(comment);
 			}
 			break;
 		case CUSTOMER:
-			if(comment.getProductPn() !=0){
+			if (comment.getProductPn() != 0) {
 				Integer exist = commentService.selectUserCommentExist(comment);
 				if (exist == 1) {
 					commentService.deleteProductComment(comment);
 				} else {
 					comment.setMessage("3");
 				}
-			}else{
+			} else {
 				Integer exist = commentService.selectUserEventCommentExist(comment);
 				if (exist == 1) {
 					commentService.deleteEventComment(comment);

@@ -66,14 +66,10 @@ public class HomeController {
 		gatherFilter.setCurrentPage(currentPage);
 		gatherFilter.setPagePerItem(12);
 		gatherFilter.setCustomerPn(summaryUser.getPn());
-		//if (gatherFilter.getTotalPageSize() > currentPage) {
-			Map<String, Object> object = new HashMap<String, Object>();
-			//object.put("mergeItems", gatherService.paginateItemList(mergeList, gatherFilter));
-			object.put("mergeItems", gatherService.selectNewProductListForMobile(gatherFilter));
-			session.setAttribute("app-currentPage", (gatherFilter.getCurrentPage() + 1));
-			return object;
-		//} else {
-		//}
+		Map<String, Object> object = new HashMap<String, Object>();
+		object.put("mergeItems", gatherService.selectNewProductListForMobile(gatherFilter));
+		session.setAttribute("app-currentPage", (gatherFilter.getCurrentPage() + 1));
+		return object;
 	}
 
 }

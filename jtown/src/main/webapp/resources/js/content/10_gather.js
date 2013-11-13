@@ -45,8 +45,10 @@ jtown.pg.scrollPaging = function(){
 	$(window).scroll(function(){
 	    if($(window).scrollTop() == $(document).height() - $(window).height()){
 	        $('div#infscr-loading').show();
-	        $.postJSON(contextPath+'ajax/gatherPagination.jt',{}, function(data){
-	        	  if(data){
+	        var itemName = $('.jt-pg-main').attr('data-item-name');
+	        var category = $('.jt-header-nav-interestCategory').attr('data-category');
+	        $.postJSON(contextPath+'ajax/gatherPagination.jt',{itemName : itemName, navFlag : category }, function(data){
+	        	  if(data.mergeItems.length > 0){
 		            	productGatherHtml(data);
 		                $('div#infscr-loading').hide();
 		            }else{

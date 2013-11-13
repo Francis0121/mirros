@@ -88,7 +88,7 @@
 	</div>
 </div>
 <div class="jt-pg-container">
-<div class="jt-pg-main js-masonry">
+<div class="jt-pg-main js-masonry" data-item-name="${itemName }">
 
 	<div class="jt-pg-item jt-pg-event-item">
 	</div>

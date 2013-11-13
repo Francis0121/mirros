@@ -11,7 +11,7 @@
 <script src="${cp}/resources_webapp/js/mirros.all.js"></script>
 
 
-<script src="${cp}/resources_webapp/js/content/item.js"></script>
+<script src="${cp}/resources_webapp/js/content/item.js?01"></script>
 
 <%-- Node --%>
 <%-- <script src="${cp}/resources_mobile/js/mobile.real.time.js"></script> --%>

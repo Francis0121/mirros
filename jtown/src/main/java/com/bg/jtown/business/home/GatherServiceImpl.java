@@ -38,7 +38,6 @@ public class GatherServiceImpl extends SqlSessionDaoSupport implements GatherSer
 	@Autowired
 	private CommentService commentService;
 
-
 	@Override
 	public List<Gather> selectGatherProducts(GatherFilter productGatherFilter) {
 		return getSqlSession().selectList("gatherMapper.selectGatherProducts", productGatherFilter);
@@ -51,6 +50,27 @@ public class GatherServiceImpl extends SqlSessionDaoSupport implements GatherSer
 
 	@Override
 	public List<Gather> paginateItemList(List<Gather> itemList, GatherFilter productGatherFilter) {
+		List<Gather> paginatedItemList = new ArrayList<Gather>();
+		int itemSize = itemList.size();
+		for (int idx = 0; idx < productGatherFilter.getPagePerItem() * productGatherFilter.getCurrentPage(); idx++) {
+			if (idx < itemSize) {
+				Comment comment = new Comment();
+				comment.setProductPn(itemList.get(idx).getProductPn());
+				comment.setPage(1);
+				if (comment.getProductPn() != 0) {
+					itemList.get(idx).setComments(commentService.selectCommentList(comment));
+				} else {
+					comment.setEventPn(itemList.get(idx).getEventPn());
+					itemList.get(idx).setComments(commentService.selectEventCommentList(comment));
+				}
+				paginatedItemList.add(itemList.get(idx));
+			}
+		}
+		return paginatedItemList;
+	}
+
+	@Override
+	public List<Gather> paginateHotItemList(List<Gather> itemList, GatherFilter productGatherFilter) {
 		List<Gather> paginatedItemList = new ArrayList<Gather>();
 		int itemSize = itemList.size();
 		for (int idx = productGatherFilter.getPagePerItem() * (productGatherFilter.getCurrentPage() - 1); idx < productGatherFilter.getPagePerItem()
@@ -71,58 +91,97 @@ public class GatherServiceImpl extends SqlSessionDaoSupport implements GatherSer
 		return paginatedItemList;
 	}
 
+	@Override
+	public List<Gather> selectNewProductList(GatherFilter gatherFilter) {
+		return getSqlSession().selectList("gatherMapper.selectNewProductList", gatherFilter);
+	}
+
+	@Override
+	public List<Gather> selectHotProductList(GatherFilter gatherFilter) {
+		return getSqlSession().selectList("gatherMapper.selectHotProductList", gatherFilter);
+	}
+
+	@Override
+	public List<Gather> selectNewMergeList(GatherFilter gatherFilter) {
+		List<Gather> mergeList = new ArrayList<Gather>();
+		Random rand = new Random(System.nanoTime());
+		List<Gather> itemList = selectNewProductList(gatherFilter);
+		GatherFilter eventFilter = gatherFilter;
+		eventFilter.setPagePerItem(3);
+		List<Gather> eventList = new ArrayList<Gather>();
+		if (gatherFilter.getItemName() == null) {
+			eventList = selectEventList(eventFilter);
+		}
+
+		int totalCount = 0;
+		totalCount = eventList.size() + itemList.size();
+		while (totalCount > 0) {
+			if (!itemList.isEmpty()) {
+				int randNum = rand.nextInt(7) + 1;
+				for (int idx = 0; idx < randNum; idx++) {
+					int normalSize = itemList.size();
+					if (normalSize < randNum) {
+						for (int sIdx = 0; sIdx < normalSize; sIdx++) {
+							mergeList.add(itemList.remove(0));
+							totalCount--;
+						}
+					} else {
+						mergeList.add(itemList.remove(0));
+						totalCount--;
+					}
+				}
+			}
+			if (!eventList.isEmpty()) {
+				mergeList.add(eventList.remove(0));
+				totalCount--;
+			}
+		}
+		gatherFilter.setPagePerItem(23);
+		return mergeList;
+	}
+
 	/*
 	 * (rand.nextInt(9)+1)*2 에 대한 설명 : 10% , 즉 1/10 -> 10개마다 1개의 큰 사각형이 나와야함. 큰게
 	 * 연속으로 나오지 않으려면 2개부터 시작이므로 범위는 2 ~ 18 인 짝수
 	 */
 	@Override
 	public List<Gather> mergeProductGatherList(GatherFilter gatherFilter) {
-		int hotCount = selectGatherProductsCount(gatherFilter) * 10 / 100 ;
-		List<Gather> normalProduct = selectGatherProducts(gatherFilter); 
+		int hotCount = selectGatherProductsCount(gatherFilter) * 10 / 100;
+		List<Gather> normalProduct = selectGatherProducts(gatherFilter);
 		Random rand = new Random(System.nanoTime());
 		List<Gather> hotProduct = new ArrayList<Gather>();
 		List<Gather> eventList = selectEventList(gatherFilter);
 		List<Gather> smallSizeList = new ArrayList<Gather>();
 		List<Gather> mergeList = new ArrayList<Gather>();
-		
-		for(int idx = 0; idx < hotCount ; idx++){
+
+		for (int idx = 0; idx < hotCount; idx++) {
 			hotProduct.add(normalProduct.remove(idx));
 			hotProduct.get(idx).setHot(1);
 		}
 		if (!"hot".equals(gatherFilter.getNavFlag())) {
-			if(gatherFilter.getItemName() == null ){
+			if (gatherFilter.getItemName() == null) {
 				smallSizeList.addAll(eventList);
 			}
 			smallSizeList.addAll(normalProduct);
 			Collections.shuffle(smallSizeList, rand);
 		}
 		Collections.shuffle(hotProduct, rand);
-		
+		mergeList.addAll(hotProduct);
+		mergeList.addAll(smallSizeList);
+
 		// TODO IF -> BANNER LIST가 끝날 때까지 먼저 hotproduct 대신에 bannerList를 먼저 비움
-		int totalCount = 0;
-		totalCount = hotProduct.size() + smallSizeList.size();
-		while (totalCount > 0) {
-			if (!smallSizeList.isEmpty()) {
-				int randNum = ((rand.nextInt(9) + 1) * 2);
-				for (int idx = 0; idx < randNum; idx++) {
-					int normalSize = smallSizeList.size();
-					if (normalSize < randNum) {
-						for (int sIdx = 0; sIdx < normalSize; sIdx++) {
-							mergeList.add(smallSizeList.remove(0));
-							totalCount--;
-						}
-					} else {
-						mergeList.add(smallSizeList.remove(0));
-						totalCount--;
-					}
-				}
-			}
-			if (!hotProduct.isEmpty()) {
-				mergeList.add(hotProduct.remove(0));
-				totalCount--;
-			}
-		}
-		
+		/*
+		 * int totalCount = 0; totalCount = hotProduct.size() +
+		 * smallSizeList.size(); while (totalCount > 0) { if
+		 * (!smallSizeList.isEmpty()) { int randNum = ((rand.nextInt(9) + 1) *
+		 * 2); for (int idx = 0; idx < randNum; idx++) { int normalSize =
+		 * smallSizeList.size(); if (normalSize < randNum) { for (int sIdx = 0;
+		 * sIdx < normalSize; sIdx++) { mergeList.add(smallSizeList.remove(0));
+		 * totalCount--; } } else { mergeList.add(smallSizeList.remove(0));
+		 * totalCount--; } } } if (!hotProduct.isEmpty()) {
+		 * mergeList.add(hotProduct.remove(0)); totalCount--; } }
+		 */
+
 		return mergeList;
 	}
 
@@ -280,12 +339,11 @@ public class GatherServiceImpl extends SqlSessionDaoSupport implements GatherSer
 		return getSqlSession().selectList("gatherMapper.selectMyHeartList", customerPn);
 	}
 
-	//~ App
-	
+	// ~ App
+
 	@Override
 	public List<Gather> selectNewProductListForMobile(GatherFilter gatherFilter) {
 		return getSqlSession().selectList("gatherMapper.selectNewProductListForMobile", gatherFilter);
 	}
-	
 
 }

@@ -21,10 +21,18 @@ public interface GatherService {
 	List<Gather> selectGatherProducts(GatherFilter gatherFilter);
 
 	int selectGatherProductsCount(GatherFilter gatherFilter);
+	
+	List<Gather> selectNewProductList(GatherFilter gatherFilter);
+	
+	List<Gather> selectHotProductList(GatherFilter gatherFilter);
+	
+	List<Gather> selectNewMergeList(GatherFilter gatherFilter);
 
 	List<Gather> mergeProductGatherList(GatherFilter productGatherFilter);
 
 	List<Gather> paginateItemList(List<Gather> itemList, GatherFilter productGatherFilter);
+	
+	List<Gather> paginateHotItemList(List<Gather> itemList, GatherFilter productGatherFilter);
 
 	void insertProductStasticView(Integer productPn);
 

@@ -14,10 +14,6 @@
 		<c:set var="check_nav" value="${cp }/cpn/${gatherFilter.categoryPn eq null ? 0 : gatherFilter.categoryPn }"/>
 		<c:set var="now_nav" value="${cp }/cpn/0"/>
 	</c:if>
-	<c:if test="${categoryType == 'new'}">
-		<c:set var="check_nav" value="${cp }/n/cpn/${gatherFilter.categoryPn eq null ? 0 : gatherFilter.categoryPn }"/>
-		<c:set var="now_nav" value="${cp }/n/cpn/0"/>
-	</c:if>
 	<c:if test="${categoryType == 'hot'}">
 		<c:set var="check_nav" value="${cp }/h/cpn/${gatherFilter.categoryPn eq null ? 0 : gatherFilter.categoryPn }"/>
 		<c:set var="now_nav" value="${cp }/h/cpn/0"/>
@@ -32,9 +28,6 @@
 				<c:when test="${categoryType == 'pg'}">
 					<a href="${cp }/" class="${navPosition }" title="All"><span>All</span></a>
 				</c:when>
-				<c:when test="${categoryType == 'new'}">
-					<a href="${cp }/n" class="${navPosition }" title="All"><span>All</span></a>
-				</c:when>
 				<c:when test="${categoryType == 'hot'}">
 					<a href="${cp }/h" class="${navPosition }" title="All"><span>All</span></a>
 				</c:when>
@@ -46,9 +39,6 @@
 			<c:choose>
 				<c:when test="${categoryType == 'pg'}">
 					<c:set var="now_nav" value="${cp }/cpn/${interestCategoryPn }"/>
-				</c:when>
-				<c:when test="${categoryType == 'new'}">
-					<c:set var="now_nav" value="${cp }/n/cpn/${interestCategoryPn }"/>
 				</c:when>
 				<c:when test="${categoryType == 'hot'}">
 					<c:set var="now_nav" value="${cp }/h/cpn/${interestCategoryPn }"/>

@@ -43,7 +43,7 @@ $.attendProductItems = function(data){
 			html+=		'<img src="'+contextPath+'/photo/thumbnail/'+items[idx].saveName+'product.'+items[idx].contentType +'" />';	
 		}
 		html +=	'</div>';
-		html +=	'<div class="jt-app-item-list-products-name">'+$.reduceText(12,items[idx].productName)+'</div>';
+		html +=	'<div class="jt-app-item-list-products-name">'+$.reduceText(11,items[idx].productName)+'</div>';
 		html +=	'<div class="jt-app-item-list-products-price">'+$.formatNumber(items[idx].price)+'원</div>';
 		html +=	'<div class="jt-app-item-list-products-reply">';
 		if(items[idx].comment == null){
