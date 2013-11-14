@@ -89,15 +89,6 @@ public class HomeController {
 				model.addAttribute("isMobile", true);
 			}
 		}
-		// Menu 변경으로 주석처리
-		// if (summaryUser.getPn() != null
-		// && summaryUser.getEnumAuthority().equals(Authority.CUSTOMER)) {
-		// JtownUser jtownUser = loginService.selectCustomer(summaryUser
-		// .getPn());
-		// Integer sex = jtownUser.getSex() ? CATEGORY_MAN : CATEGORY_WOMAN;
-		// homeFilter.setCategoryPn(sex);
-		// }
-
 		getHomeModel(model, session, homeFilter, summaryUser);
 		return prefixView + "home";
 	}

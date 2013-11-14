@@ -2,7 +2,7 @@
 
 .jt-pg-container{width: 100%;}
 .jt-pg-main {margin: auto;position: relative;height: 100%;padding-right: 210px; z-index: 5;}
-.jt-right-sidebar{display:block;position:fixed;right:0;top:45px ; width:210px;height: 100%;border-left:1px solid rgba(0, 0, 0, .2); border-top: 1px solid rgba(0, 0, 0, .2);background-color: #fff ; z-index: 10;}
+.jt-right-sidebar{display:block;position:fixed;right:0;top:45px ; width:210px;height: 100%;border-left:1px solid rgba(0, 0, 0, .2); border-top: 1px solid rgba(0, 0, 0, .2);background-color: #fff ; z-index: 10;background-size:cover}
 .jt-right-sidebar-upper{height: 10px;color: #aaa; font-size: 12px; text-align: center;padding: 15px 0 5px 0;}
 .jt-right-sidebar-comment-feed{height: 48%;  overflow: hidden;}
 .jt-right-sidebar-heart-gather{height:100%;border-top:  1px solid rgba(0, 0, 0, .2);}

@@ -44,7 +44,6 @@ public class HomeController {
 
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public String itemView(Model model, HttpSession session, @ModelAttribute GatherFilter gatherFilter, SummaryUser summaryUser) {
-
 		gatherModelSetting(model, session, gatherFilter, summaryUser);
 		return prefixView + "item";
 	}
@@ -63,11 +62,16 @@ public class HomeController {
 	@ResponseBody
 	public Object ajaxGatherItem(GatherFilter gatherFilter, HttpSession session, SummaryUser summaryUser) {
 		int currentPage = (Integer) session.getAttribute("app-currentPage") == null ? 1 : (Integer) session.getAttribute("app-currentPage");
+		gatherFilter.setMobileFlag(true);
 		gatherFilter.setCurrentPage(currentPage);
 		gatherFilter.setPagePerItem(12);
 		gatherFilter.setCustomerPn(summaryUser.getPn());
 		Map<String, Object> object = new HashMap<String, Object>();
-		object.put("mergeItems", gatherService.selectNewProductListForMobile(gatherFilter));
+		
+		object.put("mergeItems", gatherService.selectNewProductList(gatherFilter));
+		//object.put("mergeItems", gatherService.selectHotProductList(gatherFilter));
+		
+		
 		session.setAttribute("app-currentPage", (gatherFilter.getCurrentPage() + 1));
 		return object;
 	}

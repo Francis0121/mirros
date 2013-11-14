@@ -15,6 +15,7 @@ public class GatherFilter extends AbstractListFilter {
 	private Integer customerPn;
 	private String itemName;
 	private Integer itemCategoryPn;
+	private boolean mobileFlag;
 
 	public int getCategoryPn() {
 		return categoryPn;
@@ -97,18 +98,27 @@ public class GatherFilter extends AbstractListFilter {
 	}
 
 	public int getPrevItemCount() {
-		return (currentPage-1) * pagePerItem;
+		return (currentPage - 1) * pagePerItem;
 	}
 
 	public void setPrevItemCount(int prevItemCount) {
 		this.prevItemCount = prevItemCount;
 	}
 
+	public boolean isMobileFlag() {
+		return mobileFlag;
+	}
+
+	public void setMobileFlag(boolean mobileFlag) {
+		this.mobileFlag = mobileFlag;
+	}
+
 	@Override
 	public String toString() {
 		return "GatherFilter [categoryPn=" + categoryPn + ", currentPage=" + currentPage + ", percentCount=" + percentCount + ", totalCount="
 				+ totalCount + ", prevItemCount=" + prevItemCount + ", pagePerItem=" + pagePerItem + ", totalPageSize=" + totalPageSize
-				+ ", navFlag=" + navFlag + ", customerPn=" + customerPn + ", itemName=" + itemName + ", itemCategoryPn=" + itemCategoryPn + "]";
+				+ ", navFlag=" + navFlag + ", customerPn=" + customerPn + ", itemName=" + itemName + ", itemCategoryPn=" + itemCategoryPn
+				+ ", mobileFlag=" + mobileFlag + "]";
 	}
 
 }

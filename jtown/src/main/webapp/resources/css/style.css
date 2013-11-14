@@ -14,7 +14,7 @@
 .jt-header-title{width: 100%; min-height: 45px; float: left; background: #fff;box-shadow: inset 0 1px #fff,0 1px 3px rgba(121,63,41,0.7);-moz-box-shadow: inset 0 1px #fff,0 1px 3px rgba(121,63,41,0.7);-webkit-box-shadow: inset 0 1px #fff,0 1px 3px rgba(121,63,41,0.7);}
 .jt-header-banner{ position: absolute; top: 0; left: 50%; width: 250px; font-size: 16px; margin-left: -75px;}
 .jt-header-banner-h1{ text-indent: -9999px; background: url("../images/jt-main-banner.png") no-repeat; width: 93px; height: 45px; margin-left: 30px;float: left;}
-.jt-header-banner-beta{text-indent: -9999px; background: url("../images/jt-banner-beta.png") no-repeat; width: 25px; height: 9px; float: left; margin-top: 12px;}
+.jt-header-banner-beta{width: 25px; height: 9px; float: left; margin-top: 12px;color:#808080;font-size:10px;font-family: arial, sans-serif;}
 
 .jt-header-login-menu{ font-size: 12px; position: absolute; right: 15px;}
 .jt-header-login-menu>li{ float: left; width: 80px;}
@@ -54,9 +54,9 @@
 .jt-header-nav-mode-shop-inactive{cursor:pointer; width: 42px; height: 30px; background: url("../images/jt-nav-inactive2.png") no-repeat; text-indent: -9999999px; display: block;background-position: -73px 0px; background-size: 115px;}
 .jt-header-nav-mode-shop-inactive:HOVER{cursor:pointer; width: 42px; height: 30px; background: url("../images/jt-nav-hover2.png") no-repeat; text-indent: -9999999px; display: block;background-position: -73px 0px; background-size: 115px;}
 .jt-header-nav-mode-shop-active{cursor:pointer; width: 42px; height: 30px; background: url("../images/jt-nav-active2.png") no-repeat; text-indent: -9999999px; display: block;background-position: -73px 0px; background-size: 115px;}
-.jt-header-nav-mode-gather-inactive{cursor:pointer; width: 43px; height: 30px; background: url("../images/jt-nav-inactive2.png") no-repeat; text-indent: -9999999px; display: block;background-position: 0px 0px; background-size: 115px;}
-.jt-header-nav-mode-gather-inactive:HOVER{cursor:pointer; width: 43px; height: 30px; background: url("../images/jt-nav-hover2.png") no-repeat; text-indent: -9999999px; display: block;background-position: 0px 0px; background-size: 115px;}
-.jt-header-nav-mode-gather-active{cursor:pointer; width: 43px; height: 30px; background: url("../images/jt-nav-active2.png") no-repeat; text-indent: -9999999px; display: block;background-position: 0px 0px;  background-size: 115px;}
+.jt-header-nav-mode-gather-inactive{cursor:pointer; width: 41px; height: 30px; background: url("../images/jt-nav-inactive2.png") no-repeat; text-indent: -9999999px; display: block;background-position: -1px 0px; background-size: 115px;}
+.jt-header-nav-mode-gather-inactive:HOVER{cursor:pointer; width: 41px; height: 30px; background: url("../images/jt-nav-hover2.png") no-repeat; text-indent: -9999999px; display: block;background-position: -1px 0px; background-size: 115px;}
+.jt-header-nav-mode-gather-active{cursor:pointer; width: 41px; height: 30px; background: url("../images/jt-nav-active2.png") no-repeat; text-indent: -9999999px; display: block;background-position: -1px 0px;  background-size: 115px;}
 .jt-header-nav-mode-new-inactive{cursor:pointer; width: 30px; height: 30px; background: url("../images/jt-nav-inactive2.png") no-repeat; text-indent: -9999999px; display: block;background-position: -43px 0px; background-size: 115px;}
 .jt-header-nav-mode-new-inactive:HOVER{cursor:pointer; width: 30px; height: 30px; background: url("../images/jt-nav-hover2.png") no-repeat; text-indent: -9999999px; display: block;background-position: -43px 0px; background-size: 115px;}
 .jt-header-nav-mode-new-active{cursor:pointer; width: 30px; height: 30px; background: url("../images/jt-nav-active2.png") no-repeat; text-indent: -9999999px; display: block;background-position: -43px 0px; background-size: 115px;}

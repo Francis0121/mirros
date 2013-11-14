@@ -56,7 +56,7 @@
 	</c:if>
 </div>
 <div class="jt-header-banner">
-	<a href="${cp }/"><h1 class="jt-header-banner-h1">Mirros</h1><span class="jt-header-banner-beta">beta</span></a>
+	<a href="${cp }/"><h1 class="jt-header-banner-h1">Mirros</h1><span class="jt-header-banner-beta">Beta</span></a>
 </div>
 <ul class="jt-header-login-menu">
 	<sec:authorize access="hasRole('ROLE_USER')">

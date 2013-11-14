@@ -200,7 +200,8 @@ public class LoginController {
 			model.addAttribute("connectionMap", connections);
 
 			if (summaryUser.getEnumAuthority() == Authority.CUSTOMER) {
-				JtownUser user = loginService.selectCustomer(pn);
+				JtownUser user = new JtownUser();  
+				user.setPn(pn);
 				user.setUsername(summaryUser.getUsername());
 				user.setName(summaryUser.getName());
 				model.addAttribute("jtownUser", user);
@@ -255,7 +256,8 @@ public class LoginController {
 			model.addAttribute("connectionMap", connections);
 
 			if (summaryUser.getEnumAuthority() == Authority.CUSTOMER) {
-				JtownUser user = loginService.selectCustomer(pn);
+				JtownUser user = new JtownUser();
+				user.setPn(pn);
 				user.setUsername(summaryUser.getUsername());
 				user.setName(summaryUser.getName());
 				model.addAttribute("jtownUser", user);
@@ -367,7 +369,8 @@ public class LoginController {
 		model.addAttribute("connectionMap", connections);
 
 		if (summaryUser.getEnumAuthority() == Authority.CUSTOMER) {
-			JtownUser jtownUser = loginService.selectCustomer(summaryUser.getPn());
+			JtownUser jtownUser = new JtownUser(); 
+			jtownUser.setPn(summaryUser.getPn());
 			jtownUser.setUsername(summaryUser.getUsername());
 			jtownUser.setName(summaryUser.getName());
 			model.addAttribute("jtownUser", jtownUser);

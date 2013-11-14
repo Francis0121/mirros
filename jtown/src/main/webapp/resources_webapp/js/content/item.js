@@ -18,7 +18,7 @@ $.pagingItem = function(){
 			$.attendProductItems(data);
 			$.mobile.hidePageLoadingMsg();
     	}else{
-            	//end
+            	//end dialog
     	}
     });
 };
@@ -34,8 +34,12 @@ $.scrollPaging = function(){
 $.attendProductItems = function(data){
 	var html ='';
 	var items = data.mergeItems;
+	console.log(items);
 	for(var idx=0, size = items.length; idx < size; idx++){
 		html += '<div class="jt-app-item-list-products">';
+		if(items[idx].hot == 1){
+			html+='<div class="jt-app-item-list-products-hot"><img src="'+contextPath+'/resources/images/jt-hot.png"></div>';
+		}
 		html +=	'<div class="jt-app-item-list-products-img">';
 		if(items[idx].contentType == ''){
 			html+=		'<img src="'+contextPath+'/resources/uploadImage/'+items[idx].saveName+'" />';

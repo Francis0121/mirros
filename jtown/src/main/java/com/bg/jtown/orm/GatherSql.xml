@@ -79,6 +79,9 @@
 		    heart_count,
 		    input_date,
 		    IFNULL(hot ,0) AS hot
+		    <if test="mobileFlag == true">
+		      	,comment
+		      </if>
 		    <if test="customerPn != null">, customer_pn</if>
 		  FROM
 		    (SELECT 
@@ -96,6 +99,9 @@
 		      usp.input_date,
 		      pcl.customer_pn,
 		      htb.hot 
+		      <if test="mobileFlag == true">
+		      	,comment
+		      </if>
 		    FROM
 		      user_seller_product usp 
 		      JOIN user_seller_contract_info usci 
@@ -109,7 +115,11 @@
 		      LEFT OUTER JOIN statistic_product_click spc 
 		        ON spc.product_pn = usp.pn 
 		      LEFT OUTER JOIN image img 
-		        ON img.pn = image_pn 
+		        ON img.pn = image_pn
+		      <if test="mobileFlag == true">
+		      LEFT JOIN (SELECT product_pn,COMMENT FROM product_comment ORDER BY comment_pn DESC ) pc
+      		    ON pc.product_pn = usp.pn  
+		      </if> 
 		      LEFT OUTER JOIN count_product_heart cph 
 		        ON cph.product_pn = usp.pn 
 		      LEFT OUTER JOIN product_count_love pcl 
@@ -253,9 +263,12 @@
 		      content_type,
 		      heart_count,
 		      input_date,
-		      <if test="customerPn != null">, customer_pn</if>
+		      <if test="customerPn != null"> customer_pn,</if>
 		      SUM(day_count) AS day_count,
 		      1 AS hot 
+		      <if test="mobileFlag == true">
+		      	,comment
+		      </if>
 		    FROM
 		      (SELECT 
 		        usp.pn AS product_pn,
@@ -271,6 +284,9 @@
 		        usp.input_date,
 		        pcl.customer_pn,
 		        day_count 
+		        <if test="mobileFlag == true">
+		      	,comment
+		      </if>
 		      FROM
 		        user_seller_product usp 
 		        JOIN user_seller_contract_info usci 
@@ -283,6 +299,10 @@
 		          ON u.pn = us.pn 
 		        JOIN partnership p 
 		          ON p.seller_pn = us.pn 
+		      <if test="mobileFlag == true">
+		      LEFT JOIN (SELECT product_pn,COMMENT FROM product_comment ORDER BY comment_pn DESC ) pc
+      		    ON pc.product_pn = usp.pn  
+		      </if> 
 		        LEFT OUTER JOIN statistic_product_click spc 
 		          ON spc.product_pn = usp.pn 
 		        LEFT OUTER JOIN product_count_love pcl 
@@ -714,83 +734,178 @@
 <!-- webapp -->
 
 <select id="selectNewProductListForMobile" resultMap="gatherMapper">
-		SELECT 
-		  product_pn, seller_pn, image_pn, product_name, url, price, save_name, original_name, 
-		  	content_type, SUM(day_count) AS day_count, heart_count, comment <if test="customerPn != null">, customer_pn</if>
+		SELECT * 
 		FROM
 		  (SELECT 
-		    usp.pn AS product_pn,
-			usci.seller_pn,
+		    product_pn,
+		    seller_pn,
 		    image_pn,
-		    usp.NAME AS product_name,
+		    product_name,
 		    url,
 		    price,
 		    save_name,
 		    original_name,
 		    content_type,
-		    day_count,
+		    SUM(day_count) AS day_count,
 		    heart_count,
-		    pcl.customer_pn, 
-		    usp.input_date,
+		    input_date,
+		    IFNULL(hot ,0) AS hot,
 		    comment
+		    <if test="customerPn != null">, customer_pn</if>
 		  FROM
-		    user_seller_product usp 
-		    JOIN user_seller_contract_info usci 
-		      ON usp.seller_pn = usci.seller_pn 
-		    JOIN user_seller us 
-		      ON us.pn = usci.seller_pn 
-		    JOIN users u 
-		      ON u.pn = us.pn 
-		    JOIN partnership p 
-		      ON p.seller_pn = us.pn 
-		    LEFT OUTER JOIN statistic_product_click spc
-			ON spc.product_pn = usp.pn
-		    LEFT OUTER JOIN image img 
-		      ON img.pn = image_pn
-		    LEFT JOIN (SELECT product_pn,COMMENT FROM product_comment ORDER BY comment_pn DESC ) pc
-      		  ON pc.product_pn = usp.pn   
-		    LEFT OUTER JOIN count_product_heart cph
-			  ON cph.product_pn = usp.pn 
-		    LEFT OUTER JOIN product_count_love pcl
-			  ON pcl.product_pn = usp.pn
-			<if test="customerPn != null">
-		  		AND pcl.customer_pn = #{customerPn}
-		  	</if>
-		  WHERE usp.NAME IS NOT NULL 
-		    AND CURDATE() BETWEEN usci.start_date AND usci.end_date 
-		    AND usp.deleted ='N'		
-		    <if test="categoryPn != 0"> 
-		   		AND p.category_pn = #{categoryPn}
-		    </if>   
-		    AND u.enable = 1
-		      AND usp.pn IN (SELECT * FROM (
-				SELECT usp.pn
-						  FROM
-						    user_seller_product  usp
-						    JOIN user_seller_contract_info usci 
-						      ON usp.seller_pn = usci.seller_pn 
-						    JOIN user_seller us 
-						      ON us.pn = usci.seller_pn 
-						    JOIN users u 
-						      ON u.pn = us.pn 
-						    JOIN partnership p 
-						      ON p.seller_pn = us.pn 
-						    LEFT OUTER JOIN statistic_product_click spc
-							ON spc.product_pn = usp.pn
-						    LEFT OUTER JOIN image img 
-						      ON img.pn = image_pn
-						  WHERE usp.NAME IS NOT NULL 
-						    AND CURDATE() BETWEEN usci.start_date AND usci.end_date 
-						    AND usp.deleted ='N'		
-					      <if test="categoryPn != 0"> 
-					   		 AND p.category_pn = #{categoryPn}
-					      </if>   
-						    AND u.enable = 1  
-						    ORDER BY usp.input_date DESC
-						LIMIT #{prevItemCount}, #{pagePerItem}
-				)a )) tb 
-		GROUP BY product_pn
-		ORDER BY input_date DESC
+		    (SELECT 
+		      usp.pn AS product_pn,
+		      usci.seller_pn,
+		      image_pn,
+		      usp.NAME AS product_name,
+		      url,
+		      price,
+		      save_name,
+		      original_name,
+		      content_type,
+		      day_count,
+		      heart_count,
+		      usp.input_date,
+		      pcl.customer_pn,
+		      htb.hot,
+		      comment
+		    FROM
+		      user_seller_product usp 
+		      JOIN user_seller_contract_info usci 
+		        ON usp.seller_pn = usci.seller_pn 
+		      JOIN user_seller us 
+		        ON us.pn = usci.seller_pn 
+		      JOIN users u 
+		        ON u.pn = us.pn 
+		      JOIN partnership p 
+		        ON p.seller_pn = us.pn 
+		      LEFT OUTER JOIN statistic_product_click spc 
+		        ON spc.product_pn = usp.pn 
+		      LEFT OUTER JOIN image img 
+		        ON img.pn = image_pn
+		      LEFT JOIN (SELECT product_pn,COMMENT FROM product_comment ORDER BY comment_pn DESC ) pc
+      		    ON pc.product_pn = usp.pn  
+		      LEFT OUTER JOIN count_product_heart cph 
+		        ON cph.product_pn = usp.pn 
+		      LEFT OUTER JOIN product_count_love pcl 
+		        ON pcl.product_pn = usp.pn 
+		        <if test="customerPn != null">
+			  		AND pcl.customer_pn = #{customerPn}
+			  	</if>
+		      LEFT OUTER JOIN 
+		        (SELECT 
+		          product_pn,
+		          hot 
+		        FROM
+		          (SELECT 
+		            tb.*,
+		            @rownum := @rownum + 1 AS rownum 
+		          FROM
+		            (SELECT 
+		              product_pn,
+		              SUM(day_count) AS day_count,
+		              1 AS hot 
+		            FROM
+		              (SELECT 
+		                usp.pn AS product_pn,
+		                day_count 
+		              FROM
+		                user_seller_product usp 
+		                JOIN user_seller_contract_info usci 
+		                  ON usp.seller_pn = usci.seller_pn 
+		                JOIN user_seller us 
+		                  ON us.pn = usci.seller_pn 
+		                JOIN users u 
+		                  ON u.pn = us.pn 
+		                JOIN partnership p 
+		                  ON p.seller_pn = us.pn 
+		                LEFT OUTER JOIN statistic_product_click spc 
+		                  ON spc.product_pn = usp.pn 
+		              WHERE usp.NAME IS NOT NULL 
+		                AND CURDATE() BETWEEN usci.start_date 
+		                AND usci.end_date 
+		                AND usp.deleted = 'N' 
+		                <if test="categoryPn != 0"> 
+			   			 AND p.category_pn = #{categoryPn}
+			    	  </if>
+			    	  <if test="itemName != null ">
+					    AND usp.name LIKE CONCAT('%',#{itemName},'%')
+					  </if>
+		                AND u.enable = 1) tb,
+		              (SELECT 
+		                @rownum := 0) R 
+		            GROUP BY product_pn) tb 
+		          ORDER BY day_count DESC) tb 
+		        WHERE rownum &lt;= 
+		          (SELECT 
+		            COUNT(DISTINCT usp.pn) / 10 
+		          FROM
+		            user_seller_product usp 
+		            JOIN user_seller_contract_info usci 
+		              ON usp.seller_pn = usci.seller_pn 
+		            JOIN user_seller us 
+		              ON us.pn = usci.seller_pn 
+		            JOIN users u 
+		              ON u.pn = us.pn 
+		            JOIN partnership p 
+		              ON p.seller_pn = us.pn 
+		          WHERE usp.NAME IS NOT NULL 
+		            AND CURDATE() BETWEEN usci.start_date 
+		            AND usci.end_date 
+		            AND usp.deleted = 'N'
+		            <if test="categoryPn != 0"> 
+		   				 AND p.category_pn = #{categoryPn}
+		    	    </if>
+		    	    <if test="itemName != null ">
+				    AND usp.name LIKE CONCAT('%',#{itemName},'%')
+				  </if> 
+		            AND u.enable = 1)) htb 
+		        ON htb.product_pn = usp.pn 
+		    WHERE usp.NAME IS NOT NULL 
+		      AND CURDATE() BETWEEN usci.start_date 
+		      AND usci.end_date 
+		      AND usp.deleted = 'N' 
+		      <if test="categoryPn != 0"> 
+	   			 AND p.category_pn = #{categoryPn}
+	    	  </if>
+	    	  <if test="itemName != null ">
+			    AND usp.name LIKE CONCAT('%',#{itemName},'%')
+			  </if>
+		      AND u.enable = 1 
+		      AND usp.pn IN 
+		      (SELECT 
+		        * 
+		      FROM
+		        (SELECT 
+		          usp.pn 
+		        FROM
+		          user_seller_product usp 
+		          JOIN user_seller_contract_info usci 
+		            ON usp.seller_pn = usci.seller_pn 
+		          JOIN user_seller us 
+		            ON us.pn = usci.seller_pn 
+		          JOIN users u 
+		            ON u.pn = us.pn 
+		          JOIN partnership p 
+		            ON p.seller_pn = us.pn 
+		        WHERE usp.NAME IS NOT NULL 
+		          AND CURDATE() BETWEEN usci.start_date 
+		          AND usci.end_date 
+		          AND usp.deleted = 'N' 
+		          <if test="categoryPn != 0"> 
+		   			 AND p.category_pn = #{categoryPn}
+		    	  </if>
+		    	  <if test="itemName != null ">
+				    AND usp.name LIKE CONCAT('%',#{itemName},'%')
+				  </if>
+		          AND u.enable = 1 
+		          GROUP BY usp.pn
+		        ORDER BY usp.input_date DESC 
+		        LIMIT #{prevItemCount}, #{pagePerItem}) a)) tb 
+		  GROUP BY product_pn 
+		  ORDER BY day_count DESC,
+		    heart_count DESC) tb 
+		ORDER BY input_date DESC 
 	</select>
 	
 </mapper>
