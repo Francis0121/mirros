@@ -14,7 +14,7 @@ $(function() {
    }
 	
 jtown.pg.windowResize = function(){
-	var clientWidth = Number(window.document.body.clientWidth),
+	var clientWidth = Number(window.document.body.clientWidth) -210,
 	widthItem = Math.floor(clientWidth/258);
 	if(widthItem > 6){
 		widthItem = widthItem-1;
@@ -279,9 +279,8 @@ $('.jt-pg-container').on('click', '.jt-pg-item-wrap', function(){
 	}
 	window.open(productUrl, '_blank');
 });
-
 $('.jt-pg-container').on('click', '.jt-pg-comment-input', function(){
-	if($('#jt-login-smartPopup').text() =='LOG IN'){
+	if($('.jt-header-login-menu #jt-mypage').length == 0){
 		jtown.login.showLoginForm();
 		return;
 	}
@@ -566,6 +565,13 @@ $('body').on('click', '.jt-sidebar-heart-item', function(){
 		jtown.home.eventStatisticClick(eventPn);
 	}
 	window.open($(this).attr('data-url'), '_blank');
+});
+
+$('.jt-right-sidebar-heart-gather').bind('click', function(){
+	if($('.jt-header-login-menu #jt-mypage').length == 0){
+		jtown.login.showLoginForm();
+		return;
+	}
 });
 
 //~ init

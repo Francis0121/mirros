@@ -85,7 +85,6 @@ public interface GatherService {
 	
 	//~ app
 	
-	List<Gather> selectNewProductListForMobile(GatherFilter gatherFilter);
 	
 	
 }

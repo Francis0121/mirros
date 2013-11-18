@@ -341,9 +341,4 @@ public class GatherServiceImpl extends SqlSessionDaoSupport implements GatherSer
 
 	// ~ App
 
-	@Override
-	public List<Gather> selectNewProductListForMobile(GatherFilter gatherFilter) {
-		return getSqlSession().selectList("gatherMapper.selectNewProductListForMobile", gatherFilter);
-	}
-
 }

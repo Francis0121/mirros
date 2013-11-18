@@ -4,12 +4,9 @@
 <%@ include file="../layout/home-header.jspf" %>
 <div data-role="page">
 <%@ include file="../layout/header.jspf" %>
-	<div data-role="content" class="jt-app-item-content">
-		<div class="jt-app-item-change-mode">HOT</div>
-		<div class="jt-app-item-list">
-			
-		</div>
-		
+	<div data-role="content" class="jt-app-item-content" data-nav="${categoryType}">
+		<div class="jt-app-item-change-mode"></div>
+		<div class="jt-app-item-list"></div>
 <%-- 
 	<ul data-role= "listview" data-inset="true" style="width:200px;">
 		<li data-role="list-divider">Item</li>
@@ -24,4 +21,5 @@
 	<%@ include file="../layout/footer.jspf" %>
 </div>
 <%@ include file="../layout/home-footer.jspf" %>
+<script src="${cp}/resources_webapp/js/content/item.js?3"></script>
 

@@ -13,8 +13,8 @@
 <link rel="stylesheet" type="text/css" href="${cp }/resources_mobile/css/default.css" />
 <link rel="stylesheet" type="text/css" href="${cp }/resources_mobile/css/mobile-mirros.css" />
  --%>
- <link rel="stylesheet" type="text/css" href="${cp }/resources_webapp/css/default.css?06" />
- <link rel="stylesheet" type="text/css" href="${cp }/resources_webapp/css/items.css?023" />
+ <link rel="stylesheet" type="text/css" href="${cp }/resources_webapp/css/default.css?18" />
+ <link rel="stylesheet" type="text/css" href="${cp }/resources_webapp/css/items.css?029" />
  <link rel="stylesheet" type="text/css" href="${cp }/resources_webapp/css/reply.css" /> 
  <link rel="stylesheet" type="text/css" href="${cp }/resources_webapp/css/checkList.css" />
  <link rel="stylesheet" type="text/css" href="${cp }/resources_webapp/css/more.css" />

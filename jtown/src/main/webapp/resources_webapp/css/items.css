@@ -5,6 +5,6 @@
 .jt-app-item-list-products-price{ padding: 0 15px 5px 15px;font-size: 12px;color:#fb950f;}
 .jt-app-item-list-products-reply{ padding: 5px 5px 5px 15px;font-size: 12px;color:#888; }
 .jt-app-item-list-products-reply>img{width:17px;height:17px;}
-.jt-app-item-change-mode{position: fixed;bottom: 70px; right: 2%; width:40px;height: 35px;border-radius:40px; padding:16px 0 0 12px; background-color: #ffaa3c; color: #fff; font-size:13px;}
+.jt-app-item-change-mode{position: fixed;bottom: 70px; right: 2%; width:40px;height: 35px;border-radius:40px; padding:16px 0 0 12px; background-color: #ffaa3c; color: #fff; font-size:13px;z-index: 50;}
 .jt-app-item-list-products-hot{position: absolute; width:70px; right: 0%;top:25px;}
 .jt-app-item-list-products-hot>img{width: 100%;}

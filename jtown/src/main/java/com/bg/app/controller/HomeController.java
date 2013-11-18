@@ -1,8 +1,10 @@
 package com.bg.app.controller;
 
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -20,6 +22,8 @@ import com.bg.jtown.business.home.GatherService;
 import com.bg.jtown.business.home.HomeService;
 import com.bg.jtown.business.search.GatherFilter;
 import com.bg.jtown.security.SummaryUser;
+import com.bg.jtown.util.BrowserUtil;
+import com.bg.jtown.util.CookieUtil;
 
 @Controller(value = "appHomeController")
 @RequestMapping("/app")
@@ -47,8 +51,17 @@ public class HomeController {
 		gatherModelSetting(model, session, gatherFilter, summaryUser);
 		return prefixView + "item";
 	}
+	
+	@RequestMapping(value = "/cpn/{categoryPn}", method = RequestMethod.GET)
+	public String productGatherCategoryView(Model model, HttpSession session, @ModelAttribute GatherFilter gatherFilter, SummaryUser summaryUser,
+			HttpServletRequest request) throws UnsupportedEncodingException {
+		gatherModelSetting(model, session, gatherFilter, summaryUser);
+		return prefixView + "item";
+	}
+	
 
 	public void gatherModelSetting(Model model, HttpSession session, GatherFilter gatherFilter, SummaryUser summaryUser) {
+		System.out.println("gather Filter :"+gatherFilter);
 		session.setAttribute("app-currentPage", 1);
 		gatherFilter.setPagePerItem(12);
 		model.addAttribute("interestCategories", homeService.selecInterestCategory());
@@ -56,6 +69,7 @@ public class HomeController {
 		model.addAttribute("myHeartList", gatherService.selectMyHeartList(summaryUser.getPn()));
 		model.addAttribute("categoryType", gatherFilter.getNavFlag());
 		model.addAttribute("itemName", gatherFilter.getItemName());
+		model.addAttribute("categoryPn", gatherFilter.getCategoryPn());
 	}
 	
 	@RequestMapping(value = "/ajax/productPagination.jt", method = RequestMethod.POST)
@@ -67,11 +81,11 @@ public class HomeController {
 		gatherFilter.setPagePerItem(12);
 		gatherFilter.setCustomerPn(summaryUser.getPn());
 		Map<String, Object> object = new HashMap<String, Object>();
-		
-		object.put("mergeItems", gatherService.selectNewProductList(gatherFilter));
-		//object.put("mergeItems", gatherService.selectHotProductList(gatherFilter));
-		
-		
+		if("H".equals(gatherFilter.getNavFlag())){
+			object.put("mergeItems", gatherService.selectHotProductList(gatherFilter));
+		}else{
+			object.put("mergeItems", gatherService.selectNewProductList(gatherFilter));
+		}
 		session.setAttribute("app-currentPage", (gatherFilter.getCurrentPage() + 1));
 		return object;
 	}
