@@ -1,5 +1,5 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<div data-role="header" class="jt-app-header" data-theme="f" data-inline="true">
+<div data-role="header" class="jt-app-header" data-theme="a" data-inline="true">
 	<div class="jt-app-header-wrap">
 	<h4>Mirros</h4>
 	<a data-icon="arrow-d" data-role="button"  data-iconpos="notext" id="jt-app-header-arrow-d" class="ui-btn-left" data-toggle="0"></a> 

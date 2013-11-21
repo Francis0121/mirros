@@ -148,6 +148,8 @@ box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box;
 .jt-home-expand-shop-event-update-delete-btn{ margin-left: 3px; }
 .jt-home-expand-shop-event-update-delete-btn>.btnImage{ background-position: 0 -12px; }
 
+.jt-seller-product-tip{font-size: 13px; margin: 10px 16px; line-height: 1.2;color: #b2b2b2;}
+
 .jt-home-expand-shop-event-update-large-wrap{
 		position: absolute; 
 		background-color:#fff;

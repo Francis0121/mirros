@@ -318,6 +318,10 @@
 							</button>
 						</div>
 					</div>
+					<div class="jt-seller-product-tip">
+						<div>Tip 1 : 인기 상품은 최대 1주일까지 HOT에 올라갑니다. 매력적인 상품을 올려보세요!</div>
+						<div>Tip 2 : 하루에 올릴 수 있는 상품은 최대 12개 까지입니다.</div>
+					</div>
 				</div>
 				<div class="jt-home-expand-shop-event-update-large-wrap">
 						<div class="jt-home-expand-shop-event-update-large-wrap-header">

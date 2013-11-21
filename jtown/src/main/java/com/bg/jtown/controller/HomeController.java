@@ -84,7 +84,7 @@ public class HomeController {
 		if (BrowserUtil.isMobile(request)) {
 			String value = CookieUtil.isCookie("SEE_PC_VERSION", request);
 			if (value == null || !value.equals("T")) {
-				return "redirect:/m";
+				return "redirect:/app";
 			} else {
 				model.addAttribute("isMobile", true);
 			}
@@ -123,7 +123,7 @@ public class HomeController {
 		if (BrowserUtil.isMobile(request)) {
 			String value = CookieUtil.isCookie("SEE_PC_VERSION", request);
 			if (value == null || !value.equals("T")) {
-				return "redirect:/m/cpn/" + homeFilter.getCategoryPn() + "/spn/" + homeFilter.getSectionPn();
+				return "redirect:/app/cpn/" + homeFilter.getCategoryPn() + "/spn/" + homeFilter.getSectionPn();
 			} else {
 				model.addAttribute("isMobile", true);
 			}

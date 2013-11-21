@@ -5,12 +5,10 @@
 <div data-role="page">
 <%@ include file="../../layout/header.jspf" %>
 	<div data-role="content" class="jt-app-item-content">
-	<div class="jt-app-mirrosis">
-	</div>
-	<img alt="bar" src="${cp }/resources/images/about/jt-about-bar.jpg" class="jt-about-bar">
-	<div>
+	<h5>이용약관</h5>
+	<pre class="jt-app-pre-text">
 		
-	</div>
+	</pre>
 	</div>
 	<%@ include file="../../layout/footer.jspf" %>
 </div>

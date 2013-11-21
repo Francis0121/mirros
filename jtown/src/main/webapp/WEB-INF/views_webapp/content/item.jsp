@@ -21,5 +21,5 @@
 	<%@ include file="../layout/footer.jspf" %>
 </div>
 <%@ include file="../layout/home-footer.jspf" %>
-<script src="${cp}/resources_webapp/js/content/item.js?3"></script>
+
 

@@ -1,5 +1,6 @@
 package com.bg.jtown.business;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -23,6 +24,7 @@ public class Gather extends Redis {
 	private int heartCount;
 	private Integer customerPn;
 	private List<Comment> comments;
+	private String inputDate;
 
 	// Event Data
 	private int eventPn;
@@ -221,13 +223,22 @@ public class Gather extends Redis {
 		this.comment = comment;
 	}
 
+	public String getInputDate() {
+		return inputDate;
+	}
+
+	public void setInputDate(String inputDate) {
+		this.inputDate = inputDate;
+	}
+
 	@Override
 	public String toString() {
 		return "Gather [productPn=" + productPn + ", sellerPn=" + sellerPn + ", imagePn=" + imagePn + ", productName=" + productName + ", url=" + url
 				+ ", price=" + price + ", saveName=" + saveName + ", originalName=" + originalName + ", contentType=" + contentType + ", hot=" + hot
 				+ ", newProduct=" + newProduct + ", heartCount=" + heartCount + ", customerPn=" + customerPn + ", comments=" + comments
-				+ ", eventPn=" + eventPn + ", eventName=" + eventName + ", beginDate=" + beginDate + ", endDate=" + endDate + ", bannerOrder="
-				+ bannerOrder + ", shopName=" + shopName + ", newEvent=" + newEvent + ", commentPn=" + commentPn + ", comment=" + comment + "]";
+				+ ", inputDate=" + inputDate + ", eventPn=" + eventPn + ", eventName=" + eventName + ", beginDate=" + beginDate + ", endDate="
+				+ endDate + ", bannerOrder=" + bannerOrder + ", shopName=" + shopName + ", newEvent=" + newEvent + ", commentPn=" + commentPn
+				+ ", comment=" + comment + "]";
 	}
 
 }

@@ -30,6 +30,22 @@ $.reduceText = function(length, text ){
 	return text.length > length ? text.substring(0,length-1)+'..' : text;  
 };
 
+function post(URL, PARAMS) {
+	var temp=document.createElement("form");
+	temp.action=URL;
+	temp.method="POST";
+	temp.style.display="none";
+	for(var x in PARAMS) {
+		var opt=document.createElement("textarea");
+		opt.name=x;
+		opt.value=PARAMS[x];
+		temp.appendChild(opt);
+	}
+	document.body.appendChild(temp);
+	temp.submit();
+	return temp;
+}
+
 $.formatNumber = function(cr){
 	var str = new Array();
 	cr = String(cr);

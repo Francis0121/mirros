@@ -140,10 +140,6 @@ public class GatherServiceImpl extends SqlSessionDaoSupport implements GatherSer
 		return mergeList;
 	}
 
-	/*
-	 * (rand.nextInt(9)+1)*2 에 대한 설명 : 10% , 즉 1/10 -> 10개마다 1개의 큰 사각형이 나와야함. 큰게
-	 * 연속으로 나오지 않으려면 2개부터 시작이므로 범위는 2 ~ 18 인 짝수
-	 */
 	@Override
 	public List<Gather> mergeProductGatherList(GatherFilter gatherFilter) {
 		int hotCount = selectGatherProductsCount(gatherFilter) * 10 / 100;
@@ -168,20 +164,6 @@ public class GatherServiceImpl extends SqlSessionDaoSupport implements GatherSer
 		Collections.shuffle(hotProduct, rand);
 		mergeList.addAll(hotProduct);
 		mergeList.addAll(smallSizeList);
-
-		// TODO IF -> BANNER LIST가 끝날 때까지 먼저 hotproduct 대신에 bannerList를 먼저 비움
-		/*
-		 * int totalCount = 0; totalCount = hotProduct.size() +
-		 * smallSizeList.size(); while (totalCount > 0) { if
-		 * (!smallSizeList.isEmpty()) { int randNum = ((rand.nextInt(9) + 1) *
-		 * 2); for (int idx = 0; idx < randNum; idx++) { int normalSize =
-		 * smallSizeList.size(); if (normalSize < randNum) { for (int sIdx = 0;
-		 * sIdx < normalSize; sIdx++) { mergeList.add(smallSizeList.remove(0));
-		 * totalCount--; } } else { mergeList.add(smallSizeList.remove(0));
-		 * totalCount--; } } } if (!hotProduct.isEmpty()) {
-		 * mergeList.add(hotProduct.remove(0)); totalCount--; } }
-		 */
-
 		return mergeList;
 	}
 

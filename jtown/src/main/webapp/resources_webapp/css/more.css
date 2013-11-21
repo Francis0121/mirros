@@ -1,1 +1,116 @@
-.jt-app-item-content{height: 100%;overflow: hidden; }
+/******************
+~More Menu
+******************/
+
+.jt-app-more-content{height: 100%;overflow: hidden;padding: 0;width: 100%; }
+.jt-app-more-menu{overflow: hidden;margin: 0;padding: 0}
+.jt-app-more-menu>li{float: left;width:33.33%;height: 20px;margin: 0;padding:25px 0; background-color: #fff;list-style: none;text-align: center;font-family: arial, sans-serif;font-size:12px; box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.25), 0 1px 0 rgba(255, 255, 255, 0.25);}
+.jt-app-more-menu>li>a{color:#555 !important; text-decoration: none; font-weight: normal !important;}
+
+/******************
+~Login
+******************/
+.jt-app-more-login-wrap{padding: 0;list-style-type : none;}
+.jt-app-more-login-wrap>li{padding: 1px 10px}
+.jt-btn-fbLogin{width:100%;}
+.jt-btn-fbLogin .ui-btn-inner{width:100%;padding: 0}
+.jt-btn-emailLogin{width:100%;}
+.jt-btn-emailLogin .ui-btn-inner{width:100%;padding: 0}
+.loginText{font-size:13px;}
+.jt-app-more-login-join{font-size:12px;padding: 15px 0 80px 0; text-align: right;}
+.jt-app-more-login-join>a{color:#ffa01e !important;text-decoration: none;font-size:13px;font-weight: normal !important;}
+
+#jt-page-login-form{overflow: hidden;}
+.jt-app-more-pw-wrap{float: left;width:100%;}
+.jt-app-more-pw-find-wrap{float: left}
+.jt-login-findPassword{float: left; width:30px;margin-left: -32px; border-radius: 0 6px 6px 0;}
+.jt-login-findPassword .ui-btn-inner{padding:7px 0}
+.jt-login-findPassword{-webkit-box-shadow: 1px 0px 3px rgba(0,0,0,.2);box-shadow: 1px 0px 3px rgba(0,0,0,.2);}
+.jt-app-more-login-message-box{position:absolute;bottom:90px ;left:0 ;width:100%; font-size: 13px; border-top: 1px solid #aaa;color:#aaa;}
+.jt-app-more-login-message-box-text{padding: 0 15px;}
+#_spring_security_remember_me{display: none;}
+.jt-btn-orange{
+	cursor:pointer;
+	padding: 10px 10px 10px 10px; 
+	border:1px solid #FF7E00; 
+	-webkit-border-radius: 5px; -moz-border-radius: 5px;border-radius: 5px;
+	font-family:NanumGothic, Dotum,Gulim; text-shadow: 1px 1px 0 rgba(209,109,0,0.3);font-weight:bold; text-align: center; color: #FFFFFF; background-color: #FB950F;
+ 	background-image: -webkit-gradient(linear, left top, left bottom, from(#FB950F), to(#FB950F));
+ 	background-image: -webkit-linear-gradient(top, #FB950F, #FB950F);
+ 	background-image: -moz-linear-gradient(top, #FB950F, #FB950F);
+ 	background-image: -ms-linear-gradient(top, #FB950F, #FB950F);
+ 	background-image: -o-linear-gradient(top, #FB950F, #FB950F);
+	background-image: linear-gradient(to bottom, #FB950F, #FB950F);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#FB950F, endColorstr=#FB950F);
+}
+.jt-btn-orange:HOVER{
+	border:1px solid #FF7E00; 
+	background-color: #FFA01E;
+ 	background-image: -webkit-gradient(linear, left top, left bottom, from(#FFA01E), top(#FFA01E));
+ 	background-image: -webkit-linear-gradient(top, #FFA01E, #FFA01E);
+ 	background-image: -moz-linear-gradient(top, #FFA01E, #FFA01E);
+ 	background-image: -ms-linear-gradient(top, #FFA01E, #FFA01E);
+ 	background-image: -o-linear-gradient(top, #FFA01E, #FFA01E);
+ 	background-image: linear-gradient(to bottom, #FFA01E, #FFA01E);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#FFA01E, endColorstr=#FFA01E);
+}
+.jt-btn-fbLogin .loginImage{margin: -1px 0;background: url("../images/jt-login-fb.png") no-repeat;float : left;width: 34px; height: 34px;border-right: 1px solid #b9e1f7;}
+.jt-btn-fbLogin .loginText{margin-top : -1px;float: left;height: 30px;border-left: 1px solid #5c9ec7;line-height: 30px;padding: 2px 10px;color:#fff;}
+.jt-btn-fbLogin{
+	cursor: pointer;
+	; padding: 0;
+	border:1px solid #5F9EC1; 
+	-webkit-border-radius: 5px; -moz-border-radius: 5px;border-radius: 5px;
+	font-family: Dotum,Gulim; text-shadow: 0px 1px 1px rgba(76,132,163,0.3); font-weight:bold; text-align: center; color: #FFFFFF; 
+	background-color: #75B6DB;
+ 	background-image: -webkit-gradient(linear, left top, left bottom, from(#75B6DB), to(#75B6DB));
+ 	background-image: -webkit-linear-gradient(top, #75B6DB, #75B6DB);
+ 	background-image: -moz-linear-gradient(top, #75B6DB, #75B6DB);
+ 	background-image: -ms-linear-gradient(top, #75B6DB, #75B6DB);
+ 	background-image: -o-linear-gradient(top, #75B6DB, #75B6DB);
+ 	background-image: linear-gradient(to bottom, #75B6DB, #75B6DB);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#75B6DB, endColorstr=#75B6DB);
+}
+.jt-btn-fbLogin:hover{
+ 	border:1px solid #6AADD4; 
+ 	background-color: #8DC6E8;
+ 	background-image: -webkit-gradient(linear, left top, left bottom, from(#8DC6E8), top(#8DC6E8));
+ 	background-image: -webkit-linear-gradient(top, #8DC6E8, #8DC6E8);
+ 	background-image: -moz-linear-gradient(top, #8DC6E8, #8DC6E8);
+ 	background-image: -ms-linear-gradient(top, #8DC6E8, #8DC6E8);
+	background-image: -o-linear-gradient(top, #8DC6E8, #8DC6E8);
+ 	background-image: linear-gradient(to bottom, #8DC6E8, #8DC6E8);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#8DC6E8, endColorstr=#8DC6E8);
+}
+.jt-btn-emailLogin .loginImage{margin: -1px 0;background: url("../images/jt-login-mail.png") no-repeat;float : left;width: 34px; height: 34px;border-right: 1px solid #ffc582;}
+.jt-btn-emailLogin .loginText{margin-top : -1px;float: left;height: 30px;border-left: 1px solid #e06c01;line-height: 30px;padding: 2px 10px;color: #fff;}
+.jt-btn-emailLogin{padding: 0;}
+
+/**************************
+~Join
+**************************/
+.jt-app-more-join-wrap{padding: 0 5px}
+.jt-app-more-join-title{margin: 10px 0 15px 0; font-weight: bold;}
+.jt-app-more-join-text{font-size: 12px; list-style-type: square; padding: 10px 15px;line-height: 1.6}
+.jt-app-more-join-submit{margin: 30px 0 20px 0;}
+.jt-app-more-join-submit .ui-btn-inner{padding: 0; border-top: 0 }
+.jt-btn-orange .ui-btn-inner{padding: 0; border-top: 0 }
+#jt-app-more-join-form>div{position: relative;}
+.jt-join-validation{position:absolute;top:10px;right:15px;color:#ffa01e; font-size:15px;font-family: Arial;}
+
+/*******************
+~ Mirros?
+********************/
+.jt-about-mirrosis-header{height: 25px;}
+.jt-about-mirrosis-header>h1 {width: 100%;margin-left: 5px;font-family: NanumGothic,Dotum,Gulim;font-size: 20px;color: #524d4d;text-shadow: 1px 2px 4px #e3e3e3,0 0 0 #000,1px 2px 4px #e3e3e3,0 1px 0 #fff;}
+.jt-about-mirrosis-banner>img{width:100%; margin: 10px 0 0 0;}
+.jt-about-mirrosis-banner{font-size: 12px;font-family:NanumGothic, Dotum,Gulim;}
+.jt-about-mirrosis-banner>div{background-color: rgba(0,0,0,0.25);color: #fff;text-shadow: none;padding: 0 5px;}
+.jt-about-mirrosis-banner>div>h2{font-size: 14px;padding: 5px;margin: 0}
+.jt-about-mirrosis-banner>div>pre{white-space:pre-wrap;font-family:NanumGothic, Dotum,Gulim;}
+
+.jt-about-mirrosis-content{list-style-type: none; padding: 0;}
+.jt-about-mirrosis-content>li{overflow: hidden;}
+.jt-about-mirrosis-content>li>ul{list-style-type: none;float: left; padding: 0;width:75%}
+.jt-about-mirrosis-content>li>div{float: left;width:25%;height: 90px; padding: 20px 0}
+
+.jt-about-mirrosis-content>li>ul>li{list-style-type: none;}
+.jt-about-mirrosis-content>li>ul>li>h2{font-size: 16px; margin: 5px 0;}
+.jt-about-mirrosis-content>li>ul>li>pre{white-space:pre-wrap; font-size: 12px; margin: 0;font-family:NanumGothic, Dotum,Gulim;}
+.jt-about-bar{width: 100%;}

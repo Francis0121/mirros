@@ -51,27 +51,28 @@ public class HomeController {
 		gatherModelSetting(model, session, gatherFilter, summaryUser);
 		return prefixView + "item";
 	}
-	
+
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public String itemViewRedirect() {
+		return "redirect:/app";
+	}
+
 	@RequestMapping(value = "/cpn/{categoryPn}", method = RequestMethod.GET)
 	public String productGatherCategoryView(Model model, HttpSession session, @ModelAttribute GatherFilter gatherFilter, SummaryUser summaryUser,
 			HttpServletRequest request) throws UnsupportedEncodingException {
 		gatherModelSetting(model, session, gatherFilter, summaryUser);
 		return prefixView + "item";
 	}
-	
 
 	public void gatherModelSetting(Model model, HttpSession session, GatherFilter gatherFilter, SummaryUser summaryUser) {
-		System.out.println("gather Filter :"+gatherFilter);
 		session.setAttribute("app-currentPage", 1);
 		gatherFilter.setPagePerItem(12);
-		model.addAttribute("interestCategories", homeService.selecInterestCategory());
-		model.addAttribute("commentFeed", commentService.selectCommentFeedList());
-		model.addAttribute("myHeartList", gatherService.selectMyHeartList(summaryUser.getPn()));
+		
 		model.addAttribute("categoryType", gatherFilter.getNavFlag());
 		model.addAttribute("itemName", gatherFilter.getItemName());
 		model.addAttribute("categoryPn", gatherFilter.getCategoryPn());
 	}
-	
+
 	@RequestMapping(value = "/ajax/productPagination.jt", method = RequestMethod.POST)
 	@ResponseBody
 	public Object ajaxGatherItem(GatherFilter gatherFilter, HttpSession session, SummaryUser summaryUser) {
@@ -81,9 +82,9 @@ public class HomeController {
 		gatherFilter.setPagePerItem(12);
 		gatherFilter.setCustomerPn(summaryUser.getPn());
 		Map<String, Object> object = new HashMap<String, Object>();
-		if("H".equals(gatherFilter.getNavFlag())){
+		if ("H".equals(gatherFilter.getNavFlag())) {
 			object.put("mergeItems", gatherService.selectHotProductList(gatherFilter));
-		}else{
+		} else {
 			object.put("mergeItems", gatherService.selectNewProductList(gatherFilter));
 		}
 		session.setAttribute("app-currentPage", (gatherFilter.getCurrentPage() + 1));

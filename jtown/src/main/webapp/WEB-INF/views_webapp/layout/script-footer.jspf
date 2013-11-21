@@ -7,9 +7,11 @@
 <%-- Custom --%>
 <%-- <script src="${cp}/resources_mobile/js/mobile.all.js"></script> --%>
 <script src="${cp}/resources_webapp/js/util.js"></script>
-<script src="${cp}/resources_webapp/js/default.js?3"></script>
+<script src="${cp}/resources_webapp/js/default.js?10"></script>
 <script src="${cp}/resources_webapp/js/mirros.all.js"></script>
 
+<script src="${cp}/resources_webapp/js/content/item.js?7"></script>
+<script src="${cp}/resources_webapp/js/content/more.js?6"></script>
 
 <%-- Node --%>
 <%-- <script src="${cp}/resources_mobile/js/mobile.real.time.js"></script> --%>

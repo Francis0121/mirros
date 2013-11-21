@@ -49,13 +49,15 @@ import com.bg.jtown.security.LoginService;
 import com.bg.jtown.security.SummaryUser;
 import com.bg.jtown.security.UserAuthenticator;
 import com.bg.jtown.security.algorithm.SeedCipher;
+import com.bg.jtown.util.BrowserUtil;
+import com.bg.jtown.util.CookieUtil;
 import com.bg.jtown.util.StringUtil;
 import com.bg.jtown.util.ValidationUtil;
 import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 
 /**
  * @author Francis, 박광열
- * 
+ * @author Francis In Sanghak
  */
 @Controller
 public class LoginController {
@@ -105,7 +107,7 @@ public class LoginController {
 	public String showSigninRedirect(Model model) {
 		return prefixView + "login/signin";
 	}
-
+	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String showLogin(Model model, HttpSession session, @RequestParam(required = false) Integer isFinish) {
 		if (isFinish != null) {

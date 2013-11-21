@@ -447,6 +447,7 @@
 		<result column="save_name" property="saveName"/>
 		<result column="content_type" property="contentType"/>
 		<result column="comment" property="comment"/>
+		<result column="input_date" property="inputDate"/>
 		
 	</resultMap>
 	
@@ -493,7 +494,7 @@
 		AND 
 			DATE_FORMAT(ec.input_date, "%Y-%m-%d") >= DATE_FORMAT(DATE_ADD(SYSDATE(),INTERVAL -2 DAY), "%Y-%m-%d")
 		ORDER BY input_date DESC 
-		LIMIT 13 
+		LIMIT 25 
 	</select>
 	
 	<select id="selectCommentFeedItem" resultMap="jtown-gather-comment-data-map">

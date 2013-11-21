@@ -55,9 +55,20 @@
 	</ul>
 	</c:if>
 </div>
+<c:if test="${!empty interestCategories }">
+	<div class="jt-header-nav-mode">
+		<c:if test="${categoryType =='pg'}">
+			<button type="button" class="jt-header-nav-hot-btn" onclick="location.href='${cp}/h'">HOT</button>
+		</c:if>
+		<c:if test="${categoryType =='hot'}">
+			<button type="button" class="jt-header-nav-new-btn" onclick="location.href='${cp}/'">NEW</button>
+		</c:if>
+	</div>
+</c:if>
 <div class="jt-header-banner">
 	<a href="${cp }/"><h1 class="jt-header-banner-h1">Mirros</h1><span class="jt-header-banner-beta">Beta</span></a>
 </div>
+
 <ul class="jt-header-login-menu">
 	<sec:authorize access="hasRole('ROLE_USER')">
 		<li id="jt-mypage">
