@@ -23,6 +23,7 @@ import org.springframework.social.connect.web.ProviderSignInUtils;
 import org.springframework.social.twitter.api.Twitter;
 import org.springframework.social.twitter.api.TwitterProfile;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
@@ -345,7 +346,7 @@ public class LoginController {
 			String password = jtownUser.getPassword();
 
 			customJdbcUserDetailManager.createUserCustomAndAuthority(jtownUser);
-			emailSend.sendConfirmEmail(jtownUser.getUsername());
+			//emailSend.sendConfirmEmail(jtownUser.getUsername());
 			userAuthenticator.login(username, password);
 
 			if ("twitter".equals(jtownUser.getSocial())) {
@@ -354,6 +355,47 @@ public class LoginController {
 			return "redirect:" + "/";
 		} else {
 			return prefixView + "login/join";
+		}
+	}
+	
+	@RequestMapping(value = "/login/appJoinSubmit.jt", method = RequestMethod.POST)
+	@ResponseBody
+	@Transactional
+	public String appFormJoin(Model model, @ModelAttribute JtownUser jtownUser, @RequestParam("confirmPassword") final String confirmPassword,
+			BindingResult result, WebRequest request) {
+		loginValidatorImpl.validate(jtownUser, result);
+		new Validator() {
+			@Override
+			public void validate(Object target, Errors errors) {
+				JtownUser jtownUser = (JtownUser) target;
+
+				if (jtownUser.getPassword() == null) {
+					errors.rejectValue("password", "join.password.empty");
+				} else if (ValidationUtil.confirmPassword(jtownUser.getPassword(), confirmPassword)) {
+					errors.rejectValue("password", "join.password.isNotEqual");
+				}
+			}
+
+			@Override
+			public boolean supports(Class<?> clazz) {
+				return JtownUser.class.isAssignableFrom(clazz);
+			}
+		}.validate(jtownUser, result);
+
+		if (!result.hasErrors()) {
+			String username = jtownUser.getUsername();
+			String password = jtownUser.getPassword();
+
+			customJdbcUserDetailManager.createUserCustomAndAuthority(jtownUser);
+			//emailSend.sendConfirmEmail(jtownUser.getUsername());
+			userAuthenticator.login(username, password);
+
+			if ("twitter".equals(jtownUser.getSocial())) {
+				ProviderSignInUtils.handlePostSignUp(jtownUser.getPn().toString(), request);
+			}
+			return "success";
+		} else {
+			return "failure";
 		}
 	}
 

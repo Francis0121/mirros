@@ -188,6 +188,8 @@ jtown.real.time = function(data) {
 		html +=	'</div>';
 		html += '</div>';
 		$('.jt-right-sidebar-comment-feed').prepend(html);
+		
+	
 	}
 };
 

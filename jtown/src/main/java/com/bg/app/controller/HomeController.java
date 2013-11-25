@@ -46,7 +46,7 @@ public class HomeController {
 		this.prefixView = prefixView;
 	}
 
-	@RequestMapping(value = "", method = RequestMethod.GET)
+	@RequestMapping(value = "")
 	public String itemView(Model model, HttpSession session, @ModelAttribute GatherFilter gatherFilter, SummaryUser summaryUser) {
 		gatherModelSetting(model, session, gatherFilter, summaryUser);
 		return prefixView + "item";
@@ -85,7 +85,7 @@ public class HomeController {
 		if ("H".equals(gatherFilter.getNavFlag())) {
 			object.put("mergeItems", gatherService.selectHotProductList(gatherFilter));
 		} else {
-			object.put("mergeItems", gatherService.selectNewProductList(gatherFilter));
+			object.put("mergeItems", gatherService.selectNewMergeList(gatherFilter));
 		}
 		session.setAttribute("app-currentPage", (gatherFilter.getCurrentPage() + 1));
 		return object;

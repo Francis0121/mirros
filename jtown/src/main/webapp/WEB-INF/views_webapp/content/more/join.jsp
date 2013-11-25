@@ -10,7 +10,7 @@
 		<header class="jt-join-direct-form-user-info">
 			<div class="jt-app-more-join-title">회원가입</div>
 		</header>
-		<form id="jt-app-more-join-form" name="jt-join-direct-join-form" action="${cp }/login/joinSubmit.jt" htmlEscape="true" method="post">
+		<form id="jt-app-more-join-form" name="jt-join-direct-join-form"  htmlEscape="true" method="post">
 			<div>
 					<input name="name" data-form="join" class="jt-join-direct-user-input jt-join-direct-user-name" maxlength="20" placeholder="이름"/>
 					<div class="jt-join-validation jt-app-more-join-name-check"></div>

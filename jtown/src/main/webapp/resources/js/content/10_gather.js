@@ -47,7 +47,8 @@ jtown.pg.scrollPaging = function(){
 	        $('div#infscr-loading').show();
 	        var itemName = $('.jt-pg-main').attr('data-item-name');
 	        var category = $('.jt-header-nav-interestCategory').attr('data-category');
-	        $.postJSON(contextPath+'ajax/gatherPagination.jt',{itemName : itemName, navFlag : category }, function(data){
+	        var categoryPn = $('.jt-header-nav-interestCategory').attr('data-categoryPn');
+	        $.postJSON(contextPath+'ajax/gatherPagination.jt',{itemName : itemName, navFlag : category, categoryPn : categoryPn  }, function(data){
 	        	  if(data.mergeItems.length > 0){
 		            	productGatherHtml(data);
 		                $('div#infscr-loading').hide();
@@ -309,6 +310,8 @@ $('.jt-pg-container').on('mouseenter', '.jt-pg-heart-wrap', function(){
 $('.jt-pg-container').on('mouseleave', '.jt-pg-heart-wrap', function(){
 	$(this).find('.jt-home-shop-love').css('background-position','0px -30px');
 });
+
+//~ comment
 $('.jt-pg-container').on('keydown','.jt-pg-comment-input',(function(e){
  	if( (e.keyCode) && (e.keyCode==13) && ($(this).val() !='')) {
 		var productPn =$(this).parents('.jt-pg-item').attr('data-product-pn');

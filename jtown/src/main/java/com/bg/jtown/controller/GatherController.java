@@ -92,6 +92,7 @@ public class GatherController {
 		model.addAttribute("myHeartList", gatherService.selectMyHeartList(summaryUser.getPn()));
 		model.addAttribute("categoryType", gatherFilter.getNavFlag());
 		model.addAttribute("itemName", gatherFilter.getItemName());
+		model.addAttribute("currentCategory", gatherFilter.getCategoryPn());
 	}
 
 	@RequestMapping(value = "/")
@@ -381,6 +382,7 @@ public class GatherController {
 				if (commentService.selectCommentExist(comment) == 0) {
 					commentService.insertProductComment(comment);
 					List<Comment> commentList = commentService.selectCommentList(comment);
+					
 					comment.setCount(commentList.size());
 					map.put("commentList", commentList);
 				} else {

@@ -68,4 +68,31 @@ public class NaturalLanguageController {
 		map.put("productName", productNameSearch);
 		return map;
 	}
+	
+	@RequestMapping(value = "/ajax/natural/appAutocomplete.jt", method = RequestMethod.POST)
+	@ResponseBody
+	public Object ajaxAppAutoComplete(NaturalLanguageFilter naturalLanguageFilter) {
+		logger.debug(naturalLanguageFilter.toString());
+
+		List<JtownUser> jtownUsers = naturalLanguageService.selectSearchShopName(naturalLanguageFilter);
+
+		List<JtownUser> productNameSearch = new ArrayList<JtownUser>();
+		if(naturalLanguageFilter.getSearchName().length() >=2 ){ 
+			productNameSearch = naturalLanguageService.selectSearchProductName(naturalLanguageFilter);
+		}
+		
+		NaturalLanguageFilter naturalLanguageFilterInterest = new NaturalLanguageFilter(naturalLanguageFilter.getSearchName());
+
+		List<Interest> interests = naturalLanguageService.selectSearchInterestSection(naturalLanguageFilterInterest);
+
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("jtownUsers", jtownUsers);
+		map.put("juNLF", naturalLanguageFilter);
+
+		map.put("interests", interests);
+		map.put("iNLF", naturalLanguageFilterInterest);
+		
+		map.put("productName", productNameSearch);
+		return map;
+	}
 }

@@ -29,19 +29,23 @@ $('body').on('click', '#jt-app-header-arrow-d', function(){
 		$.titleMenuClose();
 	}
 });
-$('body').on('click','.jt-app-header-arrow-u', function(){
+$('body').on('click','.jt-app-header-extend-menu-margin', function(){
 	$.titleMenuClose();
 });
 
 $.titleMenuOpen = function(){
-	$('.jt-app-header-extend-menu').height('230');
-	$('.jt-app-header-extend-menu-inner').delay(300).fadeIn();
+	$('.jt-app-header-extend-menu').height('100%');
+	$('.jt-app-header-extend-menu-inner').css('box-shadow','0px 1px 8px 3px rgba(0,0,0,.4)').css('display','block');
+	$('.jt-app-header-extend-menu-margin').height('100%');
 	$('#jt-app-header-arrow-d').attr('data-toggle','1');
 };
 $.titleMenuClose = function(){
 	$('.jt-app-header-extend-menu-inner').fadeOut(120);
 	$('.jt-app-header-extend-menu').height('0');
 	$('#jt-app-header-arrow-d').attr('data-toggle','0');
+	$('.jt-app-header-search-result').css('display','none');
+	$('.jt-app-search-item').html('');
+	$('.jt-app-header-search').text('');
 };
 
 $('body').on('click','#jt-app-header-arrow-l', function(){
@@ -82,4 +86,45 @@ $.insertEventClickStatistic = function(eventPn){
 	$.post(contextPath+'/ajax/eventClick.jt',{eventPn : eventPn}, function(data){});
 };
 
+
+//~ search
+$(function(){
+	$('body').on('click', '.jt-app-header-extend-menu-inner .ui-input-clear', function(){
+		$('.jt-app-search-item').html('');
+	});
+	
+	$('body').on('click', '.jt-app-search-item li', function(){
+		if($(this).index() == 0){
+			if( $(this).attr('data-search-result') == 'all'){
+				post(contextPath+'/app', {itemName : $(this).attr('data-search-name')});
+			}
+		}else{
+			post(contextPath+'/app', {itemName : $(this).text()});
+		}
+	});
+	
+	$('body').on('keyup' ,'.jt-app-header-search', function(){
+		var searchName = $('.jt-app-header-search:last').val(); 
+		if(searchName.length > 1){
+			$.post(contextPath + '/ajax/natural/appAutocomplete.jt', {searchName : searchName}, function(map){
+				var jtownUsers = map.jtownUsers, interests = map.interests, productName = map.productName,  data = [];
+				var size = productName.length;
+				
+				var html = '';
+				if(size > 0){
+					html += '<li data-search-result="all" data-search-name='+searchName+'>['+searchName+'] 이(가) 포함된 모든 상품</li>'
+					for(var idx = 0; idx< size; idx++){
+						html+= '<li>'+ productName[idx].name+'</li>';
+					}
+				}else{
+					html += '<li data-search-result="0">검색결과가 없습니다.</li>'
+				}
+				$('.jt-app-header-search-result').css('display','block');
+				$('.jt-app-search-item').html(html);
+			});
+		}else{
+			$('.jt-app-search-item').html('');
+		}
+	});
+});
 

@@ -9,9 +9,12 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
+import org.springframework.ui.Model;
 
+import com.bg.jtown.business.home.HomeService;
 import com.bg.jtown.security.JtownUser;
 import com.bg.jtown.security.SummaryUser;
 
@@ -27,6 +30,9 @@ public class ControllerAspect {
 
 	@Resource
 	private HttpServletRequest request;
+	
+	@Autowired
+	private HomeService homeService;
 
 	// @Resource
 	// private SellerService sellerService;
@@ -73,5 +79,15 @@ public class ControllerAspect {
 			logger.debug(signatureString + " 실행 시간 : " + (finish - start) + "ms");
 		}
 	}
+	
+	@Around("execution(public * com.bg.app.controller.*.*(org.springframework.ui.Model,..))")
+	public String setCategory(ProceedingJoinPoint joinPoint) throws Throwable {         
+		Model model = (Model) joinPoint.getArgs()[0];
+		model.addAttribute("interestCategories", homeService.selecInterestCategory());
+        return (String) joinPoint.proceed();
+    }
+	
+	
+	
 
 }

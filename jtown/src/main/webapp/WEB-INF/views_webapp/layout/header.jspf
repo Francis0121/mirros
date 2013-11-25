@@ -8,20 +8,24 @@
 </div>
 <div class="jt-app-header-extend-menu">
 	<div class="jt-app-header-extend-menu-inner">
-	<input type="search" placeholder="search" />
-	<div>
-	 <ul class="jt-app-header-category" data-category="${categoryPn}">
-	 	<li><a href="${cp }/app" class="jt-app-header-category-items">All</a></li>
-	 	<c:forEach items="${interestCategories}" var="categorys">
-	 		<li><a href="${cp}/app/cpn/${categorys.categoryPn}" class="jt-app-header-category-items">${categorys.name }</a></li>
-	 	</c:forEach>
-	 	<li><a href="${cp}/app/cpn/8" class="jt-app-header-category-items">Culture</a></li>
-	 </ul>
-	 </div>
- 	<div>
- 		<a data-icon="arrow-u" data-role="button"  data-iconpos="notext" class="jt-app-header-arrow-u"></a>
- 	</div>
+		<input type="search" class="jt-app-header-search" placeholder="search" data-search="${itemName}" />
+		<div class="jt-app-header-search-result">
+	 		<ul data-role="listview" data-filter="false">
+	 			<li data-role="list-divider">ITEM</li>
+	 				<div class="jt-app-search-item"></div>
+	 		</ul>
+	 	</div>
+		<div>
+		 <ul class="jt-app-header-category" data-category="${categoryPn}">
+		 	<li><a href="${cp }/app" class="jt-app-header-category-items">All</a></li>
+		 	<c:forEach items="${interestCategories}" var="categorys">
+		 		<li><a href="${cp}/app/cpn/${categorys.categoryPn}" class="jt-app-header-category-items">${categorys.name }</a></li>
+		 	</c:forEach>
+		 	<li><a href="${cp}/app/cpn/8" class="jt-app-header-category-items">Culture</a></li>
+		 </ul>
+		 </div>
 	</div>
+	<div class="jt-app-header-extend-menu-margin"></div>
 </div>
 <div class="jt-app-header-extend-event-menu">
 	<div class="jt-app-header-extend-event-menu-margin"></div>

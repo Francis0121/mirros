@@ -2,8 +2,10 @@
 .jt-app-header{height: 50px;}
 #jt-app-header-arrow-d{margin: 10px 0;}
 #jt-app-header-arrow-l{margin: 10px 0;}
-.jt-app-header-extend-menu{position:absolute;height: 0px; background-color: #eee;width:100%;transition:height 0.5s;-webkit-transition:height 0.5s;z-index: 500; }
-.jt-app-header-extend-menu-inner{display: none;}
+.jt-app-header-extend-menu{position:absolute;height: 0px; background-color:rgba(0,0,0,.3);width:100%;transition:height 0.3s;-webkit-transition:height 0.3s;z-index: 500; }
+.jt-app-header-extend-menu-inner{display:none;background-color:#eee;width:100%;z-index: 501;padding: 5px 0 0 0;}
+.jt-app-header-extend-menu-margin{height: 0;width: 100%;}
+.jt-app-header-extend-menu-inner>.ui-input-search{margin: 0 1px 5px 1px;}
 .jt-app-header-arrow-u{left:50%;margin-left: -12px;}
 
 .jt-app-header-category{overflow: hidden;margin: 0;padding: 0;}
@@ -12,8 +14,13 @@
 #jt-app-header-category-current{color:#fb950f !important;}
 
 .jt-app-header-extend-event-menu{position:fixed; right:0;height:100%; background-color:rgba(0,0,0,.3) ;width:0;transition:width 0.3s;-webkit-transition:width 0.3s;z-index: 500;}
+.jt-app-header-extend-event-menu-inner{float:left;height: 100%; background-color: #eee;width:0;z-index: 501;}
 .jt-app-header-extend-event-menu-margin{float: left;height: 100%;width:0}
-.jt-app-header-extend-event-menu-inner{float:left;height: 100%; background-color: #eee;width:0;;z-index: 501;}
+
 
 .jt-app-pre-text{white-space:pre-wrap;}
-.jt-app-event-mark{ text-indent: -99999px; margin: -5px 1px 0 0; background: url("../images/jt-home-icon.png") no-repeat; background-position: -45px 0px; float:right; width: 43px; height: 43px;}
+.jt-app-event-mark{ text-indent: -99999px; margin: -3px 0px 0 0; background: url("../images/jt-home-icon.png") no-repeat; background-position: -45px 0px; float:right; width: 43px; height: 43px;}
+
+.jt-app-header-search-result{display: none; background-color: #fff;}
+.jt-app-search-item>li{padding: 12px 15px;font-size:13px;border-bottom:1px solid #eee;}
+.jt-app-search-item>li:ACTIVE {background-color: rgba(255,170,60,.15)}

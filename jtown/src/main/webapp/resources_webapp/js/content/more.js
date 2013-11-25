@@ -45,28 +45,49 @@ $.emailLogin = function(){
 			}
 	});
 };
-	
 
 //~ Join
 $.joinSubmit = function(){
-	var $form = $('#jt-app-more-join-form');
-	$form.serialize();
-	$form.submit();
+	$.mobile.showPageLoadingMsg();
+	$.post(contextPath+'/login/appJoinSubmit.jt',{
+		name : $('.jt-join-direct-user-name').val(),
+		username : $('.jt-join-direct-user-username').val(),
+		password : $('.jt-join-direct-user-password').val(),
+		confirmPassword : $('.jt-join-direct-user-confirmPassword').val()
+	},function(data){
+		$.mobile.hidePageLoadingMsg();
+		if(data == 'success'){
+			console.log('ok');
+			location.href=contextPath+'/app';
+		}else{
+			$('.jt-join-direct-user-name').val('');
+			$('.jt-join-direct-user-username').val('');
+			$('.jt-join-direct-user-password').val('');
+			$('.jt-join-direct-user-confirmPassword').val('');
+			$('.jt-app-more-join-name-check').text('');
+			$('.jt-join-direct-user-username-check').text('');
+			$('.jt-join-direct-user-password-check').text(''); 
+			$('.jt-join-direct-user-confirmPassword-check').text('');
+			alert('잘못된 정보를 입력하셨습니다.');
+		}
+	});
 };
 
-$('.jt-join-direct-user-name').focusout(function(){
+$('body').on('focusout', '.jt-join-direct-user-name', function(){
 	$.post( contextPath+'/login/nameValidation.jt', { name: this.value}, function(result){
 		result == 'success' ? $('.jt-app-more-join-name-check').text('O') : $('.jt-app-more-join-name-check').text('X');
 	});
 });
-$('.jt-join-direct-user-username').focusout(function(){
+
+$('body').on('focusout', '.jt-join-direct-user-username', function(){
 	$.post( contextPath+'/login/usernameValidation.jt', { username: this.value}, function(result){
 		result == 'success' ? $('.jt-join-direct-user-username-check').text('O') : $('.jt-join-direct-user-username-check').text('X');
 	});
 });
-$('.jt-join-direct-user-password').focusout(function(){
+
+$('body').on('focusout', '.jt-join-direct-user-password', function(){
 	this.value.length >=8 && this.value.length <=16 ? $('.jt-join-direct-user-password-check').text('O') : $('.jt-join-direct-user-password-check').text('X'); 
 });
-$('.jt-join-direct-user-confirmPassword').focusout(function(){
-	$('.jt-join-direct-user-confirmPassword').val() == this.value & this.value!='' ? $('.jt-join-direct-user-confirmPassword-check').text('O') : $('.jt-join-direct-user-confirmPassword-check').text('X'); 
+$('body').on('focusout', '.jt-join-direct-user-confirmPassword', function(){
+	$('.jt-join-direct-user-password').val() == this.value & this.value!='' ? $('.jt-join-direct-user-confirmPassword-check').text('O') : $('.jt-join-direct-user-confirmPassword-check').text('X'); 
 });
