@@ -2,7 +2,7 @@
 ~More Menu
 ******************/
 
-.jt-app-more-content{height: 100%;overflow: hidden;padding: 0;width: 100%; }
+.jt-app-more-content{overflow: hidden;padding: 0;width: 100%; }
 .jt-app-more-menu{overflow: hidden;margin: 0;padding: 0}
 .jt-app-more-menu>li{float: left;width:33.33%;height: 20px;margin: 0;padding:25px 0; background-color: #fff;list-style: none;text-align: center;font-family: arial, sans-serif;font-size:12px; box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.25), 0 1px 0 rgba(255, 255, 255, 0.25);}
 .jt-app-more-menu>li>a{color:#555 !important; text-decoration: none; font-weight: normal !important;}

@@ -68,7 +68,7 @@ public class HomeController {
 		session.setAttribute("app-currentPage", 1);
 		gatherFilter.setPagePerItem(12);
 		
-		model.addAttribute("categoryType", gatherFilter.getNavFlag());
+		model.addAttribute("categoryType", "app");
 		model.addAttribute("itemName", gatherFilter.getItemName());
 		model.addAttribute("categoryPn", gatherFilter.getCategoryPn());
 	}

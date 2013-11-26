@@ -3,7 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <%@ include file="../layout/home-header.jspf" %>
-<div data-role="page">
+<div data-role="page" id="like">
 <%@ include file="../layout/header.jspf" %>
 	<div data-role="content" class="jt-app-item-content">
 		<c:forEach items="${myHeartList}" var="myHeartList" >

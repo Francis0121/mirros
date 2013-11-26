@@ -24,8 +24,8 @@ public class ReplyController {
 
 	@RequestMapping(value = "/reply", method = RequestMethod.GET)
 	public String replyView(Model model, HttpSession session, @ModelAttribute GatherFilter gatherFilter, SummaryUser summaryUser) {
-
 		model.addAttribute("commentFeed", commentService.selectCommentFeedList());
+		model.addAttribute("categoryType", "reply");
 		return prefixView + "reply";
 	}
 

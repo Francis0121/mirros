@@ -22,7 +22,7 @@ public class MoreContorller {
 	
 	@RequestMapping(value = "/more")
 	public String moreIndex(Model model, GatherFilter gatherFilter, SummaryUser summaryUser){
-		
+		model.addAttribute("categoryType", "more");
 		return "views_webapp/content/more";
 	}
 	

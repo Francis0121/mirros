@@ -1,5 +1,4 @@
 $(function() {
-	
 	var filter = "win16|win32|win64|mac";
 	 if( navigator.platform  ){
 		 if( filter.indexOf(navigator.platform.toLowerCase())<0 ){
@@ -13,7 +12,7 @@ $(function() {
 		$.scrollPaging();
 		$.setCategory();
 		$.hotNewChangeBtnInit();
-		//TODO 버튼 pressed 초기화
+		
 	 }
 	$(document).on("pageshow", function () {
 		if($.checkAppPage()){
@@ -26,11 +25,7 @@ $(function() {
 });
 
 $.checkAppPage = function(){
-	if('app' == document.URL.substring(document.URL.lastIndexOf('app')) || 
-			document.URL.substring(document.URL.lastIndexOf('app')) == 'app?navFlag=H' || 
-			document.URL.lastIndexOf('cpn') > 0 ||
-			'app/#_=_' == document.URL.substring(document.URL.lastIndexOf('app')) ||
-			'app#_=_' == document.URL.substring(document.URL.lastIndexOf('app'))){
+	if($('.jt-app-header-category:last').attr('data-category-type') == 'app'){
 		return true;
 	}else{
 		return false;

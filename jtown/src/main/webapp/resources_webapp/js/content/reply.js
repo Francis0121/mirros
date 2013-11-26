@@ -8,3 +8,12 @@ $('body').on('click', '.jt-app-reply-comment-wrap', function(){
 	productPn == null ? $.insertEventClickStatistic(eventPn) : $.insertProductClickStatistic(productPn); 
 	location.href=$(this).attr('data-url');
 });
+
+$.checkReplyPage = function(){
+	if($('.jt-app-header-category:last').attr('data-category-type') == 'reply'){
+		return true;
+	}else{
+		return false;
+	}
+};
+

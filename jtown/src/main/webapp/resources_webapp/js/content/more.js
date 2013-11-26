@@ -1,6 +1,4 @@
 $(function() {
-
-	
 });
 
 
@@ -91,3 +89,12 @@ $('body').on('focusout', '.jt-join-direct-user-password', function(){
 $('body').on('focusout', '.jt-join-direct-user-confirmPassword', function(){
 	$('.jt-join-direct-user-password').val() == this.value & this.value!='' ? $('.jt-join-direct-user-confirmPassword-check').text('O') : $('.jt-join-direct-user-confirmPassword-check').text('X'); 
 });
+
+$.checkMorePage = function(){
+	if($('.jt-app-header-category:last').attr('data-category-type') == 'more'){
+		return true;
+	}else{
+		return false;
+	}
+};
+

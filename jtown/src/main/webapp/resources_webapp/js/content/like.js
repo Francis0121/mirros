@@ -2,7 +2,6 @@ $(function() {
 	 //~ Init
 	 if($.checkLikePage()){
 		 $.setHeightEventItems();
-		//TODO 버튼 pressed 초기화
 	 }
 	$(document).on("pageshow", function () {
 		if($.checkLikePage()){
@@ -13,7 +12,7 @@ $(function() {
 });
 
 $.checkLikePage = function(){
-	if('app/like' == document.URL.substring(document.URL.lastIndexOf('app'))){ 
+	if($('.jt-app-header-category:last').attr('data-category-type') == 'like'){
 		return true;
 	}else{
 		return false;

@@ -1,9 +1,15 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div data-role="header" class="jt-app-header" data-theme="a" data-inline="true">
 	<div class="jt-app-header-wrap">
-	<h4>Mirros</h4>
-	<a data-icon="arrow-d" data-role="button"  data-iconpos="notext" id="jt-app-header-arrow-d" class="ui-btn-left" data-toggle="0"></a> 
+	<div class="jt-app-header-left-wrap" data-toggle="0"><div class="jt-app-header-arrow-down"></div></div>
+	<div class="jt-app-header-title-wrap">
+		<h4>Mirros</h4>
+	</div>
+	<div class="jt-app-header-right-wrap" data-toggle="0"><div class="jt-app-header-menu"></div></div>
+	<!-- 
+	<a  id="jt-app-header-arrow-d" class="ui-btn-left" data-toggle="0"></a> 
 	<a data-icon="arrow-l" data-role="button"  data-iconpos="notext" id="jt-app-header-arrow-l" class="ui-btn-right" data-toggle="0"></a>
+	 -->
 	</div>
 </div>
 <div class="jt-app-header-extend-menu">
@@ -16,7 +22,7 @@
 	 		</ul>
 	 	</div>
 		<div>
-		 <ul class="jt-app-header-category" data-category="${categoryPn}">
+		 <ul class="jt-app-header-category" data-category-type="${categoryType }" data-category="${categoryPn}">
 		 	<li><a href="${cp }/app" class="jt-app-header-category-items">All</a></li>
 		 	<c:forEach items="${interestCategories}" var="categorys">
 		 		<li><a href="${cp}/app/cpn/${categorys.categoryPn}" class="jt-app-header-category-items">${categorys.name }</a></li>
