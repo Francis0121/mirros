@@ -6,15 +6,15 @@
 		
 		
 		<ul class="footer_btn">
-			<li><div class="jt-app-footer-icon"></div><a href="${cp}/app" class="${categoryType == 'app' ? 'ui-btn-active ui-state-persist' : ''}">상품</a></li>
-			<li><div class="jt-app-footer-icon"></div><a href="${cp}/app/reply" class="${categoryType == 'reply' ? 'ui-btn-active ui-state-persist' : ''}">댓글보기</a></li>
+			<li><a href="${cp}/app" class="${categoryType == 'app' ? 'ui-btn-active ui-state-persist' : ''}"><div class="jt-app-footer-icon"><div class="${categoryType == 'app' ? 'jt-app-icon-item-active' : 'jt-app-icon-item-passive'}"></div></div>상품</a></li>
+			<li><a href="${cp}/app/reply" class="${categoryType == 'reply' ? 'ui-btn-active ui-state-persist' : ''}"><div class="jt-app-footer-icon"><div class="${categoryType == 'reply' ? 'jt-app-icon-reply-active' : 'jt-app-icon-reply-passive'}"></div></div>댓글보기</a></li>
 			<sec:authorize ifAnyGranted="ROLE_ANONYMOUS">
-				<li><div class="jt-app-footer-icon"></div><a href="${cp}/app/login">체크리스트</a></li>
+				<li><a href="${cp}/app/login"><div class="jt-app-footer-icon"><div class="jt-app-icon-like-passive"></div></div>체크리스트</a></li>
 			</sec:authorize>
 			<sec:authorize ifNotGranted="ROLE_ANONYMOUS">
-				<li><div class="jt-app-footer-icon"></div><a href="${cp}/app/like" class="${categoryType == 'like' ? 'ui-btn-active ui-state-persist' : ''}">체크리스트</a></li>
+				<li><a href="${cp}/app/like" class="${categoryType == 'like' ? 'ui-btn-active ui-state-persist' : ''}"><div class="jt-app-footer-icon"><div class="${categoryType == 'like' ? 'jt-app-icon-like-active' : 'jt-app-icon-like-passive'}"></div></div>체크리스트</a></li>
 			</sec:authorize>
-			<li><div class="jt-app-footer-icon"></div><a href="${cp}/app/more" class="${categoryType == 'more' ? 'ui-btn-active ui-state-persist' : ''}">더보기</a></li>
+			<li><a href="${cp}/app/more" class="${categoryType == 'more' ? 'ui-btn-active ui-state-persist' : ''}"><div class="jt-app-footer-icon"><div class="${categoryType == 'more' ? 'jt-app-icon-more-active' : 'jt-app-icon-more-passive'}"></div></div>더보기</a></li>
 		</ul>
 	</div>
 </div>

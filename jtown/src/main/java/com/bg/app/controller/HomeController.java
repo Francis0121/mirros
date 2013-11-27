@@ -2,6 +2,7 @@ package com.bg.app.controller;
 
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.bg.jtown.business.Gather;
 import com.bg.jtown.business.comment.CommentService;
 import com.bg.jtown.business.home.GatherService;
 import com.bg.jtown.business.home.HomeService;
@@ -45,10 +47,14 @@ public class HomeController {
 	public void setPrefixView(String prefixView) {
 		this.prefixView = prefixView;
 	}
+	private List<Gather> hotItemList = null;
 
 	@RequestMapping(value = "")
 	public String itemView(Model model, HttpSession session, @ModelAttribute GatherFilter gatherFilter, SummaryUser summaryUser) {
 		gatherModelSetting(model, session, gatherFilter, summaryUser);
+		if("H".equals(gatherFilter.getNavFlag())){
+			hotItemList = gatherService.selectHotProductList(gatherFilter);
+		}
 		return prefixView + "item";
 	}
 
@@ -69,6 +75,7 @@ public class HomeController {
 		gatherFilter.setPagePerItem(12);
 		
 		model.addAttribute("categoryType", "app");
+		model.addAttribute("navType", gatherFilter.getNavFlag());
 		model.addAttribute("itemName", gatherFilter.getItemName());
 		model.addAttribute("categoryPn", gatherFilter.getCategoryPn());
 	}
@@ -83,7 +90,7 @@ public class HomeController {
 		gatherFilter.setCustomerPn(summaryUser.getPn());
 		Map<String, Object> object = new HashMap<String, Object>();
 		if ("H".equals(gatherFilter.getNavFlag())) {
-			object.put("mergeItems", gatherService.selectHotProductList(gatherFilter));
+			object.put("mergeItems", gatherService.paginateHotItemList(hotItemList, gatherFilter));
 		} else {
 			object.put("mergeItems", gatherService.selectNewMergeList(gatherFilter));
 		}

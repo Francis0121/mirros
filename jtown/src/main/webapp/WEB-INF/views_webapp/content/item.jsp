@@ -4,7 +4,7 @@
 <%@ include file="../layout/home-header.jspf" %>
 <div data-role="page">
 <%@ include file="../layout/header.jspf" %>
-	<div data-role="content" class="jt-app-item-content" data-nav="${categoryType}">
+	<div data-role="content" class="jt-app-item-content" data-nav="${navType}">
 		<div class="jt-app-item-change-mode"></div>
 		<div class="jt-app-item-list"></div>
 	</div>

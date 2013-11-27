@@ -3,15 +3,13 @@
 ********************/
 .jt-app-header-wrap{overflow: hidden;text-align: center;}
 .jt-app-header-left-wrap{float: left;padding: 18px 4%; width:5%;}
-.jt-app-header-right-wrap{float: left;padding: 18px 4%; width:5%;}
-.jt-app-header-title-wrap{float: left;text-align: center;width: 74%}
-.jt-app-header-title-wrap>h4{margin: 18px 0;color:#5e5e5e;}
-.jt-app-header-arrow-down{text-indent: -99999px; background: url("../images/jt-arrow2.png") no-repeat; background-position: 0px 0px;width: 16px; height: 18px;}
-.jt-app-header-arrow-up{text-indent: -99999px; background: url("../images/jt-arrow2.png") no-repeat; background-position: -30px 0px;width: 16px; height: 18px;}
-.jt-app-header-arrow-right{text-indent: -99999px; background: url("../images/jt-arrow2.png") no-repeat; background-position: -17px 0px;width: 12px; height: 18px;}
-.jt-app-header-arrow-left{text-indent: -99999px; background: url("../images/jt-arrow2.png") no-repeat; background-position: -46px 0px;width: 12px; height: 18px;}
-.jt-app-header-menu{text-indent: -99999px; background: url("../images/jt-menu.png") no-repeat; background-position: 0px 0px;width: 25px; height: 21px;}
-.jt-app-header{height: 50px;border: 1px solid #ededed; color:#3e3d3e;text-shadow: 0 1px 0 #888;
+.jt-app-header-right-wrap{float: left;padding: 15px 7% 15px 1%; width:5%;}
+.jt-app-header-title-wrap{float: left;text-align: center;width: 74%;font-size:17px;}
+.jt-app-header-title-wrap>h4{margin: 16px 0;color:#4e4e4e;}
+.jt-app-header-arrow-down{text-indent: -99999px; background: url("../images/jt-arrow3.png") no-repeat; background-position: 0px 0px;width: 22px; height: 14px;background-size:44px;}
+.jt-app-header-arrow-up{text-indent: -99999px; background: url("../images/jt-arrow3.png") no-repeat; background-position: -23px 0px;width: 22px; height: 14px;background-size:44px;}
+.jt-app-header-menu{text-indent: -99999px; background: url("../images/jt-menu3.png") no-repeat; background-position: 0px 0px;width: 29px; height: 21px;background-size:29px;display: inline-block;}
+.jt-app-header{height: 50px;border: 1px solid #ededed; color:#3e3d3e;text-shadow: 0 0px 0 #888;
 	background: #eeeeee /*{g-bar-background-color}*/;
 	background-image: -webkit-gradient(linear, left top, left bottom, from( #ffffff /*{g-bar-background-start}*/), to( #f8f8f8 /*{g-bar-background-end}*/)); /* Saf4+, Chrome */
 	background-image: -webkit-linear-gradient( #ffffff /*{g-bar-background-start}*/, #f8f8f8 /*{g-bar-background-end}*/); /* Chrome 10+, Saf5.1+ */
@@ -76,5 +74,14 @@
 	}
 
 .jt-app-footer-icon{height: 35px;}
-.footer_btn>li>a>.ui-btn-inner{font-size: 11px;font-weight: 500;}
+.footer_btn>li>a>.ui-btn-inner{font-size: 11px;font-weight: 500;text-align: center;}
 .ui-btn-active{background: #fff !important; color:#ff8e0d !important;text-shadow:0 0px 0 #fff;}
+
+.jt-app-icon-item-passive{text-indent: -99999px; background: url("../images/jt-icon.png") no-repeat; background-position: -94px 0px;width: 36px; height: 30px;background-size:127px;display: inline-block;}
+.jt-app-icon-item-active{text-indent: -99999px; background: url("../images/jt-icon.png") no-repeat; background-position: -94px -32px;width: 36px; height: 30px;background-size:127px;display: inline-block;}
+.jt-app-icon-reply-passive{text-indent: -99999px; background: url("../images/jt-icon.png") no-repeat; background-position: 0px 0px;width: 32px; height: 30px;background-size:127px;display: inline-block;}
+.jt-app-icon-reply-active{text-indent: -99999px; background: url("../images/jt-icon.png") no-repeat; background-position: 0px -32px;width: 32px; height: 30px;background-size:127px;display: inline-block;}
+.jt-app-icon-like-passive{text-indent: -99999px; background: url("../images/jt-icon.png") no-repeat; background-position: -68px 0px;width: 26px; height: 30px;background-size:127px;display: inline-block;}
+.jt-app-icon-like-active{text-indent: -99999px; background: url("../images/jt-icon.png") no-repeat; background-position: -68px -32px;width: 26px; height: 30px;background-size:127px;display: inline-block;}
+.jt-app-icon-more-passive{text-indent: -99999px; background: url("../images/jt-icon.png") no-repeat; background-position: -32px 0px;width: 34px; height: 30px;background-size:127px;display: inline-block;}
+.jt-app-icon-more-active{text-indent: -99999px; background: url("../images/jt-icon.png") no-repeat; background-position: -32px -32px;width: 34px; height: 30px;background-size:127px;display: inline-block;}

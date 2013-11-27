@@ -347,7 +347,7 @@
 		                  ON u.pn = us.pn 
 		                JOIN partnership p 
 		                  ON p.seller_pn = us.pn 
-		                LEFT OUTER JOIN statistic_product_click spc 
+		                LEFT OUTER JOIN (SELECT * FROM statistic_product_click WHERE WEEK(count_date) = WEEK(SYSDATE()))  spc 
 		                  ON spc.product_pn = usp.pn 
 		                LEFT OUTER JOIN image img 
 		                  ON img.pn = image_pn 
@@ -363,7 +363,7 @@
 					  </if>
 		                AND u.enable = 1 
 		              GROUP BY usp.pn 
-		              ORDER BY SUM(DAY_COUNT) DESC) a,
+		              ORDER BY SUM(DAY_COUNT) DESC, usp.input_date DESC) a,
 		              (SELECT 
 		                @rownum := 0) R) tb 
 		          WHERE rownum &lt; 
