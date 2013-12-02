@@ -6,12 +6,13 @@
 
 <%-- Custom --%>
 <%-- <script src="${cp}/resources_mobile/js/mobile.all.js"></script> --%>
-<script src="${cp}/resources_webapp/js/util.js"></script>
-<script src="${cp}/resources_webapp/js/default.js?19"></script>
+<script src="${cp}/resources/js/plugin/jquery.default.plugin.min.js"></script>
+<script src="${cp}/resources_webapp/js/util.js?2"></script>
+<script src="${cp}/resources_webapp/js/default.js?21"></script>
 <script src="${cp}/resources_webapp/js/mirros.all.js"></script>
 
-<script src="${cp}/resources_webapp/js/content/item.js?14"></script>
-<script src="${cp}/resources_webapp/js/content/like.js?4"></script>
+<script src="${cp}/resources_webapp/js/content/item.js?20"></script>
+<script src="${cp}/resources_webapp/js/content/like.js?5"></script>
 <script src="${cp}/resources_webapp/js/content/more.js?12"></script>
 <script src="${cp}/resources_webapp/js/content/reply.js?5"></script>
 

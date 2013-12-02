@@ -24,8 +24,6 @@ import com.bg.jtown.business.home.GatherService;
 import com.bg.jtown.business.home.HomeService;
 import com.bg.jtown.business.search.GatherFilter;
 import com.bg.jtown.security.SummaryUser;
-import com.bg.jtown.util.BrowserUtil;
-import com.bg.jtown.util.CookieUtil;
 
 @Controller(value = "appHomeController")
 @RequestMapping("/app")
@@ -88,6 +86,9 @@ public class HomeController {
 		gatherFilter.setCurrentPage(currentPage);
 		gatherFilter.setPagePerItem(12);
 		gatherFilter.setCustomerPn(summaryUser.getPn());
+		if("".equals(gatherFilter.getItemName())){
+			gatherFilter.setItemName(null);
+		}
 		Map<String, Object> object = new HashMap<String, Object>();
 		if ("H".equals(gatherFilter.getNavFlag())) {
 			object.put("mergeItems", gatherService.paginateHotItemList(hotItemList, gatherFilter));

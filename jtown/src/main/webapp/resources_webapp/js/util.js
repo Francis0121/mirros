@@ -57,7 +57,7 @@ $.formatNumber = function(cr){
 };
 
 $.toast = function(msg){
-	$("<div class='ui-loader ui-overlay-shadow ui-body-e ui-corner-all'><h3>"+msg+"</h3></div>")
+	$("<div class='jt-toast-wrap'>"+msg+"</div>")
 	.css({ display: "block", 
 		opacity: 0.90, 
 		position: "fixed",
@@ -65,7 +65,7 @@ $.toast = function(msg){
 		"text-align": "center",
 		width: "270px",
 		left: ($(window).width() - 284)/2,
-		top: $(window).height()/2 })
+		top: $(window).height()/1.4 })
 	.appendTo( $.mobile.pageContainer ).delay( 1500 )
 	.fadeOut( 400, function(){
 		$(this).remove();

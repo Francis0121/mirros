@@ -26,16 +26,16 @@ mobile.real.start = function(){
 
 mobile.real.time = function(data) {
 	var obj = eval('('+data+')');
-	
+	console.log(obj);
 	if(obj.redisType == 'comment_feed'){
 		var mobileHtml = '';
 		mobileHtml += '<div class="jt-app-reply-comment-wrap" data-url="'+obj.url+'">';
 		if(obj.contentType != '-1'){
 			mobileHtml += 		'<div class="jt-app-reply-img-wrap">';
 			if(obj.contentType == null){
-				mobileHtml += '<img src="'+contextPath+'resources/uploadImage/'+obj.saveName +'" alt="'+obj.productName +'" />';
+				mobileHtml += '<img src="'+contextPath+'/resources/uploadImage/'+obj.saveName +'" alt="'+obj.productName +'" />';
 			}else{
-				mobileHtml += '<img src="'+contextPath+'photo/thumbnail/'+obj.saveName+'product.'+obj.contentType+'" alt="'+obj.productName+'" />';
+				mobileHtml += '<img src="'+contextPath+'/photo/thumbnail/'+obj.saveName+'product.'+obj.contentType+'" alt="'+obj.productName+'" />';
 			}
 			mobileHtml += '</div>';
 		}else{
@@ -44,7 +44,7 @@ mobile.real.time = function(data) {
 		mobileHtml +=		'<div class="jt-app-reply-contents-wrap">';
 		mobileHtml += 			'<div class="jt-app-reply-product-name">'+obj.productName+'</div>';
 		mobileHtml += 			'<div class="jt-app-reply-comment">'+obj.comment+'</div>';		
-		mobileHtml += 			'<div class="jt-app-reply-comment-date"><span>'+new Date(obj.inputDate).format('a/p hh:mm')+'</span></div>';
+		mobileHtml += 			'<div class="jt-app-reply-comment-date"><span>'+obj.comparedTime+'</span></div>';
 		mobileHtml += 		'</div>';
 		mobileHtml += '</div>';
 		$('.jt-app-reply-contents').prepend(mobileHtml);

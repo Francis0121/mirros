@@ -1,5 +1,6 @@
 package com.bg.jtown.util;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
@@ -88,8 +89,7 @@ public class DateUtil {
 
 	public static String getSysdate(String dateForm) {
 		Date date = new Date();
-		String sysdate = new SimpleDateFormat(dateForm, Locale.KOREA)
-				.format(date);
+		String sysdate = new SimpleDateFormat(dateForm, Locale.KOREA).format(date);
 		return sysdate;
 	}
 
@@ -106,14 +106,11 @@ public class DateUtil {
 
 		if (month.equals("01") || month.equals("02") || month.equals("03")) {
 			querterYear = "1";
-		} else if (month.equals("04") || month.equals("05")
-				|| month.equals("06")) {
+		} else if (month.equals("04") || month.equals("05") || month.equals("06")) {
 			querterYear = "2";
-		} else if (month.equals("07") || month.equals("08")
-				|| month.equals("09")) {
+		} else if (month.equals("07") || month.equals("08") || month.equals("09")) {
 			querterYear = "3";
-		} else if (month.equals("10") || month.equals("11")
-				|| month.equals("12")) {
+		} else if (month.equals("10") || month.equals("11") || month.equals("12")) {
 			querterYear = "4";
 		} else {
 			logger.error("잘못된 월 입력");
@@ -191,19 +188,16 @@ public class DateUtil {
 	 * @throws IllegalArgumentException
 	 *             날짜 포맷이 정해진 바와 다를 경우. 입력 값이 <code>null</code>인 경우.
 	 */
-	public static String addYearMonthDay(String sDate, int year, int month,
-			int day) {
+	public static String addYearMonthDay(String sDate, int year, int month, int day) {
 
 		String dateStr = validChkDate(sDate);
 
 		Calendar cal = Calendar.getInstance();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd",
-				Locale.getDefault());
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd", Locale.getDefault());
 		try {
 			cal.setTime(sdf.parse(dateStr));
 		} catch (ParseException e) {
-			throw new IllegalArgumentException("Invalid date format: "
-					+ dateStr);
+			throw new IllegalArgumentException("Invalid date format: " + dateStr);
 		}
 
 		if (year != 0)
@@ -225,10 +219,8 @@ public class DateUtil {
 	public static String validChkDate(String dateStr) {
 		String _dateStr = dateStr;
 
-		if (dateStr == null
-				|| !(dateStr.trim().length() == 8 || dateStr.trim().length() == 10)) {
-			throw new IllegalArgumentException("Invalid date format: "
-					+ dateStr);
+		if (dateStr == null || !(dateStr.trim().length() == 8 || dateStr.trim().length() == 10)) {
+			throw new IllegalArgumentException("Invalid date format: " + dateStr);
 		}
 		if (dateStr.length() == 10) {
 			_dateStr = removeMinusChar(dateStr);
@@ -313,8 +305,7 @@ public class DateUtil {
 
 		try {
 			long interval = 0L;
-			if (startDate != null && startDate.length() == 8 && endDate != null
-					&& endDate.length() == 8) {
+			if (startDate != null && startDate.length() == 8 && endDate != null && endDate.length() == 8) {
 				SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
 				ParsePosition strPos = new ParsePosition(0);
 				ParsePosition endPos = new ParsePosition(0);
@@ -324,25 +315,46 @@ public class DateUtil {
 
 				interval = endDateOb.getTime() - startDateOb.getTime();
 			}
-			daysBetween = new Long(interval / (1L * 24 * 60 * 60 * 1000))
-					.intValue();
+			daysBetween = new Long(interval / (1L * 24 * 60 * 60 * 1000)).intValue();
 		} catch (Exception e) {
 
 		}
 
 		return daysBetween;
 	}
-	
-	public static long diffOfDate(String begin, String end) throws Exception
-	  {
-	    SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");
-	 
-	    Date beginDate = formatter.parse(begin);
-	    Date endDate = formatter.parse(end);
-	 
-	    long diff = endDate.getTime() - beginDate.getTime();
-	    long diffDays = diff / (24 * 60 * 60 * 1000);
-	 
-	    return diffDays;
-	  }
+
+	public static long diffOfDate(String begin, String end) throws Exception {
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");
+
+		Date beginDate = formatter.parse(begin);
+		Date endDate = formatter.parse(end);
+
+		long diff = endDate.getTime() - beginDate.getTime();
+		long diffDays = diff / (24 * 60 * 60 * 1000);
+
+		return diffDays;
+	}
+
+	public static String beforeRecodeTimeToString(String inputDate) {
+		String timeString = "yyyy-MM-dd HH:mm:ss.S";
+		try {
+			Calendar cal = Calendar.getInstance();
+			DateFormat sdFormat = new SimpleDateFormat(timeString.substring(0, inputDate.length()));
+			Date tempDate = sdFormat.parse(inputDate);
+			long compare = (cal.getTime().getTime() - tempDate.getTime()) / 1000;
+			if (compare < 60) {
+				return compare + "초 전";
+			} else if (compare < 60 * 60) {
+				return (int) compare / (60) + "분 전";
+			} else if (compare < 60 * 60 * 24) {
+				return (int) Math.floor(compare / (60 * 60)) + "시간 전";
+			} else if (compare < 60 * 60 * 24 * 365) {
+				return (int) Math.floor(compare / (60 * 60 * 24)) + "일 전";
+			} else if (compare > 60 * 60 * 24 * 365) {
+				return (int) Math.floor(compare / (60 * 60 * 24 * 365)) + "년 전";
+			}
+		} catch (ParseException e) {
+		}
+		return null;
+	}
 }

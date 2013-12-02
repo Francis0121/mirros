@@ -6,10 +6,6 @@
 		<h4>Mirros</h4>
 	</div>
 	<div class="jt-app-header-right-wrap" data-toggle="0"><div class="jt-app-header-menu"></div></div>
-	<!-- 
-	<a  id="jt-app-header-arrow-d" class="ui-btn-left" data-toggle="0"></a> 
-	<a data-icon="arrow-l" data-role="button"  data-iconpos="notext" id="jt-app-header-arrow-l" class="ui-btn-right" data-toggle="0"></a>
-	 -->
 	</div>
 </div>
 <div class="jt-app-header-extend-menu">

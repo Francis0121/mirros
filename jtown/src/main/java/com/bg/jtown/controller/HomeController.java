@@ -84,7 +84,7 @@ public class HomeController {
 		if (BrowserUtil.isMobile(request)) {
 			String value = CookieUtil.isCookie("SEE_PC_VERSION", request);
 			if (value == null || !value.equals("T")) {
-				return "redirect:/app";
+				return "redirect:/m";
 			} else {
 				model.addAttribute("isMobile", true);
 			}

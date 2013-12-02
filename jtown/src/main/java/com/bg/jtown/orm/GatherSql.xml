@@ -117,7 +117,7 @@
 		      LEFT OUTER JOIN image img 
 		        ON img.pn = image_pn
 		      <if test="mobileFlag == true">
-		      LEFT JOIN (SELECT product_pn,COMMENT FROM product_comment ORDER BY comment_pn DESC ) pc
+		      LEFT JOIN (SELECT product_pn,COMMENT FROM product_comment WHERE deleted ='N' ORDER BY comment_pn DESC ) pc
       		    ON pc.product_pn = usp.pn  
 		      </if> 
 		      LEFT OUTER JOIN count_product_heart cph 
@@ -266,9 +266,7 @@
 		      <if test="customerPn != null"> customer_pn,</if>
 		      SUM(day_count) AS day_count,
 		      1 AS hot 
-		      <if test="mobileFlag == true">
 		      	,comment
-		      </if>
 		    FROM
 		      (SELECT 
 		        usp.pn AS product_pn,
@@ -284,9 +282,7 @@
 		        usp.input_date,
 		        pcl.customer_pn,
 		        day_count 
-		        <if test="mobileFlag == true">
 		      	,comment
-		      </if>
 		      FROM
 		        user_seller_product usp 
 		        JOIN user_seller_contract_info usci 
@@ -299,10 +295,8 @@
 		          ON u.pn = us.pn 
 		        JOIN partnership p 
 		          ON p.seller_pn = us.pn 
-		      <if test="mobileFlag == true">
-		      LEFT JOIN (SELECT product_pn,COMMENT FROM product_comment ORDER BY comment_pn DESC ) pc
+		      LEFT JOIN (SELECT product_pn,COMMENT FROM product_comment WHERE deleted ='N' ORDER BY comment_pn DESC ) pc
       		    ON pc.product_pn = usp.pn  
-		      </if> 
 		        LEFT OUTER JOIN statistic_product_click spc 
 		          ON spc.product_pn = usp.pn 
 		        LEFT OUTER JOIN product_count_love pcl 
@@ -489,13 +483,16 @@
 	
 	<select id="selectEventList" resultMap="EventMapper"> 
 		SELECT DISTINCT
-			 usee.event_pn, usee.seller_pn, event_name, begin_date, DATEDIFF(usee.end_date,SYSDATE()) AS end_date, banner_order, p.shop_name, p.shop_url AS url, heart_count <if test="customerPn != null">, customer_pn</if>
+			 usee.event_pn, usee.seller_pn, event_name, begin_date, DATEDIFF(usee.end_date,SYSDATE()) AS end_date, 
+			 	banner_order, p.shop_name, p.shop_url AS url, heart_count <if test="customerPn != null">, customer_pn</if>, comment
 		FROM
 			user_seller_event usee
 		JOIN partnership p
 			ON p.seller_pn = usee.seller_pn
 		JOIN users u
 			ON u.pn = p.seller_pn
+		LEFT JOIN (SELECT event_pn,COMMENT FROM event_comment WHERE deleted ='N' ORDER BY comment_pn DESC) pc 
+        	ON usee.event_pn = pc.event_pn	
 		LEFT OUTER JOIN count_event_heart ceh
 			  ON ceh.event_pn = usee.event_pn 
 		LEFT OUTER JOIN event_count_love ecl
@@ -508,6 +505,7 @@
 		<if test="categoryPn != 0"> 
 			AND p.category_pn = #{categoryPn}
 		</if>	
+		GROUP BY event_pn
 		LIMIT #{prevItemCount}, #{pagePerItem}
 	</select>
 	
@@ -658,6 +656,7 @@
 		<result property="shopName" column="shop_name"/>
 		<result property="endDate" column="end_date"/>
 		<result property="url" column="shop_url"/>
+		<result property="comment" column="comment"/>
 	</resultMap>
 	
 	<select id="selectShopEvent" resultMap="ShopEventMapper">

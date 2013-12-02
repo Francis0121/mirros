@@ -1,11 +1,11 @@
 $(function() {
 	 //~ Init
 	 if($.checkLikePage()){
-		 $.setHeightEventItems();
+		 $.setHeightEventLikes();
 	 }
 	$(document).on("pageshow", function () {
 		if($.checkLikePage()){
-			$.setHeightEventItems();
+			$.setHeightEventLikes();
 		}
 	});
 	
@@ -19,8 +19,8 @@ $.checkLikePage = function(){
 	}
 };
 
-$.setHeightEventItems = function(){
+
+$.setHeightEventLikes = function(){
 	$('.jt-app-item-list-events').height($('.jt-app-item-list-products:last').height());
 	$('.jt-app-item-event-wrap').height($('.jt-app-item-list-products-img img:last').height());
 };
-

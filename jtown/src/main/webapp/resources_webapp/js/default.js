@@ -4,7 +4,6 @@ $(function(){
 	    document.body.style.height = (document.documentElement.clientHeight + 5) + 'px';
 	    window.scrollTo(0, 1);
 	}, false);
-
 	$.setHeightFull();
 	$(document).on("pageshow", function () {
 		$.setHeightFull();
@@ -133,12 +132,12 @@ $(function(){
 				
 				var html = '';
 				if(size > 0){
-					html += '<li data-search-result="all" data-search-name='+searchName+'>['+searchName+'] 이(가) 포함된 모든 상품</li>'
+					html += '<li data-search-result="all" data-search-name='+searchName+'>['+searchName+'] 이(가) 포함된 모든 상품</li>';
 					for(var idx = 0; idx< size; idx++){
 						html+= '<li>'+ productName[idx].name+'</li>';
 					}
 				}else{
-					html += '<li data-search-result="0">검색결과가 없습니다.</li>'
+					html += '<li data-search-result="0">검색결과가 없습니다.</li>';
 				}
 				$('.jt-app-header-search-result').css('display','block');
 				$('.jt-app-search-item').html(html);

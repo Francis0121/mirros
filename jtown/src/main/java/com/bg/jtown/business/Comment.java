@@ -1,5 +1,7 @@
 package com.bg.jtown.business;
 
+import java.util.Date;
+
 import com.bg.jtown.util.StringUtil;
 
 /**

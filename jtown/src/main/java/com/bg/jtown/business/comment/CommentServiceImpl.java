@@ -213,8 +213,12 @@ public class CommentServiceImpl extends SqlSessionDaoSupport implements CommentS
 	}
 
 	@Override
-	public List<Comment> selectCommentFeedList() {
-		return getSqlSession().selectList("commentMapper.selectCommentFeedList");
+	public List<Gather> selectCommentFeedList() {
+		List<Gather> lists = getSqlSession().selectList("commentMapper.selectCommentFeedList");
+		for (int idx = 0, size = lists.size(); idx < size; idx++) {
+			lists.get(idx).setComparedTime(DateUtil.beforeRecodeTimeToString(lists.get(idx).getInputDate()));
+		}
+		return lists;
 	}
 
 	@Override

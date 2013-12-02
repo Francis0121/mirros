@@ -11,6 +11,7 @@ import com.bg.jtown.business.Comment;
 import com.bg.jtown.business.Count;
 import com.bg.jtown.business.Event;
 import com.bg.jtown.business.Gather;
+import com.bg.jtown.util.DateUtil;
 import com.google.gson.Gson;
 
 /**
@@ -104,6 +105,9 @@ public class Publisher {
 	}
 	
 	public void commentFeed(Gather gather) {
+		
+		gather.setComparedTime(DateUtil.beforeRecodeTimeToString(gather.getInputDate()));
+		System.out.println("gather :"+ gather);
 		try {
 			gather.setRedisType("comment_feed");
 			Gson gson = new Gson();

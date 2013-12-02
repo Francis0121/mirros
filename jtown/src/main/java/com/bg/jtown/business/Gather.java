@@ -38,6 +38,7 @@ public class Gather extends Redis {
 	// Comments
 	private int commentPn;
 	private String comment;
+	private String comparedTime;
 
 	public int getProductPn() {
 		return productPn;
@@ -231,6 +232,14 @@ public class Gather extends Redis {
 		this.inputDate = inputDate;
 	}
 
+	public String getComparedTime() {
+		return comparedTime;
+	}
+
+	public void setComparedTime(String comparedTime) {
+		this.comparedTime = comparedTime;
+	}
+
 	@Override
 	public String toString() {
 		return "Gather [productPn=" + productPn + ", sellerPn=" + sellerPn + ", imagePn=" + imagePn + ", productName=" + productName + ", url=" + url
@@ -238,7 +247,7 @@ public class Gather extends Redis {
 				+ ", newProduct=" + newProduct + ", heartCount=" + heartCount + ", customerPn=" + customerPn + ", comments=" + comments
 				+ ", inputDate=" + inputDate + ", eventPn=" + eventPn + ", eventName=" + eventName + ", beginDate=" + beginDate + ", endDate="
 				+ endDate + ", bannerOrder=" + bannerOrder + ", shopName=" + shopName + ", newEvent=" + newEvent + ", commentPn=" + commentPn
-				+ ", comment=" + comment + "]";
+				+ ", comment=" + comment + ", comparedTime=" + comparedTime + "]";
 	}
 
 }

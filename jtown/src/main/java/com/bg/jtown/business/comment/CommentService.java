@@ -67,7 +67,7 @@ public interface CommentService {
 
 	void deleteProductComment(Comment comment);
 
-	List<Comment> selectCommentFeedList();
+	List<Gather> selectCommentFeedList();
 	
 	Gather selectCommentFeedItem(Integer commnetPn);
 	

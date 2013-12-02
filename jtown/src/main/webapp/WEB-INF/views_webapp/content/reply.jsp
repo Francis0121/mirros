@@ -23,11 +23,10 @@
 				</c:if>
 				<div class="jt-app-reply-contents-wrap">
 					<div class="jt-app-reply-product-name">${commentFeed.productName }</div>
-					<div class="jt-app-reply-comment">${commentFeed.comment }</div>
+					<div class="jt-app-reply-comment">"${commentFeed.comment }"</div>
 					<div class="jt-app-reply-comment-date">
 						<span>
-							<fmt:parseDate var="dateParse" value="${commentFeed.inputDate}" pattern="yyyy-MM-dd HH:mm:ss.S"/>
-							<fmt:formatDate value="${dateParse }" pattern= "a KK:mm"/> 
+							${commentFeed.comparedTime }
 						</span>
 					</div>
 				</div>

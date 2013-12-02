@@ -101,7 +101,7 @@ public class GatherController {
 		if (BrowserUtil.isMobile(request)) {
 			String value = CookieUtil.isCookie("SEE_PC_VERSION", request);
 			if (value == null || !value.equals("T")) {
-				return "redirect:/app";
+				return "redirect:/m";
 			} else {
 				model.addAttribute("isMobile", true);
 			}
@@ -246,9 +246,7 @@ public class GatherController {
 		}
 	}
 
-	@RequestMapping(value = "/ajax/productHeartClick.jt", method = RequestMethod.POST)
-	@ResponseBody
-	public Product ajaxProductHeartClick(@RequestBody Count count, SummaryUser summaryUser) {
+	public Product ajaxProductHeartClickMethod(Count count, SummaryUser summaryUser) {
 		Product product = new Product();
 		switch (summaryUser.getEnumAuthority()) {
 		case CUSTOMER:
@@ -266,6 +264,18 @@ public class GatherController {
 			product.setMessage("2");
 		}
 		return product;
+	}
+	
+	@RequestMapping(value = "/ajax/productHeartClick.jt", method = RequestMethod.POST)
+	@ResponseBody
+	public Product ajaxProductHeartClick(@RequestBody Count count, SummaryUser summaryUser) {
+		return ajaxProductHeartClickMethod(count,summaryUser);
+	}
+	
+	@RequestMapping(value = "/ajax/productHeartClickMobile.jt", method = RequestMethod.POST)
+	@ResponseBody
+	public Product ajaxProductHeartClickMobile(Count count, SummaryUser summaryUser) {
+		return ajaxProductHeartClickMethod(count,summaryUser);
 	}
 
 	@RequestMapping(value = "/ajax/productFacebookLikeClick.jt", method = RequestMethod.POST)
@@ -310,9 +320,8 @@ public class GatherController {
 		return count;
 	}
 
-	@RequestMapping(value = "/ajax/eventHeartClick.jt", method = RequestMethod.POST)
-	@ResponseBody
-	public Gather ajaxEventHeartClick(@RequestBody Count count, SummaryUser summaryUser) {
+	
+	public Gather ajaxEventHeartClickMethod(Count count, SummaryUser summaryUser){
 		Gather gather = new Gather();
 		switch (summaryUser.getEnumAuthority()) {
 		case CUSTOMER:
@@ -330,6 +339,17 @@ public class GatherController {
 			gather.setMessage("2");
 		}
 		return gather;
+	}
+	@RequestMapping(value = "/ajax/eventHeartClick.jt", method = RequestMethod.POST)
+	@ResponseBody
+	public Gather ajaxEventHeartClick(@RequestBody Count count, SummaryUser summaryUser) {
+		return ajaxEventHeartClickMethod(count,summaryUser);
+	}
+	
+	@RequestMapping(value = "/ajax/eventHeartClickMobile.jt", method = RequestMethod.POST)
+	@ResponseBody
+	public Gather ajaxEventHeartClickMobile(Count count, SummaryUser summaryUser) {
+		return ajaxEventHeartClickMethod(count,summaryUser);
 	}
 
 	@RequestMapping(value = "/ajax/eventFacebookLikeClick.jt", method = RequestMethod.POST)
