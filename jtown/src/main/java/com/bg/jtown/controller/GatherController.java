@@ -101,7 +101,7 @@ public class GatherController {
 		if (BrowserUtil.isMobile(request)) {
 			String value = CookieUtil.isCookie("SEE_PC_VERSION", request);
 			if (value == null || !value.equals("T")) {
-				return "redirect:/m";
+				return "redirect:/app";
 			} else {
 				model.addAttribute("isMobile", true);
 			}

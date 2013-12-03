@@ -7,7 +7,7 @@
 <%@ include file="../layout/header.jspf" %>
 	<div data-role="content" class="jt-app-item-content jt-app-reply-contents">
 		<c:forEach var="commentFeed" items="${commentFeed }">
-			<div class="jt-app-reply-comment-wrap" data-url="${commentFeed.url}" >
+			<div class="jt-app-reply-comment-wrap" data-url="${commentFeed.url}" data-comment-pn="${commentFeed.commentPn}" data-customer-pn="${commentFeed.customerPn }" oncontextmenu="return false" onselectstart="return false">
 				<c:if test="${commentFeed.contentType != '-1'}">	
 					<div class="jt-app-reply-img-wrap" data-productPn="${commentFeed.productPn }">
 						<c:if test="${empty commentFeed.contentType}">
@@ -24,16 +24,21 @@
 				<div class="jt-app-reply-contents-wrap">
 					<div class="jt-app-reply-product-name">${commentFeed.productName }</div>
 					<div class="jt-app-reply-comment">"${commentFeed.comment }"</div>
-					<div class="jt-app-reply-comment-date">
-						<span>
-							${commentFeed.comparedTime }
-						</span>
+					<div class="jt-app-reply-menu-wrap">
+						<div class="jt-app-reply-comment-date">
+						<div class="jt-app-reply-clock"></div><div>${commentFeed.comparedTime }</div>
+						</div>
 					</div>
 				</div>
 			</div>
 		</c:forEach>
-	
-	
+	<div data-role="popup" id="jt-reply-popup-menu" data-overlay-theme="a">
+	    <ul data-role="listview" data-inset="true" >
+			<li data-role="divider" data-theme="a"> &nbsp; </li>
+			<li class="jt-app-reply-popup-delete"><a href="">삭제</a></li>
+			<li class="jt-app-reply-popup-warn"><a href="">신고</a></li>
+	    </ul>
+	</div>
 	</div>
 	<%@ include file="../layout/footer.jspf" %>
 </div>

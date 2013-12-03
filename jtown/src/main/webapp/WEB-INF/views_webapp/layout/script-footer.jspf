@@ -7,16 +7,17 @@
 <%-- Custom --%>
 <%-- <script src="${cp}/resources_mobile/js/mobile.all.js"></script> --%>
 <script src="${cp}/resources/js/plugin/jquery.default.plugin.min.js"></script>
-<script src="${cp}/resources_webapp/js/util.js?2"></script>
-<script src="${cp}/resources_webapp/js/default.js?21"></script>
+
+<script src="${cp}/resources_webapp/js/util.js?3"></script>
+<script src="${cp}/resources_webapp/js/default.js?22"></script>
 <script src="${cp}/resources_webapp/js/mirros.all.js"></script>
 
-<script src="${cp}/resources_webapp/js/content/item.js?20"></script>
-<script src="${cp}/resources_webapp/js/content/like.js?5"></script>
-<script src="${cp}/resources_webapp/js/content/more.js?12"></script>
-<script src="${cp}/resources_webapp/js/content/reply.js?5"></script>
+<script src="${cp}/resources_webapp/js/content/item.js?21"></script>
+<script src="${cp}/resources_webapp/js/content/like.js?7"></script>
+<script src="${cp}/resources_webapp/js/content/more.js?13"></script>
+<script src="${cp}/resources_webapp/js/content/reply.js?6"></script>
 
 <%-- Node --%>
-<script src="${cp}/resources_webapp/js/real.time.js?4"></script>
+<script src="${cp}/resources_webapp/js/real.time.js?5"></script>
 <script src="${nodePath }/socket.io/socket.io.js"></script>
 

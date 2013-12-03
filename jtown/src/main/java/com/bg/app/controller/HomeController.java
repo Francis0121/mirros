@@ -80,8 +80,11 @@ public class HomeController {
 
 	@RequestMapping(value = "/ajax/productPagination.jt", method = RequestMethod.POST)
 	@ResponseBody
-	public Object ajaxGatherItem(GatherFilter gatherFilter, HttpSession session, SummaryUser summaryUser) {
+	public Object ajaxGatherItem(GatherFilter gatherFilter, HttpSession session, SummaryUser summaryUser, Integer init) {
 		int currentPage = (Integer) session.getAttribute("app-currentPage") == null ? 1 : (Integer) session.getAttribute("app-currentPage");
+		if(init != null && currentPage > 1){
+			currentPage -= 1;
+		}
 		gatherFilter.setMobileFlag(true);
 		gatherFilter.setCurrentPage(currentPage);
 		gatherFilter.setPagePerItem(12);
@@ -97,6 +100,15 @@ public class HomeController {
 		}
 		session.setAttribute("app-currentPage", (gatherFilter.getCurrentPage() + 1));
 		return object;
+	}
+	
+	@RequestMapping(value = "/ajax/setCurrentPage.jt", method = RequestMethod.POST)
+	@ResponseBody
+	public Object ajaxGetCurrentPage(HttpSession session) {
+		int currentPage = (Integer) session.getAttribute("app-currentPage");
+		System.out.println("currentPage :"+ currentPage);
+		session.setAttribute("app-currentPage", currentPage - 1);
+		return currentPage;
 	}
 
 }

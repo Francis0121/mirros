@@ -3,7 +3,7 @@ $(function() {
 	 if( navigator.platform  ){
 		 if( filter.indexOf(navigator.platform.toLowerCase())<0 ){
 			 if($.checkAppPage()){
-				 $.pagingItem(); 
+				 $.pagingItem(1); 
 			 }
 		 }
 	 }
@@ -35,13 +35,13 @@ $.checkAppPage = function(){
 	}
 };
 
-$.pagingItem = function(){
+$.pagingItem = function(init){
 	$.mobile.showPageLoadingMsg();
 	var navFlag = null;
 	var itemName = $('.jt-app-header-search').attr('data-search');
 	var categoryPn = $('.jt-app-header-category:last').attr('data-category');
 	$('.jt-app-item-content').attr('data-nav') == 'H' ? navFlag = 'H': navFlag=null;
-	$.post(contextPath+'/app/ajax/productPagination.jt',{navFlag : navFlag, categoryPn : categoryPn, itemName : itemName}, function(data){
+	$.post(contextPath+'/app/ajax/productPagination.jt',{navFlag : navFlag, categoryPn : categoryPn, itemName : itemName, init : init}, function(data){
     	if(data.mergeItems.length > 0){
     		$.attendProductItems(data);
     		$.setHeightEventItems();
@@ -182,7 +182,6 @@ $('body').on('taphold', '.jt-app-item-lists', function(){
 	}
 });
 
-
 $('body').on('click', '.jt-app-item-list-products', function(){
 	var productPn = $(this).attr('data-product-pn');
 	$.insertProductClickStatistic(productPn);
@@ -194,22 +193,28 @@ $('body').on('click', '.jt-app-item-list-events', function(){
 	location.href=$(this).attr('data-url');
 });
 
-//TODO HEIGHT 버그
 $.setHeightEventItems = function(){
 	$('.jt-app-item-list-events').height($('.jt-app-item-list-products').height());
 	$('.jt-app-item-event-wrap').height($('.jt-app-item-list-products-img img').height());
 };
 
-
 $itemWrapStaticTarget = null;
 $('body').on('click', '.jt-app-item-list-reply', function(e){
+	$.replyDialog(e, $(this));
+});
+$('body').on('click', '.jt-app-reply-wrap', function(e){
+	$.replyDialog(e, $(this));
+});
+
+$.replyDialog = function(e, pThis){
 	e.stopPropagation();
 	$('#jt-app-reply-dialog').popup('open');
-	$eventPn = $(this).parents('.jt-app-item-lists').attr('data-event-pn');
-	$productPn = $(this).parents('.jt-app-item-lists').attr('data-product-pn');
-	$itemWrapStaticTarget = $(this).parents('.jt-app-item-lists');
+	$eventPn = pThis.parents('.jt-app-item-lists').attr('data-event-pn');
+	$productPn = pThis.parents('.jt-app-item-lists').attr('data-product-pn');
+	$itemWrapStaticTarget = pThis.parents('.jt-app-item-lists');
 	$eventPn == null ? $('#jt-app-reply-dialog').attr('data-product-pn', $productPn) : $('#jt-app-reply-dialog').attr('data-event-pn',$eventPn);
-});
+};
+
 
 
 $('body').on('click', '.jt-app-reply-submit', function(){
@@ -238,7 +243,7 @@ $('body').on('click', '.jt-app-reply-submit', function(){
 			$.toast('한 상품에 댓글은 한번만 가능합니다.');
 			return;
 		}
-		$itemWrapStaticTarget.find('.jt-app-item-list-reply').text('"'+object.comment.comment+'"');
+		$itemWrapStaticTarget.find('.jt-app-item-list-reply').text('"'+$.reduceText(11,object.comment.comment)+'"');
 	});
 	$('body').scrollTop($itemWrapStaticTarget.offset().top);
 });
