@@ -19,11 +19,11 @@
 	 	</div>
 		<div>
 		 <ul class="jt-app-header-category" data-category-type="${categoryType }" data-category="${categoryPn}">
-		 	<li><a href="${cp }/app" class="jt-app-header-category-items">All</a></li>
+		 	<li><a href="${cp }/app" class="jt-app-header-category-items" data-transition="flip">All</a></li>
 		 	<c:forEach items="${interestCategories}" var="categorys">
-		 		<li><a href="${cp}/app/cpn/${categorys.categoryPn}" class="jt-app-header-category-items">${categorys.name }</a></li>
+		 		<li><a href="${cp}/app/cpn/${categorys.categoryPn}" class="jt-app-header-category-items" data-transition="flip">${categorys.name }</a></li>
 		 	</c:forEach>
-		 	<li><a href="${cp}/app/cpn/8" class="jt-app-header-category-items">Culture</a></li>
+		 	<li><a href="${cp}/app/cpn/8" class="jt-app-header-category-items" data-transition="flip">Culture</a></li>
 		 </ul>
 		 </div>
 	</div>

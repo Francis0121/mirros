@@ -1,14 +1,5 @@
 $(function() {
 	 //~ Init
-	 if($.checkLikePage()){
-		 $.setHeightEventLikes();
-	 }
-	$(document).on("pageshow", function () {
-		if($.checkLikePage()){
-			$.setHeightEventLikes();
-		}
-	});
-	
 });
 
 $.checkLikePage = function(){
@@ -18,13 +9,6 @@ $.checkLikePage = function(){
 		return false;
 	}
 };
-
-
-$.setHeightEventLikes = function(){
-	$('.jt-app-item-list-events').height($('.jt-app-item-list-products:last').height());
-	$('.jt-app-item-event-wrap').height($('.jt-app-item-list-products-img img:last').height());
-};
-
 $('body').on('taphold', '.jt-app-like-lists', function(){
 	var productPn =$(this).attr('data-product-pn');
 	var eventPn =$(this).attr('data-event-pn');

@@ -13,18 +13,14 @@ $(function() {
 		$.setCategory();
 		$.hotNewChangeBtnInit();
 	 }
-	 $( window ).on( "load", function(){
-		 $.setHeightEventItems();
+	 $(document).on("pagechange", function () {
+		 if($.checkAppPage()){
+			 $.hotNewChangeBtnInit();
+			 $.pagingItem();
+			 $.setCategory();
+			 $.scrollPaging();
+		 }
 	 });
-	 
-	$(document).on("pageshow", function () {
-		if($.checkAppPage()){
-			$.scrollPaging();
-			$.pagingItem();
-			$.setCategory();
-			$.hotNewChangeBtnInit();
-		}
-	});
 });
 
 $.checkAppPage = function(){
@@ -44,7 +40,6 @@ $.pagingItem = function(init){
 	$.post(contextPath+'/app/ajax/productPagination.jt',{navFlag : navFlag, categoryPn : categoryPn, itemName : itemName, init : init}, function(data){
     	if(data.mergeItems.length > 0){
     		$.attendProductItems(data);
-    		$.setHeightEventItems();
 			$.mobile.hidePageLoadingMsg();
     	}else{
     		$.toast('Page End');
@@ -72,14 +67,15 @@ $.attendProductItems = function(data){
 		if(items[idx].eventPn == 0){
 			html += '<div class="jt-app-item-list-products jt-app-item-lists '+isHeartChecked+'" data-url="'+items[idx].url+'" data-product-pn="'+items[idx].productPn+'" data-like="'+items[idx].customerPn+'">';
 			html += '<div class="jt-app-item-list-wrap"></div>';
+			html += '<div class="jt-app-item-img-shield"></div>';
 			if(items[idx].hot == 1){
 				html+='<div class="jt-app-item-list-products-hot"><img src="'+contextPath+'/resources/images/jt-hot.png"></div>';
 			}
 			html +=	'<div class="jt-app-item-list-products-img">';
 			if(items[idx].contentType == ''){
-				html+=		'<img src="'+contextPath+'/resources/uploadImage/'+items[idx].saveName+'" oncontextmenu="return false" onselectstart="return false"/>';
+				html+=		'<img src="'+contextPath+'/resources/uploadImage/'+items[idx].saveName+'" />';
 			}else{
-				html+=		'<img src="'+contextPath+'/photo/thumbnail/'+items[idx].saveName+'product.'+items[idx].contentType +'" oncontextmenu="return false" onselectstart="return false"/>';	
+				html+=		'<img src="'+contextPath+'/photo/thumbnail/'+items[idx].saveName+'product.'+items[idx].contentType +'" />';	
 			}
 			html +=	'</div>';
 			html +=	'<div class="jt-app-item-list-products-name">'+$.reduceText(11,items[idx].productName)+'</div>';
@@ -94,9 +90,9 @@ $.attendProductItems = function(data){
 			html += '<div class="jt-app-reply-wrap"></div>';
 			html += '</div>';
 		}else{
-			html += '<div class="jt-app-item-list-events jt-app-item-lists '+isHeartChecked+'" data-url="'+items[idx].url+'" data-event-pn="'+items[idx].eventPn+'" data-like="'+items[idx].customerPn+'">';
+			html += '<div class="jt-app-item-list-events jt-app-item-lists '+isHeartChecked+'" data-url="'+items[idx].url+'" data-event-pn="'+items[idx].eventPn+'" data-like="'+items[idx].customerPn+'" oncontextmenu="return false" onselectstart="return false">';
 			html += '<div class="jt-app-item-list-wrap"></div>';
-			html += 	'<div class="jt-app-item-event-wrap"><span class="jt-app-event-mark jt-app-reply-event-mark"> </span></div>';
+			html += 	'<div class="jt-app-item-event-wrap"><img src="'+contextPath+'/resources_webapp/images/jt-dummy.png" /><span class="jt-app-event-mark jt-app-reply-event-mark"> </span></div>';
 			html += 	'<div class="jt-app-item-event-name">'+items[idx].eventName+'</div>';
 			html += 	'<div class="jt-app-item-event-contents">'; 
 			html += 		'<div class="jt-app-item-shop-name">'+items[idx].shopName+'</div>';
@@ -116,16 +112,22 @@ $.attendProductItems = function(data){
 	$('.jt-app-item-list').append(html);
 };
 $.hotNewChangeBtnInit = function(){
-	$('.jt-app-item-content').attr('data-nav') == 'H' ? $('.jt-app-item-change-mode').text('NEW'): $('.jt-app-item-change-mode').text('HOT'); 
+	$('.jt-app-item-content').attr('data-nav') == 'H' ? $('.jt-app-item-change-mode').text('NEW'): $('.jt-app-item-change-mode').text('HOT');
 };
 $('body').on('click','.jt-app-item-change-mode',function(){
 	if($('.jt-app-item-content').attr('data-nav') == 'H'){
 		$.mobile.showPageLoadingMsg();
-		location.href=contextPath+'/app';
+		$.changePageTransition('/app', 'flip', true);
 		$.mobile.hidePageLoadingMsg();
 	}else{
 		$.mobile.showPageLoadingMsg();
-		location.href=contextPath+'/app?navFlag=H';
+		$.mobile.changePage( contextPath+'/app', {
+			transition: 'flip',
+			type: 'post',
+			reloadPage: true,
+			reverse:false,
+			data:{navFlag : 'H'}
+		});
 		$.mobile.hidePageLoadingMsg();
 	}
 });
@@ -193,11 +195,6 @@ $('body').on('click', '.jt-app-item-list-events', function(){
 	location.href=$(this).attr('data-url');
 });
 
-$.setHeightEventItems = function(){
-	$('.jt-app-item-list-events').height($('.jt-app-item-list-products').height());
-	$('.jt-app-item-event-wrap').height($('.jt-app-item-list-products-img img').height());
-};
-
 $itemWrapStaticTarget = null;
 $('body').on('click', '.jt-app-item-list-reply', function(e){
 	$.replyDialog(e, $(this));
@@ -216,14 +213,11 @@ $.replyDialog = function(e, pThis){
 };
 
 
-
 $('body').on('click', '.jt-app-reply-submit', function(){
 	$inputText = $('.jt-app-reply-input-text').val();
 	var productPn = $('#jt-app-reply-dialog').attr('data-product-pn');
 	var eventPn = $('#jt-app-reply-dialog').attr('data-event-pn');
-	
 	productPn == null ? productPn = 0 : eventPn = 0; 
-	  
 	if($inputText == ''){
 		$.toast('글을 입력해주세요.');
 		return;

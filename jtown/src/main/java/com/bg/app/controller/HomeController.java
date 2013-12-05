@@ -106,7 +106,6 @@ public class HomeController {
 	@ResponseBody
 	public Object ajaxGetCurrentPage(HttpSession session) {
 		int currentPage = (Integer) session.getAttribute("app-currentPage");
-		System.out.println("currentPage :"+ currentPage);
 		session.setAttribute("app-currentPage", currentPage - 1);
 		return currentPage;
 	}

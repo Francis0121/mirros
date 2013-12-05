@@ -491,7 +491,7 @@
 		AND 
 			DATE_FORMAT(ec.input_date, "%Y-%m-%d") >= DATE_FORMAT(DATE_ADD(SYSDATE(),INTERVAL -2 DAY), "%Y-%m-%d")
 		ORDER BY input_date DESC 
-		LIMIT 25 
+		LIMIT 35 
 	</select>
 	
 	<select id="selectCommentFeedItem" resultMap="jtown-gather-comment-data-map">

@@ -148,3 +148,40 @@ $(function(){
 	});
 });
 
+$.changePageTransition = function(url, transition, reverse){
+	$.mobile.changePage(contextPath+url, {
+        allowSamePageTransition: true,
+        transition: transition,
+        reloadPage: true,
+        reverse : reverse
+    });
+};
+//~ footer move
+
+$('body').on('click', '.jt-app-footer-reply', function(){
+	var direction = true;
+	if($.checkAppPage() || $.checkReplyPage()){
+		direction = false;
+	}
+	$.changePageTransition('/app/reply', 'slide', direction);
+});
+$('body').on('click', '.jt-app-footer-like', function(){
+	var direction = false;
+	if($.checkMorePage()){
+		direction = true;
+	}
+	$.changePageTransition('/app/like', 'slide', direction);
+});
+$('body').on('click', '.jt-app-footer-item', function(){
+	var direction = true;
+	if($.checkAppPage()){
+		direction = false;
+	}
+	$.changePageTransition('/app', 'slide', direction);
+});
+$('body').on('click', '.jt-app-footer-more', function(){
+	$.changePageTransition('/app/more', 'slide', false);
+});
+$('body').on('click', '.jt-app-footer-login', function(){
+	$.changePageTransition('/app/login', 'pop');
+});

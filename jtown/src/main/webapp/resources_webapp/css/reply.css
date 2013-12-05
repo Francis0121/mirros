@@ -1,4 +1,4 @@
-.jt-app-reply-comment-wrap{font-size:12px;overflow: hidden; padding: 0 0 20px 0;
+.jt-app-reply-comment-wrap{font-size:12px;overflow: hidden; padding: 0 0 10px 0; border-bottom: 1px solid #f4f4f4; margin: 0 0 10px 0;
 -webkit-touch-callout:none;
 -webkit-user-select:none;
 -khtml-user-select:none;
@@ -10,7 +10,7 @@ user-select:none;}
 
 .jt-app-reply-contents-wrap{width:72%; float: left; padding: 0 10px;}
 .jt-app-reply-product-name{font-weight: bold; padding: 5px 0 0 0; }
-.jt-app-reply-comment{padding: 3px 1px 7px 1px; border-radius:10px; white-space:pre-wrap;color:#888;}
+.jt-app-reply-comment{padding: 5px 1px 7px 1px; border-radius:10px; white-space:pre-wrap;color:#888;}
 .jt-app-reply-comment-date{float:right; border-radius:10px; padding: 2px 3px; color: #bababa; margin: 0px 1px 0 0; font-size:11px;}
 .jt-app-reply-comment-date>div{float: left;}
 .jt-app-reply-event-wrap{position:relative;width:10%;padding:10%;box-sizing:border-box;background-color: #fff;float: left; border: 1px solid #eee ;border-radius: 8px;}
@@ -18,3 +18,5 @@ user-select:none;}
 .jt-app-reply-clock{background: url("../images/jt-clock.png") no-repeat; background-position: 0px 0px;width: 11px; height: 11px;background-size:11px; margin:2px 3px 0 0}
 .jt-app-reply-menu-wrap{overflow: hidden; font-size: 11px; color: #888;}
 .jt-app-reply-menu-wrap>span{padding: 0 3px;float: right;}
+.jt-app-reply-popup-delete{background-color: #fff;background-image: linear-gradient(#fff,#fff);}
+.jt-app-reply-popup-warn{background-color: #fff;background-image: linear-gradient(#fff,#fff);}

@@ -15,7 +15,7 @@
 				<input id="j_password_page" name="j_password" size="20" maxlength="50" type="password" class="jt-login-form-table-password"  placeholder="Password"/>
 			</div>
 			<div class="jt-app-more-pw-find-wrap">
-				<a data-role="button" data-corners="false" data-iconshadow="false" href='${cp}/login/findPassword'" title="비밀번호를&nbsp;잊으셨나요?" class="jt-login-findPassword">?</a>
+				<a data-role="button" data-corners="false" data-iconshadow="false" href='${cp}/login/findPassword'" title="비밀번호를&nbsp;잊으셨나요?" class="jt-login-findPassword" data-transition="slide">?</a>
 			</div>
 			<div>
 				<input id="_spring_security_remember_me" name="_spring_security_remember_me" type="checkbox" value="true" checked="checked"/>	
@@ -24,7 +24,7 @@
 				<a data-role="button" class="jt-app-more-login-btn" type="button" onclick="javascript:$.emailLogin()">Log&nbsp;In</a>
 			</div>
 			<div>
-				<a type="button" class="jt-btn-orange" href="${cp}/app/join">간편가입</a>
+				<a type="button" class="jt-btn-orange" href="${cp}/app/join" data-transition="slide">간편가입</a>
 			</div>
 		</form>
 			

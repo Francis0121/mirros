@@ -1,7 +1,6 @@
 $(function() {
 });
 
-
 $(document).on("pageshow", function () {
 	if('app/individual' == document.URL.substring(document.URL.lastIndexOf('app'))){
 		$.get(contextPath+'/individual',{ }, function(data){
@@ -20,7 +19,6 @@ $(document).on("pageshow", function () {
 });
 
 
-
 //~ Login
 $.fbLogin = function(){
 	var form = $('.jt-app-more-fb-form')[0];
@@ -29,7 +27,7 @@ $.fbLogin = function(){
 
 $.logout = function(){
 	$.post(contextPath+'/login/logout',{}, function(data){
-		location.href=contextPath+'/app';
+		$.changePageTransition('/app', 'slide', false);
 	});
 };
 
@@ -37,7 +35,7 @@ $.emailLogin = function(){
 	$.post(contextPath+'/j_spring_security_check',{j_username : $('.jt-login-form-table-input').val(),
 		j_password : $('.jt-login-form-table-password').val()}, function(data){
 			if("success" == data.result){
-				location.href=contextPath+'/app';
+				$.changePageTransition('/app', 'slide', false);
 			}else{
 				alert('로그인에 실패하였습니다.');
 			}
@@ -56,7 +54,7 @@ $.joinSubmit = function(){
 		$.mobile.hidePageLoadingMsg();
 		if(data == 'success'){
 			console.log('ok');
-			location.href=contextPath+'/app';
+			$.changePageTransition('/app', 'slide', false);
 		}else{
 			$('.jt-join-direct-user-name').val('');
 			$('.jt-join-direct-user-username').val('');

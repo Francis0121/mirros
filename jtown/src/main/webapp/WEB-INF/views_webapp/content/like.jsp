@@ -10,12 +10,13 @@
 			<c:if test="${myHeartList.price != '-1'}">
 				<div class="jt-app-item-list-products jt-app-like-lists" data-url="${myHeartList.url }" data-product-pn="${myHeartList.productPn }">
 					<div class="jt-app-item-list-wrap"></div>
+					<div class="jt-app-item-img-shield"></div>
 					<div class="jt-app-item-list-products-img">
 					<c:if test="${myHeartList.contentType == '' }">
-						<img src="${cp}/resources/uploadImage/${myHeartList.saveName }" oncontextmenu="return false" onselectstart="return false"/>
+						<img src="${cp}/resources/uploadImage/${myHeartList.saveName }" />
 					</c:if>
 					<c:if test="${myHeartList.contentType != '' }">
-						<img src="${cp}/photo/thumbnail/${myHeartList.saveName }product.${myHeartList.contentType }" oncontextmenu="return false"/>	
+						<img src="${cp}/photo/thumbnail/${myHeartList.saveName }product.${myHeartList.contentType }" />	
 					</c:if>
 				</div>
 				<div class="jt-app-item-list-products-name">${myHeartList.productName }</div>
@@ -26,7 +27,7 @@
 			<c:if test="${myHeartList.price == '-1'}">
 				<div class="jt-app-item-list-events jt-app-like-lists" data-url="${myHeartList.url }" data-event-pn="${myHeartList.productPn }">
 					<div class="jt-app-item-list-wrap"></div>
-					<div class="jt-app-item-event-wrap"><span class="jt-app-event-mark jt-app-reply-event-mark"> </span></div>
+					<div class="jt-app-item-event-wrap"><img src="${cp}/resources_webapp/images/jt-dummy.png" /><span class="jt-app-event-mark jt-app-reply-event-mark"> </span></div>
 						<div class="jt-app-item-event-name">${myHeartList.productName }</div>
 						<div class="jt-app-item-event-contents">
 						<div class="jt-app-item-shop-name">${myHeartList.saveName }</div>

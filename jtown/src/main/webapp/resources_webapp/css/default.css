@@ -2,18 +2,19 @@
 .jt-app-reply-submit{margin: 20px 0 9px 0;}
 .jt-app-reply-submit .ui-btn-inner{font-size:14px;font-family: NanumGothic,Dotum,Gulim;}
 #jt-app-reply-dialog{width:100%;padding: 25px 20px;}
-.ui-popup-container{width:70%;top:10% !important;left:50% !important;margin-left:-40%;max-width:70% !important;}
+#jt-reply-popup-menu-popup{width:80%;top:10% !important;left:50% !important;margin-left:-40%;max-width:80% !important;}
+#jt-app-reply-dialog-popup{width:70%;top:10% !important;left:50% !important;margin-left:-40%;max-width:70% !important;}
 /********************
  ~header
 ********************/
 .jt-app-header-wrap{overflow: hidden;text-align: center;}
 .jt-app-header-left-wrap{float: left;padding: 18px 4%; width:5%;}
-.jt-app-header-right-wrap{float: left;padding: 15px 7% 15px 1%; width:5%;}
+.jt-app-header-right-wrap{float: left;padding: 15px 4% 15px 4%; width:5%;}
 .jt-app-header-title-wrap{float: left;text-align: center;width: 74%;font-size:17px;}
-.jt-app-header-title-wrap>h4{margin: 16px 0;color:#4e4e4e;}
-.jt-app-header-arrow-down{text-indent: -99999px; background: url("../images/jt-arrow3.png") no-repeat; background-position: 0px 0px;width: 22px; height: 14px;background-size:44px;}
-.jt-app-header-arrow-up{text-indent: -99999px; background: url("../images/jt-arrow3.png") no-repeat; background-position: -23px 0px;width: 22px; height: 14px;background-size:44px;}
-.jt-app-header-menu{text-indent: -99999px; background: url("../images/jt-menu3.png") no-repeat; background-position: 0px 0px;width: 29px; height: 21px;background-size:29px;display: inline-block;}
+.jt-app-header-title-wrap>h4{margin: 15px 0;color:#4e4e4e;}
+.jt-app-header-arrow-down{text-indent: -99999px; background: url("../images/jt-arrow2.png") no-repeat; background-position: 0px 0px;width: 20px; height: 14px;background-size:40px;}
+.jt-app-header-arrow-up{text-indent: -99999px; background: url("../images/jt-arrow2.png") no-repeat; background-position: -20px 0px;width: 20px; height: 14px;background-size:40px;}
+.jt-app-header-menu{text-indent: -99999px; background: url("../images/jt-menu3.png") no-repeat; background-position: 0px 0px;width: 24px; height: 17px;background-size:24px;display: inline-block;float: right;}
 .jt-app-header{height: 50px;border: 1px solid #ededed; color:#3e3d3e;text-shadow: 0 0px 0 #888;
 	background: #eeeeee /*{g-bar-background-color}*/;
 	background-image: -webkit-gradient(linear, left top, left bottom, from( #ffffff /*{g-bar-background-start}*/), to( #f8f8f8 /*{g-bar-background-end}*/)); /* Saf4+, Chrome */

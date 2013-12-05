@@ -1,5 +1,4 @@
 $(function() {
-	
 });
 
 $('body').on('click', '.jt-app-reply-comment-wrap', function(){
@@ -19,12 +18,12 @@ $.checkReplyPage = function(){
 
 $.deleteTarget = null;
 $('body').on('taphold', '.jt-app-reply-comment-wrap', function(){
-	$('#jt-reply-popup-menu').popup('open');
 	var userPn = $('body').attr('data-cpn');
 	if(userPn == ''){
 		$.toast('로그인 해주세요.');
 		return;
 	}
+	$('#jt-reply-popup-menu').popup('open');
 	var eventPn = $(this).find('.jt-app-reply-event-wrap').attr('data-eventPn');
 	var productPn = $(this).find('.jt-app-reply-img-wrap').attr('data-productPn');
 	var commentPn = $(this).attr('data-comment-pn');
@@ -42,7 +41,6 @@ $('body').on('click', '.jt-app-reply-popup-warn', function(){
 	productPn == null ? productPn =0 : '';  
 	var commentPn = $('#jt-reply-popup-menu').attr('data-comment-pn');
 	
-	console.log(productPn);
 	$.postJSON(contextPath + '/ajax/insertCommentWarn.jt', { commentPn : commentPn, productPn : productPn}, function(object) {
 			if(object.message == '1'){
 				$.toast('로그인 해주세요.');
@@ -52,6 +50,7 @@ $('body').on('click', '.jt-app-reply-popup-warn', function(){
 				$.toast('이미 신고되었습니다.');
 			}else{
 				$.toast('신고되었습니다.');
+				$('#jt-reply-popup-menu').popup('close');
 			}
 			$.resetReplyPopup();
 	});
@@ -74,15 +73,14 @@ $('body').on('click', '.jt-app-reply-popup-delete', function(){
 		}else{
 			$.toast('삭제되었습니다.');
 			$.deleteTarget.remove();
+			$('#jt-reply-popup-menu').popup('close');
 		}
 		$.resetReplyPopup();
 	});
 });
 
 $.resetReplyPopup = function(){
-	$('#jt-reply-popup-menu').popup('close');
 	$('#jt-reply-popup-menu').removeAttr('data-comment-pn');
 	$('#jt-reply-popup-menu').removeAttr('data-event-pn');
 	$('#jt-reply-popup-menu').removeAttr('data-product-pn');
-	
 };

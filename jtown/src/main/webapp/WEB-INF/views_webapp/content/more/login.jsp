@@ -14,13 +14,13 @@
 		    </form>
 		</li>
 		<li>
-			<a class="jt-btn-orange jt-btn-emailLogin" href='${cp }/app/emailLogin'" type="button">
+			<a class="jt-btn-orange jt-btn-emailLogin" href='${cp }/app/emailLogin'" type="button" data-transition="slide">
 			<span class="loginImage"></span>
 			<span class="loginText">이메일로 로그인 하세요</span></a>
 		</li>
 		<li>
 			<div class="jt-app-more-login-join">
-				<a class="jt-app-more-join-btn" href="${cp}/app/join">간편 가입</a>
+				<a class="jt-app-more-join-btn" href="${cp}/app/join" data-transition="slide">간편 가입</a>
 			</div>
 		</li>
 	</ul>
