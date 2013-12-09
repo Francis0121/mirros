@@ -4,23 +4,7 @@ $(function(){
 	    document.body.style.height = (document.documentElement.clientHeight + 5) + 'px';
 	    window.scrollTo(0, 1);
 	}, false);
-	$.setHeightFull();
-	$(document).on("pageshow", function () {
-		$.setHeightFull();
-	});
 });
-
-$.setHeightFull = function(){
-	scroll(0, 0);
-	var header = $("div[data-role='header']:visible");
-	var footer = $("div[data-role='footer']:visible");
-	var content = $("div[data-role='content']:visible");
-	var viewport_height = $(window).height();
-
-	var content_height = viewport_height - header.outerHeight() - footer.outerHeight();
-	content_height -= (content.outerHeight() - content.height());
-	$("div[data-role='content']").css('min-height',content_height);
-};
 
 $.setCategory = function(){
 	var cIdx = $('.jt-app-header-category').length-1;

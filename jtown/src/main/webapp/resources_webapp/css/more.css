@@ -7,8 +7,8 @@
 .jt-app-more-menu>li{float: left;width:33.33%;height: 60px;margin: 0;padding:15px 0; background-color: #fff;list-style: none;text-align: center;font-family: arial, sans-serif;font-size:12px; box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.25); }
 .jt-app-more-menu>li>a{color:#555 !important; text-decoration: none; font-weight: normal !important;}
 .jt-app-more-login{background: url("../images/jt-more.png") no-repeat; background-position: 0px 0px;width: 40px; height: 40px;background-size:160px;text-align: center;display: inline-block;padding: 0 0 5px 0;}
-.jt-app-more-logout{background: url("../images/jt-more.png") no-repeat; background-position: -43px 0px;width: 34px; height: 40px;background-size:160px;text-align: center;display: inline-block;padding: 0 0 5px 0;}
-.jt-app-more-join{background: url("../images/jt-more.png") no-repeat; background-position: -78px 0px;width: 40px; height: 40px;background-size:160px;text-align: center;display: inline-block;padding: 0 0 5px 0;}
+.jt-app-more-logout{background: url("../images/jt-more.png") no-repeat; background-position: -43px 0px;width: 35px; height: 40px;background-size:160px;text-align: center;display: inline-block;padding: 0 0 5px 0;}
+.jt-app-more-join{background: url("../images/jt-more.png") no-repeat; background-position: -79px 0px;width: 40px; height: 40px;background-size:160px;text-align: center;display: inline-block;padding: 0 0 5px 0;}
 .jt-app-more-mirros{background: url("../images/jt-more.png") no-repeat; background-position: -119px 0px;width: 40px; height: 40px;background-size:160px;text-align: center;display: inline-block;padding: 0 0 5px 0;}
 
 /******************
@@ -21,6 +21,7 @@
 .jt-btn-emailLogin{width:100%;}
 .jt-btn-emailLogin .ui-btn-inner{width:100%;padding: 0}
 .loginText{font-size:13px;}
+
 .jt-app-more-login-join{font-size:12px;padding: 15px 0 80px 0; text-align: right;}
 .jt-app-more-login-join>a{color:#ffa01e !important;text-decoration: none;font-size:13px;font-weight: normal !important;}
 
@@ -30,8 +31,8 @@
 .jt-login-findPassword{float: left; width:30px;margin-left: -32px; border-radius: 0 6px 6px 0;}
 .jt-login-findPassword .ui-btn-inner{padding:7px 0}
 .jt-login-findPassword{-webkit-box-shadow: 1px 0px 3px rgba(0,0,0,.2);box-shadow: 1px 0px 3px rgba(0,0,0,.2);}
-.jt-app-more-login-message-box{position:absolute;bottom:90px ;left:0 ;width:100%; font-size: 13px; border-top: 1px solid #aaa;color:#aaa;}
-.jt-app-more-login-message-box-text{padding: 0 15px;}
+.jt-app-more-login-message-box{position:absolute;bottom:80px;height:100px;left:0 ;width:100%;font-size: 13px; border-top: 1px solid #aaa;color:#aaa;}
+.jt-app-more-login-message-box-text{padding: 0 15px;line-height: 1.5}
 #_spring_security_remember_me{display: none;}
 .jt-btn-orange{
 	cursor:pointer;

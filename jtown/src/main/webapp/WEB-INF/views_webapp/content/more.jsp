@@ -3,7 +3,7 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <%@ include file="../layout/home-header.jspf" %>
-<div data-role="page">
+<div data-role="page" data-theme="g">
 <%@ include file="../layout/header.jspf" %>
 	<div data-role="content" class="jt-app-more-content">
 		<ul class="jt-app-more-menu">

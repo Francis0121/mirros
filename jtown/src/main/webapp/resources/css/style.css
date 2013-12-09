@@ -52,7 +52,7 @@
 .jt-header-nav-hot-btn{padding:4px 3px 2px 3px ;background-image:linear-gradient(#e63c44 ,#c11022);border:1px solid #920c11;background-color:#ab171f;box-shadow: 0 1px 3px 0 rgba(0,0,0,.2);border-radius:3px;text-shadow:0 -1px rgba(0,0,0,0.1) ;color:#fff;font-weight: bold;font-size: 14px}
 .jt-header-nav-hot-btn:HOVER{background-image:linear-gradient(#ef3f4f ,#cf1f2f);border:1px solid #920c11 ;background-color: rgba(0,0,0, .5);}
 .jt-header-nav-hot-btn:ACTIVE{background-image:linear-gradient(#e22222,#bb1818);border:1px solid #920c11 ;background-color:#ab171f;box-shadow: 0 1px 7px 0 rgba(0,0,0,.5) inset;}
-.jt-header-nav-mode{position: absolute;left:306px;top:8px}
+.jt-header-nav-mode{position: absolute;left:312px;top:8px}
 
 .jt-help-under-wrap>li{ margin: 8px; background: #fff;}
 .jt-header-nav{position:absolute; height: 28px;  float : left;left: 10px; top:45px;}

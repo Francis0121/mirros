@@ -42,14 +42,18 @@ $.pagingItem = function(init){
     		$.attendProductItems(data);
 			$.mobile.hidePageLoadingMsg();
     	}else{
-    		$.toast('Page End');
+    		$.toast('마지막 페이지입니다.');
     		$.mobile.hidePageLoadingMsg();
     	}
     });
 };
 $.scrollPaging = function(){
+	var iPhoneMenuHeight = 0;
+	if($.isIOS()){
+		iPhoneMenuHeight = 60;
+	}
 	$(window).scroll(function(){
-	    if($(window).scrollTop() == $(document).height() - $(window).height() ){
+	    if( $(window).scrollTop() + $(window).height() + iPhoneMenuHeight >= $(document).height() ){
 	    	if($.checkAppPage()){
 	    		$.pagingItem();
 	    	}
@@ -78,13 +82,13 @@ $.attendProductItems = function(data){
 				html+=		'<img src="'+contextPath+'/photo/thumbnail/'+items[idx].saveName+'product.'+items[idx].contentType +'" />';	
 			}
 			html +=	'</div>';
-			html +=	'<div class="jt-app-item-list-products-name">'+$.reduceText(11,items[idx].productName)+'</div>';
+			html +=	'<div class="jt-app-item-list-products-name">'+$.reduceText(11,items[idx].productName)+'</div>'; 
 			html +=	'<div class="jt-app-item-list-products-price">'+$.formatNumber(items[idx].price)+'원</div>';
 			html +=	'<div class="jt-app-item-list-reply">';
 			if(items[idx].comment == null){
 				html +=		'&nbsp; ';
 			}else{
-				html +=		'"'+$.reduceText(11,items[idx].comment)+'"';	
+				html +=		'"'+$.reduceText(10,items[idx].comment)+'"';	
 			}
 			html += 	'</div>';
 			html += '<div class="jt-app-reply-wrap"></div>';
@@ -96,13 +100,13 @@ $.attendProductItems = function(data){
 			html += 	'<div class="jt-app-item-event-name">'+items[idx].eventName+'</div>';
 			html += 	'<div class="jt-app-item-event-contents">'; 
 			html += 		'<div class="jt-app-item-shop-name">'+items[idx].shopName+'</div>';
-			html += 		'<div class="jt-app-item-end-date">D-'+items[idx].endDate+'일 남았습니다.</div>';
+			html += 		'<div class="jt-app-item-end-date">D-'+items[idx].endDate+'일 남았습니다.<span class="jt-app-item-dummy-font">&nbsp;</span></div>';
 			html += 	'</div>';
 			html +=	'<div class="jt-app-item-list-reply">';
 			if(items[idx].comment == null){
 				html +=		'&nbsp; ';
 			}else{
-				html +=		'"'+$.reduceText(11,items[idx].comment)+'"';	
+				html +=		'"'+$.reduceText(10,items[idx].comment)+'"';	
 			}
 			html +=		'</div>'; 
 			html += '<div class="jt-app-reply-wrap"></div>';

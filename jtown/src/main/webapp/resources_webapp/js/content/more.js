@@ -31,6 +31,10 @@ $.logout = function(){
 	});
 };
 
+$.goEmailLogin = function(){
+	$.changePageTransition('/app/emailLogin', 'slide', false);
+};
+
 $.emailLogin = function(){
 	$.post(contextPath+'/j_spring_security_check',{j_username : $('.jt-login-form-table-input').val(),
 		j_password : $('.jt-login-form-table-password').val()}, function(data){

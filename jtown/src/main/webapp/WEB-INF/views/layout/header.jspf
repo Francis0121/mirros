@@ -5,7 +5,7 @@
 </div>
 <div class="jt-header-menu">
 <c:if test="${!empty interestCategories }">
-	<img src="${cp }/resources/images/jt-top-menu.png" style="width: 28.8px;height:24px ">
+	<img src="${cp }/resources/images/jt-top-menu.png" style="width: 34px;height:24px ">
 	<c:if test="${empty categoryType}">
 		<c:set var="check_nav" value="${cp }/s/cpn/${homeFilter.categoryPn eq null ? 0 : homeFilter.categoryPn }/spn/${homeFilter.sectionPn eq null ? 0 : homeFilter.sectionPn }"/>
 		<c:set var="now_nav" value="${cp }/s/cpn/0/spn/0"/>

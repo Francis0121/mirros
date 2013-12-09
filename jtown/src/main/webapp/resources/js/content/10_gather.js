@@ -53,7 +53,7 @@ jtown.pg.scrollPaging = function(){
 		            	productGatherHtml(data);
 		                $('div#infscr-loading').hide();
 		            }else{
-		                $('div#infscr-loading').html('<center>Today end</center>');
+		                $('div#infscr-loading').html('<center>마지막 페이지입니다.</center>');
 		                $('div#infscr-loading').delay(500).fadeOut(1000);
 		            }
 		            if (getInternetExplorerVersion() == 7 ){

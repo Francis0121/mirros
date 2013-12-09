@@ -70,4 +70,10 @@ $.toast = function(msg){
 	.fadeOut( 400, function(){
 		$(this).remove();
 	});
-}
+};
+$.isIOS = function(){
+    return (
+        (navigator.platform.indexOf("iPhone") != -1) ||
+        (navigator.platform.indexOf("iPod") != -1)
+    );
+};

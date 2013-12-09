@@ -47,7 +47,7 @@
 				</li>
 			</ul>
 			<div class="jt-login-message-box">
-				<h1>Weclode to Mirros</h1>
+				<h1>Welcome to Mirros</h1>
 			
 				<p>
 					Mirros에서 더 쉽고 간편하게<br/>
