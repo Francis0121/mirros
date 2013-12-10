@@ -15,6 +15,7 @@
 		<result property="heartCount" column="heart_count"/>
 		<result property="customerPn" column="customer_pn"/>
 		<result property="comment" column="comment"/>
+		<result property="inputDate" column="input_date"/>
 	</resultMap>
 	
 	<resultMap type="Gather" id="EventMapper">

@@ -98,8 +98,6 @@ public class GatherController {
 	@RequestMapping(value = "/")
 	public String productGatherView(Model model, HttpSession session, @ModelAttribute GatherFilter gatherFilter, SummaryUser summaryUser,
 			HttpServletRequest request) throws UnsupportedEncodingException {
-		
-		/*
 		if (BrowserUtil.isMobile(request)) {
 			String value = CookieUtil.isCookie("SEE_PC_VERSION", request);
 			if (value == null || !value.equals("T")) {
@@ -107,7 +105,7 @@ public class GatherController {
 			} else {
 				model.addAttribute("isMobile", true);
 			}
-		}*/
+		}
 		gatherFilter.setNavFlag("pg");
 		gatherModelSetting(model, session, gatherFilter, summaryUser);
 		model.addAttribute("productGatherList", gatherService.paginateItemList(gatherService.selectNewMergeList(gatherFilter), gatherFilter));

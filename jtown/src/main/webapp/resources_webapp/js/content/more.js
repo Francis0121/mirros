@@ -2,7 +2,17 @@ $(function() {
 });
 
 $(document).on("pageshow", function () {
-	if('app/individual' == document.URL.substring(document.URL.lastIndexOf('app'))){
+	
+	 if('app/login' == document.URL.substring(document.URL.lastIndexOf('app'))){
+		 if($.isIOS()){
+			 $('.jt-app-more-login-message-box').css('bottom', 80);
+		 }
+		 $('.jt-app-more-login-message-box').css('display', 'block');
+	}else if('app/emailLogin' == document.URL.substring(document.URL.lastIndexOf('app'))){
+		if(!$.isIOS()){
+			$('.jt-app-more-login-message-box').css('display', 'block');
+		}
+	}else if('app/individual' == document.URL.substring(document.URL.lastIndexOf('app'))){
 		$.get(contextPath+'/individual',{ }, function(data){
 			$('.jt-app-pre-text').html(data.substring(data.search('<pre>')+5, data.search('</pre>')-6));
 		});
@@ -47,6 +57,10 @@ $.emailLogin = function(){
 };
 
 //~ Join
+$.goJoin = function(){
+	$.changePageTransition('/app/join', 'slide', false);
+};
+
 $.joinSubmit = function(){
 	$.mobile.showPageLoadingMsg();
 	$.post(contextPath+'/login/appJoinSubmit.jt',{

@@ -26,6 +26,7 @@ public class LikeController {
 	public String likeView(Model model, HttpSession session, @ModelAttribute GatherFilter gatherFilter, SummaryUser summaryUser) {
 		model.addAttribute("myHeartList", gatherService.selectMyHeartList(summaryUser.getPn()));
 		model.addAttribute("categoryType", "like");
+		model.addAttribute("username", summaryUser.getName());
 		return prefixView + "like";
 	}
 

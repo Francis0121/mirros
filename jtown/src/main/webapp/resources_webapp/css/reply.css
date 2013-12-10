@@ -5,6 +5,7 @@
 -moz-user-select:none;
 -ms-user-select:none;
 user-select:none;}
+.jt-app-reply-title{width:100%;font-weight: bold;padding:12px 10px 7px 20px;margin: -15px -15px 10px -15px;font-size:13px;font-family:NanumGothic, Dotum,Gulim;color:#888;}
 .jt-app-reply-img-wrap{position:relative;width:10%;padding:10%; box-sizing:border-box; float: left; border: 1px solid #eee ;border-radius: 8px; }
 .jt-app-reply-img-wrap>img{position:absolute;top:0;left:0; border-radius: 8px; width: 100%;}
 

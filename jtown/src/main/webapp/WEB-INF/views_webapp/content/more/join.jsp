@@ -2,9 +2,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <%@ include file="../../layout/home-header.jspf" %>
-<div data-role="page">
+<div data-role="page" data-theme="g">
 <%@ include file="../../layout/header.jspf" %>
-	<div data-role="content" class="jt-app-item-content">
+	<div data-role="content" class="jt-app-item-content" data-theme="c">
 	
 	<div class="jt-app-more-join-wrap">
 		<header class="jt-join-direct-form-user-info">

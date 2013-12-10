@@ -30,6 +30,13 @@
 	<div class="jt-app-header-extend-menu-margin"></div>
 </div>
 <div class="jt-app-header-extend-event-menu">
-	<div class="jt-app-header-extend-event-menu-margin"></div>
-	<div class="jt-app-header-extend-event-menu-inner"></div>
+	<div class="jt-app-header-extend-event-menu-margin"><div><img src="${cp}/resources_webapp/images/jt-arrow-right.png"/></div></div>
+	<div class="jt-app-header-extend-event-menu-inner">
+		<div><img src="${cp }/resources_webapp/images/banner/001.png" /></div>
+		<div><img src="${cp }/resources_webapp/images/banner/002.png" /></div>
+		<div><img src="${cp }/resources_webapp/images/banner/003.png" /></div>
+		<div><img src="${cp }/resources_webapp/images/banner/001.png" /></div>
+		<div><img src="${cp }/resources_webapp/images/banner/002.png" /></div>
+		<div><img src="${cp }/resources_webapp/images/banner/003.png" /></div>
+	</div>
 </div>

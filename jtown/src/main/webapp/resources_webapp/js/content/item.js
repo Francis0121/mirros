@@ -52,8 +52,8 @@ $.scrollPaging = function(){
 	if($.isIOS()){
 		iPhoneMenuHeight = 60;
 	}
-	$(window).scroll(function(){
-	    if( $(window).scrollTop() + $(window).height() + iPhoneMenuHeight >= $(document).height() ){
+	$('.jt-app-contents-wrap').scroll(function(){
+	    if( $('.jt-app-contents-wrap').scrollTop() + $('.jt-app-contents-wrap').height() + iPhoneMenuHeight >= $('.jt-app-contents-wrap')[0].scrollHeight -1 ){
 	    	if($.checkAppPage()){
 	    		$.pagingItem();
 	    	}

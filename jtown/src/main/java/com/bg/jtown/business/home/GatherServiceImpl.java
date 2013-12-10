@@ -23,6 +23,7 @@ import com.bg.jtown.business.search.GatherFilter;
 import com.bg.jtown.redis.Publisher;
 import com.bg.jtown.security.Authority;
 import com.bg.jtown.security.SummaryUser;
+import com.bg.jtown.util.DateUtil;
 import com.bg.jtown.util.Pagination;
 
 /**
@@ -318,7 +319,11 @@ public class GatherServiceImpl extends SqlSessionDaoSupport implements GatherSer
 
 	@Override
 	public List<Gather> selectMyHeartList(Integer customerPn) {
-		return getSqlSession().selectList("gatherMapper.selectMyHeartList", customerPn);
+		List<Gather> lists = getSqlSession().selectList("gatherMapper.selectMyHeartList", customerPn); 
+		for (int idx = 0, size = lists.size(); idx < size; idx++) {
+			lists.get(idx).setComparedTime(DateUtil.beforeRecodeTimeToString(lists.get(idx).getInputDate()));
+		}
+		return lists;
 	}
 
 	// ~ App

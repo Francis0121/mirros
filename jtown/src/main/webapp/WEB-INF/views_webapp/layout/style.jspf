@@ -8,15 +8,11 @@
 <meta name=" apple-mobi le-web-app-capable" content ="yes "/>
 	
 
-<%-- <link rel="stylesheet" type="text/css" href="${cp }/resources_mobile/css/mobile.min.css" /> --%>
-<%--  
-<link rel="stylesheet" type="text/css" href="${cp }/resources_mobile/css/default.css" />
-<link rel="stylesheet" type="text/css" href="${cp }/resources_mobile/css/mobile-mirros.css" />
- --%>
- <link rel="stylesheet" type="text/css" href="${cp }/resources_webapp/css/default.css?51" />
- <link rel="stylesheet" type="text/css" href="${cp }/resources_webapp/css/items.css?56" />
- <link rel="stylesheet" type="text/css" href="${cp }/resources_webapp/css/like.css?8" />
- <link rel="stylesheet" type="text/css" href="${cp }/resources_webapp/css/reply.css?41" /> 
- <link rel="stylesheet" type="text/css" href="${cp }/resources_webapp/css/checkList.css?11" />
- <link rel="stylesheet" type="text/css" href="${cp }/resources_webapp/css/more.css?24" />
+<%-- <link rel="stylesheet" type="text/css" href="${cp }/resources_webapp/css/mirros.min.css" /> --%>
+
+ <link rel="stylesheet" type="text/css" href="${cp }/resources_webapp/css/default.css?54" />
+ <link rel="stylesheet" type="text/css" href="${cp }/resources_webapp/css/items.css?59" />
+ <link rel="stylesheet" type="text/css" href="${cp }/resources_webapp/css/like.css?12" />
+ <link rel="stylesheet" type="text/css" href="${cp }/resources_webapp/css/reply.css?44" /> 
+ <link rel="stylesheet" type="text/css" href="${cp }/resources_webapp/css/more.css?27" />
  

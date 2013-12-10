@@ -2,9 +2,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <%@ include file="../../layout/home-header.jspf" %>
-<div data-role="page" data-theme="g">
+<div data-role="page" data-theme="g" style="overflow: hidden;">
 <%@ include file="../../layout/header.jspf" %>
-	<div data-role="content" class="jt-app-item-content">
+	<div data-role="content" class="jt-app-item-content" data-theme="c">
 	<ul class="jt-app-more-login-wrap" >
 		<li>
 			<form action="${cp}/signin/facebook" method="post" data-ajax="false" class="jt-app-more-fb-form">
@@ -23,7 +23,7 @@
 		</li>
 		<li>
 			<div class="jt-app-more-login-join">
-				<a class="jt-app-more-join-btn" href="${cp}/app/join" data-transition="slide">간편 가입</a>
+				<a class="jt-app-more-join-btn" onclick="$.goJoin()" data-transition="slide">간편 가입</a>
 			</div>
 		</li>
 	</ul>

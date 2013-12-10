@@ -2,9 +2,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <%@ include file="../../layout/home-header.jspf" %>
-<div data-role="page">
+<div data-role="page" data-theme="g">
 <%@ include file="../../layout/header.jspf" %>
-	<div data-role="content" class="jt-app-item-content">
+	<div data-role="content" class="jt-app-item-content" data-theme="c" >
 	
 	<sec:authorize access="anonymous">
 		<form action="${cp }/j_spring_security_check" data-ajax="false" method="post">
@@ -21,10 +21,10 @@
 				<input id="_spring_security_remember_me" name="_spring_security_remember_me" type="checkbox" value="true" checked="checked"/>	
 			</div>
 			<div>
-				<a data-role="button" class="jt-app-more-login-btn" type="button" onclick="javascript:$.emailLogin()">Log&nbsp;In</a>
+				<a data-role="button" class="jt-app-more-login-btn" type="button" data-theme="c" onclick="javascript:$.emailLogin()">Log&nbsp;In</a>
 			</div>
 			<div>
-				<a type="button" class="jt-btn-orange" href="${cp}/app/join" data-transition="slide">간편가입</a>
+				<a type="button" class="jt-btn-orange" onclick="$.goJoin()" data-transition="slide">간편가입</a>
 			</div>
 		</form>
 			
@@ -39,7 +39,7 @@
 	
 	<div class="jt-app-more-login-message-box">
 		<div class="jt-app-more-login-message-box-text">
-			<h3>Weclode to Mirros</h3>
+			<h3>Welcome to Mirros</h3>
 				Mirros에 가입하시면 다양한 이벤트에 <br/> 
 				바로 참여 가능합니다. 혜택을 누리세요!
 		</div>

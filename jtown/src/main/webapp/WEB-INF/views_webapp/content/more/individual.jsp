@@ -2,13 +2,15 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <%@ include file="../../layout/home-header.jspf" %>
-<div data-role="page">
+<div data-role="page" data-theme="g">
 <%@ include file="../../layout/header.jspf" %>
-	<div data-role="content" class="jt-app-item-content">
-	<h5>이용약관</h5>
-	<pre class="jt-app-pre-text">
-		
-	</pre>
+	<div class="jt-app-contents-wrap">
+		<div data-role="content" class="jt-app-item-content">
+		<h5>이용약관</h5>
+		<pre class="jt-app-pre-text">
+			
+		</pre>
+		</div>
 	</div>
 	<%@ include file="../../layout/footer.jspf" %>
 </div>
