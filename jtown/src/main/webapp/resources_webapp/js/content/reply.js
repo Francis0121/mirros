@@ -1,7 +1,7 @@
 $(function() {
 });
 
-$('body').on('click', '.jt-app-reply-comment-wrap', function(){
+$('body').on('tap', '.jt-app-reply-comment-wrap', function(){
 	var eventPn = $(this).find('.jt-app-reply-event-wrap').attr('data-eventPn');
 	var productPn = $(this).find('.jt-app-reply-img-wrap').attr('data-productPn');
 	productPn == null ? $.insertEventClickStatistic(eventPn) : $.insertProductClickStatistic(productPn); 
@@ -18,25 +18,28 @@ $.checkReplyPage = function(){
 
 $.deleteTarget = null;
 $('body').on('taphold', '.jt-app-reply-comment-wrap', function(){
-	var userPn = $('body').attr('data-cpn');
-	if(userPn == ''){
-		$.toast('로그인 해주세요.');
-		return;
-	}
-	$('#jt-reply-popup-menu').popup('open');
-	var eventPn = $(this).find('.jt-app-reply-event-wrap').attr('data-eventPn');
-	var productPn = $(this).find('.jt-app-reply-img-wrap').attr('data-productPn');
-	var commentPn = $(this).attr('data-comment-pn');
-	var customerPn = $(this).attr('data-customer-pn');
-	userPn != customerPn ? $('.jt-app-reply-popup-delete').hide() : $('.jt-app-reply-popup-delete').show();
-	$.deleteTarget = $(this);
-		
-	$('#jt-reply-popup-menu').attr('data-event-pn', eventPn);
-	$('#jt-reply-popup-menu').attr('data-product-pn', productPn);
-	$('#jt-reply-popup-menu').attr('data-comment-pn', commentPn);
+	$.post(contextPath + '/app/ajax/checkLogin.jt', {}, function(object) {
+		if(object.isLogin==false){
+			$.toast('로그인 해주세요.');
+			return;
+		}else{
+			var userPn = object.pn;
+			$('#jt-reply-popup-menu').popup('open');
+			var eventPn = $(this).find('.jt-app-reply-event-wrap').attr('data-eventPn');
+			var productPn = $(this).find('.jt-app-reply-img-wrap').attr('data-productPn');
+			var commentPn = $(this).attr('data-comment-pn');
+			var customerPn = $(this).attr('data-customer-pn');
+			userPn != customerPn ? $('.jt-app-reply-popup-delete').hide() : $('.jt-app-reply-popup-delete').show();
+			$.deleteTarget = $(this);
+				
+			$('#jt-reply-popup-menu').attr('data-event-pn', eventPn);
+			$('#jt-reply-popup-menu').attr('data-product-pn', productPn);
+			$('#jt-reply-popup-menu').attr('data-comment-pn', commentPn);
+		}
+	});
 });
 
-$('body').on('click', '.jt-app-reply-popup-warn', function(){
+$('body').on('tap', '.jt-app-reply-popup-warn', function(){
 	var productPn = $('#jt-reply-popup-menu').attr('data-product-pn');
 	productPn == null ? productPn =0 : '';  
 	var commentPn = $('#jt-reply-popup-menu').attr('data-comment-pn');
@@ -56,7 +59,7 @@ $('body').on('click', '.jt-app-reply-popup-warn', function(){
 	});
 });
 
-$('body').on('click', '.jt-app-reply-popup-delete', function(){
+$('body').on('tap', '.jt-app-reply-popup-delete', function(){
 	var productPn = $('#jt-reply-popup-menu').attr('data-product-pn');
 	productPn == null ? productPn = 0 : ''; 
 	var eventPn = $('#jt-reply-popup-menu').attr('data-event-pn');

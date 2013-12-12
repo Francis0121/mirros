@@ -572,7 +572,6 @@ jtown.home.naturalLanguage = function(){
 				location.href = contextPath + 's/cpn/'+item.categoryPn+'/spn/'+item.spn;
 			}*/
 			else if(item.category =='ITEM'){
-				console.log(item.value);
 				post(contextPath, {
 					itemName : item.value
 				});

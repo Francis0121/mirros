@@ -102,12 +102,13 @@ public class HomeController {
 		return object;
 	}
 	
-	@RequestMapping(value = "/ajax/setCurrentPage.jt", method = RequestMethod.POST)
+	@RequestMapping(value = "/ajax/checkLogin.jt", method = RequestMethod.POST)
 	@ResponseBody
-	public Object ajaxGetCurrentPage(HttpSession session) {
-		int currentPage = (Integer) session.getAttribute("app-currentPage");
-		session.setAttribute("app-currentPage", currentPage - 1);
-		return currentPage;
+	public Object ajaxCheckLogin(SummaryUser summaryUser) {
+		Map<String, Object> object = new HashMap<String, Object>();
+		object.put("isLogin", summaryUser.getIsLogin());
+		object.put("pn", summaryUser.getPn());
+		return object;
 	}
 
 }

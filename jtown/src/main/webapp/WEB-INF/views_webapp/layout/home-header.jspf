@@ -19,9 +19,4 @@
 <%@ include file="style.jspf" %>
 <%@ include file="script-header.jspf" %>
 </head>
-<sec:authorize access="hasRole('ROLE_USER')">
-<body data-cpn="<sec:authentication property="principal.pn" />">				
-</sec:authorize>
-<sec:authorize access="anonymous">
-<body data-cpn="">
-</sec:authorize>
+<body>				

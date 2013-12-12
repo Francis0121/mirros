@@ -21,7 +21,7 @@
 .jt-btn-emailLogin .ui-btn-inner{width:100%;padding: 0}
 .loginText{font-size:13px;}
 
-.jt-app-more-login-join{font-size:12px;padding: 15px 0 80px 0; text-align: right;}
+.jt-app-more-login-join{font-size:12px;padding: 15px 0 4% 0; text-align: right;}
 .jt-app-more-login-join>a{color:#ffa01e !important;text-decoration: none;font-size:13px;font-weight: normal !important;}
 
 #jt-page-login-form{overflow: hidden;}
@@ -30,8 +30,9 @@
 .jt-login-findPassword{float: left; width:30px;margin-left: -32px; border-radius: 0 6px 6px 0;}
 .jt-login-findPassword .ui-btn-inner{padding:7px 0}
 .jt-login-findPassword{-webkit-box-shadow: 1px 0px 3px rgba(0,0,0,.2);box-shadow: 1px 0px 3px rgba(0,0,0,.2);}
-.jt-app-more-login-message-box{position:absolute;bottom:23%;height:100px;left:0 ;width:100%;font-size: 13px; border-top: 1px solid #aaa;color:#aaa; display: none;}
+.jt-app-more-login-message-box{height:100px;width:100%;font-size: 13px; border-top: 1px solid #aaa;color:#aaa; display: none; margin: 20px -15px 0 -15px; padding:0 15px;}
 .jt-app-more-login-message-box-text{padding: 0 15px;line-height: 1.5}
+.jt-app-more-email-login-margin-wrap{width:100%;height:50px; }
 .jt-app-more-login-btn{margin: 15px 0;}
 #_spring_security_remember_me{display: none;}
 .jt-btn-orange{

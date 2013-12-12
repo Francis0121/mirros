@@ -7,6 +7,11 @@
 <%@ include file="../layout/header.jspf" %>
 	<div class="jt-app-contents-wrap">
 		<div data-role="content" class="jt-app-more-content">
+			<div data-role="popup" id="jt-app-reply-dialog" data-theme="d" data-overlay-theme="a">
+				<input type="text" placeholder="Write your secret comment" maxlength="20" class="jt-app-reply-input-text" >
+				<a type="button" class="jt-btn-gray jt-app-reply-submit" >댓글 완료</a>
+			</div>
+		
 			<ul class="jt-app-more-menu">
 			<sec:authorize ifNotGranted="ROLE_ANONYMOUS">
 				<li><a onclick="$.logout()"><div class="jt-app-more-logout"></div><div>로그아웃</div></a></li>

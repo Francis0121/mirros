@@ -36,7 +36,7 @@
 		    </div>	
 	</sec:authorize>	
 	
-	
+	<div class="jt-app-more-email-login-margin-wrap"></div>
 	<div class="jt-app-more-login-message-box">
 		<div class="jt-app-more-login-message-box-text">
 			<h3>Welcome to Mirros</h3>

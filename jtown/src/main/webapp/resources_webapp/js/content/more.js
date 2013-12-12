@@ -2,7 +2,6 @@ $(function() {
 });
 
 $(document).on("pageshow", function () {
-	
 	 if('app/login' == document.URL.substring(document.URL.lastIndexOf('app'))){
 		 if($.isIOS()){
 			 $('.jt-app-more-login-message-box').css('bottom', 80);
@@ -71,7 +70,6 @@ $.joinSubmit = function(){
 	},function(data){
 		$.mobile.hidePageLoadingMsg();
 		if(data == 'success'){
-			console.log('ok');
 			$.changePageTransition('/app', 'slide', false);
 		}else{
 			$('.jt-join-direct-user-name').val('');
@@ -82,7 +80,7 @@ $.joinSubmit = function(){
 			$('.jt-join-direct-user-username-check').text('');
 			$('.jt-join-direct-user-password-check').text(''); 
 			$('.jt-join-direct-user-confirmPassword-check').text('');
-			alert('잘못된 정보를 입력하셨습니다.');
+			$.toast('잘못된 정보를 입력하셨습니다.');
 		}
 	});
 };

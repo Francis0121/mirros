@@ -195,8 +195,6 @@ jtown.real.time = function(data) {
 
 jtown.real.loveRank = function(data){
 	var sellerPnList = data.split(',');
-	console.log('loveRank');
-	
 	$('.jt-home-shop-love-hot').remove();
 	var html = '<span class="jt-home-shop-love-hot">HOT</span>';
 	var idStr = '#love-';

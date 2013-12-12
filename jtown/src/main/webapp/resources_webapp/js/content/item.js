@@ -14,6 +14,7 @@ $(function() {
 		$.hotNewChangeBtnInit();
 	 }
 	 $(document).on("pagechange", function () {
+		 //$.mobile.urlHistory.stack
 		 if($.checkAppPage()){
 			 $.hotNewChangeBtnInit();
 			 $.pagingItem();
@@ -22,7 +23,6 @@ $(function() {
 		 }
 	 });
 });
-
 $.checkAppPage = function(){
 	if($('.jt-app-header-category:last').attr('data-category-type') == 'app'){
 		return true;
@@ -53,7 +53,7 @@ $.scrollPaging = function(){
 		iPhoneMenuHeight = 60;
 	}
 	$('.jt-app-contents-wrap').scroll(function(){
-	    if( $('.jt-app-contents-wrap').scrollTop() + $('.jt-app-contents-wrap').height() + iPhoneMenuHeight >= $('.jt-app-contents-wrap')[0].scrollHeight -1 ){
+	    if( $('.jt-app-contents-wrap').scrollTop() + $('.jt-app-contents-wrap').height() + iPhoneMenuHeight >= $('.jt-app-contents-wrap')[0].scrollHeight -0 ){
 	    	if($.checkAppPage()){
 	    		$.pagingItem();
 	    	}
@@ -96,6 +96,7 @@ $.attendProductItems = function(data){
 		}else{
 			html += '<div class="jt-app-item-list-events jt-app-item-lists '+isHeartChecked+'" data-url="'+items[idx].url+'" data-event-pn="'+items[idx].eventPn+'" data-like="'+items[idx].customerPn+'" oncontextmenu="return false" onselectstart="return false">';
 			html += '<div class="jt-app-item-list-wrap"></div>';
+			html += '<div class="jt-app-item-img-shield"></div>';
 			html += 	'<div class="jt-app-item-event-wrap"><img src="'+contextPath+'/resources_webapp/images/jt-dummy.png" /><span class="jt-app-event-mark jt-app-reply-event-mark"> </span></div>';
 			html += 	'<div class="jt-app-item-event-name">'+items[idx].eventName+'</div>';
 			html += 	'<div class="jt-app-item-event-contents">'; 
@@ -118,7 +119,7 @@ $.attendProductItems = function(data){
 $.hotNewChangeBtnInit = function(){
 	$('.jt-app-item-content').attr('data-nav') == 'H' ? $('.jt-app-item-change-mode').text('NEW'): $('.jt-app-item-change-mode').text('HOT');
 };
-$('body').on('click','.jt-app-item-change-mode',function(){
+$('body').on('tap','.jt-app-item-change-mode',function(){
 	if($('.jt-app-item-content').attr('data-nav') == 'H'){
 		$.mobile.showPageLoadingMsg();
 		$.changePageTransition('/app', 'flip', true);
@@ -135,76 +136,105 @@ $('body').on('click','.jt-app-item-change-mode',function(){
 		$.mobile.hidePageLoadingMsg();
 	}
 });
-$('body').on('taphold', '.jt-app-item-lists', function(){
+
+var isTapHold = false;
+$('body').on('taphold', '.jt-app-item-lists', function(e){
+	isTapHold = true;
 	var productPn =$(this).attr('data-product-pn');
 	var eventPn =$(this).attr('data-event-pn');
 	
-	if($('body').attr('data-cpn') == ''){
-		$.toast('로그인 해주세요.');
-		return;
-	}else{
-		$.thisItem = $(this);
-		if(eventPn == null){
-			$.post(contextPath + '/ajax/productHeartClickMobile.jt', { productPn : productPn }, function(product) {
-				var crudType = product.crudType, message = product.message;
-				if(message == '1'){
-					$.toast('로그인 해주세요.');
-					return;
-				}else if(message == '2'){
-					$.toast('판매자는 불가능합니다');
-					return;
-				}
-				if('productHeartInsert' == crudType){
-					$.toast('체크리스트에 추가되었습니다.');
-					$.thisItem.find('.jt-app-item-list-wrap').css('box-shadow','0 0 4px 4px rgba(255,136,0,0.3)').fadeIn(250).delay(500).fadeOut(1000);
-					$.thisItem.addClass('jt-app-item-like-check');
-				}else if('productHeartDelete' == crudType){
-					$.toast('체크리스트에서 제거되었습니다.');
-					$.thisItem.find('.jt-app-item-list-wrap').css('box-shadow','0 0 4px 4px rgba(0,0,0,0.2)').fadeIn(250).delay(500).fadeOut(1000);
-					$.thisItem.removeClass('jt-app-item-like-check');
-				}
-			});
-		}else if(productPn == null){
-			$.post(contextPath + '/ajax/eventHeartClickMobile.jt', { eventPn : eventPn }, function(event) {
-				var crudType = event.crudType, message = event.message;
-				if(message == '1'){
-					$.toast('로그인 해주세요.');
-					return;
-				}else if(message == '2'){
-					$.toast('판매자는 불가능합니다');
-					return;
-				}
-				if('eventHeartInsert' == crudType){
-					$.toast('체크리스트에 추가되었습니다.');
-					$.thisItem.find('.jt-app-item-list-wrap').css('box-shadow','0 0 3px 3px rgba(255,136,0,0.25)').fadeIn(250).delay(500).fadeOut(500);
-					$.thisItem.addClass('jt-app-item-like-check');
-				}else if('eventHeartDelete' == crudType){
-					$.toast('체크리스트에서 제거되었습니다.');
-					$.thisItem.find('.jt-app-item-list-wrap').css('box-shadow','0 0 3px 3px rgba(0,0,0,0.075)').fadeIn(250).delay(500).fadeOut(500);
-					$.thisItem.removeClass('jt-app-item-like-check');
-				}
-			});
+	$.thisItem = $(this);
+	$.post(contextPath + '/app/ajax/checkLogin.jt', {}, function(object) {
+		if(object.isLogin==false){
+			$.toast('로그인 해주세요.');
+			return;
+		}else{
+			if(eventPn == null){
+				$.post(contextPath + '/ajax/productHeartClickMobile.jt', { productPn : productPn }, function(product) {
+					var crudType = product.crudType, message = product.message;
+					if(message == '1'){
+						$.toast('로그인 해주세요.');
+						return;
+					}else if(message == '2'){
+						$.toast('판매자는 불가능합니다');
+						return;
+					}
+					if('productHeartInsert' == crudType){
+						$.toast('체크리스트에 추가되었습니다.');
+						$.thisItem.find('.jt-app-item-list-wrap').css('box-shadow','0 0 4px 4px rgba(255,136,0,0.3)').fadeIn(250).delay(500).fadeOut(1000);
+						$.thisItem.addClass('jt-app-item-like-check');
+					}else if('productHeartDelete' == crudType){
+						$.toast('체크리스트에서 제거되었습니다.');
+						$.thisItem.find('.jt-app-item-list-wrap').css('box-shadow','0 0 4px 4px rgba(0,0,0,0.2)').fadeIn(250).delay(500).fadeOut(1000);
+						$.thisItem.removeClass('jt-app-item-like-check');
+					}
+				});
+			}else if(productPn == null){
+				$.post(contextPath + '/ajax/eventHeartClickMobile.jt', { eventPn : eventPn }, function(event) {
+					var crudType = event.crudType, message = event.message;
+					if(message == '1'){
+						$.toast('로그인 해주세요.');
+						return;
+					}else if(message == '2'){
+						$.toast('판매자는 불가능합니다');
+						return;
+					}
+					if('eventHeartInsert' == crudType){
+						$.toast('체크리스트에 추가되었습니다.');
+						$.thisItem.find('.jt-app-item-list-wrap').css('box-shadow','0 0 3px 3px rgba(255,136,0,0.25)').fadeIn(250).delay(500).fadeOut(500);
+						$.thisItem.addClass('jt-app-item-like-check');
+					}else if('eventHeartDelete' == crudType){
+						$.toast('체크리스트에서 제거되었습니다.');
+						$.thisItem.find('.jt-app-item-list-wrap').css('box-shadow','0 0 3px 3px rgba(0,0,0,0.075)').fadeIn(250).delay(500).fadeOut(500);
+						$.thisItem.removeClass('jt-app-item-like-check');
+					}
+				});
+			}
 		}
+	});
+});
+
+$('body').on('tap', '.jt-app-item-list-products', function(e){
+	if(!isTapHold){
+		var productPn = $(this).attr('data-product-pn');
+		$.insertProductClickStatistic(productPn);
+		window.open($(this).attr('data-url'));
+	}else{
+		isTapHold = false;
+	}
+});
+$('body').on('tap', '.jt-app-item-list-events', function(){
+	if(!isTapHold){
+		var eventPn = $(this).attr('data-event-pn');
+		$.insertEventClickStatistic(eventPn);
+		window.open($(this).attr('data-url'));
+	}else{
+		isTapHold = false;
 	}
 });
 
-$('body').on('click', '.jt-app-item-list-products', function(){
-	var productPn = $(this).attr('data-product-pn');
-	$.insertProductClickStatistic(productPn);
-	location.href=$(this).attr('data-url');
-});
-$('body').on('click', '.jt-app-item-list-events', function(){
-	var eventPn = $(this).attr('data-event-pn');
-	$.insertEventClickStatistic(eventPn);
-	location.href=$(this).attr('data-url');
-});
-
 $itemWrapStaticTarget = null;
-$('body').on('click', '.jt-app-item-list-reply', function(e){
-	$.replyDialog(e, $(this));
+$('body').on('tap', '.jt-app-item-list-reply', function(e){
+	e.stopPropagation();
+	$.post(contextPath + '/app/ajax/checkLogin.jt', {}, function(object) {
+		if(object.isLogin==false){
+			$.toast('로그인 해주세요.');
+			return;
+		}else{
+			$.replyDialog(e, $(this));
+		}
+	});
 });
-$('body').on('click', '.jt-app-reply-wrap', function(e){
-	$.replyDialog(e, $(this));
+$('body').on('tap', '.jt-app-reply-wrap', function(e){
+	e.stopPropagation();
+	$.post(contextPath + '/app/ajax/checkLogin.jt', {}, function(object) {
+		if(object.isLogin==false){
+			$.toast('로그인 해주세요.');
+			return;
+		}else{
+			$.replyDialog(e, $(this));
+		}
+	});
 });
 
 $.replyDialog = function(e, pThis){
@@ -217,7 +247,7 @@ $.replyDialog = function(e, pThis){
 };
 
 
-$('body').on('click', '.jt-app-reply-submit', function(){
+$('body').on('tap', '.jt-app-reply-submit', function(){
 	$inputText = $('.jt-app-reply-input-text').val();
 	var productPn = $('#jt-app-reply-dialog').attr('data-product-pn');
 	var eventPn = $('#jt-app-reply-dialog').attr('data-event-pn');
@@ -255,4 +285,3 @@ $('body').on('keyup' ,'.jt-app-reply-input-text', function(){
 		$('.jt-app-reply-submit').removeClass('jt-btn-gray');
 	}
 });
-
