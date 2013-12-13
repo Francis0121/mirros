@@ -10,7 +10,7 @@
 </div>
 <div class="jt-app-header-extend-menu">
 	<div class="jt-app-header-extend-menu-inner">
-		<input type="search" class="jt-app-header-search" placeholder="search" data-search="${itemName}" />
+		<input type="text" class="jt-app-header-search" placeholder="search" data-type="search" data-search="${itemName}" />
 		<div class="jt-app-header-search-result">
 	 		<ul data-role="listview" data-filter="false">
 	 			<li data-role="list-divider">ITEM</li>
@@ -30,7 +30,7 @@
 	<div class="jt-app-header-extend-menu-margin"></div>
 </div>
 <div class="jt-app-header-extend-event-menu">
-	<div class="jt-app-header-extend-event-menu-margin"><div><img src="${cp}/resources_webapp/images/jt-arrow-right.png"/></div></div>
+	<div class="jt-app-header-extend-event-menu-margin"><div><img src="${cp}/resources_webapp/images/jt-round-arrow.png"/></div></div>
 	<div class="jt-app-header-extend-event-menu-inner">
 		<div><img src="${cp }/resources_webapp/images/banner/001.png" /></div>
 		<div><img src="${cp }/resources_webapp/images/banner/002.png" /></div>
