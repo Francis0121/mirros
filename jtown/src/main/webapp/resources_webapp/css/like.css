@@ -1,3 +1,6 @@
 .jt-app-like-title{width:100%;padding:12px 10px 7px 20px;margin: -15px -15px 10px -23px;font-size:13px;font-family:NanumGothic, Dotum,Gulim;color:#888;}
 .jt-app-like-time-wrap{margin: 5px 0 2px 0;overflow: hidden;color: #bababa;font-size: 12px; float: right; padding: 0 10px;height: 20px;}
 .jt-app-like-time{float: left;}
+
+.jt-app-like-popup-q-text{margin: 5px 0 10px 0; font-weight: bold;}
+.jt-app-like-popup-btn-wrap{text-align: center;}

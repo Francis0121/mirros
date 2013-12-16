@@ -21,6 +21,7 @@ $('body').on('taphold', '.jt-app-reply-comment-wrap', function(){
 	$.post(contextPath + '/app/ajax/checkLogin.jt', {}, function(object) {
 		if(object.isLogin==false){
 			$.toast('로그인 해주세요.');
+			$.changePageTransition('/app/login', 'pop');
 			return;
 		}else{
 			var userPn = object.pn;
@@ -47,6 +48,7 @@ $('body').on('tap', '.jt-app-reply-popup-warn', function(){
 	$.postJSON(contextPath + '/ajax/insertCommentWarn.jt', { commentPn : commentPn, productPn : productPn}, function(object) {
 			if(object.message == '1'){
 				$.toast('로그인 해주세요.');
+				$.changePageTransition('/app/login', 'pop');
 			}else if(object.message == '2'){
 				$.toast('판매자는 불가능합니다');
 			}else if(object.message == '3'){
@@ -69,6 +71,7 @@ $('body').on('tap', '.jt-app-reply-popup-delete', function(){
 	$.postJSON(contextPath + '/ajax/deleteComment.jt', { commentPn : commentPn, productPn : productPn, eventPn : eventPn}, function(object) {
 		if(object.message == '1'){
 			$.toast('로그인 해주세요.');
+			$.changePageTransition('/app/login', 'pop');
 		}else if(object.message == '2'){
 			$.toast('판매자는 불가능합니다');
 		}else if(object.message == '3'){

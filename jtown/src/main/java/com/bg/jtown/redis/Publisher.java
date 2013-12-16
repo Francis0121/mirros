@@ -107,7 +107,6 @@ public class Publisher {
 	public void commentFeed(Gather gather) {
 		
 		gather.setComparedTime(DateUtil.beforeRecodeTimeToString(gather.getInputDate()));
-		System.out.println("gather :"+ gather);
 		try {
 			gather.setRedisType("comment_feed");
 			Gson gson = new Gson();

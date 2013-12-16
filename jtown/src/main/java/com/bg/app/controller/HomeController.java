@@ -106,6 +106,7 @@ public class HomeController {
 	@ResponseBody
 	public Object ajaxCheckLogin(SummaryUser summaryUser) {
 		Map<String, Object> object = new HashMap<String, Object>();
+		object.put("name", summaryUser.getName());
 		object.put("isLogin", summaryUser.getIsLogin());
 		object.put("pn", summaryUser.getPn());
 		return object;

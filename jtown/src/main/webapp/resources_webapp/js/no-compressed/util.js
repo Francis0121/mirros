@@ -77,3 +77,13 @@ $.isIOS = function(){
         (navigator.platform.indexOf("iPod") != -1)
     );
 };
+
+$.isMobile = function(){
+	var filter = "win16|win32|win64|mac";
+	 if( navigator.platform  ){
+		 if( filter.indexOf(navigator.platform.toLowerCase())<0 ){
+			 return true;
+		}
+	 }
+	 return false;
+};

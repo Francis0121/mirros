@@ -35,10 +35,10 @@
 				</div>
 			</c:forEach>
 		<div data-role="popup" id="jt-reply-popup-menu" data-overlay-theme="a">
+			<div data-role="header" data-theme="e" role="banner"><h1 role="heading" aria-level="1"></h1></div>
 		    <ul data-role="listview" data-inset="true" >
-				<li data-role="divider" data-theme="c"> &nbsp; </li>
-				<li class="jt-app-reply-popup-delete"><a href="">삭제</a></li>
-				<li class="jt-app-reply-popup-warn"><a href="">신고</a></li>
+				<li class="jt-app-reply-popup-delete"><a >삭제</a></li>
+				<li class="jt-app-reply-popup-warn"><a >신고</a></li>
 		    </ul>
 		</div>
 		</div>

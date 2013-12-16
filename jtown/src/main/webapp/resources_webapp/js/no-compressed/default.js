@@ -202,3 +202,5 @@ $('body').on('tap', '.jt-app-footer-more', function(){
 $('body').on('tap', '.jt-app-footer-login', function(){
 	$.changePageTransition('/app/login', 'pop');
 });
+
+

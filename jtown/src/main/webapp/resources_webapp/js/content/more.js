@@ -1,4 +1,9 @@
 $(function() {
+//~ init
+	!$.isMobile() ? $('.jt-app-more-cacao-invite').hide() : null;
+});
+$(document).on("pageinit", function () {
+	!$.isMobile() ? $('.jt-app-more-cacao-invite').hide() : null;
 });
 
 $(document).on("pageshow", function () {
@@ -111,4 +116,42 @@ $.checkMorePage = function(){
 		return false;
 	}
 };
+
+$('body').on('tap', '.jt-app-more-cacao-invite', function(){
+	$.post(contextPath + '/app/ajax/checkLogin.jt', {}, function(object) {
+		if(object.isLogin==false){
+			$.toast('로그인 해주세요.');
+			$.changePageTransition('/app/login', 'pop');
+			return;
+		}else{
+			kakao.link("talk").send({
+		        msg : object.name+'님이 여자를 위한 잇 아이템 Mirros로의 초대장을 보내셨습니다.',
+		        url : "http://218.55.100.41:8080/jtown/app",  
+		        appid : "http://218.55.100.41:8080/jtown/app",
+		        appver : "2.0",
+		        appname : "Mirros",
+		        metainfo : JSON.stringify({metainfo : [ {os:"android", devicetype: "phone",installurl:"market://details?id=com.kakao.talk", executeurl : "kakaoagit://testtest"},{os:"ios", devicetype:"phone",installurl:"items://itunes.apple.com/us/app/kakaotalk/id362057947?mt=8",executeurl : "kakaoagit://testtest"}]}),
+		        type : "app"
+		    });
+		}
+	});
+});
+
+$('body').on('tap', '.jt-app-more-facebook-invite', function(){
+	$.post(contextPath + '/app/ajax/checkLogin.jt', {}, function(object) {
+		if(object.isLogin==false){
+			$.toast('로그인 해주세요.');
+			$.changePageTransition('/app/login', 'pop');
+			return;
+		}else{
+			 FB.ui({
+					method: 'apprequests',
+					message: object.name+'님이 여자를 위한 잇 아이템 Mirros로의 초대장을 보내셨습니다.'
+				   }, requestCallback);
+		}
+	});
+});
+function requestCallback(response) {
+	console.log(response);
+}
 

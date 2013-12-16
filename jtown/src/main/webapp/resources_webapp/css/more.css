@@ -9,6 +9,10 @@
 .jt-app-more-logout{background: url("../images/jt-more.png") no-repeat; background-position: -43px 0px;width: 35px; height: 40px;background-size:160px;text-align: center;display: inline-block;padding: 0 0 5px 0;}
 .jt-app-more-join{background: url("../images/jt-more.png") no-repeat; background-position: -79px 0px;width: 40px; height: 40px;background-size:160px;text-align: center;display: inline-block;padding: 0 0 5px 0;}
 .jt-app-more-mirros{background: url("../images/jt-more.png") no-repeat; background-position: -119px 0px;width: 40px; height: 40px;background-size:160px;text-align: center;display: inline-block;padding: 0 0 5px 0;}
+.jt-app-more-cacao{background: url("../images/jt-sns3.png") no-repeat; background-position: 0px 0px;width: 45px; height: 40px;background-size:85px;text-align: center;display: inline-block;padding: 0 0 5px 0;}
+.jt-app-more-fb{background: url("../images/jt-sns3.png") no-repeat; background-position: -45px 0px;width: 45px; height: 40px;background-size:85px;text-align: center;display: inline-block;padding: 0 0 5px 0;}
+.fb_dialog_content{border: 1px solid #bababa;}
+.fb_dialog_content>iframe{width:100% !important;border: 1px solid #bababa;}
 
 /******************
 ~Login

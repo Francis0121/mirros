@@ -21,6 +21,8 @@
 			</sec:authorize>
 				<li><a href="${cp}/app/join" data-transition="slide"><div class="jt-app-more-join"></div><div>회원가입</div></a></li>
 				<li><a href="${cp}/app/mirros" data-transition="slide"><div class="jt-app-more-mirros"></div><div>미러스란?</div></a></li>
+				<li class="jt-app-more-cacao-invite"><a data-transition="slide"><div class="jt-app-more-cacao"></div><div>카톡 친구 초대</div></a></li>
+				<li class="jt-app-more-facebook-invite"><a data-transition="slide"><div class="jt-app-more-fb"></div><div>페북 친구 초대</div></a></li>
 			</ul>
 		</div>
 	</div>

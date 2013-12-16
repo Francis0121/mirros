@@ -1,0 +1,1 @@
+FB.init({appId: '501326379921450', status: true, cookie: true});
