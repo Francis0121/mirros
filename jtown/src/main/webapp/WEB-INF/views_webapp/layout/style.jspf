@@ -10,9 +10,9 @@
 
 <%-- <link rel="stylesheet" type="text/css" href="${cp }/resources_webapp/css/mirros.min.css" /> --%>
 
- <link rel="stylesheet" type="text/css" href="${cp }/resources_webapp/css/default.css?66" />
- <link rel="stylesheet" type="text/css" href="${cp }/resources_webapp/css/items.css?73" />
- <link rel="stylesheet" type="text/css" href="${cp }/resources_webapp/css/like.css?19" />
- <link rel="stylesheet" type="text/css" href="${cp }/resources_webapp/css/reply.css?48" /> 
- <link rel="stylesheet" type="text/css" href="${cp }/resources_webapp/css/more.css?34" />
+ <link rel="stylesheet" type="text/css" href="${cp }/resources_webapp/css/default.css?67" />
+ <link rel="stylesheet" type="text/css" href="${cp }/resources_webapp/css/items.css?74" />
+ <link rel="stylesheet" type="text/css" href="${cp }/resources_webapp/css/like.css?20" />
+ <link rel="stylesheet" type="text/css" href="${cp }/resources_webapp/css/reply.css?51" /> 
+ <link rel="stylesheet" type="text/css" href="${cp }/resources_webapp/css/more.css?38" />
  

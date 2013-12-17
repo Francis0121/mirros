@@ -2,10 +2,14 @@ $(function() {
 });
 
 $('body').on('tap', '.jt-app-reply-comment-wrap', function(){
-	var eventPn = $(this).find('.jt-app-reply-event-wrap').attr('data-eventPn');
-	var productPn = $(this).find('.jt-app-reply-img-wrap').attr('data-productPn');
-	productPn == null ? $.insertEventClickStatistic(eventPn) : $.insertProductClickStatistic(productPn); 
-	window.open($(this).attr('data-url'));
+	if(!isTapHold){
+		var eventPn = $(this).find('.jt-app-reply-event-wrap').attr('data-eventPn');
+		var productPn = $(this).find('.jt-app-reply-img-wrap').attr('data-productPn');
+		productPn == null ? $.insertEventClickStatistic(eventPn) : $.insertProductClickStatistic(productPn); 
+		window.open($(this).attr('data-url'));
+	}else{
+		isTapHold = false;
+	}
 });
 
 $.checkReplyPage = function(){
@@ -18,6 +22,7 @@ $.checkReplyPage = function(){
 
 $.deleteTarget = null;
 $('body').on('taphold', '.jt-app-reply-comment-wrap', function(){
+	isTapHold = true;
 	$.post(contextPath + '/app/ajax/checkLogin.jt', {}, function(object) {
 		if(object.isLogin==false){
 			$.toast('로그인 해주세요.');

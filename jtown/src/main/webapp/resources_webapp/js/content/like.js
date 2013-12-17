@@ -12,7 +12,6 @@ $.checkLikePage = function(){
 
 $.staticLikeWrap = null;
 
-
 $('body').on('tap', '.jt-app-like-popup-ok', function(){
 	var productPn = $('.jt-app-like-popup-dialog').attr('data-product-pn');
 	var eventPn = $('.jt-app-like-popup-dialog').attr('data-event-pn');
@@ -56,11 +55,14 @@ $('body').on('tap', '.jt-app-like-popup-ok', function(){
 		});
 	}
 });
-$('body').on('tap', '.jt-app-like-popup-cancel', function(){
+$('body').on('tap', '.jt-app-like-popup-cancel', function(e){
 	$('.jt-app-like-popup-dialog').popup('close');
+	e.stopPropagation();
+	e.preventDefault();
 });
 
 $('body').on('taphold', '.jt-app-like-lists', function(){
+	isTapHold = true;
 	var productPn =$(this).attr('data-product-pn');
 	var eventPn =$(this).attr('data-event-pn');
 	

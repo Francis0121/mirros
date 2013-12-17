@@ -148,7 +148,7 @@ $('body').on('taphold', '.jt-app-item-lists', function(e){
 		}else{
 			$('.jt-app-item-like-popup-dialog').attr('data-product-pn', productPn);
 			$('.jt-app-item-like-popup-dialog').attr('data-event-pn', eventPn);
-			if($itemWrapStaticTarget.css('border').lastIndexOf('255') == -1){
+			if($itemWrapStaticTarget.attr('data-like') == 'null'){
 				$('.jt-app-item-like-popup-q-text').text('체크리스트에 추가하시겠습니까?');
 				$('.jt-app-item-like-popup-ok').find('.ui-btn-text').text('추가');
 			}else{
@@ -212,8 +212,10 @@ $('body').on('tap', '.jt-app-item-like-popup-ok', function(){
 		});
 	}
 });
-$('body').on('tap', '.jt-app-item-like-popup-cancel', function(){
+$('body').on('tap', '.jt-app-item-like-popup-cancel', function(e){
 	$('.jt-app-item-like-popup-dialog').popup('close');
+	e.stopPropagation();
+	e.preventDefault();
 });
 
 
@@ -239,6 +241,7 @@ $('body').on('tap', '.jt-app-item-list-events', function(){
 
 $('body').on('tap', '.jt-app-item-list-reply', function(e){
 	e.stopPropagation();
+	e.preventDefault();
 	$pThis = $(this);
 	$.post(contextPath + '/app/ajax/checkLogin.jt', {}, function(object) {
 		if(object.isLogin==false){
@@ -252,6 +255,7 @@ $('body').on('tap', '.jt-app-item-list-reply', function(e){
 });
 $('body').on('tap', '.jt-app-reply-wrap', function(e){
 	e.stopPropagation();
+	e.preventDefault();
 	$pThis = $(this);
 	$.post(contextPath + '/app/ajax/checkLogin.jt', {}, function(object) {
 		if(object.isLogin==false){
@@ -266,11 +270,10 @@ $('body').on('tap', '.jt-app-reply-wrap', function(e){
 
 $.replyDialog = function(e, pThis){
 	e.stopPropagation();
+	e.preventDefault();
 	$('#jt-app-reply-dialog').popup('open');
 	$eventPn = pThis.parents('.jt-app-item-lists').attr('data-event-pn');
 	$productPn = pThis.parents('.jt-app-item-lists').attr('data-product-pn');
-	console.log($eventPn);
-	console.log($productPn);
 	
 	$itemWrapStaticTarget = pThis.parents('.jt-app-item-lists');
 	$eventPn == null ? $('#jt-app-reply-dialog').attr('data-product-pn', $productPn) : $('#jt-app-reply-dialog').attr('data-event-pn',$eventPn);
