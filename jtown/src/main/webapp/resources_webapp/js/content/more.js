@@ -144,14 +144,26 @@ $('body').on('tap', '.jt-app-more-facebook-invite', function(){
 			$.changePageTransition('/app/login', 'pop');
 			return;
 		}else{
-			 FB.ui({
-					method: 'apprequests',
-					message: object.name+'님이 여자를 위한 잇 아이템 Mirros로의 초대장을 보내셨습니다.'
-				   }, requestCallback);
+			FB.getLoginStatus(function(response) {
+			      if (response.status == 'connected') {
+			        getCurrentUserInfo(response);
+			      } else {
+			    	 $.toast('페이스북으로 로그인 하셔야 합니다.');
+			      }
+			    });
 		}
 	});
 });
+function getCurrentUserInfo() {
+    FB.api('/me', function(userInfo) {
+    	 FB.ui({
+				method: 'apprequests',
+				message: userInfo.name+'님이 여자를 위한 잇 아이템 Mirros로의 초대장을 보내셨습니다.'
+			   }, requestCallback);
+    });
+  }
 function requestCallback(response) {
-	console.log(response);
+	$.toast('초대장을 발송하였습니다.');
+	//TODO update point
 }
 
