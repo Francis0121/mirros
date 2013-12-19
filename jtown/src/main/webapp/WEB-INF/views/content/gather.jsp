@@ -3,7 +3,12 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<sec:authentication property="principal" var="principal"/>
 <div class="jt-right-sidebar">
+	<div class="jt-right-side-cover ${principal == 'anonymousUser' ? 'jt-right-side-cover-color' : ''}">
+		<sec:authorize ifAnyGranted="ROLE_ANONYMOUS">
+			<div class="jt-right-side-cover-text">You need Login > </div>
+		</sec:authorize>
 	<div class="jt-right-sidebar-upper">Mirros News</div>
 	<div class="jt-right-sidebar-comment-feed">
 		<c:forEach items="${commentFeed}" var="feedList">
@@ -85,6 +90,7 @@
 			</c:if>
 		</c:forEach>
 		</div>
+	</div>
 	</div>
 </div>
 <div class="jt-pg-container">

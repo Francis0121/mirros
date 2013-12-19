@@ -61,17 +61,19 @@ public class HomeController {
 		return "redirect:/app";
 	}
 
-	@RequestMapping(value = "/cpn/{categoryPn}", method = RequestMethod.GET)
+	@RequestMapping(value = "/cpn/{categoryPn}")
 	public String productGatherCategoryView(Model model, HttpSession session, @ModelAttribute GatherFilter gatherFilter, SummaryUser summaryUser,
 			HttpServletRequest request) throws UnsupportedEncodingException {
 		gatherModelSetting(model, session, gatherFilter, summaryUser);
+		if("H".equals(gatherFilter.getNavFlag())){
+			hotItemList = gatherService.selectHotProductList(gatherFilter);
+		}
 		return prefixView + "item";
 	}
 
 	public void gatherModelSetting(Model model, HttpSession session, GatherFilter gatherFilter, SummaryUser summaryUser) {
 		session.setAttribute("app-currentPage", 1);
 		gatherFilter.setPagePerItem(12);
-		
 		model.addAttribute("categoryType", "app");
 		model.addAttribute("navType", gatherFilter.getNavFlag());
 		model.addAttribute("itemName", gatherFilter.getItemName());

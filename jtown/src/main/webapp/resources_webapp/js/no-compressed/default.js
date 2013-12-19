@@ -1,27 +1,32 @@
 $(function(){
 	//~default Init
+	$.setBrowserUrlHidden();
+});
+
+$.setBrowserUrlHidden = function(){
 	window.addEventListener('load', function(){
 	    document.body.style.height = (document.documentElement.clientHeight + 5) + 'px';
 	    window.scrollTo(0, 1);
 	}, false);
-});
-$(document).bind('mobileinit', function(){
-	//$.support.core = true;
-	//$.mobile.allowCrossDomainPages = true;
-});
+};
+
 //~ set Menubar
 $.setCategory = function(){
-	var cIdx = $('.jt-app-header-category').length-1;
-	var size = $('.jt-app-header-category:eq('+cIdx+') li').size(); 
-	for(var idx =0; idx< size ; idx++ ){
-		if($('.jt-app-header-category:eq('+cIdx+') li a:eq('+idx+')')[0].href == document.URL){    
-			$('.jt-app-header-category:eq('+cIdx+') li a:eq('+idx+')')[0].id = 'jt-app-header-category-current'; 
-		}
-	}
-	if('navFlag=H' == document.URL.substring(document.URL.length-9,document.URL.length)){
-		$('.jt-app-header-category:eq('+cIdx+') li a:eq(0)')[0].id = 'jt-app-header-category-current';
-	}
+	var size = $('.jt-app-header-category:last li').size(); 
+	var categoryPn = $('.jt-app-header-category:last').attr('data-category');
+	$('.jt-app-header-category:last li a[data-cpn='+categoryPn+']').attr('id','jt-app-header-category-current');
 };
+
+$('body').on('tap', '.jt-app-header-category li', function(e){
+	$.mobile.changePage( $(this).find('a').attr('data-url'), {
+		transition: 'flip',
+		type: 'post',
+		reloadPage: true,
+		reverse:false,
+		data:{navFlag : $('.jt-app-item-content').attr('data-nav'), categoryPn : $('.jt-app-header-category:last').attr('data-category')}
+	});
+});
+
 
 $('body').on('tap', '.jt-app-header-left-wrap', function(e){
 	if($('.jt-app-header-left-wrap').attr('data-toggle') == '0'){
@@ -102,6 +107,7 @@ $.insertEventClickStatistic = function(eventPn){
 $(function(){
 	$('body').on('tap', '.jt-app-header-extend-menu-inner .ui-input-clear', function(){
 		$('.jt-app-search-item').html('');
+		//TODO 아이템 글씨도 사라지게 함
 	});
 	
 	$('body').on('tap', '.jt-app-search-item li', function(){
@@ -202,5 +208,4 @@ $('body').on('tap', '.jt-app-footer-more', function(){
 $('body').on('tap', '.jt-app-footer-login', function(){
 	$.changePageTransition('/app/login', 'pop');
 });
-
 

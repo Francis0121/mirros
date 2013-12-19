@@ -49,7 +49,7 @@ $.scrollPaging = function(){
 		iPhoneMenuHeight = 60;
 	}
 	$('.jt-app-contents-wrap').scroll(function(){
-	    if( $('.jt-app-contents-wrap').scrollTop() + $('.jt-app-contents-wrap').height() + iPhoneMenuHeight >= $('.jt-app-contents-wrap')[0].scrollHeight -0 ){
+	    if( $('.jt-app-contents-wrap:last').scrollTop() + $('.jt-app-contents-wrap:last').height() + iPhoneMenuHeight >= $('.jt-app-contents-wrap:last')[0].scrollHeight){
 	    	if($.checkAppPage()){
 	    		$.pagingItem();
 	    	}
@@ -118,7 +118,14 @@ $.hotNewChangeBtnInit = function(){
 $('body').on('tap','.jt-app-item-change-mode',function(){
 	if($('.jt-app-item-content').attr('data-nav') == 'H'){
 		$.mobile.showPageLoadingMsg();
-		$.changePageTransition('/app', 'flip', true);
+		//$.changePageTransition('/app', 'flip', true);
+		$.mobile.changePage( contextPath+'/app', {
+			transition: 'flip',
+			type: 'post',
+			reloadPage: true,
+			reverse:true,
+			data:{categoryPn : $('.jt-app-header-category:last').attr('data-category')}
+		});
 		$.mobile.hidePageLoadingMsg();
 	}else{
 		$.mobile.showPageLoadingMsg();
@@ -127,7 +134,7 @@ $('body').on('tap','.jt-app-item-change-mode',function(){
 			type: 'post',
 			reloadPage: true,
 			reverse:false,
-			data:{navFlag : 'H'}
+			data:{navFlag : 'H', categoryPn : $('.jt-app-header-category:last').attr('data-category')}
 		});
 		$.mobile.hidePageLoadingMsg();
 	}
