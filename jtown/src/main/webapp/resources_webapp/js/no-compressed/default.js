@@ -2,6 +2,8 @@ $(function(){
 	//~default Init
 	$.setBrowserUrlHidden();
 });
+//.jt-app-contents-wrap
+
 
 $.setBrowserUrlHidden = function(){
 	window.addEventListener('load', function(){

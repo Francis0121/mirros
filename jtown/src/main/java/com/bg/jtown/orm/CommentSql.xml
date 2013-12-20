@@ -468,7 +468,7 @@
 		    ON i.pn = usp.image_pn 
 		WHERE pc.deleted = 'N' 
 		AND 
-			DATE_FORMAT(pc.input_date, "%Y-%m-%d") >= DATE_FORMAT(DATE_ADD(SYSDATE(),INTERVAL -2 DAY), "%Y-%m-%d")	
+			DATE_FORMAT(pc.input_date, "%Y-%m-%d") >= DATE_FORMAT(DATE_ADD(SYSDATE(),INTERVAL -7 DAY), "%Y-%m-%d")	
 		UNION
 		SELECT 
 		  comment_pn,
@@ -489,7 +489,7 @@
 		    ON p.seller_pn = usee.seller_pn 
 		WHERE ec.deleted = 'N' 
 		AND 
-			DATE_FORMAT(ec.input_date, "%Y-%m-%d") >= DATE_FORMAT(DATE_ADD(SYSDATE(),INTERVAL -2 DAY), "%Y-%m-%d")
+			DATE_FORMAT(ec.input_date, "%Y-%m-%d") >= DATE_FORMAT(DATE_ADD(SYSDATE(),INTERVAL -7 DAY), "%Y-%m-%d")
 		ORDER BY input_date DESC 
 		LIMIT 35 
 	</select>

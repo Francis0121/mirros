@@ -118,7 +118,6 @@ $.hotNewChangeBtnInit = function(){
 $('body').on('tap','.jt-app-item-change-mode',function(){
 	if($('.jt-app-item-content').attr('data-nav') == 'H'){
 		$.mobile.showPageLoadingMsg();
-		//$.changePageTransition('/app', 'flip', true);
 		$.mobile.changePage( contextPath+'/app', {
 			transition: 'flip',
 			type: 'post',

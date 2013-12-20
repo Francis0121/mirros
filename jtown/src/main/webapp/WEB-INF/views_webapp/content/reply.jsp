@@ -35,7 +35,7 @@
 				</div>
 			</c:forEach>
 		<div data-role="popup" id="jt-reply-popup-menu" data-overlay-theme="a">
-			<div data-role="header" data-theme="e" role="banner"><h1 role="heading" aria-level="1"></h1></div>
+			<div data-role="header" data-theme="c" role="banner"><h1 role="heading" aria-level="1"></h1></div>
 		    <ul data-role="listview" data-inset="true" >
 				<li class="jt-app-reply-popup-delete"><a >삭제</a></li>
 				<li class="jt-app-reply-popup-warn"><a >신고</a></li>

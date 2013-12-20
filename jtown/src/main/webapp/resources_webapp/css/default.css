@@ -59,7 +59,7 @@ user-select: none;}
 .jt-app-header-extend-event-menu-margin>div{position:absolute;top:44%;left:2%}
 
 .jt-app-pre-text{white-space:pre-wrap;}
-.jt-app-event-mark{ text-indent: -99999px; margin: -3px 0px 0 0; background: url("../images/jt-home-icon.png") no-repeat; background-position: -45px 0px; float:right; width: 43px; height: 43px;}
+.jt-app-event-mark{ text-indent: -99999px; background: url("../images/jt-home-icon.png") no-repeat; background-position: -45px 0px; float:right; width: 43px; height: 43px;}
 
 .jt-app-header-search-result{display: none; background-color: #fff;}
 .jt-app-search-item>li{padding: 12px 15px;font-size:13px;border-bottom:1px solid #eee;}

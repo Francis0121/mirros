@@ -12,12 +12,11 @@
 				<a type="button" class="jt-btn-gray jt-app-reply-submit" >댓글 완료</a>
 			</div>
 			<div data-role="popup" class="jt-app-item-like-popup-dialog" data-theme="c" data-overlay-theme="a">
-				<div data-role="header" data-theme="e" role="banner"><h1 role="heading" aria-level="1"></h1></div>
-				<div data-role="content" data-theme="d" role="main" >
+				<div data-role="content" data-theme="c" role="main" >
 					<div class="jt-app-item-like-popup-q-text">체크리스트에 추가하시겠습니까?</div>
 					<div class="jt-app-item-like-popup-btn-wrap">
-						<a data-role="button" data-inline="true" data-corners="true" data-shadow="true" data-theme="e" class="jt-app-item-like-popup-ok">추가</a>
-						<a data-role="button" data-inline="true" data-corners="true" data-shadow="true" class="jt-app-item-like-popup-cancel">취소</a>
+						<a data-role="button" data-inline="true" data-corners="true" data-shadow="true" data-theme="d" class="jt-app-item-like-popup-ok">추가</a>
+						<a data-role="button" data-inline="true" data-corners="true" data-shadow="true" data-theme="d" class="jt-app-item-like-popup-cancel">취소</a>
 					</div>
 				</div>
 			</div>
