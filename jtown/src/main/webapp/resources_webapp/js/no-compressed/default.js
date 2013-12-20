@@ -3,7 +3,10 @@ $(function(){
 	$.setBrowserUrlHidden();
 });
 //.jt-app-contents-wrap
-
+$('.jt-app-contents-wrap').on('scroll', function(event){
+	event.preventDefault();
+});
+    
 
 $.setBrowserUrlHidden = function(){
 	window.addEventListener('load', function(){
