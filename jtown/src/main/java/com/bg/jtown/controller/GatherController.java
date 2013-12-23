@@ -98,10 +98,14 @@ public class GatherController {
 	@RequestMapping(value = "/")
 	public String productGatherView(Model model, HttpSession session, @ModelAttribute GatherFilter gatherFilter, SummaryUser summaryUser,
 			HttpServletRequest request) throws UnsupportedEncodingException {
+		if(!request.isSecure()){
+			return "redirect:https"+request.getRequestURL().toString().replace("http", "");
+		}
+		
 		if (BrowserUtil.isMobile(request)) {
 			String value = CookieUtil.isCookie("SEE_PC_VERSION", request);
 			if (value == null || !value.equals("T")) {
-				return "redirect:/app";
+				return "redirect:/m";
 			} else {
 				model.addAttribute("isMobile", true);
 			}

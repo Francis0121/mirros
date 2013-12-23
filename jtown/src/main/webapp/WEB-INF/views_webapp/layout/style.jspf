@@ -3,16 +3,16 @@
 
 <link rel="shortcut icon" href="${cp }/resources_webapp/images/favicon.ico" type="image/x-icon"/>
 <link rel="apple-touch-icon" href= "${cp }/resources_webapp/images/favicon.ico" type="image/x-icon">
-<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css" />
+<link rel="stylesheet" href="${cp }/resources_webapp/css/jquery.mobile-1.3.2.min.css" />
 <meta name="viewport" content= "width=device-width ,initial-scale=1.0,maximum-scale=1.0, minimum-scale=1.0,user-scalable=no" />
 <meta name=" apple-mobi le-web-app-capable" content ="yes "/>
 	
 
-<%-- <link rel="stylesheet" type="text/css" href="${cp }/resources_webapp/css/mirros.min.css" /> --%>
-
+<link rel="stylesheet" type="text/css" href="${cp }/resources_webapp/css/mirros.min.css?01" /> 
+<%-- 
  <link rel="stylesheet" type="text/css" href="${cp }/resources_webapp/css/default.css?68" />
  <link rel="stylesheet" type="text/css" href="${cp }/resources_webapp/css/items.css?75" />
  <link rel="stylesheet" type="text/css" href="${cp }/resources_webapp/css/like.css?20" />
  <link rel="stylesheet" type="text/css" href="${cp }/resources_webapp/css/reply.css?51" /> 
  <link rel="stylesheet" type="text/css" href="${cp }/resources_webapp/css/more.css?39" />
- 
+ --%>

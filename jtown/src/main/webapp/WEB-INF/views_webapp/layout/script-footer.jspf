@@ -10,26 +10,24 @@
 <script src="${cp}/resources_webapp/js/plugin/kakao.link.js"></script>
 
 <%-- Custom --%>
-<script src="${cp}/resources_webapp/js/util.min.js?3"></script>
+<script src="${cp}/resources_webapp/js/util.min.js?4"></script>
+<%--
 <script src="${cp}/resources_webapp/js/no-compressed/default.js?017"></script>
-
-
-<%--
-<script src="${cp}/resources_webapp/js/default.min.js?17"></script>
 --%>
+<script src="${cp}/resources_webapp/js/default.min.js?2"></script>
 
-<%--
 <script src="${cp}/resources_webapp/js/mirros.all.min.js"></script>
---%>
+<%--
 <script src="${cp}/resources_webapp/js/content/item.js?70"></script>
 <script src="${cp}/resources_webapp/js/content/like.js?24"></script>
 <script src="${cp}/resources_webapp/js/content/more.js?36"></script>
 <script src="${cp}/resources_webapp/js/content/reply.js?24"></script>
-
+--%>
 <%-- Node --%>
-<%--
-<script src="${cp}/resources_webapp/js/real.time.min.js?1"></script>
- --%>
-<script src="${cp}/resources_webapp/js/no-compressed/real.time.js?5"></script>
 <script src="${nodePath }/socket.io/socket.io.js"></script>
+<script src="${cp}/resources_webapp/js/real.time.min.js?1"></script>
+<%-- 
+<script src="${cp}/resources_webapp/js/no-compressed/real.time.js?5"></script>
+--%>
+
 

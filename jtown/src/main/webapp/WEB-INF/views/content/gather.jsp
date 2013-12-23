@@ -5,10 +5,7 @@
 
 <sec:authentication property="principal" var="principal"/>
 <div class="jt-right-sidebar">
-	<div class="jt-right-side-cover ${principal == 'anonymousUser' ? 'jt-right-side-cover-color' : ''}">
-		<sec:authorize ifAnyGranted="ROLE_ANONYMOUS">
-			<div class="jt-right-side-cover-text">You need Login > </div>
-		</sec:authorize>
+	
 	<div class="jt-right-sidebar-upper">Mirros News</div>
 	<div class="jt-right-sidebar-comment-feed">
 		<c:forEach items="${commentFeed}" var="feedList">
@@ -91,16 +88,18 @@
 		</c:forEach>
 		</div>
 	</div>
-	</div>
+	
 </div>
 <div class="jt-pg-container">
 <div class="jt-pg-main js-masonry" data-item-name="${itemName }">
 
+<!-- 
 	<div class="jt-pg-item jt-pg-event-item">
 	</div>
 	<div class="jt-pg-item jt-pg-event-page">
 		<div class="slideshow" id="flavor_1"></div>
 	</div>
+ -->
 	
 	<c:forEach items="${productGatherList }" var="list">
 	<c:set value="${!empty list.customerPn ? 'jt-home-shop-love-click' : ''}   " var="heartClickShapeClass" />
