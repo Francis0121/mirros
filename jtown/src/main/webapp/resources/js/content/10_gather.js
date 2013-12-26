@@ -570,11 +570,8 @@ $('body').on('click', '.jt-sidebar-heart-item', function(){
 	window.open($(this).attr('data-url'), '_blank');
 });
 
-$('.jt-right-sidebar-heart-gather').bind('click', function(){
-	if($('.jt-header-login-menu #jt-mypage').length == 0){
+$('.jt-right-sidebar-cover').bind('click', function(){
 		jtown.login.showLoginForm();
-		return;
-	}
 });
 
 //~ init

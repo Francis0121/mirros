@@ -7,12 +7,12 @@
 <meta name="viewport" content= "width=device-width ,initial-scale=1.0,maximum-scale=1.0, minimum-scale=1.0,user-scalable=no" />
 <meta name=" apple-mobi le-web-app-capable" content ="yes "/>
 	
-
-<link rel="stylesheet" type="text/css" href="${cp }/resources_webapp/css/mirros.min.css?01" /> 
-<%-- 
+<%--
+<link rel="stylesheet" type="text/css" href="${cp }/resources_webapp/css/mirros.min.css?02" /> 
+ --%>
  <link rel="stylesheet" type="text/css" href="${cp }/resources_webapp/css/default.css?68" />
- <link rel="stylesheet" type="text/css" href="${cp }/resources_webapp/css/items.css?75" />
+ <link rel="stylesheet" type="text/css" href="${cp }/resources_webapp/css/items.css?76" />
  <link rel="stylesheet" type="text/css" href="${cp }/resources_webapp/css/like.css?20" />
  <link rel="stylesheet" type="text/css" href="${cp }/resources_webapp/css/reply.css?51" /> 
  <link rel="stylesheet" type="text/css" href="${cp }/resources_webapp/css/more.css?39" />
- --%>
+ 

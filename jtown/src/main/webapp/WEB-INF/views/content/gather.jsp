@@ -2,10 +2,12 @@
 <%@ include file="../layout/home_header.jspf" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
-<sec:authentication property="principal" var="principal"/>
+<sec:authorize ifAnyGranted="ROLE_ANONYMOUS">
+	<div class="jt-right-sidebar-cover"> </div>
+</sec:authorize>
 <div class="jt-right-sidebar">
-	
 	<div class="jt-right-sidebar-upper">Mirros News</div>
 	<div class="jt-right-sidebar-comment-feed">
 		<c:forEach items="${commentFeed}" var="feedList">

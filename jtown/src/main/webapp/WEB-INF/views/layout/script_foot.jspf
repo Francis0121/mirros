@@ -25,9 +25,10 @@
 <%-- <script src="${cp}/resources/js/jquery.custom.plugin.js"></script> --%>
 
 <%-- Custom --%>
-
-<script src="${cp}/resources/js/mirros.all.js"></script>
 <%-- 
+<script src="${cp}/resources/js/mirros.all.js"></script>
+--%>
+
 <script src="${cp}/resources/js/content/01_jtown.js"></script>
 <script src="${cp}/resources/js/content/02_util.js"></script>
 <script src="${cp}/resources/js/content/03_login.js"></script>
@@ -38,7 +39,7 @@
 <script src="${cp}/resources/js/content/08_board.js"></script>
 <script src="${cp}/resources/js/content/09_help.js"></script>
 <script src="${cp}/resources/js/content/10_gather.js"></script>
- --%>
+ 
 <%-- Node --%>
 <script src="${nodePath }/socket.io/socket.io.js"></script>
 

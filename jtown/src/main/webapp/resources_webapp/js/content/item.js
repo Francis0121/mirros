@@ -1,6 +1,6 @@
 $(function() {
 	 //~ Init
-	if($.isMobile() && $.checkAppPage()){
+	if($.checkAppPage()){
 		$.pagingItem(1);
 	}
 	if($.checkAppPage()){
@@ -49,7 +49,7 @@ $.scrollPaging = function(){
 		iPhoneMenuHeight = 60;
 	}
 	$('.jt-app-contents-wrap').scroll(function(){
-	    if( $('.jt-app-contents-wrap:last').scrollTop() + $('.jt-app-contents-wrap:last').height() + iPhoneMenuHeight >= $('.jt-app-contents-wrap:last')[0].scrollHeight){
+	    if( $('.jt-app-contents-wrap:last').scrollTop() + $('.jt-app-contents-wrap:last').height() + iPhoneMenuHeight == $('.jt-app-contents-wrap:last')[0].scrollHeight){
 	    	if($.checkAppPage()){
 	    		$.pagingItem();
 	    	}

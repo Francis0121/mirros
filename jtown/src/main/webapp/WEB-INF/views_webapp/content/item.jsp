@@ -23,6 +23,8 @@
 			<div class="jt-app-item-list"></div>
 		</div>
 	</div>
+	
+	
 	<%@ include file="../layout/footer.jspf" %>
 </div>
 <%@ include file="../layout/home-footer.jspf" %>
