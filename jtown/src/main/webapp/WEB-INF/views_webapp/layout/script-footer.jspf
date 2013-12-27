@@ -14,11 +14,11 @@
 <%--
 <script src="${cp}/resources_webapp/js/no-compressed/default.js?017"></script>
 --%>
-<script src="${cp}/resources_webapp/js/default.min.js?2"></script>
+<script src="${cp}/resources_webapp/js/default.min.js?3"></script>
 <%--
 <script src="${cp}/resources_webapp/js/mirros.all.min.js"></script>
 --%>
-<script src="${cp}/resources_webapp/js/content/item.js?72"></script>
+<script src="${cp}/resources_webapp/js/content/item.js?83"></script>
 <script src="${cp}/resources_webapp/js/content/like.js?24"></script>
 <script src="${cp}/resources_webapp/js/content/more.js?36"></script>
 <script src="${cp}/resources_webapp/js/content/reply.js?24"></script>

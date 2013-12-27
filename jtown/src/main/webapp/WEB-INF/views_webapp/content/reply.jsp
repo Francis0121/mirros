@@ -8,6 +8,7 @@
 	<div class="jt-app-contents-wrap">
 		<div data-role="content" class="jt-app-item-content jt-app-reply-contents" data-theme="c">
 		<div class="jt-app-reply-title">최신 댓글만 모아봅니다.</div>
+			<div class="jt-app-reply-contents-item-wrap">
 			<c:forEach var="commentFeed" items="${commentFeed }">
 				<div class="jt-app-reply-comment-wrap" data-url="${commentFeed.url}" data-comment-pn="${commentFeed.commentPn}" data-customer-pn="${commentFeed.customerPn }" oncontextmenu="return false" onselectstart="return false">
 					<c:if test="${commentFeed.contentType != '-1'}">	
@@ -34,6 +35,7 @@
 					</div>
 				</div>
 			</c:forEach>
+			</div>
 		<div data-role="popup" id="jt-reply-popup-menu" data-overlay-theme="a">
 			<div data-role="header" data-theme="c" role="banner"><h1 role="heading" aria-level="1"></h1></div>
 		    <ul data-role="listview" data-inset="true" >

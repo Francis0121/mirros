@@ -2,13 +2,12 @@ $(function() {
 	 //~ Init
 	if($.checkAppPage()){
 		$.pagingItem(1);
-	}
-	if($.checkAppPage()){
 		$.scrollPaging();
 		$.setCategory();
 		$.hotNewChangeBtnInit();
 	 }
 	 $(document).on("pagechange", function () {
+		 //$('.jt-app-item-content').css('visibility','visible');
 		 if($.checkAppPage()){
 			 $.hotNewChangeBtnInit();
 			 $.pagingItem();
@@ -28,7 +27,7 @@ $.checkAppPage = function(){
 };
 
 $.pagingItem = function(init){
-	$.mobile.showPageLoadingMsg();
+	//$.mobile.showPageLoadingMsg();
 	var navFlag = null;
 	var itemName = $('.jt-app-header-search').attr('data-search');
 	var categoryPn = $('.jt-app-header-category:last').attr('data-category');
@@ -36,10 +35,10 @@ $.pagingItem = function(init){
 	$.post(contextPath+'/app/ajax/productPagination.jt',{navFlag : navFlag, categoryPn : categoryPn, itemName : itemName, init : init}, function(data){
     	if(data.mergeItems.length > 0){
     		$.attendProductItems(data);
-			$.mobile.hidePageLoadingMsg();
+			//$.mobile.hidePageLoadingMsg();
     	}else{
     		$.toast('마지막 페이지입니다.');
-    		$.mobile.hidePageLoadingMsg();
+    		//$.mobile.hidePageLoadingMsg();
     	}
     });
 };
@@ -48,10 +47,15 @@ $.scrollPaging = function(){
 	if($.isIOS()){
 		iPhoneMenuHeight = 60;
 	}
+	var isWorking = 0;
 	$('.jt-app-contents-wrap').scroll(function(){
-	    if( $('.jt-app-contents-wrap:last').scrollTop() + $('.jt-app-contents-wrap:last').height() + iPhoneMenuHeight == $('.jt-app-contents-wrap:last')[0].scrollHeight){
-	    	if($.checkAppPage()){
-	    		$.pagingItem();
+	    if($.checkAppPage()){
+	    	if( $('.jt-app-contents-wrap:last').scrollTop() + $('.jt-app-contents-wrap:last').height() + iPhoneMenuHeight >= $('.jt-app-contents-wrap:last')[0].scrollHeight - 42){
+	    		if(isWorking == 0){
+	    			isWorking = 1;
+	    			$.pagingItem();
+	    			setTimeout(function(){isWorking = 0;}, 500);
+	    		}
 	    	}
 	    }
 	});

@@ -46,7 +46,7 @@ mobile.real.time = function(data) {
 		mobileHtml += 			'<div class="jt-app-reply-comment-date"><div class="jt-app-reply-clock"></div><div>'+obj.comparedTime+'</div></div>';
 		mobileHtml += 		'</div>';
 		mobileHtml += '</div>';
-		$('.jt-app-reply-contents').prepend(mobileHtml);
+		$('.jt-app-reply-contents-item-wrap').prepend(mobileHtml);
 	}
 };
 

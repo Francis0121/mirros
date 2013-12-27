@@ -1,8 +1,8 @@
 $(function(){
 	//~default Init
+	$('body').css('display', 'block');
 	$.setBrowserUrlHidden();
 });
-//.jt-app-contents-wrap
 
 $.setBrowserUrlHidden = function(){
 	window.addEventListener('load', function(){

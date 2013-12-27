@@ -21,6 +21,7 @@
 				</div>
 			</div>
 			<div class="jt-app-item-list"></div>
+			<div class="jt-app-item-loader-wrap"><img src="${cp }/resources_webapp/css/images/ajax-loader.gif" /></div>
 		</div>
 	</div>
 	
