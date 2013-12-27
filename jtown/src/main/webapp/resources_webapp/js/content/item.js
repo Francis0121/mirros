@@ -7,7 +7,6 @@ $(function() {
 		$.hotNewChangeBtnInit();
 	 }
 	 $(document).on("pagechange", function () {
-		 //$('.jt-app-item-content').css('visibility','visible');
 		 if($.checkAppPage()){
 			 $.hotNewChangeBtnInit();
 			 $.pagingItem();
@@ -27,7 +26,6 @@ $.checkAppPage = function(){
 };
 
 $.pagingItem = function(init){
-	//$.mobile.showPageLoadingMsg();
 	var navFlag = null;
 	var itemName = $('.jt-app-header-search').attr('data-search');
 	var categoryPn = $('.jt-app-header-category:last').attr('data-category');
@@ -35,26 +33,32 @@ $.pagingItem = function(init){
 	$.post(contextPath+'/app/ajax/productPagination.jt',{navFlag : navFlag, categoryPn : categoryPn, itemName : itemName, init : init}, function(data){
     	if(data.mergeItems.length > 0){
     		$.attendProductItems(data);
-			//$.mobile.hidePageLoadingMsg();
     	}else{
     		$.toast('마지막 페이지입니다.');
-    		//$.mobile.hidePageLoadingMsg();
     	}
     });
 };
+
+var isScrollingFlag = 0;
 $.scrollPaging = function(){
 	var iPhoneMenuHeight = 0;
 	if($.isIOS()){
 		iPhoneMenuHeight = 60;
 	}
 	var isWorking = 0;
+	var scrollTapTimer = null;
+	var scrollLoadTimer = null;
 	$('.jt-app-contents-wrap').scroll(function(){
 	    if($.checkAppPage()){
+	    	isScrollingFlag = 1;
+	    	window.clearTimeout(scrollTapTimer);
+	    	scrollTapTimer = window.setTimeout(function(){isScrollingFlag = 0;}, 1500);
 	    	if( $('.jt-app-contents-wrap:last').scrollTop() + $('.jt-app-contents-wrap:last').height() + iPhoneMenuHeight >= $('.jt-app-contents-wrap:last')[0].scrollHeight - 42){
 	    		if(isWorking == 0){
 	    			isWorking = 1;
 	    			$.pagingItem();
-	    			setTimeout(function(){isWorking = 0;}, 500);
+	    			window.clearTimeout(scrollLoadTimer);
+	    			scrollLoadTimer = window.setTimeout(function(){isWorking = 0;}, 500);
 	    		}
 	    	}
 	    }
@@ -230,52 +234,72 @@ $('body').on('tap', '.jt-app-item-like-popup-cancel', function(e){
 
 
 $('body').on('tap', '.jt-app-item-list-products', function(e){
-	if(!isTapHold){
-		var productPn = $(this).attr('data-product-pn');
-		$.insertProductClickStatistic(productPn);
-		window.open($(this).attr('data-url'));
+	if(isScrollingFlag == 0){
+		if(!isTapHold){
+			var productPn = $(this).attr('data-product-pn');
+			$.insertProductClickStatistic(productPn);
+			window.open($(this).attr('data-url'));
+		}else{
+			isTapHold = false;
+		}
 	}else{
-		isTapHold = false;
+		e.stopPropagation();
+		e.preventDefault();
 	}
 });
 $('body').on('tap', '.jt-app-item-list-events', function(){
-	if(!isTapHold){
-		var eventPn = $(this).attr('data-event-pn');
-		$.insertEventClickStatistic(eventPn);
-		window.open($(this).attr('data-url'));
+	if(isScrollingFlag == 0){
+		if(!isTapHold){
+			var eventPn = $(this).attr('data-event-pn');
+			$.insertEventClickStatistic(eventPn);
+			window.open($(this).attr('data-url'));
+		}else{
+			isTapHold = false;
+		}
 	}else{
-		isTapHold = false;
+		e.stopPropagation();
+		e.preventDefault();
 	}
 });
 
 
 $('body').on('tap', '.jt-app-item-list-reply', function(e){
-	e.stopPropagation();
-	e.preventDefault();
-	$pThis = $(this);
-	$.post(contextPath + '/app/ajax/checkLogin.jt', {}, function(object) {
-		if(object.isLogin==false){
-			$.toast('로그인 해주세요.');
-			$.changePageTransition('/app/login', 'pop');
-			return;
-		}else{
-			$.replyDialog(e, $pThis);
-		}
-	});
+	if(isScrollingFlag == 0){
+		e.stopPropagation();
+		e.preventDefault();
+		$pThis = $(this);
+		$.post(contextPath + '/app/ajax/checkLogin.jt', {}, function(object) {
+			if(object.isLogin==false){
+				$.toast('로그인 해주세요.');
+				$.changePageTransition('/app/login', 'pop');
+				return;
+			}else{
+				$.replyDialog(e, $pThis);
+			}
+		});
+	}else{
+		e.stopPropagation();
+		e.preventDefault();
+	}
 });
 $('body').on('tap', '.jt-app-reply-wrap', function(e){
-	e.stopPropagation();
-	e.preventDefault();
-	$pThis = $(this);
-	$.post(contextPath + '/app/ajax/checkLogin.jt', {}, function(object) {
-		if(object.isLogin==false){
-			$.toast('로그인 해주세요.');
-			$.changePageTransition('/app/login', 'pop');
-			return;
-		}else{
-			$.replyDialog(e, $pThis);
-		}
-	});
+	if(isScrollingFlag == 0){
+		e.stopPropagation();
+		e.preventDefault();
+		$pThis = $(this);
+		$.post(contextPath + '/app/ajax/checkLogin.jt', {}, function(object) {
+			if(object.isLogin==false){
+				$.toast('로그인 해주세요.');
+				$.changePageTransition('/app/login', 'pop');
+				return;
+			}else{
+				$.replyDialog(e, $pThis);
+			}
+		});
+	}else{
+		e.stopPropagation();
+		e.preventDefault();
+	}
 });
 
 $.replyDialog = function(e, pThis){
