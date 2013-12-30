@@ -178,6 +178,7 @@ html{ overflow-y: hidden;}
 		$('#product #name').placeholder();
 		$('#product #price').placeholder();
 		$('#product #url').placeholder();
+		$('#jt-home-footer').css('display','none');
 	}); 
 	
 // 	$(window).unload(function(event){

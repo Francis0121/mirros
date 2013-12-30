@@ -342,7 +342,7 @@ jtown.seller.syncProduct = function() {
 	
 	$('#jt-product-popup').unbind('click').bind('click', function(){
 		var url = contextPath + 'seller/products/'+$(this).attr('data-pn');
-		var option = 'width=610, height=550, toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=no';
+		var option = 'width=630, height=600, left=500,top=200, toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no';
 		
 		window.open(url, '', option);
 	});

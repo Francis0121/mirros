@@ -263,21 +263,20 @@ Product Insert btn
 /**********************
 	Popup
 **********************/
-.jt-product-section{ width: 610px; height: 520px; background: #fafafa; padding: 0 0;}
-.jt-product-header{ padding: 5px 0; width: 610px; height : 25px; background: #fafafa;
-	border-bottom : 1px solid #ffd098;
-	box-shadow : 0 0 3px rgba(255,102,10,0.7); -moz-box-shadow : 0 0 3px rgba(255,102,10,0.7); -webkit-box-shadow : 0 0 3px rgba(255,102,10,0.7);
+.jt-product-section{ width: 630px; height: 520px; padding: 0 0;background-color: #fff;}
+.jt-product-header{width: 630px; height : 38px; background: #fff; padding: 12px 0 0 0;border-bottom: 1px solid #bebebe;
+	box-shadow : 0 0 1px rgba(0,0,0,0.1); -moz-box-shadow : 0 0 1px rgba(0,0,0,0.1); -webkit-box-shadow : 0 0 1px rgba(0,0,0,0.1);
 	margin-bottom: 3px;
 }
 .jt-product-header ul{float: left; width: 100%; }
 .jt-product-header ul li{ float: left;}
-.jt-product-header ul li:nth-child(1){width: 35%;}
-.jt-product-header ul li:nth-child(2){width: 65%;}
-.jt-product-header h1{float: left; width: 100%; margin-left : 5px; font-family: NanumGothic, Dotum, Gulim; font-size: 15px; color: #524d4d; text-indent: 10px; line-height: 25px;}
+.jt-product-header ul li:nth-child(1){width: 38%;}
+.jt-product-header ul li:nth-child(2){width: 62%;}
+.jt-product-header h1{float: left; width: 100%; margin-left : 10px; font-family: NanumGothic, Dotum, Gulim; font-size: 15px; color: #3e3e3e; text-indent: 10px; line-height: 25px;}
 .jt-product-header-icon{background: url('../images/jt-home-icon.png') -172px -27px; width: 12px; height: 12px; float: left; margin: 5px 5px 0 0;}
 .jt-product-header-text{ color: #808080; font-size: 11px; line-height: 25px; float: left;}
 
-.jt-product-article{ padding: 5px; width: 600px; height : 470px; background: #fafafa;}
+.jt-product-article{ padding: 10px 5px 0 15px; height : 480px; background: #fff;}
 .jt-product-article>ul{float: left; width: 100%; }
 .jt-product-article>ul>li{float: left;}
 .jt-product-article-object{ width: 150px; height: 150px; padding: 5px; 
@@ -292,7 +291,7 @@ Product Insert btn
 .jt-product-article-object-photo{ width: 140px;}
 .jt-product-article-object-expand{margin-top: 130px;}
 
-.jt-product-article-inputBox{ width: 300px; height: 150px; padding: 5px;
+.jt-product-article-inputBox{width: 300px; height: 150px; padding: 5px; margin: 0 10px 0 0;background-color:#fafafa;
 	box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box; -moz-box-sizing : border-box; -webkit-box-sizing : border-box;
 }
 
@@ -328,7 +327,7 @@ Product Insert btn
 .jt-product-update-cancle{}
 .jt-product-update-cancle>.btnImage{ background-position: 0 -24px;}
 
-.jt-product-footer{ padding: 5px; text-indent : 5px; width: 600px; height : 15px; background: #fff; border-top: 1px solid #bebebe;}
+.jt-product-footer{ padding: 17px 5px 0 15px; text-indent : 5px; width: 610px; height : 42px; background: #f0f0f0; border-top: 1px solid #bebebe; }
 .jt-product-footer span{  color: #666666; font-size: 11px; line-height: 15px;}
 
 
