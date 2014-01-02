@@ -41,19 +41,19 @@ $.fbLogin = function(){
 
 $.logout = function(){
 	$.post(contextPath+'/login/logout',{}, function(data){
-		$.changePageTransition('/app', 'slide', false);
+		$.changePageTransition('/app', 'fade', false);
 	});
 };
 
 $.goEmailLogin = function(){
-	$.changePageTransition('/app/emailLogin', 'slide', false);
+	$.changePageTransition('/app/emailLogin', 'fade', false);
 };
 
 $.emailLogin = function(){
 	$.post(contextPath+'/j_spring_security_check',{j_username : $('.jt-login-form-table-input').val(),
 		j_password : $('.jt-login-form-table-password').val()}, function(data){
 			if("success" == data.result){
-				$.changePageTransition('/app', 'slide', false);
+				$.changePageTransition('/app', 'fade', false);
 			}else{
 				alert('로그인에 실패하였습니다.');
 			}
@@ -62,7 +62,7 @@ $.emailLogin = function(){
 
 //~ Join
 $.goJoin = function(){
-	$.changePageTransition('/app/join', 'slide', false);
+	$.changePageTransition('/app/join', 'fade', false);
 };
 
 $.joinSubmit = function(){
@@ -75,7 +75,7 @@ $.joinSubmit = function(){
 	},function(data){
 		$.mobile.hidePageLoadingMsg();
 		if(data == 'success'){
-			$.changePageTransition('/app', 'slide', false);
+			$.changePageTransition('/app', 'fade', false);
 		}else{
 			$('.jt-join-direct-user-name').val('');
 			$('.jt-join-direct-user-username').val('');

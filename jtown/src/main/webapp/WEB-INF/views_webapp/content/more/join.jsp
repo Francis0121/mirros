@@ -33,7 +33,7 @@
 		<a type="button" class="jt-app-more-join-submit jt-btn-orange" onclick="$.joinSubmit()">가입하기</a>
 		</div>
 		<ul class="jt-app-more-join-text">
-			<li>‘가입하기’를&nbsp;누르면&nbsp;<a href="${cp }/app/individual" data-transition="slide">이용약관</a>&nbsp;및&nbsp;<a href="${cp }/app/agreement" data-transition="slide">개인정보취급방침</a>에
+			<li>‘가입하기’를&nbsp;누르면&nbsp;<a href="${cp }/app/individual" data-transition="fade">이용약관</a>&nbsp;및&nbsp;<a href="${cp }/app/agreement" data-transition="fade">개인정보취급방침</a>에
 			&nbsp;동의한&nbsp;것으로&nbsp;간주합니다.</li>
 			<li>판매자&nbsp;회원가입은&nbsp;고객센터로&nbsp;문의주시기 바랍니다.</li>
 		</ul>

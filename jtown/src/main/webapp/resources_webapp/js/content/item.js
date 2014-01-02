@@ -25,7 +25,9 @@ $.checkAppPage = function(){
 	}
 };
 
+var scrollLoadTimer = null;
 $.pagingItem = function(init){
+	clearInterval(scrollLoadTimer);
 	var navFlag = null;
 	var itemName = $('.jt-app-header-search').attr('data-search');
 	var categoryPn = $('.jt-app-header-category:last').attr('data-category');
@@ -45,21 +47,14 @@ $.scrollPaging = function(){
 	if($.isIOS()){
 		iPhoneMenuHeight = 60;
 	}
-	var isWorking = 0;
-	var scrollTapTimer = null;
-	var scrollLoadTimer = null;
+	var scrollTapTimer = null;	
 	$('.jt-app-contents-wrap').scroll(function(){
 	    if($.checkAppPage()){
 	    	isScrollingFlag = 1;
-	    	window.clearTimeout(scrollTapTimer);
-	    	scrollTapTimer = window.setTimeout(function(){isScrollingFlag = 0;}, 1500);
-	    	if( $('.jt-app-contents-wrap:last').scrollTop() + $('.jt-app-contents-wrap:last').height() + iPhoneMenuHeight >= $('.jt-app-contents-wrap:last')[0].scrollHeight - 42){
-	    		if(isWorking == 0){
-	    			isWorking = 1;
-	    			$.pagingItem();
-	    			window.clearTimeout(scrollLoadTimer);
-	    			scrollLoadTimer = window.setTimeout(function(){isWorking = 0;}, 500);
-	    		}
+	    	scrollTapTimer = setTimeout(function(){isScrollingFlag = 0;},1500);
+	    	if( $('.jt-app-contents-wrap:last').scrollTop() + $('.jt-app-contents-wrap:last').height() + iPhoneMenuHeight >= $('.jt-app-contents-wrap:last')[0].scrollHeight){
+	    		scrollLoadTimer = setInterval($.pagingItem(), 500);
+	    		return;
 	    	}
 	    }
 	});

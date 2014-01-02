@@ -236,7 +236,7 @@
 				  </if>
 		          AND u.enable = 1 
 		          GROUP BY usp.pn
-		        ORDER BY usp.input_date DESC 
+		        ORDER BY usp.input_date DESC, usp.pn DESC
 		        LIMIT #{prevItemCount}, #{pagePerItem}) a)) tb 
 		  GROUP BY product_pn 
 		  ORDER BY day_count DESC,

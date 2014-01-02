@@ -79,7 +79,7 @@ public class HomeController {
 
 	public void gatherModelSetting(Model model, HttpSession session, GatherFilter gatherFilter, SummaryUser summaryUser) {
 		session.setAttribute("app-currentPage", 1);
-		gatherFilter.setPagePerItem(6);
+		gatherFilter.setPagePerItem(7);
 		model.addAttribute("categoryType", "app");
 		model.addAttribute("navType", gatherFilter.getNavFlag());
 		model.addAttribute("itemName", gatherFilter.getItemName());
@@ -95,7 +95,7 @@ public class HomeController {
 		}
 		gatherFilter.setMobileFlag(true);
 		gatherFilter.setCurrentPage(currentPage);
-		gatherFilter.setPagePerItem(6);
+		gatherFilter.setPagePerItem(7);
 		gatherFilter.setCustomerPn(summaryUser.getPn());
 		if("".equals(gatherFilter.getItemName())){
 			gatherFilter.setItemName(null);

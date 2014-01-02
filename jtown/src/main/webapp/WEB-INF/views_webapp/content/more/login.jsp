@@ -23,7 +23,7 @@
 		</li>
 		<li>
 			<div class="jt-app-more-login-join">
-				<a class="jt-app-more-join-btn" onclick="$.goJoin()" data-transition="slide">간편 가입</a>
+				<a class="jt-app-more-join-btn" onclick="$.goJoin()" data-transition="fade">간편 가입</a>
 			</div>
 		</li>
 	</ul>
