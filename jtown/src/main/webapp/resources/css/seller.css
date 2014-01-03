@@ -21,7 +21,7 @@
 *	seller
 *
 */
-.jt-showHowWrap{ float: left; margin: 15px 0 0 8px;}
+.jt-showHowWrap{ margin: 10px 8px 0 0;overflow: hidden;float: right;}
 .jt-showhow-btn{
 	font-size : 12px;
 	-webkit-border-radius: 5px; -moz-border-radius: 5px;border-radius: 5px;
@@ -42,14 +42,9 @@
 #folderTabName{ width:150px; height : 23px; padding: 7px 0 0 0; margin: 0 0 0 804px; font-weight: bold; text-align: center; font-size: 17px;}
 #digonalFolderImage{ background: url("../images/jt-home-icon.png") 0 -75px; width: 160px; height: 26px; display: block; color: #fff; margin-top: 10px; padding-top: 12px; padding-left: 26px;}
 
-.jt-seller-content-wrap{ width: 990px; margin: auto auto; }
-.jt-seller-content { width: 984px; float: left; padding-bottom: 45px; margin-bottom: 30px;
-	border: 3px solid #f48409; background: #fff;
- 	-webkit-border-radius: 5px 0 25px 25px;
-    -moz-border-radius: 5px 0 25px 25px;
-    border-radius: 5px 0 25px 25px;
-    
-}
+.jt-seller-content-wrap{ width: 1110px; margin: auto auto; }
+.jt-seller-content { width: 1094px; float: left; padding-bottom: 45px; margin-bottom: 30px;}
+.jt-seller-text-contnet-wrap{background-color: #fff;display: inline-block;box-shadow: 0 1px 3px rgba(34,25,25,0.4);-moz-box-shadow: 0 1px 3px rgba(34,25,25,0.4);-webkit-box-shadow: 0 1px 3px rgba(34,25,25,0.4);width:316px;margin:0px 0 0 5px;}
 
 .jt-seller-text-content{width: 330px; margin-top: 8px; float: left;}
 .jt-seller-text-content>li{ float: left; width: 310px; padding: 8px 10px;}
@@ -97,7 +92,7 @@ box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box;
 *	seller - main update
 *
 */
-.jt-seller-main{ width: 330px; float: left; margin-left: 10px; }
+.jt-seller-main{ width: 330px; float: left; margin:10px 0px 0 0 }
 .jt-seller-main-notice-hover-tool{ width: 100%; float: left; display: none;}
 .jt-seller-main-notice-hover-tool>div{position: absolute; float: left;}
 .jt-seller-main-notice-updateShow{margin: 3px 0 0 3px;}
@@ -132,7 +127,7 @@ box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box;
 .jt-seller-expand-notice-cancle{ margin-top: 3px;}
 .jt-seller-expand-notice-cancle>.btnImage{background-position: 0 -24px;}
 .jt-seller-expand-textarea{ display:none; float: left; width: 542px; padding: 2px 3px; border: 1px solid #808080; overflow: hidden; min-height: 50px; margin: 20px 0 15px 0; resize : none; line-height: 1.5;}
-.jt-seller-expand{ width: 630px; float: left; margin-top: 15px; margin-left: 3px; }
+.jt-seller-expand{ width: 760px; float: left; margin-top: 15px; margin-left: 3px; }
 .jt-seller-expand-product-delete-tool{ float: left; width: 100%; display: none;}
 .jt-seller-expand-product-delete-tool>div{float: left; position: absolute; z-index: 12;}
 .jt-seller-product-delete{font-size: 11px; font-weight: normal; color: #000; z-index: 10; margin:2px; padding: 2px 1px;}
@@ -148,7 +143,10 @@ box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box;
 .jt-home-expand-shop-event-update-delete-btn{ margin-left: 3px; }
 .jt-home-expand-shop-event-update-delete-btn>.btnImage{ background-position: 0 -12px; }
 
-.jt-seller-product-tip{font-size: 13px; margin: 10px 16px; line-height: 1.2;color: #b2b2b2;}
+.jt-seller-product-tip{width:296px;font-size: 13px; margin: 5px; line-height: 1.3;color: #b2b2b2;background-color:#fff; padding: 15px 10px;overflow:hidden; 
+box-shadow: 0 1px 3px rgba(34,25,25,0.4);
+-moz-box-shadow: 0 1px 3px rgba(34,25,25,0.4);
+-webkit-box-shadow: 0 1px 3px rgba(34,25,25,0.4);}
 
 .jt-home-expand-shop-event-update-large-wrap{
 		position: absolute; 
@@ -175,9 +173,9 @@ box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box;
 /******************
 Product Insert btn
 ********************/
-.jt-product-plus-btn{
-	 width:50px; height:50px; padding: 4px 6px 6px 4px;
-}
+.jt-product-plus-btn{overflow:hidden;width:130px; height:50px; font-size: 13px;}
+.jt-product-plus-btn>img{float: left;width:25px;height: 25px;margin: 0 5px 0 0;}
+.jt-product-plus-btn>div{float: left;margin: 5px 0 0 0;}
 
 .uploadify-plus-insert-btn {
 	font-weight : normal;
@@ -268,13 +266,9 @@ Product Insert btn
 	box-shadow : 0 0 1px rgba(0,0,0,0.1); -moz-box-shadow : 0 0 1px rgba(0,0,0,0.1); -webkit-box-shadow : 0 0 1px rgba(0,0,0,0.1);
 	margin-bottom: 3px;
 }
-.jt-product-header ul{float: left; width: 100%; }
-.jt-product-header ul li{ float: left;}
-.jt-product-header ul li:nth-child(1){width: 38%;}
-.jt-product-header ul li:nth-child(2){width: 62%;}
-.jt-product-header h1{float: left; width: 100%; margin-left : 10px; font-family: NanumGothic, Dotum, Gulim; font-size: 15px; color: #3e3e3e; text-indent: 10px; line-height: 25px;}
+.jt-product-header{ font-family: NanumGothic, Dotum, Gulim; font-size: 15px; color: #3e3e3e; text-indent: 20px; line-height: 25px;font-weight: bold;}
 .jt-product-header-icon{background: url('../images/jt-home-icon.png') -172px -27px; width: 12px; height: 12px; float: left; margin: 5px 5px 0 0;}
-.jt-product-header-text{ color: #808080; font-size: 11px; line-height: 25px; float: left;}
+.jt-product-header-text{ color: #808080; font-size: 11px; line-height: 25px;}
 
 .jt-product-article{ padding: 10px 5px 0 15px; height : 480px; background: #fff;}
 .jt-product-article>ul{float: left; width: 100%; }
@@ -286,7 +280,7 @@ Product Insert btn
 .jt-product-active img{ opacity : 0.4; }
 
 .jt-product-article-object-img{cursor: pointer; }
-.jt-product-article-object-wrap{ color: #fff;  background: rgba(0,0,0,.5); height: 40px; width: 170px; margin-top: -40px; position: absolute; display: none;}
+.jt-product-article-object-wrap{ color: #fff;  background: rgba(0,0,0,.5); height: 40px; width: 180px; position: absolute; display: none;bottom: 0; }
 .jt-product-article-object-wrap>span{width: 100%; line-height: 20px; text-align: center; display: block;  font-size: 11px; overflow: hidden; height: 20px;}
 .jt-product-article-object-photo{ width: 140px;}
 .jt-product-article-object-expand{margin-top: 130px;}
@@ -327,9 +321,9 @@ Product Insert btn
 .jt-product-update-cancle{}
 .jt-product-update-cancle>.btnImage{ background-position: 0 -24px;}
 
-.jt-product-footer{ padding: 17px 5px 0 15px; text-indent : 5px; width: 610px; height : 42px; background: #f0f0f0; border-top: 1px solid #bebebe; }
-.jt-product-footer span{  color: #666666; font-size: 11px; line-height: 15px;}
-
+.jt-product-footer{ padding: 12px 5px 0 15px; text-indent : 5px; width: 610px; height : 52px; background: #f0f0f0; border-top: 1px solid #bebebe; overflow: hidden;}
+.jt-product-footer div{  color: #808080; font-size: 11px; line-height: 15px;}
+.jt-product-footer div:FIRST-CHILD{margin: 0 0 0 5px;}
 
 .jt-home-text-explain{ margin:  0 5px 0 0; float: left; cursor: auto;}
 .jt-comment-text-explain:HOVER { background-position: 0 -60px; }

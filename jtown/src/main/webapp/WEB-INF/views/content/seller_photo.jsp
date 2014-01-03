@@ -20,10 +20,7 @@ html{ overflow-y: hidden;}
 <body onunload="closePage(event);" data-spn="<sec:authentication property="principal.pn" />">
 	<section class="jt-product-section">
 		<header class="jt-product-header">
-			<ul>
-				<li><h1>상품 사진 올리기</h1></li>
-				<li><span class="jt-product-header-icon"></span><span class="jt-product-header-text">한 장당 2MB이하로, 상품은 총 10장 까지 가능합니다. (JPG, GIF, PNG)</span></li>
-			</ul>
+			상품 사진 올리기
 		</header>
 		
 		<article class="jt-product-article">
@@ -164,7 +161,8 @@ html{ overflow-y: hidden;}
 		</article>
 		
 		<footer class="jt-product-footer">
-			<span>저작권 및 타인의 권리 침해, 명예를 훼손하는 이미지는 이용약관 및 관련 법률에 의해 제재 받으실 수 있습니다. </span>
+			<div><span class="jt-product-header-icon"></span><span class="jt-product-header-text">한 장당 2MB이하로, 상품은 총 10장 까지 가능합니다. (JPG, GIF, PNG)</span></div>
+			<div>저작권 및 타인의 권리 침해, 명예를 훼손하는 이미지는 이용약관 및 관련 법률에 의해 제재 받으실 수 있습니다. </div>
 		</footer>
 	</section>
 	<form:form commandName="productFilter" action="${cp }/seller/products/${productFilter.sellerPn }" method="get">

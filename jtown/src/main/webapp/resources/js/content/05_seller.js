@@ -281,6 +281,7 @@ jtown.seller.syncIntro = function(){
 		}
 	});
 	
+	/*
 	$('.jt-home-expand-seller-fake').unbind('mouseover mouseout').bind('mouseover mouseout', function(event){
 		if(event.type =='mouseover'){
 			$(this).find('.question-mark-wrap').show();
@@ -288,6 +289,7 @@ jtown.seller.syncIntro = function(){
 			$(this).find('.question-mark-wrap').hide();
 		}
 	});
+	*/
 	
 	$('.jt-home-expand-shop-products').unbind('mouseover mouseout').bind('mouseover mouseout', function(event){
 		if(event.type =='mouseover'){
@@ -331,8 +333,8 @@ jtown.seller.markIntro = function(){
 };
 
 jtown.seller.syncProduct = function() {
-	$('.jt-home-expand-shop-expandProduct').unbind('mouseover mouseout');
-	$('.jt-home-expand-shop-expandProduct').bind('mouseover mouseout', function(event){
+	$('.jt-home-expand-shop-products .thumbnail').unbind('mouseover mouseout');
+	$('.jt-home-expand-shop-products .thumbnail').bind('mouseover mouseout', function(event){
 		if(event.type =='mouseover'){
 			$(this).find('.jt-product-article-object-wrap').show();
 		}else if(event.type == 'mouseout'){
@@ -342,7 +344,7 @@ jtown.seller.syncProduct = function() {
 	
 	$('#jt-product-popup').unbind('click').bind('click', function(){
 		var url = contextPath + 'seller/products/'+$(this).attr('data-pn');
-		var option = 'width=630, height=600, left=500,top=200, toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no';
+		var option = 'width=630, height=610, left=500,top=200, toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no';
 		
 		window.open(url, '', option);
 	});
@@ -626,7 +628,7 @@ jtown.seller.productImage = function(file){
 };
 
 
-
+//TODO
 jtown.seller.syncEvent = function() {
 
 	$('#jt-seller-expand-event-first, #jt-seller-expand-event-second').unbind('mouseover mouseout');
@@ -642,7 +644,9 @@ jtown.seller.syncEvent = function() {
 		}
 	});
 
-	$('.jt-home-expand-shop-event-update-btn').unbind('click').bind('click', function() {
+	$('.jt-home-expand-shop-event-update-btn').unbind('click').bind('click', function(e) {
+		e.stopPropagation();
+		e.preventDefault();
 		$(this).parents('.jt-home-expand-shop-event').children('.jt-home-expand-shop-event-tool').hide();
 		var parents = $(this).parents('.jt-home-expand-shop-event');
 		var largeWrap = $('.jt-home-expand-shop-event-update-large-wrap');
@@ -679,7 +683,9 @@ jtown.seller.syncEvent = function() {
 		$('.jt-home-expand-shop-event-update-large-wrap').trigger('openModal');
 	});
 	
-	$('.jt-home-expand-shop-event-update-delete-btn').unbind('click').bind('click', function() {
+	$('.jt-home-expand-shop-event-update-delete-btn').unbind('click').bind('click', function(e) {
+		e.stopPropagation();
+		e.preventDefault();
 		var parents = $(this).parents('.jt-home-expand-shop-event');
 			if(jtown.confirm('삭제하시겠습니까?',function(){
 			var bannerOrder =  1;

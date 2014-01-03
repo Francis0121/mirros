@@ -53,7 +53,7 @@ $.scrollPaging = function(){
 	    	isScrollingFlag = 1;
 	    	scrollTapTimer = setTimeout(function(){isScrollingFlag = 0;},1500);
 	    	if( $('.jt-app-contents-wrap:last').scrollTop() + $('.jt-app-contents-wrap:last').height() + iPhoneMenuHeight >= $('.jt-app-contents-wrap:last')[0].scrollHeight){
-	    		scrollLoadTimer = setInterval($.pagingItem(), 500);
+	    		scrollLoadTimer = setInterval($.pagingItem(), 2000);
 	    		return;
 	    	}
 	    }

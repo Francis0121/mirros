@@ -4,69 +4,10 @@
 <c:set value="${fn:length(products) }" var="productSize"/>
 <article class="jt-seller-content-wrap" id="jt-seller-body" data-spn="<sec:authentication property="principal.pn" />">
 	<div id="folderBar">
-		<div id="folderTabName">
-			<span id="digonalFolderImage">My Page</span>
-		</div>
 	</div>
 	<section class="jt-seller-content">
 		<section class="jt-seller-main">
-			<div class="jt-showHowWrap">
-				<a href="#none" id="showHow" class="jt-showhow-btn jt-btn-orange">
-					<span class="btnImage"></span>
-					<span class="btnText">살펴보기</span>
-				</a>
-			</div>
-			<ul class="jt-seller-text-content" id="step1">
-				<li class="question-mark-wrap" style="margin-left: 11px;">
-					<a class="question-mark" data-step="1">?</a>
-				</li>
-				<li>
-					<h3>ShopNo</h3>
-					<span><c:out value="${jtownUser.sixShopPn }"/></span>
-				</li>
-				<li>
-					<h3>Seller</h3>
-					<span><c:out value="${jtownUser.name }"/></span>
-				</li>
-				<li>
-					<h3>Site</h3>
-					<span><c:out value="${jtownUser.shopUrl}"/></span>
-				</li>
-				
-			</ul>
-			<ul class="jt-seller-tag" id="step2">
-				<li class="question-mark-wrap" style="margin-left: 11px;">
-					<a class="question-mark" data-step="2">?</a>
-				</li>
-				<li>
-					<h3>Tag</h3>
-					<div id="jt-seller-tag-content">
-						<c:forEach items="${interestes }" var="interest" varStatus="loop">
-							<span><c:out value="${interest.name }"/><c:if test="${loop.count ne fn:length(interestes) }">, </c:if></span>
-						</c:forEach>
-						<div id="jt-tag-update-show-btn" title="수정" >수정</div>
-					</div>
-				</li>
-				<li id="jt-tag-checkBox">
-					<div id="jt-tag-checkBox-section">
-						<div id="jt-tag-checkBox-header">
-							<span id="jt-checkBox-header-icon"></span><span id="jt-checkBox-header-text">최대 5개 까지 입력 가능합니다.</span>
-						</div>
-						<ul>		
-						</ul>
-						<div id="jt-tag-checkBox-footer">
-							<a href="#none" class="jt-btn-white-small" id="jt-tag-update-btn">
-								<span class="btnImage"></span>
-								<span class="btnText">수정</span>
-							</a>
-							<a href="#none" class="jt-btn-white-small" id="jt-tag-cancle-btn">
-								<span class="btnImage"></span>
-								<span class="btnText">취소</span>
-							</a>
-						</div>
-					</div>
-				</li>
-			</ul>
+			
 			<div class="jt-home-shop">
 				<header>
 					<a href="${jtownUser.shopUrl }" target="_blank"><c:out value="${jtownUser.name }"/></a>
@@ -198,10 +139,64 @@
 				<div class="jt-home-shop-image-footer"></div>
 				<![endif]-->
 			</div>
-		</section>
-		<section class="jt-seller-expand">
-			<div class="jt-home-expand-shop" id="jt-home-expand-shop" data-name="<c:out value="${jtownUser.name }"/>" data-spn="${jtownUser.pn }" data-size="${productSize }" data-nowPosition="${productSize}" data-url="${jtownUser.shopUrl }">
-				<div id="jt-home-expand-shop-notice">
+			
+			
+			
+			<div class="jt-seller-text-contnet-wrap">
+				<ul class="jt-seller-text-content" id="step1">
+					<li class="question-mark-wrap" style="margin-left: 11px;">
+						<a class="question-mark" data-step="1">?</a>
+					</li>
+					<li>
+						<h3>ShopNo</h3>
+						<span><c:out value="${jtownUser.sixShopPn }"/></span>
+					</li>
+					<li>
+						<h3>Seller</h3>
+						<span><c:out value="${jtownUser.name }"/></span>
+					</li>
+					<li>
+						<h3>Site</h3>
+						<span><c:out value="${jtownUser.shopUrl}"/></span>
+					</li>
+					
+				</ul>
+				<ul class="jt-seller-tag" id="step2">
+					<li class="question-mark-wrap" style="margin-left: 11px;">
+						<a class="question-mark" data-step="2">?</a>
+					</li>
+					<li>
+						<h3>Tag</h3>
+						<div id="jt-seller-tag-content">
+							<c:forEach items="${interestes }" var="interest" varStatus="loop">
+								<span><c:out value="${interest.name }"/><c:if test="${loop.count ne fn:length(interestes) }">, </c:if></span>
+							</c:forEach>
+							<div id="jt-tag-update-show-btn" title="수정" >수정</div>
+						</div>
+					</li>
+					<li id="jt-tag-checkBox">
+						<div id="jt-tag-checkBox-section">
+							<div id="jt-tag-checkBox-header">
+								<span id="jt-checkBox-header-icon"></span><span id="jt-checkBox-header-text">최대 5개 까지 입력 가능합니다.</span>
+							</div>
+							<ul>		
+							</ul>
+							<div id="jt-tag-checkBox-footer">
+								<a href="#none" class="jt-btn-white-small" id="jt-tag-update-btn">
+									<span class="btnImage"></span>
+									<span class="btnText">수정</span>
+								</a>
+								<a href="#none" class="jt-btn-white-small" id="jt-tag-cancle-btn">
+									<span class="btnImage"></span>
+									<span class="btnText">취소</span>
+								</a>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+			
+			<div id="jt-home-expand-shop-notice">
 					<div class="question-mark-wrap" style="width: 620px;">
 						<a class="question-mark" data-step="6">?</a>
 					</div>
@@ -228,7 +223,25 @@
 						</a>
 					</div>
 				</div>
+			<div class="jt-seller-product-tip">
+				<div>Tip 1 : 인기 상품은 최대 1주일까지 HOT에 올라갑니다. 매력적인 상품을 올려보세요!</div>
+				<div>Tip 2 : 하루에 올릴 수 있는 상품은 최대 12개 까지입니다.</div>
+				
+				<div class="jt-showHowWrap">
+				<a href="#none" id="showHow" class="jt-showhow-btn jt-btn-white-small">
+					<span><img src="${cp }/resources/images/jt-search.png" style="width:12px;float: left;" /></span>
+					<span class="btnText">설명보기</span>
+				</a>
+			</div>
+			</div>
+			
+		</section>
+		<section class="jt-seller-expand">
+			<div class="jt-home-expand-shop" id="jt-home-expand-shop" data-name="<c:out value="${jtownUser.name }"/>" data-spn="${jtownUser.pn }" data-size="${productSize }" data-nowPosition="${productSize}" data-url="${jtownUser.shopUrl }">
+				
 				<div class="jt-home-expand-shop-expandProducts" >
+				
+					<%-- 
 					<div class="jt-home-expand-seller-fake" style="float: left;" id="step7">
 						<div class="question-mark-wrap" style="width: 620px;">
 							<a class="question-mark" data-step="7">?</a>
@@ -283,8 +296,10 @@
 						</c:otherwise>
 					</c:choose>
 					</div>
+					--%>
+					
 					<div class="jt-home-expand-shop-products" id="step8">
-						<div class="question-mark-wrap" style="width: 605px;">
+						<div class="question-mark-wrap" style="width: 740px;">
 							<a class="question-mark" data-step="8">?</a>
 						</div>
 						<c:forEach items="${products }" var="product" varStatus="loop">
@@ -297,11 +312,23 @@
 										<span class="text">&nbsp;</span>	
 									</c:otherwise>
 								</c:choose>
-								<c:set value="${cp }/photo/thumbnail/${product.saveName }productSmall.${product.imageType }" var="image"/>
+								<c:set value="${cp }/photo/thumbnail/${product.saveName }product.${product.imageType }" var="image"/>
 								<c:if test="${product.imageCategory eq 0 }">
 									<c:set value="${cp }/resources/uploadImage/${product.saveName }" var="image"/>
 								</c:if>
-								<span class="${loop.index eq 0 ? fn:length(products)-1 : loop.index-1 } image" ><img alt="Product${loop.index }" src="${image }"/></span>
+								<a href="${product.url eq null ? shopUrl : product.url}" target="_blank" class="image"><img alt="Product" src="${image }"/></a>
+								<div class="jt-product-article-object-wrap jt-product-article-object-expand">
+										<c:choose>
+											<c:when test="${product.name eq null or product.commaPrice eq null }">
+												<span>상품 정보가 아직</span>
+												<span>입력되지 않았습니다.</span>
+											</c:when>
+											<c:otherwise>
+												<span title="<c:out value="${product.name }"/>"><b><c:out value="${product.name }"/></b></span>
+												<span><c:out value="${product.commaPrice }"/></span>
+											</c:otherwise>
+										</c:choose>
+									</div>
 							</div>
 						</c:forEach>
 						<c:if test="${fn:length(products) < 3 }">
@@ -312,16 +339,17 @@
 							</div>
 							</c:forEach>
 						</c:if>
-						<div id="jt-seller-product-insert-wrap">
+					</div>
+					<div id="jt-seller-product-insert-wrap">
 							<button type="button" id="jt-product-popup" data-pn="${jtownUser.pn }" class="jt-btn-white-small jt-product-plus-btn">
-								<img alt="plus" src="${cp }/resources/images/jt-plus-btn.png">
+								<img alt="plus" src="${cp }/resources/images/jt-plus-btn.png"><div>상품 등록</div>
+							</button>
+							
+							<button type="button" class="jt-btn-white-small jt-product-plus-btn">
+								<img alt="plus" src="${cp }/resources/images/jt-plus-btn.png"><div>새 이벤트 등록</div>
 							</button>
 						</div>
-					</div>
-					<div class="jt-seller-product-tip">
-						<div>Tip 1 : 인기 상품은 최대 1주일까지 HOT에 올라갑니다. 매력적인 상품을 올려보세요!</div>
-						<div>Tip 2 : 하루에 올릴 수 있는 상품은 최대 12개 까지입니다.</div>
-					</div>
+					
 				</div>
 				<div class="jt-home-expand-shop-event-update-large-wrap">
 						<div class="jt-home-expand-shop-event-update-large-wrap-header">
@@ -355,6 +383,8 @@
 							</div>
 							<img src="${cp }/resources/images/jt-loading-04.gif" class="jt-home-expand-shop-event-update-large-wrap-progress">
 					</div>
+					
+				<!-- 
 				<div class="jt-home-expand-shop-event" id="jt-seller-expand-event-first" data-epn="<c:out value="${event1.pn }"/>" data-bo="1">
 					<div class="question-mark-wrap" style="width: 310px;">
 						<a class="question-mark" data-step="9">?</a>
@@ -385,6 +415,8 @@
 					</c:if>
 					<img alt="First Event" src="${event1.saveName eq null ? blankEvent : imageEvent }" title="<c:out value="${jtownUser.name }"/> Event" id="jt-seller-expand-event-first-img" data-imagePn="${event1.imagePn }"/>
 				</div>
+				 -->
+				 <!-- 
 				<div class="jt-home-expand-shop-event" id="jt-seller-expand-event-second" data-epn="<c:out value="${event2.pn }"/>" data-bo="2">
 					<div class="question-mark-wrap" style="width: 310px;">
 						<a class="question-mark" data-step="10">?</a>
@@ -414,6 +446,8 @@
 					</c:if>
 					<img alt="Second Event" src="${event2.saveName eq null ? blankEvent : imageEvent }" title="<c:out value="${jtownUser.name }"/> Event" id="jt-seller-expand-event-second-img" data-imagePn="${event2.imagePn }"/>
 				</div>
+				-->
+				
 				<div class="jt-home-expand-shop-content-wrap">
 					<ul class="jt-home-expand-shop-content-fn">
 						<li class="jt-home-expand-shop-content-view-wrap">

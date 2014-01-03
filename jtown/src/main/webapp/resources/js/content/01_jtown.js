@@ -142,6 +142,7 @@ $(function() {
 	
 	// ~ Seller
 	
+	/*
 	$('.jt-home-expand-shop-expandProducts').jCarouselLite({
 		btnPrev: ".jt-home-expand-shop-leftArrow",
 		btnNext: ".jt-home-expand-shop-rigthArrow",
@@ -154,6 +155,7 @@ $(function() {
 			setTimeout('jtown.seller.syncProduct()', 0);
 		}
 	});
+	*/
 });
 
 jtown.loading = {

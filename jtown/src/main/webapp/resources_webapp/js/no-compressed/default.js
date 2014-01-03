@@ -1,14 +1,7 @@
 $(function(){
 	//~default Init
 	$('body').css('display', 'block');
-	$.setBrowserUrlHidden();
 });
-$.setBrowserUrlHidden = function(){
-	window.addEventListener('load', function(){
-	    document.body.style.height = (document.documentElement.clientHeight + 5) + 'px';
-	    window.scrollTo(0, 1);
-	}, false);
-};
 
 //~ set Menubar
 $.setCategory = function(){
