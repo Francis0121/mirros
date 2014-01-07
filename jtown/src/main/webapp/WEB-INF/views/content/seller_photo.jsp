@@ -17,7 +17,7 @@
 html{ overflow-y: hidden;}
 </style>
 </head>
-<body onunload="closePage(event);" data-spn="<sec:authentication property="principal.pn" />">
+<body data-spn="<sec:authentication property="principal.pn" />" data-reload="${isReload }">
 	<section class="jt-product-section">
 		<header class="jt-product-header">
 			상품 사진 올리기
@@ -161,7 +161,7 @@ html{ overflow-y: hidden;}
 		</article>
 		
 		<footer class="jt-product-footer">
-			<div><span class="jt-product-header-icon"></span><span class="jt-product-header-text">한 장당 2MB이하로, 상품은 총 10장 까지 가능합니다. (JPG, GIF, PNG)</span></div>
+			<div><span class="jt-product-header-text">한 장당 2MB이하로, 상품은 총 10장 까지 가능합니다. (JPG, GIF, PNG)</span></div>
 			<div>저작권 및 타인의 권리 침해, 명예를 훼손하는 이미지는 이용약관 및 관련 법률에 의해 제재 받으실 수 있습니다. </div>
 		</footer>
 	</section>
@@ -179,9 +179,10 @@ html{ overflow-y: hidden;}
 		$('#jt-home-footer').css('display','none');
 	}); 
 	
-// 	$(window).unload(function(event){
-// 		window.opener.document.location.reload();
-// 	});
+	if($('body').attr('data-reload') == '1'){
+		$('body').attr('data-reload', null);
+		window.opener.location.reload();
+	}
 	
 	var numPagesPerScreen = <c:out value='${pagination.numPagesPerScreen}'/>;
 	var page = <c:out value='${pagination.currentPage}'/>;

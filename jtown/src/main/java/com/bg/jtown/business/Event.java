@@ -76,9 +76,19 @@ public class Event {
 	private Date endDate;
 
 	/**
+	 * 이벤트 종료 d-day
+	 */
+	private int dDay;
+
+	/**
 	 * 삽입일
 	 */
 	private Date inputDate;
+
+	/**
+	 * 이벤트 url
+	 */
+	private String url;
 
 	/**
 	 * URL or placeHolder
@@ -242,12 +252,29 @@ public class Event {
 		this.fbThumbnail = fbThumbnail;
 	}
 
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public int getdDay() {
+		return dDay;
+	}
+
+	public void setdDay(int dDay) {
+		this.dDay = dDay;
+	}
+
 	@Override
 	public String toString() {
 		return "Event [bannerOrder=" + bannerOrder + ", bannerType=" + bannerType + ", content=" + content + ", imagePn=" + imagePn + ", pn=" + pn
 				+ ", redisType=" + redisType + ", saveName=" + saveName + ", sellerPn=" + sellerPn + ", imageCategory=" + imageCategory
-				+ ", imageType=" + imageType + ", eventPn=" + eventPn + ", eventName=" + eventName + ", endDate=" + endDate + ", inputDate="
-				+ inputDate + ", variableData=" + variableData + ", fbMessage=" + fbMessage + ", fbThumbnail=" + fbThumbnail + "]";
+				+ ", imageType=" + imageType + ", eventPn=" + eventPn + ", eventName=" + eventName + ", endDate=" + endDate + ", dDay=" + dDay
+				+ ", inputDate=" + inputDate + ", url=" + url + ", variableData=" + variableData + ", fbMessage=" + fbMessage + ", fbThumbnail="
+				+ fbThumbnail + "]";
 	}
 
 }

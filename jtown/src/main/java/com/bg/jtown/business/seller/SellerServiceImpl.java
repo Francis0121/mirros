@@ -439,6 +439,11 @@ public class SellerServiceImpl extends SqlSessionDaoSupport implements SellerSer
 	}
 
 	@Override
+	public List<Event> selectSellerDDayEventList(Event event) {
+		return getSqlSession().selectList("sellerMapper.selectSellerDDayEventList", event);
+	}
+
+	@Override
 	public void deleteSellerDDayEvent(Event event) {
 		getSqlSession().update("sellerMapper.deleteSellerDDayEvent", event);
 	}

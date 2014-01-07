@@ -122,6 +122,7 @@ public interface SellerService {
 	
 	void deleteSellerBanner(Event event);
 	
+	List<Event> selectSellerDDayEventList(Event event);
 	
 	//Statistic
 	

@@ -280,32 +280,43 @@
 		<result column="event_name" property="eventName"/>
 		<result column="banner_order" property="bannerOrder"/>
 		<result column="end_date" property="endDate"/>
+		<result column="dday" property="dDay"/>
+		<result column="url" property="url"/>
 	</resultMap>
 	
 	<insert id="insertDdayEvent" parameterType="Event">
 		INSERT INTO 
-			user_seller_event(seller_pn, event_name, end_date, begin_date, banner_order)
+			user_seller_event(seller_pn, event_name, end_date, begin_date, banner_order, url)
 		VALUES
-			(#{sellerPn}, #{eventName}, #{endDate}, SYSDATE(), #{bannerOrder})
+			(#{sellerPn}, #{eventName}, #{endDate}, SYSDATE(), #{bannerOrder}, #{url})
 	</insert>
 	
 	<update id="updateDdayEvent" parameterType="Event">
 		UPDATE
 			 user_seller_event
 		SET
-			event_name = #{eventName} , end_date = #{endDate}, begin_date = SYSDATE()
+			event_name = #{eventName} , end_date = #{endDate}, begin_date = SYSDATE(), url = #{url}
 		WHERE
 			event_pn = #{eventPn}
 	</update>
 	
-	<select id="selectSellerDDayEvent" resultMap="jtown-event-dday-map">
+	<select id="selectSellerDDayEventList" resultMap="jtown-event-dday-map">
 		SELECT 
-			event_pn, seller_pn, event_name, end_date, banner_order
+			event_pn, seller_pn, event_name, end_date, banner_order, url, DATEDIFF(end_date,NOW()) AS dday
 		FROM
 			user_seller_event
 		WHERE 
 			seller_pn = #{sellerPn}
-			AND banner_order = #{bannerOrder}
+			AND deleted ='N'
+	</select>
+	
+	<select id="selectSellerDDayEvent" resultMap="jtown-event-dday-map">
+		SELECT 
+			event_pn, seller_pn, event_name, end_date, banner_order, url, DATEDIFF(end_date,NOW()) AS dday
+		FROM
+			user_seller_event
+		WHERE 
+			event_pn = #{eventPn}
 			AND deleted ='N'
 	</select>
 	
@@ -315,16 +326,14 @@
 		SET 
 			deleted = 'Y'
 		WHERE 
-			seller_pn = #{sellerPn}
-			AND banner_order = #{bannerOrder}
+			event_pn = #{eventPn}
 	</update>
 	
 	<delete id="deleteSellerBanner">
 		DELETE FROM
 			user_seller_banner
 		WHERE 
-			seller_pn = #{sellerPn}
-			AND banner_order = #{bannerOrder}
+			pn = #{eventPn}
 	</delete>
 	
 	<!-- Interest -->

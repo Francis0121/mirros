@@ -2,7 +2,7 @@
 /*****************
 *	Question Mark
 ******************/
-.question-mark-wrap{position: absolute; height: 0; padding: 0 !important; display: none; z-index: 200;}
+.question-mark-wrap{position: absolute; height: 0; padding: 0 !important; display: none; z-index: 20;}
 .question-mark {
 	float: right !important;
 	text-indent: -99999px;
@@ -132,6 +132,7 @@ box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box;
 .jt-seller-expand-product-delete-tool>div{float: left; position: absolute; z-index: 12;}
 .jt-seller-product-delete{font-size: 11px; font-weight: normal; color: #000; z-index: 10; margin:2px; padding: 2px 1px;}
 .jt-seller-product-delete>.btnImage{ background-position: 0 -12px;}
+.jt-seller-event-delete>.btnImage{ background-position: 0 -12px;}
 .jt-home-expand-shop-event-tool{float : left; position: absolute; display:  none; font-size: 12px;}
 .jt-home-expand-shop-event-update-btn{ margin: 3px 0 0 3px; }
 .jt-home-expand-shop-event-update-btn>.btnImage{background-position: 0 -36px;}
@@ -173,7 +174,8 @@ box-shadow: 0 1px 3px rgba(34,25,25,0.4);
 /******************
 Product Insert btn
 ********************/
-.jt-product-plus-btn{overflow:hidden;width:130px; height:50px; font-size: 13px;}
+.jt-product-plus-btn{overflow:hidden;width:130px; height:50px; font-size: 13px;background: #fff;}
+.jt-product-plus-btn:HOVER{background: #fcfcfc;}
 .jt-product-plus-btn>img{float: left;width:25px;height: 25px;margin: 0 5px 0 0;}
 .jt-product-plus-btn>div{float: left;margin: 5px 0 0 0;}
 
@@ -199,7 +201,7 @@ Product Insert btn
 	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#f6f6f6', endColorstr='#ffffff');
 	background-color:#f6f6f6;
 }
-
+.jt-seller-event-insert-btn{width:110px !important;}
 .jt-finish-insert-btn {
 	width: 90px; height: 32px; margin-top: 3px;
 	font-weight : normal;
@@ -261,8 +263,8 @@ Product Insert btn
 /**********************
 	Popup
 **********************/
-.jt-product-section{ width: 630px; height: 520px; padding: 0 0;background-color: #fff;}
-.jt-product-header{width: 630px; height : 38px; background: #fff; padding: 12px 0 0 0;border-bottom: 1px solid #bebebe;
+.jt-product-section{ width: 100%; height: 520px; padding: 0 0;background-color: #fff;}
+.jt-product-header{width: 100%; height : 38px; background: #fff; padding: 12px 0 0 0;border-bottom: 1px solid #bebebe;
 	box-shadow : 0 0 1px rgba(0,0,0,0.1); -moz-box-shadow : 0 0 1px rgba(0,0,0,0.1); -webkit-box-shadow : 0 0 1px rgba(0,0,0,0.1);
 	margin-bottom: 3px;
 }
@@ -271,15 +273,22 @@ Product Insert btn
 .jt-product-header-text{ color: #808080; font-size: 11px; line-height: 25px;}
 
 .jt-product-article{ padding: 10px 5px 0 15px; height : 480px; background: #fff;}
+.jt-event-article{height : 410px;}
 .jt-product-article>ul{float: left; width: 100%; }
 .jt-product-article>ul>li{float: left;}
 .jt-product-article-object{ width: 150px; height: 150px; padding: 5px; 
 	box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box; -moz-box-sizing : border-box; -webkit-box-sizing : border-box;
 }
+.jt-event-article-object{ width: 240px; height: 240px; padding: 5px; 
+	box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box; -moz-box-sizing : border-box; -webkit-box-sizing : border-box;
+	margin: 0 25px 25px 0;cursor: pointer; position: relative;
+}
+.jt-event-article-object-empty{width:240px;height:125px;border: 1px solid #ddd; font-size:13px; text-align: center; padding: 115px 0 0;color:#888;}
+
 .jt-product-article-object>img{ width: 140px; height: 140px; }
 .jt-product-active img{ opacity : 0.4; }
 
-.jt-product-article-object-img{cursor: pointer; }
+.jt-product-article-object-img{cursor: pointer; position: relative;}
 .jt-product-article-object-wrap{ color: #fff;  background: rgba(0,0,0,.5); height: 40px; width: 180px; position: absolute; display: none;bottom: 0; }
 .jt-product-article-object-wrap>span{width: 100%; line-height: 20px; text-align: center; display: block;  font-size: 11px; overflow: hidden; height: 20px;}
 .jt-product-article-object-photo{ width: 140px;}
@@ -288,11 +297,12 @@ Product Insert btn
 .jt-product-article-inputBox{width: 300px; height: 150px; padding: 5px; margin: 0 10px 0 0;background-color:#fafafa;
 	box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box; -moz-box-sizing : border-box; -webkit-box-sizing : border-box;
 }
+.jt-event-article-inputBox{float: right !important;margin: 0 12px 8px 0; width:330px;}
 
 .jt-product-article-insert{border : 1px solid #d9d9d9; height: 140px; background : #fff;  padding :10px;
 	box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box; -moz-box-sizing : border-box; -webkit-box-sizing : border-box;	
 }
-.jt-product-article-insert li:nth-child(1){ float: left; width: 100px;}
+.jt-product-article-insert li:nth-child(1){ float: left; width: 120px;}
 .jt-product-article-insert li:nth-child(2){ float: left; width: 95px;}
 .jt-product-article-insert li:nth-child(3){ float: left; width: 72px;}
 .jt-product-article-insert li:nth-child(4){width :100%; float: left; color: #4d4d4d;
@@ -306,7 +316,8 @@ Product Insert btn
 }
 
 .jt-product-article-update-input{}
-.jt-product-article-update-input>li{float: left; margin: 3px 0; width: 260px;}
+.jt-product-article-update-input>li{float: left; margin: 3px 0; width: 100%;}
+.jt-event-label{ width: 88px; height :22px; line-height:26px; font-size: 12px; float: left; text-align: center;}
 .jt-product-label{ width: 58px; height :22px; line-height:26px; font-size: 12px; float: left; text-align: center;}
 .jt-product-input { float : left; width: 190px; padding: 2px 5px; border: 1px solid #ad9c9c; height: 18px; -webkit-border-radius: 5px;-moz-border-radius: 5px; border-radius: 5px; }
 .jt-product-input:FOCUS{ border: 1px solid #ff8a00; }
@@ -321,9 +332,8 @@ Product Insert btn
 .jt-product-update-cancle{}
 .jt-product-update-cancle>.btnImage{ background-position: 0 -24px;}
 
-.jt-product-footer{ padding: 12px 5px 0 15px; text-indent : 5px; width: 610px; height : 52px; background: #f0f0f0; border-top: 1px solid #bebebe; overflow: hidden;}
+.jt-product-footer{ padding: 12px 0 0 0; text-indent : 15px; width: 100%; height : 52px; background: #f0f0f0; border-top: 1px solid #bebebe; overflow: hidden;}
 .jt-product-footer div{  color: #808080; font-size: 11px; line-height: 15px;}
-.jt-product-footer div:FIRST-CHILD{margin: 0 0 0 5px;}
 
 .jt-home-text-explain{ margin:  0 5px 0 0; float: left; cursor: auto;}
 .jt-comment-text-explain:HOVER { background-position: 0 -60px; }
@@ -337,6 +347,13 @@ Product Insert btn
 .jt-sellerPop-page .page-link:HOVER{ color: #5a5a5a; text-decoration: underline; font-weight: bold; }
 .jt-sellerPop-page .page-now{font-weight: bold;}
 .jt-sellerPop-page .page-now:HOVER{text-decoration: none;}
+
+.jt-event-article-object-item{border-radius:3px;border: 1px solid #ddd;width:240px;height: 240px;}
+.jt-event-article-object-item-active{box-shadow:0 0 4px 4px rgba(255,136,0,0.3)}
+.jt-seller-upload-event-name{padding: 25px 0 0 15px;height:170px;color: #f69833;width: 165px;font-size: 15px;font-weight: bold;}
+.jt-seller-upload-event-dday{color: #6e6e6e;padding-left: 15px;font-family: NanumGothic;font-weight: bold;font-size: 14px;}
+.jt-seller-event-wrap{width:178px; height: 178px; float: left; border: 1px solid #ddd; border-radius:5px; position: relative; margin: 13px 5px 0 0;}
+#jt-seller-product-insert-wrap{margin:15px;float: right;}
 
 /******************************
  seller_statistic 

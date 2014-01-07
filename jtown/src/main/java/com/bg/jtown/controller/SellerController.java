@@ -1,5 +1,6 @@
 package com.bg.jtown.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -10,6 +11,7 @@ import javax.annotation.Resource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +20,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,21 +29,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.bg.jtown.business.Event;
 import com.bg.jtown.business.Interest;
 import com.bg.jtown.business.Product;
 import com.bg.jtown.business.Statistic;
+import com.bg.jtown.business.search.ProductFilter;
+import com.bg.jtown.business.search.StatisticFilter;
+import com.bg.jtown.business.seller.SellerService;
 import com.bg.jtown.security.Authority;
 import com.bg.jtown.security.JtownUser;
 import com.bg.jtown.security.SummaryUser;
 import com.bg.jtown.util.FileVO;
-import com.bg.jtown.util.StringUtil;
 import com.bg.jtown.util.ValidationUtil;
-import com.bg.jtown.business.Event;
-import com.bg.jtown.business.search.ProductFilter;
-import com.bg.jtown.business.search.StatisticFilter;
-import com.bg.jtown.business.seller.SellerService;
-import com.google.gson.JsonArray;
 
 /**
  * @author Francis
@@ -91,7 +94,10 @@ public class SellerController {
 				return "redirect:../noPermission";
 			}
 		}
+		Event event = new Event();
+		event.setSellerPn(sellerPn);
 		model.addAllAttributes(sellerService.selectAllInformation(sellerPn));
+		model.addAttribute("eventList", sellerService.selectSellerDDayEventList(event));
 		if (error != null) {
 			model.addAttribute("error", error);
 		}
@@ -130,6 +136,25 @@ public class SellerController {
 		product.setSellerPn(sellerPn);
 		model.addAttribute("product", product);
 		return prefixView + "seller_photo";
+	}
+	
+	@PreAuthorize("hasRole('ROLE_SELLER')")
+	@RequestMapping(value = "/seller/events/{sellerPn}", method = RequestMethod.GET)
+	public String showEvents(@ModelAttribute Event event, Model model, SummaryUser summaryUser) {
+		Integer sellerPn = event.getSellerPn();
+		if (sellerPn == null) {
+			return prefixView + "error/404";
+		}
+		if (summaryUser.getEnumAuthority().equals(Authority.SELLER)) {
+			if (!summaryUser.getPn().equals(sellerPn)) {
+				logger.warn("Deny Seller page No Permission [ Access = " + summaryUser.getPn() + ", IP = " + summaryUser.getRemoteIp() + " ] ");
+				return "redirect:../noPermission";
+			}
+		}
+		model.addAttribute("events",sellerService.selectSellerDDayEventList(event));
+		model.addAttribute("event", event);
+		model.addAttribute("sellerPn", sellerPn);
+		return prefixView + "seller_event";
 	}
 
 	@RequestMapping(value = "/statistic/{sellerPn}", method = RequestMethod.GET)
@@ -177,7 +202,7 @@ public class SellerController {
 
 	@PreAuthorize("hasRole('ROLE_SELLER')")
 	@RequestMapping(value = "/seller/form.jt", method = RequestMethod.PUT)
-	public String formUpdateProduct(Model model, SummaryUser summaryUser, @ModelAttribute Product product, BindingResult result) {
+	public String formUpdateProduct(Model model, SummaryUser summaryUser, @ModelAttribute Product product, BindingResult result, RedirectAttributes redirect) {
 		new Validator() {
 
 			@Override
@@ -193,16 +218,13 @@ public class SellerController {
 						errors.rejectValue("price", "product.price.notAllow");
 					}
 				}
-
 				String url = product.getUrl();
 				if (ValidationUtil.lengthCheck(url, 0, 300)) {
 					if (!ValidationUtil.homepageFormCheck(url)) {
 						errors.rejectValue("url", "product.url.notAllow");
 					}
 				}
-
 			}
-
 			@Override
 			public boolean supports(Class<?> clazz) {
 				return false;
@@ -222,26 +244,90 @@ public class SellerController {
 		} else {
 			product.setSellerPn(sellerPn);
 			sellerService.updateProduct(product);
-			model.addAttribute("isFinish", TRUE);
+			redirect.addFlashAttribute("isReload", TRUE);
 			return "redirect:products/" + nowPn + "?page=" + currentPage;
 		}
+	}
+	
+	@InitBinder
+    public void initBinder(WebDataBinder binder) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        sdf.setLenient(true);
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(sdf, true));
+    }   
+	
+	@PreAuthorize("hasRole('ROLE_SELLER')")
+	@RequestMapping(value = "/seller/eventForm.jt", method = RequestMethod.PUT)
+	public String formUpdateEvent(Model model, SummaryUser summaryUser, @ModelAttribute Event event, BindingResult result, RedirectAttributes redirect) {
+		final List<Event> eventList = sellerService.selectSellerDDayEventList(event);
+		new Validator() {
+			@Override
+			public void validate(Object target, Errors errors) {
+				ValidationUtils.rejectIfEmptyOrWhitespace(errors, "eventName", "event.name.empty");
+				ValidationUtils.rejectIfEmptyOrWhitespace(errors, "endDate", "event.endDate.empty");
+				ValidationUtils.rejectIfEmptyOrWhitespace(errors, "url", "product.url.empty");
+
+				Event event = (Event) target;
+				String url = event.getUrl();
+				if (ValidationUtil.lengthCheck(url, 0, 200)) {
+					if (!ValidationUtil.homepageFormCheck(url)) {
+						errors.rejectValue("url", "product.url.notAllow");
+					}
+				}
+				if(event.getEventPn() == null && eventList.size() == 2){
+					errors.rejectValue("endDate", "event.list.full");
+				}
+			}
+			@Override
+			public boolean supports(Class<?> clazz) {
+				return false;
+			}
+		}.validate(event, result);
+		Integer sellerPn = summaryUser.getPn();
+		if (result.hasErrors()) {
+			model.addAttribute("events",eventList);
+		}else{
+			Authority authority = summaryUser.getEnumAuthority();
+			if (authority.equals(Authority.SELLER)) {
+				event.setSellerPn(summaryUser.getPn());
+				event.setBannerType(1);
+				event.setBannerOrder(0);
+				sellerService.updateAndInsertEvent(event);
+				sellerService.insertAndUpdateDdayEvent(event);
+				redirect.addFlashAttribute("isReload", TRUE);
+				return "redirect:events/"+sellerPn;
+			} else {
+				logger.info("[" + summaryUser.getAuthority() + "] " + summaryUser.getName());
+			}
+		}
+		model.addAttribute("dialogOpen", 1);
+		return prefixView + "seller_event";
 	}
 
 	@PreAuthorize("hasRole('ROLE_SELLER')")
 	@RequestMapping(value = "/seller/form.jt", method = RequestMethod.DELETE)
-	public String formDeleteProduct(Model model, @ModelAttribute Product product, SummaryUser summaryUser) {
+	public String formDeleteProduct(Model model, @ModelAttribute Product product, SummaryUser summaryUser, RedirectAttributes redirect) {
 		Integer nowPn = product.getSellerPn();
 		product.setSellerPn(summaryUser.getPn());
 		boolean result = sellerService.deleteSellerProduct(product);
-		if (!result) {
-			model.addAttribute("isFinish", FALSE);
-		}
 		Integer page = product.getCurrentPage();
 		int count = sellerService.selectSellerProductCount(nowPn);
 		if (count <= 10) {
 			page = 1;
 		}
+		redirect.addFlashAttribute("isReload", TRUE);
 		return "redirect:products/" + nowPn + "?page=" + page;
+	}
+	
+	@PreAuthorize("hasRole('ROLE_SELLER')")
+	@RequestMapping(value = "/seller/eventForm.jt", method = RequestMethod.DELETE)
+	public String formDeleteEvent(Model model, @ModelAttribute Event event, SummaryUser summaryUser, RedirectAttributes redirect) {
+		Integer nowPn = event.getSellerPn();
+		event.setSellerPn(summaryUser.getPn());
+		sellerService.deleteSellerDDayEvent(event);
+		sellerService.deleteSellerBanner(event);
+		redirect.addFlashAttribute("isReload", TRUE);
+		return "redirect:events/" + nowPn;
 	}
 
 	// ~ Ajax
@@ -339,24 +425,6 @@ public class SellerController {
 	}
 
 	@PreAuthorize("hasRole('ROLE_SELLER')")
-	@RequestMapping(value = "/ajax/seller/changeEvent.jt", method = RequestMethod.POST)
-	@ResponseBody
-	@Transactional
-	public Event ajaxChangeEvent(@RequestBody Event event, SummaryUser summaryUser) {
-		Authority authority = summaryUser.getEnumAuthority();
-		if (authority.equals(Authority.SELLER)) {
-			event.setSellerPn(summaryUser.getPn());
-			event.setBannerType(1);
-			sellerService.updateAndInsertEvent(event);
-			sellerService.insertAndUpdateDdayEvent(event);
-			return event;
-		} else {
-			logger.info("[" + summaryUser.getAuthority() + "] " + summaryUser.getName());
-			return null;
-		}
-	}
-
-	@PreAuthorize("hasRole('ROLE_SELLER')")
 	@RequestMapping(value = "/ajax/seller/getEventData.jt", method = RequestMethod.POST)
 	@ResponseBody
 	public Event ajaxGetEventData(Event event, SummaryUser summaryUser) {
@@ -367,34 +435,6 @@ public class SellerController {
 		} else {
 			logger.info("[" + summaryUser.getAuthority() + "] " + summaryUser.getName());
 			return null;
-		}
-	}
-
-	@PreAuthorize("hasRole('ROLE_SELLER')")
-	@RequestMapping(value = "/ajax/seller/updateDdayEvent.jt", method = RequestMethod.POST)
-	@ResponseBody
-	public Event ajaxUpdateDdayEvent(@RequestBody Event event, SummaryUser summaryUser) {
-		Authority authority = summaryUser.getEnumAuthority();
-		if (authority.equals(Authority.SELLER)) {
-			sellerService.insertAndUpdateDdayEvent(event);
-			return event;
-		} else {
-			logger.info("[" + summaryUser.getAuthority() + "] " + summaryUser.getName());
-			return null;
-		}
-	}
-
-	@PreAuthorize("hasRole('ROLE_SELLER')")
-	@RequestMapping(value = "/ajax/seller/deleteDdayEvent.jt", method = RequestMethod.POST)
-	@ResponseBody
-	@Transactional
-	public void ajaxDeleteEventBanner(Event event, SummaryUser summaryUser) {
-		Authority authority = summaryUser.getEnumAuthority();
-		if (authority.equals(Authority.SELLER)) {
-			sellerService.deleteSellerDDayEvent(event);
-			sellerService.deleteSellerBanner(event);
-		} else {
-			logger.info("[" + summaryUser.getAuthority() + "] " + summaryUser.getName());
 		}
 	}
 

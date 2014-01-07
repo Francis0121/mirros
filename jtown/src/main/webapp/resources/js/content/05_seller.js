@@ -183,20 +183,6 @@ makeIntro = function(){
         steps: 
         [
 			{
-				element: '#step1',
-				intro:  'ShopNo : 고객고유번호<br/> Seller : 회사명 <br/>Site : 홈페이지주소<br/>'+
-						'<span style="color : #ff431e;">위 정보는 고유정보 임으로 바꾸시려면 <a href="'+contextPath+'help/question" style="text-decoration:underline; color:#ff431e;">고객센터</a>에 문의 해주시기 바랍니다.</span>'
-			},
-			{
-				element: '#step2',
-				intro : '<ol>'+
-						'	<li>쇼핑몰 대표 태그 입니다.</li>'+
-						'	<li><span class="jt-intro-order">1.</span><span class="jt-tag-update-intro">수정</span> 을 클릭합니다.</li>'+
-						'	<li><span class="jt-intro-order">2.</span>자신이 원하는 Tag을 체크합니다.</li>'+
-						'	<li><span class="jt-intro-order">3.</span>수정 버튼을 클릭합니다.</li>'+
-						'</ol>'
-			},
-			{
 				element: '#step3',
 				intro: 	'<ol style="list-style: decimal; margin-left: 15px;">'+
 						'	<li>마우스를 사진 위에 올립니다.</li>'+
@@ -223,6 +209,20 @@ makeIntro = function(){
 						'</ul>'
 			},
 			{
+				element: '#step1',
+				intro:  'ShopNo : 고객고유번호<br/> Seller : 회사명 <br/>Site : 홈페이지주소<br/>'+
+						'<span style="color : #ff431e;">위 정보는 고유정보 임으로 바꾸시려면 <a href="'+contextPath+'help/question" style="text-decoration:underline; color:#ff431e;">고객센터</a>에 문의 해주시기 바랍니다.</span>'
+			},
+			{
+				element: '#step2',
+				intro : '<ol>'+
+						'	<li>쇼핑몰 대표 태그 입니다.</li>'+
+						'	<li><span class="jt-intro-order">1.</span><span class="jt-tag-update-intro">수정</span> 을 클릭합니다.</li>'+
+						'	<li><span class="jt-intro-order">2.</span>자신이 원하는 Tag을 체크합니다.</li>'+
+						'	<li><span class="jt-intro-order">3.</span>수정 버튼을 클릭합니다.</li>'+
+						'</ol>'
+			},
+			{
 				element: '#jt-home-expand-shop-notice',
 				intro: 	'<ol style="list-style: decimal; margin-left: 15px;">'+
 						'	<li>마우스를 내용 위에 올립니다.</li>'+
@@ -236,28 +236,8 @@ makeIntro = function(){
 				intro:  '소비자가 해당 상품을 클릭하면 입력된 상품 URL 로 이동됩니다. 입력되지 않았을 시에는 쇼핑몰 첫 페이지로 이동 됩니다. 입력은 다음 단계에서 간편하게 가능 합니다.'
 			},
 			{
-				element: '#step8',
-				intro:  '\'+\' 버튼을 누르시고 당신의 상품을 알려보세요.'
-			},
-			{
-				element: '#jt-seller-expand-event-first',
-				intro: 	'<ol style="list-style: decimal; margin-left: 15px;">'+
-						'	<li>마우스를 사진 위에 올립니다.</li>'+
-						'	<li>수정 버튼을 클릭합니다.</li>'+
-						'	<li>이벤트 이름과 이벤트 만기일을 입력합니다.</li>'+
-						'	<li>사진 업로드 버튼을 클릭하여 사진을 업로드 합니다.</li>'+
-						'	<li>수정 버튼을 클릭합니다.</li>'+
-						'</ol>'
-			},
-			{
-				element: '#jt-seller-expand-event-second',
-				intro: 	'<ol style="list-style: decimal; margin-left: 15px;">'+
-						'	<li>마우스를 사진 위에 올립니다.</li>'+
-						'	<li>수정 버튼을 클릭합니다.</li>'+
-						'	<li>이벤트 이름과 이벤트 만기일을 입력합니다.</li>'+
-						'	<li>사진 업로드 버튼을 클릭하여 사진을 업로드 합니다.</li>'+
-						'	<li>수정 버튼을 클릭합니다.</li>'+
-						'</ol>'
+				element: '#jt-seller-product-insert-wrap',
+				intro:  '상품과 이벤트를 관리할 수 있습니다. 새 상품과 이벤트를 등록하여 당신의 상품들을 알려보세요.'
 			}
 		]
 	});
@@ -280,16 +260,6 @@ jtown.seller.syncIntro = function(){
 			$(this).find('.question-mark-wrap').hide();
 		}
 	});
-	
-	/*
-	$('.jt-home-expand-seller-fake').unbind('mouseover mouseout').bind('mouseover mouseout', function(event){
-		if(event.type =='mouseover'){
-			$(this).find('.question-mark-wrap').show();
-		}else if(event.type == 'mouseout'){
-			$(this).find('.question-mark-wrap').hide();
-		}
-	});
-	*/
 	
 	$('.jt-home-expand-shop-products').unbind('mouseover mouseout').bind('mouseover mouseout', function(event){
 		if(event.type =='mouseover'){
@@ -346,7 +316,7 @@ jtown.seller.syncProduct = function() {
 		var url = contextPath + 'seller/products/'+$(this).attr('data-pn');
 		var option = 'width=630, height=610, left=500,top=200, toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no';
 		
-		window.open(url, '', option);
+		window.open(url, 'item', option);
 	});
 };
 
@@ -399,6 +369,7 @@ jtown.seller.syncPopup = function(){
 		$('.jt-product-article-update').hide();
 		$('.jt-product-article-insert').show();
 		$('.jt-product-article-object-img').removeClass('jt-product-active');
+		$('.jt-event-article-object-item').removeClass('jt-event-article-object-item-active');
 	});
 	
 	$('.jt-product-update-submit').unbind('click').bind('click', function(){
@@ -628,214 +599,89 @@ jtown.seller.productImage = function(file){
 };
 
 
-//TODO
+//~ event
+
+$('.jt-event-popup').bind('click', function(){
+	var url = contextPath + 'seller/events/'+$(this).attr('data-pn');
+	var option = 'width=550, height=530, left=500,top=200, toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no';
+	
+	window.open(url, 'event', option);
+});
+$('.jt-seller-event-insert-btn').bind('click', function(){
+	$('.jt-product-article-update').show();
+	$('.jt-product-article-insert').hide();
+	$('#eventName').val('');
+	$('#endDate').val('');
+	$('#url').val('');
+	$('.jt-product-error-text').text('');
+});
+
+$('.jt-event-endDate-input').datepicker({
+	buttonText: "Calendar",
+	dateFormat: "yy-mm-dd"
+});
+
+$('.jt-event-update-submit').bind('click', function(){
+	var nowDate = new Date();
+	var endDate = new Date($('.jt-event-endDate-input').val());
+	var differenceDate = Math.floor((endDate - nowDate )/(1000*60*60*24));
+	if(differenceDate > 29){
+		jtown.dialog('만기일은 '+new Date(nowDate.getTime()+(1000*60*60*24* 30) ).format("yyyy년 MM월 dd일")+'까지 입니다.');
+		return;
+	}else if(differenceDate < -1){
+		jtown.dialog('지난날은 만기일로 할 수 없습니다.');
+		return;
+	}
+	
+	var pn = null; 
+	$('.jt-event-article-object-item-active').length == 1 ? pn = $('.jt-event-article-object-item-active').parent('.jt-event-article-object').attr('data-ppn') : pn = null;
+	
+	var form = document.forms['event'];
+	form.eventPn.value = pn;
+	form._method.value = 'put';
+	form.submit();
+});
+
+$('.jt-seller-event-delete').on('click', function() {
+	var pn = $(this).parents('li').attr('data-ppn');
+	var form = document.forms['event'];
+	form.eventPn.value = pn;
+	form._method.value = 'delete';
+	form.submit();
+});
+
+$('.jt-event-article-object-item').on('click',function(){
+	$eventPn = $(this).parent('.jt-event-article-object').attr('data-ppn');
+	$('.jt-event-article-object-item').removeClass('jt-event-article-object-item-active');
+	$(this).addClass('jt-event-article-object-item-active');
+	$('.jt-product-error-text').text('');
+	
+	$.post(contextPath+'ajax/seller/getEventData.jt',{eventPn :  $eventPn}, function(data){
+		$('.jt-product-article-update').show();
+		$('.jt-product-article-insert').hide();
+		$('#eventName').val(data.eventName);
+		$('#endDate').val(new Date(data.endDate).format('yyyy-MM-dd'));
+		$('#url').val(data.url);
+	});
+});
+
+$('.jt-event-article-object').on({
+	mouseover : function(){
+		$(this).children('.jt-seller-expand-product-delete-tool').show();
+	},
+	mouseout: function(){
+		$(this).children('.jt-seller-expand-product-delete-tool').hide();
+	}
+});
+
+$('.jt-seller-event-wrap').on('click', function(){
+	var openNewWindow = window.open("about:blank");
+	openNewWindow.location.href=$(this).attr('data-url');
+});
+
 jtown.seller.syncEvent = function() {
 
-	$('#jt-seller-expand-event-first, #jt-seller-expand-event-second').unbind('mouseover mouseout');
-	$('#jt-seller-expand-event-first, #jt-seller-expand-event-second').bind('mouseover mouseout', function(event) {
-		if ($(this).children('.jt-home-expand-shop-event-update-wrap').css('display') == 'none') {
-			if (event.type == 'mouseover') {
-				$(this).children('.jt-home-expand-shop-event-tool').show();
-				$(this).find('.question-mark-wrap').show();
-			} else if (event.type == 'mouseout') {
-				$(this).children('.jt-home-expand-shop-event-tool').hide();
-				$(this).find('.question-mark-wrap').hide();
-			}
-		}
-	});
-
-	$('.jt-home-expand-shop-event-update-btn').unbind('click').bind('click', function(e) {
-		e.stopPropagation();
-		e.preventDefault();
-		$(this).parents('.jt-home-expand-shop-event').children('.jt-home-expand-shop-event-tool').hide();
-		var parents = $(this).parents('.jt-home-expand-shop-event');
-		var largeWrap = $('.jt-home-expand-shop-event-update-large-wrap');
-			largeWrap.css('visibility','visible').attr('data-image-order', parents.attr('id'));
-		
-		var bannerOrder =  1;
-		$('#jt-event-first-image').css('display','block');
-		$('#jt-event-second-image').css('display','none');
-		if('jt-seller-expand-event-second' == parents.attr('id')){
-			$('#jt-event-first-image').css('display','none');
-			$('#jt-event-second-image').css('display','block').css('margin-top','-11px');
-			bannerOrder = 2;
-		}	
-		var sellerPn = $(this).parents('.jt-home-expand-shop').attr('data-spn');
-		var eventName =  $('.jt-home-expand-shop-event-update-large-wrap-event-name');
-		var endDate = $('.jt-home-expand-shop-event-update-large-wrap-calender-btn');
-		eventName.val('');
-		endDate.val('');
-		$.ajax({
-			type:"POST",
-			dataType: 'json',
-			url: contextPath+"ajax/seller/getEventData.jt",
-			data:{ sellerPn : sellerPn , bannerOrder: bannerOrder },
-			success: function(data,textStatus){
-				if(data != null){
-					eventName.val(data.eventName);
-					endDate.val( new Date(data.endDate).format('yyyy-MM-dd'));
-					largeWrap.attr('data-event-pn', data.eventPn);
-				}else{
-					largeWrap.attr('data-event-pn', '');
-				}
-			}
-		});
-		$('.jt-home-expand-shop-event-update-large-wrap').trigger('openModal');
-	});
-	
-	$('.jt-home-expand-shop-event-update-delete-btn').unbind('click').bind('click', function(e) {
-		e.stopPropagation();
-		e.preventDefault();
-		var parents = $(this).parents('.jt-home-expand-shop-event');
-			if(jtown.confirm('삭제하시겠습니까?',function(){
-			var bannerOrder =  1;
-			if('jt-seller-expand-event-second' == parents.attr('id')){
-				bannerOrder = 2;
-			}	
-			var sellerPn = $('.jt-seller-content-wrap').attr('data-spn');
-			
-			$.ajax({
-		        url: contextPath+"ajax/seller/deleteDdayEvent.jt",
-		        type: "POST",
-		        dataType : false,
-		        data:{bannerOrder : bannerOrder, sellerPn : sellerPn},
-		        success: function(data){
-		        	if(bannerOrder==1){
-		        		$('#jt-seller-expand-event-first-img').attr('data-imagePn','');
-		        	}else if(bannerOrder == 2){
-		        		$('#jt-seller-expand-event-second-img').attr('data-imagePn','');
-		        	}
-		        	jtown.reloadDialog('삭제되었습니다.');
-		        	parents.find('img').attr('src', contextPath+"resources/images/jt-event-blank.png");
-		        	
-		        }
-	        });
-		}, function(){})){
-		}
-	});
-	
-	$('.jt-home-expand-shop-event-update-cancle').unbind('click').bind('click', function(){
-		var $parent = $(this).parents('.jt-home-expand-shop-event');
-		var $img = $parent.find('img');
-		var oldSrc = $img.attr('data-oldSrc');
-		$img.attr('src', oldSrc).attr('data-oldSrc', '');
-		$parent.find('input[type=file]').val('');
-		$('.jt-home-expand-shop-event-update-large-wrap').trigger('closeModal');
-		$('.jt-home-expand-shop-event-update-large-wrap').css('visibility','hidden');
-	});
-	
-	$('.jt-home-expand-shop-event-update-done').unbind('click').bind('click', function(){
-		var nowDate = new Date();
-		var endDate = new Date($('.jt-home-expand-shop-event-update-large-wrap-end-date').val());
-		var differenceDate = Math.floor((endDate - nowDate )/(1000*60*60*24));
-		if(differenceDate > 29){
-			jtown.dialog('만기일은 '+new Date(nowDate.getTime()+(1000*60*60*24* 30) ).format("yyyy년 MM월 dd일")+'까지 입니다.');
-			return;
-		}else if(differenceDate < -1){
-			jtown.dialog('지난날은 만기일로 할 수 없습니다.');
-			return;
-		}
-		var $img, imagePn, epn, bannerOrder = null;
-		if('jt-seller-expand-event-first' == $('.jt-home-expand-shop-event-update-large-wrap').attr('data-image-order') ){
-			$img= $('#jt-seller-expand-event-first-img'),  imagePn= $img.attr('data-imagePn');
-			bannerOrder = 1;
-			epn = $('.jt-home-expand-shop-event:eq(0)').attr('data-epn');
-		}else{
-			$img= $('#jt-seller-expand-event-second-img'),  imagePn= $img.attr('data-imagePn');
-			bannerOrder = 2;
-			epn = $('.jt-home-expand-shop-event:eq(1)').attr('data-epn');
-		}
-		var endDate =$('.jt-home-expand-shop-event-update-large-wrap-end-date').val();
-		var eventName = $('.jt-home-expand-shop-event-update-large-wrap-event-name').val();
-		var eventPn = $('.jt-home-expand-shop-event-update-large-wrap').attr('data-event-pn');
-		var sellerPn = $('.jt-home-expand-shop').attr('data-spn');
-		if('' == eventName){
-			jtown.dialog('이벤트 이름을 입력해주세요.');
-			return;
-		}else if(''== endDate){
-			jtown.dialog('이벤트 만기일을 입력해주세요.');
-			return;
-		}
-		if(!nullValueCheck(imagePn)){
-			if($('.jt-home-expand-shop-event-update-done').attr('data-disabled') == '0'){
-				$('.jt-home-expand-shop-event-update-done').attr('data-disabled','');
-					var url = contextPath + 'ajax/seller/changeEvent.jt',
-					json = { 	'imagePn' 		:	imagePn,
-								'pn'			:	epn,
-								'bannerOrder'	:	bannerOrder,
-								'eventName'		:	eventName,
-								'endDate'		:	endDate,
-								'eventPn'	:	eventPn,
-								'sellerPn'		: sellerPn
-					};
-					$('.jt-home-expand-shop-event-update-large-wrap-progress').css('visibility','visible');
-				$.postJSON(url, json, function(event){
-					$img.attr('data-oldSrc', '').attr('data-imagePn', event.imagePn);
-					if(bannerOrder == 1){
-						$('.jt-home-expand-shop-event:eq(0)').attr('data-epn' ,event.pn);
-					}else{
-						$('.jt-home-expand-shop-event:eq(1)').attr('data-epn' ,event.pn);
-					}
-					var html = 	'<div class="jt-home-expand-shop-event-new">'+
-									'<div>'+
-										'<span class="jt-home-expand-shop-event-new-image">NEW</span>'+
-									'</div>'+
-								'</div>';
-					if(bannerOrder == 1){
-						$('#jt-seller-expand-event-first').prepend(html);
-					}else{
-						$('#jt-seller-expand-event-second').prepend(html);
-					}
-					$('.jt-home-expand-shop-event-update-large-wrap-progress').css('visibility','hidden');
-					$('.jt-home-expand-shop-event-update-large-wrap').trigger('closeModal');
-					
-					if($('.jt-home-shop-event-dday').text() == ''){
-						var ddayHtml = '<div class="jt-home-shop-event-dday" style="visibility:visible">'+
-												'<div class="jt-home-shop-event-dday-event-name">'+
-													eventName+
-												'</div>'+
-												'<div class="jt-home-shop-event-dday-end-date">'+
-													(differenceDate+1)+'일 남음'+
-												'</div>'+
-											'</div>';
-						$('.jt-home-shop-event-dday-wrap').prepend(ddayHtml);
-						
-					}else{
-						$('.jt-home-shop-event-dday-event-name').text(eventName);
-						$('.jt-home-shop-event-dday-end-date').text((differenceDate+1)+'일 남음');
-					}
-					jtown.dialog('수정되었습니다.');
-					$('.jt-home-expand-shop-event-update-done').attr('data-disabled','0');
-					$('.jt-home-expand-shop-event-update-large-wrap').css('visibility','hidden');
-				});
-			}
-		}else{
-			if(''==eventPn){
-				jtown.dialog('이미지를 업로드해주세요.');
-				return;
-			}
-			var url = contextPath + 'ajax/seller/updateDdayEvent.jt',
-			json = {
-						'eventName'		:	eventName,
-						'endDate'		:	endDate,
-						'eventPn'	:	eventPn,
-						'bannerOrder'	:	bannerOrder,
-						'sellerPn'		: sellerPn
-			};
-			$('.jt-home-expand-shop-event-update-large-wrap-progress').css('visibility','visible');
-			$.postJSON(url, json, function(event){
-				$img.attr('data-oldSrc', '').attr('data-imagePn', event.imagePn);
-				$('.jt-home-expand-shop-event-update-large-wrap-progress').css('visibility','hidden');
-				$('.jt-home-expand-shop-event-update-large-wrap').trigger('closeModal');
-				$('.jt-home-shop-event-dday-event-name').text(eventName);
-				$('.jt-home-shop-event-dday-end-date').text((differenceDate-1)+'일 남음');
-				jtown.dialog('수정되었습니다.');
-				$('.jt-home-expand-shop-event-update-large-wrap').css('visibility','hidden');
-			});
-		}
-	});
-	
-};
+}; 
 
 jtown.seller.firstEvent = function(file){
 	var oldSrc = $('#jt-seller-expand-event-first-img').attr('src'),
