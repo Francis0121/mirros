@@ -64,7 +64,6 @@ jtown.pg.scrollPaging = function(){
 	});
 };
 
-
 var productGatherHtml = function(data){
 	var html = '';
 	var size = data.mergeItems.length;

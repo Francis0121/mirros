@@ -103,7 +103,6 @@ public class GatherController {
 			return "redirect:https"+request.getRequestURL().toString().replace("http", "");
 		}
 		*/
-		
 		if (BrowserUtil.isMobile(request)) {
 			String value = CookieUtil.isCookie("SEE_PC_VERSION", request);
 			if (value == null || !value.equals("T")) {

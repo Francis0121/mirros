@@ -95,13 +95,11 @@
 <div class="jt-pg-container">
 <div class="jt-pg-main js-masonry" data-item-name="${itemName }">
 
-<!-- 
 	<div class="jt-pg-item jt-pg-event-item">
 	</div>
 	<div class="jt-pg-item jt-pg-event-page">
 		<div class="slideshow" id="flavor_1"></div>
 	</div>
- -->
 	
 	<c:forEach items="${productGatherList }" var="list">
 	<c:set value="${!empty list.customerPn ? 'jt-home-shop-love-click' : ''}   " var="heartClickShapeClass" />

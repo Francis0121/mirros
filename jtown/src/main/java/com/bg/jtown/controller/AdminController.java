@@ -166,6 +166,12 @@ public class AdminController {
 		model.addAttribute("admin", "admin");
 		return prefixView + "statistic";
 	}
+	
+	@RequestMapping(value = "/event")
+	public String eventBanner(@ModelAttribute Event event, Model model, SummaryUser summaryUser){
+		
+		return prefixView+"event";
+	}
 
 	// ~ FORM
 

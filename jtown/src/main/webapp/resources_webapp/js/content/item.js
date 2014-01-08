@@ -25,38 +25,50 @@ $.checkAppPage = function(){
 	}
 };
 
-var scrollLoadTimer = null;
+var isPaging = 0;
 $.pagingItem = function(init){
-	clearInterval(scrollLoadTimer);
-	var navFlag = null;
-	var itemName = $('.jt-app-header-search').attr('data-search');
-	var categoryPn = $('.jt-app-header-category:last').attr('data-category');
-	$('.jt-app-item-content').attr('data-nav') == 'H' ? navFlag = 'H': navFlag=null;
-	$.post(contextPath+'/app/ajax/productPagination.jt',{navFlag : navFlag, categoryPn : categoryPn, itemName : itemName, init : init}, function(data){
-    	if(data.mergeItems.length > 0){
-    		$.attendProductItems(data);
-    	}else{
-    		$.toast('마지막 페이지입니다.');
-    	}
-    });
+	if(isPaging == 0){
+		isPaging++;
+		var navFlag = null;
+		var itemName = $('.jt-app-header-search').attr('data-search');
+		var categoryPn = $('.jt-app-header-category:last').attr('data-category');
+		$('.jt-app-item-content').attr('data-nav') == 'H' ? navFlag = 'H': navFlag=null;
+		$.post(contextPath+'/app/ajax/productPagination.jt',{navFlag : navFlag, categoryPn : categoryPn, itemName : itemName, init : init}, function(data){
+	    	if(data.mergeItems.length > 0){
+	    		$.attendProductItems(data);
+	    	}else{
+	    		$.toast('마지막 페이지입니다.');
+	    	}
+	    	isPaging = 0;
+	    });
+	}
 };
 
 var isScrollingFlag = 0;
+
 $.scrollPaging = function(){
 	var iPhoneMenuHeight = 0;
 	if($.isIOS()){
 		iPhoneMenuHeight = 60;
 	}
-	var scrollTapTimer = null;	
 	$('.jt-app-contents-wrap').scroll(function(){
 	    if($.checkAppPage()){
 	    	isScrollingFlag = 1;
-	    	scrollTapTimer = setTimeout(function(){isScrollingFlag = 0;},1500);
-	    	if( $('.jt-app-contents-wrap:last').scrollTop() + $('.jt-app-contents-wrap:last').height() + iPhoneMenuHeight >= $('.jt-app-contents-wrap:last')[0].scrollHeight){
-	    		scrollLoadTimer = setInterval($.pagingItem(), 2000);
+	    	var docViewTop = $('.jt-app-contents-wrap:last').scrollTop() ;
+	    	var docViewBottom = docViewTop + $('.jt-app-contents-wrap:last').height();
+	    	
+	    	var elemTop = $('.jt-app-item-lists:last').offset().top;
+	    	var elemBottom = elemTop + $('.jt-app-item-lists:last').height();
+	    	if( (elemBottom <= docViewBottom) && (elemTop >= docViewTop) ){
+	    		$.pagingItem();
 	    		return;
 	    	}
 	    }
+	});
+	$('.jt-app-contents-wrap').on('scrollstop',function(){
+		 if($.checkAppPage()){
+			 isScrollingFlag = 0;
+		 }
 	});
 };
 
@@ -144,29 +156,34 @@ $('body').on('tap','.jt-app-item-change-mode',function(){
 
 var isTapHold = false;
 $('body').on('taphold', '.jt-app-item-lists', function(e){
-	isTapHold = true;
-	var productPn =$(this).attr('data-product-pn');
-	var eventPn =$(this).attr('data-event-pn');
-	
-	$itemWrapStaticTarget = $(this);
-	$.post(contextPath + '/app/ajax/checkLogin.jt', {}, function(object) {
-		if(object.isLogin==false){
-			$.toast('로그인 해주세요.');
-			$.changePageTransition('/app/login', 'pop');
-			return;
-		}else{
-			$('.jt-app-item-like-popup-dialog').attr('data-product-pn', productPn);
-			$('.jt-app-item-like-popup-dialog').attr('data-event-pn', eventPn);
-			if($itemWrapStaticTarget.attr('data-like') == 'null'){
-				$('.jt-app-item-like-popup-q-text').text('체크리스트에 추가하시겠습니까?');
-				$('.jt-app-item-like-popup-ok').find('.ui-btn-text').text('추가');
+	if(isScrollingFlag == 0){
+		isTapHold = true;
+		var productPn =$(this).attr('data-product-pn');
+		var eventPn =$(this).attr('data-event-pn');
+		
+		$itemWrapStaticTarget = $(this);
+		$.post(contextPath + '/app/ajax/checkLogin.jt', {}, function(object) {
+			if(object.isLogin==false){
+				$.toast('로그인 해주세요.');
+				$.changePageTransition('/app/login', 'pop');
+				return;
 			}else{
-				$('.jt-app-item-like-popup-q-text').text('체크리스트에서 제거하시겠습니까?');
-				$('.jt-app-item-like-popup-ok').find('.ui-btn-text').text('제거');
+				$('.jt-app-item-like-popup-dialog').attr('data-product-pn', productPn);
+				$('.jt-app-item-like-popup-dialog').attr('data-event-pn', eventPn);
+				if($itemWrapStaticTarget.attr('data-like') == 'null'){
+					$('.jt-app-item-like-popup-q-text').text('체크리스트에 추가하시겠습니까?');
+					$('.jt-app-item-like-popup-ok').find('.ui-btn-text').text('추가');
+				}else{
+					$('.jt-app-item-like-popup-q-text').text('체크리스트에서 제거하시겠습니까?');
+					$('.jt-app-item-like-popup-ok').find('.ui-btn-text').text('제거');
+				}
+				$('.jt-app-item-like-popup-dialog').popup('open');
 			}
-			$('.jt-app-item-like-popup-dialog').popup('open');
-		}
-	});
+		});
+	}else{
+		e.stopPropagation();
+		e.preventDefault();
+	}
 });
 $('body').on('tap', '.jt-app-item-like-popup-ok', function(){
 	var productPn =$('.jt-app-item-like-popup-dialog').attr('data-product-pn');

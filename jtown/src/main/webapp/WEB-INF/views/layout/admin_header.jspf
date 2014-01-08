@@ -65,6 +65,10 @@
 					<c:set var="url" value="${cp }/admin/statistic"/>
 					<a href="${url}" class="<c:out value="${url eq rp ? 'jt-menu-hover' : '' }"/>">Statistic</a>
 				</li>
+				<li>
+					<c:set var="url" value="${cp }/admin/event"/>
+					<a href="${url}" class="<c:out value="${url eq rp ? 'jt-menu-hover' : '' }"/>">Event Banner</a>
+				</li>
 				</sec:authorize>
 			</ul>
 		</nav>

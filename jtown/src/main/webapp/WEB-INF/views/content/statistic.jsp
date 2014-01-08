@@ -2,9 +2,6 @@
 <%@ include file="../layout/none_header.jspf" %>
 <div class="jt-statistic-container">
 	<div id="folderBar">
-		<div id="folderTabName">
-			<span id="digonalFolderImage">통계보기</span>
-		</div>
 	</div>
 	<div class="jt-seller-content jt-statistic-content" data-time="" data-sellerPn="${sellerPn}" data-admin="${admin}">
 		<div class="jt-statistic-title">
