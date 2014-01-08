@@ -485,7 +485,7 @@
 	<select id="selectEventList" resultMap="EventMapper"> 
 		SELECT DISTINCT
 			 usee.event_pn, usee.seller_pn, event_name, begin_date, DATEDIFF(usee.end_date,SYSDATE()) AS end_date, 
-			 	banner_order, p.shop_name, p.shop_url AS url, heart_count <if test="customerPn != null">, customer_pn</if>, comment
+			 	banner_order, p.shop_name, usee.url, heart_count <if test="customerPn != null">, customer_pn</if>, comment
 		FROM
 			user_seller_event usee
 		JOIN partnership p
@@ -503,6 +503,7 @@
 			  	</if>
 		WHERE DATEDIFF(usee.end_date,SYSDATE()) >= 0
 			AND u.enable = 1
+			AND deleted = 'N'
 		<if test="categoryPn != 0"> 
 			AND p.category_pn = #{categoryPn}
 		</if>	

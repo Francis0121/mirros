@@ -45,7 +45,7 @@ jtown.pg.scrollPaging = function(){
 	$(window).scroll(function(){
 	    if($(window).scrollTop() == $(document).height() - $(window).height()){
 	        $('div#infscr-loading').show();
-	        var itemName = $('.jt-pg-main').attr('data-item-name');
+	        var itemName = $('.jt-pg-main').attr('data-item-name') == '' ? null : $('.jt-pg-main').attr('data-item-name');
 	        var category = $('.jt-header-nav-interestCategory').attr('data-category');
 	        var categoryPn = $('.jt-header-nav-interestCategory').attr('data-categoryPn');
 	        $.postJSON(contextPath+'ajax/gatherPagination.jt',{itemName : itemName, navFlag : category, categoryPn : categoryPn  }, function(data){
