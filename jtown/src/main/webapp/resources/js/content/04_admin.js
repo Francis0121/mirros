@@ -398,3 +398,68 @@ jtown.admin.autoInterestOne = function(){
 		}
 	});	
 };
+
+//~ banner 
+$('[name=bannerType]').bind('change', function(){
+	if($('[name=bannerType]').val() == 1){
+		$('.jt-admin-event-memo-text-title').text('추가사항');
+		$('.jt-admin-event-url-input').attr('placeholder','ex) 수요일 18시/ 19시 (없으면 비워둡니다.)');
+		$('.jt-admin-event-facebook-wrap').show();
+		$('.jt-admin-event-content-wrap').show();
+		
+	}else if($('[name=bannerType]').val() == 2){
+		$('.jt-admin-event-memo-text-title').text('URL 입력');
+		$('.jt-admin-event-url-input').attr('placeholder','');
+		$('.jt-admin-event-facebook-wrap').hide();
+		$('.jt-admin-event-content-wrap').hide();
+	}	
+});
+$('#jt-admin-event-image-upload-btn').uploadify({
+	'formData' : {'category' : 'banner'},
+	'buttonText' : '이미지 업로드',
+	'fileTypeDesc' : 'Image Files',
+    'fileTypeExts' : '*.gif; *.jpg; *.png',
+    'fileSizeLimit' : '2MB',
+	'multi'	: false,
+	'swf' : contextPath + 'resources/uploadify/uploadify.swf',
+	'uploader' : contextPath + 'file/upload.jt',
+	'itemTemplate' : '<div></div>',
+	'onUploadStart' : function(){
+		jtown.loading.start();
+	},
+	'onUploadSuccess' : function(file, data, response){
+		var dataValue = eval('('+data+')');
+		$('.jt-admin-event-image-upload-img').html('');
+		$('.jt-admin-event-image-upload-img').append('<img src="'+contextPath+'photo/thumbnail/'+dataValue.saveName+'banner.'+dataValue.type+' " alt="" />');
+		$('[name=image]').val(dataValue.saveName+'banner.'+dataValue.type);
+		setTimeout('jtown.loading.finish()', 0);
+	}
+});
+
+$('#jt-admin-event-fb-img-upload-btn').uploadify({
+	'formData' : {'category' : 'facebook'},
+	'buttonText' : '이미지 업로드',
+	'fileTypeDesc' : 'Image Files',
+    'fileTypeExts' : '*.gif; *.jpg; *.png',
+    'fileSizeLimit' : '2MB',
+	'multi'	: false,
+	'swf' : contextPath + 'resources/uploadify/uploadify.swf',
+	'uploader' : contextPath + 'file/upload.jt',
+	'itemTemplate' : '<div></div>',
+	'onUploadStart' : function(){
+		jtown.loading.start();
+	},
+	'onUploadSuccess' : function(file, data, response){
+		var dataValue = eval('('+data+')');
+		$('.jt-admin-event-image-upload-img').html('');
+		$('.jt-admin-event-fb-upload-img').append('<img src="'+contextPath+'photo/thumbnail/'+dataValue.saveName+'facebook.'+dataValue.type+' " alt="" />');
+		$('[name=fbMessage]').val(dataValue.saveName+'facebook.'+dataValue.type);
+		setTimeout('jtown.loading.finish()', 0);
+	}
+});
+
+$('.jt-admin-event-insert-btn').bind('click', function(){
+	var form = $('.jt-admin-event-form')[0];
+	form.action = contextPath+ 'admin/insertBanner';
+	form.submit();
+});

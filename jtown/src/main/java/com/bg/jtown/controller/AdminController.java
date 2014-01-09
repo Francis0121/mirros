@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.bg.jtown.business.*;
 import com.bg.jtown.business.admin.AdminService;
 import com.bg.jtown.business.help.HelpService;
+import com.bg.jtown.business.home.GatherService;
 import com.bg.jtown.business.home.HomeService;
 import com.bg.jtown.business.search.*;
 import com.bg.jtown.business.seller.ContractService;
@@ -71,6 +72,8 @@ public class AdminController {
 	private DelegatingMessageSource messageSource;
 	@Autowired
 	private SellerService sellerService;
+	@Autowired
+	private GatherService gatherService;
 
 	// @Resource
 	// private FileService fileService;
@@ -169,9 +172,16 @@ public class AdminController {
 	
 	@RequestMapping(value = "/event")
 	public String eventBanner(@ModelAttribute Event event, Model model, SummaryUser summaryUser){
-		
+		model.addAttribute("bannerList", gatherService.selectBannerEventList(event));
 		return prefixView+"event";
 	}
+	
+	@RequestMapping(value = "/insertBanner")
+	public String insertBanner(@ModelAttribute Event event){
+		adminService.insertEventBanner(event);
+		return "redirect:event";
+	}
+	
 
 	// ~ FORM
 

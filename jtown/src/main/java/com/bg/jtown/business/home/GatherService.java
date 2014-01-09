@@ -77,6 +77,8 @@ public interface GatherService {
 		
 	Event selectBannerEvent(Event event);
 	
+	List<Event> selectBannerEventList(Event event);
+	
 	void insertBannerEventParticipant(Participant participant);
 	
 	Integer selectExistParticipant(Participant participant);

@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.bg.jtown.business.Comment;
 import com.bg.jtown.business.Count;
+import com.bg.jtown.business.Event;
 import com.bg.jtown.business.Interest;
 import com.bg.jtown.business.search.AdminCommentFilter;
 import com.bg.jtown.business.search.AdministratorFilter;
@@ -38,6 +39,8 @@ public interface AdminService {
 	void updateAdminPassword(JtownUser jtownUser);
 	
 	void updateSellerPassword(JtownUser jtownUser);
+	
+	void insertEventBanner(Event event);
 	
 	// ~ Seller 
 

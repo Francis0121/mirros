@@ -55,8 +55,7 @@ public class FileVO {
 		super();
 	}
 
-	public FileVO(Integer imagePn, String originalName, String saveName,
-			Integer ownerPn, Integer memorySize) {
+	public FileVO(Integer imagePn, String originalName, String saveName, Integer ownerPn, Integer memorySize) {
 		super();
 		this.imagePn = imagePn;
 		this.originalName = originalName;
@@ -65,8 +64,7 @@ public class FileVO {
 		this.memorySize = memorySize;
 	}
 
-	public FileVO(Integer category, Integer imagePn, Integer memorySize,
-			String originalName, Integer ownerPn, String saveName, String type) {
+	public FileVO(Integer category, Integer imagePn, Integer memorySize, String originalName, Integer ownerPn, String saveName, String type) {
 		super();
 		this.category = category;
 		this.imagePn = imagePn;
@@ -160,6 +158,8 @@ public class FileVO {
 			return "event";
 		} else if (this.category.equals(3)) {
 			return "product";
+		} else if (category.equals(4)) {
+			return "banner";
 		} else {
 			return null;
 		}
@@ -167,10 +167,8 @@ public class FileVO {
 
 	@Override
 	public String toString() {
-		return "FileVO [height=" + height + ", imagePn=" + imagePn
-				+ ", memorySize=" + memorySize + ", originalName="
-				+ originalName + ", ownerPn=" + ownerPn + ", saveName="
-				+ saveName + ", width=" + width + "]";
+		return "FileVO [height=" + height + ", imagePn=" + imagePn + ", memorySize=" + memorySize + ", originalName=" + originalName + ", ownerPn="
+				+ ownerPn + ", saveName=" + saveName + ", width=" + width + "]";
 	}
 
 }

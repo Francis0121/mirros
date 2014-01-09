@@ -45,8 +45,7 @@ import com.google.gson.Gson;
 public class FileController {
 
 	// ~ Static
-	private static Logger logger = LoggerFactory
-			.getLogger(FileController.class);
+	private static Logger logger = LoggerFactory.getLogger(FileController.class);
 
 	// ~ Variabel
 
@@ -64,8 +63,7 @@ public class FileController {
 
 	@RequestMapping(value = "/admin/file", method = RequestMethod.GET)
 	@SuppressWarnings("deprecation")
-	public String showUpload(@ModelAttribute FileFilter fileFilter,
-			Model model, HttpServletRequest request) {
+	public String showUpload(@ModelAttribute FileFilter fileFilter, Model model, HttpServletRequest request) {
 
 		String saveDirectory = request.getRealPath("resources/uploadAdmin");
 		List<FileVO> files = fileService.selectFiles(fileFilter);
@@ -91,8 +89,7 @@ public class FileController {
 	// ~ Form
 
 	@RequestMapping(value = "/admin/file", method = RequestMethod.DELETE)
-	public String formUploadDelete(@ModelAttribute FileFilter fileFilter,
-			Model model) {
+	public String formUploadDelete(@ModelAttribute FileFilter fileFilter, Model model) {
 		Integer pn = fileFilter.getPn();
 
 		FileVO file = fileService.selectFile(pn);
@@ -108,18 +105,15 @@ public class FileController {
 
 	@RequestMapping(value = "/file/upload.jt")
 	@ResponseBody
-	public void ajaxUpload(@ModelAttribute MultipartFile multipartFile,
-			Integer pn, String category, 
-			BindingResult result, HttpServletResponse response, SummaryUser summaryUser)
-			throws IOException {
+	public void ajaxUpload(@ModelAttribute MultipartFile multipartFile, Integer pn, String category, BindingResult result,
+			HttpServletResponse response, SummaryUser summaryUser) throws IOException {
 		logger.debug(" SellerPn : " + pn + ", Category : " + category);
 		PrintWriter writer = response.getWriter();
 		response.setContentType("text/plain");
 
 		if (result.hasErrors()) {
 			for (ObjectError error : result.getAllErrors()) {
-				logger.error("Error in uploading" + error.getCode() + " - "
-						+ error.getDefaultMessage());
+				logger.error("Error in uploading" + error.getCode() + " - " + error.getDefaultMessage());
 			}
 			writer.print("{ 'result' : 'error' }");
 		} else {
@@ -132,28 +126,30 @@ public class FileController {
 					try {
 						long time = System.currentTimeMillis();
 						Integer sellerPn = summaryUser.getPn() == null ? pn : summaryUser.getPn();
-						
-						String saveName = time + "_image."+type;
-						String thumbnailName = time + category+"."+type;
-						
+
+						String saveName = time + "_image." + type;
+						String thumbnailName = time + category + "." + type;
+
 						File save = new File(FileUtil.ORGINAL_DIRECOTRY + saveName);
 						IOUtils.copy(cmFile.getInputStream(), new FileOutputStream(save));
-						if(type.equals("jpg") || type.equals("png") || type.equals("gif") || type.equals("jpeg")){
+						if (type.equals("jpg") || type.equals("png") || type.equals("gif") || type.equals("jpeg")) {
 							OutputStream os = new FileOutputStream(FileUtil.THUMBNAIL_DIRECTORTY + thumbnailName);
 							int width = FileUtil.getCategoryWidth(category);
-							Thumbnails.of(save).width(width).outputQuality(1.0d).outputFormat(type).toOutputStream(os);							
-							if(category.equals("product")){
-								OutputStream pos = new FileOutputStream(FileUtil.THUMBNAIL_DIRECTORTY + time + category +"Small."+type);
+							Thumbnails.of(save).width(width).outputQuality(1.0d).outputFormat(type).toOutputStream(os);
+							if (category.equals("product")) {
+								OutputStream pos = new FileOutputStream(FileUtil.THUMBNAIL_DIRECTORTY + time + category + "Small." + type);
 								Thumbnails.of(save).width(50).outputQuality(1.0d).outputFormat(type).toOutputStream(pos);
 							}
-						}else{
+						} else {
 							IOUtils.copy(cmFile.getInputStream(), new FileOutputStream(new File(FileUtil.THUMBNAIL_DIRECTORTY + thumbnailName)));
-							if(category.equals("product")){
-								IOUtils.copy(cmFile.getInputStream(), new FileOutputStream(new File(FileUtil.THUMBNAIL_DIRECTORTY + time + category +"Small."+type)));
+							if (category.equals("product")) {
+								IOUtils.copy(cmFile.getInputStream(), new FileOutputStream(new File(FileUtil.THUMBNAIL_DIRECTORTY + time + category
+										+ "Small." + type)));
 							}
 						}
-						
-						FileVO fileVO = new FileVO(FileUtil.getCategoryNum(category), null, (int) cmFile.getSize(), name, sellerPn, String.valueOf(time), type);
+
+						FileVO fileVO = new FileVO(FileUtil.getCategoryNum(category), null, (int) cmFile.getSize(), name, sellerPn,
+								String.valueOf(time), type);
 						fileService.insertFile(fileVO);
 
 						Gson gson = new Gson();
@@ -179,9 +175,8 @@ public class FileController {
 
 	@RequestMapping(value = "/admin/file/upload.jt")
 	@ResponseBody
-	public void ajaxUpload(@ModelAttribute MultipartFile multipartFile,
-			BindingResult result, HttpServletRequest request,
-			HttpServletResponse response) throws IOException {
+	public void ajaxUpload(@ModelAttribute MultipartFile multipartFile, BindingResult result, HttpServletRequest request, HttpServletResponse response)
+			throws IOException {
 
 		@SuppressWarnings("deprecation")
 		String saveDirectory = request.getRealPath("resources/uploadAdmin");
@@ -189,28 +184,22 @@ public class FileController {
 		response.setContentType("text/plain");
 		if (result.hasErrors()) {
 			for (ObjectError error : result.getAllErrors()) {
-				logger.error("Error in uploading" + error.getCode() + " - "
-						+ error.getDefaultMessage());
+				logger.error("Error in uploading" + error.getCode() + " - " + error.getDefaultMessage());
 			}
 			writer.print("{ 'result' : 'error' }");
 		} else {
-			CommonsMultipartFile commonsMultipartFile = multipartFile
-					.getFiledata();
+			CommonsMultipartFile commonsMultipartFile = multipartFile.getFiledata();
 
 			String orginalName = commonsMultipartFile.getOriginalFilename();
-			String type = orginalName.substring(
-					orginalName.lastIndexOf(".") + 1, orginalName.length());
+			String type = orginalName.substring(orginalName.lastIndexOf(".") + 1, orginalName.length());
 			String saveName = System.currentTimeMillis() + "_image." + type;
 
 			if (FileUtil.checkContentType(type)) {
 
 				if (commonsMultipartFile.getSize() > 0) {
 					try {
-						IOUtils.copy(commonsMultipartFile.getInputStream(),
-								new FileOutputStream(new java.io.File(
-										saveDirectory, saveName)));
-						FileVO file = new FileVO(null, orginalName, saveName,
-								1, (int) commonsMultipartFile.getSize());
+						IOUtils.copy(commonsMultipartFile.getInputStream(), new FileOutputStream(new File(saveDirectory, saveName)));
+						FileVO file = new FileVO(null, orginalName, saveName, 1, (int) commonsMultipartFile.getSize());
 
 						fileService.insertFile(file);
 

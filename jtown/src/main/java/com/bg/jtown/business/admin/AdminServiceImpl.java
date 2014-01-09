@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.bg.jtown.business.Comment;
 import com.bg.jtown.business.Count;
+import com.bg.jtown.business.Event;
 import com.bg.jtown.business.Interest;
 import com.bg.jtown.business.search.AdminCommentFilter;
 import com.bg.jtown.business.search.AdministratorFilter;
@@ -119,6 +120,11 @@ public class AdminServiceImpl extends SqlSessionDaoSupport implements
 	public void updateSellerPassword(JtownUser jtownUser) {
 		jtownUser.setNewPassword(jtownUser.getUsername());
 		customJdbcUserDetailManager.changePassword(jtownUser);
+	}
+	
+	@Override
+	public void insertEventBanner(Event event) {
+		getSqlSession().insert("adminMapper.insertEventBanner", event);
 	}
 
 	// ~ Seller

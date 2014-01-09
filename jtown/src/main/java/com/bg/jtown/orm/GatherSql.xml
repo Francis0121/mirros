@@ -708,6 +708,26 @@
 		AND deleted = 'N'
 	</select>
 	
+	<select id="selectBannerEventList" resultMap="jtown-banner-map">
+		SELECT 
+		  event_pn,
+		  image,
+		  event_name,
+		  contents,
+		  input_date,
+		  banner_type,
+		  banner_order,
+		  datas,
+		  fb_message,
+		  fb_thumbnail 
+		FROM
+		  banner_event 
+		WHERE
+			deleted = 'N'
+	</select>
+	
+	
+	
 	<!-- bannerEventParticipant  -->
 	<resultMap type="Participant" id="jtown-participant-map">
 		<result column="customer_pn" property="customerPn"/>

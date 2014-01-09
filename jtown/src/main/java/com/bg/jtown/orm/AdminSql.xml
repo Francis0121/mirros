@@ -274,6 +274,13 @@
 		<if test="userId != null and userId != ''">
 		AND	u.id = #{userId}
 		</if>	
-	</select>	
+	</select>
+	
+	<insert id="insertEventBanner">
+	    INSERT INTO 
+	    	banner_event(image, event_name, contents, input_date, banner_type, banner_order, datas, deleted, fb_message, fb_thumbnail)
+		VALUES
+			(#{image}, #{eventName}, #{content}, SYSDATE(), #{bannerType}, 1, #{variableData}, 'N', #{fbMessage}, #{fbThumbnail})
+	</insert>	
 	
 </mapper>

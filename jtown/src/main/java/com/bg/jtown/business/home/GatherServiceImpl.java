@@ -308,6 +308,11 @@ public class GatherServiceImpl extends SqlSessionDaoSupport implements GatherSer
 	}
 
 	@Override
+	public List<Event> selectBannerEventList(Event event) {
+		return getSqlSession().selectList("gatherMapper.selectBannerEventList", event);
+	}
+
+	@Override
 	public void insertBannerEventParticipant(Participant participant) {
 		getSqlSession().insert("gatherMapper.insertBannerEventParticipant", participant);
 	}
@@ -319,7 +324,7 @@ public class GatherServiceImpl extends SqlSessionDaoSupport implements GatherSer
 
 	@Override
 	public List<Gather> selectMyHeartList(Integer customerPn) {
-		List<Gather> lists = getSqlSession().selectList("gatherMapper.selectMyHeartList", customerPn); 
+		List<Gather> lists = getSqlSession().selectList("gatherMapper.selectMyHeartList", customerPn);
 		for (int idx = 0, size = lists.size(); idx < size; idx++) {
 			lists.get(idx).setComparedTime(DateUtil.beforeRecodeTimeToString(lists.get(idx).getInputDate()));
 		}

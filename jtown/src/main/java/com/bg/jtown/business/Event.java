@@ -52,6 +52,10 @@ public class Event {
 	private Integer sellerPn;
 
 	/**
+	 * 이미지 이름
+	 */
+	private String image;
+	/**
 	 * 이미지 분류
 	 */
 	private Integer imageCategory;
@@ -268,13 +272,21 @@ public class Event {
 		this.dDay = dDay;
 	}
 
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
 	@Override
 	public String toString() {
 		return "Event [bannerOrder=" + bannerOrder + ", bannerType=" + bannerType + ", content=" + content + ", imagePn=" + imagePn + ", pn=" + pn
-				+ ", redisType=" + redisType + ", saveName=" + saveName + ", sellerPn=" + sellerPn + ", imageCategory=" + imageCategory
-				+ ", imageType=" + imageType + ", eventPn=" + eventPn + ", eventName=" + eventName + ", endDate=" + endDate + ", dDay=" + dDay
-				+ ", inputDate=" + inputDate + ", url=" + url + ", variableData=" + variableData + ", fbMessage=" + fbMessage + ", fbThumbnail="
-				+ fbThumbnail + "]";
+				+ ", redisType=" + redisType + ", saveName=" + saveName + ", sellerPn=" + sellerPn + ", image=" + image + ", imageCategory="
+				+ imageCategory + ", imageType=" + imageType + ", eventPn=" + eventPn + ", eventName=" + eventName + ", endDate=" + endDate
+				+ ", dDay=" + dDay + ", inputDate=" + inputDate + ", url=" + url + ", variableData=" + variableData + ", fbMessage=" + fbMessage
+				+ ", fbThumbnail=" + fbThumbnail + "]";
 	}
 
 }

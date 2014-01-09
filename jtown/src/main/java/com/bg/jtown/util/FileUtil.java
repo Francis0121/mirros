@@ -62,6 +62,10 @@ public class FileUtil {
 			return 309;
 		} else if (category.equals("product")) {
 			return 240;
+		}else if ("banner".equals(category)) {
+			return 496;
+		}else if ("facebook".equals(category)) {
+			return 116;
 		}
 		return 0;
 	}
@@ -73,6 +77,10 @@ public class FileUtil {
 			return 2;
 		} else if (category.equals("product")) {
 			return 3;
+		}else if ("banner".equals(category)) {
+			return 4;
+		}else if ("facebook".equals(category)) {
+			return 5;
 		}
 		return 0;
 	}
