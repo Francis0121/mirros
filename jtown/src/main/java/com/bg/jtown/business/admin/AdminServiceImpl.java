@@ -126,6 +126,16 @@ public class AdminServiceImpl extends SqlSessionDaoSupport implements
 	public void insertEventBanner(Event event) {
 		getSqlSession().insert("adminMapper.insertEventBanner", event);
 	}
+	
+	@Override
+	public void deleteEventBanner(Event event) {
+		getSqlSession().update("adminMapper.deleteEventBanner", event);
+	}
+
+	@Override
+	public void updateEventBanner(Event event) {
+		getSqlSession().update("adminMapper.updateEventBanner", event);
+	}
 
 	// ~ Seller
 

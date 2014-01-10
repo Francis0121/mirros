@@ -10,9 +10,14 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import net.sf.json.JSON;
+import net.sf.json.JSONArray;
+import net.sf.json.util.JSONBuilder;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.social.ApiException;
 import org.springframework.social.facebook.api.Facebook;
 import org.springframework.social.facebook.api.FacebookLink;
@@ -172,14 +177,19 @@ public class GatherController {
 		return prefixView + "gather";
 	}
 
-	/*
-	 * @RequestMapping(value = "/n/", method = RequestMethod.GET) public String
-	 * newGatherView() { return "redirect:/n"; }
-	 */
-	@RequestMapping(value = "/bannerJSON")
-	public String eventBanner(Model model, @RequestParam Integer order) {
-		model.addAttribute("order", order);
-		return prefixView + "bannerJSON";
+	@RequestMapping(value = "/bannerJSON.jt")
+	@ResponseBody
+	public Object eventBanner(HttpServletRequest request) {
+		JSONArray array = new JSONArray();
+		List<Event> bannerList = gatherService.selectBannerEventList(); 
+		
+		for(Event banner : bannerList){
+			Map<String,String> map = new HashMap<String,String>();
+			String jsonValue = "<div class='slide_inner'><a class='photo_link' target='_blank' href=\"javascript:jtown.pg.bannerOpen('"+banner.getPn()+"', '"+banner.getBannerType()+"', '"+banner.getVariableData()+"')\"><img class='photo' src='photo/thumbnail/"+banner.getSaveName()+"'></a></div>";
+			map.put("content", jsonValue);
+			array.add(map);
+		}
+		return array;
 	}
 
 	@RequestMapping(value = "/ajax/gatherPagination.jt", method = RequestMethod.POST)

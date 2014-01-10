@@ -42,6 +42,10 @@ public interface AdminService {
 	
 	void insertEventBanner(Event event);
 	
+	void deleteEventBanner(Event event);
+	
+	void updateEventBanner(Event event);
+	
 	// ~ Seller 
 
 	List<Interest> selectSellerInterestList(List<Integer> pnList);

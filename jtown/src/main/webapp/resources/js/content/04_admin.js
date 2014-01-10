@@ -451,15 +451,32 @@ $('#jt-admin-event-fb-img-upload-btn').uploadify({
 	},
 	'onUploadSuccess' : function(file, data, response){
 		var dataValue = eval('('+data+')');
-		$('.jt-admin-event-image-upload-img').html('');
+		$('.jt-admin-event-fb-upload-img').html('');
 		$('.jt-admin-event-fb-upload-img').append('<img src="'+contextPath+'photo/thumbnail/'+dataValue.saveName+'facebook.'+dataValue.type+' " alt="" />');
-		$('[name=fbMessage]').val(dataValue.saveName+'facebook.'+dataValue.type);
+		$('[name=fbThumbnail]').val(dataValue.saveName+'facebook.'+dataValue.type);
 		setTimeout('jtown.loading.finish()', 0);
 	}
 });
 
 $('.jt-admin-event-insert-btn').bind('click', function(){
 	var form = $('.jt-admin-event-form')[0];
-	form.action = contextPath+ 'admin/insertBanner';
+	form.action = contextPath+ 'admin/insertBannerSubmit';
 	form.submit();
+});
+
+$('.jt-admin-event-modify-btn').bind('click', function(){
+	var form = $('.jt-admin-event-form')[0];
+	form.action = contextPath+ 'admin/modifyBannerSubmit';
+	form.submit();
+});
+
+$('.jt-admin-event-delete-btn').bind('click', function(){
+	var eventPn = $('.jt-admin-event-wrap').attr('data-pn');
+	location.href=contextPath+'/admin/deleteBannerSubmit?pn='+eventPn;
+});
+
+
+$('.jt-admin-banner-list-item-wrap').bind('click',function(){
+	var pn = $(this).attr('data-pn');
+	location.href = contextPath+'admin/modifyBanner?pn='+pn;
 });

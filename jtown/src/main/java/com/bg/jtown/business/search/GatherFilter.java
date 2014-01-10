@@ -2,6 +2,10 @@ package com.bg.jtown.business.search;
 
 import com.bg.jtown.util.AbstractListFilter;
 
+/**
+ * @author InSanghak
+ *
+ */
 public class GatherFilter extends AbstractListFilter {
 
 	private int categoryPn;

@@ -682,6 +682,7 @@
 		<result column="image" property="saveName"/>
 		<result column="event_name" property="eventName"/>
 		<result column="contents" property="content"/>
+		<result column="deleted" property="deleted"/>
 		<result column="banner_order" property="bannerOrder"/>
 		<result column="banner_type" property="bannerType"/>
 		<result column="input_date" property="inputDate"/>
@@ -701,11 +702,11 @@
 		  banner_order,
 		  datas,
 		  fb_message,
-		  fb_thumbnail 
+		  fb_thumbnail,
+		  deleted 
 		FROM
 		  banner_event 
 		WHERE event_pn = #{pn}
-		AND deleted = 'N'
 	</select>
 	
 	<select id="selectBannerEventList" resultMap="jtown-banner-map">
@@ -719,14 +720,34 @@
 		  banner_order,
 		  datas,
 		  fb_message,
-		  fb_thumbnail 
+		  fb_thumbnail,
+		  deleted  
 		FROM
 		  banner_event 
 		WHERE
 			deleted = 'N'
 	</select>
 	
-	
+	<select id="selectBannerEventListPaging" resultMap="jtown-banner-map">
+		SELECT 
+		  event_pn,
+		  image,
+		  event_name,
+		  contents,
+		  input_date,
+		  banner_type,
+		  banner_order,
+		  datas,
+		  deleted,
+		  fb_message,
+		  fb_thumbnail 
+		FROM
+		  banner_event 
+		WHERE
+			deleted = #{deleted}
+		ORDER BY event_pn DESC	
+		LIMIT #{pagination.itemSeqBegin}, #{pagination.numItemsPerPage}
+	</select>
 	
 	<!-- bannerEventParticipant  -->
 	<resultMap type="Participant" id="jtown-participant-map">

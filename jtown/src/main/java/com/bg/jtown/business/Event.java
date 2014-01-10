@@ -109,6 +109,11 @@ public class Event {
 	 */
 	private String fbThumbnail;
 
+	/**
+	 * 삭제여부
+	 */
+	private String deleted;
+
 	public Event() {
 		super();
 	}
@@ -280,13 +285,21 @@ public class Event {
 		this.image = image;
 	}
 
+	public String getDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(String deleted) {
+		this.deleted = deleted;
+	}
+
 	@Override
 	public String toString() {
 		return "Event [bannerOrder=" + bannerOrder + ", bannerType=" + bannerType + ", content=" + content + ", imagePn=" + imagePn + ", pn=" + pn
 				+ ", redisType=" + redisType + ", saveName=" + saveName + ", sellerPn=" + sellerPn + ", image=" + image + ", imageCategory="
 				+ imageCategory + ", imageType=" + imageType + ", eventPn=" + eventPn + ", eventName=" + eventName + ", endDate=" + endDate
 				+ ", dDay=" + dDay + ", inputDate=" + inputDate + ", url=" + url + ", variableData=" + variableData + ", fbMessage=" + fbMessage
-				+ ", fbThumbnail=" + fbThumbnail + "]";
+				+ ", fbThumbnail=" + fbThumbnail + ", deleted=" + deleted + "]";
 	}
 
 }

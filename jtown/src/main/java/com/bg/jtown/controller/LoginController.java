@@ -58,7 +58,7 @@ import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 
 /**
  * @author Francis, 박광열
- * @author Francis In Sanghak
+ * @author In Sanghak
  */
 @Controller
 public class LoginController {

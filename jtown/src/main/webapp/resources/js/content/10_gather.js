@@ -483,27 +483,33 @@ $('.jt-pg-container').on('click', '.jt-pg-comment-line-delete', function(){
 
 //~ eventBanner
 
-jtown.pg.eventBannerOpen = function(pn){
-	$.postJSON(contextPath + 'ajax/eventBanner.jt', { pn : pn}, function(object) {
-		var html ='<div class="jt-gather-extend-banner">';
-		html +=	'<div><img src="'+contextPath+'resources/images/event/'+object.saveName+'" /></div>';
-		html +=	'<div class="jt-gather-extend-text"><pre>'+object.content+'</pre></div>';
-		html +=	'<div class="jt-gather-extend-input-box"><h3>페이스북으로 공유하고 이벤트 참여하기</h3>';
-		html +=	'<form action="'+contextPath+'signin/facebook" class="jt-gather-extend-banner-login-form" method="POST">';
-		html +=		'<input type="hidden" name="scope" value="publish_stream,offline_access,email,user_birthday,user_likes" />';
-		if('null'!= object.variableData){
-			html +=		'<input type="text" class="jt-gather-extend-input-long" placeholder="'+object.variableData+'" />';
-		}
-		html +=		'<div class="jt-btn-fbLogin jt-gather-extend-facebook" onclick="jtown.pg.facebookLogin('+object.pn+',\''+object.variableData+'\')">';
-		html +=			'<span class="loginImage"></span>';
-		html +=			'<span class="loginText">3초만에 참여하기</span>';
-		html +=		'</div>';
-		html += 	'</form>';
-		html +=	'</div>';
-		html +='</div>';
-		$.smartPop.open({ width : 510, height : 640, html : html, effect : null });
-	});
+jtown.pg.bannerOpen = function(pn, bannerType, url){
+	if(bannerType == 1){
+		$.postJSON(contextPath + 'ajax/eventBanner.jt', { pn : pn}, function(object) {
+			var html ='<div class="jt-gather-extend-banner">';
+			html +=	'<div><img src="'+contextPath+'photo/thumbnail/'+object.saveName+'" /></div>';
+			html +=	'<div class="jt-gather-extend-text"><pre>'+object.content+'</pre></div>';
+			html +=	'<div class="jt-gather-extend-input-box"><h3>페이스북으로 공유하고 이벤트 참여하기</h3>';
+			html +=	'<form action="'+contextPath+'signin/facebook" class="jt-gather-extend-banner-login-form" method="POST">';
+			html +=		'<input type="hidden" name="scope" value="publish_stream,offline_access,email,user_birthday,user_likes" />';
+			if('null'!= object.variableData){
+				html +=		'<input type="text" class="jt-gather-extend-input-long" placeholder="'+object.variableData+'" />';
+			}
+			html +=		'<div class="jt-btn-fbLogin jt-gather-extend-facebook" onclick="jtown.pg.facebookLogin('+object.pn+',\''+object.variableData+'\')">';
+			html +=			'<span class="loginImage"></span>';
+			html +=			'<span class="loginText">3초만에 참여하기</span>';
+			html +=		'</div>';
+			html += 	'</form>';
+			html +=	'</div>';
+			html +='</div>';
+			$.smartPop.open({ width : 510, height : 640, html : html, effect : null });
+		});
+	}else if(bannerType == 2){
+		window.open(url);
+	}
 };
+
+
 jtown.pg.facebookLogin = function(pn, memo){
 	sessionStorage.setItem('insertParticipant', pn);
 	sessionStorage.setItem('insertParticipantMemo', memo);
@@ -512,7 +518,16 @@ jtown.pg.facebookLogin = function(pn, memo){
 };
 
 jtown.pg.eventBanner = function(){
-	$.getJSON(contextPath+"bannerJSON?order=1", function(data) {
+	$.getJSON(contextPath+"bannerJSON.jt", function(data) {
+		console.log();
+		if(data.length == 0){
+			$('.jt-pg-event-item').remove();
+			$('.jt-pg-event-page').remove();
+			jtown.pg.itemOrder();
+			return;
+		}else{
+			$('.jt-pg-event-page').css('visibility', 'visible');
+		}
 	    $("#flavor_1").agile_carousel({
 	        carousel_data: data,
 	        carousel_outer_height: 289,

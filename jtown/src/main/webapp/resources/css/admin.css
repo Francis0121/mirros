@@ -234,3 +234,48 @@ body{background: #f6f4f5;}
 
 .jt-admin-quetion-tool{float: left; width: 100%; margin: 10px 0;}
 .jt-admin-quetion-tool-list .btnImage{background-position: 0 -60px;}
+
+
+/***********************************
+~ Banner
+***********************************/
+.jt-admin-event-wrap{padding: 10px;}
+.jt-admin-event-title{height: 60px;font-size: 18px;font-weight: bold;padding: 10px 0 0;}
+.jt-admin-event-title-wrap{float:left;font-size: 13px; width:100px;padding: 10px 5px;}
+.jt-admin-event-content-text {width:500px;height: 200px;}
+.jt-admin-event-name-input{width:500px;}
+.jt-admin-event-url-input{width:500px;}
+.jt-admin-event-partition-wrap{overflow: hidden;padding: 5px 0;}
+.jt-admin-event-facebook-message{width: 500px;height: 50px;}
+#jt-admin-event-image-upload-btn{font-size:13px;}
+#jt-admin-event-fb-img-upload-btn{font-size:13px;}
+.jt-admin-banner-btn{background-color: #fff; color: 888;border-radius: 8px; border: 1px solid #bbb; cursor: pointer; padding: 10px; }
+.jt-admin-banner-btn:HOVER {background-color: #fafafa}
+.jt-admin-event-footer{margin: 35px 0 0 290px}
+.jt-admin-event-image-upload-img{margin: 0 0 0 110px;}
+.jt-admin-event-fb-upload-img{margin: 0 0 0 110px;}
+
+.jt-admin-banner-list-wrap{padding: 10px;width:725px}
+.jt-admin-banner-title{height: 60px;font-size: 18px;font-weight: bold;padding: 10px 0 0;}
+.jt-admin-banner-list-name-title{float: left;width:600px;color: #fff;background-color: #808080;font-weight: bold; padding: 10px 0;font-size:13px;text-align: center;border: 1px solid #3e3e3e;}
+.jt-admin-banner-list-date-title{float:left;width:120px;color: #fff;background-color: #808080;font-weight: bold; padding: 10px 0;font-size:13px;text-align: center; border-top: 1px solid #3e3e3e;border-bottom: 1px solid #3e3e3e;border-right: 1px solid #3e3e3e;}
+.jt-admin-banner-list-name{float: left;width:549px;background: #fff;color: #808080;padding: 10px 10px; font-size: 13px;border-bottom: 1px solid #3e3e3e;border-right: 1px solid #3e3e3e;}
+.jt-admin-banner-list-date{float: left;width:120px;background: #fff;color: #808080;padding: 10px 0;font-size: 13px;border-bottom: 1px solid #3e3e3e;border-right: 1px solid #3e3e3e;text-align: center;}
+.jt-admin-banner-list-pn{float: left;width:30px;background: #fff;color: #808080;padding: 10px 0;font-size: 13px;border-bottom: 1px solid #3e3e3e;border-left: 1px solid #3e3e3e;border-right: 1px solid #3e3e3e;text-align: center;}
+
+.jt-banner-pagination-wrap{width:680px;overflow: hidden;padding: 5px;}
+.jt-banner-pagination-item-wrap{float: left;}
+.jt-pagination>div{margin: 0 auto;}
+.jt-banner-pagination-item-wrap>a{ margin: 0 3px; width: 10px; float: left; height: 16px; line-height: 16px;}
+.jt-banner-pagination-item-wrap>.page-beforeafter{ font-size: 10px; font-weight: bold; font-family: Arial; width: 45px; color: #5a5a5a;}
+.jt-banner-pagination-item-wrap>.page-link, .jt-banner-pagination-item-wrap>.page-link:VISITED{ color: #5a5a5a; font-size: 13px; }
+.jt-banner-pagination-item-wrap>.page-link:HOVER{ color: #5a5a5a; text-decoration: underline; font-weight: bold; }
+.jt-banner-pagination-item-wrap>.page-now{font-weight: bold;}
+.jt-banner-pagination-item-wrap>.page-now:HOVER{text-decoration: none;}
+.jt-admin-banner-add-btn{float: right;}
+.jt-admin-banner-list-item-wrap{cursor: pointer;}
+.jt-admin-banner-list-item-wrap:HOVER {background-color: #fcfcfc;	}
+
+
+
+

@@ -2,15 +2,12 @@ package com.bg.jtown.business.home;
 
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
-import com.bg.jtown.business.Comment;
 import com.bg.jtown.business.Count;
 import com.bg.jtown.business.Event;
 import com.bg.jtown.business.Gather;
 import com.bg.jtown.business.Participant;
+import com.bg.jtown.business.search.BannerFilter;
 import com.bg.jtown.business.search.GatherFilter;
-import com.bg.jtown.security.SummaryUser;
 
 /**
  * @author In Sanghak
@@ -77,7 +74,9 @@ public interface GatherService {
 		
 	Event selectBannerEvent(Event event);
 	
-	List<Event> selectBannerEventList(Event event);
+	List<Event> selectBannerEventList();
+	
+	List<Event> selectBannerEventList(BannerFilter bannerFilter);
 	
 	void insertBannerEventParticipant(Participant participant);
 	

@@ -39,6 +39,7 @@ import com.bg.jtown.util.ValidationUtil;
 
 /**
  * @author Francis, 박광열
+ * @author In Sanghak
  * 
  */
 @Controller
@@ -170,16 +171,40 @@ public class AdminController {
 		return prefixView + "statistic";
 	}
 	
-	@RequestMapping(value = "/event")
-	public String eventBanner(@ModelAttribute Event event, Model model, SummaryUser summaryUser){
-		model.addAttribute("bannerList", gatherService.selectBannerEventList(event));
-		return prefixView+"event";
+	@RequestMapping(value = "/banner", method = RequestMethod.GET)
+	public String eventBanner(@ModelAttribute BannerFilter bannerFilter, Model model, SummaryUser summaryUser){
+		model.addAttribute("bannerList", gatherService.selectBannerEventList(bannerFilter));
+		return prefixView+"banner/list";
 	}
 	
-	@RequestMapping(value = "/insertBanner")
-	public String insertBanner(@ModelAttribute Event event){
+	@RequestMapping(value = "/insertBanner", method = RequestMethod.GET)
+	public String insertBanner(@ModelAttribute Event event, Model model){
+		model.addAttribute("insertFlag", true);
+		return prefixView+"banner/insert_form";
+	}
+	
+	@RequestMapping(value = "/modifyBanner", method = RequestMethod.GET)
+	public String modifyBanner(@ModelAttribute Event event, Model model, SummaryUser summaryUser){
+		model.addAttribute("bannerItem", gatherService.selectBannerEvent(event));
+		return prefixView+"banner/insert_form";
+	}
+	
+	@RequestMapping(value = "/insertBannerSubmit")
+	public String insertBannerSubmit(@ModelAttribute Event event){
 		adminService.insertEventBanner(event);
-		return "redirect:event";
+		return "redirect:banner";
+	}
+	
+	@RequestMapping(value = "/modifyBannerSubmit")
+	public String modfiyBannerSubmit(@ModelAttribute Event event){
+		adminService.updateEventBanner(event);
+		return "redirect:banner";
+	}
+	
+	@RequestMapping(value = "/deleteBannerSubmit")
+	public String deleteBannerSubmit(@ModelAttribute Event event){
+		adminService.deleteEventBanner(event);
+		return "redirect:banner";
 	}
 	
 

@@ -2,12 +2,10 @@ package com.bg.jtown.business.home;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpSession;
 
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,12 +17,10 @@ import com.bg.jtown.business.Event;
 import com.bg.jtown.business.Gather;
 import com.bg.jtown.business.Participant;
 import com.bg.jtown.business.comment.CommentService;
+import com.bg.jtown.business.search.BannerFilter;
 import com.bg.jtown.business.search.GatherFilter;
 import com.bg.jtown.redis.Publisher;
-import com.bg.jtown.security.Authority;
-import com.bg.jtown.security.SummaryUser;
 import com.bg.jtown.util.DateUtil;
-import com.bg.jtown.util.Pagination;
 
 /**
  * @author In Sanghak
@@ -308,8 +304,13 @@ public class GatherServiceImpl extends SqlSessionDaoSupport implements GatherSer
 	}
 
 	@Override
-	public List<Event> selectBannerEventList(Event event) {
-		return getSqlSession().selectList("gatherMapper.selectBannerEventList", event);
+	public List<Event> selectBannerEventList() {
+		return getSqlSession().selectList("gatherMapper.selectBannerEventList");
+	}
+	
+	@Override
+	public List<Event> selectBannerEventList(BannerFilter bannerFilter) {
+		return getSqlSession().selectList("gatherMapper.selectBannerEventListPaging", bannerFilter);
 	}
 
 	@Override

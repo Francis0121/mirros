@@ -283,4 +283,28 @@
 			(#{image}, #{eventName}, #{content}, SYSDATE(), #{bannerType}, 1, #{variableData}, 'N', #{fbMessage}, #{fbThumbnail})
 	</insert>	
 	
+	<update id="deleteEventBanner">
+		UPDATE 
+			banner_event
+		SET 
+			deleted = 'Y'
+		WHERE 
+			event_pn = #{pn}
+	</update>
+	
+	<update id="updateEventBanner">
+	    UPDATE
+	    	banner_event
+	    SET
+	    	image = #{image}, 
+	    	event_name = #{eventName}, 
+	    	contents = #{content},
+	    	banner_type = #{bannerType},
+	    	datas  = #{variableData},
+	    	fb_message =  #{fbMessage},
+	    	fb_thumbnail =  #{fbThumbnail}
+	    WHERE
+	    	event_pn = #{pn}
+	</update>
+	
 </mapper>
