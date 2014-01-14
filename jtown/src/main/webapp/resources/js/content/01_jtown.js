@@ -25,6 +25,11 @@ $(function() {
 		});
 	}
 	sessionStorage.clear();
+	
+	if($('.jt-pg-main').length == 1 && $('.jt-pg-item-wrap').length == 0){
+		alert('상품이 존재하지 않습니다.');
+		history.back();
+	}
 	// ~ Home
 	
 //	Sub Navigation View	
@@ -530,6 +535,20 @@ jtown.home.naturalLanguage = function(){
 		return temp;
 	}
 	
+	$('#jt-naturalLanguage-search').bind('keyup', function(e){
+		if(e.keyCode == 13){
+			if($('#jt-naturalLanguage-search').val().length < 2){
+				jtown.dialog('검색은 2글자 이상 입력하셔야 합니다');
+			}else{
+				post(contextPath, {
+					itemName : $('#jt-naturalLanguage-search').val()
+				});
+			}
+			
+		}
+		
+	});
+	
 	$('#jt-naturalLanguage-search').catcomplete({
 		source : function(request, response){
 			var url = contextPath + 'ajax/natural/autocomplete.jt',
@@ -550,11 +569,12 @@ jtown.home.naturalLanguage = function(){
 				*/
 				var size =  jtownUsers.length, itemSize = productName.length;
 				var allItemCount  = 0;
+				/*
 				if(itemSize > 0 && request.term.length >= 2){
 					data[size] = { label : '[ '+request.term +' ] (이)가 포함된 모든 상품' , value : request.term, categoryPn : 0, spn : 0, category : 'ITEM'};
 					allItemCount = 1;
-				}
-				else if(itemSize == 0 && request.term.length >= 2){
+				}*/
+				if(itemSize == 0 && request.term.length >= 2){
 					data[size] = { label : '검색 결과가 없습니다.' , value : null, categoryPn : 0, spn : 0, category : 'ITEM'};
 				} 
 				for(var idx = 0, len = productName.length; idx < len; idx++  ){

@@ -80,8 +80,8 @@
 .jt-pg-comment-line-warn:HOVER{color: #f48409}
 .jt-pg-comment-icon{text-indent: -99999px; width: 15px; height: 15px; display: block; background: url("../images/jt-pg-comment.png");float: left; margin: 7px 7px 4px 5px;}
 
-.jt-gather-extend-banner{width:496px; height:620px;border: 3px solid #f48409; background: #fff;font-size:12px;font-family: NanumBarunGothic; }
-.jt-gather-extend-text{border-bottom: 1px solid #ddd;height: 160px;padding: 20px;line-height: 1.6}
+.jt-gather-extend-banner{width:496px; height:640px;border: 3px solid #f48409; background: #fff;font-size:12px;font-family: NanumBarunGothic; }
+.jt-gather-extend-text{border-bottom: 1px solid #ddd;height: 160px;padding: 20px;line-height: 1.6;overflow: auto;}
 .jt-gather-extend-input-box{padding: 15px 20px;color: #999;}
 .jt-gather-extend-input-box>h3{padding: 0 0 10px 0;}
 .jt-gather-extend-input-warn{width: 100%;  display: inline-block; margin: 25px 0 0 0; line-height: 1.7}

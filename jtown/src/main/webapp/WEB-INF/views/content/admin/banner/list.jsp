@@ -54,7 +54,7 @@
 		</div>
 	</form:form>
 	<button type="button" class="jt-admin-banner-add-btn jt-admin-banner-btn" onclick="location.href='${cp}/admin/insertBanner'">
-		<img alt="plus" src="/jtown/resources/images/jt-plus-btn.png" style="width:20px;margin: 0 5px -5px 0;">배너 추가
+		<img alt="plus" src="${cp}/resources/images/jt-plus-btn.png" style="width:20px;margin: 0 5px -5px 0;">배너 추가
 	</button>
 </div>
  

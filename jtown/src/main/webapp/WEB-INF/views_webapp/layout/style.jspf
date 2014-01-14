@@ -6,12 +6,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 <meta name=" apple-mobile-web-app-capable" content ="yes "/>
 	
-<%--
-<link rel="stylesheet" type="text/css" href="${cp }/resources_webapp/css/mirros.min.css?02" /> 
- --%>
+
+<link rel="stylesheet" type="text/css" href="${cp }/resources_webapp/css/mirros.min.css?03" /> 
+<%-- 
  <link rel="stylesheet" type="text/css" href="${cp }/resources_webapp/css/default.css?75" />
  <link rel="stylesheet" type="text/css" href="${cp }/resources_webapp/css/items.css?80" />
  <link rel="stylesheet" type="text/css" href="${cp }/resources_webapp/css/like.css?20" />
  <link rel="stylesheet" type="text/css" href="${cp }/resources_webapp/css/reply.css?51" /> 
  <link rel="stylesheet" type="text/css" href="${cp }/resources_webapp/css/more.css?43" />
- 
+ --%>

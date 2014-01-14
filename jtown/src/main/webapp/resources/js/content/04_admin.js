@@ -472,7 +472,7 @@ $('.jt-admin-event-modify-btn').bind('click', function(){
 
 $('.jt-admin-event-delete-btn').bind('click', function(){
 	var eventPn = $('.jt-admin-event-wrap').attr('data-pn');
-	location.href=contextPath+'/admin/deleteBannerSubmit?pn='+eventPn;
+	location.href = contextPath+'admin/deleteBannerSubmit?pn='+eventPn;
 });
 
 

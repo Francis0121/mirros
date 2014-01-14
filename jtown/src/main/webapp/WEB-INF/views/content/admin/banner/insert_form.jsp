@@ -34,7 +34,6 @@
 				<input type="text" class="jt-admin-filter-input jt-admin-event-url-input" placeholder="${bannerItem.bannerType == 2 ? 'ex) http://www.mirros.net' : 'ex) 수요일 18시/ 19시 (없으면 비워둡니다.)'}" name="variableData" value="${bannerItem.variableData}">
 			</div>
 		</div>
-		
 		<div class="jt-admin-event-partition-wrap">
 			<input type="hidden" name="image" value="${bannerItem.saveName}">
 			<div class="jt-admin-event-title-wrap">

@@ -492,7 +492,8 @@ jtown.pg.bannerOpen = function(pn, bannerType, url){
 			html +=	'<div class="jt-gather-extend-input-box"><h3>페이스북으로 공유하고 이벤트 참여하기</h3>';
 			html +=	'<form action="'+contextPath+'signin/facebook" class="jt-gather-extend-banner-login-form" method="POST">';
 			html +=		'<input type="hidden" name="scope" value="publish_stream,offline_access,email,user_birthday,user_likes" />';
-			if('null'!= object.variableData){
+			console.log(object.variableData);
+			if(object.variableData != ''){
 				html +=		'<input type="text" class="jt-gather-extend-input-long" placeholder="'+object.variableData+'" />';
 			}
 			html +=		'<div class="jt-btn-fbLogin jt-gather-extend-facebook" onclick="jtown.pg.facebookLogin('+object.pn+',\''+object.variableData+'\')">';
@@ -502,7 +503,7 @@ jtown.pg.bannerOpen = function(pn, bannerType, url){
 			html += 	'</form>';
 			html +=	'</div>';
 			html +='</div>';
-			$.smartPop.open({ width : 510, height : 640, html : html, effect : null });
+			$.smartPop.open({ width : 510, height : 650, html : html, effect : null });
 		});
 	}else if(bannerType == 2){
 		window.open(url);

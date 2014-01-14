@@ -29,9 +29,11 @@
 	<link rel="stylesheet" type="text/css" href="${cp}/resources/css/help.css" />
 	<link rel="stylesheet" type="text/css" href="${cp}/resources/css/introjs.css" />
 	<link rel="stylesheet" type="text/css" href="${cp}/resources/css/gather.css" />
-<%--		 
-		 <link rel="stylesheet" type="text/css" href="${cp}/resources/css/mirros.min.css?1220_1500" />
-		 --%>
+ 
+ <%-- 
+	 <link rel="stylesheet" type="text/css" href="${cp}/resources/css/mirros.min.css?0113_1500" />
+--%>
+		
 <%-- IE Browser --%>
 <!--[if gte IE 9]>
 <style type="text/css"> .gradient {  filter: none; }</style>

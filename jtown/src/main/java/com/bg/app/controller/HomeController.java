@@ -55,7 +55,6 @@ public class HomeController {
 			return "redirect:https"+request.getRequestURL().toString().replace("http", "");
 		}
 		*/
-		
 		if("H".equals(gatherFilter.getNavFlag())){
 			hotItemList = gatherService.selectHotProductList(gatherFilter);
 		}
