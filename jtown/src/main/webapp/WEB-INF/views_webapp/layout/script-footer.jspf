@@ -11,11 +11,11 @@
 
 <%-- Custom --%>
 <script src="${cp}/resources_webapp/js/util.min.js?6"></script>
-<%--
-<script src="${cp}/resources_webapp/js/no-compressed/default.js?021"></script>
---%>
-<script src="${cp}/resources_webapp/js/default.min.js?9"></script>
 
+<script src="${cp}/resources_webapp/js/no-compressed/default.js?021"></script>
+<%--
+<script src="${cp}/resources_webapp/js/default.min.js?9"></script>
+--%>
 
 <script src="${cp}/resources_webapp/js/mirros.all.min.js"></script>
 <%--

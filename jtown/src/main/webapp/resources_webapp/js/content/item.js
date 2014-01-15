@@ -47,10 +47,6 @@ $.pagingItem = function(init){
 var isScrollingFlag = 0;
 
 $.scrollPaging = function(){
-	var iPhoneMenuHeight = 0;
-	if($.isIOS()){
-		iPhoneMenuHeight = 60;
-	}
 	$('.jt-app-contents-wrap').scroll(function(){
 	    if($.checkAppPage()){
 	    	isScrollingFlag = 1;

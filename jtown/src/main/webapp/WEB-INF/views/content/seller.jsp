@@ -275,6 +275,13 @@
 									</div>
 							</div>
 						</c:forEach>
+						<c:if test="${productSize < 10 }">  
+							<div class="thumbnail">
+								<div style="margin: 65px 0 ;text-align: center; border: 1px solid #fafafa;">
+									<img alt="plus" src="${cp}/resources/images/jt-plus-btn.png" style="width:60px">
+								</div>
+							</div>
+						</c:if> 
 						<c:forEach items="${eventList }" var="event">
 						<div class="jt-seller-event-wrap" data-url="${event.url }">
 							<span class="jt-home-expand-shop-event-new-image" style="margin: 0;">NEW</span>

@@ -19,7 +19,7 @@
 	 	</div>
 		<div>
 		 <ul class="jt-app-header-category" data-category-type="${categoryType }" data-category="${categoryPn}">
-		 	<li><a data-url="${cp }/app" class="jt-app-header-category-items" data-cPn="0">All</a></li>
+		 	<li><a data-url="${cp }/app/cpn/0" class="jt-app-header-category-items" data-cPn="0">All</a></li>
 		 	<c:forEach items="${interestCategories}" var="categorys">
 		 		<li><a data-url="${cp}/app/cpn/${categorys.categoryPn}" class="jt-app-header-category-items" data-cPn="${categorys.categoryPn}">${categorys.name }</a></li>
 		 	</c:forEach>

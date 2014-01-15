@@ -185,7 +185,7 @@ public class GatherController {
 		
 		for(Event banner : bannerList){
 			Map<String,String> map = new HashMap<String,String>();
-			String jsonValue = "<div class='slide_inner'><a class='photo_link' target='_blank' href=\"javascript:jtown.pg.bannerOpen('"+banner.getPn()+"', '"+banner.getBannerType()+"', '"+banner.getVariableData()+"')\"><img class='photo' src='photo/thumbnail/"+banner.getSaveName()+"'></a></div>";
+			String jsonValue = "<div class='slide_inner'><a class='photo_link' target='_blank' onclick=\"javascript:jtown.pg.bannerOpen('"+banner.getPn()+"', '"+banner.getBannerType()+"', '"+banner.getVariableData()+"')\"><img class='photo' src='photo/thumbnail/"+banner.getSaveName()+"'></a></div>";
 			map.put("content", jsonValue);
 			array.add(map);
 		}
