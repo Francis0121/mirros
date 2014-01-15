@@ -224,8 +224,10 @@
 					</div>
 				</div>
 			<div class="jt-seller-product-tip">
-				<div>Tip 1 : 인기 상품은 최대 1주일까지 HOT에 올라갑니다. 매력적인 상품을 올려보세요!</div>
-				<div>Tip 2 : 하루에 올릴 수 있는 상품은 최대 12개 까지입니다.</div>
+				<ul>
+					<li>Tip 1 : 인기 상품은 최대 1주일까지 HOT에 올라갑니다. 매력적인 상품을 올려보세요!</li>
+					<li>Tip 2 : 하루에 올릴 수 있는 상품은 최대 12개 까지입니다.</li>
+				</ul>
 				
 				<div class="jt-showHowWrap">
 				<a href="#none" id="showHow" class="jt-showhow-btn jt-btn-white-small">
@@ -295,7 +297,7 @@
 							</button>
 							
 							<button type="button" class="jt-btn-white-small jt-product-plus-btn jt-event-popup" data-pn="${jtownUser.pn }">
-								<img alt="plus" src="${cp }/resources/images/jt-plus-btn.png"><div>새 이벤트 등록</div>
+								<img alt="plus" src="${cp }/resources/images/jt-plus-btn.png"><div>이벤트 관리</div>
 							</button>
 						</div>
 					

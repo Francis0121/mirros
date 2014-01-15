@@ -103,10 +103,10 @@ word-wrap: break-word; }
 *	/ - home smartPopup SellerPage
 *
 */
-.jt-home-expand-shop{ margin: 0 3px 5px 3px; width: 785px; border: 1px solid #d1cdcd; float: left; background: #fff;
-	box-shadow : 0 1px 3px rgba(34,25,25,0.4);
-	-moz-box-shadow : 0 1px 3px rgba(34,25,25,0.4);
-	-webkit-box-shadow : 0 1px 3px rgba(34,25,25,0.4);
+.jt-home-expand-shop{ margin: 0 3px 5px 3px; width: 785px; float: left; background: #fff;
+	box-shadow : 0 1px 1px rgba(34,25,25,0.4);
+	-moz-box-shadow : 0 1px 1px rgba(34,25,25,0.4);
+	-webkit-box-shadow : 0 1px 1px rgba(34,25,25,0.4);
 }
 .jt-home-expand-click-shop{
 	border: 3px solid #f48409; background: #fff;

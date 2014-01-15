@@ -53,7 +53,7 @@ html{ overflow-y: hidden;}
 							</div>
 						</div>
 						<div class="jt-event-article-object-empty">
-							이벤트를 업로드 해주세요.
+							이벤트 비어있음
 						</div>
 						<div class="jt-product-article-object-wrap jt-product-article-object-photo">
 							<span>상품 정보가 아직</span>

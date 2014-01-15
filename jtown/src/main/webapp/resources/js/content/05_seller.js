@@ -667,10 +667,11 @@ $('.jt-event-article-object-item').on('click',function(){
 
 $('.jt-event-article-object').on({
 	mouseover : function(){
-		$(this).children('.jt-seller-expand-product-delete-tool').show();
+		$(this).children('.jt-event-article-object-empty').length == 0 ? $(this).children('.jt-seller-expand-product-delete-tool').show() : ''; 
 	},
 	mouseout: function(){
-		$(this).children('.jt-seller-expand-product-delete-tool').hide();
+		$(this).children('.jt-event-article-object-empty').length == 0 ? $(this).children('.jt-seller-expand-product-delete-tool').hide() : ''; 
+		
 	}
 });
 
