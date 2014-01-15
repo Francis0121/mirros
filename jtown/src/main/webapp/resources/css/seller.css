@@ -21,7 +21,7 @@
 *	seller
 *
 */
-.jt-showHowWrap{ margin: 0px 8px 0 0;overflow: hidden;float: right;}
+.jt-showHowWrap{ margin: 10px 8px 0 0;overflow: hidden;}
 .jt-showhow-btn{
 	font-size : 12px;
 	-webkit-border-radius: 5px; -moz-border-radius: 5px;border-radius: 5px;

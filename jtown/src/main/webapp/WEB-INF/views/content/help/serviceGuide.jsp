@@ -22,7 +22,7 @@
 		<ul class="jt-about-mirrosis-content">
 			<li>
 				<div>
-					<img alt="Speed" src="${cp }/resources/images/about/jt-mirrosis-btn-01.jpg">
+					<img alt="Speed" src="${cp }/resources/images/about/jt-mirrosis-btn-01.png">
 				</div>
 				<ul>
 					<li>
@@ -39,7 +39,7 @@
 			</li>
 			<li>
 				<div>
-					<img alt="Helpful" src="${cp }/resources/images/about/jt-mirrosis-btn-02.jpg">
+					<img alt="Helpful" src="${cp }/resources/images/about/jt-mirrosis-btn-02.png">
 				</div>
 				<ul>
 					<li>
@@ -55,7 +55,7 @@
 			</li>
 			<li>
 				<div>
-					<img alt="Trust" src="${cp }/resources/images/about/jt-mirrosis-btn-03.jpg">
+					<img alt="Trust" src="${cp }/resources/images/about/jt-mirrosis-btn-03.png">
 				</div>
 				<ul>
 					<li>
