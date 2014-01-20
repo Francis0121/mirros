@@ -52,6 +52,7 @@
 		  AND CURDATE() BETWEEN usci.start_date AND usci.end_date 
 		  AND UCASE(usp.name) LIKE #{upperSearchName}
 		  GROUP BY usp.pn
+		  ORDER BY usp.name
 		  LIMIT 30
 	</select>
 	

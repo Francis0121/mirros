@@ -307,4 +307,105 @@
 	    	event_pn = #{pn}
 	</update>
 	
+	<!-- ProductCategory -->
+	
+	<resultMap type="ProductCategory" id="jt-product-category-map">
+		<result column="sections_pn" property="sectionsPn"/>
+		<result column="sections_name" property="sectionsName"/>
+		<result column="divisions_pn" property="divisionsPn"/>
+		<result column="divisions_name" property="divisionsName"/>
+		<result column="groups_pn" property="groupsPn"/>
+		<result column="groups_name" property="groupsName"/>
+	</resultMap>
+
+	<select id="selectSectionsList" resultMap="jt-product-category-map">
+	    SELECT 
+	    	sections_pn,
+	    	sections_name
+	    FROM
+	    	product_sections
+	    WHERE
+	    	deleted = 'N'
+	</select>
+	
+	<select id="selectDivisionsList" resultMap="jt-product-category-map">
+	    SELECT
+	    	divisions_pn, 
+	    	sections_pn,
+	    	divisions_name
+	    FROM
+	    	product_divisions
+	    WHERE
+	    	deleted = 'N'
+	    AND
+	    	sections_pn = #{sectionsPn}
+	</select>
+	
+	<select id="selectGroupsList" resultMap="jt-product-category-map">
+	    SELECT
+	    	groups_pn,
+	    	divisions_pn, 
+	    	groups_name
+	    FROM
+	    	product_groups
+	    WHERE
+	    	deleted = 'N'
+	    AND
+	    	divisions_pn = #{divisionsPn}
+	</select>
+	
+	<insert id="insertSectionsItem">
+	    INSERT INTO
+	    	product_sections(sections_name)
+	    VALUES(#{sectionsName})
+	     <selectKey keyProperty="sectionsPn" resultType="Integer" order="AFTER">
+    		SELECT LAST_INSERT_ID()
+  		</selectKey>
+	</insert>
+	
+	<insert id="insertDivisionsItem">
+	    INSERT INTO
+	    	product_divisions(sections_pn, divisions_name)
+	    VALUES(#{sectionsPn}, #{divisionsName})
+	     <selectKey keyProperty="divisionsPn" resultType="Integer" order="AFTER">
+    		SELECT LAST_INSERT_ID()
+  		</selectKey>
+	</insert>
+	
+	<insert id="insertGroupsItem">
+	    INSERT INTO
+	    	product_groups(divisions_pn, groups_name)
+	    VALUES(#{divisionsPn}, #{groupsName})
+	     <selectKey keyProperty="groupsPn" resultType="Integer" order="AFTER">
+    		SELECT LAST_INSERT_ID()
+  		</selectKey>
+	</insert>
+	
+	<update id="updateSectionsItem">
+	    UPDATE
+	    	product_sections 
+	    SET
+	    	sections_name = #{sectionsName}
+	    WHERE
+	    	sections_pn = #{sectionsPn}
+	</update>
+	
+	<update id="updateDivisionsItem">
+	    UPDATE
+	    	product_divisions
+	    SET
+	    	divisions_name = #{divisionsName}
+	    WHERE
+	    	divisions_pn = #{divisionsPn}
+	</update>
+	
+	<update id="updateGroupsItem">
+		UPDATE
+			product_groups
+		SET
+			groups_name = #{groupsName}
+		WHERE	    
+			groups_pn = #{groupsPn}
+	</update>
+	
 </mapper>

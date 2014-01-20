@@ -14,6 +14,7 @@ import com.bg.jtown.business.Comment;
 import com.bg.jtown.business.Count;
 import com.bg.jtown.business.Event;
 import com.bg.jtown.business.Interest;
+import com.bg.jtown.business.ProductCategory;
 import com.bg.jtown.business.search.AdminCommentFilter;
 import com.bg.jtown.business.search.AdministratorFilter;
 import com.bg.jtown.business.search.UserFilter;
@@ -266,5 +267,52 @@ public class AdminServiceImpl extends SqlSessionDaoSupport implements
 		return getSqlSession().selectList("adminMapper.selectAllCommentList",
 				adminCommentFilter);
 	}
+	
+	//~ ProductCategory
+	
+		@Override
+		public List<ProductCategory> selectSectionsList() {
+			return getSqlSession().selectList("adminMapper.selectSectionsList");
+		}
+
+		@Override
+		public List<ProductCategory> selectDivisionsList(ProductCategory productCategory) {
+			return getSqlSession().selectList("adminMapper.selectDivisionsList", productCategory);
+		}
+
+		@Override
+		public List<ProductCategory> selectGroupsList(ProductCategory productCategory) {
+			return getSqlSession().selectList("adminMapper.selectGroupsList", productCategory);
+		}
+
+		@Override
+		public void insertSectionsItem(ProductCategory productCategory) {
+			getSqlSession().insert("adminMapper.insertSectionsItem", productCategory);
+		}
+
+		@Override
+		public void insertDivisionsItem(ProductCategory productCategory) {
+			getSqlSession().insert("adminMapper.insertDivisionsItem", productCategory);
+		}
+
+		@Override
+		public void insertGroupsItem(ProductCategory productCategory) {
+			getSqlSession().insert("adminMapper.insertGroupsItem", productCategory);
+		}
+
+		@Override
+		public void updateSectionsItem(ProductCategory productCategory) {
+			getSqlSession().update("adminMapper.updateSectionsItem", productCategory);
+		}
+
+		@Override
+		public void updateDivisionsItem(ProductCategory productCategory) {
+			getSqlSession().update("adminMapper.updateDivisionsItem", productCategory);
+		}
+
+		@Override
+		public void updateGroupsItem(ProductCategory productCategory) {
+			getSqlSession().update("adminMapper.updateGroupsItem", productCategory);
+		}
 
 }

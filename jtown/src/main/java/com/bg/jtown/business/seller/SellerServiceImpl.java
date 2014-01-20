@@ -16,6 +16,7 @@ import com.bg.jtown.business.Event;
 import com.bg.jtown.business.Interest;
 import com.bg.jtown.business.Json;
 import com.bg.jtown.business.Product;
+import com.bg.jtown.business.ProductCategory;
 import com.bg.jtown.business.Statistic;
 import com.bg.jtown.business.admin.AdminService;
 import com.bg.jtown.business.comment.CommentService;

@@ -480,3 +480,95 @@ $('.jt-admin-banner-list-item-wrap').bind('click',function(){
 	var pn = $(this).attr('data-pn');
 	location.href = contextPath+'admin/modifyBanner?pn='+pn;
 });
+
+// ~ Product Category
+
+$('body').on('mouseenter', '.jt-admin-category-wrap-ul>li', function(){
+	$(this).children('.jt-edit-btn').css('display','block');
+});
+$('body').on('mouseleave', '.jt-admin-category-wrap-ul>li', function(){
+	$(this).children('.jt-edit-btn').css('display','none');
+});
+
+$('body').on('click', '.jt-admin-category-sections-wrap-ul>li', function(){
+	$('.jt-admin-category-sections-wrap-ul>li').removeClass('jt-admin-category-sections-active');
+	$(this).addClass('jt-admin-category-sections-active');
+	var sectionsPn = $(this).attr('data-sections-pn');
+	$.post(contextPath +'/ajax/getDivisionsList.jt' , {sectionsPn : sectionsPn}, function(data){
+		var html = '';
+		for(var idx = 0, size = data.length; idx <size; idx++){
+			html += '<li data-divisions-pn='+data[idx].divisionsPn+'>'+data[idx].divisionsName+'</li>';
+		}
+		$('.jt-admin-category-divisions-wrap-ul').html(html);
+	});
+});
+
+$('body').on('click', '.jt-admin-category-divisions-wrap-ul>li', function(){
+	$('.jt-admin-category-divisions-wrap-ul>li').removeClass('jt-admin-category-divisions-active');
+	$(this).addClass('jt-admin-category-divisions-active');
+	var divisionsPn = $(this).attr('data-divisions-pn');
+	$.post(contextPath +'/ajax/getGroupsList.jt' , {divisionsPn : divisionsPn}, function(data){
+		var html = '';
+		for(var idx = 0, size = data.length; idx <size; idx++){
+			html += '<li data-groups-pn='+data[idx].groupsPn+'>'+data[idx].groupsName+'</li>';
+		}
+		$('.jt-admin-category-groups-wrap-ul').html(html);
+	});
+});
+
+$('body').on('click', '.jt-admin-category-groups-wrap-ul>li', function(){
+	$('.jt-admin-category-groups-wrap-ul>li').removeClass('jt-admin-category-groups-active');
+	$(this).addClass('jt-admin-category-groups-active');
+	var groupsPn = $(this).attr('data-groups-pn');
+});
+
+$('body').on('click', '.jt-admin-category-sections-btn' , function(){
+	if($('.jt-admin-category-button-wrap>input:eq(0)').val() == ''){
+		jtown.dialog('대분류를 입력해주세요');
+		return;
+	}
+	var sectionsName = $('.jt-admin-category-button-wrap>input:eq(0)').val();
+	$.post(contextPath +'admin/ajax/insertProductSections.jt' , {sectionsName : sectionsName}, function(data){
+		var html = '<li data-sections-pn='+data.sectionsPn+'>'+data.sectionsName+'</li>';
+		$('.jt-admin-category-sections-wrap-ul').append(html);
+		$('.jt-admin-category-button-wrap>input:eq(0)').val('');
+	});
+});
+
+$('body').on('click', '.jt-admin-category-divisions-btn' , function(){
+	if($('.jt-admin-category-button-wrap>input:eq(1)').val() == ''){
+		jtown.dialog('중분류를 입력해주세요');
+		return;
+	}
+	if($('.jt-admin-category-sections-active').length == 0){
+		jtown.dialog('대분류를 선택하셔야합니다.');
+		return;
+	} 
+	var divisionsName = $('.jt-admin-category-button-wrap>input:eq(1)').val();
+	var sectionsPn = $('.jt-admin-category-sections-active').attr('data-sections-pn');
+	$.post(contextPath +'admin/ajax/insertProductDivisions.jt' , {divisionsName : divisionsName, sectionsPn : sectionsPn}, function(data){
+		var html = '<li data-divisions-pn='+data.divisionsPn+'>'+data.divisionsName+'</li>';
+		$('.jt-admin-category-divisions-wrap-ul').append(html);
+		$('.jt-admin-category-button-wrap>input:eq(1)').val('');
+	});
+});
+
+$('body').on('click', '.jt-admin-category-groups-btn' , function(){
+	if($('.jt-admin-category-button-wrap>input:eq(2)').val() == ''){
+		jtown.dialog('소분류를 입력해주세요');
+		return;
+	}
+	if($('.jt-admin-category-divisions-active').length == 0){
+		jtown.dialog('중분류를 선택하셔야합니다.');
+		return;
+	} 
+	var groupsName = $('.jt-admin-category-button-wrap>input:eq(2)').val();
+	var divisionsPn = $('.jt-admin-category-divisions-active').attr('data-divisions-pn');
+	$.post(contextPath +'admin/ajax/insertProductGroups.jt' , {groupsName : groupsName, divisionsPn : divisionsPn}, function(data){
+		var html = '<li data-groups-pn='+data.groupsPn+'>'+data.groupsName+'</li>';
+		$('.jt-admin-category-groups-wrap-ul').append(html);
+		$('.jt-admin-category-button-wrap>input:eq(2)').val('');
+	});
+});
+
+

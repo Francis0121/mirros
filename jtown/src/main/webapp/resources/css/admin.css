@@ -276,6 +276,6 @@ body{background: #f6f4f5;}
 .jt-admin-banner-list-item-wrap{cursor: pointer;}
 .jt-admin-banner-list-item-wrap:HOVER {background-color: #fcfcfc;	}
 
-
+.jt-edit-btn{position:absolute;top:2px;right: 10px;;background: url("../images/jt-edit.png") no-repeat;  width:20px;height: 20px;background-size:20px;  }
 
 

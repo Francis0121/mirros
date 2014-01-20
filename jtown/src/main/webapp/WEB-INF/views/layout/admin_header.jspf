@@ -55,8 +55,14 @@
 					</ul>
 				</li>
 				<sec:authorize ifNotGranted="ROLE_SALES">
-				<c:set var="url" value="${cp }/admin/comment"/>
-				<li><a href="${url}" class="<c:out value="${url eq rp ? 'jt-menu-hover' : '' }"/>">Comment</a></li>
+				<li>
+					<c:set var="url" value="${cp }/admin/productCategory"/>
+					<a href="${url}" class="<c:out value="${url eq rp ? 'jt-menu-hover' : '' }"/>">Product Category</a>
+				</li>
+				<li>
+					<c:set var="url" value="${cp }/admin/comment"/>
+					<a href="${url}" class="<c:out value="${url eq rp ? 'jt-menu-hover' : '' }"/>">Comment</a>
+				</li>
 				<li>
 					<c:set var="url" value="${cp }/admin/questions"/>
 					<a href="${url}" class="<c:out value="${url eq rp ? 'jt-menu-hover' : '' }"/>">Question</a>

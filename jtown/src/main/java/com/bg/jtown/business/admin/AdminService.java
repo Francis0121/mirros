@@ -7,6 +7,7 @@ import com.bg.jtown.business.Comment;
 import com.bg.jtown.business.Count;
 import com.bg.jtown.business.Event;
 import com.bg.jtown.business.Interest;
+import com.bg.jtown.business.ProductCategory;
 import com.bg.jtown.business.search.AdminCommentFilter;
 import com.bg.jtown.business.search.AdministratorFilter;
 import com.bg.jtown.business.search.UserFilter;
@@ -68,5 +69,24 @@ public interface AdminService {
 
 	List<Comment> selectAllCommentList(AdminCommentFilter adminCommentFilter);
 
+	//~ ProductCategory
 	
+		List<ProductCategory> selectSectionsList();
+		
+		List<ProductCategory> selectDivisionsList(ProductCategory productCategory);
+		
+		List<ProductCategory> selectGroupsList(ProductCategory productCategory);
+	
+		void insertSectionsItem(ProductCategory productCategory);
+		
+		void insertDivisionsItem(ProductCategory productCategory);
+		
+		void insertGroupsItem(ProductCategory productCategory);
+		
+		void updateSectionsItem(ProductCategory productCategory);
+		
+		void updateDivisionsItem(ProductCategory productCategory);
+		
+		void updateGroupsItem(ProductCategory productCategory);
+		
 }

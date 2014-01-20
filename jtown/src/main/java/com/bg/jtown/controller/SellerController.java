@@ -11,6 +11,7 @@ import javax.annotation.Resource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -34,7 +35,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.bg.jtown.business.Event;
 import com.bg.jtown.business.Interest;
 import com.bg.jtown.business.Product;
+import com.bg.jtown.business.ProductCategory;
 import com.bg.jtown.business.Statistic;
+import com.bg.jtown.business.admin.AdminService;
 import com.bg.jtown.business.search.ProductFilter;
 import com.bg.jtown.business.search.StatisticFilter;
 import com.bg.jtown.business.seller.SellerService;
@@ -69,6 +72,9 @@ public class SellerController {
 
 	@Resource
 	private SellerService sellerService;
+	
+	@Autowired
+	private AdminService adminService;
 
 	// ~ Show
 
@@ -436,6 +442,18 @@ public class SellerController {
 			logger.info("[" + summaryUser.getAuthority() + "] " + summaryUser.getName());
 			return null;
 		}
+	}
+	
+	@RequestMapping(value ="/ajax/getDivisionsList.jt", method = RequestMethod.POST)
+	@ResponseBody
+	public List<ProductCategory> selectDivisionsList(@ModelAttribute ProductCategory productCategory){
+		return adminService.selectDivisionsList(productCategory);
+	}
+	
+	@RequestMapping(value ="/ajax/getGroupsList.jt", method = RequestMethod.POST)
+	@ResponseBody
+	public List<ProductCategory> selectGroupsList(@ModelAttribute ProductCategory productCategory){
+		return adminService.selectGroupsList(productCategory);
 	}
 
 }

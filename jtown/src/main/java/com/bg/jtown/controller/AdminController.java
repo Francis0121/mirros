@@ -189,13 +189,13 @@ public class AdminController {
 		return prefixView+"banner/insert_form";
 	}
 	
-	@RequestMapping(value = "/insertBannerSubmit")
+	@RequestMapping(value = "/insertBannerSubmit", method = RequestMethod.POST)
 	public String insertBannerSubmit(@ModelAttribute Event event){
 		adminService.insertEventBanner(event);
 		return "redirect:banner";
 	}
 	
-	@RequestMapping(value = "/modifyBannerSubmit")
+	@RequestMapping(value = "/modifyBannerSubmit", method = RequestMethod.POST)
 	public String modfiyBannerSubmit(@ModelAttribute Event event){
 		adminService.updateEventBanner(event);
 		return "redirect:banner";
@@ -207,7 +207,52 @@ public class AdminController {
 		return "redirect:banner";
 	}
 	
+	//~ Product Category
+	
+	@RequestMapping(value = "/productCategory")
+	public String productCategory(Model model, @ModelAttribute ProductCategory productCategory){
+		model.addAttribute("sectionsList", adminService.selectSectionsList());
+		return prefixView+"product_category";
+	}
+	
 
+	@RequestMapping(value = "/ajax/insertProductSections.jt")
+	@ResponseBody
+	public ProductCategory ajaxInsertProductSections(@ModelAttribute ProductCategory productCategory){
+		adminService.insertSectionsItem(productCategory);
+		return productCategory;
+	}
+	
+	@RequestMapping(value = "/ajax/insertProductDivisions.jt")
+	@ResponseBody
+	public ProductCategory ajaxInsertDivisionsSections(@ModelAttribute ProductCategory productCategory){
+		adminService.insertDivisionsItem(productCategory);
+		return productCategory;
+	}
+	@RequestMapping(value = "/ajax/insertProductGroups.jt")
+	@ResponseBody
+	public ProductCategory ajaxInsertProductGroups(@ModelAttribute ProductCategory productCategory){
+		adminService.insertGroupsItem(productCategory);
+		return productCategory;
+	}
+	
+	@RequestMapping(value = "/ajax/updateProductSections.jt")
+	@ResponseBody
+	public void ajaxUpdateProductSections(@ModelAttribute ProductCategory productCategory){
+		adminService.updateSectionsItem(productCategory);
+	}
+	
+	@RequestMapping(value = "/ajax/updateProductDivisions.jt")
+	@ResponseBody
+	public void ajaxUpdateProductDivisions(@ModelAttribute ProductCategory productCategory){
+		adminService.updateDivisionsItem(productCategory);
+	}
+	
+	@RequestMapping(value = "/ajax/updateProductGroups.jt")
+	@ResponseBody
+	public void ajaxUpdateProductGroups(@ModelAttribute ProductCategory productCategory){
+		adminService.updateGroupsItem(productCategory);
+	}
 	// ~ FORM
 
 	@RequestMapping(value = "/createAdministrator.jt", method = RequestMethod.POST)

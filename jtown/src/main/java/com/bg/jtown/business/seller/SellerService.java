@@ -6,6 +6,7 @@ import java.util.Map;
 import com.bg.jtown.business.Event;
 import com.bg.jtown.business.Interest;
 import com.bg.jtown.business.Product;
+import com.bg.jtown.business.ProductCategory;
 import com.bg.jtown.business.Statistic;
 import com.bg.jtown.business.search.ProductFilter;
 import com.bg.jtown.security.JtownUser;
@@ -109,7 +110,7 @@ public interface SellerService {
 	Integer selectLoveCount(Integer properNumber);
 
 	
-	// D-DAY Event
+	//~ D-DAY Event
 	void insertDdayEvent(Event event);
 	
 	void updateDdayEvent(Event event);
@@ -124,7 +125,7 @@ public interface SellerService {
 	
 	List<Event> selectSellerDDayEventList(Event event);
 	
-	//Statistic
+	//~ Statistic
 	
 	Integer selectProductClickStatisticCount(Statistic statistic);
 	
@@ -135,4 +136,7 @@ public interface SellerService {
 	List<Statistic> selectTotalProductClickStatistic(Statistic statistic);
 	
 	List<Statistic> selectTotalEventClickStatistic(Statistic statistic);
+	
+	
+	
 }

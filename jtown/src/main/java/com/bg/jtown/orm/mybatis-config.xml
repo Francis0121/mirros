@@ -22,6 +22,7 @@
 		<typeAlias alias="Gather" type="com.bg.jtown.business.Gather"/>
 		<typeAlias alias="Statistic" type="com.bg.jtown.business.Statistic"/>
 		<typeAlias alias="Participant" type="com.bg.jtown.business.Participant"/>
+		<typeAlias alias="ProductCategory" type="com.bg.jtown.business.ProductCategory"/>
 				
 		<!-- Search Filter -->		
 		<typeAlias alias="AdminCommentFilter" type="com.bg.jtown.business.search.AdminCommentFilter"/>
