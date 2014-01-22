@@ -72,7 +72,7 @@ public class SellerController {
 
 	@Resource
 	private SellerService sellerService;
-	
+
 	@Autowired
 	private AdminService adminService;
 
@@ -115,7 +115,7 @@ public class SellerController {
 	@PreAuthorize("hasRole('ROLE_SELLER')")
 	@RequestMapping(value = "/seller/products/{sellerPn}", method = RequestMethod.GET)
 	public String showProducts(@ModelAttribute ProductFilter productFilter, Model model, SummaryUser summaryUser,
-			@RequestParam(required = false) Integer isFinish) {
+			@RequestParam(required = false) Integer isFinish, @ModelAttribute ProductCategory productCategory) {
 
 		if (isFinish != null) {
 			if (isFinish.equals(TRUE)) {
@@ -138,12 +138,13 @@ public class SellerController {
 			}
 		}
 		model.addAttribute("products", sellerService.selectSellerProduct(productFilter));
+		model.addAttribute("sectionsList", adminService.selectSectionsList());
 		Product product = new Product();
 		product.setSellerPn(sellerPn);
 		model.addAttribute("product", product);
 		return prefixView + "seller_photo";
 	}
-	
+
 	@PreAuthorize("hasRole('ROLE_SELLER')")
 	@RequestMapping(value = "/seller/events/{sellerPn}", method = RequestMethod.GET)
 	public String showEvents(@ModelAttribute Event event, Model model, SummaryUser summaryUser) {
@@ -157,7 +158,7 @@ public class SellerController {
 				return "redirect:../noPermission";
 			}
 		}
-		model.addAttribute("events",sellerService.selectSellerDDayEventList(event));
+		model.addAttribute("events", sellerService.selectSellerDDayEventList(event));
 		model.addAttribute("event", event);
 		model.addAttribute("sellerPn", sellerPn);
 		return prefixView + "seller_event";
@@ -208,7 +209,8 @@ public class SellerController {
 
 	@PreAuthorize("hasRole('ROLE_SELLER')")
 	@RequestMapping(value = "/seller/form.jt", method = RequestMethod.PUT)
-	public String formUpdateProduct(Model model, SummaryUser summaryUser, @ModelAttribute Product product, BindingResult result, RedirectAttributes redirect) {
+	public String formUpdateProduct(Model model, SummaryUser summaryUser, @ModelAttribute Product product, BindingResult result, @ModelAttribute ProductCategory productCategory,
+			RedirectAttributes redirect) {
 		new Validator() {
 
 			@Override
@@ -231,6 +233,7 @@ public class SellerController {
 					}
 				}
 			}
+
 			@Override
 			public boolean supports(Class<?> clazz) {
 				return false;
@@ -250,18 +253,20 @@ public class SellerController {
 		} else {
 			product.setSellerPn(sellerPn);
 			sellerService.updateProduct(product);
+			System.out.println(productCategory.toString());
+			adminService.insertUpdateProductCategory(productCategory);
 			redirect.addFlashAttribute("isReload", TRUE);
 			return "redirect:products/" + nowPn + "?page=" + currentPage;
 		}
 	}
-	
+
 	@InitBinder
-    public void initBinder(WebDataBinder binder) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        sdf.setLenient(true);
-        binder.registerCustomEditor(Date.class, new CustomDateEditor(sdf, true));
-    }   
-	
+	public void initBinder(WebDataBinder binder) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		sdf.setLenient(true);
+		binder.registerCustomEditor(Date.class, new CustomDateEditor(sdf, true));
+	}
+
 	@PreAuthorize("hasRole('ROLE_SELLER')")
 	@RequestMapping(value = "/seller/eventForm.jt", method = RequestMethod.PUT)
 	public String formUpdateEvent(Model model, SummaryUser summaryUser, @ModelAttribute Event event, BindingResult result, RedirectAttributes redirect) {
@@ -280,10 +285,11 @@ public class SellerController {
 						errors.rejectValue("url", "product.url.notAllow");
 					}
 				}
-				if(event.getEventPn() == null && eventList.size() == 2){
+				if (event.getEventPn() == null && eventList.size() == 2) {
 					errors.rejectValue("endDate", "event.list.full");
 				}
 			}
+
 			@Override
 			public boolean supports(Class<?> clazz) {
 				return false;
@@ -291,8 +297,8 @@ public class SellerController {
 		}.validate(event, result);
 		Integer sellerPn = summaryUser.getPn();
 		if (result.hasErrors()) {
-			model.addAttribute("events",eventList);
-		}else{
+			model.addAttribute("events", eventList);
+		} else {
 			Authority authority = summaryUser.getEnumAuthority();
 			if (authority.equals(Authority.SELLER)) {
 				event.setSellerPn(summaryUser.getPn());
@@ -301,7 +307,7 @@ public class SellerController {
 				sellerService.updateAndInsertEvent(event);
 				sellerService.insertAndUpdateDdayEvent(event);
 				redirect.addFlashAttribute("isReload", TRUE);
-				return "redirect:events/"+sellerPn;
+				return "redirect:events/" + sellerPn;
 			} else {
 				logger.info("[" + summaryUser.getAuthority() + "] " + summaryUser.getName());
 			}
@@ -324,7 +330,7 @@ public class SellerController {
 		redirect.addFlashAttribute("isReload", TRUE);
 		return "redirect:products/" + nowPn + "?page=" + page;
 	}
-	
+
 	@PreAuthorize("hasRole('ROLE_SELLER')")
 	@RequestMapping(value = "/seller/eventForm.jt", method = RequestMethod.DELETE)
 	public String formDeleteEvent(Model model, @ModelAttribute Event event, SummaryUser summaryUser, RedirectAttributes redirect) {
@@ -443,17 +449,23 @@ public class SellerController {
 			return null;
 		}
 	}
-	
-	@RequestMapping(value ="/ajax/getDivisionsList.jt", method = RequestMethod.POST)
+
+	@RequestMapping(value = "/ajax/getDivisionsList.jt", method = RequestMethod.POST)
 	@ResponseBody
-	public List<ProductCategory> selectDivisionsList(@ModelAttribute ProductCategory productCategory){
+	public List<ProductCategory> selectDivisionsList(@ModelAttribute ProductCategory productCategory) {
 		return adminService.selectDivisionsList(productCategory);
 	}
-	
-	@RequestMapping(value ="/ajax/getGroupsList.jt", method = RequestMethod.POST)
+
+	@RequestMapping(value = "/ajax/getGroupsList.jt", method = RequestMethod.POST)
 	@ResponseBody
-	public List<ProductCategory> selectGroupsList(@ModelAttribute ProductCategory productCategory){
+	public List<ProductCategory> selectGroupsList(@ModelAttribute ProductCategory productCategory) {
 		return adminService.selectGroupsList(productCategory);
+	}
+	
+	@RequestMapping(value = "/ajax/getProductCategory.jt", method = RequestMethod.POST)
+	@ResponseBody
+	public ProductCategory getProductCategory(@ModelAttribute ProductCategory productCategory) {
+		return adminService.selectProductCategory(productCategory);
 	}
 
 }

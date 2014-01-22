@@ -27,8 +27,7 @@ import com.bg.jtown.util.Pagination;
  * 
  */
 @Service
-public class AdminServiceImpl extends SqlSessionDaoSupport implements
-		AdminService {
+public class AdminServiceImpl extends SqlSessionDaoSupport implements AdminService {
 
 	@Resource
 	private CustomJdbcUserDetailManager customJdbcUserDetailManager;
@@ -36,8 +35,7 @@ public class AdminServiceImpl extends SqlSessionDaoSupport implements
 	// ~ Common
 
 	private Integer selectInterestSectionFromName(Interest interest) {
-		return getSqlSession().selectOne(
-				"adminMapper.selectInterestSectionFromName", interest);
+		return getSqlSession().selectOne("adminMapper.selectInterestSectionFromName", interest);
 	}
 
 	private void insertInterestSection(Interest interest) {
@@ -61,8 +59,7 @@ public class AdminServiceImpl extends SqlSessionDaoSupport implements
 
 	@Override
 	public List<Interest> selectInterestCategoryList() {
-		return getSqlSession().selectList(
-				"adminMapper.selectInterestCategoryList");
+		return getSqlSession().selectList("adminMapper.selectInterestCategoryList");
 	}
 
 	@Override
@@ -70,15 +67,13 @@ public class AdminServiceImpl extends SqlSessionDaoSupport implements
 		String[] names = interest.getName().split(",");
 		String name = names[names.length - 1].trim();
 		interest.setName('%' + name + '%');
-		return getSqlSession().selectList("adminMapper.selectInterestSection",
-				interest);
+		return getSqlSession().selectList("adminMapper.selectInterestSection", interest);
 	}
 
 	// ~ Admin
 
 	@Override
-	public Map<String, Object> selectAdminModelMap(
-			AdministratorFilter administartorFilter) {
+	public Map<String, Object> selectAdminModelMap(AdministratorFilter administartorFilter) {
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 
 		List<JtownUser> adminList = selectAdminList(administartorFilter);
@@ -88,8 +83,7 @@ public class AdminServiceImpl extends SqlSessionDaoSupport implements
 	};
 
 	@Override
-	public List<JtownUser> selectAdminList(
-			AdministratorFilter administartorFilter) {
+	public List<JtownUser> selectAdminList(AdministratorFilter administartorFilter) {
 		Pagination pagination = administartorFilter.getPagination();
 		int count = selectAdminCount(administartorFilter);
 		pagination.setNumItems(count);
@@ -97,13 +91,11 @@ public class AdminServiceImpl extends SqlSessionDaoSupport implements
 			return new ArrayList<JtownUser>();
 		}
 
-		return getSqlSession().selectList(
-				"adminMapper.selectAdministratorList", administartorFilter);
+		return getSqlSession().selectList("adminMapper.selectAdministratorList", administartorFilter);
 	}
 
 	private Integer selectAdminCount(AdministratorFilter administartorFilter) {
-		return getSqlSession().selectOne("adminMapper.selectAdminCount",
-				administartorFilter);
+		return getSqlSession().selectOne("adminMapper.selectAdminCount", administartorFilter);
 	}
 
 	@Override
@@ -116,18 +108,18 @@ public class AdminServiceImpl extends SqlSessionDaoSupport implements
 		jtownUser.setNewPassword("1q2w3e4r!");
 		customJdbcUserDetailManager.changePassword(jtownUser);
 	}
-	
+
 	@Override
 	public void updateSellerPassword(JtownUser jtownUser) {
 		jtownUser.setNewPassword(jtownUser.getUsername());
 		customJdbcUserDetailManager.changePassword(jtownUser);
 	}
-	
+
 	@Override
 	public void insertEventBanner(Event event) {
 		getSqlSession().insert("adminMapper.insertEventBanner", event);
 	}
-	
+
 	@Override
 	public void deleteEventBanner(Event event) {
 		getSqlSession().update("adminMapper.deleteEventBanner", event);
@@ -140,8 +132,7 @@ public class AdminServiceImpl extends SqlSessionDaoSupport implements
 
 	// ~ Seller
 
-	private void insertSellerInterestList(String interestSectionStr,
-			Integer categoryPn, Integer sellerPn) {
+	private void insertSellerInterestList(String interestSectionStr, Integer categoryPn, Integer sellerPn) {
 		String[] interestSection = interestSectionStr.split(",");
 
 		for (String name : interestSection) {
@@ -164,7 +155,7 @@ public class AdminServiceImpl extends SqlSessionDaoSupport implements
 	public JtownUser selectSeller(String name) {
 		return getSqlSession().selectOne("adminMapper.selectSeller", name);
 	}
-	
+
 	@Override
 	public List<Count> selectSellerLovers(Integer sellerPn) {
 		return getSqlSession().selectList("adminMapper.selectSellerLovers", sellerPn);
@@ -197,15 +188,13 @@ public class AdminServiceImpl extends SqlSessionDaoSupport implements
 		if (pnList.size() == 0) {
 			return new ArrayList<Interest>();
 		}
-		return getSqlSession().selectList(
-				"adminMapper.selectSellerInterestList", pnList);
+		return getSqlSession().selectList("adminMapper.selectSellerInterestList", pnList);
 	}
 
 	// ~ Customer
 
 	private Integer selectCustomerCount(UserFilter userFilter) {
-		return getSqlSession().selectOne("adminMapper.selectCustomerCount",
-				userFilter);
+		return getSqlSession().selectOne("adminMapper.selectCustomerCount", userFilter);
 	}
 
 	private List<JtownUser> selectCustomerList(UserFilter userFilter) {
@@ -216,21 +205,18 @@ public class AdminServiceImpl extends SqlSessionDaoSupport implements
 		}
 		pagination.setNumItems(count);
 
-		return getSqlSession().selectList("adminMapper.selectCustomerList",
-				userFilter);
+		return getSqlSession().selectList("adminMapper.selectCustomerList", userFilter);
 	}
 
 	private List<Interest> selectCustomerInterestList(List<Integer> pnList) {
 		if (pnList.size() == 0) {
 			return new ArrayList<Interest>();
 		}
-		return getSqlSession().selectList(
-				"adminMapper.selectCustomerInterestList", pnList);
+		return getSqlSession().selectList("adminMapper.selectCustomerInterestList", pnList);
 	}
 
 	private Integer selectAllCommentCount(AdminCommentFilter adminCommentFilter) {
-		return getSqlSession().selectOne("adminMapper.selectAllCommentCount",
-				adminCommentFilter);
+		return getSqlSession().selectOne("adminMapper.selectAllCommentCount", adminCommentFilter);
 	}
 
 	@Override
@@ -256,63 +242,84 @@ public class AdminServiceImpl extends SqlSessionDaoSupport implements
 	}
 
 	@Override
-	public List<Comment> selectAllCommentList(
-			AdminCommentFilter adminCommentFilter) {
+	public List<Comment> selectAllCommentList(AdminCommentFilter adminCommentFilter) {
 		Pagination pagination = adminCommentFilter.getPagination();
 		int count = selectAllCommentCount(adminCommentFilter);
 		pagination.setNumItems(count);
 		if (count == 0) {
 			return new ArrayList<Comment>();
 		}
-		return getSqlSession().selectList("adminMapper.selectAllCommentList",
-				adminCommentFilter);
+		return getSqlSession().selectList("adminMapper.selectAllCommentList", adminCommentFilter);
 	}
-	
-	//~ ProductCategory
-	
-		@Override
-		public List<ProductCategory> selectSectionsList() {
-			return getSqlSession().selectList("adminMapper.selectSectionsList");
-		}
 
-		@Override
-		public List<ProductCategory> selectDivisionsList(ProductCategory productCategory) {
-			return getSqlSession().selectList("adminMapper.selectDivisionsList", productCategory);
-		}
+	// ~ ProductCategory
 
-		@Override
-		public List<ProductCategory> selectGroupsList(ProductCategory productCategory) {
-			return getSqlSession().selectList("adminMapper.selectGroupsList", productCategory);
-		}
+	@Override
+	public List<ProductCategory> selectSectionsList() {
+		return getSqlSession().selectList("adminMapper.selectSectionsList");
+	}
 
-		@Override
-		public void insertSectionsItem(ProductCategory productCategory) {
-			getSqlSession().insert("adminMapper.insertSectionsItem", productCategory);
-		}
+	@Override
+	public List<ProductCategory> selectDivisionsList(ProductCategory productCategory) {
+		return getSqlSession().selectList("adminMapper.selectDivisionsList", productCategory);
+	}
 
-		@Override
-		public void insertDivisionsItem(ProductCategory productCategory) {
-			getSqlSession().insert("adminMapper.insertDivisionsItem", productCategory);
-		}
+	@Override
+	public List<ProductCategory> selectGroupsList(ProductCategory productCategory) {
+		return getSqlSession().selectList("adminMapper.selectGroupsList", productCategory);
+	}
 
-		@Override
-		public void insertGroupsItem(ProductCategory productCategory) {
-			getSqlSession().insert("adminMapper.insertGroupsItem", productCategory);
-		}
+	@Override
+	public void insertSectionsItem(ProductCategory productCategory) {
+		getSqlSession().insert("adminMapper.insertSectionsItem", productCategory);
+	}
 
-		@Override
-		public void updateSectionsItem(ProductCategory productCategory) {
-			getSqlSession().update("adminMapper.updateSectionsItem", productCategory);
-		}
+	@Override
+	public void insertDivisionsItem(ProductCategory productCategory) {
+		getSqlSession().insert("adminMapper.insertDivisionsItem", productCategory);
+	}
 
-		@Override
-		public void updateDivisionsItem(ProductCategory productCategory) {
-			getSqlSession().update("adminMapper.updateDivisionsItem", productCategory);
-		}
+	@Override
+	public void insertGroupsItem(ProductCategory productCategory) {
+		getSqlSession().insert("adminMapper.insertGroupsItem", productCategory);
+	}
 
-		@Override
-		public void updateGroupsItem(ProductCategory productCategory) {
-			getSqlSession().update("adminMapper.updateGroupsItem", productCategory);
-		}
+	@Override
+	public void updateSectionsItem(ProductCategory productCategory) {
+		getSqlSession().update("adminMapper.updateSectionsItem", productCategory);
+	}
 
+	@Override
+	public void updateDivisionsItem(ProductCategory productCategory) {
+		getSqlSession().update("adminMapper.updateDivisionsItem", productCategory);
+	}
+
+	@Override
+	public void updateGroupsItem(ProductCategory productCategory) {
+		getSqlSession().update("adminMapper.updateGroupsItem", productCategory);
+	}
+
+	@Override
+	public void insertProductCategory(ProductCategory productCategory) {
+		getSqlSession().insert("adminMapper.insertProductCategory", productCategory);
+	}
+
+	@Override
+	public void updateProductCategory(ProductCategory productCategory) {
+		getSqlSession().update("adminMapper.updateProductCategory", productCategory);
+	}
+
+	@Override
+	public ProductCategory selectProductCategory(ProductCategory productCategory) {
+		return getSqlSession().selectOne("adminMapper.selectProductCategory", productCategory);
+	}
+
+	@Override
+	public void insertUpdateProductCategory(ProductCategory productCategory) {
+		if(selectProductCategory(productCategory) == null){
+			insertProductCategory(productCategory);
+		}else{
+			updateProductCategory(productCategory);
+		}
+	}
 }

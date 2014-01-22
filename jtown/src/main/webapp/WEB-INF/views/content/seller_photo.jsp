@@ -101,16 +101,26 @@ html{ overflow-y: hidden;}
 							<input type="hidden" id="currentPage" name="currentPage" value="${pagination.currentPage }"/>
 							<ul class="jt-product-article-update-input">  
 								<li>
-									<form:label path="name" cssClass="jt-product-label">이름</form:label>
-									<form:input path="name" cssClass="jt-product-input" cssErrorClass="jt-product-input-error" maxlength="15" placeholder="ex) T-Shirt"/>
+									<form:input path="name" cssClass="jt-product-input" cssErrorClass="jt-product-input-error" maxlength="15" placeholder="이름 : ex) T-Shirt"/>
+										<select class="jt-product-select jt-product-select-sections" name="sectionsPn">
+										<option value="-1">대분류</option>	
+										<c:forEach items="${sectionsList}" var="sectionsList">
+											<option value="${sectionsList.sectionsPn}">${sectionsList.sectionsName}</option>
+										</c:forEach>
+										</select>
 								</li>
 								<li>
-									<form:label path="price" cssClass="jt-product-label">가격</form:label>
-									<form:input path="price" cssClass="jt-product-input" cssErrorClass="jt-product-input-error" maxlength="10" placeholder="ex) 20000"/>
+								
+									<form:input path="price" cssClass="jt-product-input" cssErrorClass="jt-product-input-error" maxlength="10" placeholder="가격 : ex) 20000"/>
+									<select class="jt-product-select jt-product-select-divisions" name="divisionsPn">
+										<option value="-1">중분류</option>
+									</select>
 								</li>
 								<li>
-									<form:label path="url" cssClass="jt-product-label">상품 URL</form:label>
-									<form:input path="url" cssClass="jt-product-input" cssErrorClass="jt-product-input-error" maxlength="300" placeholder="ex) http://www.myshop.net/shoes"/>
+									<form:input path="url" cssClass="jt-product-input" cssErrorClass="jt-product-input-error" maxlength="300" placeholder="상품 URL : ex) http://www.myshop.net/shoes"/>
+									<select class="jt-product-select jt-product-select-groups" name="groupsPn">
+										<option value="-1">소분류</option>
+									</select>
 								</li>
 								<li style="width: 260px; margin: 0;">
 									<div class="jt-product-error">
@@ -177,6 +187,8 @@ html{ overflow-y: hidden;}
 		$('#product #price').placeholder();
 		$('#product #url').placeholder();
 		$('#jt-home-footer').css('display','none');
+		
+		$('.jt-product-article-object[data-name =""]:last').click();
 	}); 
 	
 	if($('body').attr('data-reload') == '1'){

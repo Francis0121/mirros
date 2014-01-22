@@ -47,6 +47,16 @@
 			JOIN new_product_bool npb
 				ON npb.product_pn = usp.pn
 			</if>
+			<if test="itemName != null ">
+	            LEFT OUTER JOIN product_category pc 
+					ON pc.pn = usp.pn
+				LEFT OUTER JOIN (SELECT * FROM product_sections WHERE deleted='N') ps
+					ON ps.sections_pn = pc.sections_pn
+				LEFT OUTER JOIN (SELECT * FROM product_divisions WHERE deleted='N')pd
+					ON pc.divisions_pn = pd.divisions_pn
+				LEFT OUTER JOIN (SELECT * FROM product_groups WHERE deleted ='N') pg 
+					ON pc.groups_pn = pg.groups_pn
+             </if>  
 			WHERE usp.NAME IS NOT NULL
 			AND CURDATE() BETWEEN usci.start_date AND usci.end_date 
 			    AND usp.deleted ='N'
@@ -58,7 +68,10 @@
 			    </if>  
 			    AND u.enable = 1
 			    <if test="itemName != null ">
-			    AND usp.name LIKE CONCAT('%',#{itemName},'%')
+			    AND (usp.name LIKE CONCAT('%',#{itemName},'%') 
+				    	OR sections_name LIKE CONCAT('%',#{itemName},'%')
+						OR divisions_name LIKE CONCAT('%',#{itemName},'%')
+						OR groups_name LIKE CONCAT('%',#{itemName},'%'))
 			    </if>
 		) tb
 	</select>
@@ -164,9 +177,6 @@
 		                <if test="categoryPn != 0"> 
 			   			 AND p.category_pn = #{categoryPn}
 			    	  </if>
-			    	  <if test="itemName != null ">
-					    AND usp.name LIKE CONCAT('%',#{itemName},'%')
-					  </if>
 		                AND u.enable = 1) tb,
 		              (SELECT 
 		                @rownum := 0) R 
@@ -184,7 +194,8 @@
 		            JOIN users u 
 		              ON u.pn = us.pn 
 		            JOIN partnership p 
-		              ON p.seller_pn = us.pn 
+		              ON p.seller_pn = us.pn
+		          
 		          WHERE usp.NAME IS NOT NULL 
 		            AND CURDATE() BETWEEN usci.start_date 
 		            AND usci.end_date 
@@ -192,9 +203,7 @@
 		            <if test="categoryPn != 0"> 
 		   				 AND p.category_pn = #{categoryPn}
 		    	    </if>
-		    	    <if test="itemName != null ">
-				    AND usp.name LIKE CONCAT('%',#{itemName},'%')
-				  </if> 
+		    	   
 		            AND u.enable = 1)) htb 
 		        ON htb.product_pn = usp.pn 
 		    WHERE usp.NAME IS NOT NULL 
@@ -204,9 +213,6 @@
 		      <if test="categoryPn != 0"> 
 	   			 AND p.category_pn = #{categoryPn}
 	    	  </if>
-	    	  <if test="itemName != null ">
-			    AND usp.name LIKE CONCAT('%',#{itemName},'%')
-			  </if>
 		      AND u.enable = 1 
 		      AND usp.pn IN 
 		      (SELECT 
@@ -223,7 +229,17 @@
 		          JOIN users u 
 		            ON u.pn = us.pn 
 		          JOIN partnership p 
-		            ON p.seller_pn = us.pn 
+		            ON p.seller_pn = us.pn
+	              <if test="itemName != null ">
+		            LEFT OUTER JOIN product_category pc 
+						ON pc.pn = usp.pn
+					LEFT OUTER JOIN (SELECT * FROM product_sections WHERE deleted='N') ps
+						ON ps.sections_pn = pc.sections_pn
+					LEFT OUTER JOIN (SELECT * FROM product_divisions WHERE deleted='N')pd
+						ON pc.divisions_pn = pd.divisions_pn
+					LEFT OUTER JOIN (SELECT * FROM product_groups WHERE deleted ='N') pg 
+						ON pc.groups_pn = pg.groups_pn
+	             </if>  
 		        WHERE usp.NAME IS NOT NULL 
 		          AND CURDATE() BETWEEN usci.start_date 
 		          AND usci.end_date 
@@ -232,7 +248,10 @@
 		   			 AND p.category_pn = #{categoryPn}
 		    	  </if>
 		    	  <if test="itemName != null ">
-				    AND usp.name LIKE CONCAT('%',#{itemName},'%')
+				    AND (usp.name LIKE CONCAT('%',#{itemName},'%') 
+				    	OR sections_name LIKE CONCAT('%',#{itemName},'%')
+						OR divisions_name LIKE CONCAT('%',#{itemName},'%')
+						OR groups_name LIKE CONCAT('%',#{itemName},'%'))
 				  </if>
 		          AND u.enable = 1 
 		          GROUP BY usp.pn

@@ -408,4 +408,32 @@
 			groups_pn = #{groupsPn}
 	</update>
 	
+	<insert id="insertProductCategory">
+		INSERT INTO
+			product_category(pn, sections_pn, divisions_pn, groups_pn)
+		VALUES(#{pn}, #{sectionsPn}, #{divisionsPn}, #{groupsPn} ) 
+	</insert>
+	
+	<update id="updateProductCategory">
+	    UPDATE
+	    	product_category
+	    SET
+	    	sections_pn = #{sectionsPn}, 
+	    	divisions_pn = #{divisionsPn}, 
+	    	groups_pn = #{groupsPn}
+	    WHERE
+	    	pn = #{pn}
+	</update>
+	
+	<select id="selectProductCategory" resultMap="jt-product-category-map">
+	    SELECT 
+	    	sections_pn,
+	    	divisions_pn,
+	    	groups_pn
+	    FROM
+	    	product_category
+	    WHERE
+	    	pn = #{pn}
+	</select>
+	
 </mapper>

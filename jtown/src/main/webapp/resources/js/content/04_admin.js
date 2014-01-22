@@ -494,10 +494,11 @@ $('body').on('click', '.jt-admin-category-sections-wrap-ul>li', function(){
 	$('.jt-admin-category-sections-wrap-ul>li').removeClass('jt-admin-category-sections-active');
 	$(this).addClass('jt-admin-category-sections-active');
 	var sectionsPn = $(this).attr('data-sections-pn');
+	
 	$.post(contextPath +'/ajax/getDivisionsList.jt' , {sectionsPn : sectionsPn}, function(data){
 		var html = '';
 		for(var idx = 0, size = data.length; idx <size; idx++){
-			html += '<li data-divisions-pn='+data[idx].divisionsPn+'>'+data[idx].divisionsName+'</li>';
+			html += '<li data-divisions-pn='+data[idx].divisionsPn+'>'+data[idx].divisionsName+'<div class="jt-edit-btn"></div></li>';
 		}
 		$('.jt-admin-category-divisions-wrap-ul').html(html);
 	});
@@ -510,7 +511,7 @@ $('body').on('click', '.jt-admin-category-divisions-wrap-ul>li', function(){
 	$.post(contextPath +'/ajax/getGroupsList.jt' , {divisionsPn : divisionsPn}, function(data){
 		var html = '';
 		for(var idx = 0, size = data.length; idx <size; idx++){
-			html += '<li data-groups-pn='+data[idx].groupsPn+'>'+data[idx].groupsName+'</li>';
+			html += '<li data-groups-pn='+data[idx].groupsPn+'>'+data[idx].groupsName+'<div class="jt-edit-btn"></div></li>';
 		}
 		$('.jt-admin-category-groups-wrap-ul').html(html);
 	});
@@ -571,4 +572,39 @@ $('body').on('click', '.jt-admin-category-groups-btn' , function(){
 	});
 });
 
+$('body').on('click', '.jt-edit-btn', function(){
+	$parentList = $(this).parent();
+	var text = $parentList.text();
+	var input = '<input type="text" class="jt-admin-filter-input jt-admin-category-modify" style="margin-top:2px" value="'+text+'"/>';
+	$parentList.html(input);
+	$('.jt-admin-category-modify').focus();
+});
 
+$('body').on('focusout', '.jt-admin-category-modify', function(){
+	$.modifySections($(this));
+});
+$('body').on('keyup', '.jt-admin-category-modify', function(event){
+	if(event.keyCode == 13){
+		$.modifySections($(this));
+	}
+});
+$.modifySections = function(section){
+	var name = section.val();
+	var sectionsPn = section.parent().attr('data-sections-pn');
+	var divisionsPn = section.parent().attr('data-divisions-pn');
+	var groupsPn = section.parent().attr('data-groups-pn');
+	$parentsList = section.parent();
+	if(sectionsPn != null ){
+		$.post(contextPath +'admin/ajax/updateProductSections.jt' , { sectionsPn : sectionsPn , sectionsName : name}, function(data){
+			$parentsList.html(name+ '<div class="jt-edit-btn"></div>');
+		});
+	}else if(divisionsPn != null){
+		$.post(contextPath +'admin/ajax/updateProductDivisions.jt' , { divisionsPn : divisionsPn , divisionsName : name}, function(data){
+			$parentsList.html(name+ '<div class="jt-edit-btn"></div>');
+		});
+	}else if(groupsPn != null){
+		$.post(contextPath +'admin/ajax/updateProductGroups.jt' , { groupsPn : groupsPn , groupsName : name}, function(data){
+			$parentsList.html(name+ '<div class="jt-edit-btn"></div>');
+		});
+	}
+};

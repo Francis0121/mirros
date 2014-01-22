@@ -39,7 +39,10 @@ html{ overflow-y: hidden;}
 						<div class="jt-event-article-object-item">
 							<span class="jt-home-expand-shop-event-new-image" style="margin: 0;">NEW</span>
 							<div class="jt-seller-upload-event-name">${event.eventName }</div>
-							<div class="jt-seller-upload-event-dday">D - ${event.dDay }일 남았습니다.</div>
+							<div class="jt-seller-upload-event-dday">
+								<c:if test="${event.dDay >= 0}">D - ${event.dDay }일 남았습니다.</c:if>
+								<c:if test="${event.dDay < 0}">이벤트가 만료되었습니다.</c:if>
+							</div>
 						</div>
 					</li>
 				</c:forEach>

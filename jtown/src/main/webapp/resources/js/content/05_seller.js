@@ -11,7 +11,7 @@ $(function() {
 	jtown.seller.syncMainNotice();
 	jtown.seller.syncMainImage();
 	jtown.seller.syncProduct();
-	jtown.seller.syncEvent();
+	//jtown.seller.syncEvent();
 	jtown.seller.syncExpandNotice();
 
 	$('#jt-event-second-image').uploadify({
@@ -674,7 +674,7 @@ $('.jt-event-article-object').on({
 		
 	}
 });
-
+/*
 $('.jt-seller-event-wrap').on('click', function(){
 	var openNewWindow = window.open("about:blank");
 	openNewWindow.location.href=$(this).attr('data-url');
@@ -705,7 +705,7 @@ jtown.seller.secondEvent = function(file){
 		$('#jt-seller-expand-event-second-img').attr('data-oldSrc', oldSrc);
 	}
 };
-
+*/
 
 jtown.seller.shopStatistic = function(s1,s2, year, month, labelType){
 	var length = s1.length >= s2.length ? s1.length : s2.length;
@@ -815,21 +815,56 @@ $('.jt-statistic-next-month-btn').bind('click',function(){
 });
 
 
-$(function(){
-	$(".jt-home-expand-shop-event-update-large-wrap-calender-btn").datepicker({
-		showOn: "button",
-		buttonImageOnly: true,
-		buttonImage: "../resources/jquery/images/calendar.gif",
-		buttonText: "Calendar",
-		dateFormat: "yy-mm-dd"
-	});
-	$('.jt-home-expand-shop-event-update-large-wrap').easyModal({
-		top: 300,
-		autoOpen: false,
-		overlayOpacity: 0.3,
-		overlayColor: "#333",
-		overlayClose: false,
-		closeOnEscape: false
+$('.jt-product-select-sections').bind('change', function(){
+	var sectionsPn = $('.jt-product-select-sections').val();
+	$.post(contextPath + '/ajax/getDivisionsList.jt', {sectionsPn : sectionsPn}, function(data){
+		var html = '<option value="-1">중분류</option>';
+		for(var idx=0 , size = data.length ; idx < size; idx++){
+			html += '<option value="'+data[idx].divisionsPn+'">'+data[idx].divisionsName+ '</option>';
+		}
+		$('.jt-product-select-divisions').html(html);
 	});
 });
 
+$('.jt-product-select-divisions').bind('change', function(){
+	var divisionsPn = $('.jt-product-select-divisions').val();
+	$.post(contextPath + '/ajax/getGroupsList.jt', {divisionsPn : divisionsPn}, function(data){
+		var html = '<option value="-1">소분류</option>';
+		for(var idx=0 , size = data.length ; idx < size; idx++){
+			html += '<option value="'+data[idx].groupsPn+'">'+data[idx].groupsName+ '</option>';
+		}
+		$('.jt-product-select-groups').html(html);
+	});
+});
+
+$('.jt-product-article-object img, .jt-product-article-object-wrap').bind('click', function(){
+	var pn = $(this).parent().attr('data-ppn');
+	
+	$.post(contextPath+ '/ajax/getProductCategory.jt', {pn : pn}, function(data){
+		var categoryData = data;
+		if(categoryData != ''){
+			$('.jt-product-select-sections').val(categoryData.sectionsPn);
+			$.post(contextPath+ '/ajax/getDivisionsList.jt', {sectionsPn : categoryData.sectionsPn}, function(divisionsList){
+				var divisionsOptions = '<option value="-1">중분류</option>';
+				for(var idx=0, size = divisionsList.length; idx < size; idx++){
+					divisionsOptions += '<option value="'+divisionsList[idx].divisionsPn+'">'+divisionsList[idx].divisionsName+'</option>';
+				}
+				$('.jt-product-select-divisions').html(divisionsOptions);
+				$('.jt-product-select-divisions').val(categoryData.divisionsPn);
+				
+				$.post(contextPath+ '/ajax/getGroupsList.jt', {divisionsPn : categoryData.divisionsPn}, function(groupsList){
+					var groupsOptions = '<option value="-1">소분류</option>';
+					for(var idx=0, size = groupsList.length; idx < size ; idx++){
+						groupsOptions += '<option value="'+groupsList[idx].groupsPn+'">'+groupsList[idx].groupsName+'</option>';
+					}
+					$('.jt-product-select-groups').html(groupsOptions);
+					$('.jt-product-select-groups').val(categoryData.groupsPn);
+				});
+			});
+		}else{
+			$('.jt-product-select-sections').val(-1);
+			$('.jt-product-select-divisions').html('<option value="-1">중분류</option>');
+			$('.jt-product-select-groups').html('<option value="-1">소분류</option>');
+		}
+	});
+});

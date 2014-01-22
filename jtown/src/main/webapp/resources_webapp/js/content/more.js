@@ -55,7 +55,7 @@ $.emailLogin = function(){
 			if("success" == data.result){
 				$.changePageTransition('/app', 'fade', false);
 			}else{
-				alert('로그인에 실패하였습니다.');
+				$.toast('로그인에 실패하였습니다.');
 			}
 	});
 };

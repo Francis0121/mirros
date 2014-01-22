@@ -317,7 +317,7 @@ Product Insert btn
 .jt-product-article-update-input>li{float: left; margin: 3px 0; width: 100%;}
 .jt-event-label{ width: 88px; height :22px; line-height:26px; font-size: 12px; float: left; text-align: center;}
 .jt-product-label{ width: 58px; height :22px; line-height:26px; font-size: 12px; float: left; text-align: center;}
-.jt-product-input { float : left; width: 190px; padding: 2px 5px; border: 1px solid #ad9c9c; height: 18px; -webkit-border-radius: 5px;-moz-border-radius: 5px; border-radius: 5px; }
+.jt-product-input { float : left; width: 150px; padding: 2px 5px; border: 1px solid #ad9c9c; height: 18px; -webkit-border-radius: 5px;-moz-border-radius: 5px; border-radius: 5px; }
 .jt-product-input:FOCUS{ border: 1px solid #ff8a00; }
 .jt-product-input-error { float : left; width: 190px; padding: 2px 5px; border: 1px solid #ff8a00; height: 18px; -webkit-border-radius: 5px;-moz-border-radius: 5px; border-radius: 5px; }
 .jt-product-input-error:FOCUS{ border: 1px solid #ff0000;  }
@@ -364,3 +364,6 @@ Product Insert btn
 .jt-statistic-tip-go{color:#FFA01E;font-size:13px;}
 .jt-statistic-next-month-btn{background-color: #fff; font-size: 10px; margin: 0 5px; border-radius: 5px; border: 1px solid #d9d9d9; }
 .jt-statistic-next-month-btn:HOVER{background-color: #FFA01E; color: #fff; }
+
+
+.jt-product-select{margin: 2px 0 0 6px;width:100px;}

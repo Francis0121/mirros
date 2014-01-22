@@ -89,4 +89,11 @@ public interface AdminService {
 		
 		void updateGroupsItem(ProductCategory productCategory);
 		
+		void insertProductCategory(ProductCategory productCategory);
+		
+		void updateProductCategory(ProductCategory productCategory);
+		
+		ProductCategory selectProductCategory(ProductCategory productCategory);
+		
+		void insertUpdateProductCategory(ProductCategory productCategory);
 }
