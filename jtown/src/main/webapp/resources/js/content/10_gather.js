@@ -82,8 +82,11 @@ var productGatherHtml = function(data){
 			if(data.mergeItems[idx].productPn == 0){
 				html+=	'<div class="jt-pg-event-line">';
 				html+=	'<div class="jt-pg-item-wrap">';
+				html+= 	'<div class="jt-pg-item-heart-wrap">';
+				html+= 		'<span class="jt-home-shop-love jt-pg-heart-shape '+heartClickShapeClass+'" id="jt-pg-heart-click-e-'+data.mergeItems[idx].eventPn+'">heart</span>';
+				html+= 	'</div>';
+				html+= 	'<div class="jt-tab-event-wrap"><div class="jt-tab-event"></div></div>';
 				html+=		'<div class="jt-pg-event-line-event-name-wrap">';
-				html+=	 		'<span class="jt-home-expand-shop-event-new-image">NEW</span>';
 				html+=			'<div class="jt-pg-event-line-event-name">'+data.mergeItems[idx].eventName +'</div>';
 				html+=		'</div>';
 				html+= 	'<div class="jt-pg-event-line-bottom">';
@@ -136,6 +139,9 @@ var productGatherHtml = function(data){
 			}else if(data.mergeItems[idx].productPn != 0){
 				html+=		'<div class="jt-pg-product-line">';
 				html+= 	'<div class="jt-pg-item-wrap">';
+				html+= 		'<div class="jt-pg-item-heart-wrap">';
+				html+= 			'<span class="jt-home-shop-love jt-pg-heart-shape '+heartClickShapeClass+'" id="jt-pg-heart-click-'+data.mergeItems[idx].productPn+'">heart</span>';
+				html+= 		'</div>';
 				html+=			'<div class="jt-pg-product-img">';
 				if(data.mergeItems[idx].contentType == ''){
 					html+=			 '<img src="'+contextPath+'resources/uploadImage/'+data.mergeItems[idx].saveName+'" alt="'+data.mergeItems[idx].productName+'" />';
@@ -192,7 +198,10 @@ var productGatherHtml = function(data){
 			html+='<div class="jt-pg-item jt-pg-large-product" data-url="'+data.mergeItems[idx].url+'" data-product-pn="'+data.mergeItems[idx].productPn+'">';
 			html+=		'<div class="jt-pg-product-line">';
 			html+= 	'<div class="jt-pg-item-wrap">';
-			html+=			'<div class="jt-pg-product-line-hot"><img src="'+contextPath+'resources/images/jt-hot.png"></div>';
+			html+= 		'<div class="jt-pg-item-heart-wrap">';
+			html+= 			'<span class="jt-home-shop-love jt-pg-heart-shape '+heartClickShapeClass+'" id="jt-pg-heart-click-'+data.mergeItems[idx].productPn+'">heart</span>';
+			html+= 		'</div>';
+			html+=			'<div class="jt-pg-product-line-hot"><div class="jt-tab-hot"></div></div>';
 			html+=			'<div class="jt-pg-product-img">';
 			if(data.mergeItems[idx].contentType == ''){
 				html+=			 '<img src="'+contextPath+'resources/uploadImage/'+data.mergeItems[idx].saveName+'" alt="'+data.mergeItems[idx].productName+'" />';
@@ -251,7 +260,7 @@ var productGatherHtml = function(data){
 	
 };
 
-$('.jt-pg-container').on('click', '.jt-pg-heart-wrap', function(e){
+$('.jt-pg-container').on('click', '.jt-pg-item-heart-wrap', function(e){
 	e.stopPropagation();
 	var productPn =$(this).parents('.jt-pg-item').attr('data-product-pn');
 	var eventPn =$(this).parents('.jt-pg-item').attr('data-event-pn');
@@ -303,11 +312,11 @@ $('.jt-pg-container').on('mouseleave', '.jt-pg-item-wrap', function(){
 	$(this).find('.jt-pg-product-line-bright').css('display','none');
 });
 
-$('.jt-pg-container').on('mouseenter', '.jt-pg-heart-wrap', function(){
-	$(this).find('.jt-home-shop-love').css('background-position','-15px -30px');
+$('.jt-pg-container').on('mouseenter', '.jt-pg-item-wrap', function(){
+	$(this).find('.jt-pg-item-heart-wrap').css('display','block');
 });
-$('.jt-pg-container').on('mouseleave', '.jt-pg-heart-wrap', function(){
-	$(this).find('.jt-home-shop-love').css('background-position','0px -30px');
+$('.jt-pg-container').on('mouseleave', '.jt-pg-item-wrap', function(){
+	$(this).find('.jt-pg-item-heart-wrap').css('display','none');
 });
 
 //~ comment

@@ -19,6 +19,11 @@
 .btnImage{ background: url("../images/jt-btn-image.png") no-repeat; background-position: 0 0; float: left; width: 16px; height: 12px;}
 .btnText{float: left; padding: 1px 0 0 2px;}
 
+.jt-tab-event{background: url("../images/jt-tab-event2.png") no-repeat; background-size:55px;width:55px;height: 55px;}
+.jt-tab-event-mini{background: url("../images/jt-tab-event2.png") no-repeat; background-size:45px;width:45px;height: 45px;}
+.jt-tab-hot{background: url("../images/jt-tab-hot3.png") no-repeat; background-size:55px;width:55px;height: 55px;}
+.jt-tab-event-wrap{position: absolute;top: 0;left:0;}
+
 .jt-btn-orange{
 	cursor:pointer;
 	padding: 10px 10px 10px 10px; 

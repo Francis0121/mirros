@@ -701,6 +701,7 @@ jQuery(document).ready(function(){
 		 $.postJSON(contextPath + 'ajax/eventHeartClick.jt', { eventPn : eventPn }, function(event) {
 			var eventPn = event.eventPn, crudType = event.crudType, message = event.message,
 				$small = $('#jt-heart-click-'+eventPn), $big = $('#jt-heart-expand-click-'+eventPn);
+			
 			if (!nullValueCheck(message)) {
 				message == '1' ? jtown.login.showLoginForm() : jtown.dialog('판매자는 불가능합니다.');
 				return;
@@ -714,7 +715,7 @@ jQuery(document).ready(function(){
 				var appendHtml ='';
 				appendHtml += '<div class="jt-sidebar-heart-item" data-url ="'+event.url+'" data-eventPn="'+eventPn+'" data-productPn="">';
 				appendHtml += 	'<div class="jt-sidebar-heart-item-img-wrap">';
-				appendHtml += 		'<span class="jt-home-expand-shop-event-new-image jt-sidebar-heart-item-event-img"> </span>';
+				appendHtml += 		'<div class="jt-tab-event-wrap"><div class="jt-tab-event-mini"></div></div>';
 				appendHtml += 	'</div>';
 				appendHtml +=		'<div class="jt-sidebar-heart-item-text-wrap">';
 				appendHtml += 		'<div>'+event.eventName+'</div>';
@@ -731,6 +732,7 @@ jQuery(document).ready(function(){
 			} else if (crudType == 'eventHeartDelete') {
 				$small.removeClass('jt-heart-animation');
 				$big.removeClass('jt-heart-animation');
+				
 				var itemSize = $('.jt-sidebar-heart-item').length;
 				for(var idx=0; idx < itemSize; idx++){
 					if($('.jt-sidebar-heart-item:eq('+idx+')').attr('data-eventPn') == eventPn){

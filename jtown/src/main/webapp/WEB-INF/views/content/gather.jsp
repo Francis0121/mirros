@@ -19,7 +19,7 @@
 					<div class="jt-right-sidebar-comment-feed-dialog-contents">
 						<c:if test="${feedList.contentType == '-1'}">
 							<div class="jt-right-sidebar-comment-feed-dialog-contents-img">
-								<span class="jt-home-expand-shop-event-new-image"> </span>
+								<div class="jt-tab-event-wrap"><div class="jt-tab-event"></div></div>
 								<div class="jt-right-sidebar-comment-feed-dialog-contents-event">${feedList.productName }</div>
 							</div>
 							<div class="jt-right-sidebar-comment-feed-dialog-contents-text">
@@ -74,7 +74,7 @@
 			<c:if test="${myHeartList.price == -1}">
 				<div class="jt-sidebar-heart-item" data-url ="${myHeartList.url}" data-eventPn="${myHeartList.productPn }" data-productPn="">
 					<div class="jt-sidebar-heart-item-img-wrap">
-						<span class="jt-home-expand-shop-event-new-image jt-sidebar-heart-item-event-img"> </span>
+						<div class="jt-tab-event-wrap"><div class="jt-tab-event-mini"></div></div>
 					</div>
 					<div class="jt-sidebar-heart-item-text-wrap">
 						<div>${myHeartList.productName }</div>
@@ -110,8 +110,11 @@
 				<c:if test="${list.productPn == 0 }">
 					<div class="jt-pg-event-line">
 						<div class="jt-pg-item-wrap">
+							<div class="jt-pg-item-heart-wrap">
+								<span class="jt-home-shop-love jt-pg-heart-shape ${heartClickShapeClass }" id="jt-pg-heart-click-e-${list.eventPn}">heart</span>
+							</div>
+							<div class="jt-tab-event-wrap"><div class="jt-tab-event"></div></div>
 							<div class="jt-pg-event-line-event-name-wrap">
-								<span class="jt-home-expand-shop-event-new-image">NEW</span>
 								<div class="jt-pg-event-line-event-name">${list.eventName }</div>
 							</div>
 							<div class="jt-pg-event-line-bottom">
@@ -164,6 +167,9 @@
 				<c:if test="${list.productPn != 0 }">
 					<div class="jt-pg-product-line">
 						<div class="jt-pg-item-wrap">
+							<div class="jt-pg-item-heart-wrap">
+								<span class="jt-home-shop-love jt-pg-heart-shape ${heartClickShapeClass }" id="jt-pg-heart-click-${list.productPn}">heart</span>
+							</div>
 							<div class="jt-pg-product-img">
 								<c:if test="${empty list.contentType}">
 									<img src="${cp}/resources/uploadImage/${list.saveName }" alt="${list.productName }" />
@@ -222,7 +228,10 @@
 			<div class="jt-pg-item jt-pg-large-product" data-url="${list.url }" data-product-pn="${list.productPn }" >
 				<div class="jt-pg-product-line">
 					<div class="jt-pg-item-wrap">
-						<div class="jt-pg-product-line-hot"><img src="${cp}/resources/images/jt-hot.png"></div>
+						<div class="jt-pg-item-heart-wrap">
+							<span class="jt-home-shop-love jt-pg-heart-shape ${heartClickShapeClass }" id="jt-pg-heart-click-${list.productPn}">heart</span>
+						</div>
+						<div class="jt-pg-product-line-hot"><div class="jt-tab-hot"></div></div>
 						<div class="jt-pg-product-img">
 							<c:if test="${empty list.contentType}">
 								<img src="${cp}/resources/uploadImage/${list.saveName }" alt="${list.productName }" />

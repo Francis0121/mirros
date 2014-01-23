@@ -42,11 +42,11 @@
  
 <%-- Node --%>
 <script src="${nodePath }/socket.io/socket.io.js"></script>
-
-<script src="${cp}/resources/js/real.time.min.js"></script>
  <%--
-<script src="${cp}/resources/js/real.time.js"></script>
+<script src="${cp}/resources/js/real.time.min.js"></script>
   --%>
+<script src="${cp}/resources/js/real.time.js"></script>
+
  
 <%-- isFinish Message --%>
 <c:if test="${isFinish ne null && isFinish ne '' }">

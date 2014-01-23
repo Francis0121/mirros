@@ -80,7 +80,9 @@ word-wrap: break-word; }
 .jt-home-shop-view{ float: left; margin-left: 50px; margin-top:-2px; width: 15px; height: 15px; background: url("../images/jt-home-icon.png") 0 -45px no-repeat; text-indent: -99999px;}
 .jt-home-shop-love-hot{float: left; margin-left: 8px; color: #e92f25 !important; cursor: default;}
 .jt-home-shop-love{ display: block; width: 15px; height: 15px; background: url("../images/jt-home-icon.png") 0 -30px no-repeat; text-indent: -99999px; }
+/*
 .jt-home-shop-love:HOVER{ background-position: -15px -30px;}
+*/
 .jt-home-shop-comment{ float: left; margin-left: 36px; margin-top:-1px; width: 15px; height: 15px; background: url("../images/jt-home-icon.png") 0 -60px no-repeat; text-indent: -99999px; cursor: pointer;}
 .jt-home-shop-comment-wrap:ACTIVE{ box-shadow: 1px 1px 4px 1px #666 inset;}
 .jt-home-shop-comment:HOVER{ background-position: -15px -60px;}

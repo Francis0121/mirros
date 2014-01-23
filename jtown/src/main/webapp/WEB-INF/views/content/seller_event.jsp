@@ -29,6 +29,7 @@ html{ overflow-y: hidden;}
 						data-ppn="${event.eventPn}"
 						data-name="<c:out value="${event.eventName }"/>"
 						data-url="<c:out value="${event.url }"/>">
+						<div class="jt-tab-event-wrap" style="margin: 5px;"><div class="jt-tab-event"></div></div>
 						<div class="jt-seller-expand-product-delete-tool">	
 							<div>
 								<a href="#none" class="jt-seller-event-delete jt-btn-white-small">
@@ -42,7 +43,6 @@ html{ overflow-y: hidden;}
 								<div class="jt-seller-upload-event-end-filter-text">이벤트가 만료되었습니다.</div>
 							</c:if>
 						
-							<span class="jt-home-expand-shop-event-new-image" style="margin: 0;">NEW</span>
 							<div class="jt-seller-upload-event-name">${event.eventName }</div>
 							<div class="jt-seller-upload-event-dday">
 								<c:if test="${event.dDay >= 0}">D - ${event.dDay }일 남았습니다.</c:if>

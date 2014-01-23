@@ -18,7 +18,7 @@
 .jt-right-sidebar-comment-feed-dialog-contents-text{padding: 0 15px;line-height: 1.5;}
 .jt-right-sidebar-comment-feed-dialog-contents-text>div:FIRST-CHILD{font-weight: bold;}
 .jt-right-sidebar-comment-feed-dialog-contents-img>span{margin:0;}
-.jt-right-sidebar-comment-feed-dialog-contents-event{padding: 20px}
+.jt-right-sidebar-comment-feed-dialog-contents-event{padding: 25px 25px 20px 25px; }
 .jt-right-sidebar-comment-feed-dialog-contents-event-text{float: none;padding-left:5px !important;}
 .jt-right-sidebar-comment-feed-dialog-contents-product-text{padding: 15px 15px;}
 
@@ -28,11 +28,10 @@
 
 .jt-sidebar-heart-item{padding: 5px 10px; width:190px;font-size:11px; overflow: auto; cursor: pointer;}
 .jt-sidebar-heart-item:HOVER{background-color: rgba(0, 0, 0, .015)}
-.jt-sidebar-heart-item-img-wrap{float: left; width: 48px;height: 48px;}
+.jt-sidebar-heart-item-img-wrap{position:relative;float: left; width: 48px;height: 48px;}
 .jt-sidebar-heart-item-img-wrap>img{width:48px;}
 .jt-sidebar-heart-item-text-wrap{float: left;width:121px; padding: 0 10px;}
 .jt-sidebar-heart-item-text-wrap>div{padding: 6px 0 3px 0;font-family: NanumBarunGothic;line-height: 1.25}
-.jt-sidebar-heart-item-event-img{margin: 3px 0 0 0;}
 
 .jt-pg-item {box-shadow: 0 1px 3px rgba(34,25,25,0.4);-webkit-box-shadow: 0 1px 3px rgba(34,25,25,0.4);-moz-box-shadow: 0 1px 3px rgba(34,25,25,0.4); }
 .jt-pg-item-wrap{cursor: pointer;}
@@ -45,15 +44,14 @@
 .photo{width:492px}
 .jt-pg-product-line {background-color: #fff;height: 100%;border-radius:3px;}
 .jt-pg-product-line-bright{position:absolute; height:240px;width:100%;background-color: rgba(255,255,255,0.05);top: 0px;display: none;}
-.jt-pg-product-line-hot{position: absolute; width:70px; height: 50px; right: 0%;top:10%;}
-.jt-pg-product-line-hot img{width: 70px; height: 16.8px;}
+.jt-pg-product-line-hot{position: absolute; left: 0;top:0;}
 .jt-pg-event-line {height: 100%;line-height: 150%;border: 1px solid #eee; border-radius:3px; background-color: #fff;}
 .jt-pg-product-name-wrap{ border-bottom:1px solid rgba(34,25,25,0.4) ; height: 48px;}
 .jt-pg-product-name {font-size: 13px;margin-top: -2px;padding-top: 6px;width: 184px;height: 42px;background-color: #fff;line-height: 140%;float: left;}
 .jt-pg-product-name div{padding-left: 15px;font-size:11px;font-family: NanumBarunGothic;}
 .jt-pg-product-name div:FIRST-CHILD {font-weight: bold;}
 .jt-pg-event-line-event-name-wrap {padding-top: 5px;padding-left: 20px;height: 227px;}
-.jt-pg-event-line-event-name {padding-top: 15px;float: left;color: #f69833;width: 165px;font-size: 15px;padding-left: 5px;font-weight: bold;}
+.jt-pg-event-line-event-name {padding-top: 15px;float: left;color: #f69833;width: 185px;font-size: 15px;padding-left: 15px;font-weight: bold;}
 .jt-pg-event-line-shop-name {color: #bbb;padding-left: 25px;font-size: 15px;font-family: NanumGothic;}
 .jt-pg-event-line-end-date {color: #6e6e6e;padding-left: 25px;font-family: NanumGothic;font-weight: bold;font-size: 14px;float: left;}
 .jt-pg-event-line-text{float: left; width: 182px;}
@@ -63,7 +61,9 @@
 .jt-pg-heart-count{float:left; margin-top:15px;margin-left: 5px;color: #777}
 .jt-pg-heart-event-count{float:left; margin-top:9px;margin-left: 5px;color: #777}
 .jt-pg-heart-wrap{font-size: 13px;z-index: 3; font-weight: bold; width:56px;height:46px;  text-align: left;float: left;}
-.jt-pg-product-facebook{position: absolute;top: 210px; right: 2px; font-size: 13px;z-index: 20; display: none;}
+.jt-pg-product-facebook{position: absolute;top: 50px; right: 2px; font-size: 13px;z-index: 20; display: none;}
+.jt-pg-item-heart-wrap{position:absolute;top:10px;right:10px;width:28px;height:29px;padding:3px 0 0 8px ;border: 1px solid #ad9c9c;border-radius:3px;background: -webkit-linear-gradient( #ffffff, #f0f0f0);background: linear-gradient( #ffffff, #f0f0f0);background-color:#fff; display: none;z-index: 5;}
+
 
 .jt-pg-comment-wrap{padding: 5px 0 0 0;line-height: 160%;}
 .jt-pg-comment-input{width: 180px; padding: 2px 10px; border: 1px solid #c3c4c4; height: 18px;background-color: #f9f9f9;}

@@ -127,9 +127,11 @@ jtown.real.time = function(data) {
 		if(cpn == nowcpn){
 			if (crudType == 'productHeartInsert') {
 				$('#jt-pg-heart-click-' + productPn).addClass('jt-home-shop-love-click');
+				$('.jt-pg-heart-wrap #jt-pg-heart-click-' + productPn).addClass('jt-home-shop-love-click');
 				$('#jt-pg-heart-count-' + productPn).addClass('jt-home-shop-love-text-click');
 			} else if (crudType == 'productHeartDelete') {
 				$('#jt-pg-heart-click-' + productPn).removeClass('jt-home-shop-love-click');
+				$('.jt-pg-heart-wrap #jt-pg-heart-click-' + productPn).removeClass('jt-home-shop-love-click');
 				$('#jt-pg-heart-count-' + productPn).removeClass('jt-home-shop-love-text-click');
 			}
 		}
@@ -144,9 +146,11 @@ jtown.real.time = function(data) {
 		if(cpn == nowcpn){
 			if (crudType == 'eventHeartInsert') {
 				$('#jt-pg-heart-click-e-' + eventPn).addClass('jt-home-shop-love-click');
+				$('.jt-pg-heart-wrap #jt-pg-heart-click-e-' + eventPn).addClass('jt-home-shop-love-click');
 				$('#jt-pg-heart-count-e-' + eventPn).addClass('jt-home-shop-love-text-click');
 			} else if (crudType == 'eventHeartDelete') {
 				$('#jt-pg-heart-click-e-' + eventPn).removeClass('jt-home-shop-love-click');
+				$('.jt-pg-heart-wrap #jt-pg-heart-click-e-' + eventPn).removeClass('jt-home-shop-love-click');
 				$('#jt-pg-heart-count-e-' + eventPn).removeClass('jt-home-shop-love-text-click');
 			}
 		}
@@ -160,7 +164,7 @@ jtown.real.time = function(data) {
 		html +=		'<div class="jt-right-sidebar-comment-feed-dialog-contents">';
 		if(obj.contentType == '-1'){
 			html +=		'<div class="jt-right-sidebar-comment-feed-dialog-contents-img">';
-			html +=			'<span class="jt-home-expand-shop-event-new-image"> </span>';
+			html +=			'<div class="jt-tab-event-wrap"><div class="jt-tab-event"></div></div>';
 			html +=			'<div class="jt-right-sidebar-comment-feed-dialog-contents-event">'+obj.productName+'</div>';
 			html +=		'</div>';
 			html +=		'<div class="jt-right-sidebar-comment-feed-dialog-contents-text">';

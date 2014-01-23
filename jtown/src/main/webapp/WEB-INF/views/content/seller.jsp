@@ -284,11 +284,11 @@
 						</c:if> 
 						<c:forEach items="${eventList }" var="event">
 						<div class="jt-seller-event-wrap" data-url="${event.url }">
+							<div class="jt-tab-event-wrap"><div class="jt-tab-event-mini"></div></div>
 							<c:if test="${event.dDay < 0}">
 								<div class="jt-seller-event-end-filter"></div>
 								<div class="jt-seller-event-end-filter-text"> 이벤트가 만료되었습니다.</div>
 							</c:if>
-							<span class="jt-home-expand-shop-event-new-image" style="margin: 0;">NEW</span>
 							<div class="jt-seller-upload-event-name" style="height: 120px;">${event.eventName }</div>
 							<div class="jt-seller-upload-event-dday">
 								<c:if test="${event.dDay >= 0}">D - ${event.dDay }일 남았습니다.</c:if>

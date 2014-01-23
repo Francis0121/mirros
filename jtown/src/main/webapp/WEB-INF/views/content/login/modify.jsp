@@ -15,6 +15,7 @@
 		<header class="jt-account-setting-article-header">
 			<h2>계정</h2>
 		</header>
+		
 	<form:form commandName="jtownUser" method="post" action="${cp }/login/modify.jt" htmlEscape="true">		
 		<table class="jt-account-setting-article-table">
 			<tbody>
@@ -25,7 +26,12 @@
 						<div class="jt-join-user-vaild-wrap" id="confirmEmail">
 							<span class="jt-form-invalid">정확한&nbsp;이메일&nbsp;주소를&nbsp;입력해&nbsp;주시기&nbsp;바랍니다.(ex&nbsp;abcde@abc.com)</span>
 						</div>
-						<form:input path="username" data-type="create" cssClass="jt-modify-content-input" cssErrorClass="jt-modify-content-input-error"/>
+						<c:if test="${empty connectionMap.facebook }">
+							<form:input path="username" data-type="create" cssClass="jt-modify-content-input" cssErrorClass="jt-modify-content-input-error"/>
+						</c:if>
+						<c:if test="${not empty connectionMap.facebook }">
+							${jtownUser.username }
+						</c:if>
 						<div class="jt-account-setting-error">	
 							<form:errors path="username" cssClass="commonError"/>
 						</div>	
@@ -43,37 +49,6 @@
 						</div>
 					</td>
 				</tr>
-				<!-- 
-				<tr>
-					<th>성별</th>
-					<td>
-						<form:select path="sex" cssClass="jt-join-user-select" cssErrorClass="jt-join-user-select-error">
-							<form:option value="false">여자</form:option>
-							<form:option value="true">남자</form:option>
-						</form:select>
-					</td>
-				</tr>
-				<tr>
-					<th>생년월일</th>
-					<td>
-						<form:select path="year" cssClass="jt-join-user-select jt-join-user-select-year" cssErrorClass="jt-join-user-select-error jt-join-user-select-year">
-							<c:forEach begin="0" end="100" varStatus="loop">
-								<form:option value="${jtownUser.nowYear - loop.index }">${jtownUser.nowYear - loop.index }</form:option>	
-							</c:forEach>
-						</form:select>
-						<form:select path="month" cssClass="jt-join-user-select jt-join-user-select-month" cssErrorClass="jt-join-user-select-error jt-join-user-select-month">
-							<c:forEach begin="1" end="12" varStatus="loop">
-								<form:option value="${loop.index }">${loop.index }</form:option>
-							</c:forEach>
-						</form:select>
-						<form:select path="day" cssClass="jt-join-user-select jt-join-user-select-day" cssErrorClass="jt-join-user-select-error jt-join-user-select-day">
-							<c:forEach begin="1" end="31" varStatus="loop">
-								<form:option value="${loop.index }">${loop.index }</form:option>
-							</c:forEach>
-						</form:select>
-					</td>
-				</tr>
-				 -->
 				</sec:authorize>
 				<sec:authorize access="principal.groupName eq 'Seller' or principal.groupName eq 'Administrator'">
 				<tr>
@@ -89,6 +64,8 @@
 					</td>
 				</tr>
 				</sec:authorize>
+				
+				<c:if test="${empty connectionMap.facebook }">
 				<tr>
 					<th>현재&nbsp;비밀번호</th>
 					<td>
@@ -119,6 +96,8 @@
 						<input type="password" name="confirmPassword" class="jt-modify-content-input"/>
 					</td>
 				</tr>
+				</c:if>
+				
 			</tbody>
 		</table>
 	</form:form>
@@ -136,6 +115,7 @@
 			<c:set var="connections" value="${connectionMap[providerId]}" />
 			<spring:message code="${providerId}.displayName" var="providerDisplayName" />
 			<spring:message code="${providerId}.icon" var="iconUrl"/>
+			
 			<!-- 
 			<header class="jt-account-setting-article-social-header">
 				<h3><img src="${cp }${iconUrl}" width="30" height="30" alt="${providerDisplayName }"/></h3>

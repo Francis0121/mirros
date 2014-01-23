@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -108,7 +107,7 @@ public class LoginController {
 	public String showSigninRedirect(Model model) {
 		return prefixView + "login/signin";
 	}
-	
+
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String showLogin(Model model, HttpSession session, @RequestParam(required = false) Integer isFinish) {
 		if (isFinish != null) {
@@ -203,7 +202,7 @@ public class LoginController {
 			model.addAttribute("connectionMap", connections);
 
 			if (summaryUser.getEnumAuthority() == Authority.CUSTOMER) {
-				JtownUser user = new JtownUser();  
+				JtownUser user = new JtownUser();
 				user.setPn(pn);
 				user.setUsername(summaryUser.getUsername());
 				user.setName(summaryUser.getName());
@@ -293,32 +292,31 @@ public class LoginController {
 		return prefixView + "login/join";
 	}
 
-	@RequestMapping(value="/login/nameValidation.jt")
+	@RequestMapping(value = "/login/nameValidation.jt")
 	@ResponseBody
-	public String nameValidation(String name){
-		String error ="success";
-		if(!name.equals(name.trim())){
-			error="error";
-		}else if (!ValidationUtil.checkCharAndLength(name, 0, 20)) {
-			error="error";
+	public String nameValidation(String name) {
+		String error = "success";
+		if (!name.equals(name.trim())) {
+			error = "error";
+		} else if (!ValidationUtil.checkCharAndLength(name, 0, 20)) {
+			error = "error";
 		}
 		return error;
 	}
-	
-	@RequestMapping(value="/login/usernameValidation.jt")
+
+	@RequestMapping(value = "/login/usernameValidation.jt")
 	@ResponseBody
-	public String usernameValidation(String username){
-		String error ="success";
+	public String usernameValidation(String username) {
+		String error = "success";
 		boolean exist = loginService.selectCheckExistEmail(username);
 		if (exist) {
-			error="error";
-		}else if (!ValidationUtil.emailFormCheck(username)) {
-			error="error";
+			error = "error";
+		} else if (!ValidationUtil.emailFormCheck(username)) {
+			error = "error";
 		}
 		return error;
 	}
-	
-	
+
 	@RequestMapping(value = "/login/joinSubmit.jt", method = RequestMethod.POST)
 	public String formJoin(Model model, @ModelAttribute JtownUser jtownUser, @RequestParam("confirmPassword") final String confirmPassword,
 			BindingResult result, WebRequest request) {
@@ -346,7 +344,7 @@ public class LoginController {
 			String password = jtownUser.getPassword();
 
 			customJdbcUserDetailManager.createUserCustomAndAuthority(jtownUser);
-			//emailSend.sendConfirmEmail(jtownUser.getUsername());
+			// emailSend.sendConfirmEmail(jtownUser.getUsername());
 			userAuthenticator.login(username, password);
 
 			if ("twitter".equals(jtownUser.getSocial())) {
@@ -357,7 +355,7 @@ public class LoginController {
 			return prefixView + "login/join";
 		}
 	}
-	
+
 	@RequestMapping(value = "/login/appJoinSubmit.jt", method = RequestMethod.POST)
 	@ResponseBody
 	@Transactional
@@ -387,7 +385,7 @@ public class LoginController {
 			String password = jtownUser.getPassword();
 
 			customJdbcUserDetailManager.createUserCustomAndAuthority(jtownUser);
-			//emailSend.sendConfirmEmail(jtownUser.getUsername());
+			// emailSend.sendConfirmEmail(jtownUser.getUsername());
 			userAuthenticator.login(username, password);
 
 			if ("twitter".equals(jtownUser.getSocial())) {
@@ -413,7 +411,7 @@ public class LoginController {
 		model.addAttribute("connectionMap", connections);
 
 		if (summaryUser.getEnumAuthority() == Authority.CUSTOMER) {
-			JtownUser jtownUser = new JtownUser(); 
+			JtownUser jtownUser = new JtownUser();
 			jtownUser.setPn(summaryUser.getPn());
 			jtownUser.setUsername(summaryUser.getUsername());
 			jtownUser.setName(summaryUser.getName());
@@ -428,61 +426,80 @@ public class LoginController {
 		return prefixView + "login/modify";
 	}
 
+	public boolean isFacebookLogin() {
+		Map<String, List<Connection<?>>> connections = connectionRepository.findAllConnections();
+		return !connections.get("facebook").isEmpty();
+	}
+	
+	public boolean isOnlyNameModify(SummaryUser summaryUser, JtownUser jtownUser){
+		if(jtownUser.getUsername().equals(summaryUser.getUsername())  && !jtownUser.getName().equals(summaryUser.getName()) &&  "".equals(jtownUser.getNewPassword()) ){
+			return true;
+		}
+		return false;
+	}
+	
+
 	@PreAuthorize("hasRole('ROLE_USER')")
 	@RequestMapping(value = "/login/modify.jt", method = RequestMethod.POST)
-	public String formPassword(@ModelAttribute JtownUser jtownUser, BindingResult result, @RequestParam final String confirmPassword, Model model,
-			final SummaryUser summaryUser, HttpServletRequest request, HttpServletResponse response) {
+	public String formPassword(@ModelAttribute JtownUser jtownUser, BindingResult result,
+			@RequestParam(required = false) final String confirmPassword, Model model, final SummaryUser summaryUser, HttpServletRequest request,
+			HttpServletResponse response) {
 		new Validator() {
 			@Override
 			public void validate(Object target, Errors errors) {
 				JtownUser jtownUser = (JtownUser) target;
-				if (customJdbcUserDetailManager.confirmPassword(jtownUser)) {
-					errors.rejectValue("password", "change.password.notEqualPassword");
-				}
-
-				String newPassword = jtownUser.getNewPassword();
-
-				if (!ValidationUtil.checkNullAndBlank(newPassword)) {
-					if (ValidationUtil.confirmPassword(newPassword, confirmPassword)) {
-						errors.rejectValue("newPassword", "join.password.isNotEqual");
-					} else if (!ValidationUtil.lengthCheck(newPassword, 7, 16)) {
-						errors.rejectValue("newPassword", "join.password.notAllow");
-					}
-				}
-
-				String nowUsername = summaryUser.getUsername();
-				String changeUsername = jtownUser.getUsername();
-
-				ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username", "join.username.empty");
 				Authority authority = summaryUser.getEnumAuthority();
+				if (!isFacebookLogin() && !isOnlyNameModify(summaryUser, jtownUser)) {
+					if (customJdbcUserDetailManager.confirmPassword(jtownUser)) {
+						errors.rejectValue("password", "change.password.notEqualPassword");
+					}
 
-				if (!ValidationUtil.checkNullAndBlank(changeUsername)) {
-					if (!nowUsername.equals(changeUsername)) {
-						if (authority.equals(Authority.CUSTOMER)) {
-							if (!ValidationUtil.emailFormCheck(changeUsername)) {
-								errors.rejectValue("username", "join.username.notAllow");
-							}
-						} else if (authority.equals(Authority.SELLER) || authority.equals(Authority.ADMIN)) {
-							if (!ValidationUtil.checkCharAndLength(changeUsername, 0, 20)) {
-								errors.rejectValue("username", "join.username.notAllowId");
-							}
+					String newPassword = jtownUser.getNewPassword();
+
+					if (!ValidationUtil.checkNullAndBlank(newPassword)) {
+						if (ValidationUtil.confirmPassword(newPassword, confirmPassword)) {
+							errors.rejectValue("newPassword", "join.password.isNotEqual");
+						} else if (!ValidationUtil.lengthCheck(newPassword, 7, 16)) {
+							errors.rejectValue("newPassword", "join.password.notAllow");
 						}
+					}
 
-						boolean exist = loginService.selectCheckExistEmail(changeUsername);
-						if (exist) {
+					String nowUsername = summaryUser.getUsername();
+					String changeUsername = jtownUser.getUsername();
+
+					ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username", "join.username.empty");
+
+					if (!ValidationUtil.checkNullAndBlank(changeUsername)) {
+						if (!nowUsername.equals(changeUsername)) {
 							if (authority.equals(Authority.CUSTOMER)) {
-								errors.rejectValue("username", "join.username.exist");
+								if (!ValidationUtil.emailFormCheck(changeUsername)) {
+									errors.rejectValue("username", "join.username.notAllow");
+								}
 							} else if (authority.equals(Authority.SELLER) || authority.equals(Authority.ADMIN)) {
-								errors.rejectValue("username", "join.username.sellerExist");
+								if (!ValidationUtil.checkCharAndLength(changeUsername, 0, 20)) {
+									errors.rejectValue("username", "join.username.notAllowId");
+								}
+							}
+
+							boolean exist = loginService.selectCheckExistEmail(changeUsername);
+							if (exist) {
+								if (authority.equals(Authority.CUSTOMER)) {
+									errors.rejectValue("username", "join.username.exist");
+								} else if (authority.equals(Authority.SELLER) || authority.equals(Authority.ADMIN)) {
+									errors.rejectValue("username", "join.username.sellerExist");
+								}
 							}
 						}
 					}
 				}
-
 				if (authority.equals(Authority.CUSTOMER)) {
 					ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "join.nickName.empty");
 
 					String name = jtownUser.getName();
+					if (name.indexOf(",") != -1) {
+						name = name.substring(0, name.indexOf(","));
+						jtownUser.setName(name);
+					}
 					if (!ValidationUtil.checkCharAndLength(name, 0, 20)) {
 						errors.rejectValue("name", "join.nickName.notAllow");
 					}
