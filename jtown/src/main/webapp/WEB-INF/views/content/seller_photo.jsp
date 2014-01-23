@@ -187,8 +187,9 @@ html{ overflow-y: hidden;}
 		$('#product #price').placeholder();
 		$('#product #url').placeholder();
 		$('#jt-home-footer').css('display','none');
-		
-		$('.jt-product-article-object[data-name =""]:last').click();
+		if( $('.jt-product-error-text').text() == ''){
+			$('.jt-product-article-object[data-name =""]:last').click();
+		}
 	}); 
 	
 	if($('body').attr('data-reload') == '1'){
