@@ -89,7 +89,6 @@ word-wrap: break-word; }
 .jt-home-shop-content-love-text-wrap{ float: left; font-weight: bold; margin-left: 2px;}
 .jt-home-shop-content-love-text-wrap span:nth-child(1){float: left; color: #b2b2b2;}
 .jt-home-shop-love-click{background: url("../images/jt-home-icon.png") -15px -30px no-repeat !important;}
-.jt-home-shop-love-text-click{color: #f59697 !important;}
 
 .jt-home-shop-new-event{position: absolute; width: 313px; padding-top: 3px; height: 0;}
 .jt-home-shop-new-event-div{float: right; width: 60%;}

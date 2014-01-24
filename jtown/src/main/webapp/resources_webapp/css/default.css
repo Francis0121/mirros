@@ -19,6 +19,11 @@ display: none;}
 #jt-app-reply-dialog-popup{width:70%;left:50% !important;margin-left:-40%;max-width:70% !important;}
 #jt-app-reply-dialog-popup:selection{background: #rgba(0,0,0,0.01)}
 .ui-focus{box-shadow:0 0 7px #ff8e0d !important;border: 1px solid #ddd }
+.jt-tab-wrap{position: absolute;top:0;left:0;z-index: 1;}
+.jt-tab-hot{background: url("../images/jt-tab-hot3.png") no-repeat; width: 45px; height: 45px;background-size:45px;}
+.jt-tab-event{background: url("../images/jt-tab-event2.png") no-repeat; width: 45px; height: 45px;background-size:45px;}
+
+
 
 /********************
  ~header

@@ -38,7 +38,7 @@ mobile.real.time = function(data) {
 			}
 			mobileHtml += '</div>';
 		}else{
-			mobileHtml += '<div class="jt-app-reply-event-wrap" data-eventPn="'+obj.eventPn+'"><span class="jt-app-event-mark jt-app-reply-event-mark"> </span></div>';
+			mobileHtml += '<div class="jt-app-reply-event-wrap" data-eventPn="'+obj.eventPn+'"><div class="jt-tab-wrap"><div class="jt-tab-event"></div></div></div>';
 		}
 		mobileHtml +=		'<div class="jt-app-reply-contents-wrap">';
 		mobileHtml += 			'<div class="jt-app-reply-product-name">'+obj.productName+'</div>';

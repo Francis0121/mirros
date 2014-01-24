@@ -16,14 +16,14 @@
 --%>
 <script src="${cp}/resources_webapp/js/default.min.js?10"></script>
 
-
-<script src="${cp}/resources_webapp/js/mirros.all.min.js?001"></script>
 <%--
+<script src="${cp}/resources_webapp/js/mirros.all.min.js?001"></script>
+--%>
 <script src="${cp}/resources_webapp/js/content/item.js?95"></script>
 <script src="${cp}/resources_webapp/js/content/like.js?24"></script>
 <script src="${cp}/resources_webapp/js/content/more.js?36"></script>
-<script src="${cp}/resources_webapp/js/content/reply.js?24"></script>
---%>
+<script src="${cp}/resources_webapp/js/content/reply.js?25"></script>
+
 <%-- Node --%>
 <script src="${nodePath }/socket.io/socket.io.js"></script>
 <%-- 

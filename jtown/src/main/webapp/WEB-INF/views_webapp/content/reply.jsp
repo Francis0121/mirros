@@ -22,7 +22,8 @@
 						</div>
 					</c:if>
 					<c:if test="${commentFeed.contentType == '-1'}">
-						<div class="jt-app-reply-event-wrap" data-eventPn="${commentFeed.productPn }"><span class="jt-app-event-mark jt-app-reply-event-mark"> </span></div>
+						
+						<div class="jt-app-reply-event-wrap" data-eventPn="${commentFeed.productPn }"><div class="jt-tab-wrap"><div class="jt-tab-event"></div></div></div>
 					</c:if>
 					<div class="jt-app-reply-contents-wrap">
 						<div class="jt-app-reply-product-name">${commentFeed.productName }</div>
@@ -39,6 +40,7 @@
 		<div data-role="popup" id="jt-reply-popup-menu" data-overlay-theme="a">
 			<div data-role="header" data-theme="c" role="banner"><h1 role="heading" aria-level="1"></h1></div>
 		    <ul data-role="listview" data-inset="true" >
+				<li class="" style="visibility: hidden;height: 0px;"><a ></a></li>
 				<li class="jt-app-reply-popup-delete"><a >삭제</a></li>
 				<li class="jt-app-reply-popup-warn"><a >신고</a></li>
 		    </ul>

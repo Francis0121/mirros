@@ -80,7 +80,7 @@ $.attendProductItems = function(data){
 			html += '<div class="jt-app-item-list-wrap"></div>';
 			html += '<div class="jt-app-item-img-shield"></div>';
 			if(items[idx].hot == 1){
-				html+='<div class="jt-app-item-list-products-hot"><img src="'+contextPath+'/resources/images/jt-hot.png"></div>';
+				html+='<div class="jt-tab-wrap"><div class="jt-tab-hot"></div></div>';
 			}
 			html +=	'<div class="jt-app-item-list-products-img">';
 			if(items[idx].contentType == ''){
@@ -104,7 +104,8 @@ $.attendProductItems = function(data){
 			html += '<div class="jt-app-item-list-events jt-app-item-lists '+isHeartChecked+'" data-url="'+items[idx].url+'" data-event-pn="'+items[idx].eventPn+'" data-like="'+items[idx].customerPn+'" oncontextmenu="return false" onselectstart="return false">';
 			html += '<div class="jt-app-item-list-wrap"></div>';
 			html += '<div class="jt-app-item-img-shield"></div>';
-			html += 	'<div class="jt-app-item-event-wrap"><img src="'+contextPath+'/resources_webapp/images/jt-dummy.png" /><span class="jt-app-event-mark jt-app-reply-event-mark"> </span></div>';
+			html+=		'<div class="jt-tab-wrap"><div class="jt-tab-event"></div></div>';
+			html += 	'<div class="jt-app-item-event-wrap"><img src="'+contextPath+'/resources_webapp/images/jt-dummy.png" /></div>';
 			html += 	'<div class="jt-app-item-event-name">'+items[idx].eventName+'</div>';
 			html += 	'<div class="jt-app-item-event-contents">'; 
 			html += 		'<div class="jt-app-item-shop-name">'+items[idx].shopName+'</div>';

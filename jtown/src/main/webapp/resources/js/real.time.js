@@ -127,11 +127,9 @@ jtown.real.time = function(data) {
 		if(cpn == nowcpn){
 			if (crudType == 'productHeartInsert') {
 				$('#jt-pg-heart-click-' + productPn).addClass('jt-home-shop-love-click');
-				$('.jt-pg-heart-wrap #jt-pg-heart-click-' + productPn).addClass('jt-home-shop-love-click');
 				$('#jt-pg-heart-count-' + productPn).addClass('jt-home-shop-love-text-click');
 			} else if (crudType == 'productHeartDelete') {
 				$('#jt-pg-heart-click-' + productPn).removeClass('jt-home-shop-love-click');
-				$('.jt-pg-heart-wrap #jt-pg-heart-click-' + productPn).removeClass('jt-home-shop-love-click');
 				$('#jt-pg-heart-count-' + productPn).removeClass('jt-home-shop-love-text-click');
 			}
 		}

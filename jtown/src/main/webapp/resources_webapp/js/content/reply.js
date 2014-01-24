@@ -23,6 +23,12 @@ $.checkReplyPage = function(){
 $.deleteTarget = null;
 $('body').on('taphold', '.jt-app-reply-comment-wrap', function(){
 	isTapHold = true;
+	$thisTarget = $(this);
+	$thisTarget.css('background-color','rgba(251, 149 , 15, 0.1)');
+	setTimeout(function(){
+		$thisTarget.css('background-color','#fff');
+	}, 500);
+	
 	$.post(contextPath + '/app/ajax/checkLogin.jt', {}, function(object) {
 		if(object.isLogin==false){
 			$.toast('로그인 해주세요.');
@@ -31,12 +37,12 @@ $('body').on('taphold', '.jt-app-reply-comment-wrap', function(){
 		}else{
 			var userPn = object.pn;
 			$('#jt-reply-popup-menu').popup('open');
-			var eventPn = $(this).find('.jt-app-reply-event-wrap').attr('data-eventPn');
-			var productPn = $(this).find('.jt-app-reply-img-wrap').attr('data-productPn');
-			var commentPn = $(this).attr('data-comment-pn');
-			var customerPn = $(this).attr('data-customer-pn');
+			var eventPn = $thisTarget.find('.jt-app-reply-event-wrap').attr('data-eventPn');
+			var productPn = $thisTarget.find('.jt-app-reply-img-wrap').attr('data-productPn');
+			var commentPn = $thisTarget.attr('data-comment-pn');
+			var customerPn = $thisTarget.attr('data-customer-pn');
 			userPn != customerPn ? $('.jt-app-reply-popup-delete').hide() : $('.jt-app-reply-popup-delete').show();
-			$.deleteTarget = $(this);
+			$.deleteTarget = $thisTarget;
 				
 			$('#jt-reply-popup-menu').attr('data-event-pn', eventPn);
 			$('#jt-reply-popup-menu').attr('data-product-pn', productPn);
@@ -45,7 +51,9 @@ $('body').on('taphold', '.jt-app-reply-comment-wrap', function(){
 	});
 });
 
-$('body').on('tap', '.jt-app-reply-popup-warn', function(){
+$('body').on('tap', '.jt-app-reply-popup-warn', function(e){
+	e.stopPropagation();
+	e.preventDefault();
 	var productPn = $('#jt-reply-popup-menu').attr('data-product-pn');
 	productPn == null ? productPn =0 : '';  
 	var commentPn = $('#jt-reply-popup-menu').attr('data-comment-pn');
@@ -66,7 +74,9 @@ $('body').on('tap', '.jt-app-reply-popup-warn', function(){
 	});
 });
 
-$('body').on('tap', '.jt-app-reply-popup-delete', function(){
+$('body').on('tap', '.jt-app-reply-popup-delete', function(e){
+	e.stopPropagation();
+	e.preventDefault();
 	var productPn = $('#jt-reply-popup-menu').attr('data-product-pn');
 	productPn == null ? productPn = 0 : ''; 
 	var eventPn = $('#jt-reply-popup-menu').attr('data-event-pn');

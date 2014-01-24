@@ -47,8 +47,9 @@
 				</c:if>
 				<c:if test="${myHeartList.price == '-1'}">
 					<div class="jt-app-item-list-events jt-app-like-lists" data-url="${myHeartList.url }" data-event-pn="${myHeartList.productPn }">
+						<div class="jt-tab-wrap"><div class="jt-tab-event"></div></div>
 						<div class="jt-app-item-list-wrap"></div>
-						<div class="jt-app-item-event-wrap"><img src="${cp}/resources_webapp/images/jt-dummy.png" /><span class="jt-app-event-mark jt-app-reply-event-mark"> </span></div>
+						<div class="jt-app-item-event-wrap"><img src="${cp}/resources_webapp/images/jt-dummy.png" /></div>
 							<div class="jt-app-item-event-name">${myHeartList.productName }</div>
 							<div class="jt-app-item-event-contents">
 								<div class="jt-app-item-shop-name">${myHeartList.saveName }</div>
