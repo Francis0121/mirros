@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <c:set var="webPath" value="https://www.mirros.net"/>
 <%--서버올릴시 제거 --%>
+<%-- 
 <c:set var="webPath" value="http://127.0.0.1"/>
+--%>
 <c:set var="nodePath" value="${webPath }:8000"/>
 <script>
 /* <![CDATA[ */

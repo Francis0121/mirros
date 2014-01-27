@@ -50,12 +50,17 @@ $.scrollPaging = function(){
 	$('.jt-app-contents-wrap').scroll(function(){
 	    if($.checkAppPage()){
 	    	isScrollingFlag = 1;
-	    	var docViewTop = $('.jt-app-contents-wrap:last').scrollTop() ;
-	    	var docViewBottom = docViewTop + $('.jt-app-contents-wrap:last').height();
 	    	
 	    	var elemTop = $('.jt-app-item-lists:last').offset().top;
+	    	/*
+	    	var docViewTop = $('.jt-app-contents-wrap:last').scrollTop() ;
 	    	var elemBottom = elemTop + $('.jt-app-item-lists:last').height();
+	    	var docViewBottom = docViewTop + $('.jt-app-contents-wrap:last').height();
 	    	if( (elemBottom <= docViewBottom) && (elemTop >= docViewTop) ){
+	    		
+	    	}
+	    	*/
+	    	if($('.jt-app-item-lists:last').height() + 60 >= elemTop ){
 	    		$.pagingItem();
 	    		return;
 	    	}
@@ -204,10 +209,12 @@ $('body').on('tap', '.jt-app-item-like-popup-ok', function(){
 				$.toast('체크리스트에 추가되었습니다.');
 				$.thisItem.find('.jt-app-item-list-wrap').css('box-shadow','0 0 4px 4px rgba(255,136,0,0.3)').fadeIn(250).delay(500).fadeOut(1000);
 				$.thisItem.addClass('jt-app-item-like-check');
+				$.thisItem.attr('data-like', product.order);
 			}else if('productHeartDelete' == crudType){
 				$.toast('체크리스트에서 제거되었습니다.');
 				$.thisItem.find('.jt-app-item-list-wrap').css('box-shadow','0 0 4px 4px rgba(0,0,0,0.2)').fadeIn(250).delay(500).fadeOut(1000);
 				$.thisItem.removeClass('jt-app-item-like-check');
+				$.thisItem.attr('data-like', 'null');
 			}
 		});
 	}else if(productPn == null){

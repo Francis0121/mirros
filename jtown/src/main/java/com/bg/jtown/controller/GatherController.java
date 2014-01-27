@@ -103,15 +103,13 @@ public class GatherController {
 	@RequestMapping(value = "/")
 	public String productGatherView(Model model, HttpSession session, @ModelAttribute GatherFilter gatherFilter, SummaryUser summaryUser,
 			HttpServletRequest request) throws UnsupportedEncodingException {
-		/*
 		if(!request.isSecure()){
 			return "redirect:https"+request.getRequestURL().toString().replace("http", "");
 		}
-		*/
 		if (BrowserUtil.isMobile(request)) {
 			String value = CookieUtil.isCookie("SEE_PC_VERSION", request);
 			if (value == null || !value.equals("T")) {
-				return "redirect:/m";
+				return "redirect:/app";
 			} else {
 				model.addAttribute("isMobile", true);
 			}
@@ -128,7 +126,7 @@ public class GatherController {
 		if (BrowserUtil.isMobile(request)) {
 			String value = CookieUtil.isCookie("SEE_PC_VERSION", request);
 			if (value == null || !value.equals("T")) {
-				return "redirect:/m/cpn/{categoryPn}";
+				return "redirect:/app/cpn/{categoryPn}";
 			} else {
 				model.addAttribute("isMobile", true);
 			}
@@ -147,7 +145,7 @@ public class GatherController {
 		if (BrowserUtil.isMobile(request)) {
 			String value = CookieUtil.isCookie("SEE_PC_VERSION", request);
 			if (value == null || !value.equals("T")) {
-				return "redirect:/m/";
+				return "redirect:/app/";
 			} else {
 				model.addAttribute("isMobile", true);
 			}
@@ -165,7 +163,7 @@ public class GatherController {
 		if (BrowserUtil.isMobile(request)) {
 			String value = CookieUtil.isCookie("SEE_PC_VERSION", request);
 			if (value == null || !value.equals("T")) {
-				return "redirect:/m/cpn/{categoryPn}";
+				return "redirect:/app/cpn/{categoryPn}";
 			} else {
 				model.addAttribute("isMobile", true);
 			}
@@ -263,6 +261,7 @@ public class GatherController {
 
 	public Product ajaxProductHeartClickMethod(Count count, SummaryUser summaryUser) {
 		Product product = new Product();
+		product.setOrder(summaryUser.getPn());
 		switch (summaryUser.getEnumAuthority()) {
 		case CUSTOMER:
 			count.setCustomerPn(summaryUser.getPn());
