@@ -50,9 +50,11 @@ public class HomeController {
 	@RequestMapping(value = "")
 	public String itemView(Model model, HttpSession session, @ModelAttribute GatherFilter gatherFilter, SummaryUser summaryUser, HttpServletRequest request) {
 		gatherModelSetting(model, session, gatherFilter, summaryUser);
+		/*
 		if(!request.isSecure()){
 			return "redirect:https"+request.getRequestURL().toString().replace("http", "");
 		}
+		*/
 		if("H".equals(gatherFilter.getNavFlag())){
 			hotItemList = gatherService.selectHotProductList(gatherFilter);
 		}

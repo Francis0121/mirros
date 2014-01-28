@@ -45,13 +45,13 @@
 .jt-pg-product-line {background-color: #fff;height: 100%;border-radius:3px;}
 .jt-pg-product-line-bright{position:absolute; height:240px;width:100%;background-color: rgba(255,255,255,0.05);top: 0px;display: none;}
 .jt-pg-product-line-hot{position: absolute; left: 0;top:0;}
-.jt-pg-event-line {height: 100%;line-height: 150%;border: 1px solid #eee; border-radius:3px; background-color: #fff;}
+.jt-pg-event-line {height: 100%;line-height: 150%; border-radius:3px; background-color: #fff;}
 .jt-pg-product-name-wrap{ border-bottom:1px solid rgba(34,25,25,0.4) ; height: 48px;}
 .jt-pg-product-name {font-size: 13px;margin-top: -2px;padding-top: 6px;width: 184px;height: 42px;background-color: #fff;line-height: 140%;float: left;}
 .jt-pg-product-name div{padding-left: 15px;font-size:11px;font-family: NanumBarunGothic;}
 .jt-pg-product-name div:FIRST-CHILD {font-weight: bold;}
 .jt-pg-event-line-event-name-wrap {padding-top: 5px;padding-left: 20px;height: 227px;}
-.jt-pg-event-line-event-name {padding-top: 15px;float: left;color: #f69833;width: 185px;font-size: 15px;padding-left: 15px;font-weight: bold;}
+.jt-pg-event-line-event-name {padding-top: 25px;float: left;color: #f69833;width: 185px;font-size: 15px;padding-left: 15px;font-weight: bold;}
 .jt-pg-event-line-shop-name {color: #bbb;padding-left: 25px;font-size: 15px;font-family: NanumGothic;}
 .jt-pg-event-line-end-date {color: #6e6e6e;padding-left: 25px;font-family: NanumGothic;font-weight: bold;font-size: 14px;float: left;}
 .jt-pg-event-line-text{float: left; width: 182px;}

@@ -11,6 +11,7 @@
 			<div class="jt-app-reply-contents-item-wrap">
 			<c:forEach var="commentFeed" items="${commentFeed }">
 				<div class="jt-app-reply-comment-wrap" data-url="${commentFeed.url}" data-comment-pn="${commentFeed.commentPn}" data-customer-pn="${commentFeed.customerPn }" oncontextmenu="return false" onselectstart="return false">
+				<div class="jt-app-reply-under-arrow-wrap"><div class="jt-app-reply-under-arrow"></div></div>
 					<c:if test="${commentFeed.contentType != '-1'}">	
 						<div class="jt-app-reply-img-wrap" data-productPn="${commentFeed.productPn }">
 							<c:if test="${empty commentFeed.contentType}">

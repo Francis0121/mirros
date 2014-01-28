@@ -29,6 +29,7 @@ mobile.real.time = function(data) {
 	if(obj.redisType == 'comment_feed'){
 		var mobileHtml = '';
 		mobileHtml += '<div class="jt-app-reply-comment-wrap" data-url="'+obj.url+'" data-comment-pn="'+obj.commentPn+'">';
+		mobileHtml += '<div class="jt-app-reply-under-arrow-wrap"><div class="jt-app-reply-under-arrow"></div></div>';
 		if(obj.contentType != '-1'){
 			mobileHtml += 		'<div class="jt-app-reply-img-wrap" data-productPn="'+obj.productPn+'">';
 			if(obj.contentType == null){

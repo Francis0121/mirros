@@ -2,14 +2,10 @@ $(function() {
 });
 
 $('body').on('tap', '.jt-app-reply-comment-wrap', function(){
-	if(!isTapHold){
-		var eventPn = $(this).find('.jt-app-reply-event-wrap').attr('data-eventPn');
-		var productPn = $(this).find('.jt-app-reply-img-wrap').attr('data-productPn');
-		productPn == null ? $.insertEventClickStatistic(eventPn) : $.insertProductClickStatistic(productPn); 
-		window.open($(this).attr('data-url'));
-	}else{
-		isTapHold = false;
-	}
+	var eventPn = $(this).find('.jt-app-reply-event-wrap').attr('data-eventPn');
+	var productPn = $(this).find('.jt-app-reply-img-wrap').attr('data-productPn');
+	productPn == null ? $.insertEventClickStatistic(eventPn) : $.insertProductClickStatistic(productPn); 
+	window.open($(this).attr('data-url'));
 });
 
 $.checkReplyPage = function(){
@@ -21,9 +17,11 @@ $.checkReplyPage = function(){
 };
 
 $.deleteTarget = null;
-$('body').on('taphold', '.jt-app-reply-comment-wrap', function(){
-	isTapHold = true;
-	$thisTarget = $(this);
+$('body').on('tap', '.jt-app-reply-under-arrow-wrap', function(e){
+	e.stopPropagation();
+	e.preventDefault();
+	
+	$thisTarget = $(this).parent('.jt-app-reply-comment-wrap');
 	$thisTarget.css('background-color','rgba(251, 149 , 15, 0.1)');
 	setTimeout(function(){
 		$thisTarget.css('background-color','#fff');

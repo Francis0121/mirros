@@ -25,6 +25,7 @@
 					<div class="jt-app-item-list-products jt-app-like-lists" data-url="${myHeartList.url }" data-product-pn="${myHeartList.productPn }">
 						<div class="jt-app-item-list-wrap"></div>
 						<div class="jt-app-item-img-shield"></div>
+						<div class="jt-app-like-delete-wrap"><div class="jt-app-like-delete-wrap-background"><div class="jt-app-like-delete"></div></div></div>
 						<div class="jt-app-item-list-products-img">
 						<c:if test="${myHeartList.contentType == '' }">
 							<img src="${cp}/resources/uploadImage/${myHeartList.saveName }" />
@@ -49,6 +50,7 @@
 					<div class="jt-app-item-list-events jt-app-like-lists" data-url="${myHeartList.url }" data-event-pn="${myHeartList.productPn }">
 						<div class="jt-tab-wrap"><div class="jt-tab-event"></div></div>
 						<div class="jt-app-item-list-wrap"></div>
+						<div class="jt-app-like-delete-wrap"><div class="jt-app-like-delete-wrap-background"><div class="jt-app-like-delete"></div></div></div>
 						<div class="jt-app-item-event-wrap"><img src="${cp}/resources_webapp/images/jt-dummy.png" /></div>
 							<div class="jt-app-item-event-name">${myHeartList.productName }</div>
 							<div class="jt-app-item-event-contents">

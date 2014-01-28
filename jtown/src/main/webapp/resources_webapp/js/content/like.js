@@ -15,6 +15,10 @@ $.staticLikeWrap = null;
 $('body').on('tap', '.jt-app-like-popup-ok', function(){
 	var productPn = $('.jt-app-like-popup-dialog').attr('data-product-pn');
 	var eventPn = $('.jt-app-like-popup-dialog').attr('data-event-pn');
+	
+	console.log(productPn);
+	console.log(eventPn);
+	
 	$.thisItem = $.staticLikeWrap;
 	
 	if(eventPn == null){
@@ -61,12 +65,19 @@ $('body').on('tap', '.jt-app-like-popup-cancel', function(e){
 	e.preventDefault();
 });
 
-$('body').on('taphold', '.jt-app-like-lists', function(){
-	isTapHold = true;
-	var productPn =$(this).attr('data-product-pn');
-	var eventPn =$(this).attr('data-event-pn');
+$('body').on('tap', '.jt-app-like-delete-wrap', function(e){
+	e.stopPropagation();
+	e.preventDefault();
+	$.staticLikeWrap = $(this).parent('.jt-app-like-lists');
+	$.staticLikeWrap.css('background', 'linear-gradient( #ffd79b, #ffe9c8)');
+	setTimeout(function(){
+		$.staticLikeWrap.css('background', 'linear-gradient( #ffffff, #f0f0f0)');
+	}, 500);
 	
-	$.staticLikeWrap = $(this);
+	var productPn = $.staticLikeWrap.attr('data-product-pn');
+	var eventPn = $.staticLikeWrap.attr('data-event-pn');
+	
+	
 	$.post(contextPath + '/app/ajax/checkLogin.jt', {}, function(object) {
 		if(object.isLogin==false){
 			$.toast('로그인 해주세요.');

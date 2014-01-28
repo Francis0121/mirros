@@ -19,14 +19,16 @@
 .jt-app-item-event-wrap{position: relative;box-sizing:border-box;width:50%;padding: 50%;}
 .jt-app-item-event-wrap>img{width:100%;position: absolute;top: 0;left: 0;}
 .jt-app-item-event-contents{padding:0 0 0 15px;height: 45px;}
-.jt-app-item-event-name{position:absolute;top:20px;left:25px;font-weight: bold; font-size: 14px;width:76%;line-height: 1.5;color:#f69833;}
+.jt-app-item-event-name{position:absolute;top:35px;left:25px;font-weight: bold; font-size: 14px;width:76%;line-height: 1.5;color:#f69833;}
 .jt-app-item-shop-name{font-size:12px;color:#bbb;font-weight: bold;padding: 5px 15px 5px 0;}
 .jt-app-item-end-date{font-size:14px;color: #6e6e6e;padding: 0px 0 0 0; font-weight: bold;height: 20px;}
 .jt-app-item-dummy-font{font-size: 17px;}
 .jt-app-item-comment{font-size:12px;color:#888;padding:5px 0 0 0;}
 .jt-app-item-like-check{border: 1px solid rgba(255,136,0, 0.5);}
 .jt-app-reply-wrap{position:absolute;bottom:4px;right:4px;background: url("../images/jt-pencil.png") no-repeat; background-position: 0px 0px;width: 15px; height: 15px;background-size:15px;}
-
+.jt-app-item-heart-wrap{position: absolute;right:0px;top:0px;z-index: 1;width:30px;height: 30px;padding: 5px;}
+.jt-app-item-heart-wrap-background{width:16px;height: 14px;padding: 6px;background-color: #fff;border-radius: 5px;border: 1px solid #ad9c9c;background: -webkit-linear-gradient( #ffffff, #f0f0f0);background: linear-gradient( #ffffff, #f0f0f0);}
+.jt-app-item-heart{background: url("../images/jt-heart-icon.png") no-repeat; background-position: -28px 0px;width: 15px; height: 13px;background-size:42px;}
 .jt-app-item-like-popup-q-text{margin:25px 0 20px 0; font-weight: bold;}
 .jt-app-item-like-popup-ok{margin: 0 10px 0 0;}
 .jt-app-item-like-popup-btn-wrap{text-align: center;}

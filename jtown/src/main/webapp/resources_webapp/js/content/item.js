@@ -84,6 +84,7 @@ $.attendProductItems = function(data){
 			html += '<div class="jt-app-item-list-products jt-app-item-lists '+isHeartChecked+'" data-url="'+items[idx].url+'" data-product-pn="'+items[idx].productPn+'" data-like="'+items[idx].customerPn+'">';
 			html += '<div class="jt-app-item-list-wrap"></div>';
 			html += '<div class="jt-app-item-img-shield"></div>';
+			html += '<div class="jt-app-item-heart-wrap"><div class="jt-app-item-heart-wrap-background"><div class="jt-app-item-heart"></div></div></div>';
 			if(items[idx].hot == 1){
 				html+='<div class="jt-tab-wrap"><div class="jt-tab-hot"></div></div>';
 			}
@@ -109,7 +110,8 @@ $.attendProductItems = function(data){
 			html += '<div class="jt-app-item-list-events jt-app-item-lists '+isHeartChecked+'" data-url="'+items[idx].url+'" data-event-pn="'+items[idx].eventPn+'" data-like="'+items[idx].customerPn+'" oncontextmenu="return false" onselectstart="return false">';
 			html += '<div class="jt-app-item-list-wrap"></div>';
 			html += '<div class="jt-app-item-img-shield"></div>';
-			html+=		'<div class="jt-tab-wrap"><div class="jt-tab-event"></div></div>';
+			html += '<div class="jt-app-item-heart-wrap"><div class="jt-app-item-heart"></div></div>';
+			html += '<div class="jt-app-item-heart-wrap"><div class="jt-app-item-heart-wrap-background"><div class="jt-app-item-heart"></div></div></div>';
 			html += 	'<div class="jt-app-item-event-wrap"><img src="'+contextPath+'/resources_webapp/images/jt-dummy.png" /></div>';
 			html += 	'<div class="jt-app-item-event-name">'+items[idx].eventName+'</div>';
 			html += 	'<div class="jt-app-item-event-contents">'; 
@@ -156,14 +158,19 @@ $('body').on('tap','.jt-app-item-change-mode',function(){
 	}
 });
 
-var isTapHold = false;
-$('body').on('taphold', '.jt-app-item-lists', function(e){
+$('body').on('tap', '.jt-app-item-heart-wrap', function(e){
+	e.stopPropagation();
+	e.preventDefault();
 	if(isScrollingFlag == 0){
-		isTapHold = true;
-		var productPn =$(this).attr('data-product-pn');
-		var eventPn =$(this).attr('data-event-pn');
+		var heartWrap = $(this).find('.jt-app-item-heart-wrap-background');
+		heartWrap.css('background', 'linear-gradient( #ffd79b, #ffe9c8)');
+		setTimeout(function(){
+			heartWrap.css('background', 'linear-gradient( #ffffff, #f0f0f0)');
+		}, 500);
 		
-		$itemWrapStaticTarget = $(this);
+		$itemWrapStaticTarget = $(this).parent('.jt-app-item-lists');
+		var productPn =$itemWrapStaticTarget.attr('data-product-pn');
+		var eventPn =$itemWrapStaticTarget.attr('data-event-pn');
 		$.post(contextPath + '/app/ajax/checkLogin.jt', {}, function(object) {
 			if(object.isLogin==false){
 				$.toast('로그인 해주세요.');
@@ -251,13 +258,9 @@ $('body').on('tap', '.jt-app-item-like-popup-cancel', function(e){
 
 $('body').on('tap', '.jt-app-item-list-products', function(e){
 	if(isScrollingFlag == 0){
-		if(!isTapHold){
-			var productPn = $(this).attr('data-product-pn');
-			$.insertProductClickStatistic(productPn);
-			window.open($(this).attr('data-url'));
-		}else{
-			isTapHold = false;
-		}
+		var productPn = $(this).attr('data-product-pn');
+		$.insertProductClickStatistic(productPn);
+		window.open($(this).attr('data-url'));
 	}else{
 		e.stopPropagation();
 		e.preventDefault();
@@ -265,13 +268,9 @@ $('body').on('tap', '.jt-app-item-list-products', function(e){
 });
 $('body').on('tap', '.jt-app-item-list-events', function(){
 	if(isScrollingFlag == 0){
-		if(!isTapHold){
-			var eventPn = $(this).attr('data-event-pn');
-			$.insertEventClickStatistic(eventPn);
-			window.open($(this).attr('data-url'));
-		}else{
-			isTapHold = false;
-		}
+		var eventPn = $(this).attr('data-event-pn');
+		$.insertEventClickStatistic(eventPn);
+		window.open($(this).attr('data-url'));
 	}else{
 		e.stopPropagation();
 		e.preventDefault();

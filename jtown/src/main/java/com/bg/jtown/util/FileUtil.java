@@ -18,8 +18,8 @@ public class FileUtil {
 
 	private static Logger logger = LoggerFactory.getLogger(FileUtil.class);
 // TODO 서버일때는 변경
-//	private static final String PHOTO_DIRECTORY = "C:/Users/User2/Desktop/uploadImage";
-	private static final String PHOTO_DIRECTORY = "/uploadImage";
+	private static final String PHOTO_DIRECTORY = "C:/Users/User2/Desktop/uploadImage";
+//	private static final String PHOTO_DIRECTORY = "/uploadImage";
 
 	public static final String ORGINAL_DIRECOTRY = PHOTO_DIRECTORY
 			+ "/original/";
