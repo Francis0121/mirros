@@ -10,16 +10,8 @@ $.checkLikePage = function(){
 	}
 };
 
-$.staticLikeWrap = null;
-
-$('body').on('tap', '.jt-app-like-popup-ok', function(){
-	var productPn = $('.jt-app-like-popup-dialog').attr('data-product-pn');
-	var eventPn = $('.jt-app-like-popup-dialog').attr('data-event-pn');
-	
-	console.log(productPn);
-	console.log(eventPn);
-	
-	$.thisItem = $.staticLikeWrap;
+$.likeListRemoveBtnClick = function(productPn, eventPn, target){
+	var $thisItem = target;
 	
 	if(eventPn == null){
 		$.post(contextPath + '/ajax/productHeartClickMobile.jt', { productPn : productPn }, function(product) {
@@ -33,10 +25,8 @@ $('body').on('tap', '.jt-app-like-popup-ok', function(){
 				return;
 			}
 			if('productHeartDelete' == crudType){
-				$('.jt-app-like-popup-dialog').attr('data-product-pn', null);
-				$('.jt-app-like-popup-dialog').popup('close');
 				$.toast('체크리스트에서 제거되었습니다.');
-				$.thisItem.remove();
+				$thisItem.remove();
 			}
 		});
 	}else if(productPn == null){
@@ -51,32 +41,24 @@ $('body').on('tap', '.jt-app-like-popup-ok', function(){
 				return;
 			}
 			if('eventHeartDelete' == crudType){
-				$('.jt-app-like-popup-dialog').attr('data-event-pn', null);
-				$('.jt-app-like-popup-dialog').popup('close');
 				$.toast('체크리스트에서 제거되었습니다.');
-				$.thisItem.remove();
+				$thisItem.remove();
 			}
 		});
 	}
-});
-$('body').on('tap', '.jt-app-like-popup-cancel', function(e){
-	$('.jt-app-like-popup-dialog').popup('close');
-	e.stopPropagation();
-	e.preventDefault();
-});
+};
 
 $('body').on('tap', '.jt-app-like-delete-wrap', function(e){
 	e.stopPropagation();
 	e.preventDefault();
-	$.staticLikeWrap = $(this).parent('.jt-app-like-lists');
-	$.staticLikeWrap.css('background', 'linear-gradient( #ffd79b, #ffe9c8)');
+	var $staticLikeWrap = $(this).parent('.jt-app-like-lists');
+	$staticLikeWrap.css('background', 'linear-gradient( #ffd79b, #ffe9c8)');
 	setTimeout(function(){
-		$.staticLikeWrap.css('background', 'linear-gradient( #ffffff, #f0f0f0)');
+		$staticLikeWrap.css('background', 'linear-gradient( #ffffff, #f0f0f0)');
 	}, 500);
 	
-	var productPn = $.staticLikeWrap.attr('data-product-pn');
-	var eventPn = $.staticLikeWrap.attr('data-event-pn');
-	
+	var productPn = $staticLikeWrap.attr('data-product-pn');
+	var eventPn = $staticLikeWrap.attr('data-event-pn');
 	
 	$.post(contextPath + '/app/ajax/checkLogin.jt', {}, function(object) {
 		if(object.isLogin==false){
@@ -84,9 +66,7 @@ $('body').on('tap', '.jt-app-like-delete-wrap', function(e){
 			$.changePageTransition('/app/login', 'pop');
 			return;
 		}else{
-			$('.jt-app-like-popup-dialog').attr('data-product-pn', productPn);
-			$('.jt-app-like-popup-dialog').attr('data-event-pn', eventPn);
-			$('.jt-app-like-popup-dialog').popup('open');
+			$.likeListRemoveBtnClick(productPn, eventPn, $staticLikeWrap);
 		}
 	});
 });

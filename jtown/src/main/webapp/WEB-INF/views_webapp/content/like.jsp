@@ -10,16 +10,6 @@
 		<div data-role="content" class="jt-app-item-content" data-theme="c">
 			<div class="jt-app-like-title">${username }님의 체크리스트입니다.</div>
 
-			<div data-role="popup" class="jt-app-like-popup-dialog" data-theme="c" data-overlay-theme="a">
-				<div data-role="content" data-theme="c" role="main" >
-					<div class="jt-app-like-popup-q-text">체크리스트에서 제거하시겠습니까?</div>
-					<div class="jt-app-like-popup-btn-wrap">
-						<a data-role="button" data-inline="true" data-corners="true" data-shadow="true" data-theme="d" class="jt-app-like-popup-ok">제거</a>
-						<a data-role="button" data-inline="true" data-corners="true" data-shadow="true" data-theme="d" class="jt-app-like-popup-cancel">취소</a>
-					</div>
-				</div>
-			</div>
-			
 			<c:forEach items="${myHeartList}" var="myHeartList" >
 				<c:if test="${myHeartList.price != '-1'}">
 					<div class="jt-app-item-list-products jt-app-like-lists" data-url="${myHeartList.url }" data-product-pn="${myHeartList.productPn }">
