@@ -52,14 +52,6 @@ $.scrollPaging = function(){
 	    	isScrollingFlag = 1;
 	    	
 	    	var elemTop = $('.jt-app-item-lists:last').offset().top;
-	    	/*
-	    	var docViewTop = $('.jt-app-contents-wrap:last').scrollTop() ;
-	    	var elemBottom = elemTop + $('.jt-app-item-lists:last').height();
-	    	var docViewBottom = docViewTop + $('.jt-app-contents-wrap:last').height();
-	    	if( (elemBottom <= docViewBottom) && (elemTop >= docViewTop) ){
-	    		
-	    	}
-	    	*/
 	    	if($('.jt-app-item-lists:last').height() + 60 >= elemTop ){
 	    		$.pagingItem();
 	    		return;
@@ -77,14 +69,18 @@ $.attendProductItems = function(data){
 	var html ='';
 	var items = data.mergeItems;
 	for(var idx=0, size = items.length; idx < size; idx++){
-		var isHeartChecked = '';
-		items[idx].customerPn ==  null ? isHeartChecked='' : isHeartChecked = 'jt-app-item-like-check';
+		var isHeartCheckedIcon = '';
+		if(items[idx].customerPn ==  null){
+			isHeartCheckedIcon='';
+		}else{
+			isHeartCheckedIcon = 'jt-app-item-heart-active';
+		}
 		
 		if(items[idx].eventPn == 0){
-			html += '<div class="jt-app-item-list-products jt-app-item-lists '+isHeartChecked+'" data-url="'+items[idx].url+'" data-product-pn="'+items[idx].productPn+'" data-like="'+items[idx].customerPn+'">';
+			html += '<div class="jt-app-item-list-products jt-app-item-lists" data-url="'+items[idx].url+'" data-product-pn="'+items[idx].productPn+'" data-like="'+items[idx].customerPn+'">';
 			html += '<div class="jt-app-item-list-wrap"></div>';
 			html += '<div class="jt-app-item-img-shield"></div>';
-			html += '<div class="jt-app-item-heart-wrap"><div class="jt-app-item-heart-wrap-background"><div class="jt-app-item-heart"></div></div></div>';
+			html += '<div class="jt-app-item-heart-wrap"><div class="jt-app-item-heart-wrap-background"><div class="jt-app-item-heart '+isHeartCheckedIcon+'"></div></div></div>';
 			if(items[idx].hot == 1){
 				html+='<div class="jt-tab-wrap"><div class="jt-tab-hot"></div></div>';
 			}
@@ -107,11 +103,11 @@ $.attendProductItems = function(data){
 			html += '<div class="jt-app-reply-wrap"></div>';
 			html += '</div>';
 		}else{
-			html += '<div class="jt-app-item-list-events jt-app-item-lists '+isHeartChecked+'" data-url="'+items[idx].url+'" data-event-pn="'+items[idx].eventPn+'" data-like="'+items[idx].customerPn+'" oncontextmenu="return false" onselectstart="return false">';
+			html += '<div class="jt-app-item-list-events jt-app-item-lists" data-url="'+items[idx].url+'" data-event-pn="'+items[idx].eventPn+'" data-like="'+items[idx].customerPn+'" oncontextmenu="return false" onselectstart="return false">';
 			html += '<div class="jt-app-item-list-wrap"></div>';
 			html += '<div class="jt-app-item-img-shield"></div>';
 			html += '<div class="jt-app-item-heart-wrap"><div class="jt-app-item-heart"></div></div>';
-			html += '<div class="jt-app-item-heart-wrap"><div class="jt-app-item-heart-wrap-background"><div class="jt-app-item-heart"></div></div></div>';
+			html += '<div class="jt-app-item-heart-wrap"><div class="jt-app-item-heart-wrap-background"><div class="jt-app-item-heart '+isHeartCheckedIcon+'"></div></div></div>';
 			html += 	'<div class="jt-app-item-event-wrap"><img src="'+contextPath+'/resources_webapp/images/jt-dummy.png" /></div>';
 			html += 	'<div class="jt-app-item-event-name">'+items[idx].eventName+'</div>';
 			html += 	'<div class="jt-app-item-event-contents">'; 
@@ -163,9 +159,9 @@ $('body').on('tap', '.jt-app-item-heart-wrap', function(e){
 	e.preventDefault();
 	if(isScrollingFlag == 0){
 		var heartWrap = $(this).find('.jt-app-item-heart-wrap-background');
-		heartWrap.css('background', 'linear-gradient( #ffd79b, #ffe9c8)');
+		heartWrap.css('background', 'linear-gradient(#ffd79b, #ffe9c8)');
 		setTimeout(function(){
-			heartWrap.css('background', 'linear-gradient( #ffffff, #f0f0f0)');
+			heartWrap.css('background', 'linear-gradient(#ffffff, #f0f0f0)');
 		}, 500);
 		
 		$itemWrapStaticTarget = $(this).parent('.jt-app-item-lists');
@@ -177,16 +173,7 @@ $('body').on('tap', '.jt-app-item-heart-wrap', function(e){
 				$.changePageTransition('/app/login', 'pop');
 				return;
 			}else{
-				$('.jt-app-item-like-popup-dialog').attr('data-product-pn', productPn);
-				$('.jt-app-item-like-popup-dialog').attr('data-event-pn', eventPn);
-				if($itemWrapStaticTarget.attr('data-like') == 'null'){
-					$('.jt-app-item-like-popup-q-text').text('체크리스트에 추가하시겠습니까?');
-					$('.jt-app-item-like-popup-ok').find('.ui-btn-text').text('추가');
-				}else{
-					$('.jt-app-item-like-popup-q-text').text('체크리스트에서 제거하시겠습니까?');
-					$('.jt-app-item-like-popup-ok').find('.ui-btn-text').text('제거');
-				}
-				$('.jt-app-item-like-popup-dialog').popup('open');
+				$.itemHeartClick(productPn, eventPn, $itemWrapStaticTarget);
 			}
 		});
 	}else{
@@ -194,10 +181,9 @@ $('body').on('tap', '.jt-app-item-heart-wrap', function(e){
 		e.preventDefault();
 	}
 });
-$('body').on('tap', '.jt-app-item-like-popup-ok', function(){
-	var productPn =$('.jt-app-item-like-popup-dialog').attr('data-product-pn');
-	var eventPn =$('.jt-app-item-like-popup-dialog').attr('data-event-pn');
-	$.thisItem = $itemWrapStaticTarget;
+
+$.itemHeartClick = function(productPn, eventPn, target){
+	$.thisItem = target;
 	
 	if(eventPn == null){
 		$.post(contextPath + '/ajax/productHeartClickMobile.jt', { productPn : productPn }, function(product) {
@@ -214,13 +200,13 @@ $('body').on('tap', '.jt-app-item-like-popup-ok', function(){
 			$('.jt-app-item-like-popup-dialog').attr('data-product-pn', null);
 			if('productHeartInsert' == crudType){
 				$.toast('체크리스트에 추가되었습니다.');
-				$.thisItem.find('.jt-app-item-list-wrap').css('box-shadow','0 0 4px 4px rgba(255,136,0,0.3)').fadeIn(250).delay(500).fadeOut(1000);
-				$.thisItem.addClass('jt-app-item-like-check');
+				$.thisItem.find('.jt-app-item-list-wrap').css('box-shadow','0 0 4px 4px rgba(0,0,0,0.2)').fadeIn(250).delay(500).fadeOut(1000);
+				$.thisItem.find('.jt-app-item-heart').addClass('jt-app-item-heart-active');
 				$.thisItem.attr('data-like', product.order);
 			}else if('productHeartDelete' == crudType){
 				$.toast('체크리스트에서 제거되었습니다.');
 				$.thisItem.find('.jt-app-item-list-wrap').css('box-shadow','0 0 4px 4px rgba(0,0,0,0.2)').fadeIn(250).delay(500).fadeOut(1000);
-				$.thisItem.removeClass('jt-app-item-like-check');
+				$.thisItem.find('.jt-app-item-heart').removeClass('jt-app-item-heart-active');
 				$.thisItem.attr('data-like', 'null');
 			}
 		});
@@ -248,13 +234,7 @@ $('body').on('tap', '.jt-app-item-like-popup-ok', function(){
 			}
 		});
 	}
-});
-$('body').on('tap', '.jt-app-item-like-popup-cancel', function(e){
-	$('.jt-app-item-like-popup-dialog').popup('close');
-	e.stopPropagation();
-	e.preventDefault();
-});
-
+};
 
 $('body').on('tap', '.jt-app-item-list-products', function(e){
 	if(isScrollingFlag == 0){
