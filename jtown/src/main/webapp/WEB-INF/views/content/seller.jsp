@@ -15,7 +15,7 @@
 				<div class="jt-home-shop-content" id="step3">
 					<ul class="jt-home-shop-content-image" id="jt-seller-main-image">
 						<li class="question-mark-wrap">
-							<a class="question-mark" data-step="3">?</a>
+							<a class="question-mark" data-step="1">?</a>
 						</li>
 						<li id="jt-seller-main-image-hover-tool" class="jt-seller-main-image-hover-tool">
 							<div>
@@ -81,7 +81,7 @@
 				</div>
 				<div id="jt-seller-main-footer" class="jt-home-notice">
 					<div class="question-mark-wrap" style="width: 316px;">
-						<a class="question-mark" data-step="4">?</a>
+						<a class="question-mark" data-step="2">?</a>
 					</div>
 					<div class="jt-seller-main-notice-hover-tool" id="jt-seller-main-notice-hover-tool">
 						<div>
@@ -107,7 +107,7 @@
 				</div>
 				<ul class="jt-home-shop-content-fn" id="step5">
 					<li class="question-mark-wrap" style="width: 316px;">
-						<a class="question-mark" data-step="5">?</a>
+						<a class="question-mark" data-step="3">?</a>
 					</li>
 					<li>
 						<span class="jt-home-shop-view" title="최근 일주일간 방문수">VIEW</span>&nbsp;<span id="view-<c:out value="${jtownUser.pn}"/>"><c:out value="${jtownUser.viewCount eq null ? 0 : jtownUser.viewCount}"/></span>	
@@ -145,7 +145,7 @@
 			<div class="jt-seller-text-contnet-wrap">
 				<ul class="jt-seller-text-content" id="step1">
 					<li class="question-mark-wrap" style="margin-left: 11px;">
-						<a class="question-mark" data-step="1">?</a>
+						<a class="question-mark" data-step="4">?</a>
 					</li>
 					<li>
 						<h3>ShopNo</h3>
@@ -162,8 +162,9 @@
 					
 				</ul>
 				<ul class="jt-seller-tag" id="step2">
+					<%--
 					<li class="question-mark-wrap" style="margin-left: 11px;">
-						<a class="question-mark" data-step="2">?</a>
+						<a class="question-mark" data-step="5">?</a>
 					</li>
 					<li>
 						<h3>Tag</h3>
@@ -174,6 +175,7 @@
 							<div id="jt-tag-update-show-btn" title="수정" >수정</div>
 						</div>
 					</li>
+					 --%>
 					<li id="jt-tag-checkBox">
 						<div id="jt-tag-checkBox-section">
 							<div id="jt-tag-checkBox-header">
@@ -198,7 +200,7 @@
 			
 			<div id="jt-home-expand-shop-notice">
 					<div class="question-mark-wrap" style="width: 320px;">
-						<a class="question-mark" data-step="6">?</a>
+						<a class="question-mark" data-step="5">?</a>
 					</div>
 					<div class="jt-seller-expand-notice-hover-tool" id="jt-seller-expand-notice-hover-tool">
 						<div>
@@ -244,7 +246,7 @@
 				<div class="jt-home-expand-shop-expandProducts" >
 					<div class="jt-home-expand-shop-products" id="step7">
 						<div class="question-mark-wrap" style="width: 740px;">
-							<a class="question-mark" data-step="7">?</a>
+							<a class="question-mark" data-step="6">?</a>
 						</div>
 						<c:forEach items="${products }" var="product" varStatus="loop">
 							<div class="thumbnail">
