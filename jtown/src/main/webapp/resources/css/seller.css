@@ -127,7 +127,7 @@ box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box;
 .jt-seller-expand-notice-cancle{ margin-top: 3px;}
 .jt-seller-expand-notice-cancle>.btnImage{background-position: 0 -24px;}
 .jt-seller-expand-textarea{ display:none; float: left; width: 542px; padding: 2px 3px; border: 1px solid #808080; overflow: hidden; min-height: 50px; margin: 20px 0 15px 0; resize : none; line-height: 1.5;}
-.jt-seller-expand{ width: 760px; float: left; margin-top: 15px; margin-left: 3px; }
+.jt-seller-expand{ width: 750px; float: left; margin-top: 15px; margin-left: 3px; }
 .jt-seller-expand-product-delete-tool{ float: left; width: 100%; display: none;}
 .jt-seller-expand-product-delete-tool>div{float: left; position: absolute; z-index: 12;}
 .jt-seller-product-delete{font-size: 11px; font-weight: normal; color: #000; z-index: 10; margin:2px; padding: 2px 1px;}

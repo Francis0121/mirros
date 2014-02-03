@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bg.jtown.business.Comment;
 import com.bg.jtown.business.Count;
+import com.bg.jtown.business.Event;
 import com.bg.jtown.business.comment.CommentService;
 import com.bg.jtown.business.home.HomeService;
 import com.bg.jtown.business.search.CommentFilter;
@@ -107,13 +108,17 @@ public class HomeController {
 		Count count = new Count();
 		count.setSellerPn(sellerPn);
 		checkSessionStatisticView(session, count, summaryUser);
-
+		
+		Event event = new Event();
+		event.setSellerPn(sellerPn);
+		model.addAttribute("eventList", sellerService.selectSellerDDayEventList(event));
 		model.addAttribute("interestCategories", homeService.selecInterestCategory());
 		model.addAttribute("interestMap", homeService.selectInterest(null));
 
 		model.addAllAttributes(sellerService.selectAllInformation(sellerPn, summaryUser.getPn()));
 		model.addAttribute("intervalCount", sellerService.selectInterval7DayCount(sellerPn));
 		model.addAttribute("facebookSellerPn", sellerPn);
+		
 		return prefixView + "mir";
 	}
 

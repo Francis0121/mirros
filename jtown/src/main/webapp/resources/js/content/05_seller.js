@@ -665,12 +665,13 @@ $('.jt-event-article-object').on({
 		
 	}
 });
-/*
+
+
 $('.jt-seller-event-wrap').on('click', function(){
 	var openNewWindow = window.open("about:blank");
 	openNewWindow.location.href=$(this).attr('data-url');
 });
-
+/*
 jtown.seller.syncEvent = function() {
 
 }; 
@@ -859,3 +860,4 @@ $('.jt-product-article-object img, .jt-product-article-object-wrap').bind('click
 		}
 	});
 });
+

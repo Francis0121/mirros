@@ -2,13 +2,9 @@
 <%@ include file="../layout/home_header.jspf" %>
 <c:set value="${fn:length(products) }" var="productSize"/>
 <article class="jt-url-content-wrap">
-	<div id="urlfolderBar">
-		<div id="urlfolderTabName">
-			<span id="urldigonalFolderImage"><a href="${jtownUser.shopUrl }" target="_blank" title="클릭시 해당 쇼핑몰로 이동됩니다."><c:out value="${jtownUser.name }"/></a></span>
-		</div>
-	</div>
 	<section class="jt-seller-content">
 		<section class="jt-home-main-url">
+			<div class="jt-home-main-url-shop-name"><a href="${jtownUser.shopUrl }" target="_blank" title="클릭시 해당 쇼핑몰로 이동됩니다."><c:out value="${jtownUser.name }"/></a></div>
 			<ul class="jt-home-main-url-image">
 				<li>
 					<c:choose>
@@ -57,16 +53,19 @@
 					</li>
 				</ul>
 			</section>
-		</section>
-		<section class="jt-seller-expand">
-			<div class="jt-home-expand-shop" id="jt-home-expand-shop" data-name="<c:out value="${jtownUser.name }"/>" data-spn="${jtownUser.pn }" data-size="${productSize }" data-nowPosition="${productSize}" data-url="${jtownUser.shopUrl }">
-				<div id="jt-home-expand-shop-notice" class="gotoPage" title="클릭시 해당 쇼핑몰로 이동됩니다.">
+			<div id="jt-home-expand-shop-notice" class="gotoPage" title="클릭시 해당 쇼핑몰로 이동됩니다." style="float: none;">
 					<span class="jt-home-expand-shop-firstQuotationMark"></span>
 					<pre id="jt-seller-expand-shop-text" class="jt-home-expand-shop-text"><c:out value="${jtownUser.longNotice}"/></pre>
 					<textarea id="jt-seller-expand-textarea" class="jt-seller-expand-textarea" maxlength="200"><c:out value="${jtownUser.longNotice}"/></textarea>
 					<span class="jt-home-expand-shop-lastQuotationMark"></span>
 				</div>
+		</section>
+		<section class="jt-seller-expand">
+			<div class="jt-home-expand-shop" id="jt-home-expand-shop" data-name="<c:out value="${jtownUser.name }"/>" data-spn="${jtownUser.pn }" data-size="${productSize }" data-nowPosition="${productSize}" data-url="${jtownUser.shopUrl }">
+				
 				<div class="jt-home-expand-shop-expandProducts">
+				
+				<%--
 					<c:choose>
 						<c:when test="${fn:length(products) > 3 }">
 							<button class="jt-home-expand-shop-leftArrow jt-home-expand-shop-arrow"><span>&lt;</span></button>
@@ -116,6 +115,7 @@
 							<button class="jt-home-expand-shop-arrow"></button>
 						</c:otherwise>
 					</c:choose>
+					 --%>
 					<div class="jt-home-expand-shop-products">
 						<c:forEach items="${products }" var="product" varStatus="loop">
 							<div class="thumbnail">
@@ -127,34 +127,42 @@
 										<span class="text">&nbsp;</span>	
 									</c:otherwise>
 								</c:choose>
-								<c:set value="${cp }/photo/thumbnail/${product.saveName }productSmall.${product.imageType }" var="image"/>
+								<c:set value="${cp }/photo/thumbnail/${product.saveName }product.${product.imageType }" var="image"/>
 								<c:if test="${product.imageCategory eq 0 }">
 									<c:set value="${cp }/resources/uploadImage/${product.saveName }" var="image"/>
 								</c:if>
-								<span class="${loop.index eq 0 ? fn:length(products)-1 : loop.index-1 } image" ><img alt="Product${loop.index }" src="${image }"/></span>
+								
+								<a href="${product.url eq null ? shopUrl : product.url}" target="_blank">							
+									<span class="${loop.index eq 0 ? fn:length(products)-1 : loop.index-1 } image" ><img alt="Product${loop.index }" src="${image }"/></span>
+								</a>
 							</div>
 						</c:forEach>
 						<c:if test="${fn:length(products) < 3 }">
 							<c:forEach begin="${fn:length(products) }" end="2">
 							<div class="thumbnail">
 								<span class="text">&nbsp;</span>
-								<span class="image" ><img alt="Product" src="${cp }/resources/images/jt-product-thumbnail-blank.png"/></span>
+								<a href="${product.url eq null ? shopUrl : product.url}" target="_blank">
+									<span class="image" ><img alt="Product" src="${cp }/resources/images/jt-product-thumbnail-blank.png"/></span>
+								</a>
 							</div>
 							</c:forEach>
 						</c:if>
-						<c:choose>
-							<c:when test="${fn:length(interestes) > 0 }">
-							<div class="jt-home-expand-shop-tag">
-								<span class="tag-txt"><c:forEach items="${interestes }" var="interest" varStatus="loop"><c:out value="${interest.name }"/><c:if test="${loop.count ne fn:length(interestes) }">,&nbsp;</c:if></c:forEach></span><span class="tag-image">Tag</span>
+						<c:forEach items="${eventList }" var="event">
+						<div class="jt-seller-event-wrap" data-url="${event.url }">
+							<div class="jt-tab-event-wrap"><div class="jt-tab-event-mini"></div></div>
+							<c:if test="${event.dDay < 0}">
+								<div class="jt-seller-event-end-filter"></div>
+								<div class="jt-seller-event-end-filter-text"> 이벤트가 만료되었습니다.</div>
+							</c:if>
+							<div class="jt-seller-upload-event-name" style="height: 120px;">${event.eventName }</div>
+							<div class="jt-seller-upload-event-dday">
+								<c:if test="${event.dDay >= 0}">D - ${event.dDay }일 남았습니다.</c:if>
 							</div>
-							</c:when>
-							<c:otherwise>
-							<div style="padding-bottom: 15px; float:left; width: 100%;"></div>
-							</c:otherwise>
-						</c:choose>
+						</div>	
+						</c:forEach>
 					</div>
 				</div>
-				
+				<%--
 				<div class="jt-home-expand-shop-event gotoPage" id="jt-seller-expand-event-first" title="클릭시 해당 쇼핑몰로 이동됩니다." data-epn="<c:out value="${event1.pn }"/>" data-bo="1">
 					<c:if test="${jtownUser.bannerFirst < 3 }">
 						<div class="jt-home-expand-shop-event-new">
@@ -170,6 +178,7 @@
 					</c:if>
 					<img alt="First Event" src="${event1.saveName eq null ? blankEvent : imageEvent }" id="jt-seller-expand-event-first-img"/>
 				</div>
+				
 				<div class="jt-home-expand-shop-event gotoPage" id="jt-seller-expand-event-second" title="클릭시 해당 쇼핑몰로 이동됩니다." data-epn="<c:out value="${event2.pn }"/>" data-bo="2">
 					<c:if test="${jtownUser.bannerSecond < 3 }">
 					<div class="jt-home-expand-shop-event-new">
@@ -184,6 +193,7 @@
 					</c:if>
 					<img alt="Second Event" src="${event2.saveName eq null ? blankEvent : imageEvent }" id="jt-seller-expand-event-second-img"/>
 				</div>
+				 --%>
 				<div class="jt-home-expand-shop-content-wrap">
 					<ul class="jt-home-expand-shop-content-fn">
 						<li class="jt-home-expand-shop-content-view-wrap">
