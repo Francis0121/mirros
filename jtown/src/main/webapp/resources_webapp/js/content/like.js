@@ -25,7 +25,7 @@ $.likeListRemoveBtnClick = function(productPn, eventPn, target){
 				return;
 			}
 			if('productHeartDelete' == crudType){
-				$.toast('체크리스트에서 제거되었습니다.');
+				$.toast('관심리스트에서 제거되었습니다.');
 				$thisItem.remove();
 			}
 		});
@@ -41,7 +41,7 @@ $.likeListRemoveBtnClick = function(productPn, eventPn, target){
 				return;
 			}
 			if('eventHeartDelete' == crudType){
-				$.toast('체크리스트에서 제거되었습니다.');
+				$.toast('관심리스트에서 제거되었습니다.');
 				$thisItem.remove();
 			}
 		});

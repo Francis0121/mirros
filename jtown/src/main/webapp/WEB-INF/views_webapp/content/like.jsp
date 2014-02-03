@@ -8,7 +8,7 @@
 <%@ include file="../layout/header.jspf" %>
 	<div class="jt-app-contents-wrap">
 		<div data-role="content" class="jt-app-item-content" data-theme="c">
-			<div class="jt-app-like-title">${username }님의 체크리스트입니다.</div>
+			<div class="jt-app-like-title">${username }님의 관심리스트입니다.</div>
 
 			<c:forEach items="${myHeartList}" var="myHeartList" >
 				<c:if test="${myHeartList.price != '-1'}">

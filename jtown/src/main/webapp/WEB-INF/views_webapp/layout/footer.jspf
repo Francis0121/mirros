@@ -7,10 +7,10 @@
 			<li><a href="" class="jt-app-footer-item ${categoryType == 'app' ? 'jt-app-icon-text-active' : ''}"><div class="jt-app-footer-icon"><div class="${categoryType == 'app' ? 'jt-app-icon-item-active' : 'jt-app-icon-item-passive'}"></div></div>상품</a></li>
 			<li><a href="" class="jt-app-footer-reply ${categoryType == 'reply' ? 'jt-app-icon-text-active' : ''}"><div class="jt-app-footer-icon"><div class="${categoryType == 'reply' ? 'jt-app-icon-reply-active' : 'jt-app-icon-reply-passive'}"></div></div>댓글보기</a></li>
 			<sec:authorize ifAnyGranted="ROLE_ANONYMOUS">
-				<li><a href="" class="jt-app-footer-login"><div class="jt-app-footer-icon"><div class="jt-app-icon-like-passive"></div></div>체크리스트</a></li>
+				<li><a href="" class="jt-app-footer-login"><div class="jt-app-footer-icon"><div class="jt-app-icon-like-passive"></div></div>관심리스트</a></li>
 			</sec:authorize>
 			<sec:authorize ifNotGranted="ROLE_ANONYMOUS">
-				<li><a href="" class="jt-app-footer-like ${categoryType == 'like' ? 'jt-app-icon-text-active' : ''}"><div class="jt-app-footer-icon"><div class="${categoryType == 'like' ? 'jt-app-icon-like-active' : 'jt-app-icon-like-passive'}"></div></div>체크리스트</a></li>
+				<li><a href="" class="jt-app-footer-like ${categoryType == 'like' ? 'jt-app-icon-text-active' : ''}"><div class="jt-app-footer-icon"><div class="${categoryType == 'like' ? 'jt-app-icon-like-active' : 'jt-app-icon-like-passive'}"></div></div>관심리스트</a></li>
 			</sec:authorize>
 			<li><a href="" class="jt-app-footer-more ${categoryType == 'more' ? 'jt-app-icon-text-active' : ''}"><div class="jt-app-footer-icon"><div class="${categoryType == 'more' ? 'jt-app-icon-more-active' : 'jt-app-icon-more-passive'}"></div></div>더보기</a></li>
 		</ul>

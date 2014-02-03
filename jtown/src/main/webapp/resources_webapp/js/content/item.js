@@ -106,6 +106,7 @@ $.attendProductItems = function(data){
 			html += '<div class="jt-app-item-list-events jt-app-item-lists" data-url="'+items[idx].url+'" data-event-pn="'+items[idx].eventPn+'" data-like="'+items[idx].customerPn+'" oncontextmenu="return false" onselectstart="return false">';
 			html += '<div class="jt-app-item-list-wrap"></div>';
 			html += '<div class="jt-app-item-img-shield"></div>';
+			html+=  '<div class="jt-tab-wrap"><div class="jt-tab-event"></div></div>';
 			html += '<div class="jt-app-item-heart-wrap"><div class="jt-app-item-heart"></div></div>';
 			html += '<div class="jt-app-item-heart-wrap"><div class="jt-app-item-heart-wrap-background"><div class="jt-app-item-heart '+isHeartCheckedIcon+'"></div></div></div>';
 			html += 	'<div class="jt-app-item-event-wrap"><img src="'+contextPath+'/resources_webapp/images/jt-dummy.png" /></div>';
@@ -199,12 +200,12 @@ $.itemHeartClick = function(productPn, eventPn, target){
 			$('.jt-app-item-like-popup-dialog').popup('close');
 			$('.jt-app-item-like-popup-dialog').attr('data-product-pn', null);
 			if('productHeartInsert' == crudType){
-				$.toast('체크리스트에 추가되었습니다.');
+				$.likeToast('<div class="jt-app-item-like-heart-active"></div>'+'관심리스트에 추가되었습니다.');
 				$.thisItem.find('.jt-app-item-list-wrap').css('box-shadow','0 0 4px 4px rgba(0,0,0,0.2)').fadeIn(250).delay(500).fadeOut(1000);
 				$.thisItem.find('.jt-app-item-heart').addClass('jt-app-item-heart-active');
 				$.thisItem.attr('data-like', product.order);
 			}else if('productHeartDelete' == crudType){
-				$.toast('체크리스트에서 제거되었습니다.');
+				$.likeToast('<div class="jt-app-item-like-heart"></div>'+'관심리스트에서 제거되었습니다.');
 				$.thisItem.find('.jt-app-item-list-wrap').css('box-shadow','0 0 4px 4px rgba(0,0,0,0.2)').fadeIn(250).delay(500).fadeOut(1000);
 				$.thisItem.find('.jt-app-item-heart').removeClass('jt-app-item-heart-active');
 				$.thisItem.attr('data-like', 'null');
@@ -224,11 +225,11 @@ $.itemHeartClick = function(productPn, eventPn, target){
 			$('.jt-app-item-like-popup-dialog').popup('close');
 			$('.jt-app-item-like-popup-dialog').attr('data-event-pn', null);
 			if('eventHeartInsert' == crudType){
-				$.toast('체크리스트에 추가되었습니다.');
+				$.likeToast('<div class="jt-app-item-like-heart-active"></div>'+'관심리스트에 추가되었습니다.');
 				$.thisItem.find('.jt-app-item-list-wrap').css('box-shadow','0 0 3px 3px rgba(255,136,0,0.25)').fadeIn(250).delay(500).fadeOut(500);
 				$.thisItem.addClass('jt-app-item-like-check');
 			}else if('eventHeartDelete' == crudType){
-				$.toast('체크리스트에서 제거되었습니다.');
+				$.likeToast('<div class="jt-app-item-like-heart"></div>'+'관심리스트에서 제거되었습니다.');
 				$.thisItem.find('.jt-app-item-list-wrap').css('box-shadow','0 0 3px 3px rgba(0,0,0,0.075)').fadeIn(250).delay(500).fadeOut(500);
 				$.thisItem.removeClass('jt-app-item-like-check');
 			}

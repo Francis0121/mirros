@@ -65,7 +65,22 @@ $.toast = function(msg){
 		"text-align": "center",
 		width: "270px",
 		left: ($(window).width() - 284)/2,
-		top: $(window).height()/1.4 })
+		top: $(window).height()/1.6 })
+	.appendTo( $.mobile.pageContainer ).delay( 1500 )
+	.fadeOut( 400, function(){
+		$(this).remove();
+	});
+};
+$.likeToast = function(msg){
+	$("<div class='jt-toast-wrap jt-like-toast-wrap'>"+msg+"</div>")
+	.css({ display: "block", 
+		opacity: 0.90, 
+		position: "fixed",
+		padding: "7px",
+		"text-align": "center",
+		width: "200px",
+		left: ($(window).width() - 214)/2,
+		top: $(window).height()/2.4 })
 	.appendTo( $.mobile.pageContainer ).delay( 1500 )
 	.fadeOut( 400, function(){
 		$(this).remove();
