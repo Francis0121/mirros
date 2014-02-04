@@ -252,7 +252,8 @@ color: #808080;}
 }
 
 .jt-home-main-url{ float: left; width: 330px; margin: 15px 0 0 10px;background-color: #fff;box-shadow: 0 1px 3px rgba(34,25,25,0.4);-moz-box-shadow: 0 1px 3px rgba(34,25,25,0.4);-webkit-box-shadow: 0 1px 3px rgba(34,25,25,0.4);}
-.jt-home-main-url-shop-name{text-align: center;font-weight: bold;font-size: 13px;padding: 9px 0;color:#4e4e4e;}
+.jt-home-main-url-shop-name{text-align: center;font-weight: bold;font-size: 13px;padding: 9px 0;}
+.jt-home-main-url-shop-name>a{color:#4e4e4e;}
 .jt-home-main-url-image{ float: left; width: 100%;}
 .jt-home-main-url-image>li{ float: left; width: 330px;}
 .jt-home-main-url-image>li>img{ float: left; width: 100%;}

@@ -53,11 +53,8 @@ public class NaturalLanguageController {
 		}
 		
 		NaturalLanguageFilter naturalLanguageFilterInterest = new NaturalLanguageFilter(naturalLanguageFilter.getSearchName());
-
-		List<Interest> interests = naturalLanguageService.selectSearchInterestSection(naturalLanguageFilterInterest);
+		List<Interest> interests = naturalLanguageService.selectSearchCategoryItemInShop(naturalLanguageFilterInterest);
 		
-		 
-
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("jtownUsers", jtownUsers);
 		map.put("juNLF", naturalLanguageFilter);

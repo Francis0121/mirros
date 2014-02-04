@@ -61,6 +61,7 @@
 		<result column="category_pn" property="categoryPn"/>
 		<result column="category_name" property="categoryName"/>
 		<result column="name" property="name"/>
+		<result column="seller_pn" property="sellerPn" /> 
 	</resultMap>
 	
 	<select id="selectSearchInterestSection" parameterType="NaturalLanguageFilter" resultMap="jt-natural-search-interest-map">
@@ -88,5 +89,27 @@
 		ORDER BY
 			name
 	</select>	
+	
+	
+	<select id="selectSearchCategoryItemInShop" resultMap="jt-natural-search-interest-map">
+	    SELECT 
+	    	DISTINCT usp.seller_pn, shop_name as name
+	    FROM 
+	    	product_category pc 
+		LEFT OUTER JOIN (SELECT * FROM user_seller_product WHERE deleted = 'N') usp
+			ON pc.pn = usp.pn
+		LEFT OUTER JOIN (SELECT * FROM product_sections WHERE deleted='N') ps
+			ON ps.sections_pn = pc.sections_pn
+		LEFT OUTER JOIN (SELECT * FROM product_divisions WHERE deleted='N')pd
+			ON pc.divisions_pn = pd.divisions_pn
+		LEFT OUTER JOIN (SELECT * FROM product_groups WHERE deleted ='N') pg 
+			ON pc.groups_pn = pg.groups_pn
+		JOIN partnership p
+			ON p.seller_pn = usp.seller_pn
+		WHERE (usp.name LIKE CONCAT('%',#{upperSearchName},'%') 
+			OR sections_name LIKE CONCAT('%',#{upperSearchName},'%')
+			OR divisions_name LIKE CONCAT('%',#{upperSearchName},'%')
+			OR groups_name LIKE CONCAT('%',#{upperSearchName},'%'))
+	</select>
 
 </mapper>

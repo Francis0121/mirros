@@ -20,5 +20,7 @@ public interface NaturalLanguageService {
 	List<Interest> selectSearchInterestSection(NaturalLanguageFilter naturalLanguageFilter);
 
 	List<JtownUser> selectSearchProductName(NaturalLanguageFilter naturalLanguageFilter);
+	
+	List<Interest> selectSearchCategoryItemInShop(NaturalLanguageFilter naturalLanguageFilter);
 
 }

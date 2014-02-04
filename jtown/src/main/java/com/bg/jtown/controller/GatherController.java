@@ -41,6 +41,7 @@ import com.bg.jtown.business.comment.CommentService;
 import com.bg.jtown.business.home.HomeService;
 import com.bg.jtown.business.home.GatherService;
 import com.bg.jtown.business.search.GatherFilter;
+import com.bg.jtown.business.search.HomeFilter;
 import com.bg.jtown.business.seller.SellerService;
 import com.bg.jtown.security.Authority;
 import com.bg.jtown.security.LoginService;
@@ -121,6 +122,36 @@ public class GatherController {
 		gatherModelSetting(model, session, gatherFilter, summaryUser);
 		model.addAttribute("productGatherList", gatherService.paginateItemList(gatherService.selectNewMergeList(gatherFilter), gatherFilter));
 		return prefixView + "gather";
+	}
+	
+	@RequestMapping(value = "/sr")
+	public String searchResultView(Model model, HttpSession session, @ModelAttribute GatherFilter gatherFilter, SummaryUser summaryUser,
+			HttpServletRequest request) throws UnsupportedEncodingException {
+		/*
+		if(!request.isSecure()){
+			return "redirect:https"+request.getRequestURL().toString().replace("http", "");
+		}
+		*/
+		
+		if (BrowserUtil.isMobile(request)) {
+			String value = CookieUtil.isCookie("SEE_PC_VERSION", request);
+			if (value == null || !value.equals("T")) {
+				return "redirect:/app";
+			} else {
+				model.addAttribute("isMobile", true);
+			}
+		}
+		gatherFilter.setNavFlag("pg");
+		gatherModelSetting(model, session, gatherFilter, summaryUser);
+		model.addAttribute("productGatherList", gatherService.paginateItemList(gatherService.selectNewMergeList(gatherFilter), gatherFilter));
+	//	
+		HomeFilter homeFilter = new HomeFilter();
+		homeFilter.setCustomerPn(summaryUser.getPn());
+		Map<String, Object> one = homeService.selectHome(homeFilter);
+		model.addAttribute("one", one);
+		
+		
+		return prefixView + "search_result";
 	}
 
 	@RequestMapping(value = "/cpn/{categoryPn}", method = RequestMethod.GET)

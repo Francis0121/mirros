@@ -56,4 +56,11 @@ public class NaturalLanguageServiceImpl extends SqlSessionDaoSupport implements 
 		return getSqlSession().selectList("naturalLanguageMapper.selectSearchProductName", naturalLanguageFilter);
 	}
 
+	@Override
+	public List<Interest> selectSearchCategoryItemInShop(NaturalLanguageFilter naturalLanguageFilter) {
+		return getSqlSession().selectList("naturalLanguageMapper.selectSearchCategoryItemInShop", naturalLanguageFilter);
+	}
+	
+	
+
 }

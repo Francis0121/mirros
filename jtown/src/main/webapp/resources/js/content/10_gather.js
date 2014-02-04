@@ -598,6 +598,27 @@ $('.jt-right-sidebar-cover').bind('click', function(){
 		jtown.login.showLoginForm();
 });
 
+//~ search_result
+
+
+
+jtown.pg.searchResultHide = function(){
+	var colCount = Math.floor($('.jt-pg-main').width()/250);
+	var itemTotalCount = $('.jt-pg-item').length;
+	$('.jt-pg-item').css('display','block');
+	for(var idx = colCount; idx < itemTotalCount; idx++){
+		$('.jt-pg-item:eq('+(idx-1)+')').css('display','none');
+	}
+};
+
+jtown.pg.searchResultTitleWidth = function(){
+	var colCount = Math.floor($('.jt-pg-main').width()/250);
+	var left = $('.jt-pg-item:eq(0)').offset().left;
+	$('.jt-pg-divide-title').width(colCount*250)+20;
+	$('.jt-pg-divide-title').css('left', left-18);
+};
+
+
 //~ init
 
 jtown.pg.eventBanner();
@@ -612,6 +633,16 @@ if($('.jt-pg-main').length != 0 ){
 	jtown.pg.windowResize();
 	jtown.pg.itemOrder();
 }
+
+if($('.jt-sr-main').length != 0){
+	jtown.pg.searchResultHide();
+	jtown.pg.searchResultTitleWidth();
+	$( window ).resize(function() {
+		jtown.pg.searchResultHide();
+		jtown.pg.searchResultTitleWidth();
+	});
+}
+
 if($('.jt-header-nav-interestCategory').attr('data-category') != null ){
 	jtown.pg.scrollPaging();
 }

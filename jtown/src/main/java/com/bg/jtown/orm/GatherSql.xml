@@ -68,7 +68,7 @@
 			    </if>  
 			    AND u.enable = 1
 			    <if test="itemName != null ">
-			    AND (usp.name LIKE CONCAT('%',#{itemName},'%') 
+			    AND (UCASE(usp.name) LIKE CONCAT('%',UCASE(#{itemName}),'%') 
 				    	OR sections_name LIKE CONCAT('%',#{itemName},'%')
 						OR divisions_name LIKE CONCAT('%',#{itemName},'%')
 						OR groups_name LIKE CONCAT('%',#{itemName},'%'))
@@ -248,7 +248,7 @@
 		   			 AND p.category_pn = #{categoryPn}
 		    	  </if>
 		    	  <if test="itemName != null ">
-				    AND (usp.name LIKE CONCAT('%',#{itemName},'%') 
+				    AND (UCASE(usp.name) LIKE CONCAT('%',UCASE(#{itemName}),'%') 
 				    	OR sections_name LIKE CONCAT('%',#{itemName},'%')
 						OR divisions_name LIKE CONCAT('%',#{itemName},'%')
 						OR groups_name LIKE CONCAT('%',#{itemName},'%'))
@@ -792,26 +792,6 @@
 		  AND event_pn = #{eventPn}
 	</select>
 	
-	<!-- TODO 
-	<select id="" >
-	    SELECT DISTINCT usp.seller_pn, shop_name FROM product_category pc 
-		LEFT OUTER JOIN user_seller_product usp
-		ON pc.pn = usp.pn
-		LEFT OUTER JOIN (SELECT * FROM product_sections WHERE deleted='N') ps
-		ON ps.sections_pn = pc.sections_pn
-		LEFT OUTER JOIN (SELECT * FROM product_divisions WHERE deleted='N')pd
-		ON pc.divisions_pn = pd.divisions_pn
-		LEFT OUTER JOIN (SELECT * FROM product_groups WHERE deleted ='N') pg 
-		ON pc.groups_pn = pg.groups_pn
-		JOIN partnership p
-		ON p.seller_pn = usp.seller_pn
-		
-		WHERE (usp.name LIKE CONCAT('%','sk','%') 
-		OR sections_name LIKE CONCAT('%','sk','%')
-		OR divisions_name LIKE CONCAT('%','sk','%')
-		OR groups_name LIKE CONCAT('%','sk','%'))
-	</select>
-	-->
 </mapper>
 	
 	

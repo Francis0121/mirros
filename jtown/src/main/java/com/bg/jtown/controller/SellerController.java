@@ -249,11 +249,11 @@ public class SellerController {
 			productFilter.setSellerPn(sellerPn);
 			model.addAttribute("products", sellerService.selectSellerProduct(productFilter));
 			model.addAttribute("productFilter", productFilter);
+			model.addAttribute("sectionsList", adminService.selectSectionsList());
 			return prefixView + "seller_photo";
 		} else {
 			product.setSellerPn(sellerPn);
 			sellerService.updateProduct(product);
-			System.out.println(productCategory.toString());
 			adminService.insertUpdateProductCategory(productCategory);
 			redirect.addFlashAttribute("isReload", TRUE);
 			return "redirect:products/" + nowPn + "?page=" + currentPage;

@@ -540,7 +540,7 @@ jtown.home.naturalLanguage = function(){
 			if($('#jt-naturalLanguage-search').val().length < 2){
 				jtown.dialog('검색은 2글자 이상 입력하셔야 합니다');
 			}else{
-				post(contextPath, {
+				post(contextPath+'sr', {
 					itemName : $('#jt-naturalLanguage-search').val()
 				});
 			}
@@ -556,30 +556,22 @@ jtown.home.naturalLanguage = function(){
 			
 			$.postJSON(url, json, function(map){
 				var jtownUsers = map.jtownUsers, interests = map.interests, productName = map.productName,  data = [];
-				
 				for(var i=0, len = jtownUsers.length ; i< len; i++){
 					var jtownUser = jtownUsers[i];
 					data[i] = { label : jtownUser.name , value : jtownUser.name, pn : jtownUser.pn,  category : 'SHOP'};
 				}
-				/*
-				for(var i=0, len = interests.length, size = jtownUsers.length ; i< len; i++){
-					var interest = interests[i];
-					data[i+size] = { label : interest.name , value : interest.name, categoryPn : interest.categoryPn, spn : interest.sectionPn, category : 'CATEGORY(쇼핑몰)'};
-				}
-				*/
 				var size =  jtownUsers.length, itemSize = productName.length;
 				var allItemCount  = 0;
-				/*
-				if(itemSize > 0 && request.term.length >= 2){
-					data[size] = { label : '[ '+request.term +' ] (이)가 포함된 모든 상품' , value : request.term, categoryPn : 0, spn : 0, category : 'ITEM'};
-					allItemCount = 1;
-				}*/
 				if(itemSize == 0 && request.term.length >= 2){
 					data[size] = { label : '검색 결과가 없습니다.' , value : null, categoryPn : 0, spn : 0, category : 'ITEM'};
 				} 
 				for(var idx = 0, len = productName.length; idx < len; idx++  ){
 					var product = productName[idx];
 					data[allItemCount+size + idx] = { label : product.name , value : product.name, categoryPn : 0, spn : 0, category : 'ITEM'};
+				}
+				for(var i=0, len = interests.length, size = jtownUsers.length, itemSize = productName.length   ; i< len; i++){
+					var interest = interests[i];
+					data[i+size+itemSize] = { label : interest.name , value : interest.name, spn : interest.sellerPn, category : 'CATEGORY(SHOP)'};
 				}
 				response( data );
 			});
@@ -590,9 +582,10 @@ jtown.home.naturalLanguage = function(){
 			if(item.category =='SHOP'){				
 				location.href = contextPath + 'mir/'+item.pn;
 			}
-			/*else if(item.category =='CATEGORY'){
-				location.href = contextPath + 's/cpn/'+item.categoryPn+'/spn/'+item.spn;
-			}*/
+			else if(item.category =='CATEGORY(SHOP)'){
+				console.log(item);
+				location.href = contextPath + 'mir/'+item.spn;
+			}
 			else if(item.category =='ITEM'){
 				post(contextPath, {
 					itemName : item.value
