@@ -66,8 +66,8 @@ $.toast = function(msg){
 		width: "270px",
 		left: ($(window).width() - 284)/2,
 		top: $(window).height()/1.6 })
-	.appendTo( $.mobile.pageContainer ).delay( 1500 )
-	.fadeOut( 400, function(){
+	.fadeIn( 400 ).appendTo( $.mobile.pageContainer ).delay(1300)
+	.fadeOut( 600, function(){
 		$(this).remove();
 	});
 };
@@ -81,8 +81,8 @@ $.likeToast = function(msg){
 		width: "200px",
 		left: ($(window).width() - 214)/2,
 		top: $(window).height()/2.4 })
-	.appendTo( $.mobile.pageContainer ).delay( 1500 )
-	.fadeOut( 400, function(){
+	.fadeIn( 400 ).appendTo( $.mobile.pageContainer ).delay(1300)
+	.fadeOut( 600, function(){
 		$(this).remove();
 	});
 };

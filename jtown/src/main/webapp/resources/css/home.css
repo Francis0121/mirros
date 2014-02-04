@@ -138,8 +138,10 @@ word-wrap: break-word; }
 }
 .jt-home-expand-shop-products>.thumbnail{position:relative;float: left; margin-right: 8px; height: 193px; width: 180px;}
 .jt-home-expand-shop-products>.thumbnail>.text{ float: left; font-family : Arial; color: #ffbf63; font-size: 11px; text-align: right; width: 50px; height: 10px; margin-bottom: 3px;}
-.jt-home-expand-shop-products>.thumbnail>a>.image{ float: left; width: 180px; height: 180px; text-indent: -9999px; cursor: pointer;}
-.jt-home-expand-shop-products>.thumbnail>a>.image>img{float: left; width: 180px; height: 180px;}
+.jt-home-expand-shop-products>.thumbnail>.image{ float: left; width: 180px; height: 180px; text-indent: -9999px; cursor: pointer;}
+.jt-home-expand-shop-products>.thumbnail>.image>img{float: left; width: 180px; height: 180px;}
+.jt-mir-img{width: 180px; height: 180px;}
+
 .jt-home-expand-shop-tag{float: left; width: 100%; text-align: right; padding : 10px 25px 0 25px; margin-top:-3px;
 	box-sizing: border-box; -o-box-sizing : border-box; -ms-box-sizing : border-box; -moz-box-sizing : border-box; -webkit-box-sizing : border-box;
 }

@@ -133,7 +133,7 @@
 								</c:if>
 								
 								<a href="${product.url eq null ? shopUrl : product.url}" target="_blank">							
-									<span class="${loop.index eq 0 ? fn:length(products)-1 : loop.index-1 } image" ><img alt="Product${loop.index }" src="${image }"/></span>
+									<span class="${loop.index eq 0 ? fn:length(products)-1 : loop.index-1 } image" ><img alt="Product${loop.index }" src="${image }" class="jt-mir-img" /></span>
 								</a>
 							</div>
 						</c:forEach>

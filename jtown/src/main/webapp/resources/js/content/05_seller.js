@@ -11,7 +11,6 @@ $(function() {
 	jtown.seller.syncMainNotice();
 	jtown.seller.syncMainImage();
 	jtown.seller.syncProduct();
-	//jtown.seller.syncEvent();
 	jtown.seller.syncExpandNotice();
 
 	$('#jt-event-second-image').uploadify({
@@ -671,33 +670,6 @@ $('.jt-seller-event-wrap').on('click', function(){
 	var openNewWindow = window.open("about:blank");
 	openNewWindow.location.href=$(this).attr('data-url');
 });
-/*
-jtown.seller.syncEvent = function() {
-
-}; 
-
-jtown.seller.firstEvent = function(file){
-	var oldSrc = $('#jt-seller-expand-event-first-img').attr('src'),
-		newSrc = contextPath+'photo/thumbnail/'+file.saveName+'event.'+file.type,
-		oldSrcObject = $('#jt-seller-expand-event-first-img').attr('data-oldSrc');
-	
-	$('#jt-seller-expand-event-first-img').attr('src', newSrc).attr('data-imagePn', file.imagePn);
-	if(nullValueCheck(oldSrcObject)){
-		$('#jt-seller-expand-event-first-img').attr('data-oldSrc', oldSrc);
-	}
-};
-
-jtown.seller.secondEvent = function(file){
-	var oldSrc = $('#jt-seller-expand-event-second-img').attr('src'),
-		newSrc = contextPath+'photo/thumbnail/'+file.saveName+'event.'+file.type,
-		oldSrcObject = $('#jt-seller-expand-event-second-img').attr('data-oldSrc');
-
-	$('#jt-seller-expand-event-second-img').attr('src', newSrc).attr('data-imagePn', file.imagePn);
-	if(nullValueCheck(oldSrcObject)){
-		$('#jt-seller-expand-event-second-img').attr('data-oldSrc', oldSrc);
-	}
-};
-*/
 
 jtown.seller.shopStatistic = function(s1,s2, year, month, labelType){
 	var length = s1.length >= s2.length ? s1.length : s2.length;
