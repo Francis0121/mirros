@@ -92,18 +92,18 @@
 	</div>
 	
 </div>
-<div class="jt-pg-divide-title"><h2 class="headline">Products</h2></div>
+<div class="jt-pg-divide-title"><h2 class="headline">Products</h2> <h3>더보기..</h3></div>
 <div class="jt-pg-container">
 <div class="jt-pg-main js-masonry jt-sr-main" data-item-name="${itemName }">
 	
-	<c:forEach items="${productGatherList }" var="list" end="5">
+	<c:forEach items="${productGatherList }" var="list" end="12">
 	<c:set value="${!empty list.customerPn ? 'jt-home-shop-love-click' : ''}   " var="heartClickShapeClass" />
 	<c:set value="${!empty list.customerPn ? 'jt-home-shop-love-text-click' : ''}   " var="heartClickTextClass" />
 	<c:choose>
 		<c:when test="${list.hot ==0}">
-			
-			<div class="jt-pg-item jt-pg-small-product" data-url="${list.url }" data-product-pn="${list.productPn }" data-event-pn="${list.eventPn }">
 			<c:if test="${list.productPn != 0 }">
+			<div class="jt-pg-item jt-pg-small-product" data-url="${list.url }" data-product-pn="${list.productPn }" data-event-pn="${list.eventPn }">
+			
 					<div class="jt-pg-product-line">
 						<div class="jt-pg-item-wrap">
 							<div class="jt-pg-item-heart-wrap">
@@ -160,8 +160,9 @@
 						</div>
 						
 					</div>
-			</c:if>	
+			
 			</div>
+			</c:if>	
 			
 		</c:when>
 		<c:otherwise>
@@ -228,7 +229,7 @@
 	</c:choose>
 	</c:forEach>
 </div>
-<div class="jt-pg-divide-title"><h2 class="headline">Shops</h2></div>
+<div class="jt-pg-divide-title"><h2 class="headline">Shops</h2><h3>더보기..</h3></div>
 
 <div id="jt-home-container" class="jt-rs-shop"
 	data-cpn="${homeFilter.categoryPn eq null ? 0 : homeFilter.categoryPn}" 

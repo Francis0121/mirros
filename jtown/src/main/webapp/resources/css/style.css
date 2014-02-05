@@ -176,7 +176,7 @@
 /*************************
 *	꼬리말
 **************************/
-.jt-footer{position: fixed; bottom: 0; right: 20px; display: block; width: 77px; height: 64px; z-index: 10; display: none;}
+.jt-footer{position: fixed; bottom: 0; right: 200px; display: block; width: 77px; height: 64px; z-index: 10; display: none;}
 .jt-scroll-top{cursor:pointer; width: 77px; height: 64px; background: url("../images/jt-scroll-top.png") no-repeat; text-indent: -9999999px;}
 /************************
 *	약관

@@ -31,7 +31,7 @@
 .jt-app-item-heart{background: url("../images/jt-heart-icon.png") no-repeat; background-position: 0px 0px;width: 14px; height: 13px;background-size:42px;}
 .jt-app-item-heart-active{background: url("../images/jt-heart-icon.png") no-repeat; background-position: -14px 0px;width: 14px; height: 13px;background-size:42px;}
 .jt-app-item-like-heart-active{background: url("../images/jt-big-heart-icon.png") no-repeat; background-position: 0px 0px;width: 60px; height: 57px;background-size:121.2px;margin: 0 auto;padding: 0 0 15px 0;}
-.jt-app-item-like-heart{background: url("../images/jt-big-heart-icon.png") no-repeat; background-position: -61px 0px;width: 60px; height: 57px;background-size:121.2px;margin: 0 auto;padding: 0 0 15px 0;}
+.jt-app-item-like-heart{background: url("../images/jt-big-heart-icon.png") no-repeat; background-position: -60px 0px;width: 60px; height: 57px;background-size:121.2px;margin: 0 auto;padding: 0 0 15px 0;}
 .jt-app-item-like-popup-q-text{margin:25px 0 20px 0; font-weight: bold;}
 .jt-app-item-like-popup-ok{margin: 0 10px 0 0;}
 .jt-app-item-like-popup-btn-wrap{text-align: center;}

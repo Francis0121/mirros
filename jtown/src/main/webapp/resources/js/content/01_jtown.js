@@ -327,10 +327,10 @@ jtown.home.masonry = {
 		});
 	},
 	resize : function(){
-		var clientWidth = Number(window.document.body.clientWidth),
+		var clientWidth = Number(window.document.body.clientWidth) - 210,
 		widthItem = Math.floor(clientWidth/330);
 	
-		if(widthItem < 3 ) widthItem = 3;
+		if(widthItem < 2 ) widthItem = 2;
 		
 		$('#jt-home-container').css({width : (widthItem*330), margin : 'auto'});
 	},

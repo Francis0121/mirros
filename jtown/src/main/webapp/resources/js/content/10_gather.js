@@ -42,26 +42,28 @@ jtown.pg.itemOrder = function(){
 };
 
 jtown.pg.scrollPaging = function(){
-	$(window).scroll(function(){
-	    if($(window).scrollTop() == $(document).height() - $(window).height()){
-	        $('div#infscr-loading').show();
-	        var itemName = $('.jt-pg-main').attr('data-item-name') == '' ? null : $('.jt-pg-main').attr('data-item-name');
-	        var category = $('.jt-header-nav-interestCategory').attr('data-category');
-	        var categoryPn = $('.jt-header-nav-interestCategory').attr('data-categoryPn');
-	        $.postJSON(contextPath+'ajax/gatherPagination.jt',{itemName : itemName, navFlag : category, categoryPn : categoryPn  }, function(data){
-	        	  if(data.mergeItems.length > 0){
-		            	productGatherHtml(data);
-		                $('div#infscr-loading').hide();
-		            }else{
-		                $('div#infscr-loading').html('<center>마지막 페이지입니다.</center>');
-		                $('div#infscr-loading').delay(500).fadeOut(1000);
-		            }
-		            if (getInternetExplorerVersion() == 7 ){
-		            	jtown.pg.itemOrder();
-		            }
-	        });
-	    }
-	});
+	if($('.jt-sr-main').length == 0){
+		$(window).scroll(function(){
+		    if($(window).scrollTop() == $(document).height() - $(window).height()){
+		        $('div#infscr-loading').show();
+		        var itemName = $('.jt-pg-main').attr('data-item-name') == '' ? null : $('.jt-pg-main').attr('data-item-name');
+		        var category = $('.jt-header-nav-interestCategory').attr('data-category');
+		        var categoryPn = $('.jt-header-nav-interestCategory').attr('data-categoryPn');
+		        $.postJSON(contextPath+'ajax/gatherPagination.jt',{itemName : itemName, navFlag : category, categoryPn : categoryPn  }, function(data){
+		        	  if(data.mergeItems.length > 0){
+			            	productGatherHtml(data);
+			                $('div#infscr-loading').hide();
+			            }else{
+			                $('div#infscr-loading').html('<center>마지막 페이지입니다.</center>');
+			                $('div#infscr-loading').delay(500).fadeOut(1000);
+			            }
+			            if (getInternetExplorerVersion() == 7 ){
+			            	jtown.pg.itemOrder();
+			            }
+		        });
+		    }
+		});
+	}
 };
 
 var productGatherHtml = function(data){
@@ -606,8 +608,18 @@ jtown.pg.searchResultHide = function(){
 	var colCount = Math.floor($('.jt-pg-main').width()/250);
 	var itemTotalCount = $('.jt-pg-item').length;
 	$('.jt-pg-item').css('display','block');
-	for(var idx = colCount; idx < itemTotalCount; idx++){
+	for(var idx = colCount*2; idx < itemTotalCount; idx++){
 		$('.jt-pg-item:eq('+(idx-1)+')').css('display','none');
+	}
+};
+
+jtown.pg.searchResultShopHide = function(){
+	
+	var colCount = Math.floor($('.jt-rs-shop').width()/330);
+	var itemTotalCount = $('.jt-home-shop').length;
+	$('.jt-home-shop').css('display','block');
+	for(var idx = colCount*2; idx < itemTotalCount; idx++){
+		$('.jt-home-shop:eq('+(idx-1)+')').css('display','none');
 	}
 };
 
@@ -637,9 +649,11 @@ if($('.jt-pg-main').length != 0 ){
 if($('.jt-sr-main').length != 0){
 	jtown.pg.searchResultHide();
 	jtown.pg.searchResultTitleWidth();
+	jtown.pg.searchResultShopHide();
 	$( window ).resize(function() {
 		jtown.pg.searchResultHide();
 		jtown.pg.searchResultTitleWidth();
+		jtown.pg.searchResultShopHide();
 	});
 }
 

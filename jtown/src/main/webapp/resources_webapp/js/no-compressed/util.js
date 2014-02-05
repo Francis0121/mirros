@@ -74,18 +74,13 @@ $.toast = function(msg){
 $.likeToast = function(msg){
 	$("<div class='jt-toast-wrap jt-like-toast-wrap'>"+msg+"</div>")
 	.css({ display: "block", 
-		opacity: 0.10, 
 		position: "fixed",
 		padding: '15px 10px',
 		"text-align": "center",
-		width: "120px",
-		left: ($(window).width() - 184)/2,
+		width: "200px",
+		left: ($(window).width() - 224)/2,
 		top: $(window).height()/2.4 })
-	.animate({'width':'195px', 'height':'90px', 'top': $(window).height()/2.4-10, 'left': ($(window).width() - 184)/2-10, opacity:0.85},{
-        duration: 300,
-        easing: "swing",
-        queue: true
-        } ).appendTo( $.mobile.pageContainer ).delay(900)
+	.appendTo( $.mobile.pageContainer ).delay(1500)
 	.fadeOut( 600, function(){
 		$(this).remove();
 	});
