@@ -200,12 +200,12 @@ $.itemHeartClick = function(productPn, eventPn, target){
 			$('.jt-app-item-like-popup-dialog').popup('close');
 			$('.jt-app-item-like-popup-dialog').attr('data-product-pn', null);
 			if('productHeartInsert' == crudType){
-				$.likeToast('<div class="jt-app-item-like-heart-active"></div>'+'관심리스트에 추가되었습니다.');
+				$.likeToast('<div class="jt-app-item-like-heart-active"></div>'+'관심리스트에<br/> 추가되었습니다.');
 				$.thisItem.find('.jt-app-item-list-wrap').css('box-shadow','0 0 4px 4px rgba(0,0,0,0.2)').fadeIn(250).delay(500).fadeOut(1000);
 				$.thisItem.find('.jt-app-item-heart').addClass('jt-app-item-heart-active');
 				$.thisItem.attr('data-like', product.order);
 			}else if('productHeartDelete' == crudType){
-				$.likeToast('<div class="jt-app-item-like-heart"></div>'+'관심리스트에서 제거되었습니다.');
+				$.likeToast('<div class="jt-app-item-like-heart"></div>'+'관심리스트에서<br/> 제거되었습니다.');
 				$.thisItem.find('.jt-app-item-list-wrap').css('box-shadow','0 0 4px 4px rgba(0,0,0,0.2)').fadeIn(250).delay(500).fadeOut(1000);
 				$.thisItem.find('.jt-app-item-heart').removeClass('jt-app-item-heart-active');
 				$.thisItem.attr('data-like', 'null');
@@ -225,11 +225,11 @@ $.itemHeartClick = function(productPn, eventPn, target){
 			$('.jt-app-item-like-popup-dialog').popup('close');
 			$('.jt-app-item-like-popup-dialog').attr('data-event-pn', null);
 			if('eventHeartInsert' == crudType){
-				$.likeToast('<div class="jt-app-item-like-heart-active"></div>'+'관심리스트에 추가되었습니다.');
+				$.likeToast('<div class="jt-app-item-like-heart-active"></div>'+'관심리스트에<br/> 추가되었습니다.');
 				$.thisItem.find('.jt-app-item-list-wrap').css('box-shadow','0 0 4px 4px rgba(0,0,0,0.2)').fadeIn(250).delay(500).fadeOut(1000);
 				$.thisItem.find('.jt-app-item-heart').addClass('jt-app-item-heart-active');
 			}else if('eventHeartDelete' == crudType){
-				$.likeToast('<div class="jt-app-item-like-heart"></div>'+'관심리스트에서 제거되었습니다.');
+				$.likeToast('<div class="jt-app-item-like-heart"></div>'+'관심리스트에서<br/> 제거되었습니다.');
 				$.thisItem.find('.jt-app-item-list-wrap').css('box-shadow','0 0 4px 4px rgba(0,0,0,0.2)').fadeIn(250).delay(500).fadeOut(1000);
 				$.thisItem.find('.jt-app-item-heart').removeClass('jt-app-item-heart-active');
 			}

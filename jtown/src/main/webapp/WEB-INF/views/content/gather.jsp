@@ -111,7 +111,7 @@
 					<div class="jt-pg-event-line">
 						<div class="jt-pg-item-wrap">
 							<div class="jt-pg-item-heart-wrap">
-								<span class="jt-home-shop-love jt-pg-heart-shape ${heartClickShapeClass }" id="jt-pg-heart-click-e-${list.eventPn}">heart</span>
+								<span class="jt-home-shop-love jt-pg-heart-shape jt-pg-heart-shape-item ${heartClickShapeClass }" id="jt-pg-heart-click-e-${list.eventPn}">heart</span>
 							</div>
 							<div class="jt-tab-event-wrap"><div class="jt-tab-event"></div></div>
 							<div class="jt-pg-event-line-event-name-wrap">
@@ -168,7 +168,7 @@
 					<div class="jt-pg-product-line">
 						<div class="jt-pg-item-wrap">
 							<div class="jt-pg-item-heart-wrap">
-								<span class="jt-home-shop-love jt-pg-heart-shape ${heartClickShapeClass }" id="jt-pg-heart-click-${list.productPn}">heart</span>
+								<span class="jt-home-shop-love jt-pg-heart-shape jt-pg-heart-shape-item ${heartClickShapeClass }" id="jt-pg-heart-click-${list.productPn}">heart</span>
 							</div>
 							<div class="jt-pg-product-img">
 								<c:if test="${empty list.contentType}">
@@ -229,7 +229,7 @@
 				<div class="jt-pg-product-line">
 					<div class="jt-pg-item-wrap">
 						<div class="jt-pg-item-heart-wrap">
-							<span class="jt-home-shop-love jt-pg-heart-shape ${heartClickShapeClass }" id="jt-pg-heart-click-${list.productPn}">heart</span>
+							<span class="jt-home-shop-love jt-pg-heart-shape jt-pg-heart-shape-item ${heartClickShapeClass }" id="jt-pg-heart-click-${list.productPn}">heart</span>
 						</div>
 						<div class="jt-pg-product-line-hot"><div class="jt-tab-hot"></div></div>
 						<div class="jt-pg-product-img">

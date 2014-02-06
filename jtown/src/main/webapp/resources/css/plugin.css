@@ -979,8 +979,8 @@ margin: 3px 3px 0 3px;
 }
 .mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar{
 	background:#fff; /* rgba fallback */
-	background:rgba(255,255,255,0.75);
-	filter:"alpha(opacity=75)"; -ms-filter:"alpha(opacity=75)"; /* old ie */
+	background:rgba(255,255,255,0.25);
+	filter:"alpha(opacity=25)"; -ms-filter:"alpha(opacity=25)"; /* old ie */
 }
 .mCSB_scrollTools .mCSB_dragger:hover .mCSB_dragger_bar{
 	background:rgba(255,255,255,0.85);
@@ -1047,7 +1047,7 @@ margin: 3px 3px 0 3px;
 }
 .mCS-dark>.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar{
 	background:#000; /* rgba fallback */
-	background:rgba(0,0,0,0.75);
+	background:rgba(0,0,0,0.25);
 }
 .mCS-dark>.mCSB_scrollTools .mCSB_dragger:hover .mCSB_dragger_bar{
 	background:rgba(0,0,0,0.85);
@@ -1080,7 +1080,7 @@ margin: 3px 3px 0 3px;
 .mCS-light-2>.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar{
 	width:4px;
 	background:#fff; /* rgba fallback */
-	background:rgba(255,255,255,0.75);
+	background:rgba(255,255,255,0.25);
 	-webkit-border-radius:1px;
 	-moz-border-radius:1px;
 	border-radius:1px;
@@ -1126,7 +1126,7 @@ margin: 3px 3px 0 3px;
 .mCS-dark-2>.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar{
 	width:4px;
 	background:#000; /* rgba fallback */
-	background:rgba(0,0,0,0.75);
+	background:rgba(0,0,0,0.25);
 	-webkit-border-radius:1px;
 	-moz-border-radius:1px;
 	border-radius:1px;
@@ -1172,7 +1172,7 @@ margin: 3px 3px 0 3px;
 .mCS-light-thick>.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar{
 	width:6px;
 	background:#fff; /* rgba fallback */
-	background:rgba(255,255,255,0.75);
+	background:rgba(255,255,255,0.25);
 	-webkit-border-radius:2px;
 	-moz-border-radius:2px;
 	border-radius:2px;
@@ -1218,7 +1218,7 @@ margin: 3px 3px 0 3px;
 .mCS-dark-thick>.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar{
 	width:6px;
 	background:#000; /* rgba fallback */
-	background:rgba(0,0,0,0.75);
+	background:rgba(0,0,0,0.25);
 	-webkit-border-radius:2px;
 	-moz-border-radius:2px;
 	border-radius:2px;
@@ -1276,7 +1276,7 @@ margin: 3px 3px 0 3px;
 .mCS-dark-thin>.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar{
 	width:2px;
 	background:#000; /* rgba fallback */
-	background:rgba(0,0,0,0.75);
+	background:rgba(0,0,0,0.25);
 }
 .mCS-dark-thin.mCSB_horizontal>.mCSB_scrollTools .mCSB_draggerRail{
 	width:100%;

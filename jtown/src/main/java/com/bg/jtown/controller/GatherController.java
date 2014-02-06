@@ -144,12 +144,12 @@ public class GatherController {
 		gatherFilter.setNavFlag("pg");
 		gatherModelSetting(model, session, gatherFilter, summaryUser);
 		model.addAttribute("productGatherList", gatherService.paginateItemList(gatherService.selectNewMergeList(gatherFilter), gatherFilter));
-	//	
+		
 		HomeFilter homeFilter = new HomeFilter();
+		homeFilter.setItemName(gatherFilter.getItemName());
 		homeFilter.setCustomerPn(summaryUser.getPn());
 		Map<String, Object> one = homeService.selectHome(homeFilter);
 		model.addAttribute("one", one);
-		
 		
 		return prefixView + "search_result";
 	}

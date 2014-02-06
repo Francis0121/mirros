@@ -181,7 +181,7 @@ jtown.postJSON = function(url, json, callback){
 };
 
 jtown.dialog = function(message){
-	var dialog = '<div style="text-align:center; margin-top: 15px; font-weight: bold; line-height : 16px;">'+message+'</div>';
+	var dialog = '<div style="text-align:center; margin-top: 15px; line-height : 16px;">'+message+'</div>';
 	$(dialog).dialog({
 		resizable: false, 
 		width: '300px',
@@ -474,7 +474,7 @@ jtown.home.html = function(data) {
 		html += '			<li class="jt-home-shop-comment-wrap">';
 		html += '				<span class="jt-home-shop-comment">COMMENT</span>&nbsp;<span id="comment-'+ spn+ '">'+ (nullValueCheck(seller.commentCount) ? 0 : seller.commentCount) + '</span>';
 		html += '			</li>';
-		html += '			<li class="jt-home-heart-click-wrap" onclick="jtown.home.clickLove(\'' + spn + '\');">';
+		html += '			<li class="jt-home-heart-click-wrap">';
 		html += '			<div class="jt-heart-click-wrap">';
 		html += '				<div class="jt-heart-click-background" id="jt-heart-click-' + spn + '">';
 		html += '					<img alt="heart-background" src="'+contextPath+'resources/images/heart-background.png">';
@@ -519,21 +519,7 @@ jtown.home.naturalLanguage = function(){
 	      });
 	    }
 	 });
-	function post(URL, PARAMS) {
-		var temp=document.createElement("form");
-		temp.action=URL;
-		temp.method="POST";
-		temp.style.display="none";
-		for(var x in PARAMS) {
-			var opt=document.createElement("textarea");
-			opt.name=x;
-			opt.value=PARAMS[x];
-			temp.appendChild(opt);
-		}
-		document.body.appendChild(temp);
-		temp.submit();
-		return temp;
-	}
+	
 	
 	$('#jt-naturalLanguage-search').bind('keyup', function(e){
 		if(e.keyCode == 13){
@@ -616,13 +602,15 @@ jQuery(document).ready(function(){
 			$(this).find(".jt-home-shop-comment").css("background-position", "0px -60px");
 	}});
 
+	//TODO
+	/*
 	$(".jt-home-heart-click-wrap").live({
 		mouseenter:function(){
 			$(this).find(".jt-home-shop-love").css("background-position", "-15px -30px");
 	},
 		mouseleave: function(){
 			$(this).find(".jt-home-shop-love").css("background-position", "0px -30px");
-	}});
+	}});*/
 	$(".jt-home-shop-event-dday").css("visibility","visible");
 	
 	jtown.home.productStatisticClick = function(productPn){
@@ -674,6 +662,7 @@ jQuery(document).ready(function(){
 					$('.jt-right-sidebar-heart-gather-wrap').prepend(appendHtml);
 				}else{
 					$('.mCSB_container').prepend(appendHtml);
+					$('.jt-sidebar-heart-item:first').hide().fadeIn(900);
 				}
 				
 				$('.jt-right-sidebar-heart-gather-wrap').stop().animate({scrollTop: 0}, 300);
@@ -681,7 +670,9 @@ jQuery(document).ready(function(){
 				var itemSize = $('.jt-sidebar-heart-item').length;
 				for(var idx=0; idx < itemSize; idx++){
 					if($('.jt-sidebar-heart-item:eq('+idx+')').attr('data-productPn') == product.pn){
-						$('.jt-sidebar-heart-item:eq('+idx+')').remove();
+						$('.jt-sidebar-heart-item:eq('+idx+')').fadeOut(600, function(){
+							$(this).remove();
+						});
 						break;
 					}
 				}
@@ -799,3 +790,19 @@ Date.prototype.format = function(f) {
 String.prototype.string = function(len){var s = '', i = 0; while (i++ < len) { s += this; } return s;};
 String.prototype.zf = function(len){return "0".string(len - this.length) + this;};
 Number.prototype.zf = function(len){return this.toString().zf(len);};
+
+function post(URL, PARAMS) {
+	var temp=document.createElement("form");
+	temp.action=URL;
+	temp.method="POST";
+	temp.style.display="none";
+	for(var x in PARAMS) {
+		var opt=document.createElement("textarea");
+		opt.name=x;
+		opt.value=PARAMS[x];
+		temp.appendChild(opt);
+	}
+	document.body.appendChild(temp);
+	temp.submit();
+	return temp;
+}

@@ -92,7 +92,7 @@
 	</div>
 	
 </div>
-<div class="jt-pg-divide-title"><h2 class="headline">Products</h2> <h3>더보기..</h3></div>
+<div class="jt-pg-divide-title"><h2 class="headline">Products</h2> <h3 class="jt-pg-divide-title-more-products">더보기..</h3></div>
 <div class="jt-pg-container">
 <div class="jt-pg-main js-masonry jt-sr-main" data-item-name="${itemName }">
 	
@@ -229,7 +229,7 @@
 	</c:choose>
 	</c:forEach>
 </div>
-<div class="jt-pg-divide-title"><h2 class="headline">Shops</h2><h3>더보기..</h3></div>
+<div class="jt-pg-divide-title"><h2 class="headline">Shops</h2><h3 class="jt-pg-divide-title-more-shops">더보기..</h3></div>
 
 <div id="jt-home-container" class="jt-rs-shop"
 	data-cpn="${homeFilter.categoryPn eq null ? 0 : homeFilter.categoryPn}" 
@@ -308,7 +308,7 @@
 					<li class="jt-home-shop-comment-wrap">
 						<span class="jt-home-shop-comment">COMMENT</span>&nbsp;<span id="comment-<c:out value="${spn }"/>"><c:out value="${seller.commentCount eq null ? 0 : seller.commentCount}"/></span>
 					</li>
-					<li class="jt-home-heart-click-wrap" onclick="jtown.home.clickLove('<c:out value="${spn }"/>');" >
+					<li class="jt-home-heart-click-wrap" >
 						<c:set var="loveClick" value="${seller.customerPn ne null ? 'jt-home-shop-love-click' : '' }"/>
 						<c:set var="loveTextClick" value="${seller.customerPn ne null ? 'jt-home-shop-love-text-click' : '' }"/>
 						<div class="jt-heart-click-wrap">
@@ -340,11 +340,5 @@
 	</c:forEach>
 </div>
 
-<div id="infscr-loading" style="display:none;">
-	<center>
-		<img alt="Loading..." src="${cp}/resources/images/jt-loading-big.gif" />
-	</center>
-	Loading...
-</div>
 </div>
 <%@ include file="../layout/home_footer.jspf" %>

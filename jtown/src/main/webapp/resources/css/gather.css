@@ -58,6 +58,7 @@
 .jt-pg-event-line .jt-pg-heart-wrap{margin:16px 0 0 0;}
 .jt-pg-event-line-bottom{height: 48px;}
 .jt-pg-heart-shape{float: left; margin-top: 7px;margin-left: 2px; }
+.jt-pg-heart-shape-item{margin-top:5px;}
 .jt-pg-heart-count{float:left; margin-top:15px;margin-left: 5px;color: #777}
 .jt-pg-heart-event-count{float:left; margin-top:9px;margin-left: 5px;color: #777}
 .jt-pg-heart-wrap{font-size: 13px;z-index: 3; font-weight: bold; width:56px;height:46px;  text-align: left;float: left;}
@@ -90,5 +91,6 @@
 
 .jt-pg-divide-title{width:85%;border-bottom: 1px solid #ad9c9c;margin: 5px 15px;padding: 5px 3px;position: relative;}
 .jt-pg-divide-title>h2{color:#f48000;font-size: 17px; margin: 0 0 -10px 0;}
-.jt-pg-divide-title>h3{color:#f48000;font-size: 13px;text-align: right;}
+.jt-pg-divide-title>h3{color:#bbb;font-size: 13px;text-align: right; cursor: pointer;}
+.jt-pg-divide-title>h3:HOVER{color:#888;}
 .jt-rs-shop{width:1220px;padding-right: 210px}

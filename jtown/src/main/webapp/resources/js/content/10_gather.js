@@ -85,7 +85,7 @@ var productGatherHtml = function(data){
 				html+=	'<div class="jt-pg-event-line">';
 				html+=	'<div class="jt-pg-item-wrap">';
 				html+= 	'<div class="jt-pg-item-heart-wrap">';
-				html+= 		'<span class="jt-home-shop-love jt-pg-heart-shape '+heartClickShapeClass+'" id="jt-pg-heart-click-e-'+data.mergeItems[idx].eventPn+'">heart</span>';
+				html+= 		'<span class="jt-home-shop-love jt-pg-heart-shape jt-pg-heart-shape-item '+heartClickShapeClass+'" id="jt-pg-heart-click-e-'+data.mergeItems[idx].eventPn+'">heart</span>';
 				html+= 	'</div>';
 				html+= 	'<div class="jt-tab-event-wrap"><div class="jt-tab-event"></div></div>';
 				html+=		'<div class="jt-pg-event-line-event-name-wrap">';
@@ -308,17 +308,17 @@ jtown.pg.formatNumber = function(cr){
 };
 
 $('.jt-pg-container').on('mouseenter', '.jt-pg-item-wrap', function(){
-	$(this).find('.jt-pg-product-line-bright').css('display','block');
+	$(this).find('.jt-pg-product-line-bright').fadeIn(100);
 });
 $('.jt-pg-container').on('mouseleave', '.jt-pg-item-wrap', function(){
-	$(this).find('.jt-pg-product-line-bright').css('display','none');
+	$(this).find('.jt-pg-product-line-bright').fadeOut(100);
 });
 
 $('.jt-pg-container').on('mouseenter', '.jt-pg-item-wrap', function(){
-	$(this).find('.jt-pg-item-heart-wrap').css('display','block');
+	$(this).find('.jt-pg-item-heart-wrap').fadeIn(300);
 });
 $('.jt-pg-container').on('mouseleave', '.jt-pg-item-wrap', function(){
-	$(this).find('.jt-pg-item-heart-wrap').css('display','none');
+	$(this).find('.jt-pg-item-heart-wrap').fadeOut(300);
 });
 
 //~ comment
@@ -601,9 +601,6 @@ $('.jt-right-sidebar-cover').bind('click', function(){
 });
 
 //~ search_result
-
-
-
 jtown.pg.searchResultHide = function(){
 	var colCount = Math.floor($('.jt-pg-main').width()/250);
 	var itemTotalCount = $('.jt-pg-item').length;
@@ -630,6 +627,16 @@ jtown.pg.searchResultTitleWidth = function(){
 	$('.jt-pg-divide-title').css('left', left-18);
 };
 
+$('.jt-pg-divide-title-more-shops').bind('click', function(){
+	var itemName = $('.jt-sr-main').attr('data-item-name');
+	post(contextPath+'s', {itemName : itemName});
+	
+});
+
+$('.jt-pg-divide-title-more-products').bind('click', function(){
+	var itemName = $('.jt-sr-main').attr('data-item-name');
+	post(contextPath, {itemName : itemName});
+});
 
 //~ init
 

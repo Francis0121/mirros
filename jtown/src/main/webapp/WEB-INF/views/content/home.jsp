@@ -84,7 +84,7 @@
 					<li class="jt-home-shop-comment-wrap">
 						<span class="jt-home-shop-comment">COMMENT</span>&nbsp;<span id="comment-<c:out value="${spn }"/>"><c:out value="${seller.commentCount eq null ? 0 : seller.commentCount}"/></span>
 					</li>
-					<li class="jt-home-heart-click-wrap" onclick="jtown.home.clickLove('<c:out value="${spn }"/>');" >
+					<li class="jt-home-heart-click-wrap" >
 						<c:set var="loveClick" value="${seller.customerPn ne null ? 'jt-home-shop-love-click' : '' }"/>
 						<c:set var="loveTextClick" value="${seller.customerPn ne null ? 'jt-home-shop-love-text-click' : '' }"/>
 						<div class="jt-heart-click-wrap">

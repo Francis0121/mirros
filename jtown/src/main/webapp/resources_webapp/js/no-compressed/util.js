@@ -77,9 +77,9 @@ $.likeToast = function(msg){
 		position: "fixed",
 		padding: '15px 10px',
 		"text-align": "center",
-		width: "200px",
-		left: ($(window).width() - 224)/2,
-		top: $(window).height()/2.4 })
+		width: "110px",
+		left: ($(window).width() - 134)/2,
+		top: $(window).height()/2.6 })
 	.appendTo( $.mobile.pageContainer ).delay(1500)
 	.fadeOut( 600, function(){
 		$(this).remove();

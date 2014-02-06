@@ -7,5 +7,5 @@
 
 
 .jt-app-like-delete-wrap{position: absolute;right:0px;top:0px;z-index: 1;width:30px;height: 30px;padding: 5px;}
-.jt-app-like-delete-wrap-background{width:16px;height: 14px;padding: 6px;background-color: #fff;border-radius: 5px;border: 1px solid #ad9c9c;background: -webkit-linear-gradient( #ffffff, #f0f0f0);background: linear-gradient( #ffffff, #f0f0f0);}
-.jt-app-like-delete{background: url("../images/jt-remove-btn.png") no-repeat; background-position: 0px 0px;width: 15px; height: 15px;background-size:15px;}
+.jt-app-like-delete-wrap-background{width:11px;height: 11px;padding: 8px;background-color: #fff;border-radius: 5px;border: 1px solid #ad9c9c;background: -webkit-linear-gradient( #ffffff, #f0f0f0);background: linear-gradient( #ffffff, #f0f0f0);}
+.jt-app-like-delete{background: url("../images/jt-remove-btn.png") no-repeat; background-position: 0px 0px;width: 10px; height: 10px;background-size:10px;}

@@ -26,7 +26,7 @@
 .jt-heart-click-wrap{ float: left; width: 19px; height:19px; margin-left: 6px; margin-top: -3px; }
 .jt-heart-click-background{ position : absolute; opacity : 0; height : 19px; width : 19px;}
 .jt-heart-click{position: absolute; height: 15px; width: 15px; margin: 2px;}
-.jt-home-heart-click-wrap:ACTIVE{box-shadow: 1px 1px 4px 1px #666 inset;}
+
 /**
 *
 *	@author Francis

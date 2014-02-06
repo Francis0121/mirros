@@ -79,7 +79,7 @@ public class HomeController {
 
 	// ~ SHOW
 
-	@RequestMapping(value = "/s", method = RequestMethod.GET)
+	@RequestMapping(value = "/s")
 	public String showHome(Model model, HttpSession session, @ModelAttribute HomeFilter homeFilter, SummaryUser summaryUser,
 			HttpServletRequest request) throws UnsupportedEncodingException {
 		if (BrowserUtil.isMobile(request)) {
