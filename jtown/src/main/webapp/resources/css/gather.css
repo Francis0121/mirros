@@ -63,7 +63,7 @@
 .jt-pg-heart-event-count{float:left; margin-top:9px;margin-left: 5px;color: #777}
 .jt-pg-heart-wrap{font-size: 13px;z-index: 3; font-weight: bold; width:56px;height:46px;  text-align: left;float: left;}
 .jt-pg-product-facebook{position: absolute;top: 50px; right: 2px; font-size: 13px;z-index: 20; display: none;}
-.jt-pg-item-heart-wrap{position:absolute;top:10px;right:10px;width:28px;height:29px;padding:3px 0 0 8px ;border: 1px solid #ad9c9c;border-radius:3px;background: -webkit-linear-gradient( #ffffff, #f0f0f0);background: linear-gradient( #ffffff, #f0f0f0);background-color:#fff; display: none;z-index: 5;}
+.jt-pg-item-heart-wrap{position:absolute;top:10px;right:10px;width:26px;height:29px;padding:3px 0 0 6px ;border: 1px solid #ad9c9c;border-radius:3px;background: -webkit-linear-gradient( #ffffff, #f0f0f0);background: linear-gradient( #ffffff, #f0f0f0);background-color:#fff; display: none;z-index: 5;}
 
 
 .jt-pg-comment-wrap{padding: 5px 0 0 0;line-height: 160%;}

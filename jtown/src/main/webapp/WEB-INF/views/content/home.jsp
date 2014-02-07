@@ -25,6 +25,14 @@
 					<a href="<c:out value="${seller.shopUrl }"/>" target="_blank" onclick="jtown.home.goHome('<c:out value="${spn }"/>')"><c:out value="${seller.name }"/></a>
 				</header>
 				<div class="jt-home-shop-content">
+				
+				<%--TODO --%>
+				<c:set var="heartClickShapeClass" value="${seller.customerPn ne null ? 'jt-home-shop-love-click' : ''}" />
+				<div class="jt-home-item-heart-wrap"  onclick="jtown.home.clickLove(' ${spn}');">
+					<span class="jt-home-shop-love jt-pg-heart-shape jt-pg-heart-shape-item ${heartClickShapeClass }" >heart</span>
+				</div>
+				
+					<div></div>
 					<ul class="jt-home-shop-content-image">
 						<li>
 							<c:choose>

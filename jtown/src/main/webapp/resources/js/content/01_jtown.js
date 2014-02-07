@@ -57,6 +57,14 @@ $(function() {
 		$('.jt-header-menu img').attr('src', contextPath+'resources/images/jt-top-menu.png');
 	});
 	
+	$('#jt-home-container').on('mouseenter', '.jt-home-shop-content', function(){
+		$(this).find('.jt-home-item-heart-wrap').fadeIn(300);
+	});
+	$('#jt-home-container').on('mouseleave', '.jt-home-shop-content', function(){
+		$(this).find('.jt-home-item-heart-wrap').fadeOut(300);
+	});
+	
+	
 	jtown.comment.home();
 	jtown.home.masonry.start();
 	jtown.home.naturalLanguage();

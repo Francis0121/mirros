@@ -33,6 +33,9 @@
 *	/ - home
 *
 */
+
+.jt-home-item-heart-wrap{position:absolute;top:40px;right:10px;width:26px;height:29px;padding:3px 0 0 6px ;border: 1px solid #ad9c9c;border-radius:3px;background: -webkit-linear-gradient( #ffffff, #f0f0f0);background: linear-gradient( #ffffff, #f0f0f0);background-color:#fff; display: none;z-index: 5;}
+
 .jt-home-shop{ float: left; width:316px; margin: 5px; 
 	box-shadow : 0 1px 3px rgba(34,25,25,0.4);
 	-moz-box-shadow : 0 1px 3px rgba(34,25,25,0.4);

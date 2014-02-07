@@ -615,6 +615,7 @@ jtown.pg.searchResultHide = function(){
 jtown.pg.searchResultShopHide = function(){
 	
 	var colCount = Math.floor($('.jt-rs-shop').width()/330);
+	
 	var itemTotalCount = $('.jt-home-shop').length;
 	$('.jt-home-shop').css('display','block');
 	for(var idx = colCount*2; idx < itemTotalCount; idx++){
@@ -624,9 +625,11 @@ jtown.pg.searchResultShopHide = function(){
 
 jtown.pg.searchResultTitleWidth = function(){
 	var colCount = Math.floor($('.jt-pg-main').width()/250);
-	var left = $('.jt-pg-item:eq(0)').offset().left;
-	$('.jt-pg-divide-title').width(colCount*250)+20;
-	$('.jt-pg-divide-title').css('left', left-18);
+	if($('.jt-pg-item').length > 0 ){
+		var left = $('.jt-pg-item:eq(0)').offset().left;
+		$('.jt-pg-divide-title').width(colCount*250)+20;
+		$('.jt-pg-divide-title').css('left', left-18);
+	}
 };
 
 $('.jt-pg-divide-title-more-shops').bind('click', function(){
