@@ -74,8 +74,9 @@
 				    AND (UCASE(usp.name) LIKE CONCAT('%',UCASE(#{itemName}),'%') 
 						    	OR sections_name LIKE CONCAT('%',#{itemName},'%')
 								OR divisions_name LIKE CONCAT('%',#{itemName},'%')
-								OR groups_name LIKE CONCAT('%',#{itemName},'%'))
-					
+								OR groups_name LIKE CONCAT('%',#{itemName},'%')
+								OR shop_name LIKE CONCAT('%',#{itemName},'%')
+							)
 				</if>
 				GROUP BY 
 					us.pn
@@ -145,8 +146,9 @@
 		    AND (UCASE(usp.name) LIKE CONCAT('%',UCASE(#{itemName}),'%') 
 				    	OR sections_name LIKE CONCAT('%',#{itemName},'%')
 						OR divisions_name LIKE CONCAT('%',#{itemName},'%')
-						OR groups_name LIKE CONCAT('%',#{itemName},'%'))
-			
+						OR groups_name LIKE CONCAT('%',#{itemName},'%')
+						OR shop_name LIKE CONCAT('%',#{itemName},'%')
+					)
 		</if>
 		GROUP BY 
 			us.pn

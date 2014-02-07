@@ -26,8 +26,8 @@ $(function() {
 	}
 	sessionStorage.clear();
 	
-	if($('.jt-pg-main').length == 1 && $('.jt-pg-item-wrap').length == 0){
-		alert('상품이 존재하지 않습니다.');
+	if($('.jt-pg-main').length == 1 && $('.jt-pg-item-wrap').length == 0 && $('.jt-home-shop').length == 0){
+		alert('검색결과가 존재하지 않습니다.');
 		history.back();
 	}
 	// ~ Home

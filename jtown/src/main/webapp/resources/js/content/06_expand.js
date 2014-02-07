@@ -11,7 +11,8 @@ jtown.expand.loadExpandShop = function(){
 		if(nullValueCheck(parent.html())){
 			var jtHomeShop = $(this).parents('.jt-home-shop'),
 				spn = jtHomeShop.attr('data-spn');
-			jtown.expand.makeInnerHtml(spn);	
+			location.href=contextPath + 'mir/'+spn;
+			//jtown.expand.makeInnerHtml(spn);	
 		}
 	});
 	
@@ -21,11 +22,12 @@ jtown.expand.loadExpandShop = function(){
 		if(nullValueCheck($parent.html())){
 			var jtHomeShop = $(this).parents('.jt-home-shop'),
 			spn = jtHomeShop.attr('data-spn');
-			jtown.expand.makeInnerHtml(spn);
+			location.href=contextPath + 'mir/'+spn;
+			//jtown.expand.makeInnerHtml(spn);
 		}
 	});
 };
-
+/*
 jtown.expand.makeInnerHtml = function(spn){
 	var url = contextPath + 'ajax/home/expandShop.jt',
 		json = { 'pn' : spn };
@@ -312,12 +314,12 @@ jtown.expand.makeInnerHtml = function(spn){
 		html +=	'	</div>';
 		html +=	'</div>';
 		
-		$.smartPop.open({width : 640,height : 650, html : html ,effect : 'transfer', target : '#jt-home-shop-'+spn });
-		setTimeout('jtown.expand.setTimeout()',0);
-		setTimeout('jtown.home.clickShop(\''+spn+'\');', 0);
+		//$.smartPop.open({width : 640,height : 650, html : html ,effect : 'transfer', target : '#jt-home-shop-'+spn });
+		//setTimeout('jtown.expand.setTimeout()',0);
+		//setTimeout('jtown.home.clickShop(\''+spn+'\');', 0);
 	});
 };
-
+*/
 jtown.expand.setTimeout = function(){
 	jtown.expand.show = true;
 	jtown.comment.syncComment();

@@ -355,6 +355,7 @@ $('.jt-pg-container').on('keydown','.jt-pg-comment-input',(function(e){
 					html +=	'</div>';
 					html += '</div>';
 					$commentWrap.prepend(html);
+					$commentWrap.find('.jt-pg-comment-line-text:first').hide().fadeIn(900);
 					jtown.pg.itemOrder();
 				}else{
 					var html ='';
@@ -369,6 +370,7 @@ $('.jt-pg-container').on('keydown','.jt-pg-comment-input',(function(e){
 						html += '</div>';
 					}
 					$commentWrap.html(html);
+					$commentWrap.find('.jt-pg-comment-line-text:first').hide().fadeIn(900);
 					$commentMore.attr('class', 'jt-pg-comment-more jt-pg-comment-more-enable');
 					if(productPn != 0){
 						sessionStorage.setItem('comment-'+productPn, 2);

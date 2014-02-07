@@ -49,11 +49,11 @@
 	
 	<!-- Server 이미지 경로 -->
 	
-	  <!--
+	<!--  
 	<mvc:resources mapping="/photo/**" location="file:/uploadImage/" />
-	-->
+	--> 
 	<mvc:resources mapping="/photo/**" location="file:C:/Users/User2/Desktop/uploadImage/" />
-	 
+	
 	
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">

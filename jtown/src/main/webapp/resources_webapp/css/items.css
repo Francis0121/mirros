@@ -28,10 +28,10 @@
 .jt-app-reply-wrap{position:absolute;bottom:4px;right:4px;background: url("../images/jt-pencil.png") no-repeat; background-position: 0px 0px;width: 15px; height: 15px;background-size:15px;}
 .jt-app-item-heart-wrap{position: absolute;right:0px;top:0px;z-index: 1;width:30px;height: 30px;padding: 5px;}
 .jt-app-item-heart-wrap-background{width:13px;height: 13px;padding: 7px;background-color: #fff;border-radius: 5px;border: 1px solid #ad9c9c;background: -webkit-linear-gradient( #ffffff, #f0f0f0);background: linear-gradient( #ffffff, #f0f0f0);}
-.jt-app-item-heart{background: url("../images/jt-heart-icon.png") no-repeat; background-position: 0px 0px;width: 12px; height: 12px;background-size:36px;}
+.jt-app-item-heart{background: url("../images/jt-heart-icon.png") no-repeat; background-position: 0px 0px;width: 12px; height: 12px;background-size:36px;margin: 1px 0 0 1px;}
 .jt-app-item-heart-active{background: url("../images/jt-heart-icon.png") no-repeat; background-position: -12px 0px;width: 12px; height: 12px;background-size:36px;}
-.jt-app-item-like-heart-active{background: url("../images/jt-big-heart-icon2.png") no-repeat; background-position: 0px 0px;width: 50px; height: 48px;background-size:101px;margin: 0 auto;padding: 0 0 10px 0;}
-.jt-app-item-like-heart{background: url("../images/jt-big-heart-icon2.png") no-repeat; background-position: -50px 0px;width: 50px; height: 48px;background-size:101px;margin: 0 auto;padding: 0 0 10px 0;}
+.jt-app-item-like-heart-active{background: url("../images/jt-big-heart-icon2.png") no-repeat; background-position: 0px 0px;width: 40px; height: 38px;background-size:81px;margin: 0 auto;padding: 0 0 10px 0;}
+.jt-app-item-like-heart{background: url("../images/jt-big-heart-icon2.png") no-repeat; background-position: -40px 0px;width: 40px; height: 38px;background-size:81px;margin: 0 auto;padding: 0 0 10px 0;}
 .jt-app-item-like-popup-q-text{margin:25px 0 20px 0; font-weight: bold;}
 .jt-app-item-like-popup-ok{margin: 0 10px 0 0;}
 .jt-app-item-like-popup-btn-wrap{text-align: center;}

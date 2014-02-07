@@ -29,9 +29,9 @@
 	<link rel="stylesheet" type="text/css" href="${cp}/resources/css/help.css" />
 	<link rel="stylesheet" type="text/css" href="${cp}/resources/css/introjs.css" />
 	<link rel="stylesheet" type="text/css" href="${cp}/resources/css/gather.css" />
-
 <%--
-	 <link rel="stylesheet" type="text/css" href="${cp}/resources/css/mirros.min.css?0127_1300" />
+
+	 <link rel="stylesheet" type="text/css" href="${cp}/resources/css/mirros.min.css?0207_1300" />
 --%>
 		
 <%-- IE Browser --%>

@@ -55,7 +55,7 @@ $.emailLogin = function(){
 			if("success" == data.result){
 				$.changePageTransition('/app', 'fade', false);
 			}else{
-				$.toast('로그인에 실패하였습니다.');
+				$.toast('아이디와 비밀번호를 다시 확인해주세요.');
 			}
 	});
 };
@@ -163,7 +163,9 @@ function getCurrentUserInfo() {
     });
   }
 function requestCallback(response) {
-	$.toast('초대장을 발송하였습니다.');
+	if(response.to != null){
+		$.toast('초대장을 발송하였습니다.');
+	}
 	//TODO update point
 }
 
