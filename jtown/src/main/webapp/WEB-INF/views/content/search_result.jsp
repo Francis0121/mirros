@@ -92,7 +92,7 @@
 	</div>
 	
 </div>
-<div class="jt-pg-divide-title"><h2 class="headline">Products</h2> <h3 class="jt-pg-divide-title-more-products">더보기..</h3></div>
+<div class="jt-pg-divide-title"><h2 class="headline">Products</h2> <h3 class="jt-pg-divide-title-more-products">more..</h3></div>
 <div class="jt-pg-container">
 <div class="jt-pg-main js-masonry jt-sr-main" data-item-name="${itemName }">
 	
@@ -229,7 +229,7 @@
 	</c:choose>
 	</c:forEach>
 </div>
-<div class="jt-pg-divide-title"><h2 class="headline">Shops</h2><h3 class="jt-pg-divide-title-more-shops">더보기..</h3></div>
+<div class="jt-pg-divide-title"><h2 class="headline">Shops</h2><h3 class="jt-pg-divide-title-more-shops">more..</h3></div>
 
 <div id="jt-home-container" class="jt-rs-shop"
 	data-cpn="${homeFilter.categoryPn eq null ? 0 : homeFilter.categoryPn}" 
@@ -250,9 +250,8 @@
 				</header>
 				<div class="jt-home-shop-content">
 				
-					<%--TODO --%>
 					<c:set var="heartClickShapeClass" value="${seller.customerPn ne null ? 'jt-home-shop-love-click' : ''}" />
-					<div class="jt-home-item-heart-wrap"  onclick="jtown.home.clickLove(' ${spn}');">
+					<div class="jt-home-item-heart-wrap" data-spn="${spn}" >
 						<span class="jt-home-shop-love jt-pg-heart-shape jt-pg-heart-shape-item ${heartClickShapeClass }" >heart</span>
 					</div>
 				

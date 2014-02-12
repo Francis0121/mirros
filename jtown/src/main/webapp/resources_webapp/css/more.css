@@ -3,7 +3,7 @@
 ******************/
 .jt-app-more-content{overflow: hidden;padding: 0;min-height: 100%;}
 .jt-app-more-menu{overflow: hidden;margin: 0;padding: 0}
-.jt-app-more-menu>li{float: left;width:33.33%;height: 60px;margin: 0;padding:15px 0; background-color: #fff;list-style: none;text-align: center;font-family: arial, sans-serif;font-size:12px; box-shadow: inset -1px -1px 1px rgba(0, 0, 0, 0.25); }
+.jt-app-more-menu>li{float: left;width:33.33%;height: 60px;margin: 0;padding:15px 0; background-color: #fff;list-style: none;text-align: center;font-family: arial, sans-serif;font-size:12px; box-shadow: inset -1px -1px 1px rgba(0, 0, 0, 0.25);}
 .jt-app-more-menu>li:ACTIVE{background-color: rgba(251, 149 , 15, 0.5)}
 .jt-app-more-menu>li>a{color:#555 !important; text-decoration: none; font-weight: normal !important;}
 .jt-app-more-login{background: url("../images/jt-more.png") no-repeat; background-position: 0px 0px;width: 40px; height: 40px;background-size:160px;text-align: center;display: inline-block;padding: 0 0 5px 0;}
@@ -39,8 +39,8 @@
 .jt-app-more-login-message-box{height:100px;width:100%;font-size: 13px; border-top: 1px solid #aaa;color:#aaa; display: none; margin: 20px -15px 0 -15px; padding:0 15px;}
 .jt-app-more-login-message-box-text{padding: 0 15px;line-height: 1.5}
 .jt-app-more-email-login-margin-wrap{width:100%;height:50px; }
-.jt-app-more-login-btn{margin: 15px 0;}
-#_spring_security_remember_me{display: none;}
+.jt-app-more-login-btn{margin: 15px 0; color: #d0d0d0; }
+
 .jt-btn-orange{
 	cursor:pointer;
 	padding: 10px 10px 10px 10px; 
@@ -117,8 +117,11 @@
 .jt-app-more-join-text{font-size: 12px; list-style-type: square; padding: 10px 15px;line-height: 1.6}
 .jt-app-more-join-submit{margin: 30px 0 20px 0;}
 .jt-app-more-join-submit .ui-btn-inner{padding: 0; border-top: 0 }
+#jt-app-more-join-form{border-bottom: 1px solid #d0d0d0;border-right:1px solid #d0d0d0;border-left: 1px solid #d0d0d0; }
 #jt-app-more-join-form>div{position: relative;}
+#jt-app-more-join-form>div>.ui-corner-all {border-radius: 0px !important;box-shadow:0px 0px 0px;border-bottom:0;border-left:0;border-right:0;border-top: 1px solid #d0d0d0 !important;}
 .jt-join-validation{position:absolute;top:10px;right:15px;color:#ffa01e; font-size:15px;font-family: Arial;}
+
 
 /*******************
 ~ Mirros?

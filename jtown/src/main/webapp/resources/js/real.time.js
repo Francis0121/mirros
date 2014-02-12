@@ -40,6 +40,7 @@ jtown.real.time = function(data) {
 		var cpn = obj.customerPn;
 		var nowcpn = $('#jt-logout').attr('data-cpn');
 		
+		/*
 		if(cpn == nowcpn){
 			if (crudType == 'insert') {
 				$('#love-image-' + spn).addClass('jt-home-shop-love-click');
@@ -61,7 +62,7 @@ jtown.real.time = function(data) {
 					}
 				}
 			}
-		}
+		}*/
 	} else if (obj.redisType == 'view_count') {
 		var spn = obj.sellerPn;
 		var count = obj.count;

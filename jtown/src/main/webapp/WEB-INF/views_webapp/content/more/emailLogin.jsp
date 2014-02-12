@@ -18,10 +18,10 @@
 				<a data-role="button" data-corners="false" data-iconshadow="false" href='${cp}/login/findPassword'" title="비밀번호를&nbsp;잊으셨나요?" class="jt-login-findPassword" data-transition="fade">?</a>
 			</div>
 			<div>
-				<input id="_spring_security_remember_me" name="_spring_security_remember_me" type="checkbox" value="true" checked="checked"/>	
+				<input id="_spring_security_remember_me" name="_spring_security_remember_me" type="checkbox" value="true" checked="checked" style="visibility: hidden;"/>	
 			</div>
 			<div>
-				<a data-role="button" class="jt-app-more-login-btn" type="button" data-theme="c" onclick="javascript:$.emailLogin()">Log&nbsp;In</a>
+				<a data-role="button" class="jt-app-more-login-btn" type="button" data-theme="c" onclick="javascript:$.emailLogin()">Log In</a>
 			</div>
 			<div>
 				<a type="button" class="jt-btn-orange" onclick="$.goJoin()" data-transition="fade">간편가입</a>

@@ -51,7 +51,7 @@ $.goEmailLogin = function(){
 
 $.emailLogin = function(){
 	$.post(contextPath+'/j_spring_security_check',{j_username : $('.jt-login-form-table-input').val(),
-		j_password : $('.jt-login-form-table-password').val()}, function(data){
+		j_password : $('.jt-login-form-table-password').val(), _spring_security_remember_me : true}, function(data){
 			if("success" == data.result){
 				$.changePageTransition('/app', 'fade', false);
 			}else{
@@ -59,6 +59,16 @@ $.emailLogin = function(){
 			}
 	});
 };
+
+$('body').on('keyup', '.jt-login-form-table-password:last',function(){
+	if($('#j_username_page:last').val().length > 0 && $('#j_password_page:last').val().length > 0){
+		$('.jt-app-more-login-btn:last').css('color', '#000');
+	}else{
+		$('.jt-app-more-login-btn:last').css('color', '#d0d0d0');
+	}
+});
+
+
 
 //~ Join
 $.goJoin = function(){

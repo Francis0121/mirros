@@ -35,9 +35,17 @@ $.pagingItem = function(init){
 		$('.jt-app-item-content').attr('data-nav') == 'H' ? navFlag = 'H': navFlag=null;
 		$.post(contextPath+'/app/ajax/productPagination.jt',{navFlag : navFlag, categoryPn : categoryPn, itemName : itemName, init : init}, function(data){
 	    	if(data.mergeItems.length > 0){
+	    		$('.jt-app-item-loader-wrap').show();
 	    		$.attendProductItems(data);
 	    	}else{
-	    		$.toast('마지막 페이지입니다.');
+	    		$('.jt-app-item-loader-wrap').hide();
+	    		
+	    		var currentItemCount = $('.jt-app-item-content:last').find('.jt-app-item-lists').length;
+	    		if(currentItemCount == 0){
+	    			$.toast('상품이 준비중입니다.');
+	    		}else{
+	    			$.toast('마지막 페이지입니다.');
+	    		}
 	    	}
 	    	isPaging = 0;
 	    });

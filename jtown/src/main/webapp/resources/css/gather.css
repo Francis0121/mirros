@@ -90,7 +90,7 @@
 .jt-gather-extend-facebook{float: left; margin: 10px 0 0 138px;}
 
 .jt-pg-divide-title{width:80%;border-bottom: 1px solid #ad9c9c;margin: 5px 15px;padding: 5px 3px;position: relative;}
-.jt-pg-divide-title>h2{color:#f48000;font-size: 17px; margin: 0 0 -10px 0;}
+.jt-pg-divide-title>h2{color:#000;font-size: 17px; margin: 0 0 -10px 0;font-family: Georgia,serif;font-weight: normal;}
 .jt-pg-divide-title>h3{color:#666;font-size: 13px;text-align: right; cursor: pointer;}
 .jt-pg-divide-title>h3:HOVER{color:#bbb;}
 .jt-rs-shop{width:1220px;padding-right: 210px}

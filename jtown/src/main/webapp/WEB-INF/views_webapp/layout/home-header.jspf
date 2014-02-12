@@ -11,7 +11,6 @@
 <%--서버올릴시 제거 --%>
 <%--
 <c:set var="webPath" value="http://218.55.100.41"/>
-
 --%>
 <c:set var="nodePath" value="${webPath }:8000"/>	
 	

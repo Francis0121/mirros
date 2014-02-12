@@ -39,7 +39,7 @@
 			
 		<logout logout-url="/login/logout" invalidate-session="false" />
 		
-		<remember-me key="jtown-rmkey-xq9mKsOCF=Ika#KuDeXGLoPo-CMQJl" services-ref="ipPersistentTokenBasedRememberMeServicesBean"/>	
+		<remember-me key="jtown-rmkey-xq9mKsOCF=Ika#KuDeXGLoPo-CMQJl" services-ref="ipPersistentTokenBasedRememberMeServicesBean"  />	
 	
 		<access-denied-handler error-page="/noPermission" />
 

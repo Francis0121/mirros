@@ -82,11 +82,6 @@ public class HomeController {
 	@RequestMapping(value = "/s")
 	public String showHome(Model model, HttpSession session, @ModelAttribute HomeFilter homeFilter, SummaryUser summaryUser,
 			HttpServletRequest request) throws UnsupportedEncodingException {
-		/*
-		if(!request.isSecure()){
-			return "redirect:https"+request.getRequestURL().toString().replace("http", "");
-		}
-		*/
 		
 		if (BrowserUtil.isMobile(request)) {
 			String value = CookieUtil.isCookie("SEE_PC_VERSION", request);

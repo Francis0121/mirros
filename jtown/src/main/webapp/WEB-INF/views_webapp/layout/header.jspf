@@ -10,7 +10,8 @@
 </div>
 <div class="jt-app-header-extend-menu">
 	<div class="jt-app-header-extend-menu-inner">
-		<input type="text" class="jt-app-header-search" placeholder="search" data-type="search" data-search="${itemName}" />
+		<input type="search" class="jt-app-header-search" placeholder="search"  data-search="${itemName}" />
+		<a type="button" class="jt-app-header-search-btn"><div class="jt-app-search-btn-icon"></div></a>
 		<div class="jt-app-header-search-result">
 	 		<ul data-role="listview" data-filter="false">
 	 			<li data-role="list-divider">ITEM</li>

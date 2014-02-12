@@ -8,9 +8,9 @@
 	
 
 <%--
-<link rel="stylesheet" type="text/css" href="${cp }/resources_webapp/css/mirros.min.css?07" /> 
+<link rel="stylesheet" type="text/css" href="${cp }/resources_webapp/css/mirros.min.css?0211_1700" /> 
 --%>
- <link rel="stylesheet" type="text/css" href="${cp }/resources_webapp/css/default.css?76" />
+ <link rel="stylesheet" type="text/css" href="${cp }/resources_webapp/css/default.css?79" />
  <link rel="stylesheet" type="text/css" href="${cp }/resources_webapp/css/items.css?80" />
  <link rel="stylesheet" type="text/css" href="${cp }/resources_webapp/css/like.css?20" />
  <link rel="stylesheet" type="text/css" href="${cp }/resources_webapp/css/reply.css?54" /> 

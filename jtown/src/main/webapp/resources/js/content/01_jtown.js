@@ -387,24 +387,25 @@ jtown.home.goHome = function(spn) {
 	$.postJSON(contextPath + 'ajax/goHome.jt', { sellerPn : spn }, function(){} );
 };
 
-jtown.home.clickLove = function(spn) {
+
+$('body').on('click', '.jt-home-item-heart-wrap', function(){
+	var heartTarget = $(this).find('.jt-home-shop-love');
+	var spn = $(this).attr('data-spn');
+	
 	$.postJSON(contextPath + 'ajax/clickLove.jt', { sellerPn : spn }, function(count) {
-		var spn = count.sellerPn, crudType = count.crudType, message = count.message,
-			$small = $('#jt-heart-click-'+spn), $big = $('#jt-heart-expand-click-'+spn);
+		var spn = count.sellerPn, crudType = count.crudType, message = count.message;
 		if (!nullValueCheck(message)) {
 			message == '1' ? jtown.login.showLoginForm() : jtown.dialog('판매자는 불가능합니다');
 			return;
 		} 
-		
 		if (crudType == 'insert') {
-			$small.addClass('jt-heart-animation');
-			$big.addClass('jt-heart-animation');
+			heartTarget.addClass('jt-home-shop-love-click').hide().fadeIn(600);
 		} else if (crudType == 'delete') {
-			$small.removeClass('jt-heart-animation');
-			$big.removeClass('jt-heart-animation');
+			heartTarget.removeClass('jt-home-shop-love-click').hide().fadeIn(600);
 		}
 	});
-};
+	
+});
 
 jtown.home.html = function(data) {
 	var jtownUsers = data.jtownUsers, images = data.images, newComments = data.newComments, browser = $.browser,
@@ -610,15 +611,6 @@ jQuery(document).ready(function(){
 			$(this).find(".jt-home-shop-comment").css("background-position", "0px -60px");
 	}});
 
-	//TODO
-	/*
-	$(".jt-home-heart-click-wrap").live({
-		mouseenter:function(){
-			$(this).find(".jt-home-shop-love").css("background-position", "-15px -30px");
-	},
-		mouseleave: function(){
-			$(this).find(".jt-home-shop-love").css("background-position", "0px -30px");
-	}});*/
 	$(".jt-home-shop-event-dday").css("visibility","visible");
 	
 	jtown.home.productStatisticClick = function(productPn){

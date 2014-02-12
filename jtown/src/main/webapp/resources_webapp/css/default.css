@@ -44,6 +44,8 @@ line-height: 1.25;
         -webkit-transform: scale(1);
     }
 }
+
+
 /********************
  ~header
 ********************/
@@ -65,9 +67,11 @@ line-height: 1.25;
 	background-image:         linear-gradient( #ffffff /*{g-bar-background-start}*/, #f8f8f8 /*{g-bar-background-end}*/);
 }
 .jt-app-header-extend-menu{position:absolute;height: 0px; background-color:rgba(0,0,0,.3);width:100%;transition:height 0.3s;-webkit-transition:height 0.3s;z-index: 500; }
-.jt-app-header-extend-menu-inner{display:none;background-color:#fcfcfc;width:100%;z-index: 501;padding: 5px 0 0 0;}
+.jt-app-header-extend-menu-inner{display:none;background-color:#fcfcfc;width:100%;z-index: 501;padding: 5px 0 0 0;position: relative;}
 .jt-app-header-extend-menu-margin{height: 0;width: 100%;}
-.ui-icon-searchfield:after{background: url('../images/jt-search.png') no-repeat; background-size:13px;width:13px;height: 16px;margin: -7px 0 0 3px;}
+
+.ui-icon-searchfield:after{background: url('') no-repeat; }
+
 .jt-app-header-arrow-u{left:50%;margin-left: -12px;}
 
 .jt-app-header-category{overflow: hidden;margin: 0;padding: 0;}
@@ -86,10 +90,23 @@ line-height: 1.25;
 .jt-app-pre-text{white-space:pre-wrap;}
 .jt-app-event-mark{ text-indent: -99999px; background: url("../images/jt-home-icon.png") no-repeat; background-position: -45px 0px; float:right; width: 43px; height: 43px;}
 
-.ui-input-search{margin: .2em .3em;}
+.ui-input-search{margin: .2em .2em; padding: 0 45px 0 15px;border-radius: 3px !important; }
 .jt-app-header-search-result{display: none; background-color: #fff;}
 .jt-app-search-item>li{padding: 12px 15px;font-size:13px;border-bottom:1px solid #eee;}
 .jt-app-search-item>li:ACTIVE {background-color: rgba(255,170,60,.15);}
+.jt-app-header-search-btn{width:36px;height: 32px;border-radius:0 2px 2px 0;position: fixed;right: 4px;top: 52px;background: #f5f5f5;
+border:1px solid #ccc; 
+background-image: -webkit-gradient(linear, left top, left bottom, from( #f5f5f5 /*{g-body-background-start}*/), to( #dfdfdf /*{g-body-background-end}*/)); /* Saf4+, Chrome */
+	background-image: -webkit-linear-gradient( #f5f5f5 /*{g-body-background-start}*/, #dfdfdf /*{g-body-background-end}*/); /* Chrome 10+, Saf5.1+ */
+	background-image:    -moz-linear-gradient( #f5f5f5 /*{g-body-background-start}*/, #dfdfdf /*{g-body-background-end}*/); /* FF3.6 */
+	background-image:     -ms-linear-gradient( #f5f5f5 /*{g-body-background-start}*/, #dfdfdf /*{g-body-background-end}*/); /* IE10 */
+	background-image:      -o-linear-gradient( #f5f5f5 /*{g-body-background-start}*/, #dfdfdf /*{g-body-background-end}*/); /* Opera 11.10+ */
+	background-image:         linear-gradient( #f5f5f5 /*{g-body-background-start}*/, #dfdfdf /*{g-body-background-end}*/);
+
+}
+.jt-app-search-btn-icon{background: url('../images/jt-search.png') no-repeat; background-size:14px;width:14px;height: 14px;margin: -1px 0 0 -10px;}
+.jt-app-header-search-btn:ACTIVE{background: #f8f8f8;}
+
 /********************
  ~footer
 ********************/

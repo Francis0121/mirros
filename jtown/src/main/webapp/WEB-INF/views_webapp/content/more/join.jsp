@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <%@ include file="../../layout/home-header.jspf" %>
-<div data-role="page" data-theme="g">
+<div data-role="page" data-theme="g" style="overflow: auto;">
 <%@ include file="../../layout/header.jspf" %>
 	<div data-role="content" class="jt-app-item-content" data-theme="c">
 	
@@ -12,19 +12,19 @@
 		</header>
 		<form id="jt-app-more-join-form" name="jt-join-direct-join-form"  htmlEscape="true" method="post">
 			<div>
-					<input name="name" data-form="join" class="jt-join-direct-user-input jt-join-direct-user-name" maxlength="20" placeholder="이름"/>
+					<input name="name" data-form="join" class="jt-join-direct-user-input jt-join-direct-user-name" data-theme="d" maxlength="20" placeholder="이름"/>
 					<div class="jt-join-validation jt-app-more-join-name-check"></div>
 			</div>
 			<div>
-				<input name="username" htmlEscape="true" data-type="create" class="jt-join-direct-user-input jt-join-direct-user-username" maxlength="50" placeholder="이메일"/>
+				<input name="username" htmlEscape="true" data-type="create" class="jt-join-direct-user-input jt-join-direct-user-username" data-theme="d"  maxlength="50"  type="email" placeholder="이메일"/>
 				<span class="jt-join-validation jt-join-direct-user-username-check"></span>
 			</div>
 			<div>
-				<input type="password" name="password" data-form="joinPw" class="jt-join-direct-user-input jt-join-direct-user-password" maxlength="16" placeholder="비밀번호 (8~16자)"/>
+				<input type="password" name="password" data-form="joinPw" class="jt-join-direct-user-input jt-join-direct-user-password" maxlength="16" data-theme="d"  placeholder="비밀번호 (8~16자)"/>
 				<span class="jt-join-validation jt-join-direct-user-password-check"></span>
 			</div>
 			<div>
-				<input type="password" id="confirmPassword" name="confirmPassword" class="jt-join-direct-user-input jt-join-direct-user-confirmPassword" maxlength="16" placeholder="비밀번호 확인"/>
+				<input type="password" id="confirmPassword" name="confirmPassword" class="jt-join-direct-user-input jt-join-direct-user-confirmPassword"  maxlength="16" data-theme="d" placeholder="비밀번호 확인"/>
 				<span class="jt-join-validation jt-join-direct-user-confirmPassword-check"></span>
 			</div>
 		</form>

@@ -115,13 +115,16 @@ $(function(){
 		}
 	});
 	
-	$('body').on('keyup' ,'.jt-app-header-search', function(){
+	$('body').on('tap', '.jt-app-header-search-btn', function(){
+		post(contextPath+'/app', {itemName : $('.jt-app-header-search:last').val()});
+	});
+	
+	$('body').on('keyup' ,'.jt-app-header-search', function(e){
 		var searchName = $('.jt-app-header-search:last').val(); 
 		if(searchName.length > 1){
 			$.post(contextPath + '/ajax/natural/appAutocomplete.jt', {searchName : searchName}, function(map){
 				var jtownUsers = map.jtownUsers, interests = map.interests, productName = map.productName,  data = [];
 				var size = productName.length;
-				
 				var html = '';
 				if(size > 0){
 					html += '<li data-search-result="all" data-search-name='+searchName+'>['+searchName+'] 이(가) 포함된 모든 상품</li>';
@@ -136,6 +139,10 @@ $(function(){
 			});
 		}else{
 			$('.jt-app-search-item').html('');
+		}
+		
+		if(e.keyCode == 13){
+			post(contextPath+'/app', {itemName : searchName});
 		}
 	});
 });
