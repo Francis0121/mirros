@@ -131,7 +131,7 @@ $('body').on('tap', '.jt-app-more-cacao-invite', function(){
 	$.post(contextPath + '/app/ajax/checkLogin.jt', {}, function(object) {
 		if(object.isLogin==false){
 			$.toast('로그인 해주세요.');
-			$.changePageTransition('/app/login', 'pop');
+			$.changePageTransition('/app/login', 'fade');
 			return;
 		}else{
 			kakao.link("talk").send({
@@ -151,7 +151,7 @@ $('body').on('tap', '.jt-app-more-facebook-invite', function(){
 	$.post(contextPath + '/app/ajax/checkLogin.jt', {}, function(object) {
 		if(object.isLogin==false){
 			$.toast('로그인 해주세요.');
-			$.changePageTransition('/app/login', 'pop');
+			$.changePageTransition('/app/login', 'fade');
 			return;
 		}else{
 			FB.getLoginStatus(function(response) {

@@ -16,6 +16,8 @@
 			  
 			<div class="jt-app-item-loader-wrap"><img src="${cp }/resources_webapp/css/images/ajax-loader.gif" /></div>
 			
+			<div class="jt-app-item-no-item-wrap">상품이 준비중입니다.</div>
+			
 		</div>
 	</div>
 	

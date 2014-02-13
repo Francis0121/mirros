@@ -25,29 +25,34 @@ $.checkAppPage = function(){
 	}
 };
 
-var isPaging = 0;
+var isPaging = false;
+var isEnd = false;
 $.pagingItem = function(init){
-	if(isPaging == 0){
-		isPaging++;
+	if(isPaging == false){
+		isPaging = true;
 		var navFlag = null;
 		var itemName = $('.jt-app-header-search').attr('data-search');
 		var categoryPn = $('.jt-app-header-category:last').attr('data-category');
 		$('.jt-app-item-content').attr('data-nav') == 'H' ? navFlag = 'H': navFlag=null;
 		$.post(contextPath+'/app/ajax/productPagination.jt',{navFlag : navFlag, categoryPn : categoryPn, itemName : itemName, init : init}, function(data){
 	    	if(data.mergeItems.length > 0){
+	    		$('.jt-app-item-no-item-wrap').css('display','none');
 	    		$('.jt-app-item-loader-wrap').show();
 	    		$.attendProductItems(data);
+	    		
 	    	}else{
 	    		$('.jt-app-item-loader-wrap').hide();
-	    		
 	    		var currentItemCount = $('.jt-app-item-content:last').find('.jt-app-item-lists').length;
 	    		if(currentItemCount == 0){
-	    			$.toast('상품이 준비중입니다.');
+	    			$('.jt-app-item-no-item-wrap').css('display','block');
 	    		}else{
-	    			$.toast('마지막 페이지입니다.');
+	    			if(isEnd == false){
+	    				isEnd = true;
+	    				$.toast('마지막 페이지입니다.');
+	    			}
 	    		}
 	    	}
-	    	isPaging = 0;
+	    	isPaging = false;
 	    });
 	}
 };
@@ -143,7 +148,7 @@ $('body').on('tap','.jt-app-item-change-mode',function(){
 	if($('.jt-app-item-content').attr('data-nav') == 'H'){
 		$.mobile.showPageLoadingMsg();
 		$.mobile.changePage( contextPath+'/app', {
-			transition: 'flip',
+			transition: 'fade',
 			type: 'post',
 			reloadPage: true,
 			reverse:true,
@@ -153,7 +158,7 @@ $('body').on('tap','.jt-app-item-change-mode',function(){
 	}else{
 		$.mobile.showPageLoadingMsg();
 		$.mobile.changePage( contextPath+'/app', {
-			transition: 'flip',
+			transition: 'fade',
 			type: 'post',
 			reloadPage: true,
 			reverse:false,
@@ -179,7 +184,7 @@ $('body').on('tap', '.jt-app-item-heart-wrap', function(e){
 		$.post(contextPath + '/app/ajax/checkLogin.jt', {}, function(object) {
 			if(object.isLogin==false){
 				$.toast('로그인 해주세요.');
-				$.changePageTransition('/app/login', 'pop');
+				$.changePageTransition('/app/login', 'fade');
 				return;
 			}else{
 				$.itemHeartClick(productPn, eventPn, $itemWrapStaticTarget);
@@ -199,7 +204,7 @@ $.itemHeartClick = function(productPn, eventPn, target){
 			var crudType = product.crudType, message = product.message;
 			if(message == '1'){
 				$.toast('로그인 해주세요.');
-				$.changePageTransition('/app/login', 'pop');
+				$.changePageTransition('/app/login', 'fade');
 				return;
 			}else if(message == '2'){
 				$.toast('판매자는 불가능합니다');
@@ -224,7 +229,7 @@ $.itemHeartClick = function(productPn, eventPn, target){
 			var crudType = event.crudType, message = event.message;
 			if(message == '1'){
 				$.toast('로그인 해주세요.');
-				$.changePageTransition('/app/login', 'pop');
+				$.changePageTransition('/app/login', 'fade');
 				return;
 			}else if(message == '2'){
 				$.toast('판매자는 불가능합니다');
@@ -275,7 +280,7 @@ $('body').on('tap', '.jt-app-item-list-reply', function(e){
 		$.post(contextPath + '/app/ajax/checkLogin.jt', {}, function(object) {
 			if(object.isLogin==false){
 				$.toast('로그인 해주세요.');
-				$.changePageTransition('/app/login', 'pop');
+				$.changePageTransition('/app/login', 'fade');
 				return;
 			}else{
 				$.replyDialog(e, $pThis);
@@ -294,7 +299,7 @@ $('body').on('tap', '.jt-app-reply-wrap', function(e){
 		$.post(contextPath + '/app/ajax/checkLogin.jt', {}, function(object) {
 			if(object.isLogin==false){
 				$.toast('로그인 해주세요.');
-				$.changePageTransition('/app/login', 'pop');
+				$.changePageTransition('/app/login', 'fade');
 				return;
 			}else{
 				$.replyDialog(e, $pThis);
@@ -334,7 +339,7 @@ $('body').on('tap', '.jt-app-reply-submit', function(){
 		$('#jt-app-reply-dialog').popup('close');
 		if(object.comment.message == '1'){
 			$.toast('로그인 하셔야합니다.');
-			$.changePageTransition('/app/login', 'pop');
+			$.changePageTransition('/app/login', 'fade');
 			return;
 		}else if(object.comment.message == '2'){
 			$.toast('판매자는 불가능합니다');

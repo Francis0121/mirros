@@ -12,7 +12,7 @@ $.setCategory = function(){
 
 $('body').on('tap', '.jt-app-header-category li', function(e){
 	$.mobile.changePage( $(this).find('a').attr('data-url'), {
-		transition: 'flip',
+		transition: 'fade',
 		type: 'post',
 		reloadPage: true,
 		reverse:false,
@@ -204,7 +204,7 @@ $('body').on('tap', '.jt-app-footer-more', function(){
 });
 $('body').on('tap', '.jt-app-footer-login', function(){
 	if($('.ui-page-active').find('.jt-app-more-login-wrap:last').length == 0){
-		$.changePageTransition('/app/login', 'pop');
+		$.changePageTransition('/app/login', 'fade');
 	}
 });
 

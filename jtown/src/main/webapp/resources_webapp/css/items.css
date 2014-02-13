@@ -13,6 +13,7 @@
 .jt-app-item-change-mode:ACTIVE{color: #bababa; }
 .jt-app-item-loader-wrap{width:100%;height: 30px;text-align: center;padding:20px 0 0 0;float: left;}
 .jt-app-item-loader-wrap>img{width:19.2px;height: 19.2px;margin: 0 0 0 -12px}
+.jt-app-item-no-item-wrap{display: none;}
 
 .jt-app-item-list-events{position:relative;float:left;width:48%;height:48%;margin: 2px; border: 1px solid rgba(0,0,0, 0.15);background-color: #fff;}
 .jt-app-item-list-wrap{position: absolute;top: 0;left: 0;width:100%;height: 100%;display: none;}

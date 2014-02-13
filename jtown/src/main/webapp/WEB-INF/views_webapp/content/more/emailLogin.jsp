@@ -9,19 +9,19 @@
 	<sec:authorize access="anonymous">
 		<form action="${cp }/j_spring_security_check" data-ajax="false" method="post">
 			<div>
-				<input id="j_username_page" name="j_username" size="20" maxlength="50" type="email" class="jt-login-form-table-input" placeholder="Email Address"/>
+				<input id="j_username_page" name="j_username" size="20" maxlength="50" type="email" data-theme="d" class="jt-login-form-table-input" placeholder="Email Address"/>
 			</div>
 			<div class="jt-app-more-pw-wrap">
-				<input id="j_password_page" name="j_password" size="20" maxlength="50" type="password" class="jt-login-form-table-password"  placeholder="Password"/>
+				<input id="j_password_page" name="j_password" size="20" maxlength="50" type="password" data-theme="d" class="jt-login-form-table-password"  placeholder="Password"/>
 			</div>
 			<div class="jt-app-more-pw-find-wrap">
-				<a data-role="button" data-corners="false" data-iconshadow="false" href='${cp}/login/findPassword'" title="비밀번호를&nbsp;잊으셨나요?" class="jt-login-findPassword" data-transition="fade">?</a>
+				<a data-role="button" data-corners="false" data-iconshadow="false" href='${cp}/login/findPassword'" title="비밀번호를&nbsp;잊으셨나요?" data-shadow="false" class="jt-login-findPassword" data-transition="fade">?</a>
 			</div>
 			<div>
 				<input id="_spring_security_remember_me" name="_spring_security_remember_me" type="checkbox" value="true" checked="checked" style="visibility: hidden;"/>	
 			</div>
 			<div>
-				<a data-role="button" class="jt-app-more-login-btn" type="button" data-theme="c" onclick="javascript:$.emailLogin()">Log In</a>
+				<a data-role="button" class="jt-app-more-login-btn" type="button" data-theme="c" data-shadow="false" onclick="javascript:$.emailLogin()">Log In</a>
 			</div>
 			<div>
 				<a type="button" class="jt-btn-orange" onclick="$.goJoin()" data-transition="fade">간편가입</a>

@@ -18,7 +18,7 @@ $.likeListRemoveBtnClick = function(productPn, eventPn, target){
 			var crudType = product.crudType, message = product.message;
 			if(message == '1'){
 				$.toast('로그인 해주세요.');
-				$.changePageTransition('/app/login', 'pop');
+				$.changePageTransition('/app/login', 'fade');
 				return;
 			}else if(message == '2'){
 				$.toast('판매자는 불가능합니다');
@@ -34,7 +34,7 @@ $.likeListRemoveBtnClick = function(productPn, eventPn, target){
 			var crudType = event.crudType, message = event.message;
 			if(message == '1'){
 				$.toast('로그인 해주세요.');
-				$.changePageTransition('/app/login', 'pop');
+				$.changePageTransition('/app/login', 'fade');
 				return;
 			}else if(message == '2'){
 				$.toast('판매자는 불가능합니다');
@@ -63,7 +63,7 @@ $('body').on('tap', '.jt-app-like-delete-wrap', function(e){
 	$.post(contextPath + '/app/ajax/checkLogin.jt', {}, function(object) {
 		if(object.isLogin==false){
 			$.toast('로그인 해주세요.');
-			$.changePageTransition('/app/login', 'pop');
+			$.changePageTransition('/app/login', 'fade');
 			return;
 		}else{
 			$.likeListRemoveBtnClick(productPn, eventPn, $staticLikeWrap);
